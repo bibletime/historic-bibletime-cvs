@@ -49,6 +49,7 @@
 #include <qwhatsthis.h>
 #include <qheader.h>
 #include <qgroupbox.h>
+#include <qregexp.h>
 
 //KDE includes
 #include <klocale.h>
@@ -144,8 +145,8 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m){
 
 /** Is connected to the signal executed, which is emitted when a mew item was chosen. */
 void CSearchResultView::executed(QListViewItem* item){
-  Q_ASSERT(item);
-  qWarning("executed");
+//  Q_ASSERT(item);
+//  qWarning("executed");
   emit keySelected(item->text(0));
 }
 
@@ -508,7 +509,59 @@ void CSearchResultPage::updatePreview(const QString& key){
 }
 
 const QString CSearchResultPage::highlightSearchedText(const QString& content, const QString& searchedText, const int searchFlags) {
-  return content; //not implemented yet
+  QString ret = content;
+  const bool cs = (searchFlags & CSwordModuleSearch::caseSensitive);
+
+  int index = 0;
+  int length = searchedText.length();
+
+  const QString rep1 = QString::fromLatin1("<B STYLE=\"background-color:#FFFF66;\">");
+  const QString rep2 = QString::fromLatin1("</B>");
+  const unsigned int repLength = rep1.length() + rep1.length();
+
+  
+  if (searchFlags & CSwordModuleSearch::exactPhrase) { //exact phrase matching      
+    while ( (index = ret.find(searchedText, index, cs)) != -1 ) {
+      if (!CToolClass::inHTMLTag(index, ret)) {
+        ret = ret.insert( index+length, rep2 );
+        ret = ret.insert( index, rep1 );
+        index += repLength;
+      }
+      index += repLength;
+    };
+  }
+  else if (searchFlags & CSwordModuleSearch::multipleWords) { //multiple words
+    QStringList words = QStringList::split(" ", searchedText);
+    for ( int wi = 0; wi < words.count(); ++wi ) { //search for every word in the list
+      QString word = words[ wi ];
+      length = word.length();
+      index = 0; //for every word start at the beginning
+      while ( (index = ret.find(word, index, cs)) != -1 ) { //while we found the word
+        if (!CToolClass::inHTMLTag(index, ret)) {
+          ret = ret.insert( index+length, rep2 );
+          ret = ret.insert( index, rep1 );
+          index += repLength;
+        }
+        index += length;
+      }
+    }
+  }
+  else { //multiple words or regular expression
+    //use re as regular expression and replace any occurences
+    QRegExp regExp( searchedText, cs );
+    regExp.setMinimal( true );
+
+    while ( (index = regExp.search(ret, index)) != -1 ) {
+      if (!CToolClass::inHTMLTag(index, ret)) {
+        ret = ret.insert( index + regExp.matchedLength(), rep2 );
+        ret = ret.insert( index, rep1 );
+        index += regExp.matchedLength() + repLength;          
+      }
+      index += length;
+    }
+  }
+
+  return ret; //not implemented yet
 };
 
 /** Initializes the signal slot conections of the child widgets, */
@@ -523,7 +576,7 @@ void CSearchResultPage::initConnections(){
 
 /** Shows a dialog with the search analysis of the current search. */
 void CSearchResultPage::showAnalysis(){
-  qWarning("void CSearchResultPage::showAnalysis(): %i modules", m_modules.count());
+//  qWarning("void CSearchResultPage::showAnalysis(): %i modules", m_modules.count());
   CSearchAnalysisDialog dlg(m_modules, this);
   dlg.exec();
 }

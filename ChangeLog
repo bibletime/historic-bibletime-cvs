@@ -1,3 +1,7 @@
+2003-01-11 Joachim Ansorg <joachim@ansorgs.de>
+  * Searchdialog search result page highlights searched text
+  * Default color of stroings and morph codes changed to Qt::darkBlue
+
 2003-01-07 Joachim Ansorg <joachim@ansorgs.de>
   * Major speed improvements for displaying lexicons together
 
