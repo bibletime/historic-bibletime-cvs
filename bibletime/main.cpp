@@ -75,37 +75,38 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 		I18N_NOOP("Bible study tool for KDE 2"),
 		KAboutData::License_GPL_V2,
 		I18N_NOOP("(c)1999-2001, The BibleTime Team"),
-		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE 2.\n\nWe are look for new developers, translators and handbook authors.\nIf you'd like to join use send an eMail to info@bibletime.de."),
+		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE 2.\n\nWe are looking for new developers, translators and handbook authors.\nIf you'd like to join use send an eMail to info@bibletime.de."),
 		"http://www.bibletime.de/",
 		"info@bibletime.de"
 	);
 	
 	//coders
-//	aboutData.addAuthor("Torsten Uhlmann (not active)", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator, frontend, backend"), "jansorg@gmx.de","");
-//	aboutData.addAuthor("Darwin Gregory (not active)", I18N_NOOP("optionsdialog"), "darwin@ichristian.com", "");	
 	aboutData.addAuthor("Martin Gruner", I18N_NOOP("frontend and misc things"), "mg.pub@gmx.net", "");
-//	aboutData.addAuthor("Keith Robertson (not active)", "", "kjrobert@uwaterloo.ca", "");
 	
 	//documentation
 	aboutData.addAuthor("Fred Saalbach", 	I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
-//	aboutData.addAuthor("Jeffrey Hoyt", 	I18N_NOOP("handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");
 		
 	//translators
-	aboutData.addAuthor("Benedykt P. Barszcz", I18N_NOOP("Translation to Polish"), "kb2qzv@box43.gnet.pl", "");		
-	aboutData.addAuthor("Mario Bertrand", 	I18N_NOOP("Translation to French"), "mbert@tbrq.org", "");		
-//	aboutData.addAuthor("Simon Bockius", 	I18N_NOOP("Partial translation of the handbook to German"), "", "");
-	aboutData.addAuthor("Birger Langkjer", I18N_NOOP("Translation to Danish"), "birger.langkjer@image.dk", "");		
-	aboutData.addAuthor("Michal Rovnaník", I18N_NOOP("Translation to Czech"), "Michal.Rovnanik@seznam.cz", "");		
-	aboutData.addAuthor("Balint Sandor", I18N_NOOP("Translation to Hungarian"), "balintsa@freemail.hu", "");
-	aboutData.addAuthor("Zdenko Podobny", I18N_NOOP("Translation to Slovak"), "zdpo@post.sk", "");
-	aboutData.addAuthor("Espen Trydal", I18N_NOOP("Translation to Norwegian"), "etrydal@postkassa.no", "");	
-	aboutData.addAuthor("Kees van Veen", I18N_NOOP("Translation to Dutch"), "cvn@interchain.nl", "");
+	aboutData.addAuthor("Benedykt P. Barszcz",I18N_NOOP("Translation to Polish"), "kb2qzv@box43.gnet.pl", "");		
+	aboutData.addAuthor("Mario Bertrand", 	  I18N_NOOP("Translation to French"), "mbert@tbrq.org", "");		
+//	aboutData.addAuthor("Simon Bockius", 			I18N_NOOP("Partial translation of the handbook to German"), "", "");
+	aboutData.addAuthor("Birger Langkjer", 		I18N_NOOP("Translation to Danish"), "birger.langkjer@image.dk", "");		
+	aboutData.addAuthor("Michal Rovnaník",		I18N_NOOP("Translation to Czech"), "Michal.Rovnanik@seznam.cz", "");		
+	aboutData.addAuthor("Balint Sandor", 			I18N_NOOP("Translation to Hungarian"), "balintsa@freemail.hu", "");
+	aboutData.addAuthor("Zdenko Podobny", 		I18N_NOOP("Translation to Slovak"), "zdpo@post.sk", "");
+	aboutData.addAuthor("Espen Trydal", 			I18N_NOOP("Translation to Norwegian"), "etrydal@postkassa.no", "");	
+	aboutData.addAuthor("Kees van Veen", 			I18N_NOOP("Translation to Dutch"), "cvn@interchain.nl", "");
 							
 	//credits
 	aboutData.addCredit("Troy A. Griffits", I18N_NOOP("Leader of the SWORD project.\nLots of help with the SWORD API!"), "scribe@crosswire.org", "");		
 	aboutData.addCredit("Thomas Hagedorn", I18N_NOOP("Sponsor of www.bibletime.de!"), "tom@delix.de", "");	
-	aboutData.addCredit("Juho Vahakangas", I18N_NOOP("The Martin Luther startup logo"), "juhov@freenet.fi", "");
+//	aboutData.addCredit("Juho Vahakangas", I18N_NOOP("The Martin Luther startup logo"), "juhov@freenet.fi", "");
+	aboutData.addCredit("Torsten Uhlmann (not active)", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
+	aboutData.addCredit("Darwin Gregory (not active)", I18N_NOOP("optionsdialog"), "darwin@ichristian.com", "");	
+	aboutData.addCredit("Keith Robertson (not active)", "", "kjrobert@uwaterloo.ca", "");
+	aboutData.addCredit("Jeffrey Hoyt (not active)", 	I18N_NOOP("handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");
+
  	
  	KCmdLineArgs::init(argc, argv, &aboutData); 	
  	KCmdLineArgs::addCmdLineOptions ( options );

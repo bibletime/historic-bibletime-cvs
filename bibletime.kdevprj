@@ -1,13 +1,3 @@
-[AUTHORS]
-dist=true
-install=false
-install_location=
-type=DATA
-[AUTHORS.in]
-dist=true
-install=false
-install_location=
-type=DATA
 [COPYING]
 dist=true
 install=false
@@ -83,7 +73,7 @@ Tips=*tipdatabase,
 Translations=*.po,
 groups=Tips,Ressource files,Icons,Images,Headers,Sources,Dialogs,Translations,GNU,Others
 [Makefile.am]
-files=bibletime.kdevprj,AUTHORS,COPYING,ChangeLog,AUTHORS.in,bibletime.spec.in,README.in,TODO.in,INSTALL.in,bibletime.lsm.in,bibletime.lsm,bibletime.spec,NEWS,README,TODO,INSTALL,configure.in.in,configure.in,am_edit,bibletime.desktop.in,NEWS.in,Makefile.cvs,bibletime.desktop,
+files=bibletime.kdevprj,COPYING,ChangeLog,bibletime.spec.in,README.in,TODO.in,INSTALL.in,bibletime.lsm.in,bibletime.lsm,bibletime.spec,NEWS,README,TODO,INSTALL,configure.in.in,configure.in,am_edit,bibletime.desktop.in,NEWS.in,Makefile.cvs,bibletime.desktop
 sub_dirs=bibletime,po,admin,doc,CVS,
 type=normal
 [Makefile.cvs]
