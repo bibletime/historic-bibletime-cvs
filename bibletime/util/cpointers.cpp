@@ -62,9 +62,10 @@ void CPointers::deleteDisplayTemplateMgr() {
 
 /** Returns a pointer to the printer object. */
 CDisplayTemplateMgr* const CPointers::displayTemplateManager() {
-  if (!m_pointerCache.displayTemplateMgr) {
-    m_pointerCache.displayTemplateMgr = new CDisplayTemplateMgr();
-  }
+  	if (!m_pointerCache.displayTemplateMgr) {
+  		m_pointerCache.displayTemplateMgr = new CDisplayTemplateMgr();
+	}
+	
 	return m_pointerCache.displayTemplateMgr;
 }
 

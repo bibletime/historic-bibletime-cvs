@@ -204,10 +204,8 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 		showDebugMessages = true;
   }
 
-  //since we don't support session management at the moment we disable this. Only leads to troubles.
-
   if (kapp->isRestored()) {
- 		qWarning("Restoring BibleTime");
+//  		qWarning("Restoring BibleTime");
  		RESTORE( BibleTime );
   }
 	else {
@@ -221,14 +219,14 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 
     setSignalHandler(signalHandler);
 
-    //compatibility stuff for 1.3, needs to be moved to better place later
+    	// compatibility stuff for 1.3, needs to be moved to better place later
 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
-      KStandardDirs stdDirs;
-      QDir dir(stdDirs.saveLocation("data", "bibletime/"));
-      if (!dir.exists("sessions/") && dir.exists("profiles/")) { //only old dir exists
-        dir.rename("profiles", "sessions");
-      }
-    }
+      	KStandardDirs stdDirs;
+      	QDir dir(stdDirs.saveLocation("data", "bibletime/"));
+      	if (!dir.exists("sessions/") && dir.exists("profiles/")) { //only old dir exists
+        	dir.rename("profiles", "sessions");
+      	}
+    	}
 
 		bibletime_ptr = new BibleTime();
 
