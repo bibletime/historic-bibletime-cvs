@@ -33,7 +33,6 @@ CHTMLChapterDisplay::CHTMLChapterDisplay(){
 
 /** Renders the text and puts the result into the member variable m_htmlText */
 char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
-	qDebug("CHTMLChapterDisplay::Display( SWModule& module )");
 	if (!module) {
 		m_htmlText = QString::null;
 		return 1;
@@ -92,7 +91,6 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 
 /** Generates code to display the given modules side by side. */
 char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){	
-	qDebug("CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
 	ASSERT(moduleList);
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		qWarning("empty module list");

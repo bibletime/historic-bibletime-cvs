@@ -29,6 +29,7 @@
 #include "../../whatsthisdef.h"
 
 //QT includes
+#include <qpixmap.h>
 #include <qdatetime.h>
 #include <qlist.h>
 #include <qpicture.h>
@@ -229,12 +230,18 @@ CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int 
 	m_moduleList = modules;	
 	m_scaleFactor = scaleFactor;
 	m_moduleCount = moduleCount;
-	m_bookName = bookname;
+	m_bookName = bookname;	
+	m_bufferPixmap = 0;
 	
  	m_resultCountArray.resize(m_moduleCount);
  	int index = 0;
  	for (index = 0; index < m_moduleCount; index++)
  		m_resultCountArray[index] = 0;
+}
+
+CSearchDialogAnalysisItem::~CSearchDialogAnalysisItem() {
+	if (m_bufferPixmap)
+		delete m_bufferPixmap;
 }
 
 /** Sets the resultcount of this item for the given module */
@@ -283,13 +290,18 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
    	    newValue = m_resultCountArray[index];
    	Value = newValue;
 	}		
-#warning ToDo: Add correct font drawing!!
-	painter.save();	
-	painter.translate(x(),height()+y()-BAR_LOWER_BORDER);
-	painter.rotate(90);
-	QPoint p(5,-abs((double)(width()-painter.fontMetrics().height()/*-painter.fontMetrics().ascent()-painter.fontMetrics().descent()*/)/(double)2));
-	painter.drawText(p, m_bookName);
-	painter.restore();
+	if (!m_bufferPixmap) {
+		m_bufferPixmap = new QPixmap();
+		m_bufferPixmap->resize(width(),BAR_LOWER_BORDER);
+		m_bufferPixmap->fill();		
+		QPainter p(m_bufferPixmap);				
+		f = p.font();
+		f.setPointSize(ITEM_TEXT_SIZE);
+		p.setFont(f);		
+		p.rotate(90);
+		p.drawText(QPoint(5,0), m_bookName);
+	}
+	painter.drawPixmap(QPoint(x(),height()+y()-BAR_LOWER_BORDER), *m_bufferPixmap);
 }
 
 /** Returns the width of this item. */

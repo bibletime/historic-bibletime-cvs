@@ -133,11 +133,10 @@ void CCommentaryPresenter::lookup(CKey* key){
 				m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 			else
 				m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
-	 		 m_htmlWidget->setText( m_moduleList.first()->getDisplay()->getHTML() );		
+			m_htmlWidget->setText( m_moduleList.first()->getDisplay()->getHTML() );
 		}
-		else {
-	 		 m_htmlWidget->setText( QString::fromLocal8Bit(m_moduleList.first()->module()->getRawEntry()) );					
-		}
+		else
+			m_htmlWidget->setText( QString::fromLocal8Bit(m_moduleList.first()->module()->getRawEntry()) );
 	}
 	
 	if (m_key != vKey)
@@ -157,18 +156,17 @@ void CCommentaryPresenter::popupAboutToShow(){
 
 /** Saves the given text in the module. */
 void CCommentaryPresenter::saveText(const QString text){
-	qWarning(m_moduleList.first()->module()->Name());
 	m_moduleList.first()->module()->SetKey(*m_key->clone());
 	*m_moduleList.first()->module() << (const char*)text.local8Bit();
 	
-	lookup(m_key);	//update current key so the saved text will be displayed
+//	lookup(m_key);	//update current key so the saved text will be displayed
 }
 
 /** Deletes the displayed and edited text. */
 void CCommentaryPresenter::deleteText(){
 	m_moduleList.first()->module()->deleteEntry();
-	
-	lookup(m_key);
+	m_htmlWidget->clear();
+//	lookup(m_key);
 }
 
 void CCommentaryPresenter::editComment(){

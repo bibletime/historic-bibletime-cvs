@@ -29,6 +29,8 @@
 #include <qdict.h>
 #include <qtooltip.h>
 
+class QPixmap;
+
 class CSearchDialog;
 class CSearchDialogAnalysisItem;
 class CSearchDialogAnalysisLegendItem;
@@ -95,6 +97,7 @@ public:
 	* Standard constructor.
 	*/
 	CSearchDialogAnalysisItem(QCanvas* parent, const int moduleCount, const QString& bookname, double *scaleFactor, ListCSwordModuleInfo* modules);
+	~CSearchDialogAnalysisItem();	
   /**
   * Sets the resultcount of this item
   */
@@ -114,6 +117,7 @@ private:
 	QString m_bookName;
  	int m_moduleCount;
  	QArray<int> m_resultCountArray;
+ 	QPixmap* m_bufferPixmap;
 };
 
 class CSearchDialogAnalysisLegendItem : public QCanvasRectangle  {

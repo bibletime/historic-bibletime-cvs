@@ -38,7 +38,6 @@ CHTMLEntryDisplay::CHTMLEntryDisplay(){
 }
 
 CHTMLEntryDisplay::~CHTMLEntryDisplay(){
-	qDebug("CHTMLEntryDisplay::~CHTMLEntryDisplay()");	
 }
 
 /** Displays the current entry of the module as HTML */
@@ -50,12 +49,13 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
     FontName = font.family();
     FontSize = CToolClass::makeLogicFontSize(font.pointSize());
   }
+	const char* text = (const char*)*module->module();
 	if (m_includeHeader) {
 		m_htmlText =
 			m_htmlHeader +
 				QString("<FONT color=\"%1\">\
-					<A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
-					<HR><FONT color=\"%5\" face=\"%6\" size=\"%7\">%8</FONT")
+<A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
+<HR><FONT color=\"%5\" face=\"%6\" size=\"%7\">%8</FONT")
 				.arg(m_highlightedVerseColor)
 				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
 				.arg(QString::fromLocal8Bit(module->module()->Description()))	
@@ -63,12 +63,11 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 				.arg(m_textColor)			
 				.arg(FontName)	
 				.arg(FontSize)	
-				.arg(QString::fromLocal8Bit((const char*)*(module->module())))
-			+ m_htmlBody;	
+				.arg(QString::fromLocal8Bit(text))
+			+ m_htmlBody;
 	}
-	else {
-		m_htmlText = QString::fromLocal8Bit((const char*)*(module->module()) );
-	}
+	else
+		m_htmlText = QString::fromLocal8Bit(text);
 	//don't delete the key because it's the module's one!	
 	return 0;
 }
@@ -137,26 +136,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	}
 	m_htmlText.append( QString("</TR></TABLE>%1").arg(m_htmlBody) );	
 
-//	ASSERT(module);
-//	if (m_includeHeader) {
-//		m_htmlText =
-//			m_htmlHeader +
-//				QString("<FONT color=\"%1\">\
-//					<A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
-//					<HR><FONT color=\"%5\" face=\"%6\" size=\"%7\">%8</FONT")
-//				.arg(m_highlightedVerseColor)
-//				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
-//				.arg(QString::fromLocal8Bit(module->module()->Description()))	
-//				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
-//				.arg(m_textColor)			
-//				.arg(m_standardFontName)	
-//				.arg(m_standardFontSize)	
-//				.arg(QString::fromLocal8Bit((const char*)*(module->module())))
-//			+ m_htmlBody;	
-//	}
-//	else {
-//		m_htmlText = QString::fromLocal8Bit((const char*)*(module->module()) );
-//	}
 	//don't delete the key because it's the module's one!	
 	return 0;
 }
