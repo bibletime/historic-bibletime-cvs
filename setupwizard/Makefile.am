@@ -4,7 +4,7 @@ remove.cpp \
 btsetupwizard.cpp \
 main.cpp
 
-if SETUPWIZARD
+#if SETUPWIZARD
 btsetupwizard_SOURCES = $(btsetupwizardSRC)
 
 
@@ -33,7 +33,7 @@ btsetupwizard_METASOURCES = AUTO
 btsetupwizard_LDFLAGS = $(BT_LDFLAGS) $(all_libraries) $(KDE_RPATH)
 DISTCLEANFILES = $(btsetupwizard_METASOURCES)
 
-endif
+#endif
 
 all_headers = btsetupwizard.h
 EXTRA_DIST = $(btsetupwizardSRC) $(all_headers)

@@ -164,6 +164,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   aboutData.addAuthor("Gary Sims", I18N_NOOP("Frontend"), "gary@garysims.co.uk", "");  
 	// artwork
 	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, webpage"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");		
+	aboutData.addAuthor("James Ots", I18N_NOOP("Crystal icons, crystal startlogo"), "me@jamesots.com", "www.jamesots.com");
   // documentation
 	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");		
 
@@ -177,7 +178,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   *        Credits (sorted by last name)         *
   ************************************************/
   //Sponsored many years the www.bibletime.de domain!
-  aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Spnsored our internet domain for many years"), "tom@theta-consulting.de", "");  
+  aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Sponsored our internet domain for many years"), "tom@theta-consulting.de", "");  
   //He provided us with the Bible Study HowTo
   aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible Study HowTo"), "ncc@ncchampton.org", "");
   // Language codes iso639-1, iso639-2 and SIL language codes
