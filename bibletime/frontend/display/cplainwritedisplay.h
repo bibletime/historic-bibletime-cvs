@@ -57,10 +57,10 @@ public:
   * Sets the current status of the edit widget.
   */
   virtual void setModified( const bool modified );
-
-  /** Returns the text of this edit widget. */
+  /**
+  * Returns the text of this edit widget.
+  */
   virtual const QString plainText();
-
   
 protected:
 	friend class CDisplay;

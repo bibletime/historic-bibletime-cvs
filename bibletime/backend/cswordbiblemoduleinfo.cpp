@@ -101,8 +101,8 @@ QStringList* CSwordBibleModuleInfo::books() {
 		staticKey.setLocale(sword::LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 		for (int i = min; i <= max; ++i) {
 			for ( int j = 0; j < staticKey.BMAX[i]; ++j) {
-//			if (backend()->useICU())	
-//      	m_bookList->append( QString::fromUtf8(staticKey.books[i][j].name) );			
+//			if (backend()->useICU())
+//      	m_bookList->append( QString::fromUtf8(staticKey.books[i][j].name) );
 //      else
         m_bookList->append( QString::fromLocal8Bit(staticKey.books[i][j].name) );
 			}
@@ -208,9 +208,9 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
 		else if (key.Testament() == 2) { //has NT
 			m_hasNT = 1;
 		}
-    module()->setSkipConsecutiveLinks(false);    
+    module()->setSkipConsecutiveLinks(false);
 	}
-
+  
 	switch (type) {
 		case OldTestament:
 			return m_hasOT>0;

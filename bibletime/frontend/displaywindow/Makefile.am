@@ -15,6 +15,7 @@ cmodulechooserbutton.cpp \
 creadwindow.cpp \
 cwritewindow.cpp \
 cplainwritewindow.cpp \
+chtmlwritewindow.cpp \
 cbuttons.cpp
 
 all_headers = \
@@ -28,6 +29,7 @@ cmodulechooserbutton.h \
 creadwindow.h \
 cwritewindow.h \
 cplainwritewindow.h \
+chtmlwritewindow.h \
 cbuttons.h
 
 EXTRA_DIST = $(libdisplaywindow_a_SOURCES) $(all_headers)

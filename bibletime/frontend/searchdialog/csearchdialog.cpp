@@ -412,14 +412,19 @@ void CModuleChooser::initTree(){
       continue;
     };
 
+    
+    QString language = QString::null;
+    CLanguageMgr* langMgr = languageMgr();
     for ( QStringList::Iterator it = langs.begin(); it != langs.end(); ++it ) {
-      QListViewItem* langFolder = new QListViewItem(typeFolder,!(*it).isEmpty() ? (*it) : i18n("Unknown language"));
+      language = langMgr->languageForAbbrev(*it).name();
+      
+      QListViewItem* langFolder = new QListViewItem(typeFolder,language);
       langFolder->setPixmap(0,GROUP_ICON_SMALL);
-      const QString currentLang = (*it);
+//      const QString currentLang = (*it);
 
       //create the module items of this lang folder
       for (modsForType.first(); modsForType.current(); modsForType.next()) {
-        if (QString::fromLatin1( modsForType.current()->module()->Lang() ) == currentLang) {
+        if (QString::fromLatin1( modsForType.current()->module()->Lang() ) == (*it) ) { //found correct language
           ModuleCheckBoxItem* i = new ModuleCheckBoxItem(langFolder, modsForType.current());
           i->setPixmap(0, CToolClass::getIconForModule(modsForType.current()));
         };

@@ -386,42 +386,56 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
-  QString text;
+
+//  QString text;
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
+
+// the number of levels which should be display together, 1 means display no entries together
+  const int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
+
   util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
-	key->key(keyName);
+  key->key(keyName); //set the key to position we'd like to get
 
-	int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
-  if (displayLevel <= 1) { //don't display entries together
+  //standard of DisplayLevel, display nothing together
+  //if the current key is the root entry don't display anything together!
+  if (displayLevel <= 1 || (key->key().isEmpty() || key->key() == "/")) {
     return finishText( entryText(modules, keyName), modules, keyName );
-  }
+  };
 
-  --displayLevel; //better handling if 1 is to concat the last level
-	int moved = 0;
-	
-	while (key->firstChild())
-		++moved; //down
+  /** Check whether displaying displayLevel levels together is possible. For this count the childs and parents
+  * of the required position
+  */
 
-	for (int i = 1; i < displayLevel; i++) {
-		if (!key->parent() || key->key() == "/" || key->key().isEmpty()) { //first entry
-			break;		
-		}
-		--moved; //up
-	};
-	
-	if (moved <= 1) { //display entries together
-    key->parent();
-		m_text = entryText(modules,key->key(),0, key->key() == keyName);
-    const bool hasToplevelText = !key->strippedText().isEmpty();
-    
-    key->firstChild(); //go to the first sibling on the same level    
-    m_chosenKey = keyName;
-    printTree(*key, modules, hasToplevelText ? 1 : 0 ); //if the top level entry has text ident the other text
-	}
-	else { //do not display entries together
+  int possibleLevels = 1; //we start with the default value of displayLevel, which means no entries together
+  while( key->parent() && key->key() != "/" && !key->key().isEmpty() ) {//add parents
+    ++possibleLevels;
+  };
+  key->key(keyName); //set the key to the start position
+  while( key->firstChild( )) { //add childs
+    ++possibleLevels;
+  };
+
+  if (possibleLevels < displayLevel) { //too few levels available!
+    //display current level, we could also decide to display the available levels together
+    qWarning("too few levels available!");
     return finishText( entryText(modules, keyName), modules, keyName );
-	}
-	
+  };
+
+  // at this point we're sure that we can display the required levels toogether
+  // at the moment we're at the lowest level, so we only have to go up!
+  for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
+    if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
+      return finishText( entryText(modules, keyName), modules, keyName );
+    };
+  };
+
+  // no we can display all sub levels together! We checked before that this is possible!
+  m_text = entryText(modules,key->key(),0, key->key() == keyName);
+  const bool hasToplevelText = !key->strippedText().isEmpty();
+  key->firstChild(); //go to the first sibling on the same level
+  m_chosenKey = keyName;
+  printTree(*key, modules, hasToplevelText ? 1 : 0 ); //if the top level entry has text ident the other text
+  
 	key->key(keyName);
   return finishText(m_text, modules, keyName);
 }

@@ -35,7 +35,9 @@ class CPlainWriteWindow : public CWriteWindow  {
 public: 
 	CPlainWriteWindow( ListCSwordModuleInfo modules, CMDIArea* parent, const char *name = 0 );
 	~CPlainWriteWindow();
-  /** Setups the popup menu of this display widget. */
+  /**
+  * Setups the popup menu of this display widget.
+  */
   virtual void setupPopupMenu();
 
 protected: // Protected methods
@@ -65,7 +67,9 @@ protected slots: // Protected slots
   * Loads the original text from the module.
   */
   void restoreText();
-  /** Deletes the module entry and clears the edit widget, */
+  /**
+  * Deletes the module entry and clears the edit widget.
+  */
   void deleteEntry();
 };
 

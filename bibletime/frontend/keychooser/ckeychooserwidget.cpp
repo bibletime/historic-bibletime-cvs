@@ -206,7 +206,7 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		emit changed(m_comboBox->currentItem());				
 	}
 
-  qWarning("combo size hint: %i x %i", m_comboBox->sizeHint().width(), m_comboBox->sizeHint().height());
+  const QSize dummySize = m_comboBox->sizeHint(); //without this function call the combo box won't be properly sized!
   //DON'T REMOVE OR MOVE THE show()! Otherwise QComboBox's sizeHint() function won't work properly!
   m_comboBox->show();
 
