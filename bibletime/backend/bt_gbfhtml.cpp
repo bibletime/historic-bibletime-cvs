@@ -40,8 +40,8 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("FV", "<sub>"); // Subscript begin
 	addTokenSubstitute("Fv", "</sub>");
 	
-	addTokenSubstitute("TT", "<big>"); // Book title begin
-	addTokenSubstitute("Tt", "</big>");
+	addTokenSubstitute("TT", "<H1><FONT color=\"black\">"); // Book title begin
+	addTokenSubstitute("Tt", "</FONT></H1>");
 	addTokenSubstitute("TS", "<H2><FONT color=\"black\">"); // Section title begin
 	addTokenSubstitute("Ts", "</FONT></H2>");
 	

@@ -110,17 +110,21 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
-			pushString(buf, "<br /><b><i>");
+			pushString(buf, "<H2><FONT color=\"black\">");
 		}
 		else if (!strncmp(token, "div class=\"title\"", 19)) {
-		        userData["SecHead"] = "true";
-			pushString(buf, "<br /><b><i>");
+      userData["Title"] = "true";
+			pushString(buf, "<H1><FONT color=\"black\">");
 		}
 
 		else if (!strncmp(token, "/div", 4)) {
 			if (userData["SecHead"] == "true") {
-				pushString(buf, "</i></b><br />");
+				pushString(buf, "</FONT></H2>");
 				userData["SecHead"] = "false";
+			}
+			else if(userData["Title"] == "true") {
+				pushString(buf, "</FONT></H1>");
+				userData["Title"] = "false";
 			}
 		}
 		else if(!strncmp(token, "note", 4)) {
