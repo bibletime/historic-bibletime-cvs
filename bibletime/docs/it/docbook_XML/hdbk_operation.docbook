@@ -1,0 +1,592 @@
+<chapter ID="hdbk_op"><title>Operazioni col programma</title>
+<para>
+Bibletime si usa principalmente dall'albero dei moduli (chiamato
+"Indice principale"). Il secondo posto importante durante il lavoro è
+l'area MDI (MDI = Multiple Document Interface). </para>
+
+<section ID="hdbk_op_module_tree"><title>Indice principale</title>
+<para>
+Questa è la sezione sulla sinistra della finestra di BibleTime.
+Contiene l'albero dei documenti installati (Moduli Sword), così come
+tutti i segnalibri che imposti.
+</para>
+<screenshot>
+<screeninfo>Albero dei moduli</screeninfo>
+<graphic fileref="common/hdbk_op_module_tree_1.png" format="png"></graphic>
+</screenshot>
+</section>
+
+<section ID="hdbk_op_module_tree_select"><title>Selezionare un
+documento da visualizzare</title> <para>Per selezionare un documento,
+clicca semplicemente sul gruppo di documenti desiderati (Bibbie,
+Commentari o Lessici), per visualizzare i contenuti di un gruppo di
+documenti, clicca sull'icona del gruppo desiderato. Per aprire un
+documento, clicca sulla sua icona. Per aprire un'altra istanza dello
+stesso documento, cliccaci col tasto destro e scegli "Nuovo visualizzatore".
+</para>
+<screenshot>
+<screeninfo>Selezione dei documenti</screeninfo>
+<graphic fileref="common/hdbk_op_module_select_1.png" format="png"></graphic>
+</screenshot> <tip><para>Qui funziona il Drag & Drop</para></tip>
+<para>Un documento può essere aperto da un documento già
+aperto. clicca semplicemente su numero di versetto (il puntatore
+diventa una mano) e trascinalo nella lista dei moduli. Lascialo sul
+nome del modulo che vuoi aprire, e questo si aprirà al versetto
+trascinato. Se trascini un numero di versetto su un modulo già aperto,
+questo salterà automaticamente al versetto trascinato. Tutto ciò
+funziona solo per le Bibbie e i Commentari.
+</para>
+<para> Ci sono altre due funzioni accessibili tramite il click col
+tasto destro sul nome del documento. "Mostra informazioni" apre una
+finestra con informazioni circa il copyright e attinenti al documento
+selezionato. "Imposta chiave di sblocco" apre una piccola finestra per
+i documenti cifrati. Ciò permette a chi possiede una chiave di
+inserirla per decifrare il documento e renderlo leggibile.
+La Crosswire Bible Society deve cifrare i moduli a meno che o il
+detentore del copyright conceda il permesso per la distribuzione come
+modulo di Sword, o il testo sia diventato di pubblico dominio
+(copyright scaduto).  <ulink url="http://www.crosswire.org">Vedi
+informazioni sui moduli bloccati sul sito web di crosswire.</ulink></para>
+
+<section ID="hdbk_op_module_tree_search"><title>Accedere alla finestra
+di dialogo di ricerca</title>
+<para> Puoi ricercare in un modulo cliccando col tasto destro sul nome
+di un modulo e selezionando "Cerca nel modulo(i)". Cliccando col tasto
+sinistro sui nomi di altri moduli ne puoi selezionare più
+d'uno. Quindi segui la stessa procedura per aprire la finestra di
+ricerca. Effettuerai la ricerca in tutti questi documenti.
+</para>
+<para>Puoi trovare una descrizione completa delle funzionalità della
+ricerca
+</para>
+<screenshot>
+<screeninfo>Selezione dei segnalibri</screeninfo>
+<graphic fileref="common/hdbk_op_module_select_2.png" format="png">
+</graphic>
+</screenshot
+</section>
+
+
+<section ID="hdbk_op_module_tree_bookmark"><title>Accedere alle
+funzioni dei segnalibri</title> <para>
+<tip><para>Qui funziona il Drag & Drop</para></tip>
+Clicca su una parte vuota della finestra dell'albero dei moduli e
+seleziona "Crea nuovo gruppo" per creare una nuova cartella dei
+segnalibri. Puoi usare le normali funzioni di drag & drop per
+trascinare i numeri dei versetti dalla finestra dei risultati di
+ricerca alla cartella dei segnalibri, e per riorganizzare i segnalibri
+tra le cartelle. Esiste anche una funzione di
+importazione/esportazione dei segnalibri. Dal menu contestuale, scegli
+"esporta segnalibri". Apaprirà una fienstra di dialogo per il
+salvataggio della collezione di segnalibri. Essi possono essere
+condivisi con altri utenti di BibleTime, archiviati, ecc. I segnalibri
+si possono importare nella stessa maniera. Puoi anche usare il click
+col tasto destro per cambiare i nomi delle cartelle e le descrizioni
+dei segnalibri (da implementare), e cancellare cartelle e segnalibri.
+</para>
+<screenshot>
+<screeninfo>Selezione dei segnalibri</screeninfo>
+<graphic fileref="common/hdbk_op_module_tree_bookmark_bookmarkandfolder.png" format="png">
+</graphic>
+</screenshot
+</section>
+</section>
+
+<section ID="hdbk_op_MDI_Window"><title>Finestra Multiple Document
+Interface (MDI)</title> <para> Qui è dove i documenti sono aperti e
+visualizzati. I documenti sono visualizzati in "finestre di
+documento", che sono specifiche per i tre tipi di documenti. (La
+Crosswire Bible Society potrebbe rilasciare altri tipi di documenti in
+futuro. Quando saranno rilasciati, BibleTime supporterà anch'essi).
+</para>
+
+<section ID="hdbk_op_MDI_Window_control_modules"><title>Controllare i
+documenti aperti</title> <para>
+Le finestre dei documenti possono essere controllate e manipolate con
+le normali funzioni relative alle finestre e alle barre del titolo di
+KDE. In aggiunta a questo, puoi affiancarle e sovrapporle. Usa il
+pulsante apposito sulla barra degli strumenti, o i comandi del menu
+sotto "Finestra" nel menu principale. Le finestre dei documenti
+possono essere impostate inoltre per affiancarsi o sovrapporsi
+automaticamente.
+</para>
+</section>
+
+<section ID="hdbk_op_MDI_Window_module_navigation"><title>Navigare
+nei documenti aperti</title> <para>
+La navigazione all'interno dei documenti si effettua con il menu di
+controllo dei documenti e la barra di scorrimento.
+</para>
+<tip><para>Per andare a un punto specifico usa il menu di controllo.</para></tip>
+<tip><para>Per muoverti in una sezione di un docuemnto usa la barra di
+scorrimento.</para></tip>
+<tip><para>Per i testi della Bibbia lo schema dell'indice è <emphasis>Libro - Capitolo - Versetto</emphasis></para></tip>
+<tip><para>Per i commentari lo schema dell'indice è <emphasis>Libro - Capitolo - Versetto</emphasis></para></tip>
+<tip><para>Per i lessici lo schema dell'indice è <emphasis>Lemma</emphasis></para></tip>
+<tip><para>Il Drag & Drop funziona qui; se trascini un versetto da un
+documento aperto o un segnalibro e lo lasci su un altro, il secondo
+documento salterà dalla sua posizione corrente al versetto o al
+segnalibro trascinati.</para></tip>
+</section>
+
+<section ID="hdbk_op_MDI_Window_autoscrolling"><title>Autoscorrimento</title>
+<para> Una delle funzioni avanzate di Bibletime è la capacità di
+controllare più di una finestra di documento alla volta. Per le Bibbie
+e i commentari, il bottone nella barra degli strumenti più a destra è
+l'autoscorrimento. Selezionandolo in una finestra aperta, fa sì che il
+modulo visualizzato scorra in sincrono con gli altri documenti con
+l'autoscorrimento attivato. </para> </section>
+
+<section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Modifica
+il tuo commentario personale</title> <para>
+La barra degli strumenti dei visualizzatori di commentario ha un
+bottone in più, con l'icona di una matita.<graphic fileref="comon/hdbk_op_pencil.png"></graphic>
+Per il modulo del commentario "personale", clicca il bottone per
+inserirvi le tue note, o per modificare quelle già immesse. Quando hai
+finito, clicca sul bottone "Salva" (dischetto) per salvare le tue
+annotazioni. Per cancellare le annotazioni relative a un versetto
+selezionato, clicca il bottone con il bidone. Puoi anche impostare il
+punto finale dei tuoi commenti, se per esempio desideri usare gli
+stessi per più versetti. Clicca sul bottone "Modifica" una seconda
+volta per ritornare al modo normale di consultazione del commentario. </para>
+<tip><para>Il commentario personale è un modulo di sword. Se non lo
+trovi nell'indice principale, prendilo dalla Crosswire Bible Society.</para></tip>
+<tip><para>Se non riesci a scrivere il commentario personale, i
+permessi per il modulo sono sbagliati. Azzerali per poterci scrivere
+di nuovo.</para></tip>
+<tip><para>Il Drag & Drop funziona qui, come negli altri commentari e
+nelle Bibbie.</para></tip>
+</section>
+</section>
+
+<section ID="hdbk_op_search"><title>Ricerca nei documenti</title>
+<para>Parti delle istruzioni per la ricerca nei documenti sono tratte
+dai file della guida della versione di Sword per MS Windows (R)</para>
+
+<section ID="hdbk_op_search_functions"><title>Accedere alle funzioni
+di ricerca</title> <para> Puoi cercare in un documento facendo clic
+col tasto destro sul nome di un documento nell'indice principale e
+selezionando "Cerca nel modulo(i)". Con un click sinistro o combinato
+a ctrl sui nomi di altri moduli ne puoi selezionare più d'uno. Quindi
+segui la stessa procedura per aprire la finestra di ricerca. La
+ricerca sarà effettuata in tutti i documenti selezionati. </para>
+</section>
+
+<section ID="hdbk_op_search_dialog"><title>Usare la finestra di
+dialogo di ricerca</title>
+<section ID="hdbk_op_search_dialog_text"><title>Usare la linguetta
+Testo da cercare</title>
+<para>
+Testo da cercare - Inserisci qui la stringa di testo da cercare, e imposta
+le proprietà di ricerca. "Espressioni regolari" usa la sintassi
+standard delle regexp per definire la ricerca. </para></section>
+
+<section ID="hdbk_op_search_dialog_text_input"><title>Usare il campo
+di immissione Testo da cercare</title>
+<para>Inserisci una o più parole, o parole parziali (separa le parole
+o i frammenti con uno spazio), una frase, un'espressione regolare da
+cercare. Come i dati inseriti saranno utilizzati dipende da quale
+bottone sia spuntato tra Parole multiple, Frase esatta o Espressione
+regolare, e inoltra dal fatto che sia o meno attiva la distinzione per
+le lettere maiuscole.</para>
+
+<tip><para>Il Drag & Drop funziona qui, puoi trascinare versetti e
+segnalibri nella riga di inserimento testo. Puoi inoltre copiarci e
+incollare testo.</para></tip>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_input_case"><title>Usare il
+bottone Ricerca testo Maiuscole/minuscole</title>
+<para>Spunta la casella <guibutton>Maiuscole/minuscole</guibutton> per
+commutare la distinzione nella ricerca. Se la casella è spuntata la
+ricerca troverà solo i versetti in cui c'è corrispondenza tra lettere
+minuscole con il testo inserito. Se non lo è, il testo corrisponderà
+indipendentemente da questo. Per trovare &quot;SIGNORE&quot; ma non
+&quot;Signore&quot; oppure &quot;signore&quot; spuntate la
+casella. Per far sì che &quot;SIGNORE&quot; e &quot;Signore&quot;
+corrispondano a &quot;signore&quot; lasciate la casella non spuntata.</para>
+</section>
+
+
+<section ID="hdbk_op_search_dialog_text_input_multi"><title>Usare il
+bottone Ricerca testo Parole multiple</title>
+<para>Se <guibutton>Parole multiple</guibutton> è spuntato la ricerca
+troverà tutte le linee (o i versetti) che comprendono tutte le parole
+(o i frammenti) elencati nella riga di inserimento. La posizione e
+l'ordine delle parole (o dei frammenti) non viene considerata. Se
+tutte le parole (o i frammenti) sono in una linea, in qualunque
+ordine, anche separate da altre parole, la linea sarà inclusa nella
+lista di quelle trovate. Una ricerca per &quot;prove questi&quot;
+troverà Gen. 21:25, &quot;E Abramo rim<emphasis>prove</emphasis>rò
+Abimelech per la <emphasis>questi</emphasis>ne di un pozzo d'acqua...&quot; Questo è perché una parola che è parte di un'altra
+parola è considerata trovata se viene trovata la parola che la contiene.</para>
+</section>
+
+
+<section ID="hdbk_op_search_dialog_text_input_phrase"><title>Usare il
+bottone Frase esatta</title>
+<para>Se <guibutton>Frase esatta</guibutton> è spuntato la ricerca
+troverà tutte le linee (o i versetti) che sono stati inseriti nella
+riga di modifica, inclusi gli eventuali spazi. La frase trovata non
+deve necessariamente iniziare o finire con quelle parole. Una ricerca
+per &quot;sai questo&quot; troverà Gen. 32:10,
+&quot;...pas<emphasis>sai questo</emphasis>Giordano&quot; </para>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_input_search"><title>Usare il
+bottone Ricerca testo</title>
+<para>Clicca sul bottone <guibutton>Ricerca testo</guibutton> per
+iniziare la ricerca.</para>
+
+<screenshot>
+<screeninfo>Finestra di dialogo di Ricerca testo</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchtext.png" format="png"></graphic>
+</screenshot>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_regexp">
+<title>Ricerca la sintassi usando le espressioni regolari GCC</title>
+
+<para>Le ricerche per espressioni regolari forniscono un modo per
+compiere ricerche semplici o complesse per stringhe che corrispondono
+a uno schema o a una serie di schemi separati da barre verticale &quot;|&quot;.
+Mentre uno schema può essere composto per cercare una parola o una
+frase, uno schema semplice consistente in una parola non cercherà solo
+per quella parola ma per ogni posto in cui quella stringa di lettere
+componente la parola esista. Una ricerca per &quot;ferma&quot;
+ritornerà versetti contenenti la parola &quot;ferma&quot;, ma anche
+&quot;<emphasis>ferma</emphasis>mente&quot;, &quot;<emphasis>ferma</emphasis>ti&quot;, &quot;af<emphasis>ferma</emphasis>zione&quot;,
+&quot;sof<emphasis>ferma</emphasis>rono&quot; e anche &quot;<emphasis>ferma</emphasis>gli&quot;.
+Una ricerca per &quot;non fare&quot; non è una ricerca per
+&quot;non&quot; AND &quot;fare&quot; ma per la stringa &quot;non
+fare&quot; con uno spazio tra &quot;n&quot; e &quot;f&quot;. La
+ricerca per &quot;non fare&quot; troverà ricorrenze di
+&quot;<emphasis>non fare</emphasis>te&quot;.</para>
+
+<para>La potenza delle espressioni regolari è negli schemi (o regole)
+usate per definire una ricerca. Uno schema consiste di caratteri
+ordinari e alcuni caratteri speciali che sono usati e interpretati
+tramite alcune regole. I caratteri speciali includono .\[^*$?+. I
+caratteri ordinari (o semplici) sono quelli che non sono speciali. La
+barra rovesciata, &quot;\&quot;, è usata per convertire i caratteri
+speciali in ordinari e gli ordinari in speciali. </para>
+
+<para>Esempio: lo schema &quot;<emphasis>.i ama\.</emphasis>&quot;
+troverà frasi che finiscono con &quot;t<emphasis>i</emphasis>
+<emphasis>ama</emphasis>&quot; o &quot;v<emphasis>i</emphasis>
+<emphasis>ama</emphasis>&quot; o &quot;c<emphasis>i</emphasis>
+<emphasis>ama</emphasis>&quot; seguite da un punto. Il primo punto in
+&quot;i. ama\.&quot; è un carattere speciale che significa ogni
+carattere in quella posizione. La barra rovesciata in
+&quot;i. ama\.&quot; significa che quel punto non è da considerare un
+carattere speciale, ma è un punto ordinario. </para>
+</section>
+
+
+
+<section ID="hdbk_op_search_dialog_text_regexp_rules"><title>Regole
+per le ricerche con espressioni regolari GCC</title>
+<itemizedlist>
+<listitem><para>. Il punto corrisponde a ogni carattere. Vedi i <link
+        linkend="period">Dettagli</link></para></listitem>
+<listitem><para>* L'asterisco corrisponde a 0 o più caratteri del
+precedente set o carattere. Vedi i  <link
+        linkend="asterisk">Dettagli</link></para></listitem>
+<listitem><para>+ Il più corrisponde a 1 o più caratteri del
+precedente set o carattere. Vedi i <link
+        linkend="plus">Dettagli</link></para></listitem>
+<listitem><para>? Il punto interrogativo corrisponde a 0 o 1 carattere
+del precedente set o carattere. Vedi i <link
+        linkend="question">Dettagli</link></para></listitem>
+<listitem><para>[ ] Le parentesi quadre corrispondono a uno dei
+caratteri specificati entro [ ]. Vedi i <link linkend="bracket">Dettagli</link></para></listitem>
+<listitem><para>^ Un accento circonflesso come primo carattere
+all'interno di [ ] significa NOT. Vedi i <link linkend="caret">Dettagli</link></para></listitem>
+<listitem><para>^ Un accento circonflesso all'inizio di uno schema
+indica l'inizio di una linea. Vedi i <link linkend="caret">Dettagli</link></para></listitem>
+<listitem><para>$ Un dollaro al fine di uno schema indica la fine di
+una linea. Vedi i <link linkend="dollar">Dettagli</link></para></listitem>
+<listitem><para>| Una fincatura significa OR logico. Vedi i <link
+        linkend="bar">Dettagli</link></para></listitem>
+<listitem><para>( ) Le parentesi raggruppano espressioni.
+    <emphasis>Non supportato!</emphasis></para></listitem>
+<listitem><para>\ Una barra rovesciata può essere usata prima di un
+carattere speciale per renderlo ordinario <link linkend="backslash">Dettagli</link></para></listitem>
+<listitem><para>\ Una barra rovesciata può essere usata prima di un
+carattere ordinario per renderlo un carattere speciale. Vedi i <link linkend="backslash">Dettagli</link></para></listitem>
+</itemizedlist>
+
+<section ID="period"><title>Il punto .</title>
+
+<para>Il punto &quot;.&quot; corrisponde a ogni singolo carattere,
+anche uno spazio o un carattere non alfabetico.
+<emphasis>a.o</emphasis> corrisponde a
+<emphasis>a</emphasis>m<emphasis>o</emphasis>,
+<emphasis>a</emphasis>g<emphasis>o</emphasis>,<emphasis>
+a</emphasis>v<emphasis>o</emphasis>, ecc., che si possono trovare in
+<emphasis>a</emphasis>m<emphasis>o</emphasis>re,
+mandr<emphasis>a</emphasis>g<emphasis>o</emphasis>le e
+l<emphasis>a</emphasis>v<emphasis>o</emphasis>ro
+<emphasis>a..a</emphasis> corrisponde a
+<emphasis>a</emphasis>nn<emphasis>a</emphasis>,
+<emphasis>a</emphasis>lg<emphasis>a</emphasis> e
+<emphasis>a</emphasis>rm<emphasis>a</emphasis>
+</para>
+</section>
+
+
+<section ID="asterisk"><title>L'asterisco *</title>
+
+<para>L'asterisco indica a zero o più corrispondenze di ciò che lo
+precede, che si tratti di un carattere speciale o meno. Una
+combinazione di punto e asterisco &quot;.*&quot; dopo uno schema
+ricorrente spesso può far sì che la ricerca duri molto a lungo, dando
+l'impressione che il programa si blocchi.  <emphasis>cr*e</emphasis>
+corrisponde a<emphasis> crea, creato, cerca</emphasis>, e
+<emphasis>b*n</emphasis> troverà sia Reu<emphasis>ben</emphasis> che
+She<emphasis>bn</emphasis>a.</para> </section>
+
+
+<section ID="plus"><title>Il segno più +</title>
+<para>Il segno più indica una o più corrispondenze di ciò che lo
+precede, che si tratti di un carattere speciale o meno. Una
+combinazione di un punto e di un segno più &quot;.+&quot; dopo uno
+schema ricorrente spesso può far sì che la ricerca duri molto a lungo,
+dando l'impressione che il programma si blocchi.
+<emphasis>val+i</emphasis> corrisponde a <emphasis>vali</emphasis> e
+<emphasis>valli</emphasis>, ma non a <emphasis>vai</emphasis>.</para>
+</section>
+
+
+<section ID="question"><title>Il punto interrogativo ?</title>
+<para>Il punto interrogativo corrisponde a zero o una ricorrenza di
+ciò che lo precede, carattere speciale o meno.
+<emphasis>val?i</emphasis> corrisponde a <emphasis>vai</emphasis> e <emphasis>vali</emphasis>
+ma non a <emphasis>valli</emphasis>.
+</para>
+</section>
+
+
+<section ID="bracket"><title>Le parentesi quadre [ ]</title>
+<para>Le parentesi quadre racchiudono una serie di possibili caratteri
+corrispondenti. Il punto, l'asterisco, il segno più e il punto
+interrogativo non sono caratteri speciali all'interno delle
+parentesi. Un segno meno può essere usato per indicare un
+intervallo. Se volete che un accento circonflesso &quot;^&quot; faccia
+parte dell'intervallo non mettetelo dopo la parentesi sinistra o lo
+diventerà. Per includere una &quot;]&quot; mettetela come primo (o
+secondo, dopo uno speciale &quot;^&quot;) carattere. Per includere un
+segno meno, fate altrettanto.
+<emphasis>ar[pmi]a</emphasis> corrisponde a <emphasis>arpa</emphasis>, <emphasis>arma</emphasis>,
+e <emphasis>aria</emphasis>, ma non a <emphasis>ar</emphasis>s<emphasis>a</emphasis>.
+<emphasis>ar[pmi]+a </emphasis>corrisponde a quanto sopra ma anche a <emphasis>arpia</emphasis>, ecc.
+<emphasis>[a-d]</emphasis> corrisponde a <emphasis>a, b, c,</emphasis> o <emphasis>d</emphasis>.
+<emphasis>[A-Z]</emphasis> corrisponde a ongi lettere maiuscola.
+[.;:?!] corrisponde a ., ;, :, ?, o ! man non alla virgola.
+[ ]^-] corrisponde a ] o ^ o -</para>
+</section>
+
+
+<section ID="caret"><title>L'accento circonflesso per primo nelle
+parentesi quadre [^xxx</title> <para>Se l'accento circonflesso è il
+primo carattere dopo la parentesi sinistra, significa NOT.
+<emphasis>ar[^ip]a</emphasis> corrisponde a <emphasis>arca,
+arma</emphasis>, ecc., ma non a
+<emphasis>ar</emphasis>i<emphasis>a</emphasis> e
+<emphasis>ar</emphasis>p<emphasis>a</emphasis>.</para> </section>
+
+<section ID="caret_s"><title>L'accento circonflesso come indicazione
+di inizio linea ^xxx</title> <para>Se l'accento circonflesso è il
+primo carattere in uno schema, questo viene ancorato all'inizio di una
+linea. Ogni corrispondenza deve essere cioè all'inizio di una
+linea. Per via di caratteri di formattazione non filtrati presenti in
+qualche testo, questa caratteristica non sempre funziona, a meno che
+alcuni punti (...) non siano messi dopo l'accento circonflesso per
+indicare i caratteri di formattazione.  <emphasis>^In
+principio</emphasis> corrisponde alle linee che iniziano con
+&quot;<emphasis>In principio</emphasis>&quot;.  (Può essere necessario
+usare: <emphasis>^.....In principio</emphasis>)</para> </section>
+
+
+<section ID="dollar"><title>Il simbolo del dollaro come indicazione di
+fine linea xxx$</title> <para>Se il segno del dollaro è l'ultimo
+carattere in uno schema, questo viene ancorato alla fine di una
+linea. Ogni corrispondenza deve essere cioè alla fine di una
+linea. Per via di caratteri di formattazione non filtrati presenti in
+qualche testo, questa caratteristica non sempre funziona, a meno che
+alcuni punti (...) non siano messi prima del dollaro per indicare i
+caratteri di formattazione.  <emphasis>Amen\.$</emphasis> corrisponde
+alle linee che terminano con &quot;<emphasis>Amen.</emphasis>&quot;
+(Può essere necessario usare Amen\....$, Amen\..........$, o persino
+Amen\....................$)</para> </section>
+
+
+<section ID="bar"><title>La fincatura |</title> <para>La fincatura tra
+due schemi significa OR.  <emphasis>Giovanni|Pietro</emphasis>
+corrisponde a <emphasis>Giovanni</emphasis> o a <emphasis>Pietro.
+Giovanni .*Pietro|Pietro .*Giovanni</emphasis> corrisponde a
+<emphasis>Giovanni</emphasis> ... <emphasis>Pietro</emphasis> o a
+<emphasis>Pietro</emphasis> ... <emphasis>Giovanni</emphasis>.  (.*
+rallenta la ricerca) <emphasis>dolore|sofferenza|disgrazia</emphasis>
+corrisponde a <emphasis>dolore</emphasis>, o a
+<emphasis>sofferenza</emphasis>, o a
+<emphasis>disgrazia</emphasis>.</para> </section>
+
+
+<section ID="parenth"><title>Le parentesi( ) </title>
+<para><emphasis>L'uso delle parentesi ( ) non è
+supportato!</emphasis></para> </section>
+
+
+<section ID="backslash"><title>La barra rovesciata prima di un
+carattere speciale \*</title> <para>La barra rovesciata prima di un
+carattere speciale indica che questo non deve essere usato in maniera
+speciale, ma corrisponde semplicemente a se stesso.
+<emphasis>amen\.</emphasis> corrisponde a <emphasis>amen.</emphasis>
+ma non a <emphasis>amen</emphasis>o e non troverà
+barc<emphasis>amen</emphasis>o.</para> </section>
+
+<section ID="backslash_o"><title>La barra rovesciata prima di un
+carattere ordinario \s</title>
+
+<para>La barra rovesciata prima di un carattere ordinario indica che
+questo non corrisponde e se stesso, ma ha un significato
+speciale.</para>
+
+<itemizedlist> <listitem><para> \b usato al di fuori di [ ] significa
+che la parola termina lì. Se usato all'interno di [ ], significa
+backspace.  <emphasis>\bgiusti\b</emphasis> corrisponde a
+<emphasis>giusti</emphasis> ma non a in<emphasis>giusti</emphasis> o a
+<emphasis>giusti</emphasis>zia.</listitem> <listitem><para>\B indica
+di non considerare i confini della parola.
+<emphasis>\Bgiusti\B</emphasis> corrisponde a
+in<emphasis>giusti</emphasis>zia e in<emphasis>giusti</emphasis>ficato
+ma non a <emphasis>giusti</emphasis>, in<emphasis>giusti</emphasis> o
+<emphasis> giusti</emphasis>zia.</para></listitem> <listitem><para>\d
+significa numero; lo stesso di [0-9].</para></listitem>
+<listitem><para>\D significa non-numero, lo stesso di
+[^0-9].</para></listitem> <listitem><para>\s significa
+spazio. </para></listitem> <listitem><para>\S significa
+non-spazio. </para></listitem> <listitem><para>\w significa
+alfanumerico; lo stesso di [a-zA-Z0-9_].</para></listitem>
+<listitem><para>\W significa non-alfanumerico; lo stesso di
+[^a-zA-Z0-9_].</para></listitem> </itemizedlist>
+
+</section>
+</section>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_scope"><title>Usare la
+linguetta Limiti di ricerca</title> <para>Definisci qui i limiti della
+tua ricerca</para>
+
+<section ID="hd_op_sch_dia_txt_scope_options"><title>Opzioni dei limiti di ricerca</title itemizedlist listitem><para><guibutton>Nessun limite</guibutton> disattiva la ricerca con limiti. La ricerca viene effettuata sull'intero documento.</para></listitem>
+<listitem><para><guibutton>Ultimo risultato</guibutton> La nuova ricerca avverrà solo entro i versetti trovati nella ricerca precedente.</para></listitem>
+<listitem><para><guibutton>Usa limiti</guibutton> La nuova ricerca avverrà entro l'intervallo stabilito dai limiti specificati.</para></listitem></itemizedlist>
+
+<para>Se <guibutton>Nessun limite</guibutton> è selezionato e una
+ricerca viene effettuata nel modulo itaNRV per il nome Gesù, verranno
+trovate 1066 corrispondenze. Quindi, se si attiva <guibutton>Ultimo
+risultato</guibutton> e si effettua un'altra ricerca per Cristo,
+rimarranno 238 corrispondenze delle prime 1066. Quindi, se si lascia
+attivato<guibutton>Ultimo risultato</guibutton> e si cerca ancora
+per Signore, rimarranno 106 corrispondenze dellle precedenti 238.
+Queste 106 conterranno Gesù, Cristo e Signore.</para> </section>
+
+<section ID="hd_op_sch_dia_txt_scope_maintain"><title>Mantieni limiti
+personalizzati</title><para>Mantieni limiti personalizzati - Per ogni
+documento selezionato per la ricerca, puoi inserire ed eliminare i
+limiti superiore e inferiore. Quindi fai click su <guibutton>Aggiungi
+</guibutton> e apparirà un casella di immissione per il nome del
+limite.  Dopo averlo inserito, questo viene aggiunto alla lista dei
+custom ranges.</para>
+
+<para>I limiti di una ricerca possono essere impostati a
+<emphasis>Intero modulo</emphasis> oppure a <emphasis>Risultati
+correnti.</emphasis>Se Intero modulo è selezionato e una ricerca viene
+effettuata nel modulo itaNRV per il nome Gesù, verranno trovate 1066
+corrispondenze.  Quindi, se è selezionato Risultato corrente e si
+effettua un'altra ricerca per Cristo, rimarranno 238 corrispondenze
+delle prime 1066. Quindi, se si lascia attivato Risultato corrente e si
+cerca ancora per Signore, rimarranno 106 corrispondenze dellle
+precedenti 238. Queste 106 conterranno Gesù, Cristo e Signore.</para>
+
+<tip><para>Qui funziona il Drag & Drop; puoi trascinare numeri di
+versetti e segnalibri nel campo di immissione custom range. Puoi anche
+incollarci dentro il testo.</para></tip>
+
+<screenshot>
+<screeninfo>Finestra di dialogo dei limiti di ricerca</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"></graphic>
+</screenshot>
+</section></section>
+
+<section ID="hdbk_op_search_dialog_text_result"><title>Usare la
+lingueta Risultati della ricerca</title> <para> Risultato della
+ricerca - Per prima cosa vi dice, suddivise per modulo, quante
+corrispondenze della stringa di ricerca sono state trovate. Con un
+doppio click sul modulo, si apre la lista dei riferimenti. Cliccare su
+uno di essi apre il versetto corrispondente nella finestra in
+basso. Trascina il riferimento su un documento nell'indice principale
+per aprirlo posizionato a quel versetto in un nuovo
+visualizzatore. </para> <tip><para>Qui funziona il Drag &
+Drop</para></tip> <tip><para>Seleziona il numero del versetto e
+trascinalo sull'indice principale per creare dei
+segnalibri.</para></tip> <tip><para>Seleziona i numeri dei versetti e
+trascinali su un moduilo non aperto nell'indice principale per aprirlo
+in corrispondenza di quel versetto (solo per Bibbie e
+commentari).</para></tip> <tip><para>Seleziona i numeri dei versetti e
+trascinali su un documento aperto: questo si posizionerà su quel
+versetto (solo Bibbie e commentari).  <screenshot> <screeninfo>Search
+Result Dialog Box</screeninfo> <graphic
+fileref="common/hdbk_op_search_dialog_searchresult.png"
+format="png"></graphic> </screenshot> </section>
+
+<section ID="hdbk_op_search_dialog_text_analysis"><title>Usare la
+scheda Analisi della ricerca</title> <para> Analisi della ricerca -
+Fornisce un'analisi grafica del numero di corrispondenze trovate per
+ogni libro. Può mostrare i risultati per tutti i documenti su cui si è
+effettuata la ricerca. Puoi salvare il grafico come immagine sul disco
+fisso.</para> <screenshot> <screeninfo>Finestra di dialogo
+dell'analisi della ricerca</screeninfo> <graphic
+fileref="common/hdbk_op_search_dialog_searchanal.png"
+format="png"></graphic> </screenshot>
+
+</section>
+</section>
+<section ID="hdbk_op_output"><title>Output</title>
+<section ID="hdbk_op_export"><title>Esportazione</title>
+<para>
+Per esportare il testo come HTML, testo o negli appunti da un documento aperto, fai un <mousebutton>click col tasto destro</mousebutton> nel documento, e apparirà un menu a tendina. Seleziona l'opzione desiderata e inserisci il nome del file nella casella che apparirà.
+</para>
+
+<para>
+Informazioni del menu contestuale - in seguito
+</para>
+</section>
+
+<section ID="hdbk_op_print"><title>Stampa</title>
+<para>Il sistema di stampta è stato modificato. Questa sezione è in fase
+di revisione.
+</para>
+<para>La stampa in BibleTime offre i servizi di base ed è intesa come
+utilità. Se stai componendo un documento o una presentazione
+contenente testo dei documenti di BibleTime, ti consigliamo di usare uno
+degli strumenti di presentazione o impagianzione del vostro sistema.
+Consulta le istruzione per l'esportazione.
+</para>
+<para>
+Per stampare, seleziona un documento aperto, quindi la voce <guiicon>stampa</guiicon>.  La fienestra di dialogo di stampa si aprirà.
+Puoi scegliere se inviare la selezione alla stampante o averne
+un'anteprima con kghostview.
+</para>
+
+<para>
+Informazioni del menu contestuale - in seguito
+</para>
+
+</section>
+</section>
+</chapter>
+
+

@@ -1,0 +1,37 @@
+<chapter id="help_no_modules">
+<title>Nessun modulo installato!</title>
+
+<para>Non ci sono moduli Sword installati! </para> <para>Questa pagina
+descrive cosa sono i moduli e come risolvere il problema </para>
+
+<qandaset> <qandaentry> <question> <para> Cos'è un modulo?  </para>
+</question> <answer> <para> Un modulo SWORD è la base di BibleTime. Un
+modulo può essere una Bibbia, un commentario o un lessico. In futuro
+inseriremo mappe e altre cose interessanti. Non è possibile usare
+Bibletime senza moduli installati, anche se è comunque possibile
+testarlo. Quando i moduli sono visualizzati in Bibletime vengono
+chiamati documenti.  </para> </answer> </qandaentry> <qandaentry>
+<question> <para> Come risolvo il problema?  </para> </question>
+<answer> <para>Installa alcuni moduli. Puoi scaricarli su <ulink
+url="http://www.crosswire.org">www.crosswire.org</ulink>. Per
+cortesia, leggi le istruzioni di installazione del nostro <ulink
+url="../handbook/HTML/index.html">manuale</ulink> e la nostra home
+page.  </para> </answer> </qandaentry> <qandaentry> <question> <para>
+Cosa faccio se non funziona?  </para> </question> <answer> <para>
+Leggi la documentazione su <ulink url="http://www.bibletime.de">
+www.bibletime.de</ulink> e se non riesci a farlo funzionare scrivici
+pure a <ulink url="mailto:info@bbibletime.de">info@bibletime.de
+</ulink>. </para> </answer> </qandaentry> </qandaset> </chapter>
+
+
+
+
+
+
+
+
+
+
+
+
+

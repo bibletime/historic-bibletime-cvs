@@ -1,0 +1,252 @@
+<chapter id="inst_sources">
+<title>Installazione dei sorgenti di Bibletime</title>
+<para>
+Questo capitolo spiega la compilazione dei sorgenti.  I punti
+qui descritti vanno bene per ambedue le versioni, la versione di
+sviluppo e la versione pubblica di BibleTime e Sword.</para>
+
+<section id="inst_sources_sword">
+<title>L'installazione di Sword e dei moduli Sword</title>
+<para>
+Sword e moduli Sword sono la "libreria dei libri" per BibleTime. Vedi
+la pagina di download per ulteriori informazioni su come scaricare
+BibleTime.</para> <para> Dai un occhiata alla pagina dei requisiti per
+ottenere Sword 1.5. Vedi i link per ottenere i moduli di Sword.</para>
+
+<section id="inst_sources_sword_install">
+<title>Installazione di Sword 1.52</title>
+
+<para>
+Prima devi scompattare il file tar.gz scaricato (se usate la versione CVS
+i vostri sorgenti saranno già estratti perciò tralascia questo punto) in una
+directory temporanea. Fai qualcosa come: </para>
+<screen>
+mkdir /tmp
+cd /tmp
+tar -xzf sword-1.52.tar.gz
+cd /tmp/sword-1.52
+</screen>
+
+<para>
+(il file tar sarà estratto in una directora chiamata più o meno sword-1.52)
+</para>
+
+<para>
+Prima di compilare Sword, forse devi modificare
+<filename>Makefile.cfg</filename> (è nella directory di livello
+più alto dei sorgenti estratti). La sezione da cambiare di
+<filename>Makefile.cfg</filename> è contrassegnata. Non modificare nulla
+fuori da quest'area <emphasis>##### Customizable stuff. Set it how you
+like it #####</emphasis> a meno che tu non sappia esattamente cosa stai
+facendo. </para>
+
+<para> I default funzioneranno per la maggior parte delle installazioni. Altrimenti, ecco le parti che possono essere cambiate.</para>
+
+<table>
+<title>Parti da cambiare in Sword Makefile.cfg</title>
+<tgroup cols="2">
+<thead>
+<row>
+<entry>Parte</entry>
+<entry>Descrizione</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry># compiler</entry>
+<entry>Se hai gcc lasciate questo, altrimenti inserite il compilatore che stai usando.</entry></row>
+<row>
+<entry># shared library-</entry>
+<entry>Default 'yes'. Questo fa sì che la libreria condivisa <filename>libsword.so</filename> sia generata.  Una voce deve essere posta nel
+file <filename>/etc/ld.so.conf</filename>, indicante libsword.
+<filename>/usr/local/sword/lib</filename> è tipico.</entry> </row>
+<row>
+<entry># VCL library-</entry>
+<entry>Usa il default 'no' a meno che tu non stia usando il manager di installazione di Sword, nel qual caso usa 'yes'.</entry> </row>
+<row>
+<entry># Debugging options etc...</entry>
+<entry>I defaults dovrebbero essere giusti.</entry>
+</row>
+<row>
+<entry># endian, etc. support for other hardware</entry>
+<entry>Usa il default se stai compilando su piattaforma Intel. Se hai una macchina diversa, seleziona la voce corretta.</entry> </row>
+<row>
+<entry># zLib support</entry>
+<entry>Usa il default 'yes'</entry>
+</row>
+<row>
+<entry># paths</entry>
+<entry>I default dovrebbero essere giusti, ma se vuoi puoi cambiarli.
+Se volete impostare la collocazione delle librerie e dei file include,
+devi decidere se vuoi installarli in una directory a parte come <filename>/usr/local/sword/</filename> o in un posto condiviso come <filename>/usr/local/</filename>.
+Puoi anche installare le librerie in <filename>/usr/local/lib</filename>
+e i file include in <filename>/usr/local/include</filename>. Allora scegli <filename>/usr/local</filename>.
+
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>Adesso inizia la compilazione con <command>make</command> e aspetta finché non è terminato. Dopo questo devi installare i file. È' facile. 
+Semplicemente scrivi <command> make install </command>.
+</para>
+<para>
+Nel caso il commando make segnalasse un errore durante la compilazione, 
+probabilmente significa che ti manca un pacchetto. Per esempio:</para>
+
+<screen>
+bash-2.03# make
+make just-pre nodeps=yes
+make[1]: Entering directory `/tmp/sword-1.52'
+make -C src just-pre
+.
+.
+.
+make[1]: Entering directory `/tmp/sword-1.52/include'
+make[1]: Nothing to be done for `just-targets'.
+make[1]: Leaving directory `/tmp/sword-1.52/include'
+make -C apps/X11/VCL just-targets
+make[1]: Entering directory `/tmp/sword-1.52/apps/X11/VCL'
+gcc -I../../../include/ -D_GNU_SOURCE -I. `gtk-config --cflags` -static -pipe -Wall -Wno-format
+-fomit-frame-pointer -ggdb -O0 -m486 -c -o TWinControl.o TWinControl.cpp
+<Emphasis>/bin/sh: gtk-config: command not found </Emphasis>
+In file included from TWinControl.cpp:1:
+<Emphasis>TWinControl.h:6: gtk/gtkwidget.h: No such file or directory</Emphasis>
+<Emphasis>TWinControl.cpp:3: gtk/gtkwidget.h: No such file or directory </Emphasis>
+In file included from TWinControl.cpp:1:
+TWinControl.h:281: syntax error before `*'
+TWinControl.h:284: parse error before `*'
+TWinControl.cpp:10: parse error before `*'
+make[1]: *** [TWinControl.o] Error 1
+make[1]: Leaving directory `/tmp/sword-1.52/apps/X11/VCL'
+make: *** [apps/X11/VCL/targets] Error 2
+bash-2.03#
+</screen>
+
+<para>Le linee in corsivo sopra indicano che manca un'applicazione
+gtk. Guardando i pacchetti disponibili mostrava che uno dei pacchetti
+gtk inclusi in SuSE è gtkdev. Questo è l'applicazione necessaria per
+permettere a make di fare la compilazione senza errori. I pacchetti
+mancanti si trovano spesso sul CD della tua distribuzione o sul sito
+del vostro distributore. Una volta che <command>make</command> termina
+senza errori, allora dai <command>make install</command>. Se tuttavia
+non funziona modificate il file <filename>Makefile.cfg</filename>
+nella directory di livello più alto dei sorgenti di Sword e cambia
+la linea "<command>buildvcl := yes</command>" a "<command>buildvcl:=
+no</command>" e riprova. </para> </section>
+
+<section id="inst_sources_sword_modules">
+<title>L'installazione dei moduli</title>
+<section id="inst_sources_sword_modules_dir">
+<title>Scegli una directory Sword</title>
+<para>
+Attualmente Sword include 3 tipi di moduli: Bibbie, lessici e
+commentari. Devi decidere quale directory sarà quella di Sword,
+per poterci installare i moduli. Se hai installato le librerie
+e i file include in una directory a parte, usa quella (p.e.
+<filename>/usr/local/sword/</filename>). Se invece li hai installati in
+una directory condivisa, come <filename>/usr/local/</filename>, allora
+scegliene un'altra per i moduli di Sword. </para> </section>
+
+<section id="inst_sources_sword_modules_upack">
+<title>Aprite il pacchetto scaricato</title>
+<para>
+Per prima cosa devi scompattare il pacchetto scaricato. Sulla pagina di
+scaricamento di Sword puoi scegliere tra pacchetti Windows o RAW. Se
+hai una macchina "solo Linux" allora scegli i pacchetti RAW. Se però ti
+capita di scaricare un pacchetto Windows prova ad estrarre i file con
+WINE. Può darsi che occorra cambiare il nome del file "_INSTALL.1" in
+"_install.1" per far funzionare il setup. </para> </section>
+
+<section id="inst_sources_sword_modules_intig"> <title>Integrare i
+moduli</title>
+<para>
+Crea la directory <filename>mods.d</filename> dentro la directory
+Sword. Copia il file <filename>[nome_del_modulo].conf</filename> nella
+directory <filename>mods.d</filename>. Il <filename>.conf</filename>
+file è normalmente tra i file estratti. Poi spostate tutta la directory
+"modules",la quale contiene i vostri file di dati del modulo, nella
+directory Sword. Nell'esempio <filename>/usr/local/sword</filename> è la
+directory Sword.
+</para>
+<para>
+La struttura della directory è questa:
+</para> <screen> /usr/local/sword/ -|- mods.d/ -|- module_1_name.conf |
+|- module_2_name.conf
+                   |
+                   |- texts/rawtext/ -|-module_1_name/files
+                                      |-module_2_name/files
+</screen>
+</section>
+
+<section id="inst_sources_sword_modules_config">
+<title>Il file di configurazione di Sword</title>
+<para>
+Un'applicazione basata su Sword deve sapere dove si trovano i moduli.
+Per questo hai bisogno di un piccolo file di configurazione in 
+<filename>/etc</filename>. Crea il file <filename>/etc/sword.conf</filename>.
+Nel file ci devono essere soltanto le due linee seguenti: </para>
+<screen>
+[Install]
+DataPath=/usr/local/sword
+</screen>
+<para>Se scegli un luogo diverso da <filename>/usr/local/sword</filename>
+nell'esempio sopra per la tua directory Sword indica come DataPath la 
+directory scelta.</para>
+<para>Adesso avviate BibleTime e apprezzate ;-)
+Se hai problemi con l'installazione dei moduli leggi per favore la pagina
+"FAQ". Se non c'è una soluzione per il tuo problema, consulta per favore 
+la pagina "Contact" per ottenere aiuto.</para>
+</section>
+</section>
+</section>
+
+<section id="inst_sources_bibletime">
+<title>Installazione dei sorgenti BibleTime</title>
+<para>
+Prima devi scompattare il file tar.gz scaricato (se usate la versione CVS
+i sorgenti saranno già estratte perciò ignora questo passo) in una
+directory temporanea. Fai qualcosa come: </para> <screen>
+mkdir /tmp
+cd /tmp
+tar -xzf bibletime.tar.gz
+cd /tmp/bibletime
+</screen>
+<para>
+(il file tar sarà estratto in una directory con un nome simile a bibletime)
+</para>
+<para>
+Adesso apri un terminale ed esegui i seguenti commandi per compilare i
+sorgenti.
+</para>
+<screen>
+$ cd /tmp/bibletime         # Path del sorgente
+$ export QTDIR=/usr/lib/qt2 # directory QT 2.2.x (dove QT 2.2 o ulteriore è installato)
+$ export KDEDIR=/usr/local/kde2    # directory KDE2 (dove KDE2 è installato)
+$ make -f Makefile.cvs             # necessario soltanto per la versione CVS
+$ ./configure                      # crea il makefile
+$ make                             # compila BibleTime
+$ su
+$ password *****
+$ make install                     # installa BibleTime
+</screen>
+<para>Il Path a QTDIR e KDE2 può essere diverso nel tuo computer.</para>
+<para>Adesso apri un terminale (come utente normale) e scrivi bibletime.
+BibleTime si avvierà. </para>
+
+</section>
+<section id="inst_sources_compiler_notes">
+<title>Note sulla compilazione</title>
+<para>
+Il tempo necessario per compilare bibletime dipende dalla velocità del 
+tuo sistema e dalla RAM installata. Se avete un sistema con molta RAM
+la compilazione può essere accelerata usando il parametro -j2 di make.
+-j permette a make di inviare due lavori simultanei.
+</para>
+<para>Se avete un computer con poca RAM e un processore lento il miglior modo
+per accelerare la compilazione è di uscire da X e compilare partendo da un
+terminale. Su un AMD 133 con 32MB RAM questa procedura diminuisce il tempo
+di compilazione di alcune ore.</para>
+</section>
+</chapter>

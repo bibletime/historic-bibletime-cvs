@@ -1,0 +1,216 @@
+<chapter id="help_first_startup">
+<title>Primo avvio</title>
+
+<table>
+<title>
+
+Il primo avvio di BibleTime!  Questa tabella descrive le
+caratteristiche di BibleTime!
+
+</title>
+<tgroup cols="2">
+<thead>
+<row>
+<entry>
+<emphasis>
+Caratteristica
+</emphasis>
+</entry>
+<entry>
+<emphasis>
+Descrizione
+</emphasis>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<emphasis>
+
+MDI
+
+</emphasis>
+</entry>
+<entry>
+
+MDI è una abbreviazione per <emphasis>Multiple Document
+Interface.</emphasis> Con l'aiuto di MDI è possibile che più di un
+visualizzatore sia aperto simultaneamente. Puoi vedere due diverse
+bibbie l'una accanto al'altra e confrontarne il testo. È anche
+possibile aprire soltanto una finestra come in BibleTime 0.2x. Il menu
+<emphasis>finestra</emphasis> viene usato per lavorare con
+l'interfaccia MDI.
+
+L'area MDI conterrà soltanto visualizzatori, nient'altro. Questa
+semplice presentazione evita di confondere gli utenti con troppe
+possibilità di scelta.
+
+</entry>
+</row>
+<row>
+<entry>
+<emphasis>
+Finestra di visualizzazione
+</emphasis>
+</entry>
+<entry>
+
+Una finestra di visualizzazione è una finestra all'interno dell'area
+MDI di BibleTime. La finestra di visualizzazione mette a disposizione
+il contenuto di un documento (modulo SWORD) in un formato appropriato
+(per esempio: Le bibbie saranno mostrate in testo HTML con hyperlink
+ai riferimenti dei versetti). Useremo le finestre di visualizzazione
+come approccio generale per il futuro.  Crosswire amplierà SWORD man
+mano che il materiale disponibile per la distribuzione
+aumenterà. Quando verranno creati nuovi tipi di moduli per Sword
+creeremmo semplicemente nuovi tipi di finestra di visualizzazione.
+Questo fa sì che BibleTime sia espandibile ed in grado di mostrare
+qualsiasi tipo di modulo ideabile in futuro (per esempio: mappe,
+suoni, ecc.).
+
+</entry>
+</row>
+<row>
+<entry>
+<emphasis>
+Indice principale
+</emphasis>
+</entry>
+<entry>
+
+L'indice principale è l'albero nella parte sinistra della finestra di 
+BibleTime. L'indice principale combina la gestione dei segnalibri e la
+gestione dei moduli di BibleTime 0.2x. Per poter lavorare con l'indice
+principale usa il menu contestuale, col tasto destro del mouse.
+
+Nell'indice principale puoi usare il di Drag 'n' Drop: puoi trascinare
+riferimenti di versetti da un documento aperto o da una finestra di
+ricerca nell'indice principale per creare un segnalibro e puoi mouvere
+elementi nell'albero (per esempo: muovere segnalibri o gruppi di
+segnalibri in un altro gruppo).
+
+</entry>
+</row>
+<row>
+<entry>
+<emphasis>
+Interfaccia di ricerca
+</emphasis>
+</entry>
+<entry>
+
+Lo strumento di ricerca possiede ora una finestra di dialogo
+propria. Clicca con il tasto destro del mouse su un modulo e scegli
+"Cerca nei moduli" per aprire una finestra di ricerca, che contiene le
+sezioni per inserire la frase da ricercare, per selezionare
+l'intervallo della ricerca e per navigare negli risultati. L'ultimo
+elemento mostra l'analisi grafica della ricerca.
+
+</entry>
+</row>
+<row>
+<entry>
+<emphasis>
+Drag 'n' Drop
+</emphasis>
+</entry>
+<entry>
+
+Drag & Drop è una funzione importante in BibleTime! Puoi trascinare
+documenti, riferimenti di versetti, segnalibri, gruppi di documenti,
+risultati di ricerche, ecc. I luogi dove mettere gli elementi
+trascinati sono: L'indice principale, la finestra dei documenti,
+l'editor dei commenti.
+
+Divertitevi un po' a individuare come funzione il nostro sistema Drag
+& Drop! Speriamo che vi piaccia.
+
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>
+
+Ecco una breve lista con alcuni URL utili contenti ulteriori
+informazioni su BibleTime!
+
+</title>
+<tgroup cols="2">
+<thead>
+<row>
+<entry>
+<emphasis>
+
+URL
+
+</emphasis>
+</entry>
+<entry>
+<emphasis>
+
+Descrizione
+
+</emphasis>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<emphasis>
+<ulink url="http://www.bibletime.de/">www.bibletime.de</ulink>
+</emphasis>
+</entry>
+
+<entry>
+
+Questa è la homepage di BibleTime! Cercate in questa pagina per
+leggere la documentazione. Non dimenticate di leggere le FAQ su <ulink
+url="http://www.bibletime.de">www.bibletime.de</ulink>, ci sono
+risposte a domande che probabilmente vi porrete.
+
+</entry>
+</row>
+
+<row>
+<entry>
+<emphasis>
+
+<ulink url="http://www.crosswire.org</emphasis>/">www.crosswire.org</ulink>
+</emphasis>
+</entry>
+<entry>
+
+Questo è la home page di Crosswire. Crosswire è la società biblica che
+mette a disposizione la libreria dei moduli con testi biblici, e il
+programma di gestione della libreria SWORD. Potete scaricare i moduli
+dei testi biblici da questa pagina. La maggior parte dei moduli
+disponibili da Crosswire sono di pubblico dominio o sono stati dati a
+Crosswire dai detenitori del copyright per la distribuzione. I moduli
+che non possono essere distribuiti liberamente sono bloccati. Per
+favore consultate su <ulink url="module_encrypted.html">la guida sui
+moduli bloccati</ulink> prima di scaricarne.
+
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</chapter>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,104 @@
+<chapter ID="hdbk_intro"><title>Introduzione</title>
+<para>
+Bibletime è uno strumento potente per lo studio della Bibbia scritto
+per KDE sul sistema operativo Linux. E' basato su <ulink
+url="http://www.crosswire.org">Sword</ulink>, una libreria che fornisce
+funzioni back-end per Bibletime, come visualizzare il testo della Bibbia,  ricerca, segnalibri, ecc.
+Sword è il prodotto più importante della <ulink
+url="http://www.crosswire.org">Crosswire Bible Society</ulink>. </para>
+
+<para>
+Esisono tre tipi di moduli visualizzabili:
+</para
+
+<para>
+<variablelist>
+<varlistentry>
+<term>Bibbie</term>
+<listitem>
+<para>
+Il testo completo, con numeri di Strong e note a pie' di pagina opzionali.
+</para>
+</listitem> </varlistentry>
+
+<varlistentry>
+<term>Commentari</term>
+<listitem>
+<para>
+Con un commentario <quote>personale</quote> puoi registrare le tue note personali
+a diverse parti della Bibbia.
+</para> </listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Lessici</term>
+<listitem>
+<para>
+Per la definizione delle parole e gli argomenti biblici. Puoi scegliere una voce in una lista
+visualizzata. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<sect1 ID="hdbk_intro_changes"><title>Modifiche</title>
+<para>
+Per favore, leggi il file Changelog del pacchetto sorgente se sei
+interessato ai dettagli sui cambiamenti. </para>
+
+<para>Una lista delle funzionalità incluse nel pacchetto corrente si possono trovare
+nei sorgenti presso il
+<ulink
+url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog">
+log CVS di <filename>bibletime/bibletime/ChangeLog</filename></ulink></para>
+</sect1>
+
+<sect1 ID="hdbk_intro_ToDo"><title>Da Fare</title>
+<para>
+Molto!
+</para>
+<para>
+Abbiamo molto da fare. Pioché siamo un team di sviluppatori molto piccolo,
+è molto difficile ottenere risultati apprezzabili in tempi brevi. Se desideri
+aiutarci, per favore contattaci alla
+<ulink url="http://sourceforge.net/pm/?group_id=954">Sourceforge bibletime
+home page</ulink>.
+Puoi trovare informazioni su <ulink
+url="http://www.bibletime.de">.</ulink></para>
+
+<para>Il progetto BibleTime necessita di programmatori/sviluppatori, recensori,
+tester e templari. Se puoi esserci d'aiuto in una di queste cose o te ne viene in mente un'altra,
+unisciti a noi.
+Senza il tuo aiuto, lo sviluppo di BibleTime procederà mooooolto lentamente e ci vorrà parecchio
+prima di ottenere uno strumento di studio biblico completo e funzionale.
+</para> </sect1>
+
+<sect1 ID="hdbk_intro_motivation"><title>Motivazione</title>
+<para>
+Il nostro desiderio è servire Dio, e di fare la nostra parte per aiutare gli altri
+nella maturazione del rapporto con Lui. Abbiamo scoperto una mancanza, la totale assenza
+di software semplice da usare per lo studio della Bibbia nei computer basati su Linux.
+Abbiamo sviluppato BibleTime per riempire questo vuoto.
+Ci siamo sforzati di renderlo un programma di qualità, potente, e nel contempo mantenerlo
+semplice e intuitivo da usare. E' nostro desiderio che Dio sia lodato, poiché Egli è
+la sorgente di tutto ciò che è bene.
+</para>
+<screen>
+<quote>
+Ogni cosa buona e ogni dono perfetto vengono dall' alto e discendono dal
+Padre degli astri luminosi presso il quale non c' è variazione né ombra di
+mutamento.
+</quote>
+-Giacomo 1:17, NASB
+</screen>
+<para>
+Dio ti benedica mentre usi questo programma, e possa Egli essere glorificato
+dal lavoro delle nostre mani!
+</para>
+
+</sect1>
+
+</chapter>
+
+

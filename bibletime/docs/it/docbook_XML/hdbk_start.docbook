@@ -1,0 +1,81 @@
+<chapter ID="hdbk_term"><title>Avvio di Bibletime</title>
+<para>
+Bibletime è un programma per KDE ed è integrato nel suo desktop, dove
+dovresti trovare un'icona per l'avvio.
+<graphic fileref="common/hdbk_start_bticon.png" format="png"></graphic>
+</para>
+<para>
+Bibletime può essere eseguito all'interno di altri window manager
+(come Gnome), a condizione che KDE sia installato. In questo caso,
+dovreste aggiungere l'icona per l'avvio a mano. Consultate la guida
+del window manager per questo.
+</para>
+<para>
+Bibletime può anche essere lanciato dalla linea di comando di un
+terminale.
+Per farlo, aprine uno (qualunque terminale per X) e digita
+<command>bibletime</command>.
+</para>
+<section ID="hdbk_start_sequence"><title>Sequenza di avvio</title>
+<para>
+All'avvio di Bibletime puoi vedere una di queste schermate:</para>
+<itemizedlist>
+<listitem><para>Nessun Modulo Installato - Questo succede se hai
+dimenticato di installare i moduli di sword, o se questi non possono
+essere trovati.
+<link linkend="help_no_modules">
+Clicca qui per vedere la schermata di aiuto su Nessun Modulo Installato</link>
+</para></listitem>
+<listitem><para>Primo Avvio - Si vede la prima volta che si avvia BibleTime.
+<link linkend="help_first_startup">
+Clicca qui per vedere la schermata di aiuto sil Primo Avvio</link>
+</para></listitem>
+<listitem><para>Suggerimenti del Giorno - Sono mostrati ad ogni avvio,
+a meno che non li disattivi.
+<graphic fileref="common/hdbk_start_sequence_tips.png" format="png"></graphic>
+</para></listitem>
+</itemizedlist>
+
+</section>
+<section ID="hdbk_start_screen"><title>Parti della schermata di Bibletime</title>
+<para>
+Apparirà ora la schermata principale di Bibletime.  Le sue
+funzionalità sono descritte nel prossimo capitolo.
+</para>
+<screenshot>
+<screeninfo>La Finestra di Bibletime</screeninfo>
+<graphic fileref="common/hdbk_start_screen_terms.png" format="png"></graphic>
+</screenshot>
+</section>
+</chapter>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

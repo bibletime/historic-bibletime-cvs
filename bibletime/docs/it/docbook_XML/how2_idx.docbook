@@ -1,0 +1,68 @@
+<book lang="IT" ID="h2_idx">
+
+<bookinfo>
+<title>HowTo sullo studio della Bibbia</title>
+
+<copyright>
+<year>2001</year>
+<holder>
+Bob Harman
+</holder>
+</copyright>
+
+<legalnotice>
+<para>
+Il copyright di questo testo è dell'autore Bob Harman. Il testo è stato
+adattato per la pubblicazione con BibleTime da Fred Saalbach. </para>
+
+<para> Non exclusive serial rights for this distribution of this
+document with the Bibletime Software have been made. Redistribution as
+part of the Bibletime software without modification and limited
+reproduction as provided by the "fair use" provisions of the US
+copyright code are also permitted.</para>
+
+<para> For questions regarding the use of this material contact Bob
+Harman c/o New Covenant Church 1079 Big Bethel Rd. Hampton VA 23666
+USA <email>N_Cov_Church@compuserve.com</email></para>
+
+<para>I testi citati dalla Bibbia sono presi dal testo ufficale della CEI
+</para>
+</legalnotice>
+
+<authorgroup>
+<author>
+<firstname>Bob</firstname>
+<surname>Harman</surname>
+</author>
+
+</authorgroup>
+
+<date>15 aprile 2001</date>
+<releaseinfo>1.0</releaseinfo>
+
+<abstract>
+<title>Abstract</title>
+<para>
+L'<application>HowTo sullo studio della bibbia</application> è una guida
+per lo studio della Bibbia.</para>
+<para>Il team di BibleTime spera che questo HowTo guidi i lettori allo
+studio delle scritture per comprendere cosa dicono. Questa guida, in particolare, è stata scelta perché non spinge una particolare dottrina. Speriamo che
+tu legga e studi le scritture per capirne il senso. Se iniziate
+con l'intenzione che Dio semini la sua parola nel tuo cuore non ti
+deluderà.</para></abstract>
+
+<keywordset>
+<keyword>Bible</keyword>
+<keyword>Study</keyword>
+<keyword>HowTo</keyword>
+</keywordset>
+
+</bookinfo>
+
+&how2_chap1;
+&how2_chap2;
+&how2_chap3;
+
+
+</book>
+
