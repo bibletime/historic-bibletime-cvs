@@ -46,7 +46,7 @@
 CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, const char* name ) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, readWindow)),readWindow,name), CReadDisplay(readWindow) {
 	qWarning("constructor of CHTMLReadDisplay");
   setDNDEnabled(false);
-
+  m_view->setDragAutoScroll(false);
 }
 
 CHTMLReadDisplay::~CHTMLReadDisplay(){
@@ -156,10 +156,9 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
     QString key;
     CReferenceManager::Type type;
     const bool ok = CReferenceManager::decodeHyperlink(url, module, key, type);
-
-    if (module.isEmpty()) {
+    if (module.isEmpty())
       module = CReferenceManager::preferredModule( type );
-    }
+
 		connectionsProxy()->emitReferenceClicked(module, key);
   }
 }
@@ -175,6 +174,8 @@ void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )
 }
 
 void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
+	KHTMLPart::khtmlMousePressEvent(event);
+
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
   m_dndData.mousePressed = false;
@@ -193,13 +194,11 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
       m_dndData.dragType = DNDData::Link;
     }
   }
-
-	KHTMLPart::khtmlMousePressEvent(event);
 }
 
 /** Reimplementation for our drag&drop system. */
 void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
-  if( !(e->qmouseEvent()->state() && LeftButton)) {
+  if( !(e->qmouseEvent()->state() && LeftButton)) { //left mouse button not pressed
     KHTMLPart::khtmlMouseMoveEvent(e);
     return;
   }
@@ -207,10 +206,8 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
   const int delay = KGlobalSettings::dndEventDelay();
   QPoint newPos = QPoint(e->x(), e->y());
 
-  if (m_dndData.anchor.isEmpty()) {
-    KHTMLPart::khtmlMouseMoveEvent(e);
-  }
-  else if((newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < m_dndData.startPos.x()-delay ||
+  if(!m_dndData.anchor.isEmpty() &&
+     (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < m_dndData.startPos.x()-delay ||
      newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < m_dndData.startPos.y()-delay) &&
      !m_dndData.isDragging && m_dndData.mousePressed && m_dndData.dragType == DNDData::Link &&
      !m_dndData.node.isNull() /*&& !hasSelection()*/ )
@@ -229,6 +226,8 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
     d->drag();
     return;
   }
+
+  KHTMLPart::khtmlMouseMoveEvent(e);
 }
 /* -------------------------- */
 CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : QToolTip(view) {
@@ -237,11 +236,7 @@ CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : QToolTip(vi
 
 /** Decides whether a tooltip should be shown. */
 void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
-//	qWarning("CHTMLReadDisplayView::ToolTip::maybeTip");
-
   DOM::Node node = m_view->part()->nodeUnderMouse();
-//  qWarning("node under mouse: %s", node.nodeName().string().latin1());
-
   if (node.isNull())
   	return;
 
@@ -254,7 +249,6 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
         for (unsigned int i = 0; i < attributes.length(); i++) {
           if (attributes.item(i).nodeName().string().upper() == "HREF") {
             link = attributes.item(i).nodeValue().string();
-//            qWarning("link is %s", link.latin1());
             break;
           }
         }
@@ -262,8 +256,6 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
         const QString tooltipText = CTooltipManager::textForHyperlink( link );
         if (!tooltipText.isEmpty()) {
           QRect rect = linkNode.getRect();
-//            rect.setX( m_view->contentsToViewport(p).x() );
-//            rect.setY( m_view->contentsToViewport(p).y() );
           rect.setX( p.x() );
           rect.setY( p.y() );
           rect.setWidth( linkNode.getRect().width() );
@@ -271,42 +263,6 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
 
 	        tip( rect, tooltipText );
         }
-
-//        QString module = QString::null;
-//        QString ref = QString::null;
-//        CReferenceManager::Type type;
-//        const bool ok = CReferenceManager::decodeHyperlink(link, module, ref, type);
-//        qWarning("decoded hyperlink!");
-//        if (!ok || ref.isEmpty())
-//          return;
-//
-//        CSwordModuleInfo* m = 0;
-//        if (module.isEmpty()) {
-//          module = CReferenceManager::preferredModule( type );
-//        }
-//
-//        if (( m = backend()->findModuleByName(module) )) {
-////        if (m->type() == CSwordModuleInfo::Bible || m->type() == CSwordModuleInfo::Commentary) {
-////          if (CSwordModuleInfo* module = m_view->modules().first()) {
-////            ref = CReferenceManager::parseVerseReference(ref);
-////          }
-////        }
-//          util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance( m ) );
-//          if (key) {
-//            backend()->setFilterOptions( CBTConfig::getFilterOptionDefaults() );
-//            key->key(ref);
-//
-//            QRect rect = linkNode.getRect();
-////            rect.setX( m_view->contentsToViewport(p).x() );
-////            rect.setY( m_view->contentsToViewport(p).y() );
-//            rect.setX( p.x() );
-//            rect.setY( p.y() );
-//            rect.setWidth( linkNode.getRect().width() );
-//            rect.setHeight( linkNode.getRect().height() );
-//
-//            qWarning("rect is %i / %i / %i / %i", rect.x(), rect.y(), rect.width(), rect.height());
-//          }
-//        }
         break;
       }
     }
@@ -318,6 +274,7 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
 CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWidget* parent) : KHTMLView(displayWidget, parent) {
   m_display = displayWidget;
   viewport()->setAcceptDrops(true);
+
 };
 
 
