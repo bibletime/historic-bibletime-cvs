@@ -276,6 +276,6 @@ CInfoDisplay::CrossRefRendering::CrossRefRendering( CSwordBackend::DisplayOption
  
 const QString CInfoDisplay::CrossRefRendering::finishText( const QString& text, KeyTree& ) {
 
-	qWarning(text.latin1());
+//	qWarning(text.latin1());
 	return text;
 }

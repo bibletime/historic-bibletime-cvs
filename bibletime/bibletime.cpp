@@ -27,6 +27,7 @@
 #include "frontend/displaywindow/creadwindow.h"
 #include "frontend/displaywindow/cwritewindow.h"
 #include "frontend/keychooser/ckeychooser.h"
+#include "frontend/printing/cprinter.h"
 #include "frontend/cbtconfig.h"
 
 #include "util/ctoolclass.h"
@@ -41,8 +42,6 @@
 #include "backend/cswordversekey.h"
 #include "backend/cswordldkey.h"
 
-//printing includes
-#include "printing/cprinter.h"
 
 //Qt includes
 #include <qsplitter.h>

@@ -33,6 +33,7 @@ sub extract_data {
 	while( <IN> ) {
 		my $line = $_;
 		chomp($line);
+		$line .= " ";
 		
 		
 		$line =~ s/"/\\"/g;

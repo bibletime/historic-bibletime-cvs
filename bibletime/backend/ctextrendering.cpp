@@ -29,6 +29,7 @@
 
 //KDE includes
 #include <klocale.h>
+#include <kurl.h>
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo const * mod, const Settings settings ) 
 	: m_settings( settings ),
@@ -49,11 +50,20 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, const ListCSwordMod
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem()
-	: m_key(QString::null),
+	:	m_moduleList(),
+		m_key(QString::null),
 		m_childList( 0 )
 {
 }
 
+CTextRendering::KeyTreeItem::KeyTreeItem(const KeyTreeItem& i) {
+	m_childList = new KeyTree();
+	*m_childList = *(i.childList());
+	
+	m_key = i.key();
+	m_moduleList = i.m_moduleList;
+	m_settings = i.m_settings;
+}
 
 CTextRendering::KeyTreeItem::~KeyTreeItem() {
 	delete m_childList;
@@ -159,7 +169,10 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 }
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
+// 	qWarning("rendering for %s", i.key().latin1());
+
 	ListCSwordModuleInfo modules = i.modules();	
+	Q_ASSERT(modules.count() > 0);
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   
 	QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
@@ -185,8 +198,12 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
 		entry = QString::null;
 
 		langAttr = (m->language()->isValid())
-			? QString::fromLatin1("lang=\"%1\"").arg(m->language()->abbrev()) 
-			: QString::fromLatin1("lang=\"%1\"").arg(m->module()->Lang());
+			? QString::fromLatin1("xml:lang=\"%1\" lang=\"%2\"")
+				.arg(m->language()->abbrev())//twice the same
+				.arg(m->language()->abbrev()) 
+			: QString::fromLatin1("xml:lang=\"%1\" lang=\"%2\"")
+				.arg(m->module()->Lang()) //again twice times the same
+				.arg(m->module()->Lang());
 		
 		const QString key_renderedText = key->renderedText();
 		int pvHeading = 0;
@@ -214,19 +231,20 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			.arg(langAttr)
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
 
-		entry += QString::fromLatin1("<span dir=\"%1\" class=\"entryname\">%2</span>")
-			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
+		//entry += QString::fromLatin1("<span dir=\"%1\" class=\"entryname\">%2</span>")
+		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%2</span>") //keys should normally be left-to-right, but this doesn't apply in all cases
 			.arg(m_displayOptions.verseNumbers 
 				? entryLink(i, m)
 				: QString::null
 			);
 		
 		if (m_settings.addText) {
-			entry += key_renderedText; //key->renderedText();
+			entry += key_renderedText;
 		}
 		
-		if (i.childList()) {
+		if (i.childList() && (i.childList()->count() > 0)) {
 			KeyTree const * tree = i.childList();
+			
 			for ( KeyTree::const_iterator it = tree->begin(); it != tree->end(); ++it ) {
 				entry += renderEntry( *it );
 			}
@@ -304,15 +322,17 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 	}
 	
   if (linkText.isEmpty()) {
-    return QString::fromLatin1("<a name=\"%1\"/>").arg(item.key());
+    return QString::fromLatin1("<a id=\"%1\" />").arg(item.key());
   }
   else {
-    return QString::fromLatin1("<a name=\"%1\" href=\"%2\">%3</a>")
+    return QString::fromLatin1("<a id=\"%1\" href=\"%2\">%3</a>")
       .arg(item.key())
       .arg(
-				CReferenceManager::encodeHyperlink(module->name(), 
-				item.key(), 
-				CReferenceManager::typeFromModule(module->type()) )
+				CReferenceManager::encodeHyperlink(
+					module->name(), 
+					item.key(), 
+					CReferenceManager::typeFromModule(module->type())
+				)
 			)
       .arg(linkText);
   }
@@ -383,7 +403,7 @@ const QString CPlainTextExportRendering::renderEntry( const KeyTreeItem& i ) {
 		
 	ListCSwordModuleInfo modules = i.modules();	
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
-	QString renderedText = QString("%1:\n").arg(i.key());
+	QString renderedText = QString::fromLatin1("%1:\n").arg(i.key());
 		
   QString entry;
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {

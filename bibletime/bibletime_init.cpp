@@ -29,7 +29,7 @@
 
 #include "backend/clanguagemgr.h"
 
-#include "printing/cprinter.h"
+#include "frontend/printing/cprinter.h"
 
 #include "config.h"
 #include "frontend/cbtconfig.h"
@@ -91,31 +91,31 @@ void BibleTime::initActions() {
 	KStartupLogo::setStatusMessage(i18n("Initializing menu- and toolbars") + QString::fromLatin1("..."));
 	KAction* action = 0;
 
-	m_fileClearQueue_action = new KAction(i18n("Clear print queue"),
-    CResMgr::mainMenu::file::clearQueue::icon,
-    CResMgr::mainMenu::file::clearQueue::accel,
-    m_printer, SLOT(clearQueue()), actionCollection(),
-    CResMgr::mainMenu::file::clearQueue::actionName
-  );
-	m_fileClearQueue_action->setEnabled(false);
-	m_fileClearQueue_action->setToolTip( CResMgr::mainMenu::file::clearQueue::tooltip );
-	m_fileClearQueue_action->setWhatsThis( CResMgr::mainMenu::file::clearQueue::whatsthis );
-  #if KDE_VERSION_MINOR < 1
-  	m_fileClearQueue_action->plugAccel( accel() );
-  #endif
+// 	m_fileClearQueue_action = new KAction(i18n("Clear print queue"),
+//     CResMgr::mainMenu::file::clearQueue::icon,
+//     CResMgr::mainMenu::file::clearQueue::accel,
+//     m_printer, SLOT(clearQueue()), actionCollection(),
+//     CResMgr::mainMenu::file::clearQueue::actionName
+//   );
+// 	m_fileClearQueue_action->setEnabled(false);
+// 	m_fileClearQueue_action->setToolTip( CResMgr::mainMenu::file::clearQueue::tooltip );
+// 	m_fileClearQueue_action->setWhatsThis( CResMgr::mainMenu::file::clearQueue::whatsthis );
+//   #if KDE_VERSION_MINOR < 1
+//   	m_fileClearQueue_action->plugAccel( accel() );
+//   #endif
 
 
   //work around KDE 3.1 error messages
 //	if ( KAction* oldAction = actionCollection()->action(KStdAction::stdName(KStdAction::Print)) ) {
 //		actionCollection()->remove( oldAction );
 //  }
-  m_filePrint_action = KStdAction::print(this, SLOT( slotFilePrint() ), actionCollection());
-	m_filePrint_action->setEnabled(false);
-	m_filePrint_action->setToolTip( CResMgr::mainMenu::file::print::tooltip );
-	m_filePrint_action->setWhatsThis( CResMgr::mainMenu::file::print::whatsthis );
-  #if KDE_VERSION_MINOR < 1
-  	m_filePrint_action->plugAccel( accel() );
-  #endif
+//   m_filePrint_action = KStdAction::print(this, SLOT( slotFilePrint() ), actionCollection());
+// 	m_filePrint_action->setEnabled(false);
+// 	m_filePrint_action->setToolTip( CResMgr::mainMenu::file::print::tooltip );
+// 	m_filePrint_action->setWhatsThis( CResMgr::mainMenu::file::print::whatsthis );
+//   #if KDE_VERSION_MINOR < 1
+//   	m_filePrint_action->plugAccel( accel() );
+//   #endif
 
 
 //	if ( KAction* oldAction = actionCollection()->action( KStdAction::stdName( KStdAction::Quit ) ) ) {	 //delete quit action if KDE created it

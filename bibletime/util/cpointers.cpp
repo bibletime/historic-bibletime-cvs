@@ -19,7 +19,7 @@
 
 #include "backend/cswordbackend.h"
 
-#include "printing/cprinter.h"
+#include "frontend/printing/cprinter.h"
 
 CPointers::PointerCache m_pointerCache;
 

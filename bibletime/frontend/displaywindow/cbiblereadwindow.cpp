@@ -45,7 +45,7 @@
 #include <kpopupmenu.h>
 
 CBibleReadWindow::CBibleReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CLexiconReadWindow(moduleList, parent,name) {
-  m_transliterationButton = 0;
+//  m_transliterationButton = 0;
 }
 
 CBibleReadWindow::~CBibleReadWindow(){
@@ -85,10 +85,15 @@ void CBibleReadWindow::storeProfileSettings( CProfileWindow* const settings ) {
 /** Reimplementation. */
 void CBibleReadWindow::insertKeyboardActions( KAccel* const a ){
   a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel,        0, "");
+	
 	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel,    0, "");
+	
 	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel,     0, "");
+	
 	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
+	
 	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel,       0, "");
+	
 	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel,   0, "");
 }
 

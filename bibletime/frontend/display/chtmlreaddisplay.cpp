@@ -154,6 +154,7 @@ void CHTMLReadDisplay::selectAll() {
 
 /** No descriptions */
 void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
+	qWarning("moving to anchor %s", anchor.latin1());
 	gotoAnchor(anchor);
 }
 
@@ -181,7 +182,7 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
 		m_urlWorkaroundData.module = module;
 		m_urlWorkaroundData.key = key;
   }
-  else if (!url.isEmpty() && url.left(1) == "#") { //anchor
+  else if (!url.isEmpty() && (url.left(1) == "#")) { //anchor
     moveToAnchor(url.mid(1));
   }
 }

@@ -199,7 +199,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						}
 					}
 
-          buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">-", refList.c_str());
+          buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">-", 	
+						refList.c_str()
+					);
           myUserData->noteType = BT_UserData::CrossReference;
 					myUserData->suspendTextPassThru = true;
         }

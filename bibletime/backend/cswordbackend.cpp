@@ -249,7 +249,7 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 			}
 			break;
 
-		case transliteration:
+// 		case transliteration:
 //      if (useICU()) {
 //         sword::StringList options = transliterator()->getOptionValues();
 //         
@@ -261,7 +261,7 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 //         value = it->c_str();
 // 				//qWarning("setting transliteration to %s", value.c_str());
 //       }
-      break;
+//       break;
 
 		default:
 			value = state ? "On": "Off";

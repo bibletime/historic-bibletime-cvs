@@ -44,14 +44,15 @@ public:
 		};
 		
 		KeyTreeItem();
+		KeyTreeItem(const KeyTreeItem& i);
 		KeyTreeItem(const QString& key, CSwordModuleInfo const * module, const Settings settings);
 		KeyTreeItem(const QString& key, const ListCSwordModuleInfo& modules, const Settings settings);
-		~KeyTreeItem();
+		virtual ~KeyTreeItem();
 		
 		inline const ListCSwordModuleInfo& modules() const {
 			return m_moduleList;
 		};
-		inline const QString& key() const {
+		virtual inline const QString& key() const {
 			return m_key;
 		};
 		inline const Settings& settings() const {
@@ -60,7 +61,8 @@ public:
 		
 		inline KeyTree* const childList() const;
 
-	private:
+//	private:
+	protected:
 		Settings m_settings;
 		ListCSwordModuleInfo m_moduleList;
 		QString m_key;
@@ -75,9 +77,9 @@ public:
   CTextRendering();
   virtual ~CTextRendering();
 
-	const QString renderKeyTree( KeyTree& );
-	const QString renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo );
-	const QString renderSingleKey( const QString& key, ListCSwordModuleInfo );
+	virtual const QString renderKeyTree( KeyTree& );
+	virtual const QString renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo );
+	virtual const QString renderSingleKey( const QString& key, ListCSwordModuleInfo );
 	
 protected:
 	virtual const QString renderEntry( const KeyTreeItem& ) = 0;

@@ -15,13 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
-//BibleTime includes
-#include "backend/clanguagemgr.h"
-
-
 #ifndef CPOINTERS_H
 #define CPOINTERS_H
 
+//BibleTime includes
+#include "backend/clanguagemgr.h"
 
 class CSwordBackend;
 class CPrinter;

@@ -54,14 +54,24 @@ a:hover {
 	padding:2px;
 	text-align:justify;
 }
+.entry[dir=rtl] {
+	padding:2px;
+	text-align:right;
+}
+
 div.entry, td.entry {
-	vertical-align:top;
+	vertical-align:top;	
 }
 
 .currententry {
 	padding:3px;
 	vertical-align:top;
 	text-align:justify;
+}
+.currententry[dir=rtl] {
+	padding:3px;
+	vertical-align:top;
+	text-align:right;
 }
 div.currententry {
 }
@@ -97,9 +107,13 @@ td.entry + td.entry {
 .entryname {
 	padding:0 2px;
 }
-.entryname a  {
+.entryname a, #printer .entryname  {
 	font-size:70%;
 	vertical-align:top;
+}
+
+#printer .entry .entry {
+	margin-left:15px;
 }
 
 .footnotepre {
@@ -246,13 +260,13 @@ td.entry + td.entry {
 }
 
 /*Required for cross references*/
-#infodisplay  .entry {
+#infodisplay .entry {
 	padding:1px;
 	text-align:justify;
 	font-size:0.8em;
 	margin-bottom:10px;
 }
-#infodisplay  .entryname {
+#infodisplay .entryname {
 	padding:2px;
 	text-align:left;
 	padding-right:5px;
@@ -260,16 +274,13 @@ td.entry + td.entry {
 	font-size:1.1em;
 }
 
-
-
 #LANG_CSS#
+
 	/* ]]> */
 	</style>
 </head>
 
 <body id="#DISPLAYTYPE#">
-	<div id="content" lang="#LANG_ABBREV#">
-		#CONTENT#
-	</div>
+	<div id="content" lang="#LANG_ABBREV#" xml:lang="#LANG_ABBREV#">#CONTENT#</div>
 </body>
 </html>

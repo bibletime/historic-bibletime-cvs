@@ -25,8 +25,9 @@
 #include "backend/cdisplaytemplatemgr.h"
 #include "backend/ctextrendering.h"
 
-#include "printing/cprintitem.h"
-#include "printing/cprinter.h"
+/*#include "printing/cprintitem.h"*/
+#include "frontend/printing/cprinter.h"
+// #include "printing/cprintrendering.h"
 
 #include "util/ctoolclass.h"
 #include "util/scoped_resource.h"
@@ -72,7 +73,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 	CHTMLExportRendering::Settings settings(addText);
 	util::scoped_ptr<CTextRendering> render(
 		(format == HTML)
-		? new CHTMLExportRendering(settings, m_displayOptions, m_filterOptions) 
+ 		? new CHTMLExportRendering(settings, m_displayOptions, m_filterOptions) 
 		: new CPlainTextExportRendering(settings, m_displayOptions, m_filterOptions)
 	);
 
@@ -282,68 +283,59 @@ const bool CExportManager::copyKeyList(QPtrList<CSwordKey>& list, const Format f
 };
 
 const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* module) {
-  setProgressRange(list->Count()+1);
-	QPtrList<CPrintItem> itemList;
+	CPrinter::Item::Settings settings;	
+	CPrinter::KeyTree tree;
+	
 	QString startKey, stopKey;
 
 	(*list) = sword::TOP;
-	while (!list->Error() && !progressWasCancelled()) {
+	while (!list->Error()) {
 		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(list);
 		if (vk) {
 			startKey = QString::fromUtf8((const char*)(vk->LowerBound()) );
 			stopKey = QString::fromUtf8((const char*)(vk->UpperBound()) );
+			tree.append( CPrinter::Item(startKey, stopKey, module, settings) );
 		}
 		else {
 			startKey = QString::fromUtf8((const char*)*list);
-			stopKey = QString::null;
-		//add all items to the queue
+			tree.append( CPrinter::Item(startKey, module, settings) );
 	  }
-    itemList.append( new CPrintItem(module, startKey, stopKey, QString::null, m_displayOptions, m_filterOptions) );
-    incProgress();    
+		
 		(*list)++;
 	}
 
-	//add all items to the queue
-	if (progressWasCancelled()) {
-		itemList.setAutoDelete(true);
-		itemList.clear();//delete all items
-		return false;
-	}
-
-  printer()->appendItems(itemList);
-  closeProgressDialog();    //close the dialog
+	
+	printer()->printKeyTree(tree);
 	return true;
 };
 
-const bool CExportManager::printKeyList( const PrintItemList& list, CSwordModuleInfo* module ){
-  if (!list.count() || !module)
-    return false;
-  setProgressRange(list.count()+1);
-//  KApplication::kApplication()->processEvents(); //do not lock the GUI!
-    
-  PrintItemList::ConstIterator it;
-  for ( it = list.begin(); (it != list.end()) && !progressWasCancelled(); ++it ) {
-    printer()->appendItem( new CPrintItem(module,(*it).first,(*it).second, QString::null, m_displayOptions, m_filterOptions) );
-//  	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
-  }
-  
-  closeProgressDialog(); //to close the dialog
-	return true;
-}
-
 const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){
-	printer()->appendItem( new CPrintItem(module, startKey, stopKey, description, m_displayOptions, m_filterOptions) );
+/*	printer()->appendItem( new CPrintItem(module, startKey, stopKey, description, m_displayOptions, m_filterOptions) );*/
+
+	CPrinter::Item::Settings settings;
+	
+	CPrinter::KeyTree tree;
+	tree += CPrinter::Item(startKey, stopKey, module, settings);
+	
+	printer()->printKeyTree(tree);
 	return true;
 }
 
 const bool CExportManager::printKey( CSwordKey* key, const QString& description ){
-	printer()->appendItem( new CPrintItem(key->module(),key->key(), key->key(), description, m_displayOptions, m_filterOptions) );
+/*	printer()->appendItem( new CPrintItem(key->module(),key->key(), key->key(), description, m_displayOptions, m_filterOptions) );*/
+	
+	CPrinter::Item::Settings settings;
+	
+	CPrinter::KeyTree tree;
+	tree += CPrinter::Item(key->key(), key->module(), settings);
+	
+	printer()->printKeyTree(tree);
 	return true;
 }
 
 /** Prints a key using the hyperlink created by CReferenceManager. */
 const bool CExportManager::printByHyperlink( const QString& hyperlink ){
- 	QString moduleName;
+/* 	QString moduleName;
   QString keyName;
   CReferenceManager::Type type;
 
@@ -370,7 +362,7 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ){
   	else {
 			CExportManager::printKey(module,keyName,keyName);
     }
-	}
+	}*/
   return true;
 }
 

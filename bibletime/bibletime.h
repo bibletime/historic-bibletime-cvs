@@ -339,8 +339,8 @@ private:
 	QPopupMenu* m_editMenu;
 
 	/** FILE menu actions */
-	KAction* m_fileClearQueue_action;
-	KAction* m_filePrint_action;
+// 	KAction* m_fileClearQueue_action;
+// 	KAction* m_filePrint_action;
 
 	/** VIEW menu actions */
 	KToggleAction*	m_viewToolbar_action;

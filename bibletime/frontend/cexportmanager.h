@@ -34,7 +34,7 @@ class CSwordModuleInfo;
 class QProgressDialog;
 
 typedef std::pair<QString, QString> QStringPair;
-typedef QValueList<QStringPair> PrintItemList;
+// typedef QValueList<QStringPair> PrintItemList;
 
 /**Contains the functions to export text to disk, clipboard or printer.
   *@author The BibleTime team
@@ -58,7 +58,7 @@ public:
   const bool printKey(CSwordKey* key, const QString& description = QString::null);
   const bool printByHyperlink(const QString& hyperlink);  
   const bool printKeyList(sword::ListKey* list, CSwordModuleInfo* module);
-  const bool printKeyList(const PrintItemList& list,CSwordModuleInfo* module);  
+//   const bool printKeyList(const PrintItemList& list,CSwordModuleInfo* module);  
   const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null );
 
 protected: // Protected methods

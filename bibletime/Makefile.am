@@ -6,7 +6,7 @@ bibletimeapp.cpp \
 main.cpp
 
 bibletime_LDADD   = \
-./printing/libprinting.a \
+./frontend/printing/libprinting.a \
 ./frontend/displaywindow/libdisplaywindow.a \
 ./frontend/display/libdisplay.a \
 ./frontend/keychooser/libkeychooser.a \
@@ -26,7 +26,7 @@ $(LIB_X11) \
 $(LIB_SWORD) \
 $(LIBSOCKET)
 
-SUBDIRS = display-templates backend printing frontend xml pics util
+SUBDIRS = display-templates backend frontend xml pics util
 
 all_headers = bibletime.h bibletimeapp.h
 

@@ -37,7 +37,7 @@
 #include "frontend/displaywindow/cbiblereadwindow.h"
 #include "frontend/searchdialog/csearchdialog.h"
 
-#include "printing/cprinter.h"
+#include "frontend/printing/cprinter.h"
 
 #include <errno.h>
 
@@ -276,43 +276,43 @@ void BibleTime::slotSettingsToolbar(){
 
 /** Opens the print dialog. */
 void BibleTime::slotFilePrint(){
-	m_printer->setup(this);	//opens the printer dialog
+//	m_printer->setup(this);	//opens the printer dialog
 }
 
 /** Enables the "Clear printer queue" action */
 void BibleTime::slotSetPrintingStatus(){
-	const bool enable = (m_printer->queue().count() > 0);
+/*	const bool enable = (m_printer->queue().count() > 0);
 	m_filePrint_action->setEnabled( enable );
-	m_fileClearQueue_action->setEnabled( enable );
+	m_fileClearQueue_action->setEnabled( enable );*/
 }
 
 /** Printing was started */
 void BibleTime::slotPrintingStarted(){
-	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),100,this, "progress", true);
+/*	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),100,this, "progress", true);
 	connect(m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
 	m_progress->setProgress(0);
 	m_progress->setMinimumDuration(0);
   m_progress->setCaption("BibleTime");
-	m_progress->show();
+	m_progress->show();*/
 }
 
 /** Printing was finished */
 void BibleTime::slotPrintingFinished(){
-	delete m_progress;
-	m_progress = 0;	
+/*	delete m_progress;
+	m_progress = 0;	*/
 }
 
 /** No descriptions */
 void BibleTime::slotPrintedPercent( const int percent ){
-	if (m_progress)
-		m_progress->setProgress(percent);
+/*	if (m_progress)
+		m_progress->setProgress(percent);*/
 }
 
 /** Aborts the printing */
 void BibleTime::slotAbortPrinting(){
-	m_printer->abort();
+/*	m_printer->abort();
 	if (m_progress)
-		slotPrintingFinished();
+		slotPrintingFinished();*/
 }
 
 

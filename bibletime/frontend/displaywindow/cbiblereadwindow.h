@@ -134,7 +134,7 @@ private:
   */
   CSwordVerseKey* verseKey();
 
-  CTransliterationButton* m_transliterationButton;
+//  CTransliterationButton* m_transliterationButton;
 };
 
 #endif
