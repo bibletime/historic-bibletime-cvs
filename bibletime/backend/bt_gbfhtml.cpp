@@ -38,7 +38,7 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("Fb", "</b>");
 	
 //	addTokenSubstitute("FR", QString::fromLatin1("<font color=\"%1\">").arg(jesuswords_color).latin1());		
-	addTokenSubstitute("FR", QString::fromLatin1("<span id=\"jesuswords\">").arg(jesuswords_color).latin1());		
+	addTokenSubstitute("FR", QString::fromLatin1("<span id=\"jesuswords\">").latin1());		
 
 	addTokenSubstitute("Fr", "</font>");
 	addTokenSubstitute("FU", "<u>"); // underline begin

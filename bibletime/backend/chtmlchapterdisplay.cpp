@@ -46,27 +46,22 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	
 	key.module(module);	
 	int verse = 0;
+
+	//reload font settings
+	updateSettings();
 	
   m_htmlHeader = header();
   if (module->textDirection() == CSwordModuleInfo::RightToLeft)
-    m_htmlText = m_htmlHeader + QString::fromLatin1("<body dir=\"rtl\">");
+    m_htmlText = m_htmlHeader + QString::fromLatin1("\n<body dir=\"rtl\">\n");
   else
-    m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");
+    m_htmlText = m_htmlHeader + QString::fromLatin1("\n<body>\n");
 	
-	//reload font settings
-	updateSettings();
-
-//	m_htmlText.append(QString::fromLatin1("<font face=\"%1\" size=\"%2\">")
-//		.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
-//		.arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
-////		.arg(m_standardFontColorName)
-//	);
 
 	bool ok = true;
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse)) {
 		verse = key.Verse();
 		if (m_displayOptionsBool.verseNumbers) {
-			m_htmlText.append( QString::fromLatin1("<span id=\"reference\"><a name=\"%1\" href=\"%2\">%3</a></span> ")
+			m_htmlText.append( QString::fromLatin1("<span id=\"reference\"><a name=\"%1\" href=\"%2\">%3</a></span>\n ")
 //				.arg(m_swordRefColorName)
 				.arg(verse)
 				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key(), CReferenceManager::typeFromModule(module->type()) ))
@@ -74,22 +69,25 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 			);
 		}
 		if (verse == currentVerse)
-		  m_htmlText += QString::fromLatin1("<span id=\"highlighted\">");
+		  m_htmlText += QString::fromLatin1("<span id=\"highlighted\">\n");
+		else
+			m_htmlText += QString::fromLatin1("<span>\n");
 
-  	m_htmlText.append(QString::fromLatin1("<font face=\"%1\" size=\"%2\">")
+  	m_htmlText.append(QString::fromLatin1(" <font face=\"%1\" size=\"%2\">\n")
 	  	.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
 		  .arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize) );
 
 		m_htmlText += key.renderedText();
 
-		m_htmlText += "</font>";
+		m_htmlText += " </font>\n";
 
-		if (verse == currentVerse)
-		  m_htmlText += QString::fromLatin1("</span>");
+//		if (verse == currentVerse)
+		  m_htmlText += QString::fromLatin1("</span>\n");
+
 		if (m_displayOptionsBool.lineBreaks)
 			m_htmlText += QString::fromLatin1("<br>\n");
 		else
-			m_htmlText += QString::fromLatin1(" \n");
+			m_htmlText += QString::fromLatin1("\n");
 	}
 	
 	m_htmlText += QString::fromLatin1("</body></html>");
@@ -198,21 +196,22 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 const QString& CHTMLChapterDisplay::header(){
   m_htmlHeader = QString::fromLatin1("<HTML><HEAD>");
 
-  m_htmlHeader += QString::fromLatin1("<style type=\"text/css\"> \
-a:link {text-decoration:none;} \
-body {background-color: !backgroundcolor!; color: !textcolor!;} \
-#highlighted { color: !highlightedcolor!; } \
-#reference { color: !refcolor!; font-decoration: none; } \
-#jesuswords {color: !jesuswordscolor!; text-weight:bolder;} \
-#otquote {font-size: smaller;} \
-#poetry  {font-weight: light; text-align: justify;} \
-#sectionhead  {font-size: larger; font-weight: bold; color: !textcolor!;} \
-#booktitle  {font-weight: x-bold; font-size: x-large; color: !textcolor!; margi-top:1mm;margin-bottom:1mm;} \
-#strongnumber  {font-decoration: none; font-size: smaller; font-weight:lighter; font-style:italic; color: !strongscolor!;} \
-#morphcode  {font-size: smaller; color: !morphcolor!; font-decoration:none;} \
-#footnote  {font-size: smaller; color: !footnotecolor!;font-style:italic;} \
-#footnotepre {font-weight: bolder;} \
-</style>");
+  m_htmlHeader += QString::fromLatin1("\n\
+<style type=\"text/css\">\n\
+ a:link {text-decoration:none;}\n\
+ body {background-color: !backgroundcolor!; color: !textcolor!;}\n\
+ #highlighted { color: !highlightedcolor!; }\n\
+ #reference { color: !refcolor!; font-decoration: none; }\n\
+ #jesuswords {color: !jesuswordscolor!; text-weight:bolder;}\n\
+ #otquote {font-size: smaller;}\n\
+ #poetry  {font-weight: light; text-align: justify;}\n\
+ #sectionhead  {font-size: larger; font-weight: bold; color: !textcolor!;}\n\
+ #booktitle  {font-weight: x-bold; font-size: x-large; color: !textcolor!; margi-top:1mm;margin-bottom:1mm;}\n\
+ #strongnumber  {font-decoration: none; font-size: smaller; font-weight:lighter; font-style:italic; color: !strongscolor!;}\n\
+ #morphcode  {font-size: smaller; color: !morphcolor!; font-decoration:none;}\n\
+ #footnote  {font-size: smaller; color: !footnotecolor!;font-style:italic;}\n\
+ #footnotepre {font-weight: bolder;}\n\
+</style>\n\n");
 
   m_htmlHeader.replace(QRegExp("!backgroundcolor!"), CBTConfig::get(CBTConfig::backgroundColor).name());
   m_htmlHeader.replace(QRegExp("!highlightedcolor!"), CBTConfig::get(CBTConfig::highlightedVerseColor).name());
