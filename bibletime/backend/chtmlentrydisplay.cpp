@@ -69,19 +69,19 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	if (m_includeHeader) {
 		m_htmlText = m_htmlHeader;
 
-		m_htmlText.append(QString("<body><font color=\"%1\" face=\"%2\" size=\"%3\">")
+		m_htmlText.append(QString::fromLatin1("<body><font color=\"%1\" face=\"%2\" size=\"%3\">")
 			.arg(m_standardFontColorName)
       .arg((module->encoding() == QFont::Unicode ) ? m_unicodeFontName : m_standardFontName)
 			.arg((module->encoding() == QFont::Unicode ) ? m_unicodeFontSize : m_standardFontSize));
 
-		m_htmlText.append(QString("<font color=\"%1\"><a href=\"%2\">%3: <b>%4</b></a></font><hr>%5")
+		m_htmlText.append(QString::fromLatin1("<font color=\"%1\"><a href=\"%2\">%3: <b>%4</b></a></font><hr>%5")
 			.arg(m_highlightedVerseColorName)
  			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), CReferenceManager::Commentary))
 			.arg(module->getDescription())
 			.arg(key->key())
 			.arg(key->renderedText()));
 
-		m_htmlText.append(QString("</font>")+m_htmlBody);
+		m_htmlText += QString::fromLatin1("</font>") + m_htmlBody;
 	}
 	else
 		m_htmlText = key->renderedText();
