@@ -38,6 +38,11 @@ CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey(k), CSwordKey() {
 	m_module = k.m_module;
 }
 
+/** No descriptions */
+CSwordLDKey::CSwordLDKey( const SWKey *k, CSwordModuleInfo* module) : SWKey(*k), CSwordKey() {
+	m_module = m_module;
+}
+
 CSwordLDKey::~CSwordLDKey(){
 }
 

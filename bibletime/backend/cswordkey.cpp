@@ -20,8 +20,14 @@
 #include "cswordkey.h"
 #include "cswordmoduleinfo.h"
 
+#include "cswordversekey.h"
+#include "cswordldkey.h"
+#include "cswordtreekey.h"
+
 //Sword includes
 #include <swmodule.h>
+#include <swkey.h>
+#include <versekey.h>
 
 CSwordKey::CSwordKey() {
 	m_module = 0;	
@@ -52,4 +58,17 @@ const QString CSwordKey::strippedText() {
 		m_module->module()->SetKey(k);
 		
 	return QString::fromUtf8( m_module->module()->StripText() );
+}
+/** This will create a proper key object from a given module */
+CSwordKey * CSwordKey::createInstance( CSwordModuleInfo *module){
+	switch( module->getType() ){
+		case CSwordModuleInfo::Bible:
+		case CSwordModuleInfo::Commentary:
+			return new CSwordVerseKey( (VerseKey *) ( (SWKey *)(module->module()) ), module );
+		case CSwordModuleInfo::Lexicon:
+			return new CSwordLDKey( (SWKey *)(module->module()), module);
+		case CSwordModuleInfo::GenericBook:
+			return new CSwordTreeKey( (TreeKey *) ( (SWKey *)(module->module()) ), module );
+	}
+	return 0;
 }

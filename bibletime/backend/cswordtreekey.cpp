@@ -18,11 +18,16 @@
 #include "cswordtreekey.h"
 #include "cswordbookmoduleinfo.h"
 
-CSwordTreeKey::CSwordTreeKey( CSwordModuleInfo* module ) : TreeKey() {
-	m_module = dynamic_cast<CSwordBookModuleInfo*>(module);
-	if (m_module)
-		SWKey::operator = (m_module->module()->KeyText());
+//CSwordTreeKey::CSwordTreeKey( CSwordModuleInfo* module ){
+//	m_module = module;
+//	if (m_module)
+//		SWKey::operator = (m_module->module()->KeyText());
+//}
+
+CSwordTreeKey::CSwordTreeKey( TreeKey *k, CSwordModuleInfo* module ) : TreeKey(*k), CSwordKey() {
+	m_module = module;
 }
+
 
 CSwordTreeKey::~CSwordTreeKey() {
 

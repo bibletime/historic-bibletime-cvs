@@ -66,6 +66,11 @@ public:
 	* Copy constructor for this key class.
 	*/
 	CSwordLDKey( const CSwordLDKey &k );
+	/**
+	* Copy constructor for this key class.
+	*/
+	CSwordLDKey( const SWKey *k, CSwordModuleInfo* module);
+
 	virtual ~CSwordLDKey();
   /**
   * Clones this object by copying the members.

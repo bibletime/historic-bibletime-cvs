@@ -43,6 +43,8 @@ public:
 	
 	//implemented functions
 	virtual CSwordModuleInfo* module(CSwordModuleInfo* newModule = 0);
+  /** This will create a proper key object from a given module */
+  static CSwordKey * createInstance( CSwordModuleInfo *module);
 
 protected:
 	CSwordModuleInfo* m_module;

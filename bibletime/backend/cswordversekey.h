@@ -63,6 +63,10 @@ public:
   * Copy constructor.
   */
   CSwordVerseKey( const CSwordVerseKey& k );
+  /**
+  * VerseKey based constructor.
+  */
+  CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module );
 	/**
 	* Destructor of this class.
 	*

@@ -27,13 +27,17 @@
 #include <swmodule.h>
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
-	if (!(m_module = dynamic_cast<CSwordBibleModuleInfo*>(module)))
-		return;
+	m_module = module;
 }
 
 /** No descriptions */
 CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKey() {
 	m_module = k.m_module;	
+}
+
+/** No descriptions */
+CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(k),CSwordKey() {
+	m_module = module;	
 }
 
 CSwordVerseKey::~CSwordVerseKey(){

@@ -30,7 +30,10 @@
   */
 class CSwordTreeKey : public TreeKey, public CSwordKey  {
 public:
-	CSwordTreeKey( CSwordModuleInfo* module );
+//	CSwordTreeKey( CSwordModuleInfo* module );
+
+	CSwordTreeKey( TreeKey *k, CSwordModuleInfo* module );
+
 	~CSwordTreeKey();
 };
 
