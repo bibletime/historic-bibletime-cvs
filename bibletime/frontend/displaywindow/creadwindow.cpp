@@ -65,8 +65,9 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ) {
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ) {
+	Q_ASSERT(newKey);
+
 	using namespace Rendering;
-// 	qWarning("lookup: %s", newKey->key().latin1());
 
 	if (!newKey || !modules().first()) {
 		return;
@@ -75,6 +76,7 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
 		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
 	}
+	
 	if (key() != newKey) {
 		key()->key(newKey->key());
 	}

@@ -19,7 +19,10 @@
 namespace Rendering {
 
 const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {  
-  CSwordVerseKey key(0);
+  Q_ASSERT( modules.count() >= 1 );
+	Q_ASSERT( !keyName.isEmpty() );
+	
+	CSwordVerseKey key(0);
   key = keyName;
 	
 	const int currentTestament = key.Testament();
@@ -38,14 +41,13 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
 	CTextRendering::KeyTreeItem::Settings settings;
 	
 
-	for (	key.Verse(1); 
-			  (key.Testament() == currentTestament)
+	for (key.Verse(1); 
+				(key.Testament() == currentTestament)
 				&& (key.Book() == currentBook)
 				&& (key.Chapter() == currentChapter)
 				&& ok 
-				&& !module->module()->Error();
-				
-			  ok = (key.next(CSwordVerseKey::UseVerse) && !key.Error()) )  //error 1 means not sucessful
+				&& !module->module()->Error();	
+			 ok = (key.next(CSwordVerseKey::UseVerse) && !key.Error()) )  //error 1 means not sucessful
 	{
 		settings.highlight = (key.key() == keyName);
 		settings.keyRenderingFace = 

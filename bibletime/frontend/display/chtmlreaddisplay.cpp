@@ -406,7 +406,8 @@ void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
     CDragDropMgr::Item item = dndItems.first();  
     e->acceptAction();
-    m_display->connectionsProxy()->emitReferenceDropped(item.bookmarkKey());
+    
+		m_display->connectionsProxy()->emitReferenceDropped(item.bookmarkKey());
     return;
   };
 

@@ -120,19 +120,24 @@ CSwordKey* const CBibleKeyChooser::key(){
 	if (m_key) {
     const int chapter =  w_chapter->comboBox()->currentText().toInt();
     const int verse = w_verse->comboBox()->currentText().toInt();
+		
 		m_key->book(w_book->comboBox()->currentText());
-		m_key->Chapter(chapter < 0 ? 0 : chapter);
-		m_key->Verse(verse < 0 ? 0 : verse);
+		m_key->Chapter((chapter < 0) ? 0 : chapter);
+		m_key->Verse((verse < 0) ? 0 : verse);
 	}
+	
 	return m_key;
 }
 
 void CBibleKeyChooser::setKey(CSwordKey* key){
-	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
+	Q_ASSERT(key);
+	if (! dynamic_cast<CSwordVerseKey*>(key)) {
 		return;
-
+	}
+	
+	m_key = dynamic_cast<CSwordVerseKey*>(key);
 	emit (beforeKeyChange(m_key->key())); //required to make direct setKey calls work from the outside
-
+	
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 
@@ -140,6 +145,7 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 	const int count = w_book->comboBox()->count();
 	const QString desiredBook = m_key->book();
 	bool bookIsValid = false;
+	
 	for (int i = 0; i < count; ++i) {
 		if (w_book->comboBox()->text(i) == desiredBook) {
 			bookIsValid = true;
@@ -147,7 +153,9 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 		}
 	}
 
-	if (bookIsValid) {	//we have a valid book
+ 	Q_ASSERT(bookIsValid);
+	
+	if (bookIsValid) {//we have a valid book
 		if (w_book->comboBox()->currentText() != m_key->book()) { //necessary?
 			w_book->setItem( m_key->book() );
 		}
@@ -158,11 +166,16 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
     emit keyChanged(m_key);
 	}
 	else {
-  	w_chapter->comboBox()->setCurrentItem(0);
+		w_book->comboBox()->setCurrentItem(0);
+		m_key->book(w_book->comboBox()->currentText());
+		
+   	w_chapter->comboBox()->setCurrentItem(0);
  		m_key->Chapter(1);
 
     w_verse->comboBox()->setCurrentItem(0);
-		m_key->Verse(1);
+ 		m_key->Verse(1);
+		
+		emit keyChanged(m_key);
 	}
 }
 
@@ -171,12 +184,14 @@ void CBibleKeyChooser::chapterNextRequested(void){
 		return;
 
 	setUpdatesEnabled(false);
+	
 	if (m_key) {
 		emit beforeKeyChange(m_key->key());
 	}
 	if (m_key->next(CSwordVerseKey::UseChapter)) {
 		setKey(m_key);
 	}
+	
 	setUpdatesEnabled(true);
 }
 

@@ -470,8 +470,12 @@ void BibleTime::loadProfile(CProfile* p){
       displayWindow->applyProfileSettings(w);
     };
 	}
-
+	
 	m_mdi->setUpdatesEnabled(true);
+
+	if (focusWindow) {
+		focusWindow->setFocus();
+	}
 }
 
 void BibleTime::toggleFullscreen(){

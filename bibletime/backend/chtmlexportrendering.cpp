@@ -126,12 +126,12 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 				)
 				.arg(langAttr)
 	// 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
-				.arg(isRTL ? QString::fromLatin1("dir=\"rtl\"") : QString::null) 
+				.arg(isRTL ? QString::fromLatin1("dir=\"rtl\"") : QString::fromLatin1("dir=\"ltr\"")) 
 		);
 
  		//keys should normally be left-to-right, but this doesn't apply in all cases
-// 		entry.append( QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr)) );
-		entry.append( QString::fromLatin1("<span class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr)) );
+//  		entry.append( QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr)) );
+ 		entry.append( QString::fromLatin1("<span class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr)) );
 		
 		if (m_settings.addText) {
 			//entry.append( QString::fromLatin1("<span %1>%2</span>").arg(langAttr).arg(key_renderedText) );

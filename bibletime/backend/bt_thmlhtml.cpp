@@ -215,7 +215,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				buf.append(myUserData->key->getShortText());
 				buf.append('/');
 				buf.append( QString::number(myUserData->swordFootnote++).latin1() );
-				buf.append("\">*n</span> ");
+				buf.append("\">[*]</span> ");
 				
 				userData->suspendTextPassThru = true;
 			}

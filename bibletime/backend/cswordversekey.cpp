@@ -101,11 +101,12 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 		}
 	}
 	
-	if ( Testament() >= min+1 && Testament() <= max+1 && Book() <= BMAX[min] ) {
+	if ( (Testament() >= min+1) && (Testament() <= max+1) && (Book() <= BMAX[min]) ) {
 		return QString::fromUtf8( books[Testament()-1][Book()-1].name );
 	}
 	
-	return QString::fromUtf8( books[min][0].name ); //return the first book, i.e. Genesis
+	//return QString::fromUtf8( books[min][0].name ); //return the first book, i.e. Genesis
+	return QString::null;
 }
 
 /** Sets the key we use to the parameter. */

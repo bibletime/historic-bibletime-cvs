@@ -221,11 +221,13 @@ void CDisplayWindow::setKeyChooser( CKeyChooser* ck ){
 
 /** Returns the key of this display window. */
 CSwordKey* CDisplayWindow::key() const {
+	Q_ASSERT( m_swordKey );
 	return m_swordKey;
 }
 
 /** Sets the new sword key. */
 void CDisplayWindow::setKey( CSwordKey* key ){
+	Q_ASSERT( key );
 	m_swordKey = key;
 }
 
@@ -335,10 +337,12 @@ void CDisplayWindow::lookup(){
 }
 
 void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName ) {
-  if (!isReady())
+  if (!isReady()) {
   	return;
+	}
 
 	CSwordModuleInfo* m = backend()->findModuleByName(moduleName);
+	Q_ASSERT(m);
   if (!m) {
     return;
 	}
@@ -349,7 +353,6 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 		keyChooser()->setKey(key()); //the key chooser does send an update signal
 	}
 	else { //given module not chosen by user
-
 		//if the module is displayed in another display window we assume a wrong drop
 		QWidgetList windows = mdi()->windowList();
   	bool found = false;
@@ -376,6 +379,9 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 }
 
 void CDisplayWindow::lookup( const QString& key ) {
+	/* This function is called for example after a bookmark was dropped on this window
+	*/
+		
 	lookup(modules().first()->name(), key);
 }
 

@@ -52,7 +52,7 @@
 
 #include <kmessagebox.h>
 
-bool showDebugMessages = false;
+bool showDebugMessages = true;
 BibleTime* bibletime_ptr = 0;
 
 void myMessageOutput( QtMsgType type, const char *msg ) {	

@@ -410,6 +410,10 @@ void BibleTime::initActions() {
 	  action->plugAccel( accel() );
   #endif
 
+	if ( actionCollection()->action( KStdAction::stdName( KStdAction::WhatsThis ) ) ) {	 //delete "What's this" action if KDE created it already
+		KAction* action = actionCollection()->action(KStdAction::stdName( KStdAction::WhatsThis ));
+		actionCollection()->remove( action );
+  }
 	action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::whatsThis::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::whatsThis::whatsthis);

@@ -65,29 +65,33 @@ void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
 
 
 void CInfoDisplay::setInfo(const ListInfoData& list) {
+	//if the widget is hidden it would be inefficient to render and display the data
+	if (!isVisible()) {
+		return;
+	}	
+
 	QString text;
-// 	qWarning("we have %i list items", list.count());
 	
 	ListInfoData::const_iterator end = list.end();
 	for (ListInfoData::const_iterator it = list.begin(); it != end; ++it) {
 	  switch ( (*it).first ) {
 			case Lemma:
-				text += decodeStrongs( (*it).second );
+				text.append( decodeStrongs( (*it).second ) );
 				continue;
 			case Morph:
-				text += decodeMorph( (*it).second );
+				text.append( decodeMorph( (*it).second ) );
 				continue;
 			case CrossReference:
-				text += decodeCrossReference( (*it).second );
+				text.append( decodeCrossReference( (*it).second ) );
 				continue;
 			case Footnote:
-				text += decodeFootnote( (*it).second );
+				text.append( decodeFootnote( (*it).second ) );
 				continue;
 			case WordTranslation:
-				text += getWordTranslation( (*it).second );
+				text.append( getWordTranslation( (*it).second ) );
 				continue;
 			case WordGloss:
-				//text += getWordTranslation( (*it).second );
+				//text.append( getWordTranslation( (*it).second ) );
 				continue;
 			default:
 				continue;
@@ -157,7 +161,6 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 		tree.append( i );
 	}	
 	
-// 	qWarning( "rendered: %s", renderer.renderKeyTree(tree).latin1());
 	return QString::fromLatin1("<div class=\"crossrefinfo\"><h3>%1</h3><p>%2</p></div>")
 		.arg(i18n("Cross references"))
 		.arg(renderer.renderKeyTree(tree));
@@ -189,8 +192,10 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	const char* note = module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str();
 	
 	QString text = module->isUnicode() ? QString::fromUtf8(note) : QString::fromLatin1(note);
-	text = QString::fromUtf8( module->module()->RenderText( 
-		module->isUnicode() ? (const char*)text.utf8() : (const char*)text.latin1()
+	text = QString::fromUtf8(module->module()->RenderText( 
+			module->isUnicode() 
+		? (const char*)text.utf8() 
+		: (const char*)text.latin1()
 	));
 	
 	return QString::fromLatin1("<div class=\"footnoteinfo\"><h3>%1</h3><p>%2</p></div>")
@@ -200,7 +205,6 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 
 const QString CInfoDisplay::decodeStrongs( const QString& data ) {
 	QStringList strongs = QStringList::split("|", data);
-// 	qWarning("%s, we have %i srongs", data.latin1(), strongss.count());
 	QString ret;
 	
 	QStringList::const_iterator end = strongs.end();
@@ -219,45 +223,55 @@ const QString CInfoDisplay::decodeStrongs( const QString& data ) {
 		}		
 		//if the module could not be found just display an empty lemma info
 				
-		ret += QString::fromLatin1("<div class=\"strongsinfo\"><h3>%1: %2</h3><p>%3</p></div>")
-			.arg(i18n("Strongs"))
-			.arg(*it)
-			.arg(text);
+		ret.append( 
+			QString::fromLatin1("<div class=\"strongsinfo\"><h3>%1: %2</h3><p>%3</p></div>")
+				.arg(i18n("Strongs"))
+				.arg(*it)
+				.arg(text)
+		);
 	}
 		
 	return ret;
 }
 
 const QString CInfoDisplay::decodeMorph( const QString& data ) {
-//	qWarning("decodeMorph");
 	QStringList morphs = QStringList::split("|", data);
 	QString ret;
 		
 	for (QStringList::iterator it = morphs.begin(); it != morphs.end(); ++it) {
-		CSwordModuleInfo* const module = CBTConfig::get(
-			(*it).left(1) == "H" ? 
-			CBTConfig::standardHebrewMorphLexicon : 
-			CBTConfig::standardGreekMorphLexicon
-		);
+		CSwordModuleInfo* module = 0;
+		bool skipFirstChar = false;
+		switch ((*it).at(0).latin1()) {
+			case 'G':
+				CBTConfig::get(CBTConfig::standardGreekMorphLexicon);
+				skipFirstChar = true;
+				break;
+			case 'H':
+				CBTConfig::get(CBTConfig::standardHebrewMorphLexicon);
+				skipFirstChar = true;
+				break;
+			default:
+				skipFirstChar = false;
+				module = 0;
+				break;
+		}
 		
 		QString text;
 		if (module) {
 			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-			if ((key->key().at(0) == 'G') || (key->key().at(0) == 'H')) {
-				key->key( (*it).mid(1) ); //skip H or G (language sign)
-			}
-			else {
-				key->key( *it );
-			}
+ 			
+			//skip H or G (language sign) if we have to skip it			
+			key->key( skipFirstChar ? (*it).mid(1) : (*it) );
 			
 			text = key->renderedText();
 		}
-		//if the module wasn't found just display an empty morph info
 		
-		ret += QString::fromLatin1("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
+		//if the module wasn't found just display an empty morph info
+		ret.append( QString::fromLatin1("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
 			.arg(i18n("Morphology"))
 			.arg(*it)
-			.arg(text);
+			.arg(text)
+		);
 	}
 	
 	return ret;	

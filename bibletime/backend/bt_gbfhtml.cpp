@@ -100,7 +100,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	QString result;
 	
 	QString t = QString::fromUtf8(buf.c_str());
-	QRegExp tag("([.,;]?<W[HGT][^>]+>\\s*)+");
+	QRegExp tag("([.,;:]?<W[HGT][^>]+>\\s*)+");
 	
 	QStringList list;
 	int lastMatchEnd = 0;
@@ -250,7 +250,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 			buf.append(myUserData->key->getShortText());
 			buf.append('/');
 			buf.append( QString::number(myUserData->swordFootnote++).latin1() );
-			buf.append("\">*n</span> ");
+			buf.append("\">[*]</span> ");
 			
 			userData->suspendTextPassThru = true;
 		}
