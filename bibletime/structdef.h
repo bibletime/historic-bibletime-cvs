@@ -19,8 +19,10 @@
 #ifndef STRUCTDEF_H
 #define STRUCTDEF_H
 
+//QT Includes
 #include <qlist.h>
 
+//BT Classes
 class CPrintItem;
 class CSwordBackend;
 class CPrinter;
@@ -35,12 +37,14 @@ typedef QList<CStyle> styleList;
 // 	CPrinter* printer;
 //};
 
-/** This is used to show the selection in the searchscope dialog
- 	*/
+/** 
+* This is used to show the selection in the searchscope dialog
+*/
 enum SearchScope 		{ NoScope, LastSearch, Bounds	};
 
 /** This is used to so show the selection of the searchdialog
- 	*/
+*
+*/
 enum SearchType 		{ MultiWord, ExactPhrase, RegEx	};
 
 #endif
