@@ -62,9 +62,8 @@ void CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module
 	CPrintItem* printItem = new CPrintItem();
 	printItem->setModule(module);
 	printItem->setStartKey(start);
-	printItem->setStopKey(stop);
-
-	qDebug("add now to the queue");
+	if (start != stop)
+		printItem->setStopKey(stop);
 	m_important->printer->addItemToQueue(printItem);
 }
 
