@@ -173,6 +173,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 	//highcolor icons, startlogo for BT <= 1.4
 	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
   //Sponsored many years the www.bibletime.de domain!
+  aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founded the Sword project together with many other volunteers."), "scribe@crosswire.org", "http://www.crosswire.org/");   //Started the Sword project
   aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Sponsored our internet domain for many years"), "tom@theta-consulting.de", "");
   //He provided us with the Bible Study HowTo
   aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible Study HowTo"), "ncc@ncchampton.org", "");

@@ -57,7 +57,12 @@ CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidge
 	m_currentAnchorCache(QString::null)
 {
   setDNDEnabled(false);
-  m_view->setDragAutoScroll(false);
+  setJavaEnabled(false);
+	setJScriptEnabled(false);
+	setPluginsEnabled(false);
+	
+	m_view->setDragAutoScroll(false);
+	
 }
 
 CHTMLReadDisplay::~CHTMLReadDisplay(){
