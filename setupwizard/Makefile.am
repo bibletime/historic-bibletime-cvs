@@ -1,5 +1,6 @@
 btsetupwizard_SOURCES = \
 install.cpp \
+remove.cpp \
 btsetupwizard.cpp \
 main.cpp
 
