@@ -81,26 +81,26 @@ const QString CModuleChooserButton::iconName(){
 	switch (m_moduleType) {
 		case CSwordModuleInfo::Bible:
 			if (m_hasModule)
-				return QString::fromLatin1("bt_bible");
+				return QString::fromLatin1(BIBLE_ICON_MC);
 			else
-				return QString::fromLatin1("bt_bible_add");
+				return QString::fromLatin1(BIBLE_ADD_ICON_MC);
 		case CSwordModuleInfo::Commentary:
 			if (m_hasModule)
-				return QString::fromLatin1("bt_commentary");
+				return QString::fromLatin1(COMMENTARY_ICON_MC);
 			else
-				return QString::fromLatin1("bt_commentary_add");
+				return QString::fromLatin1(COMMENTARY_ICON_MC);
 		case CSwordModuleInfo::Lexicon:
 			if (m_hasModule)
-				return QString::fromLatin1("bt_lexicon");
+				return QString::fromLatin1(LEXICON_ICON_MC);
 			else
-				return QString::fromLatin1("bt_lexicon_add");
+				return QString::fromLatin1(LEXICON_ADD_ICON_MC);
 		case CSwordModuleInfo::GenericBook:
 			if (m_hasModule)
-				return QString::fromLatin1("bt_book");
+				return QString::fromLatin1(BOOK_ICON_MC);
 			else
-				return QString::fromLatin1("bt_book_add");
+				return QString::fromLatin1(BOOK_ADD_ICON_MC);
 		default:
-			return QString::fromLatin1("bt_bible");;
+			return QString::fromLatin1(BIBLE_ICON_MC);
 	}
 }
 

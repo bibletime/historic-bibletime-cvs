@@ -157,24 +157,24 @@
 #define GROUP_CHANGE_ICON_SMALL		LOAD_SMALL_ICON("folder") // maybe find a better one
 
 #define BIBLE_ICON_SMALL			LOAD_SMALL_ICON("bt_bible")
-#define BIBLE_ICON_MC				LOAD_MC_ICON("bt_bible")
 #define BIBLE_LOCKED_ICON_SMALL		LOAD_SMALL_ICON("bt_bible_locked")
-#define BIBLE_ADD_ICON_MC			LOAD_MC_ICON("bt_bible_add")
+#define BIBLE_ICON_MC				"bt_bible"
+#define BIBLE_ADD_ICON_MC		"bt_bible_add"
 
 #define BOOK_ICON_SMALL				LOAD_SMALL_ICON("bt_book")
-#define BOOK_ICON_MC				LOAD_MC_ICON("bt_book")
 #define BOOK_LOCKED_ICON_SMALL		LOAD_SMALL_ICON("bt_book_locked")
-#define BOOK_ADD_ICON_MC			LOAD_MC_ICON("bt_book_add")
+#define BOOK_ICON_MC				"bt_book"
+#define BOOK_ADD_ICON_MC		"bt_book_add"
 
 #define COMMENTARY_ICON_SMALL			LOAD_SMALL_ICON("bt_commentary")
-#define COMMENTARY_ICON_MC				LOAD_MC_ICON("bt_commentary")
 #define COMMENTARY_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_commentary_locked")
-#define COMMENTARY_ADD_ICON_MC			LOAD_SMALL_ICON("bt_commentary_add")
+#define COMMENTARY_ICON_MC			"bt_commentary"
+#define COMMENTARY_ADD_ICON_MC  "bt_commentary_add"
 
 #define LEXICON_ICON_SMALL			LOAD_SMALL_ICON("bt_lexicon")
-#define LEXICON_ICON_MC				LOAD_MC_ICON("bt_lexicon")
 #define LEXICON_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_lexicon_locked")
-#define LEXICON_ADD_ICON_MC			LOAD_MC_ICON("bt_lexicon_add")
+#define LEXICON_ICON_MC				  "bt_lexicon"
+#define LEXICON_ADD_ICON_MC			"bt_lexicon_add"
 
 #define PARALLEL_ICON_MC			LOAD_SMALL_ICON("bt_parallel")
 #define SYNC_ICON_SMALL				LOAD_SMALL_ICON(ICON_SYNC)
