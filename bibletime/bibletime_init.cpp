@@ -432,14 +432,16 @@ void BibleTime::initConnections(){
 		this, SLOT(slotPrintingStarted()));		
 	connect(m_printer, SIGNAL(printingFinished()),
 		this, SLOT(slotSetPrintingStatus()));		
-	connect(m_printer, SIGNAL(printingInterrupted()),
-		this, SLOT(slotSetPrintingStatus()));				
-	connect(m_printer, SIGNAL(printingInterrupted()),
-		this, SLOT(slotPrintingFinished()));						
+  connect(m_printer, SIGNAL(printingInterrupted()),
+		this, SLOT(slotPrintingFinished()));
 	connect(m_printer, SIGNAL(percentCompleted(const int)),
 		this, SLOT(slotPrintedPercent(const int)));
 #endif
 #endif
+
+	connect(m_printer, SIGNAL(printingInterrupted()),
+		this, SLOT(slotSetPrintingStatus()));
+
 }
 
 /** Initializes the backend */

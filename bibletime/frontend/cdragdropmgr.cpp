@@ -209,12 +209,12 @@ CDragDropMgr::ItemList CDragDropMgr::decode( const QMimeSource* const src ) {
   BTDrag::decode(src, xmlData);
 
   if (xmlData.isEmpty()) { //something went wrong!
-    qWarning("CDragDropMgr::decode: empty xml data!");
+//    qWarning("CDragDropMgr::decode: empty xml data!");
     return CDragDropMgr::ItemList();    
   }
-  else {
-    qWarning("Drag&Drop data is: %s", xmlData.latin1());
-  }
+//  else {
+//    qWarning("Drag&Drop data is: %s", xmlData.latin1());
+//  }
 
   //we can handle the dropEvent and have xml data to work on!
   ItemList dndItems;
@@ -231,7 +231,7 @@ CDragDropMgr::ItemList CDragDropMgr::decode( const QMimeSource* const src ) {
   QDomElement elem = document.firstChild().toElement();
   while (!elem.isNull()) {
   		if (elem.tagName() == "BOOKMARK") { //we found a bookmark!
-        qWarning("found a bookmark!");
+//        qWarning("found a bookmark!");
         const QString key = elem.hasAttribute("key") ? elem.attribute("key") : QString::null;
         const QString moduleName = elem.hasAttribute("moduleName") ? elem.attribute("moduleName") : QString::null;
         const QString description = elem.hasAttribute("description") ? elem.attribute("description") : QString::null;
