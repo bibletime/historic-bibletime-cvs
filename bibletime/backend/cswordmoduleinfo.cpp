@@ -242,6 +242,7 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 		case Glossary:
 			return m_module->getConfig().has("Feature", "Glossary");		
 	}
+	return 0;
 }
 
 const bool CSwordModuleInfo::has( const CSwordBackend::FilterOptions option ){
@@ -250,6 +251,8 @@ const bool CSwordModuleInfo::has( const CSwordBackend::FilterOptions option ){
  		return true;
  	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("ThML%1").arg(backend()->configOptionName(option)).latin1()))
  		return true;
+ 	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("UTF8%1").arg(backend()->configOptionName(option)).latin1()))
+ 		return true; 		
  	if (m_module->getConfig().has("GlobalOptionFilter",backend()->configOptionName(option).latin1()))
  		return true;
  	

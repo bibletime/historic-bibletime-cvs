@@ -125,7 +125,7 @@ const unsigned int CSwordBibleModuleInfo::verseCount( const unsigned int book, c
 }
 
 const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
-	unsigned int bookNumber;
+	unsigned int bookNumber = 0;
 	bool found = false;
 	staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 	int min = 0;

@@ -49,7 +49,7 @@ BT_ThMLHTML::BT_ThMLHTML() {
 }
 
 bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
-	unsigned long i;
+	unsigned long i = 0;
 	const int tokenLength = strlen(token);
 	
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
@@ -57,7 +57,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
 			pushString(buf," <small><em>&lt;");
 
-			for (unsigned int j = 17; j < tokenLength; j++) {
+			for (int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
 					j += 7;
 					for (;token[j] != '\"'; j++)
@@ -69,9 +69,8 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 
 		else if (!strncmp(token, "sync type=\"morph\"", 17)) { //Morph
-
 			char num[12];
-			for (unsigned int j = 17; j < tokenLength; j++) {
+			for (int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
 					j += 7;
 					int idx=0;
@@ -86,7 +85,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 		
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
-
 			char num[12];
 			for (i = 29; i < tokenLength; i++)
 				if(token[i] != '\"')
@@ -96,7 +94,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			pushString(buf," <font color=\"%s\"><small><em><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></em></small></font> ",
 				strongs_color, num, num);
 		}
-//#warning not handled: token[27] == 'A')
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
 			char num[12];
 			for (i = 29; i < tokenLength; i++)
@@ -171,6 +168,8 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				userData["suspendTextPassThru"] = "false";
 			}
 		}			
+		
+//headings should be processed by the ThMLHeadings filter		
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
 			pushString(buf, "<H2><FONT color=\"%s\">", text_color);

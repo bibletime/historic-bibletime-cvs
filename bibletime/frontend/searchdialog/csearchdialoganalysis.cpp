@@ -237,8 +237,12 @@ const unsigned int CSearchDialogAnalysis::getCount( const QString book, CSwordMo
 //------------------------------------------------------------------
 
 CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int moduleCount, const QString &bookname, double *scaleFactor, ListCSwordModuleInfo* modules)
-	: QCanvasRectangle(parent), m_moduleList( modules ), m_scaleFactor(scaleFactor),
-	m_moduleCount(moduleCount), m_bookName(bookname), m_bufferPixmap(0)
+	: QCanvasRectangle(parent),
+	m_moduleList( modules ),
+	m_scaleFactor(scaleFactor),
+	m_bookName(bookname),
+	m_moduleCount(moduleCount), 	
+	m_bufferPixmap(0)
 {	
  	m_resultCountArray.resize(m_moduleCount);
  	int index = 0;

@@ -52,7 +52,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	if (m_key && !oldKey.isEmpty())
 		siblings = QStringList::split("/",oldKey,false);
 
-	int depth = 0;
+	unsigned int depth = 0;
 	int index = 0;
 	
 	m_key->root();

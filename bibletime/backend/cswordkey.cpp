@@ -84,6 +84,7 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo *module ){
 			CSwordTreeKey* key =  new CSwordTreeKey( (TreeKeyIdx*)((SWKey *)(*module->module())), module );
 			return key;
 		}
+		default:
+			return 0;
 	}
-	return 0;
 }

@@ -92,7 +92,7 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 					(const char*)(*it).utf8()
 				);
 	 		}
-	 		(pos+1 < refList.count()) ? pushString(&to, "</font>, ") : pushString(&to, "</font>");
+	 		(pos+1 < (int)refList.count()) ? pushString(&to, "</font>, ") : pushString(&to, "</font>");
 	 	}
 	}	
  	*to++ = '\0';
@@ -193,17 +193,8 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
 
 /** Replaces the token in the substitute map. */
 void BT_BASICFILTER::replaceTokenSubstitute(const char* findString, const char* replaceString){
-	char *buf = 0;
 	tokenSubMap.erase( tokenSubMap.find(findString) ); //erase entry
 	addTokenSubstitute(findString, replaceString);
-//        if (!tokenCaseSensitive) {
-//                stdstr(&buf, findString);
-//                toupperstr(buf);
-//                tokenSubMap.insert(DualStringMap::value_type(buf, replaceString));
-//                delete [] buf;
-//        }
-//        else
-//	tokenSubMap.insert(DualStringMap::value_type(findString, replaceString));	
 }
 
 /** Updates the token for this filter if settings changed. */

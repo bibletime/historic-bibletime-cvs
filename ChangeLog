@@ -26,7 +26,7 @@
 			but this was improved in the Sword library.
 		- Improved display windows. Independent display settings for each window (footnotes, strongs ...)
 		- Fullscreen mode of the main application window
-		- Improved commentary editor: Ask if the text sgould be saved if the window or BibleTime should be closed
+		- Improved commentary editor: Ask if the text should be saved if the window or BibleTime should be closed
 			if the changed text was not saved before.
 		
 2001-11-24 Fred Saalbach <saalbach@sybercom.net>

@@ -97,7 +97,8 @@ private:
 			QCheckBox* lemmas;
 			QCheckBox* hebrewPoints;
 			QCheckBox* hebrewCantillation;
-			QCheckBox* greekAccents;			
+			QCheckBox* greekAccents;
+			QCheckBox* textualVariants;
 		} sword;
 		
 		struct KeySettings {

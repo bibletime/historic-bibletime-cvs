@@ -50,7 +50,7 @@ void CStyleList::insertItems( StyleItemList* itemList ){
 	for(itemList->first(); itemList->current(); itemList->next() ) {
 		if (itemList != m_items)	//check if we do not insert our own m_items list
 			m_items->append( itemList->current() );
-		QListViewItem* item = itemList->current()->listViewItem(this);
+		itemList->current()->listViewItem(this);
 	}
 	printer()->emitStylesChanged();
 }

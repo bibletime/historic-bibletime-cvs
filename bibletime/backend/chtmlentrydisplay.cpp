@@ -40,6 +40,9 @@ CHTMLEntryDisplay::CHTMLEntryDisplay(){
 	m_includeHeader = true;
 }
 
+CHTMLEntryDisplay::~CHTMLEntryDisplay(){
+}
+
 void CHTMLEntryDisplay::updateSettings(void){
 	qWarning("CHTMLEntryDisplay::updateSettings(void)");
   m_highlightedVerseColorName = CBTConfig::get(CBTConfig::highlightedVerseColor).name();
@@ -100,8 +103,6 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 		m_htmlText = key->renderedText();
 	}
 
-//clean up
-//	delete key;
 	return 1;
 }
 

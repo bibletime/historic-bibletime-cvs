@@ -24,16 +24,16 @@ static CSwordBackend* m_backend = 0;
 static CPrinter* m_printer = 0;
 
 /** Returns a pointer to the backend ... */
-CSwordBackend* const CPointers::backend(){
+CSwordBackend* const CPointers::backend() {
 	return m_backend;
 }
 
 /** Returns a pointer to the printer object. */
-CPrinter* const CPointers::printer(){
+CPrinter* const CPointers::printer() {
 	return m_printer;
 }
 
-void CPointers::setPrinter(CPrinter* printer) {
+void CPointers::setPrinter(CPrinter* const printer) {
 	m_printer = printer;
 }
 

@@ -62,8 +62,9 @@ public:
 		hebrewPoints,
 		hebrewCantillation,
 		greekAccents,
+		textualVariants,
 		filterOptionsMIN = footnotes,
-		filterOptionsMAX = greekAccents
+		filterOptionsMAX = textualVariants
 	};
 
   struct FilterOptionsBool {
@@ -75,20 +76,17 @@ public:
 		bool hebrewPoints;
 		bool hebrewCantillation;
 		bool greekAccents;
+		bool textualVariants;
 	};
 	struct DisplayOptionsBool {
 		bool lineBreaks;
 		bool verseNumbers;
 	};
-//  enum ErrorCode {
-//		noError,
-//		noSwordConfigFile,
-//		noSwordModuleDirectory,
-//		noSwordModuleConfigDirectory,
-//		noModulesAvailable,
-//		unknown
-//	};
-
+  enum LoadError { // the values exist to cast from the char return of SWMgr::Load
+		NoSwordConfig = -1,
+		NoError = 0,
+		NoModules = 1
+  };
 	/**
 	* The constructor of the Sword backend.
 	* It creates the SWModule objects using SWMgr's methods, it adds the necessary
@@ -111,7 +109,7 @@ public:
   *
   *	@return True if the initializiation was succesful, otherwise return false.
   */
-  virtual const SWMgr::LoadError initModules();
+  virtual const CSwordBackend::LoadError initModules();
   /**
   * This function deinitializes the modules and deletes them.
   *
@@ -133,10 +131,6 @@ public:
   * @return Returns true if the options given as aparameter is switched on at this time, otherwise return false.
   */
   virtual const bool isOptionEnabled( const CSwordBackend::FilterOptions type);
-	/**
-	*
-	*/
-//	virtual void Load();
   /**
   * Sets the language for the international booknames of Sword.
   */

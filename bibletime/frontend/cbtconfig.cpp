@@ -38,6 +38,7 @@ const QString CBTConfig::getKey( const CBTConfig::strings ID){
 		case standardHebrewMorphLexicon:	return "standardHebrewMorphLexicon";
 		case standardGreekMorphLexicon:		return "standardGreekMorphLexicon";
 	}
+	return QString::null;
 }
 
 const QString CBTConfig::getDefault( const CBTConfig::strings ID){
@@ -53,6 +54,7 @@ const QString CBTConfig::getDefault( const CBTConfig::strings ID){
 		case standardHebrewMorphLexicon:	return "StrongsHebrew"; //warning this is wrong
 		case standardGreekMorphLexicon:		return "StrongsGreek";  //but imo has no effect
 	}
+	return QString::null;
 }
 
 const QString CBTConfig::getKey( const CBTConfig::fonts ID){
@@ -60,6 +62,7 @@ const QString CBTConfig::getKey( const CBTConfig::fonts ID){
 		case standard: 	return "standard";
 		case unicode: 	return "unicode";
 	}
+	return QString::null;	
 }
 
 const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
@@ -67,6 +70,7 @@ const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
 		case standard: 	return QApplication::font();
 		case unicode: 	return QApplication::font();
 	}
+	return QString::null;	
 }
 
 const QString CBTConfig::getKey( const CBTConfig::bools ID){
@@ -89,6 +93,7 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 		case hebrewPoints: 				return "hebrewPoints";
 		case hebrewCantillation: 	return "hebrewCantillation";
 		case greekAccents: 				return "greekAccents";
+		case textualVariants:			return "textualVariants";		
 
 		case lineBreaks: 					return "lineBreaks";
 		case verseNumbers: 				return "verseNumbers";
@@ -97,8 +102,8 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 		case tips: 								return "RunOnStart";
 		case logo: 								return "logo";
 		case restoreWorkspace: 		return "restoreWorkspace";
-
 	}
+	return QString::null;	
 }
 
 const bool CBTConfig::getDefault( const CBTConfig::bools ID){
@@ -114,13 +119,14 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 		case lexiconCache: 				return true;
 
 		case footnotes: 					return true;
-		case strongNumbers:  			return true;
+		case strongNumbers:  			return false;
   	case headings: 						return true;
-  	case morphTags: 					return true;
+  	case morphTags: 					return false;
 		case lemmas: 							return true;
 		case hebrewPoints: 				return true;
 		case hebrewCantillation: 	return true;
 		case greekAccents: 				return true;
+		case textualVariants:			return false;
 
 		case lineBreaks: 					return true;
 		case verseNumbers: 				return true;
@@ -129,8 +135,8 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 		case tips: 								return true;
 		case logo: 								return true;
 		case restoreWorkspace: 		return false;
-
 	}
+	return false;
 }
 
 const QString CBTConfig::getKey( const CBTConfig::colors ID){
@@ -144,6 +150,7 @@ const QString CBTConfig::getKey( const CBTConfig::colors ID){
 		case jesuswordsColor: 				return "jesuswordsColor";
 		case swordRefColor: 					return "swordRefColor";
 	}
+	return QString::null;
 }
 
 const QColor CBTConfig::getDefault( const CBTConfig::colors ID){
@@ -157,31 +164,39 @@ const QColor CBTConfig::getDefault( const CBTConfig::colors ID){
 		case jesuswordsColor: 				return QColor(Qt::red);
 		case swordRefColor: 					return QColor(Qt::blue);
 	}
+	return Qt::blue;
 }
 
 const QString CBTConfig::getKey( const CBTConfig::intLists ID){
 	switch ( ID ){
 		case splitterSizes: return "splitterSizes";
 	}
+	return QString::null;
 }
 
 const QValueList<int> CBTConfig::getDefault( const CBTConfig::intLists ID){
 	switch ( ID ){
 		case splitterSizes: return QValueList<int>();
 	}
+	return QValueList<int>();
 }
 
 const QString CBTConfig::getKey( const CBTConfig::stringLists ID){
 	switch ( ID ){
-		case searchCompletionTexts: return "searchCompletionTexts";
-		case searchTexts: return "searchTexts";		
+		case searchCompletionTexts: return QString::fromLatin1("searchCompletionTexts");
+		case searchTexts: return QString::fromLatin1("searchTexts");
 	}
+	return QString::null;
 }
 
 const QStringList CBTConfig::getDefault( const CBTConfig::stringLists ID){
 	switch ( ID ){
-		case searchTexts: return QStringList();
+		case searchTexts:
+			return QStringList();
+		case searchCompletionTexts:
+			return QStringList();
 	}
+	return QStringList();
 }
 
 const QString CBTConfig::get( const CBTConfig::strings ID){

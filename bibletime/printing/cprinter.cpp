@@ -132,7 +132,6 @@ void CPrinter::print(){
 		return;
 	}	
 	int lastPercent = 0;
-	int percent = 0;
 	int pos = 1;
 	const int count = m_queue.count();
 	const int copies = numCopies();

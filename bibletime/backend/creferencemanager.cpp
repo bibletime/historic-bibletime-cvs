@@ -63,7 +63,7 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 		QString newKey = QString::null;	
 	  //replace all / of the key (e.g. of a CSwordTreeKey) with
 	  // the escape sequence \/ so we know it's a link divider!
-		for(int i = 0; i < s.length(); ++i) {
+		for(unsigned int i = 0; i < s.length(); ++i) {
 			if (s[i] == '/')
 				newKey += "\\/";
 			else
@@ -126,7 +126,7 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 	}
 	else if (ref.left(8) == "morph://" || ref.left(10) == "strongs://") { //strongs or morph URL have the same format
 		enum PreType {IsMorph, IsStrongs};
-		PreType preType;
+		PreType preType = IsMorph;
 		if (ref.left(8) == "morph://") { //morph code hyperlink
 			ref = ref.mid(8);
 			preType = IsMorph;

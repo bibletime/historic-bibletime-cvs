@@ -51,7 +51,7 @@ void CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int
 	if (!target)
 		target = &treeKey;
 
-  unsigned long currentOffset = target->getOffset();
+//  unsigned long currentOffset = target->getOffset();
   for (int i = 0; i < level; i++)
   	cout << "    ";
   cout << treeKey.getLocalName() << endl;
@@ -69,7 +69,6 @@ const int CSwordBookModuleInfo::depth() {
   	if (treeKey) {
     	TreeKeyIdx root = *treeKey;
     	root.root();
-    	int level = 0;
 			computeDepth(root, treeKey, 0);
 		}
 	}

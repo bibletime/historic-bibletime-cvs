@@ -84,8 +84,8 @@ private: // Protected attributes
   const QString& moduleText();
 
   CStyle* m_style;
-  QString m_description;
   QString m_headerText;
+  QString m_description;
   QString m_moduleText;
 	QString m_startKey;
 	QString m_stopKey;

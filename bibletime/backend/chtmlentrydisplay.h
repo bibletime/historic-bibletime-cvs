@@ -48,6 +48,7 @@ public:
 	* and creates the objects we need to create the required HTML formatted text.
 	*/
 	CHTMLEntryDisplay();
+	virtual ~CHTMLEntryDisplay();
   /**
   * Renders the current entry of the module using HTML tags.
   * The rendered text is cached so it's faster if it's called for the
@@ -69,7 +70,7 @@ public:
   void setDisplayOptions( const CSwordBackend::DisplayOptionsBool options);
 
 protected:
-	bool 		m_includeHeader;
+	bool m_includeHeader;
 
 	QString m_htmlText;
 	QString m_htmlHeader;

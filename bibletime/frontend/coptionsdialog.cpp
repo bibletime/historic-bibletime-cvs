@@ -689,7 +689,12 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	m_settings.sword.greekAccents->setText(i18n("Show Greek accents"));
  	m_settings.sword.greekAccents->setChecked(CBTConfig::get(CBTConfig::greekAccents));		
  	layout->addWidget(m_settings.sword.greekAccents);
-	
+
+ 	m_settings.sword.textualVariants = new QCheckBox(currentTab);
+ 	m_settings.sword.textualVariants->setText(i18n("Use textual variants"));
+ 	m_settings.sword.textualVariants->setChecked(CBTConfig::get(CBTConfig::textualVariants));		
+ 	layout->addWidget(m_settings.sword.textualVariants);
+ 		
 	layout->addStretch(4);	
 }
 
@@ -793,5 +798,6 @@ void COptionsDialog::saveSword(){
  	CBTConfig::set(CBTConfig::lemmas, m_settings.sword.lemmas->isChecked());
  	CBTConfig::set(CBTConfig::hebrewPoints, m_settings.sword.hebrewPoints->isChecked());
  	CBTConfig::set(CBTConfig::hebrewCantillation, m_settings.sword.hebrewCantillation->isChecked());
- 	CBTConfig::set(CBTConfig::greekAccents, m_settings.sword.greekAccents->isChecked()); 		
+ 	CBTConfig::set(CBTConfig::greekAccents, m_settings.sword.greekAccents->isChecked());
+ 	CBTConfig::set(CBTConfig::textualVariants, m_settings.sword.textualVariants->isChecked()); 		 	
 }

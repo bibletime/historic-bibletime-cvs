@@ -138,12 +138,13 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);
 	if (!ldKey)
 		return;
-
+	qWarning("set filter and display options");
 	backend()->setFilterOptions( m_moduleOptions );
 	backend()->setDisplayOptions( m_displayOptions );
 
 	m_moduleList.first()->module()->SetKey(*ldKey);
 	
+	qWarning("display?");
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
 		if (m_moduleChooserBar->getModuleList().count() > 1)  //we want to display more than one module
 			m_moduleList.first()->getDisplay()->Display( &m_moduleList );

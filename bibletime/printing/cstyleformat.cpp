@@ -47,6 +47,7 @@ const QColor& CStyleFormat::color( const Color type ) const {
 		case Background:
 			return m_BGColor;		
 	};
+	return Qt::white; //shouldn't be executed
 }
 
 /** Sets the foreground color of this format. */

@@ -212,8 +212,8 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 //------------class CSearchDialogResultView-----------//
 CSearchDialogResultView::CSearchDialogResultView(QWidget *parent, const char *name)
 	: QListBox(parent,name),
-	m_currentItem(0),
 	m_module(0),
+	m_currentItem(0),	
 	m_pressedPos()
 {
 	initView();
@@ -221,7 +221,6 @@ CSearchDialogResultView::CSearchDialogResultView(QWidget *parent, const char *na
 }
 
 CSearchDialogResultView::~CSearchDialogResultView() {
-	qDebug("CSearchDialogResultView::~CSearchDialogResultView()");
 }
 
 /** Initializes the tree of this ResultView */

@@ -75,8 +75,6 @@ extern "C" {
 		// try to cleanup all windows
 		if (bibletime) {
 			bibletime->saveSettings();
-//			KMessageBox::error(0, QString::fromLatin1("BibleTime got the <B>signal %1</B>.<BR>Options could be saved on disk. If restoring does not work on next startup \
-//please use the option <B>--ignore-startprofile</B>").arg(sigId));
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
 please use the option --ignore-startprofile\n");
 		}

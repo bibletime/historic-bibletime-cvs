@@ -43,6 +43,7 @@ const bool CExportManager::saveKey( CSwordKey* key, const bool withText ) {
 //		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
 //		key->key();
 //  }
+	return true;
 }
 
 /** Saves the key to disk. */

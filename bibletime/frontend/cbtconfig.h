@@ -76,6 +76,7 @@ public:
 		hebrewPoints,
 		hebrewCantillation,
 		greekAccents,
+		textualVariants,
 
 		lineBreaks,
 		verseNumbers,

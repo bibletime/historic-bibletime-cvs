@@ -35,8 +35,7 @@ CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( SWModule* module) : CSwordModu
 }
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo& m ) : CSwordModuleInfo(m) {
-	if (m_entryList)
-		delete m_entryList;
+	delete m_entryList;
 	m_entryList = 0;	
 		
 	if (m.m_entryList) {
@@ -46,8 +45,8 @@ CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo&
 }
 
 CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
-//	if (m_entryList)
-		delete m_entryList;
+	delete m_entryList;
+	m_entryList = 0;
 }
 
 /** Returns the entries of the module. */
@@ -84,7 +83,6 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 		if (!read){
 			(*module()) = TOP;  		
   		do {
-//   			m_entryList->append(QString::fromUtf8(module()->KeyText()));
    			m_entryList->append(QString::fromLocal8Bit(module()->KeyText())); //UTF8, Latin1 or Local8Bit??
   			(*module())++;
   		} while (!module()->Error());

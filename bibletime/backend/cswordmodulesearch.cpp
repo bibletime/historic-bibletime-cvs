@@ -40,23 +40,18 @@ void startSearchCallback(void *p){
 }
 
 void percentUpdateDummy(char percent, void *p) {
-//	if (searcher) {	
-		searcher->percentUpdate(percent, p);
-//	}
+	searcher->percentUpdate(percent, p);
 };
 
 CSwordModuleSearch::CSwordModuleSearch() :
-	m_isSearching(false),	m_foundItems(false),m_terminateSearch(false),
-	m_searchedText(QString::null), m_searchOptions(0)
+	m_searchedText(QString::null),
+	m_searchOptions(0),m_foundItems(false),m_isSearching(false),m_terminateSearch(false)
 {
 	searcher = this;
-//	m_moduleList.setAutoDelete(false);
 }
 
 CSwordModuleSearch::~CSwordModuleSearch(){
-//	qWarning("CSwordModuleSearch::~CSwordModuleSearch()");
 	searcher = 0;
-//	m_moduleList.clear();
 }
 
 void CSwordModuleSearch::percentUpdate(char percent, void *){
@@ -87,7 +82,6 @@ const bool CSwordModuleSearch::startSearch() {
 	
 	bool foundItems = false;
 	
-	CSwordModuleInfo* m = 0;
 	for (m_moduleList.first(); m_moduleList.current() && !m_terminateSearch; m_moduleList.next()) {
 		cms_module_current++;
 		if ( m_moduleList.current()->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) )
@@ -161,7 +155,6 @@ void CSwordModuleSearch::setSearchOptions( int options ){
 
 /** Returns the percent for the given type. */
 const int CSwordModuleSearch::getPercent( percentType type ){
-	int ret = 0;	
 	switch (type) {
 		case currentModule:
 			return cms_currentProgress;

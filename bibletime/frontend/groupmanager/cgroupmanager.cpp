@@ -99,15 +99,17 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 
 CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, const bool useBookmarks, const bool saveSettings, const bool useDnD, const bool useExtendedMode, const bool useRMBMenu, const bool showHelpDialogs)
 	: KListView(parent, name),
-		m_useBookmarks(useBookmarks), m_saveSettings(saveSettings),
-		m_useDragDrop(useDnD),
-		m_useExtendedMode(useExtendedMode), m_useRMBMenu(useRMBMenu),
-		m_showHelpDialogs(showHelpDialogs),
+		m_swordList(swordList),		
 		m_config( new KConfig("bt-groupmanager", false, false ) ),
 	  m_menu(false),
-		m_searchDialog(0),
-		m_pressedItem(0),
-		m_swordList(swordList)
+		m_searchDialog(0),		
+		m_pressedItem(0),		
+		m_useBookmarks(useBookmarks),
+		m_saveSettings(saveSettings),
+		m_useDragDrop(useDnD),
+		m_useExtendedMode(useExtendedMode),
+		m_useRMBMenu(useRMBMenu),
+		m_showHelpDialogs(showHelpDialogs)
 {
 	initView();
 	initConnections();

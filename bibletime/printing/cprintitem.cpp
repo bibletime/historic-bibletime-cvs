@@ -61,8 +61,8 @@ CStyle* const CPrintItem::ListViewItem::style() const {
 
 
 CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description) :
-	m_listViewItem(0), m_module(module), m_style(0), m_startKey(startKey),
-	m_headerText(QString::null), m_description(description), m_moduleText(QString::null)	
+  m_style(0), m_headerText(QString::null), m_description(description),  m_moduleText(QString::null),
+  m_startKey(startKey),  m_module(module), m_listViewItem(0)
 {	
 	m_startEmpty = startKey.isEmpty();	
 	m_stopKey = (!m_startEmpty && (startKey != stopKey) ) ? stopKey : QString::null;
@@ -179,9 +179,9 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 
 	const bool isUnicode 	= (m_module && m_module->isUnicode());
 	const int leftMargin 	= printer->leftMargin();
-	const int rightMargin = printer->rightMargin();
+//	const int rightMargin = printer->rightMargin();
 	const int upperMargin = printer->upperMargin();
-	const int lowerMargin = printer->lowerMargin();				
+//	const int lowerMargin = printer->lowerMargin();				
 	
 	const QRect pageSize =  printer->contentSize();
 	const int pageHeight 	= pageSize.height();

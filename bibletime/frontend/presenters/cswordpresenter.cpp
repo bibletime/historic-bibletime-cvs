@@ -31,15 +31,20 @@
 #include <kaccel.h>
 
 CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
-	: KMainWindow(parent,name,0), m_moduleList(useModules), m_htmlWidget(0),
-	m_keyChooser(0), m_mainToolBar(0), m_moduleChooserBar(0), m_popup(0),m_savePopup(0),m_copyPopup(0),
-	m_printPopup(0), m_features(0), m_accel(0),
-	m_lexiconPopup(new QPopupMenu(this)),
-	m_moduleOptions( CBTConfig::getFilterOptionDefaults() ),
-	m_displayOptions( CBTConfig::getDisplayOptionDefaults() ),
+	: KMainWindow(parent,name,0),
+	m_mainToolBar(0),
+	m_popup(0), m_savePopup(0), m_copyPopup(0), m_printPopup(0),
+	m_lexiconPopup(new QPopupMenu(this)),	
+	m_keyChooser(0),
+	m_htmlWidget(0),
+	m_moduleChooserBar(0),	
 	m_displaySettingsButton(0),
-	m_initialized(false)
-
+	m_moduleList(useModules),
+	m_accel(0),
+	m_moduleOptions( CBTConfig::getFilterOptionDefaults() ),	
+	m_displayOptions( CBTConfig::getDisplayOptionDefaults() ),
+	m_features(0),
+	m_initialized(false)	
 {		
 	ListCSwordModuleInfo& modules =  backend()->moduleList();
 	for (modules.first(); modules.current(); modules.next()) {

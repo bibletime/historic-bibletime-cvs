@@ -93,7 +93,6 @@ void CBookTreeChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 		siblings = QStringList::split("/",key,false);
 	
 	//find the right listview item
-	QListViewItem* parent = 0;
 	const int count = siblings.count();
 	int index = 0;
 	QString currentSibling = siblings[index];

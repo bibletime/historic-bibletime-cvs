@@ -295,8 +295,8 @@ void BibleTime::initBackends(){
 	
 	m_backend = new CSwordBackend();	
 	CPointers::setBackend(m_backend);
-	const SWMgr::LoadError errorCode = m_backend->initModules();
-	qWarning("ErrorCode = %i", errorCode);
+	const CSwordBackend::LoadError errorCode = m_backend->initModules();
+//	qWarning("ErrorCode = %i", errorCode);
 
 	m_moduleList = 0;		
 	if ( errorCode == CSwordBackend::NoError ) {	//no error
@@ -305,7 +305,7 @@ void BibleTime::initBackends(){
 		m_moduleList = 0;
 		//show error message that initBackend failed		
 		switch (errorCode) {
-			case CSwordBackend::NoModuleConfig: //mods.d or mods.conf missing
+			case CSwordBackend::NoSwordConfig: //mods.d or mods.conf missing
 			{
 				KStartupLogo::hideSplash();
 				CHTMLDialog dlg(HELPDIALOG_NO_SWORD_MODULE_CONFIG_DIR);
@@ -345,10 +345,9 @@ void BibleTime::initPrinter() {
 
 /** Apply the settings given by the profile p*/
 void BibleTime::applyProfileSettings( CProfile* p ){
-	if (!p) {
-//	 	qDebug("profile is empty!");
+	if (!p)
 		return;
-	}
+
 	if (p->fullscreen()) { //we can set only fullscreen OR geometry
 		m_windowFullscreen_action->setChecked( true );
 		toggleFullscreen();

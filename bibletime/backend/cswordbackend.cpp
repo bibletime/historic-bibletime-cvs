@@ -63,20 +63,14 @@ CSwordBackend::CSwordBackend()
 
 CSwordBackend::~CSwordBackend(){
 	shutdownModules();	
-	//delete filters
 	delete m_filters.gbf;
 	delete m_filters.plain;	
 	delete m_filters.thml;	
-	
-	//delete display objects??
-//	delete m_entryDisplay;
-//	delete m_chapterDisplay;
-//	delete m_bookDisplay;
 }
 
 /** Initializes the Sword modules. */
-const SWMgr::LoadError CSwordBackend::initModules() {
-	SWMgr::LoadError ret = SWMgr::NoError;
+const CSwordBackend::LoadError CSwordBackend::initModules() {
+	LoadError ret = NoError;
 
 	ModMap::iterator it;
 	SWModule*	curMod = 0;
@@ -85,7 +79,8 @@ const SWMgr::LoadError CSwordBackend::initModules() {
  	shutdownModules(); //remove previous modules
  	m_moduleList.clear();	
 
-	ret = Load();
+	ret = (LoadError)( Load() );
+	
 	for (it = Modules.begin(); it != Modules.end(); it++) {
 		curMod = (*it).second;
 		if (!strcmp(curMod->Type(), "Biblical Texts")) {
@@ -172,11 +167,36 @@ const bool CSwordBackend::isOptionEnabled( const CSwordBackend::FilterOptions ty
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
 void CSwordBackend::setOption( const CSwordBackend::FilterOptions type, const bool enable){
-// const QString optionName = ;
-	setGlobalOption(optionName(type).latin1(), enable ? "On": "Off");
+	string value;
+	switch (type) {
+		case textualVariants:
+			value = enable ? "Primary Reading" : "Secondary Reading";
+			break;
+		default:		
+			value = enable ? "On": "Off";
+			break;
+	};
+//	qWarning("CSwordBackend::setOption: %s to %s",optionName(type).latin1(),value.c_str() );
+//	setGlobalOption(optionName(type).latin1(), value.c_str());
+	
+	//debug option values
+//	OptionsList options = getGlobalOptionValues("Footnotes");
+//	for (OptionsList::iterator it = options.begin(); it != options.end(); it++) {
+//		qWarning("%s", (*it).c_str());
+
+//        OptionsList globalOptions = getGlobalOptions();
+//        for (OptionsList::iterator it = globalOptions.begin(); it != globalOptions.end(); it++) {
+//                cout << *it << endl;
+//
+//                OptionsList values = getGlobalOptionValues((*it).c_str());
+//                for (OptionsList::iterator it2 = values.begin(); it2 != values.end(); it2++) {
+//                        cout << "\t"<< *it2 << endl;
+//                }
+//        }
 }
 
 void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptionsBool options){
+//  qWarning("CSwordBackend::setFilterOptions");
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
   setOption( headings, 						options.headings );
@@ -185,93 +205,16 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptionsBool opt
 	setOption( hebrewPoints, 				options.hebrewPoints );
 	setOption( hebrewCantillation, 	options.hebrewCantillation );
 	setOption( greekAccents, 				options.greekAccents);
+	setOption( textualVariants,			options.textualVariants);	
 }
 
 void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptionsBool options){
+  qWarning("CSwordBackend::setDisplayOptions");
   if (m_displays.entry)
 		m_displays.entry->setDisplayOptions(options);	
   if (m_displays.chapter)
 		m_displays.chapter->setDisplayOptions(options);	
 }
-
-
-/** I copied this method from swmgr.cpp of SWORD. This is just a workaround
-	* that BibleTime isn't closed when
-	* mods.d wasn't found.
-	*/
-//void CSwordBackend::Load() {
-//	if (!config) {	// If we weren't passed a config object at construction, find a config file
-//		if (!configPath)	// If we weren't passed a config path at construction...
-//			findConfig(&configType, &prefixPath, &configPath);
-//		if (configPath) {
-//			if (configType)
-//				loadConfigDir(configPath);
-//			else	config = myconfig = new SWConfig(configPath);
-//		}
-//	}
-//
-//	if (config) {
-//		SectionMap::iterator Sectloop, Sectend;
-//		ConfigEntMap::iterator Entryloop, Entryend;
-//
-//		DeleteMods();
-//
-//		for (Sectloop = config->Sections.lower_bound("Globals"), Sectend = config->Sections.upper_bound("Globals"); Sectloop != Sectend; Sectloop++) {		// scan thru all 'Globals' sections
-//			for (Entryloop = (*Sectloop).second.lower_bound("AutoInstall"), Entryend = (*Sectloop).second.upper_bound("AutoInstall"); Entryloop != Entryend; Entryloop++)	// scan thru all AutoInstall entries
-//				InstallScan((*Entryloop).second.c_str());		// Scan AutoInstall entry directory for new modules and install
-//		}		
-//		if (configType) {	// force reload on config object because we may have installed new modules
-//			delete myconfig;
-//			config = myconfig = 0;
-//			loadConfigDir(configPath);
-//		}
-//		else	config->Load();
-//
-//		CreateMods();
-//
-////	augment config with ~/.sword/mods.d if it exists ---------------------
-//			char *envhomedir  = getenv ("HOME");
-//			if (envhomedir != NULL && configType != 2) { // 2 = user only
-//				string path = envhomedir;
-//				if ((envhomedir[strlen(envhomedir)-1] != '\\') && (envhomedir[strlen(envhomedir)-1] != '/'))
-//					path += "/";
-//				path += ".sword/";
-//				if (FileMgr::existsDir(path.c_str(), "mods.d")) {
-//					char *savePrefixPath = 0;
-//					char *saveConfigPath = 0;
-//					SWConfig *saveConfig = 0;
-//					stdstr(&savePrefixPath, prefixPath);
-//					stdstr(&prefixPath, path.c_str());
-//					path += "mods.d";
-//					stdstr(&saveConfigPath, configPath);
-//					stdstr(&configPath, path.c_str());
-//					saveConfig = config;
-//					config = myconfig = 0;
-//					loadConfigDir(configPath);
-//
-//					CreateMods();
-//
-//					stdstr(&prefixPath, savePrefixPath);
-//					delete []savePrefixPath;
-//					stdstr(&configPath, saveConfigPath);
-//					delete []saveConfigPath;
-//					(*saveConfig) += *config;
-//					homeConfig = myconfig;
-//					config = myconfig = saveConfig;
-//				}
-//			}
-//// -------------------------------------------------------------------------
-//  }
-//	else {
-//		if (!configPath)
-//			m_errorCode = noSwordModuleConfigDirectory;
-//		else
-//			m_errorCode = noModulesAvailable;	
-//		qWarning("BibleTime: Can't find 'mods.conf' or 'mods.d'. Please setup /etc/sword.conf! Read the documentation on www.bibletime.de how to do this!");
-//	}
-////	if ( (access("/etc/sword.conf",R_OK) == -1) && !strlen(getenv("SWORD_PATH")))
-////		m_errorCode = noSwordConfigFile;
-//}
 
 /** This function searches for a module with the specified description */
 CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& description){
@@ -359,21 +302,23 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 const QString CSwordBackend::optionName( const CSwordBackend::FilterOptions option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
-			return QString("Footnotes");
+			return QString::fromLatin1("Footnotes");
 		case CSwordBackend::strongNumbers:
-			return QString("Strong's Numbers");
+			return QString::fromLatin1("Strong's Numbers");
 		case CSwordBackend::headings:
-			return QString("Headings");
+			return QString::fromLatin1("Headings");
 		case CSwordBackend::morphTags:
-			return QString("Morphological Tags");
+			return QString::fromLatin1("Morphological Tags");
   	case CSwordBackend::lemmas:
-			return QString("Lemmas");
+			return QString::fromLatin1("Lemmas");
 		case CSwordBackend::hebrewPoints:
-			return QString("Hebrew Vowel Points");
+			return QString::fromLatin1("Hebrew Vowel Points");
 		case CSwordBackend::hebrewCantillation:
-			return QString("Hebrew Cantillation");
+			return QString::fromLatin1("Hebrew Cantillation");
 		case CSwordBackend::greekAccents:
-			return QString("Greek Accents");
+			return QString::fromLatin1("Greek Accents");
+		case CSwordBackend::textualVariants:
+			return QString::fromLatin1("Textual Variants");			
 	}
 	return QString::null;	
 }
@@ -397,30 +342,33 @@ const QString CSwordBackend::translatedOptionName(const CSwordBackend::FilterOpt
 			return i18n("Hebrew Cantillation");
 		case CSwordBackend::greekAccents:
 			return i18n("Greek Accents");
+		case CSwordBackend::textualVariants:
+			return i18n("Textual Variants");			
 	}
-	return QString::null;	
-
+	return QString::null;
 }
 
 
 const QString CSwordBackend::configOptionName( const CSwordBackend::FilterOptions option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
-			return QString("Footnotes");
+			return QString::fromLatin1("Footnotes");
 		case CSwordBackend::strongNumbers:
-			return QString("Strongs");
+			return QString::fromLatin1("Strongs");
 		case CSwordBackend::headings:
-			return QString("Headings");
+			return QString::fromLatin1("Headings");
 		case CSwordBackend::morphTags:
-			return QString("Morph");
+			return QString::fromLatin1("Morph");
   	case CSwordBackend::lemmas:
-			return QString("Lemma");
+			return QString::fromLatin1("Lemma");
 		case CSwordBackend::hebrewPoints:
-			return QString("HebrewPoints");
+			return QString::fromLatin1("HebrewPoints");
 		case CSwordBackend::hebrewCantillation:
-			return QString("Cantillation");
+			return QString::fromLatin1("Cantillation");
 		case CSwordBackend::greekAccents:
-			return QString("GreekAccents");
+			return QString::fromLatin1("GreekAccents");
+		case CSwordBackend::textualVariants:
+			return QString::fromLatin1("TextualVariants");
 	}
 	return QString::null;	
 }
@@ -433,6 +381,5 @@ const QString CSwordBackend::booknameLanguage( const QString& language ) {
 
 /** Returns the version of the Sword library. */
 const SWVersion CSwordBackend::Version() {
-//	qWarning("Current version: %s", SWVersion::currentVersion);
-	return	SWVersion::currentVersion;
+	return SWVersion::currentVersion;
 }

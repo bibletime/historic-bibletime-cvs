@@ -29,11 +29,12 @@
 
 #define CURRENT_SYNTAX_VERSION 1
 
-CProfile::CProfile( const QString& file, const QString& name )
-	: m_filename(file),
-		m_name(name.isEmpty() ? i18n("unknown") : name),
-		m_fullscreen(false),
-		m_geometry(0,0,800,600) {
+CProfile::CProfile( const QString& file, const QString& name ):
+	m_name(name.isEmpty() ? i18n("unknown") : name),
+	m_filename(file),
+	m_fullscreen(false),
+	m_geometry(0,0,800,600)
+{
 	
 	m_profileWindows.setAutoDelete(true);
 	if (!m_filename.isEmpty() && name.isEmpty()) {
@@ -235,7 +236,9 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 				break;
 			case CSwordModuleInfo::GenericBook:
 				window = doc.createElement("BOOK");	
-				break;				
+				break;
+			default:
+				break;
 		}
 		if (window.isNull())
 			break;

@@ -101,7 +101,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		QString ref = QString::null;
 		CReferenceManager::Type type;		
 		const bool ok = CReferenceManager::decodeHyperlink(link, module, ref, type);
-		if (ref.isEmpty())
+		if (!ok || ref.isEmpty())
 			return;
 
 		const QFont oldFont = font();				
