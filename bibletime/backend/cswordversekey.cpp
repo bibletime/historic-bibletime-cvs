@@ -265,3 +265,13 @@ CSwordVerseKey& CSwordVerseKey::operator = (const QString& keyname){
   key(keyname);
   return *this;
 }
+
+const int CSwordVerseKey::compare(const CSwordKey& k) {
+	const SWKey* swk = dynamic_cast<const SWKey*>(&k);
+	
+	if (swk) {
+		return VerseKey::compare(*swk);
+	}
+	
+	return -1; //shouldn't happen
+}

@@ -81,7 +81,7 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 
 	replaceTokenSubstitute("Fn", "</font>"); //  font  end
 	replaceTokenSubstitute("CL", "<br/>"); //  new line
-	replaceTokenSubstitute("CM", "<!p><br/>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
+	replaceTokenSubstitute("CM", "<br/>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
 
   replaceTokenSubstitute("CG", "&gt;"); // literal greater-than sign
 	replaceTokenSubstitute("CT", "&lt;"); // literal less-than sign

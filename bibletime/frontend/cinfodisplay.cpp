@@ -131,7 +131,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 		Q_ASSERT(key);
 		VerseKey* vk = dynamic_cast<VerseKey*>(key);		
 		
-		CTextRendering::KeyTreeItem::Settings settings(
+		CTextRendering::KeyTreeItem::Settings settings (
 			false, 
 			CTextRendering::KeyTreeItem::Settings::CompleteShort
 		);
@@ -157,6 +157,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 		tree.append( i );
 	}	
 	
+// 	qWarning( "rendered: %s", renderer.renderKeyTree(tree).latin1());
 	return QString::fromLatin1("<div class=\"crossrefinfo\"><h3>%1</h3><p>%2</p></div>")
 		.arg(i18n("Cross references"))
 		.arg(renderer.renderKeyTree(tree));

@@ -60,7 +60,6 @@ const QString CSwordKey::rawText() {
 }
 
 const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
-//	qWarning("const QString CSwordKey::renderedText()");
   if (!m_module)
 		return QString::null;
 
@@ -70,7 +69,8 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
   
 	if (!key().isNull()) { //we have valid text
     const QString text = QString::fromUtf8(m_module->module()->RenderText());
-    if (mode == HTMLEscaped) {
+    
+		if (mode == HTMLEscaped) {
       //we have to encode all UTF-8 in HTML escapes
       // go though every character and write down the escaped HTML unicode entity
       // form is &#<decimal unicode value here>;
@@ -89,7 +89,7 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
       return ret;
     }
     else {
-    	return text;
+			return text;
 		}
   }
   return QString::null;

@@ -370,7 +370,7 @@ const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& st
 	return true;
 }
 
-const bool CExportManager::printKey( CSwordKey* key, const QString& description ){
+const bool CExportManager::printKey( CSwordKey* key, const QString& /*description*/ ){
 	CPrinter::KeyTreeItem::Settings settings;
 	
 	CPrinter::KeyTree tree;

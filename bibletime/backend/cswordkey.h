@@ -66,8 +66,31 @@ public:
   * The assignment operator for more easy use of the key classes.
   */
   inline virtual CSwordKey& operator = ( const QString& );
+	
+// 	inline const bool operator < (const CSwordKey& k) {
+// 		return compare(k) < 0;
+// 	};
+// 	inline const bool operator <= ( const CSwordKey& k) {
+// 		return compare(k) <= 0;
+// 	};
+// 	
+// 	inline const bool operator > (const CSwordKey& k) {
+// 		return compare(k) > 0;
+// 	};
+// 	inline const bool operator >= (const CSwordKey& k) {
+// 		return compare(k) >= 0;
+// 	};
+// 	
+// 	inline const bool operator == (const CSwordKey& k) {
+// 		return compare(k) == 0;
+// 	};
 
 protected:
+	/**
+	* Returns 1 if larger, 0 if equal and  -1 if less than k
+	*/
+	virtual const int compare( const CSwordKey& k ) = 0;
+	
 	CSwordModuleInfo* m_module; //module pointer used by all keys
 };
 

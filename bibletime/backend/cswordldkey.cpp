@@ -113,3 +113,14 @@ CSwordLDKey& CSwordLDKey::operator = (const QString& keyname ){
   key(keyname);
   return *this;
 }
+
+const int CSwordLDKey::compare( const CSwordKey& k ) {
+	const SWKey* swk = dynamic_cast<const SWKey*>(&k);
+	if (swk) {
+		return SWKey::compare(*swk);
+	}
+		
+	return -1;
+}
+	
+

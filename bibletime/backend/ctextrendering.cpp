@@ -92,11 +92,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 		m_stopKey( stopKey ),
 		m_alternativeContent( QString::null )
 {
-	Q_ASSERT(module);
-	if (!module) { //Warning: return already here!
-		return;
-	}
-	
+	Q_ASSERT(module);	
 	m_moduleList.append(module);
 	
 	//use the start and stop key to ceate our child items
@@ -108,14 +104,19 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 		CSwordVerseKey stop(module);
 		stop = stopKey;
 		
-		if (!key().isEmpty() && !m_stopKey.isEmpty()) { //we have a range of keys
+		if (!m_key.isEmpty() && !m_stopKey.isEmpty()) { //we have a range of keys
 			bool ok = true;
 			
 			while (ok && ((start < stop) || (start == stop)) ) { //range
-				childList()->append( new KeyTreeItem(start.key(), module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::SimpleKey)) );
+				childList()->append(
+					new KeyTreeItem(start.key(), module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::SimpleKey)) 
+				);
 				
 				ok = start.next(CSwordVerseKey::UseVerse);
 			}	
+		}
+		else if (m_key.isEmpty()) {
+			childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::SimpleKey)) );
 		}
 	}
 	else if ((module->type() == CSwordModuleInfo::Lexicon) || (module->type() == CSwordModuleInfo::Commentary) ) {		

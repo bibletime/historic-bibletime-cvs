@@ -103,6 +103,9 @@ public:
 	* Assignment operator for more ease of use of this class. 
 	*/
   virtual CSwordLDKey& operator = (const QString& keyname );
+	
+protected:
+	virtual const int compare(const CSwordKey& k);
 };
 
 
