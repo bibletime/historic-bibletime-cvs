@@ -26,12 +26,12 @@
 <year>2000</year>
 <year>2001</year>
 <holder>
-The team of BibleTime, info@bibletime.de
+Das Team von BibleTime, info@bibletime.de
 </holder>
 </copyright>
 
 <legalnotice>
-<para>The bibletime helpdialog is part of Bibletime.
+<para>Der BibleTime Hilfedialog ist ein Teil von BibleTime.
 </para>
 
 <para>
@@ -57,7 +57,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 <abstract>
 <para>
-<application>BibleTime</application> is an application to aid in study of the
+<application>BibleTime</application> ist eine Anwendung um bei Studium der Bibel zu helfen.
 Bible.</para>
 </abstract>
 
@@ -65,7 +65,7 @@ Bible.</para>
 <keyword>BibleTime</keyword>
 <keyword>Sword</keyword>
 <keyword>Crosswire</keyword>
-<keyword>help dialog</keyword>
+<keyword>Hilfedialog</keyword>
 </keywordset>
 
 </bookinfo>

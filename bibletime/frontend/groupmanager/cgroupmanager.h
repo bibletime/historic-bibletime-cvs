@@ -74,6 +74,10 @@ public:
 	*
 	*/
   void searchBookmarkedModule(QString, CGroupManagerItem *);
+  /**
+  * Returns true if the item "item" is a child of item "parent".
+  */
+  bool isChild(QListViewItem* parent, QListViewItem* child);
 
 public slots: // Public slots
   /**
@@ -204,10 +208,6 @@ private:
   */
   CGroupManagerItem* findParent( int ID, CGroupManagerItem* parentItem = 0 );
   void createNewBookmark(CGroupManagerItem* parent, CModuleInfo* module, const QString ref);
-  /**
-  * Returns true if the item "item" is a child of item "parent".
-  */
-  bool isChild(CGroupManagerItem* parent, CGroupManagerItem* child);
   /**
   * Save items of group to config. If grou is 0 we save all items.
   * The  path to the group-item itself is saved, too.

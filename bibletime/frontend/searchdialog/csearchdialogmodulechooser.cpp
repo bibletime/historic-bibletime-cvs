@@ -42,29 +42,11 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	
 	m_importantClasses = importantClasses;
 	m_moduleList = 0;
-	m_itemsDict.setAutoDelete(false);
+//	m_itemsDict.setAutoDelete(false);
 
 	QHBoxLayout* mainLayout = new QHBoxLayout(this);
 	m_moduleIndex = new CGroupManager(importantClasses, this, "module index", importantClasses->swordBackend->getModuleList(), false, false, false, false, false, false);	
 	QWhatsThis::add(m_moduleIndex, WT_SD_MODULECHOOSER);
-	
-//  QListViewItemIterator it( m_moduleIndex );
-//	for (; it.current(); ++it )  {
-//		qWarning("%s", it.current()->text(0).latin1());   	
-//   	CGroupManagerItem* item = dynamic_cast<CGroupManagerItem*>(it.current());
-//   	if (item) {
-//   		if (item->type() == CGroupManagerItem::Group) {
-// 			qWarning("it's a group:%s#", item->text(0).latin1());
-//   		if (!item->childCount()) {
-//   			qWarning("delete"); 				
-////  				delete item;
-////   				break;
-//   			}
-//   			else
-//   				item->setOpen(true);
-//   		}
-//   	}
-//  }
 	
 	m_moduleList = new QListBox(this);
 	QWhatsThis::add(m_moduleList, WT_SD_MC_MODULELIST);
@@ -96,6 +78,25 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	mainLayout->addLayout(buttonLayout,0);
 	mainLayout->addWidget(m_moduleList,2);
 
+	QListViewItem* child = m_moduleIndex->firstChild();
+	while (child) {
+		QListViewItem* nextChild = child->nextSibling();
+		ASSERT(nextChild);
+		if (child->childCount())
+ 			child->setOpen(true);
+ 		else {
+ 			CGroupManagerItem* i = (CGroupManagerItem*)child;
+ 			if (i && (i->type() == CGroupManagerItem::Group)) {
+				if (m_moduleIndex->isChild(child, nextChild)) {						
+					delete child;
+					nextChild = m_moduleIndex->firstChild();
+				}
+				else
+					delete child;
+ 			}
+ 		}
+		child = nextChild;
+	}
 	m_initialized = true;
 }
 

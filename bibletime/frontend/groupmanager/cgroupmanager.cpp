@@ -1429,8 +1429,8 @@ bool CGroupManager::saveGroups(KConfig* configFile, CGroupManagerItem* group) {
 }
 
 /** Returns true if the item "item" is a child of item "parent". */
-bool CGroupManager::isChild(CGroupManagerItem* parent, CGroupManagerItem* child){
-	CGroupManagerItem *myParent = child;
+bool CGroupManager::isChild(QListViewItem* parent, QListViewItem* child){
+	QListViewItem *myParent = child;
 	while (myParent && myParent != parent )
 		myParent = myParent->parent();		
 	return myParent == parent && parent!=child;

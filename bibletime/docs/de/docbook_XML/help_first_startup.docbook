@@ -4,7 +4,7 @@
 <table>
 <title>
 
-The first startup of BibleTime!  This table describes the features of BibleTime!
+Der erste Start von BibleTime! Diese Tabelle beschreibt die Eigenschaften von BibleTime!
 
 </title>
 <tgroup cols="2">
@@ -12,12 +12,12 @@ The first startup of BibleTime!  This table describes the features of BibleTime!
 <row>
 <entry>
 <emphasis>
-Feature
+Eigenschaft
 </emphasis>
 </entry>
 <entry>
 <emphasis>
-Description
+Beschreibung
 </emphasis>
 </entry>
 </row>
@@ -33,85 +33,78 @@ MDI
 </entry>
 <entry>
 
-MDI is the abbreviation for <emphasis>Multiple Document Interface.</emphasis>
-With the help of MDI it's possible to have more than one presenter opened at the
-same time! You may view two different bibles side by side and compare their
-text. But it's also possible to open only one window as in BibleTime 0.2x. The
-menu <emphasis>Window</emphasis> is used to work with the MDI interface.
+MDI ist die Abkürzung für <emphasis>Multiple Document Interface</emphasis>.
+Mit der Hilfe von MDI ist es möglich mehr als ein Anzeigefenster zur selben Zeit geöffnet zu haben!
+Sie können zwei verschiedene Bibeln Seite an Seite anschauen und ihren Text vergleichen.
+Aber es ist ebenfalls möglich nur ein Fenster wie in BibleTime 0.2x geöffnet zu haben.
+Das Menü <emphasis>Fenster</emphasis> wird zum arbeiten mit der MDI Schnittstelle benutzt.
 
-The MDI area will only contain presenters, nothing else. This clean
-presentation avoids confusing users with too many choices.
+Der MDI Bereich wird nur Anzeigefenster enthalten, nicht anderes. Diese saubere Darstellung
+vermeidet die Verwirrung von Benutzern durch zu viele Möglichkeiten.
+</entry>
+</row>
+
+<row>
+<entry>
+<emphasis>
+Anzeigefenster
+</emphasis>
+</entry>
+<entry>
+
+Ein Anzeigefenster ist ein Fenster innerhalb des MDI Bereiches von BibleTime. Ein Anzeigefenster präsentiert den Inhalt eines Dokumentes
+(SWORD Modul) in einem vernünftigen Format (Bibeln werden zum Beispiel als HTML Text mit mit Verknüpfungen auf Versreferenzen).
+Wir benutzen Anzeigefenster um einen allgemeinen Ansatz für die Zukunft zu haben.
+Crosswire wird Sword erweitern sowie mehr Material zur Verteilung veröffentlicht wird.
+Wenn neue Modultypen für Sword erzeugt werden werden wir einfach zusätzliche Typen von Anzeigefenstern hinzufügen.
+
+Dieser Ansatz macht BibleTime für die Zukunft erweiterbar und macht es möglich jede Art von Modulen anzuzeigen
+die in Zukunft eruegt werden können (zum Beispiel Karten oder Sound-Module).
 
 </entry>
 </row>
 <row>
 <entry>
 <emphasis>
-Display window
+Hauptgruppe
 </emphasis>
 </entry>
 <entry>
 
-A display window is a window inside the MDI area of BibleTime. A display window presents
-the content of a document (SWORD module) in a reasonable format (for example Bibles will be
-displayed as HTML text with hyperlinks to verse references).
-We use display windows to have a general approach for the future.
-Crosswire will extend SWORD as more material is made available for distribution.
-When new module types are created for Sword we will simply create additional types of display windows.
-This approach makes BibleTime extensible in the future, and able to display any
-type of module that might be created in (for example maps or sound modules ...).
+Die Hauptgruppe ist der Baum auf der linken Seite von BibleTimes Anwendungsfenster.
+Die Hauptgruppe kombiniert die Lesezeichenverwaltung und die Moduleverwaltung von BibleTime 0.2x.
+Um mit der Hauptgruppe zu arbeiten benutzen Sie das Menü der rechte Maustaste.
 
+Die Hauptgruppe ist Drag&Drop fähig: Sie können Versreferenzen aus einem geöffneten Anzeigefenster oder aus dem Suchdialog ziehen
+um ein Lesezeichen zu erzeugen, und sie können Einträge im Baum bewegen (z.B. Gruppen oder Lesezeichen in andere Gruppen bewegen).
 </entry>
 </row>
 <row>
 <entry>
 <emphasis>
-Main index
+Suchschnittstelle
 </emphasis>
 </entry>
 <entry>
 
-The main index is the tree on the left side of BibleTime's application window.  The
-main index combines the bookmark management and module management of
-BibleTime 0.2x. To work with the main index use the right mouse button menu.
-
-The main index is Drag 'n' Drop capable: You can drag verse references from a
-an open document or from the search dialog into the main index to create a bookmark, and you can move items in
-the tree (e.g. move groups or bookmarks into another group).
-
+Die Suchfunktion befindet sich nun in einem eigenen Fenster. Klicken Sie mit der rechten Maustaste auf ein Modul und wählen Sie "Suche Modul(e)"
+um den Suchdialog zu öffnen.
+Der Dialog enthält Bereiche zum eingeben des Suchbegriffes, zum setzen des Suchbereiches und zum Navigieren in den gefundenen Einträgen.
+Die letzte Karteikarte zeigt die grafische Suchanalyse.
 </entry>
 </row>
 <row>
 <entry>
 <emphasis>
-Search interface
+Drag&Drop
 </emphasis>
 </entry>
 <entry>
 
-The search feature is now in its own window. Click with the right mousebutton
-on a module and select "Search module(s)" to open the searchdialog. The dialog
-contains sections to enter the searchphrase, set the searchscope and to navigate
-through the found items. The last tab shows the graphical search analysis .
-
-
-</entry>
-</row>
-<row>
-<entry>
-<emphasis>
-Drag 'n' Drop
-</emphasis>
-</entry>
-<entry>
-
-Drag & Drop is an important part of BibleTime! You can drag documents, verse
-references, bookmarks, document groups, search results etc. Places where you can drop
-them are the main index, the document windows, and the commentary editor.
-
-Simply play around a little to find out how our Drag & Drop system does work!
-We hope you like it.
-
+Drag&Drop ist einw cihtiger Teil von BibleTime! Sie können Dokumente, Versreferenzen, Lesezeichen, Ordner, Suchergebnisse usw. herumziehen.
+Orte, an denen Sie sie fallenlassen können sind die Hauptgruppe, die Anzeigefenster und der Kommentareditor.
+Spielen Sie einfach etwas herum um herauszufinden wie unser Drag&Drop System arbeitet!
+Wir hoffen, dass es ihnen gefällt!
 </entry>
 </row>
 </tbody>
@@ -121,7 +114,7 @@ We hope you like it.
 <table>
 <title>
 
-Here's a short list of useful URLS with more information about BibleTime!
+Hier ist eine kurze Liste von URLs mit mehr Informationen über BibleTime!
 
 </title>
 <tgroup cols="2">
@@ -137,7 +130,7 @@ URL
 <entry>
 <emphasis>
 
-Description
+Beschreibung
 
 </emphasis>
 </entry>
@@ -155,10 +148,9 @@ Description
 </entry>
 <entry>
 
-This is the homepage of BibleTime! Browse to this page to read documentation
-pages. Don't forget to read the FAQ on <ulink url="http://www.bibletime.de">
-www.bibletime.de</ulink>, it contains answers to questions you'll probably have.
-
+Dies ist die Homepage von BibleTime! Gehen Sie zu dieser Seite um Dokumentationsseiten zu lesen. Vergessen sie nicht
+das FAQ auf <ulink url="http://www.bibletime.de">www.bibletime.de</ulink> zu lesen, es enthält Antworten auf Fragen,
+die sie wahrscheinlich haben.
 </entry>
 </row>
 
@@ -173,14 +165,11 @@ www.bibletime.de</ulink>, it contains answers to questions you'll probably have.
 </entry>
 <entry>
 
-This is the home of Crosswire! Crosswire is the Bible society which produces the
-Bible text module library - and the library manager SWORD! You can down load the
-Bible text modules from this page. Most of the modules available from crosswire
-are either in the public domain or have been released to crosswire for distribution
-by the copyright holder. Modules that are not released for free distribution are
-locked. Please see the <ulink url="module_encrypted.html">helpdialog on locked
-modules</ulink> before downloading locked modules.
-
+Dies ist das Zuhause von Crosswire! Crosswire ist die Bibelgesellschaft, welche die Textbibliothek und den Installationsmanager für Sword herstellt.
+Sie können die Bibeltexte von dieser Seite herunterladen. Die meisten der auf Crosswire erhältlichen Texte sind entweder Public Domain
+oder sind von dem Copyrighthalter für Crosswire zur Verteilung bereitgstellt worden.
+Module, die nicht zur freien Verteilung herausgegeben wurden sind verschlüsselt.
+Bitte lesen sie die Seite <ulink url="module_encrypted.html">Hilfedialog für verschlüsselte Module</ulink> vor dem Herunterladen von Modulen.
 </entry>
 </row>
 </tbody>
