@@ -151,7 +151,8 @@ void BibleTime::readSettings(){
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
 CDisplayWindow* BibleTime::createDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
-	kapp->setOverrideCursor( waitCursor );
+	qWarning("BibleTime::createDisplayWindow: key is %s", key.latin1());
+  kapp->setOverrideCursor( waitCursor );
 
  	CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);	
   if (displayWindow) {

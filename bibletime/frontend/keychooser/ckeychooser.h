@@ -20,6 +20,8 @@
 
 #include <qwidget.h>
 
+#include "backend/cswordmoduleinfo.h"
+
 class CSwordModuleInfo;
 class CSwordKey;
 
@@ -45,7 +47,7 @@ public:
 	* @param key if not NULL, the @ref CKey the KeyChooser should be set to
 	* @param parent the parent of the widget to create
 	*/
-  static CKeyChooser* createInstance(CSwordModuleInfo *info, CSwordKey *key, QWidget *parent);
+  static CKeyChooser* createInstance(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent);
 
 signals:
 	/**
@@ -77,7 +79,7 @@ public slots:
   /**
   * Sets the module of this keychooser and refreshes the comboboxes
   */
-  virtual void setModule( CSwordModuleInfo* ) = 0;
+  virtual void setModules( ListCSwordModuleInfo modules, const bool refresh = true ) = 0;
   /**
   * Freshes the content of the different key chooser parts.
   */
@@ -87,7 +89,7 @@ protected:
 	/**
 	* the constructor - DO NOT USE! -- use @ref #createInstance instead!
 	*/
-	CKeyChooser(CSwordModuleInfo *info=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
+	CKeyChooser(ListCSwordModuleInfo info, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 };
 
 #endif

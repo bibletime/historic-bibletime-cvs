@@ -85,7 +85,7 @@ void CLexiconReadWindow::initView(){
  	Q_ASSERT( mainToolBar() );
 	addDockWindow(mainToolBar());
 
-	setKeyChooser( CKeyChooser::createInstance(modules().first(), key(), mainToolBar()) );
+	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());	
 	mainToolBar()->setItemAutoSized(0);
 

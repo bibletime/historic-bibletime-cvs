@@ -35,15 +35,15 @@ const QString CSwordTreeKey::key( ){
 }
 
 void CSwordTreeKey::key( const QString& newKey ){
-   if (newKey.isEmpty()) {
-     qWarning("go to root!");
-     root();
-   }
-   else
- 		TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!	
- 	if (Error()) {
+  if (newKey.isEmpty()) {
+//    qWarning("go to root!");
+    root();
+  }
+  else
+    TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!	
+ 	
+  if (Error())
  		root();
- 	}	
 }
 
 void CSwordTreeKey::key( const char* newKey ){

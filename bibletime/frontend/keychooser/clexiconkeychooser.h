@@ -20,9 +20,9 @@
 
 #include <qwidget.h>
 #include "ckeychooser.h"
-#include "../../backend/cswordldkey.h"
-#include "../../backend/cswordmoduleinfo.h"
-#include "../../backend/cswordlexiconmoduleinfo.h"
+#include "backend/cswordldkey.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordlexiconmoduleinfo.h"
 
 class CKeyChooserWidget;
 class QHBoxLayout;
@@ -43,14 +43,14 @@ public:
 	*
 	*	you should not need to use this, use @ref CKeyChooser::createInstance instead
 	*/
-	CLexiconKeyChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
+	CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 
 public slots:
 	/**
 	* see @ref CKeyChooser::getKey
 	* @return Return the key object we use.
 	*/
-	virtual CSwordKey*const key();
+	virtual CSwordKey* const key();
 	/**
 	* see @ref CKeyChooser::setKey
 	*/
@@ -68,20 +68,17 @@ public slots:
   /**
   * Sets the module and refreshes the combo boxes of this keychooser.
   */
-  virtual void setModule( CSwordModuleInfo* module );
+  virtual void setModules( ListCSwordModuleInfo modules, const bool refresh = true );
 
 protected:	
 	class CLexiconPresenter;	
 	friend class CLexiconPresenter;	
-	/**
-	* to represent the lexicon key
-	*/
 	CKeyChooserWidget *m_widget;
 	CSwordLDKey* m_key;
-	CSwordLexiconModuleInfo	*m_module;	
+	QPtrList<CSwordLexiconModuleInfo> m_modules;
 	QHBoxLayout *m_layout;
+
 public slots: // Public slots
-  /** No descriptions */
   virtual void updateKey(CSwordKey* key);
 };
 

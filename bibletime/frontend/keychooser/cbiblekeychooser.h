@@ -18,9 +18,10 @@
 #ifndef CBIBLEKEYCHOOSER_H
 #define CBIBLEKEYCHOOSER_H
 
-//#include <qnamespace.h>
 #include <qwidget.h>
 #include "ckeychooser.h"
+
+#include "backend/cswordbiblemoduleinfo.h"
 
 class CKeyChooserWidget;
 class CSwordVerseKey;
@@ -45,7 +46,7 @@ public:
 	* the constructor
 	*	you should not need to use this, use @ref CKeyChooser::createInstance instead
 	*/
-	CBibleKeyChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
+	CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 
 public slots:
 	/**
@@ -63,7 +64,7 @@ public slots:
   /**
   * Sets te module and refreshes the combos
   */
-  virtual void setModule(CSwordModuleInfo* module);
+  virtual void setModules(ListCSwordModuleInfo modules, const bool refresh = true);
   /**
  	* Reimplementation.
  	*/
@@ -99,14 +100,13 @@ public slots:
  	* see @ref bookPrevRequested
  	*/
   void verseNextRequested(void);
-  /** No descriptions */
   void updateKey(CSwordKey* key);
 
 private:
 	CKeyChooserWidget* w_book;
 	CKeyChooserWidget* w_chapter;
 	CKeyChooserWidget* w_verse;
-	CSwordBibleModuleInfo	*m_info;
+	QPtrList<CSwordBibleModuleInfo> m_modules;
 	CSwordVerseKey *m_key;
 
 private slots: // Private slots

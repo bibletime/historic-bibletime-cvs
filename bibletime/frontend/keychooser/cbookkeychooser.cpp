@@ -16,23 +16,20 @@
  ***************************************************************************/
 
 #include "cbookkeychooser.h"
-#include "../../backend/cswordtreekey.h"
-#include "../../backend/cswordbookmoduleinfo.h"
+#include "backend/cswordtreekey.h"
+#include "backend/cswordbookmoduleinfo.h"
 
 //Qt includes
 #include <qlayout.h>
 
-CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name)
-	: CKeyChooser(module, key, parent,name), m_layout(0) {
-	if ( module && (module->type() == CSwordModuleInfo::GenericBook) ) {
-		m_module = dynamic_cast<CSwordBookModuleInfo*>(module);		
-		m_key = dynamic_cast<CSwordTreeKey*>(key);
-	}
-	else {
-		m_module = 0;
+CBookKeyChooser::CBookKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name)
+	: CKeyChooser(modules, key, parent,name), m_layout(0) {
+
+  setModules(modules, false);
+	m_key = dynamic_cast<CSwordTreeKey*>(key);
+  if (!m_modules.count()) {
 		m_key = 0;
 	}
-	setModule(m_module);
 }
 
 CBookKeyChooser::~CBookKeyChooser(){
@@ -73,7 +70,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	}
 	
 	//clear the combos which were not filled
-	for (; depth < m_module->depth(); ++depth)  {
+	for (; depth < m_modules.first()->depth(); ++depth)  {
 		CKeyChooserWidget* chooser = m_chooserWidgets.at(depth);
 		if (chooser)
 			chooser->reset(0,0,false);
@@ -95,10 +92,19 @@ CSwordKey* const CBookKeyChooser::key(){
 }
 
 /** Sets another module to this keychooser */
-void CBookKeyChooser::setModule(CSwordModuleInfo* module){
-	m_module = dynamic_cast<CSwordBookModuleInfo*>(module);	
+void CBookKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refresh){
+//	m_module = dynamic_cast<CSwordBookModuleInfo*>(module);	
+  m_modules.clear();
+  for (modules.first(); modules.current(); modules.next()) {
+    if ( modules.current()->type() == CSwordModuleInfo::GenericBook ) {
+      if (CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.current())) {
+        m_modules.append(book);
+      }
+    }
+  }
+
 	//refresh the number of combos
-	if (m_module && m_key) {
+	if (refresh && m_modules.count() && m_key) {
 		if (!m_layout)
 			m_layout = new QHBoxLayout(this);
 
@@ -107,7 +113,7 @@ void CBookKeyChooser::setModule(CSwordModuleInfo* module){
 		m_chooserWidgets.clear();
 		m_chooserWidgets.setAutoDelete(false);
 		
-		for (int i = 0; i < m_module->depth(); ++i) {			
+		for (int i = 0; i < m_modules.first()->depth(); ++i) {			
 			CKeyChooserWidget* w = new CKeyChooserWidget(0, false, this); //empty keychooser
 			m_chooserWidgets.append( w );
 			w->show();			

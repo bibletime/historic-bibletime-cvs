@@ -18,9 +18,11 @@
 #include "clexiconkeychooser.h"
 #include "ckeychooserwidget.h"
 #include "cfx_btn.h"
-#include "../../tooltipdef.h"
-#include "../../whatsthisdef.h"
-#include "../../backend/cswordlexiconmoduleinfo.h"
+
+#include "tooltipdef.h"
+#include "whatsthisdef.h"
+
+#include "backend/cswordlexiconmoduleinfo.h"
 #include "../cbtconfig.h"
 
 //Qt includes
@@ -31,23 +33,16 @@
 //KDE includes
 #include <klocale.h>
 
-CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, QWidget *parent, const char *name )
-	: CKeyChooser(info, key, parent, name), m_key(0){
+CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name )
+	: CKeyChooser(modules, key, parent, name), m_key(dynamic_cast<CSwordLDKey*>(key)){
 
-	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(info);
-	m_key = dynamic_cast<CSwordLDKey*>(key);
+  setModules(modules, false);
 	
-	//we use a layout because the key chooser should be resized to full size
+ //we use a layout because the key chooser should be resized to full size
  	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 
-	m_widget = new CKeyChooserWidget(m_module->entries(), false, this);
-	m_widget->comboBox()->setMaximumWidth(300);
-	
-//  if (info && info->isUnicode()){
-#warning implement reaction to font change in the optionsdialog here
-//    /*m_widget->comboBox()->*/setFont( CBTConfig::get(CBTConfig::unicode) );
-//  }
-
+	m_widget = new CKeyChooserWidget(/*m_modules.first()->entries()*/0, false, this);
+	m_widget->comboBox()->setMaximumWidth(300);	
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,TT_PRESENTER_NEXT_ENTRY, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_ENTRY);
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,WT_PRESENTER_NEXT_ENTRY, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_ENTRY);
 	
@@ -55,23 +50,24 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 	
 	connect(m_widget,SIGNAL(changed(int)),SLOT(activated(int)));
 	connect(m_widget,SIGNAL(focusOut(int)),SLOT(activated(int)));
+
+  setModules(modules, true);
 }
 
 CSwordKey* const CLexiconKeyChooser::key(){
-  qWarning("CLexiconKeyChooser::key()");
+//  qWarning("CLexiconKeyChooser::key()");
 	return m_key;
 }
 
 void CLexiconKeyChooser::setKey(CSwordKey* key){	
-	qWarning("CLexiconKeyChooser::setKey(CSwordKey* key)");
+//	qWarning("CLexiconKeyChooser::setKey(CSwordKey* key)");
  	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
 		return;		
+
   QString newKey = m_key->key();
-//  qWarning("new key is %s", newKey.latin1());
 	const int index =	m_widget->comboBox()->listBox()->index(m_widget->comboBox()->listBox()->findItem( newKey ));
   m_widget->comboBox()->setCurrentItem(index);	
 
-//  qWarning("have set key!");
   emit keyChanged( m_key );
 }
 
@@ -87,16 +83,65 @@ void CLexiconKeyChooser::activated(int index){
 
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
-	m_widget->reset(m_module->entries(), 0, true);	
+  if (m_modules.count() == 1) {
+    m_widget->reset(m_modules.first()->entries(), 0, true);	
+  }
+  else {
+/**
+* 1. Sort the modules by number of entries (raising)
+* 2. Use the modules with the fewest entries and go though all of these entries
+* 3. Is the entry in all other modules? Remove the entry from the list if it's not.
+*/
+    typedef QMap<unsigned int, CSwordLexiconModuleInfo*> LexiconMap;
+    LexiconMap lexiconMap;
+    for (m_modules.first(); m_modules.current(); m_modules.next()) {
+      lexiconMap.insert(m_modules.current()->entries()->count(), m_modules.current(), false);
+    }
+    for ( LexiconMap::Iterator lex_it = lexiconMap.begin(); lex_it != lexiconMap.end(); ++lex_it ) {
+      qWarning("%s has %i entries", lex_it.data()->name().latin1(), lex_it.key());
+    }
+
+    CSwordLexiconModuleInfo* referenceModule = lexiconMap.begin().data();
+    QStringList entries = QStringList(*(referenceModule->entries()));
+
+    qWarning("step 1");
+    if (lexiconMap.count() == 1) {
+      qWarning("ONLY one module!");
+      m_widget->reset(entries, 0, true);	
+      return;
+    };
+
+
+    //now see if the entries are in all other modules
+    QStringList::Iterator it = entries.begin();
+    LexiconMap::Iterator module;
+    while (it != entries.end()) {
+      for ( module = lexiconMap.begin(), ++module; module.data() != referenceModule && module != lexiconMap.end(); ++module ) {
+        if (!module.data()->entries()->contains(*it)) { //entry is not in the module
+//          qWarning((*it).latin1());
+          it = entries.remove(it);
+          break; //no need to look into the other modules because we already removed the entry
+        }
+        else {
+          ++it;
+        }
+      }
+    }
+
+    m_widget->reset(entries, 0, true);	
+  }
 }
 
 /** Sets the module and refreshes the combo boxes */
-void CLexiconKeyChooser::setModule( CSwordModuleInfo* module) {
-//	qWarning("CLexiconKeyChooser::setModule( CSwordModuleInfo* module)");
-	if (module && module != m_module && module->type() == CSwordLexiconModuleInfo::Lexicon) {
-		m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
-		refreshContent();
-	}
+void CLexiconKeyChooser::setModules( ListCSwordModuleInfo modules, const bool refresh ) {
+  m_modules.clear();
+  for (modules.first(); modules.current(); modules.next()) {
+    if (CSwordLexiconModuleInfo* lexicon = dynamic_cast<CSwordLexiconModuleInfo*>(modules.current())) {
+      m_modules.append(lexicon);
+    }
+  }
+  if (refresh)
+    refreshContent();
 }
 
 /** No descriptions */

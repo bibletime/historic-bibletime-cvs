@@ -28,10 +28,7 @@
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) : CSwordKey(module) {
   if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module) ) {
-    if (!bible->hasTestament(CSwordBibleModuleInfo::OldTestament) && bible->hasTestament(CSwordBibleModuleInfo::NewTestament))//only NT
-      key("Matthew 1:1");
-    else
-      key("Genesis 1:1");
+    key( bible->lowerBound().key() );
   }
 }
 
@@ -40,13 +37,6 @@ CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKe
 }
 
 CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(*k),CSwordKey(module) {
-//  if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module) ) {
-//    if (!bible->hasTestament(CSwordBibleModuleInfo::OldTestament) && bible->hasTestament(CSwordBibleModuleInfo::NewTestament))  { //only NT
-//      VerseKey::operator = ("Matthew 1:1");
-//    }
-//    else
-//      VerseKey::operator = ("Genesis 1:1");
-//  }
 }
 
 /** Clones this object. */
@@ -61,12 +51,12 @@ CSwordModuleInfo* const CSwordVerseKey::module( CSwordModuleInfo* const newModul
 		m_module = newModule;
 		key(oldKey);
 	}
-	return m_module;
+	return dynamic_cast<CSwordBibleModuleInfo*>(m_module);
 }
 
 /** Returns the current book as Text, not as integer. */
 const QString CSwordVerseKey::book( const QString& newBook ) {
-  qWarning("CSwordVerseKey::book( const QString& newBook )");
+//  qWarning("CSwordVerseKey::book( const QString& newBook )");
 	int min = 0;
 	int max = 1;
 	
@@ -111,35 +101,42 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key(){	
-	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8 here!
+	return QString::fromLocal8Bit((const char*)*this); //don't use fromUtf8 here!
 }
 
 void CSwordVerseKey::key( const QString& newKey ) {
-	VerseKey::operator = ((const char*)newKey.local8Bit());
-//  module()->snap();
-//  VerseKey::operator = (module()->module()->KeyText());
-
+	if (newKey.isEmpty()) {
+    if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
+      VerseKey::operator = ((const char*)bible->lowerBound().key().local8Bit());
+    }
+  }
+  else
+    VerseKey::operator = ((const char*)newKey.local8Bit());
 }
 
 void CSwordVerseKey::key( const char* newKey ){
   if (newKey && strlen(newKey)>0) {
 		VerseKey::operator = (newKey);
-//    module()->snap();
-//    VerseKey::operator = (module()->module()->KeyText());
 	}
+  else if (!strlen(newKey)) {
+    if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
+      VerseKey::operator = ((const char*)bible->lowerBound().key().local8Bit());
+    }
+  }
 }
 
 const bool CSwordVerseKey::next( const JumpType type ) {
+//  const QString& oldKey = key();
 	switch (type) {
 		case UseBook: {
 			if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
 				return false;		
 			Book(Book()+1);
-			return true;
+			break;
 		}
 		case UseChapter: {
 			Chapter(Chapter()+1);		
-			return true;
+			break;
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
@@ -149,29 +146,44 @@ const bool CSwordVerseKey::next( const JumpType type ) {
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
     		else {    			
 	    	  Verse(Verse()+1);
-	    	  return false;
+	    	  break;
 	    	}
     	}
     	else
     	  Verse(Verse()+1);
-    	return true;		
+    	break;
 		}
 		default:	
 			return false;
 	};
+
+  if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
+    bool ret = true;
+    if (_compare(bible->lowerBound()) < 0 ) {
+      key( bible->lowerBound() );
+      ret = false;
+    }
+    if (_compare(bible->upperBound()) > 0 ) {
+      key( bible->upperBound() );
+      ret = false;
+    }
+    return ret;
+  }
+  return true;
 };
 
 const bool CSwordVerseKey::previous( const JumpType type ) {
+//  const QString& oldKey = key();
 	switch (type) {
 		case UseBook: {
 			if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
 				return false;
 			Book(Book()-1);
-			return true;
+			break;
 		}
 		case UseChapter: {
 			Chapter(Chapter()-1);
-			return true;		
+			break;
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
@@ -179,19 +191,34 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
     		( *( m_module->module() ) )--;
     		if (!m_module->module()->Error())
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
-    		else {
+    		else
 	    	  Verse(Verse()-1);
-	    	  return false;
-	    	}
     	}
-    	else
+    	else {
     		Verse(Verse()-1);
-    	
-    	return true;		
+      }
+      break;
 		}
 		default:	
 			return false;
 	};
+
+  if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
+    qWarning("lower bound: %s", bible->lowerBound().key().latin1());
+    qWarning("upper bound: %s", bible->upperBound().key().latin1());
+
+    bool ret = true;
+    if (_compare(bible->lowerBound()) < 0 ) {
+      key( bible->lowerBound() );
+      ret = false;
+    }
+    if (_compare(bible->upperBound()) > 0 ) {
+      key( bible->upperBound() );
+      ret = false;
+    }
+    return ret;
+  }
+  return true;
 };
 
 

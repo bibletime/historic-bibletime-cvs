@@ -20,6 +20,7 @@
 
 //own includes
 #include "cswordmoduleinfo.h"
+#include "cswordversekey.h"
 
 //Qt includes
 #include <qstringlist.h>
@@ -86,12 +87,23 @@ public:
   */
   const bool hasTestament( CSwordBibleModuleInfo::Testament );
   virtual CSwordModuleInfo* clone();
+  /**
+  * Returns the key which represents the lower bound of this module.
+  */
+  CSwordVerseKey lowerBound() const;
+  /**
+  * Returns the key which represents the upper bound of this module.
+  */
+  CSwordVerseKey upperBound() const;
 
 private:
 	QStringList*	m_bookList;	//This booklist is cached
 	QString m_cachedLocale;
 	short int m_hasOT;
 	short int m_hasNT;
+
+  CSwordVerseKey m_lowerBound;
+  CSwordVerseKey m_upperBound;
 };
 
 inline const CSwordModuleInfo::ModuleType CSwordBibleModuleInfo::type() const {

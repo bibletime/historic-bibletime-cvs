@@ -47,16 +47,14 @@ const QString& CBookTreeChooser::TreeItem::key() const {
 
 ////////////
 
-CBookTreeChooser::CBookTreeChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name)
-	: CKeyChooser(module, key, parent,name) {
-	if ( module && (module->type() == CSwordModuleInfo::GenericBook) ) {
-		m_module = dynamic_cast<CSwordBookModuleInfo*>(module);		
-		m_key = dynamic_cast<CSwordTreeKey*>(key);
-	}
-	else {
-		m_module = 0;
+CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name)
+	: CKeyChooser(modules, key, parent,name) {
+  setModules(modules, false);	
+  m_key = dynamic_cast<CSwordTreeKey*>(key);
+  if (!modules.count()) {
+		m_modules.clear();
 		m_key = 0;
-	}		
+	}
 
 	//now setup the keychooser widgets
 	QHBoxLayout* layout = new QHBoxLayout(this);
@@ -70,8 +68,8 @@ CBookTreeChooser::CBookTreeChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 	m_treeView->header()->hide();
 	m_treeView->setSorting(-1);
 	m_treeView->setRootIsDecorated(true);
-	
-	setModule(module);
+
+  setModules(modules); //fill the tree
 }
 
 CBookTreeChooser::~CBookTreeChooser(){
@@ -124,10 +122,15 @@ CSwordKey* const CBookTreeChooser::key(){
 }
 
 /** Sets another module to this keychooser */
-void CBookTreeChooser::setModule(CSwordModuleInfo* module){
-	m_module = dynamic_cast<CSwordBookModuleInfo*>(module);
+void CBookTreeChooser::setModules(ListCSwordModuleInfo modules, const bool refresh){
+  m_modules.clear();
+  for (modules.first(); modules.current(); modules.next()) {
+    if (CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.current())) {
+      m_modules.append(book);
+    }
+  }
 	
-	if (m_module && m_key) {
+	if (refresh && m_modules.count() && m_key) {
 		m_treeView->clear();
 	
     const QString oldKey = m_key->key();

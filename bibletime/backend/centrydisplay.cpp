@@ -286,10 +286,12 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 
   CSwordVerseKey key(0);
   key.key(keyName);
+
   const int currentTestament = key.Testament();	
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
-	CSwordModuleInfo* module = modules.first();
+	
+ CSwordModuleInfo* module = modules.first();
   bool ok = true;
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse)) {
     text += entryText(modules, key.key(), keyName);

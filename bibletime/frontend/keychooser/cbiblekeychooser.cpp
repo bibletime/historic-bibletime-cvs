@@ -33,31 +33,30 @@
 //KDE includes
 #include <klocale.h>
 
-CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name )
-	: CKeyChooser(module, key, parent, name), m_info(0), m_key(0), w_book(0), w_chapter(0), w_verse(0)
+CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name )
+	: CKeyChooser(modules, key, parent, name), m_key(dynamic_cast<CSwordVerseKey*>(key))
 {
-	if (module && (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) ) {
-		m_info = dynamic_cast<CSwordBibleModuleInfo*>(module);
-		m_key  = dynamic_cast<CSwordVerseKey*>(key);
-	}
-	else {
+	setModules(modules, false);
+	if (!m_modules.count()) {
 		qWarning("CBibleKeyChooser: module is not a Bible or commentary!");
+    m_key = 0;
 		return;
 	}
+
 	QHBoxLayout* layout = new QHBoxLayout(this);
 	layout->setResizeMode(QLayout::Minimum);
 		
-	w_book = new CKeyChooserWidget(m_info->books(),false,this);	
+	w_book = new CKeyChooserWidget(m_modules.first()->books(),false,this);	
 	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);
 	w_book->setWhatsThis(WT_PRESENTER_BOOK_COMBO, WT_PRESENTER_NEXT_BOOK, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_BOOK);
 	
-	qWarning("Biblekey chooser: has %i chapters",m_info->chapterCount(w_book->comboBox()->currentText()));
-  w_chapter = new CKeyChooserWidget( m_info->chapterCount(w_book->comboBox()->currentText()),true,this);		
+//	qWarning("Biblekey chooser: has %i chapters",m_info->chapterCount(w_book->comboBox()->currentText()));
+  w_chapter = new CKeyChooserWidget( m_modules.first()->chapterCount(w_book->comboBox()->currentText()),true,this);		
 	w_chapter->setToolTips(TT_PRESENTER_CHAPTER_COMBO, TT_PRESENTER_NEXT_CHAPTER, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_CHAPTER);	
 	w_chapter->setWhatsThis(WT_PRESENTER_CHAPTER_COMBO, WT_PRESENTER_NEXT_CHAPTER, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_CHAPTER);		
 	
-	qWarning("Biblekey chooser: has %i verses",m_info->verseCount(w_book->comboBox()->currentText(),1));
-  w_verse = new CKeyChooserWidget( m_info->verseCount(w_book->comboBox()->currentText(),1),true,this);
+//	qWarning("Biblekey chooser: has %i verses",m_info->verseCount(w_book->comboBox()->currentText(),1));
+  w_verse = new CKeyChooserWidget( m_modules.first()->verseCount(w_book->comboBox()->currentText(),1),true,this);
 	w_verse->setToolTips(TT_PRESENTER_VERSE_COMBO, TT_PRESENTER_NEXT_VERSE, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_VERSE);
 	w_verse->setWhatsThis(WT_PRESENTER_VERSE_COMBO, WT_PRESENTER_NEXT_VERSE, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_VERSE);
 						
@@ -103,11 +102,11 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
  	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
 		
-	const unsigned int bookIndex = m_info->bookNumber( m_key->book() );
+	const unsigned int bookIndex = m_modules.first()->bookNumber( m_key->book() );
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 
-  qWarning("setkey: %s: %i %i:%i", m_key->book().latin1(), bookIndex, chapter, verse);
+//  qWarning("setkey: %s: %i %i:%i", m_key->book().latin1(), bookIndex, chapter, verse);
 
 	//reset the keychooser parts only if we found a valid book
 	const int count = w_book->comboBox()->count();
@@ -123,22 +122,20 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 	if (bookIsValid) {	//we have a valid book
 		if (w_book->comboBox()->currentText() != m_key->book()) //necessary?
 			w_book->setItem( m_key->book() );
+
+		w_chapter->reset(m_modules.first()->chapterCount(m_key->book()), chapter-1, false);
+		w_verse->reset(m_modules.first()->verseCount(m_key->book(), chapter), verse-1, false);
 		
-		w_chapter->reset(m_info->chapterCount(m_key->book()), chapter-1, false);
-//		w_chapter->adjustSize();
-		
-		w_verse->reset(m_info->verseCount(m_key->book(), chapter), verse-1, false);
-//		w_verse->adjustSize();
-	
-		emit keyChanged(m_key);					
+    qWarning("key changed: %s", m_key->key().latin1());
+    emit keyChanged(m_key);					
 	}
 	else {
-		qWarning("CBibleKeyChooser::setKey: book %s is invalid!", m_key->book().latin1());
+//		qWarning("CBibleKeyChooser::setKey: book %s is invalid!", m_key->book().latin1());
   	w_chapter->comboBox()->setCurrentItem(0);				
- 		m_key->Chapter(/*w_verse->comboBox()->currentText().toInt()*/1);		
+ 		m_key->Chapter(1);		
 
     w_verse->comboBox()->setCurrentItem(0);				
-		m_key->Verse(/*w_verse->comboBox()->currentText().toInt()*/1);		
+		m_key->Verse(1);		
 	}
 }
 
@@ -256,16 +253,23 @@ QSize CBibleKeyChooser::sizeHint(){
 
 /** Reimplementation. */
 void CBibleKeyChooser::refreshContent() {
-	w_book->reset( m_info->books(), w_book->comboBox()->currentItem(), false);
+	w_book->reset( m_modules.first()->books(), w_book->comboBox()->currentItem(), false);
 	setKey(m_key);
 }
 
 /** Sets te module and refreshes the combos */
-void CBibleKeyChooser::setModule(CSwordModuleInfo* module){
-	if (module != m_info && module) {
-		m_info = dynamic_cast<CSwordBibleModuleInfo*>(module);
-		refreshContent();
-	}
+void CBibleKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refresh){
+  m_modules.clear();
+  for (modules.first(); modules.current(); modules.next()) {
+    if (modules.current()->type() == CSwordModuleInfo::Bible || modules.current()->type() == CSwordModuleInfo::Commentary) {
+      if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules.current())) {
+        m_modules.append(bible);
+      }
+    }
+  }
+
+  if (refresh)
+    refreshContent();
 }
 
 /** called when the book combo lost the focus with reason == tab @param the new book */
@@ -276,10 +280,10 @@ void CBibleKeyChooser::bookFocusOut(int index){
 	setUpdatesEnabled(false);
 	
 	m_key->book( w_book->comboBox()->currentText() );
-	const int chapterCount = m_info->chapterCount( m_info->bookNumber(m_key->book()));
+	const int chapterCount = m_modules.first()->chapterCount( m_modules.first()->bookNumber(m_key->book()));
 	w_chapter->reset( chapterCount, m_key->Chapter()-1, false);
 			
-	const int verseCount = m_info->verseCount(m_info->bookNumber(m_key->book()),m_key->Chapter());
+	const int verseCount = m_modules.first()->verseCount(m_modules.first()->bookNumber(m_key->book()),m_key->Chapter());
 	w_verse->reset(verseCount,m_key->Verse()-1,false);
 
 	setUpdatesEnabled(true);
@@ -289,7 +293,7 @@ void CBibleKeyChooser::bookFocusOut(int index){
 void CBibleKeyChooser::chapterFocusOut(int /*index*/){
 	const int chapter = w_chapter->comboBox()->currentText().toInt();
 	m_key->Chapter( chapter );
-	w_verse->reset(m_info->verseCount(m_info->bookNumber(m_key->book()),chapter), 0, false);
+	w_verse->reset(m_modules.first()->verseCount(m_modules.first()->bookNumber(m_key->book()),chapter), 0, false);
 }
 
 /** called when the verse combo lost the focus with reason == tab @param the new verse */

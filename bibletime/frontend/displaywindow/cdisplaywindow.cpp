@@ -194,7 +194,7 @@ void CDisplayWindow::modulesChanged(){
 		if (displaySettingsButton())
   		displaySettingsButton()->reset(modules());
 	  key()->module(modules().first());
-	  keyChooser()->setModule(modules().first());	
+	  keyChooser()->setModules(modules());	
 	  lookup(key());
 	}
 }

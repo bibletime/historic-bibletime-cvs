@@ -51,11 +51,11 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* const CSwordLexiconModuleInfo::entries(){
-  qWarning("QStringList* const CSwordLexiconModuleInfo::entries() #");
+//  qWarning("QStringList* const CSwordLexiconModuleInfo::entries() #");
 	if (!module())
 		return 0;
 
-	Q_ASSERT(m_entryList);
+//	Q_ASSERT(m_entryList);
   if (!m_entryList) {
 		m_entryList = new QStringList();
 

@@ -50,7 +50,7 @@ class TreeKeyIdx;
 class CBookTreeChooser : public CKeyChooser  {
    Q_OBJECT
 public:
-	CBookTreeChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
+	CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 	~CBookTreeChooser();
   /**
   * Refreshes the content.
@@ -59,7 +59,7 @@ public:
   /**
   * Sets another module to this keychooser
   */
-  virtual void setModule(CSwordModuleInfo*);
+  virtual void setModules(ListCSwordModuleInfo modules, const bool refresh = true);
   /**
   * Returns the key of this kechooser.
   */
@@ -81,7 +81,7 @@ private:
 			QString m_key;
 	};
 
-	CSwordBookModuleInfo	*m_module;
+	QPtrList<CSwordBookModuleInfo>	m_modules;
 	CSwordTreeKey *m_key;
 	KListView* m_treeView;
 

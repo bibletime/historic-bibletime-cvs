@@ -75,7 +75,7 @@ void CBookReadWindow::initView(){
 
   QSplitter* splitter = new QSplitter(this);
 
-	setKeyChooser( CKeyChooser::createInstance(modules().first(), key(), mainToolBar()) );
+	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());	
 	mainToolBar()->setItemAutoSized(0);
 
@@ -87,7 +87,7 @@ void CBookReadWindow::initView(){
 	moduleChooserBar()->setButtonLimit(1);
   addDockWindow( moduleChooserBar() );
 
-	m_treeChooser = new CBookTreeChooser(modules().first(), key(), splitter);
+	m_treeChooser = new CBookTreeChooser(modules(), key(), splitter);
 
   setDisplayWidget( CDisplay::createReadInstance(this, splitter) ); 	 	
 
@@ -118,5 +118,5 @@ void CBookReadWindow::treeToggled(){
 /** Reimplementation to take care of the tree chooser. */
 void CBookReadWindow::modulesChanged(){
   CLexiconReadWindow::modulesChanged();
-  m_treeChooser->setModule(modules().first());
+  m_treeChooser->setModules(modules());
 }

@@ -7,7 +7,7 @@ it's possible.
 
 BibleTime @VERSION@ requires:
 	-QT 3.0.x or later
-	-KDE 3.x (at least the libraries and the base package)
+	-KDE 3.x (at least the libraries (kdelibs) and the base package (kdebase))
 	-SWORD 1.5.3
 	
 If you don't have the sources already please browse to www.bibletime.de to see

@@ -45,7 +45,7 @@ class QHBoxLayout;
 class CBookKeyChooser : public CKeyChooser  {
    Q_OBJECT
 public: 
-	CBookKeyChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
+	CBookKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 	~CBookKeyChooser();
   /**
   * Refreshes the content.
@@ -54,7 +54,7 @@ public:
   /**
   * Sets another module to this keychooser
   */
-  virtual void setModule(CSwordModuleInfo*);
+  virtual void setModules(ListCSwordModuleInfo modules, const bool refresh = false);
   /**
   * Returns the key of this kechooser.
   */
@@ -93,7 +93,7 @@ protected slots:
 
 private:
 	QPtrList<CKeyChooserWidget> m_chooserWidgets;	
-	CSwordBookModuleInfo	*m_module;
+	QPtrList<CSwordBookModuleInfo> m_modules;
 	CSwordTreeKey *m_key;
 	QHBoxLayout* m_layout;
 };
