@@ -28,11 +28,11 @@ CBookReadWindow::~CBookReadWindow(){
 }
 
 void CBookReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
-
+  CLexiconReadWindow::applyProfileSettings(profileWindow);
 };
 
 void CBookReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
-
+  CLexiconReadWindow::storeProfileSettings(profileWindow);
 };
 
 void CBookReadWindow::initKeyboardActions() {
@@ -40,7 +40,7 @@ void CBookReadWindow::initKeyboardActions() {
 };
 
 void CBookReadWindow::insertKeyboardActions( KAccel* a ){
-
+//  CReadWindow::insertKeyboardActions(a);
 };
 
 /** No descriptions */
