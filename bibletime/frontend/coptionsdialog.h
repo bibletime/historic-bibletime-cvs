@@ -113,7 +113,7 @@ private:
 		} keys;
 
 		struct DisplayStyleSettings {
-			QListBox* styleChooser;
+			QComboBox* styleChooser;
 			KHTMLPart* stylePreview;
 		} displayStyle;
 

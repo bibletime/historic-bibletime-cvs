@@ -285,40 +285,46 @@ to be displayed correctly.")
 /** Init color section. */
 void COptionsDialog::initDisplayStyle(){
 	QFrame* page = addPage(i18n("Display templates"), QString::null, DesktopIcon(CResMgr::settings::colors::icon,32));
-	QGridLayout* gridLayout = new QGridLayout(page,8,5,5,5);
-  gridLayout->setResizeMode(QLayout::Minimum);
+	QVBoxLayout* mainLayout = new QVBoxLayout(page);
+	mainLayout->setSpacing( 5 );
 
-	gridLayout->addMultiCellWidget(
-		CToolClass::explanationLabel(page,
-			i18n("Display templates"),
+	mainLayout->addWidget(
+		CToolClass::explanationLabel(page, i18n("Display templates"),
 			i18n("Display templates define how text is displayed. Please choose a template you like.")
-		),
-		0,0,0,-1
+		)
 	);
 
-	m_settings.displayStyle.styleChooser = new QListBox(page);
+	QHBoxLayout* hboxlayout = new QHBoxLayout();
+
+	m_settings.displayStyle.styleChooser = new QComboBox( page );
 	connect(
-		m_settings.displayStyle.styleChooser, SIGNAL(selectionChanged()), 
-		this, SLOT(updateStylePreview())
+		m_settings.displayStyle.styleChooser, SIGNAL( activated( int ) ), 
+		this, SLOT( updateStylePreview() )
 	);
 	
+	hboxlayout->addWidget(
+		new QLabel(m_settings.displayStyle.styleChooser, i18n("Available display styles:"), page)
+	);
+	hboxlayout->addWidget( m_settings.displayStyle.styleChooser );
+	hboxlayout->addStretch();
+
+	mainLayout->addLayout( hboxlayout );
+
 	m_settings.displayStyle.stylePreview = new KHTMLPart(page);
 
-	QLabel* label = new QLabel(m_settings.displayStyle.styleChooser, i18n("Available display styles:"), page);
-	gridLayout->addMultiCellWidget(label, 1, 1, 0, 1);
-	gridLayout->addMultiCellWidget(m_settings.displayStyle.styleChooser, 2, 2, 0, 1);
-
-	label = new QLabel(m_settings.displayStyle.stylePreview->view(), i18n("Style preview:"), page);
-	gridLayout->addMultiCellWidget(label, 1, 1, 2, 4);
-	gridLayout->addMultiCellWidget(m_settings.displayStyle.stylePreview->view(), 2, 2, 2, 4);
+	mainLayout->addWidget(
+		new QLabel(m_settings.displayStyle.stylePreview->view(), i18n("Style preview"), page)
+		);
+	mainLayout->addWidget(m_settings.displayStyle.stylePreview->view());
 
 	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 	m_settings.displayStyle.styleChooser->insertStringList( tMgr->availableTemplates() );
-	QListBoxItem*  i = m_settings.displayStyle.styleChooser->findItem( CBTConfig::get(CBTConfig::displayStyle), Qt::CaseSensitive );
+	int i = m_settings.displayStyle.styleChooser->listBox()->index(
+		m_settings.displayStyle.styleChooser->listBox()->findItem( CBTConfig::get(CBTConfig::displayStyle), Qt::CaseSensitive )
+	);
+	m_settings.displayStyle.styleChooser->setCurrentItem( i );
 	
-	if ( i ) {
-		m_settings.displayStyle.styleChooser->setCurrentItem( i );
-	}
+	updateStylePreview(); //render it
 }
 
 /** Init profiles section. */
@@ -776,88 +782,42 @@ for example when a hyperlink into a Bible or lexicon was clicked .")),
  	m_settings.swords.lineBreaks = new QCheckBox(currentTab);
  	m_settings.swords.lineBreaks->setText(i18n("Insert line break after each verse"));
  	m_settings.swords.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));
-  QToolTip::add(m_settings.swords.lineBreaks, CResMgr::settings::sword::filters::lineBreaks::tooltip);
-  QWhatsThis::add(m_settings.swords.lineBreaks, CResMgr::settings::sword::filters::lineBreaks::whatsthis);  
  	layout->addWidget(m_settings.swords.lineBreaks);
 
  	m_settings.swords.verseNumbers = new QCheckBox(currentTab);
  	m_settings.swords.verseNumbers->setText(i18n("Show verse numbers"));
  	m_settings.swords.verseNumbers->setChecked(CBTConfig::get(CBTConfig::verseNumbers));		
-  QToolTip::add(m_settings.swords.verseNumbers, CResMgr::settings::sword::filters::verseNumbers::tooltip);
-  QWhatsThis::add(m_settings.swords.verseNumbers, CResMgr::settings::sword::filters::verseNumbers::whatsthis);
  	layout->addWidget(m_settings.swords.verseNumbers);
 
-/* 	m_settings.swords.footnotes = new QCheckBox(currentTab);
- 	m_settings.swords.footnotes->setText(i18n("Show footnotes"));
- 	m_settings.swords.footnotes->setChecked(CBTConfig::get(CBTConfig::footnotes));		
-  QToolTip::add(m_settings.swords.footnotes, CResMgr::settings::sword::filters::footnotes::tooltip);
-  QWhatsThis::add(m_settings.swords.footnotes, CResMgr::settings::sword::filters::footnotes::whatsthis);
- 	layout->addWidget(m_settings.swords.footnotes);
-*/
- 	
 	m_settings.swords.headings = new QCheckBox(currentTab);
  	m_settings.swords.headings->setText(i18n("Show section headings"));
  	m_settings.swords.headings->setChecked(CBTConfig::get(CBTConfig::headings));
-  QToolTip::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::tooltip);
-  QWhatsThis::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::whatsthis);
  	layout->addWidget(m_settings.swords.headings);
 
-//  	m_settings.swords.strongNumbers = new QCheckBox(currentTab);
-//  	m_settings.swords.strongNumbers->setText(i18n("Show Strong's numbers"));
-//  	m_settings.swords.strongNumbers->setChecked(CBTConfig::get(CBTConfig::strongNumbers));
-//   QToolTip::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::tooltip);
-//   QWhatsThis::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::whatsthis);  
-//  	layout->addWidget(m_settings.swords.strongNumbers);
 
  	m_settings.swords.scriptureReferences = new QCheckBox(currentTab);
  	m_settings.swords.scriptureReferences->setText(i18n("Show scripture cross-references"));
  	m_settings.swords.scriptureReferences->setChecked(CBTConfig::get(CBTConfig::scriptureReferences));
-//Enable this in 1.4, because we're in message freeze for 1.3
-//   QToolTip::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::tooltip);
-//   QWhatsThis::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::whatsthis);
  	layout->addWidget(m_settings.swords.scriptureReferences);
 
-/*  m_settings.swords.morphTags = new QCheckBox(currentTab);
- 	m_settings.swords.morphTags->setText(i18n("Show morphologic tags"));
- 	m_settings.swords.morphTags->setChecked(CBTConfig::get(CBTConfig::morphTags));
-  QToolTip::add(m_settings.swords.morphTags, CResMgr::settings::sword::filters::morphTags::tooltip);
-  QWhatsThis::add(m_settings.swords.morphTags, CResMgr::settings::sword::filters::morphTags::whatsthis);
- 	layout->addWidget(m_settings.swords.morphTags);
- 	
-	m_settings.swords.lemmas = new QCheckBox(currentTab);
- 	m_settings.swords.lemmas->setText(i18n("Show lemmas"));
- 	m_settings.swords.lemmas->setChecked(CBTConfig::get(CBTConfig::lemmas));
-  QToolTip::add(m_settings.swords.lemmas, CResMgr::settings::sword::filters::lemmas::tooltip);
-  QWhatsThis::add(m_settings.swords.lemmas, CResMgr::settings::sword::filters::lemmas::whatsthis);
- 	layout->addWidget(m_settings.swords.lemmas);
-*/
-		
   m_settings.swords.greekAccents = new QCheckBox(currentTab);
  	m_settings.swords.greekAccents->setText(i18n("Show Greek accents"));
  	m_settings.swords.greekAccents->setChecked(CBTConfig::get(CBTConfig::greekAccents));
-  QToolTip::add(m_settings.swords.greekAccents, CResMgr::settings::sword::filters::greekAccents::tooltip);
-  QWhatsThis::add(m_settings.swords.greekAccents, CResMgr::settings::sword::filters::greekAccents::whatsthis);
  	layout->addWidget(m_settings.swords.greekAccents);
 
  	m_settings.swords.hebrewPoints = new QCheckBox(currentTab);
  	m_settings.swords.hebrewPoints->setText(i18n("Show Hebrew vowel points"));
  	m_settings.swords.hebrewPoints->setChecked(CBTConfig::get(CBTConfig::hebrewPoints));
-  QToolTip::add(m_settings.swords.hebrewPoints, CResMgr::settings::sword::filters::hebrewVowelPoints::tooltip);
-  QWhatsThis::add(m_settings.swords.hebrewPoints, CResMgr::settings::sword::filters::hebrewVowelPoints::whatsthis);  
  	layout->addWidget(m_settings.swords.hebrewPoints);
 
  	m_settings.swords.hebrewCantillation = new QCheckBox(currentTab);
  	m_settings.swords.hebrewCantillation->setText(i18n("Show Hebrew cantillation marks"));
  	m_settings.swords.hebrewCantillation->setChecked(CBTConfig::get(CBTConfig::hebrewCantillation));		
-  QToolTip::add(m_settings.swords.hebrewCantillation, CResMgr::settings::sword::filters::hebrewCantillation::tooltip);
-  QWhatsThis::add(m_settings.swords.hebrewCantillation, CResMgr::settings::sword::filters::hebrewCantillation::whatsthis);
  	layout->addWidget(m_settings.swords.hebrewCantillation);
 
  	m_settings.swords.textualVariants = new QCheckBox(currentTab);
  	m_settings.swords.textualVariants->setText(i18n("Use textual variants"));
  	m_settings.swords.textualVariants->setChecked(CBTConfig::get(CBTConfig::textualVariants));		
-  QToolTip::add(m_settings.swords.textualVariants, CResMgr::settings::sword::filters::textualVariants::tooltip);
-  QWhatsThis::add(m_settings.swords.textualVariants, CResMgr::settings::sword::filters::textualVariants::whatsthis);
  	layout->addWidget(m_settings.swords.textualVariants);
  		
 	layout->addStretch(4);	
