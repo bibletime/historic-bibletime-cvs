@@ -18,10 +18,10 @@
 #include "cmdiarea.h"
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordversekey.h"
-
-#include "presenters/cbiblepresenter.h"
-#include "presenters/clexiconpresenter.h"
-#include "presenters/ccommentarypresenter.h"
+#include "frontend/displaywindow/cdisplaywindow.h"
+//#include "presenters/cbiblepresenter.h"
+//#include "presenters/clexiconpresenter.h"
+//#include "presenters/ccommentarypresenter.h"
 #include "keychooser/ckeychooser.h"
 #include "resource.h"
 #include "whatsthisdef.h"
@@ -73,21 +73,22 @@ void CMDIArea::slotClientActivated(QWidget* client){
     return;
   }
 
-	CSwordPresenter* sp = dynamic_cast<CSwordPresenter*>(client);	
-	if (sp && !sp->initialized())
+	CDisplayWindow* sp = dynamic_cast<CDisplayWindow*>(client);	
+	if (sp && !sp->isReady())
 		return;
 
   QWidgetList windows = windowList();
   for ( QWidget* w = windows.first(); w; w = windows.next() ) {		
-   	CSwordPresenter* window = dynamic_cast<CSwordPresenter*>(w);	
-		window->activated( (window == sp) ? true : false);
+   	CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(w);	
+		window->windowActivated( (window == sp) ? true : false);
 	}	
 	
 	emit sigSetToplevelCaption( ( m_appCaption = client->caption().stripWhiteSpace() ) );	
 
-	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
-	if (p && p->keyChooser())
-		syncCommentaries( p->keyChooser()->key() );
+#warning Check!
+//	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
+//	if (p && p->keyChooser())
+//		syncCommentaries( p->keyChooser()->key() );
 }
 
 /** Reimplementation. Used to make use of the fixedGUIOption part. */
@@ -211,11 +212,12 @@ void CMDIArea::syncCommentaries(CSwordKey* syncKey){
 	if (!windows.count())
 		return;	
 	
-	for (windows.first(); windows.current(); windows.next()) {
-		CCommentaryPresenter* p = dynamic_cast<CCommentaryPresenter*>(windows.current());
-		if (p)
-			p->synchronize(syncKey);
-	}	
+#warning check!
+  //	for (windows.first(); windows.current(); windows.next()) {
+//		CCommentaryPresenter* p = dynamic_cast<CCommentaryPresenter*>(windows.current());
+//		if (p)
+//			p->synchronize(syncKey);
+//	}	
 }
 
 /** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
@@ -224,23 +226,24 @@ void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 	CSwordModuleInfo* m = backend()->findModuleByName(module);
 	if (!m)
 		return;
-	CLexiconPresenter* p = 0;
-	
-	QWidgetList windows = windowList();	
-	if (!windows.count())
-		return;
-	bool found = false;
-	for (windows.first(); windows.current(); windows.next()) {
-		p = dynamic_cast<CLexiconPresenter*>(windows.current());
-		if (p && (m == p->getModuleList().first())) {
-			found = true;
-			break;
-		}
-	}
-	if (!found)
-		emit createNewSwordPresenter(m, text);
-	else
-		p->lookup(module, text);
+#warning check!
+//	CLexiconPresenter* p = 0;
+//	
+//	QWidgetList windows = windowList();	
+//	if (!windows.count())
+//		return;
+//	bool found = false;
+//	for (windows.first(); windows.current(); windows.next()) {
+//		p = dynamic_cast<CLexiconPresenter*>(windows.current());
+//		if (p && (m == p->getModuleList().first())) {
+//			found = true;
+//			break;
+//		}
+//	}
+//	if (!found)
+//		emit createDisplayWindow(m, text);
+//	else
+//		p->lookup(module, text);
 }
 
 /** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
@@ -248,21 +251,23 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 	CSwordModuleInfo* m = backend()->findModuleByName(module);
 	if (!m)
 		return;
-	CSwordPresenter* p = 0;
 
-	bool found = false;	
-	QWidgetList windows = windowList();	
-	for (windows.first(); windows.current(); windows.next()) {
-		p = dynamic_cast<CSwordPresenter*>(windows.current());
-		if (p && (p->getModuleList().containsRef(m))) {
-			found = true;
-			break;
-		}
-	}
-	if (!found)
-		emit createNewSwordPresenter(m, key);
-	else
-		p->lookup(module, key);
+#warning check!
+//	CSwordPresenter* p = 0;
+//
+//	bool found = false;	
+//	QWidgetList windows = windowList();	
+//	for (windows.first(); windows.current(); windows.next()) {
+//		p = dynamic_cast<CSwordPresenter*>(windows.current());
+//		if (p && (p->getModuleList().containsRef(m))) {
+//			found = true;
+//			break;
+//		}
+//	}
+//	if (!found)
+//		emit createDisplayWindow(m, key);
+//	else
+//		p->lookup(module, key);
 }
 
 /** This works around a problem/limitation in QWorkspace. QWorkspace sets every time the  application caption on its on way. This confuses BibleTime - wrong captions are generated. This function returns the right caption (using the MDI child). */

@@ -60,10 +60,7 @@ CSearchDialogResult::CSearchDialogResult(QWidget *parent, const char *name) : QW
 	resultModuleTree = new CSearchDialogResultModuleView(d, "resultModuleTree");
 	resultTree = new CSearchDialogResultView( d, "resultTree");
 
-  m_displayWidget = new CDisplayWidget(m_splitter);
-//  m_view = new CDisplayWidget::View(m_displayWidget, this);
-//	html_widget = new CHTMLWidget(true, m_splitter, "html_widget");
-//	html_widget->setMinimumHeight(80);
+  m_displayWidget = new KHTMLPart(m_splitter);
 
 	connect(resultModuleTree, SIGNAL(moduleSelected(CSwordModuleInfo*)), resultTree, SLOT(setModule(CSwordModuleInfo*)));
 	connect(resultTree, SIGNAL(keySelected(const QString)), this, SLOT(updatePreview(const QString)));
@@ -176,16 +173,22 @@ void CSearchDialogResult::updatePreview(const QString newText) {
       .arg(CToolClass::makeLogicFontSize(f.pointSize()))
       .arg(text);
 	}
-	m_displayWidget->setText(
+	
+	m_displayWidget->begin();	
+ 	m_displayWidget->write(
 		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><DIV><FONT color=\"red\">%1</font> <SMALL>(%2)</SMALL></DIV><BR>%3</BODY></HTML>")
 		 .arg(resultTree->currentText())
 		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->config(CSwordModuleInfo::Description) : QString::fromLatin1("<I>%1</I>").arg(i18n("module not set")) )
 		 .arg(text)
 	);
+	m_displayWidget->end();
 }
 
 void CSearchDialogResult::clearResult() {
 	resultTree->clear();
 	resultModuleTree->clear();
-	m_displayWidget->setText("<HTML><HEAD></HEAD><BODY></BODY></HTML>");
+	
+ 	m_displayWidget->begin();
+ 	m_displayWidget->write("<HTML><HEAD></HEAD><BODY></BODY></HTML>");
+ 	m_displayWidget->end();
 }

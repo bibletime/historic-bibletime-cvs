@@ -18,10 +18,14 @@
 #ifndef CSEARCHDIALOGRESULT_H
 #define CSEARCHDIALOGRESULT_H
 
+//BibleTime includes
+#include "backend/cswordmoduleinfo.h"
+
+//Qt includes
 #include <qwidget.h>
 
-#include "backend/cswordmoduleinfo.h"
-#include "frontend/cdisplaywidget.h"
+//KDE includes
+#include <khtml_part.h>
 
 class CSearchDialog;
 class CSearchDialogResultModuleView;
@@ -58,7 +62,7 @@ private:
 	ListCSwordModuleInfo moduleList;
 	CSearchDialogResultModuleView *resultModuleTree;
 	CSearchDialogResultView	*resultTree;
-	CDisplayWidget	*m_displayWidget;
+	KHTMLPart* m_displayWidget;
 	QSplitter* m_splitter;
 };
 

@@ -24,11 +24,13 @@
 #include "frontend/chtmldialog.h"
 #include "frontend/ctoolclass.h"
 #include "frontend/cmdiarea.h"
-#include "frontend/presenters/cswordpresenter.h"
-#include "frontend/presenters/cbiblepresenter.h"
-#include "frontend/presenters/ccommentarypresenter.h"
-#include "frontend/presenters/clexiconpresenter.h"
-#include "frontend/presenters/cbookpresenter.h"
+#include "frontend/displaywindow/cdisplaywindow.h"
+#include "frontend/displaywindow/creadwindow.h"
+//#include "frontend/presenters/cswordpresenter.h"
+//#include "frontend/presenters/cbiblepresenter.h"
+//#include "frontend/presenters/ccommentarypresenter.h"
+//#include "frontend/presenters/clexiconpresenter.h"
+//#include "frontend/presenters/cbookpresenter.h"
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cpointers.h"
@@ -153,62 +155,48 @@ void BibleTime::readSettings(){
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules, const QString& key) {
+CDisplayWindow* BibleTime::createDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
 	kapp->setOverrideCursor( waitCursor );
-	
-	CSwordPresenter* presenter = 0;
-	switch (modules.first()->type()) {
-		case CSwordModuleInfo::Bible:
-			presenter = new CBiblePresenter(modules, m_mdi);
-			break;
-		case CSwordModuleInfo::Commentary:
-			presenter = new CCommentaryPresenter(modules, m_mdi);
-			break;
-		case CSwordModuleInfo::Lexicon:
-			presenter = new CLexiconPresenter(modules, m_mdi);
-			break;
-		case CSwordModuleInfo::GenericBook:			
-			presenter = new CBookPresenter(modules, m_mdi);
-			break;
-		default:
-			presenter = 0;
-			qWarning("unknown module type");
-			break;
-	}	
-	if (presenter) {
-		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
-			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
-		connect(presenter, SIGNAL(lookupInModule(const QString&, const QString&)),
-			m_mdi, SLOT(lookupInModule(const QString&, const QString&)));							
-		if (presenter->isA("CBiblePresenter")) {
-			connect(presenter->keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
-				m_mdi, SLOT(syncCommentaries(CSwordKey*)));		
-		}
-		presenter->lookup(modules.first()->name(),key);		
+
+ 	CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);	
+  if (displayWindow) {
+  	displayWindow->init(key);
+		displayWindow->show();
 	}
-			
+  //	if (presenter) {
+//		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
+//			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
+//		connect(presenter, SIGNAL(lookupInModule(const QString&, const QString&)),
+//			m_mdi, SLOT(lookupInModule(const QString&, const QString&)));							
+//		if (presenter->isA("CBiblePresenter")) {
+//			connect(presenter->keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
+//				m_mdi, SLOT(syncCommentaries(CSwordKey*)));		
+//		}
+//		presenter->lookup(modules.first()->name(),key);		
+//	}
+//			
 	kapp->restoreOverrideCursor();
-	presenter->setFocus();
+//	presenter->setFocus();
 	
-	return presenter;
+	return displayWindow;
 }
 
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-CSwordPresenter* BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString& key) {
+CDisplayWindow* BibleTime::createDisplayWindow(CSwordModuleInfo* module, const QString& key) {
 	ListCSwordModuleInfo list;
 	list.append(module);
 	
-	return createNewSwordPresenter(list, key);		
+	return createDisplayWindow(list, key);		
 }
 
 /** Refreshes all presenters.*/
 void BibleTime::refreshPresenters() {
 	unsigned int index;				
 	for ( index = 0; index < m_mdi->windowList().count(); index++) {
-		CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));
-		if (myPresenter)
-   		myPresenter->refresh();
+		CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index));
+		if (window)
+   		window->refresh();
 	}
 }
 
@@ -224,8 +212,8 @@ bool BibleTime::queryExit(){
 bool BibleTime::queryClose(){
 	bool ret = true;
 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); ++index) {
-		if (CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index)))
-   		ret = myPresenter->queryClose() && ret;
+		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index)))
+   		ret = window->queryClose() && ret;
 	}	
 	return ret;
 }

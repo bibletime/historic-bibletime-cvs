@@ -27,7 +27,6 @@
 
 class KPopupMenu;
 class CSwordModuleInfo;
-class CSwordPresenter;
 class CSwordKey;
 
 /** The MDI widget we use in BibleTime.
@@ -119,13 +118,12 @@ signals: // Signals
   * Is emitted when the last presenter was closed.
   */
   void sigLastPresenterClosed();
-  void createNewSwordPresenter(CSwordModuleInfo*, const QString&);
+  void createDisplayWindow(CSwordModuleInfo*, const QString&);
 
 private:
 	mdiOption guiOption;
 	bool m_childEvent;
   bool m_deleting;
-	QPtrList<CSwordPresenter> m_deleteWindows;
 	QString m_appCaption;
 };
 #endif

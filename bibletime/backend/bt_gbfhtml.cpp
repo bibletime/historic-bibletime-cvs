@@ -100,7 +100,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 			num[i-2]=0;
 
 			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Greek/%s\">&lt;%s&gt;</a></span> ",
-				strongs_color, num, num);
+				num, num);
 		}
 
 		if (!strncmp(token, "WH", 2)){ // strong's numbers hebrew
@@ -110,7 +110,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 			num[i-2]=0;
 
 			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></span> ",
-				strongs_color, num, num);
+				num, num);
 		}
 
 		else if (!strncmp(token, "WTG", 3)) { // strong's numbers tense greek
@@ -120,7 +120,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 			num[i-3]=0;
 
 			pushString(buf," <span id=\"morphcode\"><a href=\"morph://Greek/%s\">(%s)</a></span> ",
-				strongs_color, num, num);
+				num, num);
 		}
 
 		else if (!strncmp(token, "WTH", 3)) { // strong's numbers tense hebrew
@@ -131,7 +131,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 			num[i-3]=0;
 
 			pushString(buf," <span id=\"morphcode\"><a href=\"morph://Hebrew/%s\">(%s)</a></span> ",
-				strongs_color, num, num);
+				num, num);
 		}
 
 		else if (!strncmp(token, "RB", 2)) {

@@ -79,6 +79,8 @@ admin/Makefile \
 bibletime/Makefile \
 bibletime/backend/Makefile \
 bibletime/frontend/Makefile \
+bibletime/frontend/display/Makefile \
+bibletime/frontend/displaywindow/Makefile \
 bibletime/frontend/groupmanager/Makefile \
 bibletime/frontend/keychooser/Makefile \
 bibletime/frontend/presenters/Makefile \

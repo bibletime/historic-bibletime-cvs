@@ -18,11 +18,16 @@
 #include "coptionsdialog.h"
 #include "cprofile.h"
 #include "ctoolclass.h"
-#include "presenters/cswordpresenter.h"
-#include "presenters/cbiblepresenter.h"
-#include "presenters/ccommentarypresenter.h"
-#include "presenters/clexiconpresenter.h"
-#include "presenters/cbookpresenter.h"
+#include "frontend/displaywindow/cbiblereadwindow.h"
+#include "frontend/displaywindow/ccommentaryreadwindow.h"
+#include "frontend/displaywindow/clexiconreadwindow.h"
+#include "frontend/displaywindow/cbookreadwindow.h"
+//#include "displaywindow/creadwindow.h"
+//#include "presenters/cswordpresenter.h"
+//#include "presenters/cbiblepresenter.h"
+//#include "presenters/ccommentarypresenter.h"
+//#include "presenters/clexiconpresenter.h"
+//#include "presenters/cbookpresenter.h"
 #include "resource.h"
 #include "whatsthisdef.h"
 #include "backend/cswordbackend.h"
@@ -350,7 +355,7 @@ void COptionsDialog::initAccelerators(){
   tabCtl->addTab(currentTab, i18n("Application wide"));
 
 	CBTConfig::setupAccel( CBTConfig::application, m_settings.keys.application.accel  );
-	CSwordPresenter::insertKeyboardActions( m_settings.keys.application.accel );	
+//	CSwordPresenter::insertKeyboardActions( m_settings.keys.application.accel );	
 	m_settings.keys.application.accel->readSettings();		
 
  	m_settings.keys.application.keyChooser = new KKeyChooser( m_settings.keys.application.accel, currentTab, false );	
@@ -377,7 +382,7 @@ void COptionsDialog::initAccelerators(){
 
 	m_settings.keys.bible.accel = new KAccel(this); //delete in destructor
 	CBTConfig::setupAccel( CBTConfig::bibleWindow, m_settings.keys.bible.accel  );	
-	CBiblePresenter::insertKeyboardActions( m_settings.keys.bible.accel );
+	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.accel );
 	m_settings.keys.bible.accel->readSettings();
 
  	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab/*, false*/ );	
@@ -391,7 +396,7 @@ void COptionsDialog::initAccelerators(){
 
 	m_settings.keys.commentary.accel = new KAccel(this); //delete in destructor
 	CBTConfig::setupAccel( CBTConfig::commentaryWindow, m_settings.keys.commentary.accel  );	
-	CCommentaryPresenter::insertKeyboardActions( m_settings.keys.commentary.accel );		
+	CCommentaryReadWindow::insertKeyboardActions( m_settings.keys.commentary.accel );		
 //	m_settings.keys.commentary.accel->setConfigGroup("Lexicon shortcuts");	
 	m_settings.keys.commentary.accel->readSettings();	
 	 	
@@ -406,7 +411,7 @@ void COptionsDialog::initAccelerators(){
 
 	m_settings.keys.lexicon.accel = new KAccel(this); //delete in destructor
 	CBTConfig::setupAccel( CBTConfig::lexiconWindow, m_settings.keys.lexicon.accel  );	
-	CLexiconPresenter::insertKeyboardActions( m_settings.keys.lexicon.accel );		
+	CLexiconReadWindow::insertKeyboardActions( m_settings.keys.lexicon.accel );		
 //	m_settings.keys.lexicon.accel->setConfigGroup("Lexicon shortcuts");	
 	m_settings.keys.lexicon.accel->readSettings();	 	
  	
@@ -422,7 +427,7 @@ void COptionsDialog::initAccelerators(){
 
 	m_settings.keys.book.accel = new KAccel(this); //delete in destructor
 	CBTConfig::setupAccel( CBTConfig::bookWindow, m_settings.keys.book.accel  );	
-	CBookPresenter::insertKeyboardActions( m_settings.keys.book.accel );		
+	CBookReadWindow::insertKeyboardActions( m_settings.keys.book.accel );		
 //	m_settings.keys.book.accel->setConfigGroup("Book shortcuts");		
 	m_settings.keys.book.accel->readSettings();	 	
 	

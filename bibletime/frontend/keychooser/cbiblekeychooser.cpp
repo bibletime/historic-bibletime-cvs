@@ -95,7 +95,8 @@ CSwordKey* const CBibleKeyChooser::key(){
 }
 
 void CBibleKeyChooser::setKey(CSwordKey* key){
-	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
+	qWarning("CBibleKeyChooser::setKey(CSwordKey* key)");
+ 	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
 		
 	const unsigned int bookIndex = m_info->bookNumber( m_key->book() );
@@ -188,9 +189,12 @@ void CBibleKeyChooser::versePrevRequested(void){
 }
 
 void CBibleKeyChooser::bookChanged(int /*i*/){
-//	qDebug("CBibleKeyChooser::bookChanged(int /*i*/)");
+	qWarning("CBibleKeyChooser::bookChanged(int /*i*/)");
+ 	Q_ASSERT(m_key);
+
 	if (!isUpdatesEnabled())
 		return;
+
 	setUpdatesEnabled(false);	
 	if (m_key)
 		emit beforeKeyChange(m_key->key());
@@ -203,7 +207,7 @@ void CBibleKeyChooser::bookChanged(int /*i*/){
 }
 
 void CBibleKeyChooser::chapterChanged(int /*i*/){
-//	qDebug("CBibleKeyChooser::chapterChanged(int /*i*/)");
+	qWarning("CBibleKeyChooser::chapterChanged(int /*i*/)");
 	if (!isUpdatesEnabled())
 		return;
 	

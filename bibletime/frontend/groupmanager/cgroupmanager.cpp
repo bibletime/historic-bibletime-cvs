@@ -104,7 +104,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, const bool useBookmarks, const bool saveSettings, const bool useDnD, const bool useExtendedMode, const bool useRMBMenu, const bool showHelpDialogs)
 	: KListView(parent, name),
 		m_swordList(swordList),		
-		m_config( new KConfig("bt-groupmanager", false, false ) ),
+		m_config( new KConfig("bt-groupmanager", false/*, false*/ ) ),
 	  m_menu(false),
 		m_searchDialog(0),		
 		m_pressedItem(0),		
@@ -115,6 +115,11 @@ CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModule
 		m_useRMBMenu(useRMBMenu),
 		m_showHelpDialogs(showHelpDialogs)
 {
+//	if (KGlobal::dirs()->addCustomized(m_config))
+//	 	m_config->reparseConfiguration();
+//	m_config->setGroup("test");
+// 	m_config->writeEntry("d", "test");
+//  m_config->sync();
 	initView();
 	initConnections();
 	readSettings();
@@ -122,13 +127,14 @@ CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModule
 
 CGroupManager::~CGroupManager(){	
 	saveSettings();
-	m_config->sync();
+//	m_config->sync();
 	delete m_config;
 	m_config = 0;
 }
 
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupSwordTree() {
+  qWarning("CGroupManager::setupSwordTree()");
 	readGroups(m_config, 0);
 	readSwordModules(m_config, 0);	
 	if (m_useBookmarks)
@@ -138,7 +144,8 @@ void CGroupManager::setupSwordTree() {
 
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupStandardSwordTree() {
-	if (!m_swordList || (m_swordList && !m_swordList->count())) {
+	qWarning("CGroupManager::setupStandardSwordTree");	
+ if (!m_swordList || (m_swordList && !m_swordList->count())) {
 		qWarning("CGroupManager::setupStandardSwordTree: m_swordList is empty or qual to NULL. return now.");
 		return;
 	}
@@ -222,7 +229,6 @@ void CGroupManager::initConnections(){
 /**  */
 void CGroupManager::saveSettings(){	
 	KConfigGroupSaver groupSaver(m_config, "Groupmanager");
-	
 	if (!m_saveSettings) {
 		return;
 	}
@@ -230,14 +236,14 @@ void CGroupManager::saveSettings(){
 	//save column width	
 	m_config->writeEntry("initialized", true);
 	m_config->writeEntry("First column", columnWidth(0));
-	
+//	m_config->sync();	
 	//save the bookmarks and the groups
 	
 	saveGroups(m_config,0);
 	saveSwordModules(m_config,0);
 	saveSwordBookmarks(m_config, 0);
 
-	m_config->sync();
+//	m_config->sync();
 }
 
 /**  */
@@ -576,7 +582,7 @@ void CGroupManager::slotShowAbout(){
 void CGroupManager::slotCreateNewPresenter(){
 	if (m_pressedItem && m_pressedItem->moduleInfo()) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module || m_pressedItem->type() == CGroupManagerItem::Bookmark)
-			emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
+			emit createDisplayWindow( m_pressedItem->moduleInfo(), QString::null );
 	}
 }
 
@@ -683,7 +689,7 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     // Bookmark dragged on module - open a presenter
     if ( (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Bookmark)
     		&& target && (target->type() == CGroupManagerItem::Module) ){
-      emit createSwordPresenter(target->moduleInfo(),m_pressedItem->getKeyText() );
+      emit createDisplayWindow(target->moduleInfo(),m_pressedItem->getKeyText() );
     }
     //move around bookmarks
     else{    	
@@ -743,7 +749,7 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
 							* in lexicons, the reference is searched
 							*/
 							if (target->moduleInfo()->type() == CSwordModuleInfo::Bible || target->moduleInfo()->type() == CSwordModuleInfo::Commentary )
-								emit createSwordPresenter( target->moduleInfo(), ref );							
+								emit createDisplayWindow( target->moduleInfo(), ref );							
 							else
 								searchBookmarkedModule(ref,target);
 						}
@@ -824,10 +830,10 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 					if (i && i->type() == CGroupManagerItem::Module && i->moduleInfo())
 						modules.append(i->moduleInfo());
 				}
-				emit createSwordPresenter( modules, QString::null );				
+				emit createDisplayWindow( modules, QString::null );				
 			}
 			else
-				emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
+				emit createDisplayWindow( m_pressedItem->moduleInfo(), QString::null );
 					  	
 	  	if (m_pressedItem->moduleInfo()->isEncrypted()) {
   			KConfigGroupSaver groupSaver(m_config, "Groupmanager");
@@ -841,7 +847,7 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 		}
 		else if  (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Bookmark) {
 			if (m_pressedItem->moduleInfo() && m_pressedItem->getBookmarkKey() )
-				emit createSwordPresenter( m_pressedItem->moduleInfo(), m_pressedItem->getKeyText() );
+				emit createDisplayWindow( m_pressedItem->moduleInfo(), m_pressedItem->getKeyText() );
 		}
 	}
 }
@@ -1274,7 +1280,8 @@ const bool CGroupManager::saveSwordModules(KConfig* configFile, CGroupManagerIte
 }
 
 const bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* group, const Action action) {
-	//read and create group entries
+	qWarning("CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* group, const Action action)");
+ //read and create group entries
 	CGroupManagerItem* parentItem = 0;
 	bool groupExists = false;	
 	CGroupManagerItem* oldItem = 0;
@@ -1545,11 +1552,11 @@ void CGroupManager::slotReturnPressed( QListViewItem* i){
 	switch (item->type())	 {
 		case CGroupManagerItem::Bookmark:
 			if (item->moduleInfo())				
-				emit createSwordPresenter(item->moduleInfo(),item->getKeyText() );			
+				emit createDisplayWindow(item->moduleInfo(),item->getKeyText() );			
 			break;
 		case CGroupManagerItem::Module:
 			if (item->moduleInfo())
-				emit createSwordPresenter(item->moduleInfo(), QString::null);			
+				emit createDisplayWindow(item->moduleInfo(), QString::null);			
 			break;
 		case CGroupManagerItem::Group:
 			item->setOpen( !item->isOpen() );

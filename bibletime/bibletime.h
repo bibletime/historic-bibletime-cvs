@@ -32,7 +32,7 @@
 class CGroupManager;
 class CMDIArea;
 class CProfile;
-class CSwordPresenter;
+class CDisplayWindow;
 
 //KDE classes
 class KToggleAction;
@@ -260,12 +260,12 @@ protected slots:
 	/**
  	* Creates a new presenter in the MDI area according to the type of the module.
  	*/
-	CSwordPresenter* createNewSwordPresenter(ListCSwordModuleInfo, const QString&);
+	CDisplayWindow* createDisplayWindow(ListCSwordModuleInfo, const QString&);
 	
 	/**
 	* No descriptions
 	*/
-	CSwordPresenter* createNewSwordPresenter(CSwordModuleInfo*, const QString&);
+	CDisplayWindow* createDisplayWindow(CSwordModuleInfo*, const QString&);
 	/** 	
  	* Is called when the window menu is about to show ;-)
  	*/

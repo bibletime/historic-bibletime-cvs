@@ -35,6 +35,7 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 	: CKeyChooser(info, key, parent, name), m_key(0){
 
 	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(info);
+	m_key = dynamic_cast<CSwordLDKey*>(key);
 	
 	//we use a layout because the key chooser should be resized to full size
  	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
@@ -59,23 +60,28 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 }
 
 CSwordKey* const CLexiconKeyChooser::key(){
+  qWarning("CLexiconKeyChooser::key()");
 	return m_key;
 }
 
 void CLexiconKeyChooser::setKey(CSwordKey* key){	
-	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
+	qWarning("CLexiconKeyChooser::setKey(CSwordKey* key)");
+ 	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
 		return;		
 	m_widget->comboBox()->setCurrentItem(
 		m_widget->comboBox()->listBox()->index(
 			m_widget->comboBox()->listBox()->findItem( m_key->key() )));
-//	m_widget->adjustSize();
 	emit keyChanged( m_key );
 }
 
 void CLexiconKeyChooser::activated(int index){
+  qWarning("CLexiconKeyChooser::activated(int index)");
+//  Q_ASSERT(m_widget);
+//  Q_ASSERT(m_widget->comboBox());
+//  Q_ASSERT(m_key);
 	const QString text = m_widget->comboBox()->text(index);	
 	/*to prevent from eternal loop, because activated()is emitted again*/
- 	if (m_key->key() != text) {
+ 	if (m_key && m_key->key() != text) {
 		m_key->key(text); 	
 	 	setKey(m_key);
 	}
@@ -90,6 +96,7 @@ void CLexiconKeyChooser::refreshContent(){
 
 /** Sets the module and refreshes the combo boxes */
 void CLexiconKeyChooser::setModule( CSwordModuleInfo* module) {
+	qWarning("CLexiconKeyChooser::setModule( CSwordModuleInfo* module)");
 	if (module && module != m_module && module->type() == CSwordLexiconModuleInfo::Lexicon) {
 		m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
 		refreshContent();

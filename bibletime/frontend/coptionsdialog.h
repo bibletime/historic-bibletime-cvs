@@ -44,7 +44,6 @@ class QRadioButton;
 class KListBox;
 class KKeyChooser;
 class KTabCtl;
-class CBackEnd;
 
 /**
 	* The optionsdialog of BibleTime

@@ -94,7 +94,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	if (m_includeHeader) {
 		m_htmlText = m_htmlHeader;
 
-    m_htmlText += QString::fromLatin1("<body>%1: <span id=\"highlighted\"><A HREF=\"%2\">%3</A></span>")
+    m_htmlText += QString::fromLatin1("<body>%1: <span id=\"highlighted\"><A HREF=\"%2\">%3</A></span><BR>")
       .arg(module->config(CSwordModuleInfo::Description))
  			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), refType))
       .arg(key->key());
@@ -193,7 +193,7 @@ const QString& CHTMLEntryDisplay::header(){
 
   m_htmlHeader += QString::fromLatin1("\n<style type=\"text/css\">\n\n");
 
-  for (int t = MinType; t < MaxType; ++t) {
+  for (int t = MinType; t <= MaxType; ++t) {
     m_htmlHeader += "\t" + formatString(static_cast<CHTMLEntryDisplay::StyleType>(t)) + "\n\n";
   }
   m_htmlHeader += QString::fromLatin1("</style>\n\n");

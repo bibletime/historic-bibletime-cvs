@@ -26,7 +26,8 @@
 #include "frontend/cprofile.h"
 #include "frontend/cprofilewindow.h"
 #include "frontend/chtmldialog.h"
-#include "frontend/presenters/cswordpresenter.h"
+#include "frontend/displaywindow/cdisplaywindow.h"
+//#include "frontend/presenters/cswordpresenter.h"
 #include "frontend/groupmanager/cgroupmanager.h"
 #include "frontend/coptionsdialog.h"
 #include "frontend/cbtconfig.h"
@@ -101,9 +102,9 @@ void BibleTime::slotSettingsChanged(){
  	}			
 
  	for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
- 		CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));
- 		if (myPresenter)
- 			myPresenter->refresh();
+ 		CDisplayWindow* displayWindow = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index));
+ 		if (displayWindow)
+ 			displayWindow->refresh();
  	}
 
  	//refresh the load profile and save profile menus
@@ -343,12 +344,12 @@ void BibleTime::saveProfile(CProfile* profile){
 	QWidgetList windows = m_mdi->windowList();
 	QPtrList<CProfileWindow> profileWindows;
 	for (QWidget* w = windows.first(); w; w = windows.next()) {
-		CSwordPresenter* displayWindow = dynamic_cast<CSwordPresenter*>(w);
+		CDisplayWindow* displayWindow = dynamic_cast<CDisplayWindow*>(w);
 		if (!displayWindow)
 			continue;
 
 		CProfileWindow* profileWindow = new CProfileWindow();
-		displayWindow->storeSettings(profileWindow);
+		displayWindow->storeProfileSettings(profileWindow);
 		profileWindows.append(profileWindow);
 	}
 	profile->save(profileWindows);
@@ -391,8 +392,8 @@ void BibleTime::loadProfile(CProfile* p){
 		if (!modules.count()) //are the modules still installed?
 			continue;		
 		
-		if (CSwordPresenter* displayWindow = createNewSwordPresenter(modules, key)) {
-			displayWindow->applySettings(w);
+		if (CDisplayWindow* displayWindow = createDisplayWindow(modules, key)) {
+			displayWindow->applyProfileSettings(w);
 		}
 	}	
 	

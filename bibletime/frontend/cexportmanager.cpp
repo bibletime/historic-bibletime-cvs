@@ -19,6 +19,8 @@
 
 #include "backend/cswordkey.h"
 #include "backend/cswordmoduleinfo.h"
+#include "backend/creferencemanager.h"
+#include "backend/cswordversekey.h"
 
 #include "frontend/ctoolclass.h"
 
@@ -214,4 +216,37 @@ const bool CExportManager::printKeyList( ListKey* list, CSwordModuleInfo* module
 	printer()->appendItems(itemList);	
 	
 	return true;
+}
+
+/** Prints a key using the hyperlink created by CReferenceManager. */
+void CExportManager::printKey( const QString& hyperlink ){
+ 	QString moduleName;
+  QString keyName;
+  CReferenceManager::Type type;
+
+  CReferenceManager::decodeHyperlink(hyperlink, moduleName, keyName, type);
+  if (moduleName.isEmpty()) {
+  	moduleName = CReferenceManager::preferredModule(type);
+	}
+
+ 	if (CSwordModuleInfo* module = backend()->findModuleByName(moduleName)) {
+    qWarning(keyName.latin1());
+    QString startKey = keyName;
+    QString stopKey = keyName;
+
+    //check if we have a range of entries or a single one
+    if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
+      ListKey verses = VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
+    	for (int i = 0; i < verses.Count(); ++i) {
+    		VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
+    		if (element)
+        	CExportManager::printKey(module,QString::fromLocal8Bit((const char*)element->LowerBound()), QString::fromLocal8Bit((const char*)element->UpperBound()) );
+    		else
+					CExportManager::printKey(module,(const char*)*verses.GetElement(i),(const char*)*verses.GetElement(i));
+    	}
+		}
+  	else {
+			CExportManager::printKey(module,keyName,keyName);
+    }
+	}
 }

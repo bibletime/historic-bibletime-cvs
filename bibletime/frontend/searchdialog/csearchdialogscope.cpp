@@ -267,11 +267,11 @@ CSearchDialogScopeEdit::CSearchDialogScopeEdit(KSimpleConfig *parentconfig, QWid
 
 	config = parentconfig;
 	
-  config->setGroup(QString("custom ranges"));
-  QMap<QString,QString> entryMap = config->entryMap(QString("custom ranges"));
+  config->setGroup(QString::fromLatin1("custom ranges"));
+  QMap<QString,QString> entryMap = config->entryMap(QString::fromLatin1("custom ranges"));
   QMap<QString,QString>::Iterator it;
 	for ( it = entryMap.begin(); it != entryMap.end(); ++it) {
-  	qDebug(it.key().local8Bit());
+//  	qDebug(it.key().local8Bit());
 	  if (it.key() != QString::null)
 		  RangeChooser->insertItem( it.key() );
 	}

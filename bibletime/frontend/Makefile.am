@@ -4,7 +4,6 @@ noinst_LIBRARIES = libfrontend.a
 
 libfrontend_a_SOURCES = \
 chtmldialog.cpp \
-cdisplaywidget.cpp \
 ctoolclass.cpp \
 cbtconfig.cpp \
 cinputdialog.cpp \
@@ -15,11 +14,11 @@ cprofilewindow.cpp \
 cexportmanager.cpp \
 cmdiarea.cpp \
 kstartuplogo.cpp \
-cpointers.cpp
+cpointers.cpp \
+ctooltipmanager.cpp
 
 all_headers=cmdiarea.h \
 kstartuplogo.h \
-cdisplaywidget.h \
 chtmldialog.h \
 ctoolclass.h \
 cbtconfig.h \
@@ -28,14 +27,16 @@ cprofilemgr.h \
 cprofile.h \
 cprofilewindow.h \
 cpointers.h \
-cexportmanager.h
+cexportmanager.h \
+ctooltipmanager.h
 
 EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
 
 SUBDIRS = \
 groupmanager \
 keychooser \
-presenters \
+displaywindow \
+display \
 searchdialog
 
 

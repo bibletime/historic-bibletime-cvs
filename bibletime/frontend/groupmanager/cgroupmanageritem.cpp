@@ -25,6 +25,7 @@
 #include "backend/cswordlexiconmoduleinfo.h"
 
 #include "frontend/ctoolclass.h"
+#include "frontend/ctooltipmanager.h"
 #include "frontend/cbtconfig.h"
 
 #include "resource.h"
@@ -211,28 +212,29 @@ const QString CGroupManagerItem::getToolTip(){
 	switch ( type() ) {
 		case Bookmark:
 		{
-			text = i18n("Bookmark to" ) + QString::fromLatin1(" ");
-			text.append(QString::fromLatin1("<B>") + getKeyText() + QString::fromLatin1("</B><BR>"));
-			if (!description().stripWhiteSpace().isEmpty())
-				text.append(QString::fromLatin1("<FONT color=\"#800000\">(") + description().stripWhiteSpace() + QString::fromLatin1(")</FONT><BR>"));
-			text.append(QString::fromLatin1("<HR>"));			
-				
-			CSwordKey* key = dynamic_cast<CSwordKey*>(getBookmarkKey());
-			if (!key)
-				return QString::null;				
-			QString bookmarkText = 	key ? key->renderedText() : QString();
-			if (bookmarkText.length() > 150 && (moduleInfo()->type() != CSwordModuleInfo::Bible))
-				bookmarkText = bookmarkText.left(150) + "<BR>[...]";
+//			text = i18n("Bookmark to" ) + QString::fromLatin1(" ");
+//			text.append(QString::fromLatin1("<B>") + getKeyText() + QString::fromLatin1("</B><BR>"));
+//			if (!description().stripWhiteSpace().isEmpty())
+//				text.append(QString::fromLatin1("<FONT color=\"#800000\">(") + description().stripWhiteSpace() + QString::fromLatin1(")</FONT><BR>"));
+//			text.append(QString::fromLatin1("<HR>"));			
+//				
+//			CSwordKey* key = dynamic_cast<CSwordKey*>(getBookmarkKey());
+//			if (!key)
+//				return QString::null;				
+//			QString bookmarkText = 	key ? key->renderedText() : QString();
+//			if (bookmarkText.length() > 150 && (moduleInfo()->type() != CSwordModuleInfo::Bible))
+//				bookmarkText = bookmarkText.left(150) + "<BR>[...]";
+//
+//			//Module is Unicode-based
+//			if (moduleInfo() && moduleInfo()->isUnicode() ) {
+//  			QFont f = CBTConfig::get(CBTConfig::unicode);
+//				text.append( QString::fromLatin1("<FONT FACE=\"%1\">%3</FONT>").arg(f.family())/*.arg(CToolClass::makeLogicFontSize(f.pointSize()))*/.arg(bookmarkText) );
+//			}
+//			else
+//				text.append(bookmarkText);
 
-			//Module is Unicode-based
-			if (moduleInfo() && moduleInfo()->isUnicode() ) {
-  			QFont f = CBTConfig::get(CBTConfig::unicode);
-				text.append( QString::fromLatin1("<FONT FACE=\"%1\">%3</FONT>").arg(f.family())/*.arg(CToolClass::makeLogicFontSize(f.pointSize()))*/.arg(bookmarkText) );
-			}
-			else
-				text.append(bookmarkText);
-
-      return text;				
+//      return text;				
+			return CTooltipManager::textForReference(moduleInfo()->name(), getKeyText(), description());
 		}
 		case Module:
 		{

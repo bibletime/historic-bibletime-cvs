@@ -47,6 +47,7 @@ public: // Public methods
   //print function
   static const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopkey = QString::null, const QString& description = QString::null );
   static const bool printKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool showProgress = true );
+  static void printKey( const QString& hyperlink );
 
 };
 
