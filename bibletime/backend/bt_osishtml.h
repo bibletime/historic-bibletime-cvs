@@ -31,7 +31,6 @@ class BT_OSISHTML : public sword::OSISHTMLHref, public CFilterTool {
 public:
   BT_OSISHTML();
   virtual bool handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData);
-  virtual char processText(sword::SWBuf &, const sword::SWKey*, const sword::SWModule*);
 };
 
 #endif

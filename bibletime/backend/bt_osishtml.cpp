@@ -54,6 +54,8 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
   // manually process if it wasn't a simple substitution
 	if (!substituteToken(buf, token)) {
     XMLTag tag(token);
+  	const	bool osisQToTick = ((!module->getConfigEntry("OSISqToTick")) || (strcmp(module->getConfigEntry("OSISqToTick"), "false")));
+
     if (!tag.getName()) {
       return false;
     }
@@ -125,6 +127,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 						else if ((*val == 'T') && (val[1] == 'G')) {
               buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ", val+2, val+2);
             }
+            else if ((*val == 'T')) {
+              buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ", val+2, val+2);
+            }
 					} while (++i < count);
 				}
 				if ((attrib = tag.getAttribute("POS"))) {
@@ -136,8 +141,8 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 		}
 		// <note> tag
 		else if (!strcmp(tag.getName(), "note")) {
-			if (!tag.isEmpty() && !tag.isEndTag()) {
-				SWBuf footnoteNum = userData["fn"];
+			if (/*!tag.isEmpty() &&*/ !tag.isEndTag()) {
+//				SWBuf footnoteNum = userData["fn"];
 				SWBuf type = tag.getAttribute("type");
 
 				if (type != "strongsMarkup") {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
@@ -157,29 +162,82 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 				userData["suspendTextPassThru"] = "false";
 			}
 		}
-		// <p> paragraph tag
-		else if (!strcmp(tag.getName(), "p")) {
-			if ((!tag.isEndTag()) && (!tag.isEmpty())) {	// non-empty start tag
-				buf += "<p>";
+		// <p> paragraph tag is handled by OSISHTMLHref
+		// <reference> tag
+		else if (!strcmp(tag.getName(), "reference")) {
+			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
+				buf += "<a href=\"\">";
 			}
-			else if (tag.isEndTag()) {	// end tag
-				buf += "</p>";
+			else if (tag.isEndTag()) {
+				buf += "</a>";
 			}
-			else {					// empty paragraph break marker
-				buf += "<p/>";
+			else {	// empty reference marker
+				// -- what should we do?  nothing for now.
 			}
 		}
 
-    else {
+		// <line> poetry, etc
+		else if (!strcmp(tag.getName(), "line")) {
+			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
+//				buf += "<>";
+			}
+			else if (tag.isEndTag()) {
+				buf += "<br />";
+			}
+			else {	// empty line marker
+				buf += "<br />";
+			}
+		}
+
+		// <title>
+		else if (!strcmp(tag.getName(), "title")) {
+			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
+  			buf += "<div class=\"sectiontitle\">";
+			}
+			else if (tag.isEndTag()) {
+  			buf += "</div>";
+			}
+			else {	// empty title marker
+				// what to do?  is this even valid?
+				buf += "<br />";
+			}
+		}
+		// <hi> hi?  hi contrast? // handled by OSISHTMLHRef
+		// <q> quote
+		else if (!strcmp(tag.getName(), "q")) {
+			SWBuf type = tag.getAttribute("type");
+			SWBuf who = tag.getAttribute("who");
+			const char *lev = tag.getAttribute("level");
+			int level = (lev) ? atoi(lev) : 1;
+
+			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
+				/*buf += "{";*/
+
+				//alternate " and '
+				if(osisQToTick)
+					buf += (level % 2) ? '\"' : '\'';
+
+				if (who == "Jesus") {
+					buf += "<span class=\"jesuswords\">";
+				}
+			}
+			else if (tag.isEndTag()) {
+				//alternate " and '
+        if (who == "Jesus")
+          buf += "</span>";
+        else if(osisQToTick)
+					buf += (level % 2) ? '\"' : '\'';
+			}
+			else {	// empty quote marker
+				//alternate " and '
+				if(osisQToTick)
+					buf += (level % 2) ? '\"' : '\'';
+			}
+		}
+		// <transChange> is handled by OSISHTMLHref
+    else { //all tokens handled by OSISHref will run through the filter now
       return sword::OSISHTMLHref::handleToken(buf, token, userData);
     }
 	}
   return false;
-}
-
-/** No descriptions */
-char BT_OSISHTML::processText(sword::SWBuf& buf, const sword::SWKey * key , const sword::SWModule * module){
-  CFilterTool::module(const_cast<sword::SWModule*>(module));
-  CFilterTool::key(const_cast<sword::SWKey*>(key));
-  return sword::OSISHTMLHref::processText(buf, key, module);
 }

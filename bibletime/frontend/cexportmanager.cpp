@@ -235,10 +235,18 @@ const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bo
     text += "\n" + QString::fromLatin1("(%1, %1)").arg(key->key()).arg(module->name());
   }
   else { //don't add text
-    text = key ? key->key() : QString::null;
+//    text = key ? key->key() : QString::null;
+    if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key)) { //make sure VerseKeys are localized!
+//      CSwordVerseKey vk( *key );
+      vk->setLocale( backend()->booknameLanguage().latin1() );
+
+      text = vk->key();      
+    }
+    else {
+      text = key->key();
+    }
   	return true;
   }
-//  qWarning("copy now");
   KApplication::clipboard()->setText(text);
 	return true;
 };

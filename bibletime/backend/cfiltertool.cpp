@@ -26,7 +26,7 @@
 
 using std::string;
 
-CFilterTool::CFilterTool() : m_module(0), m_key(0) {
+CFilterTool::CFilterTool() {
   updateSettings();
 }
 
@@ -41,15 +41,13 @@ const sword::SWBuf CFilterTool::thmlRefEnd(){
 	return "</a></span>";
 }
 
-char CFilterTool::ProcessRWPRefs(sword::SWBuf & buf){
+char CFilterTool::ProcessRWPRefs(sword::SWBuf & buf, sword::SWModule* const module){
   /** Markup verse refs which are marked by #ref1[,;]ref2|
   *
   * 1. Search start marker (#)
   * 2. Search end marker (|)
   * 3. Replace found ref by parsed result!
   */
-
-  sword::SWModule* const mod = module();
 
   std::string target(buf.c_str());
   unsigned int idx_start = target.find_first_of("#",0); //find ref start
@@ -62,7 +60,7 @@ char CFilterTool::ProcessRWPRefs(sword::SWBuf & buf){
       // Our length of the ref without markers is idx_end - (idx_start+1) = idx_end - idx_start - 1
 
       // Parse ref without start and end markers!
-      const string ref = string(parseRef( target.substr(idx_start + 1, idx_end - idx_start - 1).c_str(),  mod ).c_str());
+      const string ref = string(parseRef( target.substr(idx_start + 1, idx_end - idx_start - 1).c_str(),  module, 0 ).c_str());
 
       // Replace original ref sourrounded by # and | by the parsed ref in target!
       target.replace( idx_start, idx_end - idx_start + 1, ref ); //remove marker, too
@@ -79,8 +77,7 @@ char CFilterTool::ProcessRWPRefs(sword::SWBuf & buf){
 }
 
 /** Parses the verse reference ref and returns it. */
-const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule* module, const bool insertFullRef){
-  //  qWarning("parsing %s with %s", ref.c_str(), m_key ? m_key->getText() : "");
+const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule* module, sword::SWKey* key, const bool insertFullRef){
   /**
   * This function should be able to parse references like "John 1:3; 3:1-10; Matthew 1:1-3:3"
   * without problems.
@@ -88,9 +85,9 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
   const sword::SWBuf moduleName( module ? module->Name() : m_standardBible.latin1() );
 
   sword::VerseKey parseKey;
- 	parseKey.setLocale( m_module ? m_module->Lang() : "en" ); //we assume that the keys are in english or in the module's language
+ 	parseKey.setLocale( module ? module->Lang() : "en" ); //we assume that the keys are in english or in the module's language
 
- 	parseKey = (m_key) ? (const char*)*m_key : "Genesis 1:1"; //use the current key if there's any
+ 	parseKey = key ? (const char*)*key : "Genesis 1:1"; //use the current key if there's any
  	sword::ListKey list;
   sword::SWBuf ret;
 
@@ -116,18 +113,12 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
   		ret += sword::SWBuf("<span id=\"reference\"><a href=\"sword://Bible/") + moduleName + "/";
  			if ( sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key) ) {
  				vk->setLocale("en");
-// 				vk->LowerBound().setLocale("en");
-// 				vk->UpperBound().setLocale("en");
-
         ret += sword::SWBuf(vk->getRangeText()) + "\">";
         parseKey = *vk;
       }
       else {
         sword::VerseKey vk = key->getText();
  				vk.setLocale("en");
-// 				vk.LowerBound().setLocale("en");
-// 				vk.UpperBound().setLocale("en");
-
         ret += sword::SWBuf(vk.getRangeText()) + "\">";
         parseKey = vk;
       }
@@ -144,16 +135,4 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
 
 	}
  	return ret;
-}
-
-sword::SWModule* const CFilterTool::module(sword::SWModule* const module){
-  if (module)
-    m_module = module;
-  return m_module;
-}
-
-sword::SWKey* const CFilterTool::key(sword::SWKey* const key){
-  if (key)
-    m_key = key;
-  return m_key;
 }

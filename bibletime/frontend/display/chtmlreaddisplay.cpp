@@ -86,6 +86,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
    		QString keyName;
      	CReferenceManager::Type type;
       CReferenceManager::decodeHyperlink(activeAnchor(), moduleName, keyName, type);
+      
      	return keyName;
     }
 

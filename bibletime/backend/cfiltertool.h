@@ -33,9 +33,6 @@ public:
 	CFilterTool();
 	virtual ~CFilterTool();
 
-  sword::SWModule* const module(sword::SWModule* const = 0);
-  sword::SWKey* const key(sword::SWKey* const = 0);
-
 protected: // Protected methods
   /** 
 	* updates the filter specific settings like colors
@@ -47,7 +44,7 @@ protected: // Protected methods
 	* This filter converts the RWP #Gen 1:1|
 	* style bible references to HTML
 	*/
-  char ProcessRWPRefs(sword :: SWBuf & buf);
+  char ProcessRWPRefs(sword::SWBuf & buf, sword::SWModule* const module);
   /** 
   * parses the verse reference ref and returns it.
   */
@@ -55,12 +52,10 @@ protected: // Protected methods
   /**
   * Parses the verse reference ref and returns it.
   */
-  const sword::SWBuf parseRef(const sword :: SWBuf ref, sword :: SWModule * , const bool insertFullRef = true);
+  const sword::SWBuf parseRef(const sword::SWBuf ref, sword::SWModule*, sword::SWKey*, const bool insertFullRef = true);
 
 private:
   QString m_standardBible;
-  sword::SWModule* m_module;
-  sword::SWKey* m_key;  
 };
 
 #endif
