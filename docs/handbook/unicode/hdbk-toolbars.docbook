@@ -13,7 +13,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/22x22/actions/view_sidetree.png" format="PNG"/>
+	<imagedata fileref="./view_sidetree.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>view_sidetree.png</phrase>
@@ -27,7 +27,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/apps/key_bindings.png" format="PNG"/>
+	<imagedata fileref="./key_bindings.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>key_bindings.png</phrase>
@@ -41,7 +41,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/apps/kcmfontinst.png" format="PNG"/>
+	<imagedata fileref="./kcmfontinst.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>kcmfontinst.png</phrase>
@@ -55,7 +55,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/22x22/actions/window_fullscreen.png" format="PNG"/>
+	<imagedata fileref="./window_fullscreen.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>window_fullscreen.png</phrase>
@@ -68,7 +68,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/apps/ktip.png" format="PNG"/>
+	<imagedata fileref="./ktip.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>ktip.png</phrase>
@@ -81,7 +81,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/configure.png" format="PNG"/>
+	<imagedata fileref="./configure.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>configure.png</phrase>
@@ -98,7 +98,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/contents.png" format="PNG"/>
+	<imagedata fileref="./contents.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>contents.png</phrase>
@@ -115,7 +115,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/exit.png" format="PNG"/>
+	<imagedata fileref="./exit.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>exit.png</phrase>
@@ -127,7 +127,7 @@
 		
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/fileclose.png" format="PNG"/>
+	<imagedata fileref="./fileclose.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>fileclose.png</phrase>
@@ -140,7 +140,7 @@
 		
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/fileprint.png" format="PNG"/>
+	<imagedata fileref="./fileprint.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>fileprint.png</phrase>
@@ -154,7 +154,7 @@
 		
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/find.png" format="PNG"/>
+	<imagedata fileref="./find.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>find.png</phrase>
@@ -167,7 +167,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/start.png" format="PNG"/>
+	<imagedata fileref="./start.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>start.png</phrase>
@@ -181,7 +181,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_bible_add.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_bible_add.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>bible_add.png</phrase>
@@ -194,7 +194,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_bible.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_bible.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>bible.png</phrase>
@@ -207,7 +207,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_book_add.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_book_add.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>book_add.png</phrase>
@@ -221,7 +221,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_book.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_book.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>book.png</phrase>
@@ -233,7 +233,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_cascade_auto.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_cascade_auto.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>cascade_auto.png</phrase>
@@ -246,7 +246,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_cascade.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_cascade.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>cascade.png</phrase>
@@ -258,7 +258,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_commentary_add.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_commentary_add.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>commentary_add.png</phrase>
@@ -271,7 +271,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_commentary.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_commentary.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>commentary.png</phrase>
@@ -283,7 +283,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_displayconfig.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_displayconfig.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>displayconfig.png</phrase>
@@ -296,7 +296,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_lexicon_add.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_lexicon_add.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>lexicon_add.png</phrase>
@@ -309,7 +309,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_lexicon.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_lexicon.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>lexicon.png</phrase>
@@ -321,7 +321,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_startconfig.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_startconfig.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>startconfig.png</phrase>
@@ -334,7 +334,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_swordconfig.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_swordconfig.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>swordconfig.png</phrase>
@@ -349,7 +349,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_sync.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_sync.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>sync.png</phrase>
@@ -362,7 +362,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_tile_auto.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_tile_auto.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>tile_auto.png</phrase>
@@ -375,7 +375,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_tile.png" format="PNG"/>
+	<imagedata fileref="./hi32-action-bt_tile.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>tile.png</phrase>
@@ -387,7 +387,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./bt-icons/32x32/hi32-app-bibletime.png" format="PNG"/>
+	<imagedata fileref="./hi32-app-bibletime.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>bibletime.png</phrase>
@@ -403,7 +403,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/apps/go.png" format="PNG"/>
+	<imagedata fileref="./go.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>go.png</phrase>
@@ -418,7 +418,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/editdelete.png" format="PNG"/>
+	<imagedata fileref="./editdelete.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>editdelete.png</phrase>
@@ -431,7 +431,7 @@
 
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/22x22/actions/pencil.png" format="PNG"/>
+	<imagedata fileref="./pencil.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>pencil.png</phrase>
@@ -444,7 +444,7 @@
 	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/queue.png" format="PNG"/>
+	<imagedata fileref="./queue.png" format="PNG"/>
 	</imageobject>
 	<textobject>
 	<phrase>queue.png</phrase>
@@ -454,218 +454,207 @@
 	</caption>
 	</mediaobject>
 
-
 	</para>
 	</section>
 
 
-
-	
 	<section id="hdbk-bars-menubar"><title>Menubar</title>
-	<para></para>
+	<para>Later</para>
 	</section>
 	
-	
+
+	<section id="hdbk-bars-menubar-file"><title>File</title>
+	<para>
+
+	<variablelist>
+	<varlistentry>
+	<term>Clear printing queue</term>
+	<listitem>
+	<para>Clears all items from the &bibletime; print queue.
+	The &bibletime; printing queue does not clear automatically.</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>
+	Print</term>
+	<listitem>
+	<para>This menu item launches the <guilabel>printdialog</guilabel> box.
+	From here you will select print or view as for any other &kde; application.</para>
+	</listitem>
+	</varlistentry>
+	</variablelist>
+	</para>
+	</section>
+
+	<section id="hdbk-bars-menubar-view"><title>View</title>
+	<para>
+
+	<variablelist>
+	<varlistentry>
+	<term>Show Toolbar</term>
+	<listitem>
+	<para>>If <guimenuitem>show toolbar</guimenuitem> is selected,
+	the toolbar is displayed.
+	If <guimenuitem>show toolbar</guimenuitem> is unselected then the
+	toolbar is hidden.</para>
+	</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	<term>
+	Show Main Index</term>
+	<listitem>
+	<para>If <guimenuitem>show main index</guimenuitem> is selected,
+	the left pane showing the available &sword; documents is displayed.
+	If <guimenuitem>show main index</guimenuitem> is unselected then the
+	left pane is hidden.</para>
+	</listitem>
+	</varlistentry>
+	</variablelist>
+	</para>
+	</section>
+
+	<section id="hdbk-bars-menubar-mainindex"><title>Main Index</title>
+	<para>
+
+	<variablelist>
+	<varlistentry><term>Search in module(s)</term>
+	<listitem>
+	<para>
+	If <guimenuitem>Search in module(s)</guimenuitem> is selected,
+	<guilabel>search dialog</guilabel> is displayed.  Any selected documents
+	from the left pane are preselected on the choose modules tab.
+	</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry><term>Reset Main Index</term>
+	<listitem>
+	<para>
+	If <guimenuitem>Reset Main Index</guimenuitem> is selected,
+	the <guilabel>Main Index</guilabel> in the left pane will be rebuilt.
+	Any customization in the <guilabel>main index</guilabel> and bookmarks
+	will be deleted.
+	</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>Remove selected item</term>
+	<listitem>
+	<para>
+	If <guimenuitem>Remove selected item</guimenuitem> is selected,
+	any selected items in the <guilabel>Main Index</guilabel> in the left pane will be deleted.
+	This action can only be partly undone by the <guimenuitem>Reset Main Index</guimenuitem>.
+	Use this feature with caution.
+	</para>
+	</listitem>
+	</varlistentry>
+	</variablelist>
+
+	</para>
+	</section>
+
+	<section id="hdbk-bars-menubar-Window"><title>Window</title>
+	<para>
+	<variablelist>
+
+	<varlistentry>
+	<term>Save Profile</term>
+	<listitem><para>Saves the current configuration to
+	a selected profile</para></listitem>
+	</varlistentry>
 
 
+	<varlistentry>
+	<term>Load Profile</term>
+	<listitem><para>Loads the contents of the named profile to
+	the current session of &bibletime;.</para></listitem>
+	</varlistentry>
+
+	<varlistentry>
+	<term>Configure Profile</term>
+	<listitem><para>This brings up the <guilabel>profiles</guilabel> tab of the
+	<guilabel>Options dialog</guilabel>.
+	Here you create and manage profiles</para></listitem>
+	</varlistentry>
 
 
+	<varlistentry>
+	<term>Fullscreen Mode</term>
+	<listitem><para>When <guimenuitem>Fullscreen Mode</guimenuitem> is selected, &bibletime; will expand
+	to the full size of your monitor screen.  To reverse the action select
+	<guimenuitem>Fullscreen Mode</guimenuitem>again. </para></listitem>
+	</varlistentry>
 
+	<varlistentry>
+	<term>Cascade</term>
+	<listitem><para>Cascades open display windows</para></listitem>
+	</varlistentry>
 
-<section id="hdbk-bars-menubar-file"><title>File</title>
-<para>
+	<varlistentry>
+	<term>Tile</term>
+	<listitem>
+	<para>Tiles open display windows</para>
+	</listitem>
+	</varlistentry>
 
-<variablelist>
-<varlistentry>
-<term>Clear printing queue</term>
-<listitem>
-<para>Clears all items from the &bibletime; print queue.
-The &bibletime; printing queue does not clear automatically.</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-Print</term>
-<listitem>
-<para>This menu item launches the <guilabel>printdialog</guilabel> box.
-From here you will select print or view as for any other &kde; application.</para>
-</listitem>
-</varlistentry>
-</variablelist>
-</para>
-</section>
+	<varlistentry>
+	<term>Auto Cascade</term>
+	<listitem>
+	<para>
+	Automatically cascades newly opened display windows
+	</para>
+	</listitem>
+	</varlistentry>
 
-<section id="hdbk-bars-menubar-view"><title>View</title>
-<para>
+	<varlistentry>
+	<term>Auto Tile</term>
+	<listitem>
+	<para>ditto for tiling newly opened display windows</para>
+	</listitem>
+	</varlistentry>
 
-<variablelist>
-<varlistentry>
-<term>Show Toolbar</term>
-<listitem>
-<para>>If <guimenuitem>show toolbar</guimenuitem> is selected,
-the toolbar is displayed.
-If <guimenuitem>show toolbar</guimenuitem> is unselected then the
-toolbar is hidden.</para>
-</listitem>
-</varlistentry>
+	<varlistentry>
+	<term>Close all</term>
+	<listitem>
+	<para>Closes all open display windows</para>
+	</listitem>
+	</varlistentry>
 
-<varlistentry>
-<term>
-Show Main Index</term>
-<listitem>
-<para>If <guimenuitem>show main index</guimenuitem> is selected,
-the left pane showing the available &sword; documents is displayed.
-If <guimenuitem>show main index</guimenuitem> is unselected then the
-left pane is hidden.</para>
-</listitem>
-</varlistentry>
-</variablelist>
-</para>
-</section>
+	<varlistentry>
+	<term>List of open modules</term>
+	<listitem>
+	<para>shows a list of all of the currently selected modules.</para>
+	</listitem>
+	</varlistentry>
 
-<section id="hdbk-bars-menubar-mainindex"><title>Main Index</title>
-<para>
+	</variablelist>
+	</para>
+	</section>
 
+	<section id="hdbk-bars-menubar-settings"><title>Settings</title>
+	<para>
 
-<variablelist>
-<varlistentry><term>Search in module(s)</term>
-<listitem>
-<para>
-If <guimenuitem>Search in module(s)</guimenuitem> is selected,
-<guilabel>search dialog</guilabel> is displayed.  Any selected documents
-from the left pane are preselected on the choose modules tab.
-</para>
-</listitem>
-</varlistentry>
-<varlistentry><term>Reset Main Index</term>
-<listitem>
-<para>
-If <guimenuitem>Reset Main Index</guimenuitem> is selected,
-the <guilabel>Main Index</guilabel> in the left pane will be rebuilt.
-Any customization in the <guilabel>main index</guilabel> and bookmarks
-will be deleted.
-</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>Remove selected item</term>
-<listitem>
-<para>
-If <guimenuitem>Remove selected item</guimenuitem> is selected,
-any selected items in the <guilabel>Main Index</guilabel> in the left pane will be deleted.
-This action can only be partly undone by the <guimenuitem>Reset Main Index</guimenuitem>.
-Use this feature with caution.
-</para>
-</listitem>
-</varlistentry>
-</variablelist>
+	<variablelist>
 
+	<varlistentry>
+	<term>Configure Toolbar</term>
+	<listitem>
+	<para>show the <guilabel>Configure Toolbar</guilabel> dialog.</para>
+	</listitem>
+	</varlistentry>
 
-</para>
-</section>
+	<varlistentry>
+	<term>Configure &bibletime;</term>
+	<listitem>
+	<para>Shows the <guilabel>Options dialog</guilabel>.
+	From this dialog the startup mode, fonts, colors, profiles,
+	sword features, and accelerators are configurable. </para>
+	</listitem>
+	</varlistentry>
+	</variablelist>
 
-<section id="hdbk-bars-menubar-Window"><title>Window</title>
-<para>
-<variablelist>
-
-<varlistentry>
-<term>Save Profile</term>
-<listitem><para>Saves the current configuration to
-a selected profile</para></listitem>
-</varlistentry>
-
-
-<varlistentry>
-<term>Load Profile</term>
-<listitem><para>Loads the contents of the named profile to
-the current session of &bibletime;.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Configure Profile</term>
-<listitem><para>This brings up the <guilabel>profiles</guilabel> tab of the
-<guilabel>Options dialog</guilabel>.
-Here you create and manage profiles</para></listitem>
-</varlistentry>
-
-
-<varlistentry>
-<term>Fullscreen Mode</term>
-<listitem><para>When <guimenuitem>Fullscreen Mode</guimenuitem> is selected, &bibletime; will expand
-to the full size of your monitor screen.  To reverse the action select
-<guimenuitem>Fullscreen Mode</guimenuitem>again. </para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Cascade</term>
-<listitem><para>Cascades open display windows</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Tile</term>
-<listitem>
-<para>Tiles open display windows</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Auto Cascade</term>
-<listitem>
-<para>
-Automatically cascades newly opened display windows
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Auto Tile</term>
-<listitem>
-<para>ditto for tiling newly opened display windows</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Close all</term>
-<listitem>
-<para>Closes all open display windows</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>List of open modules</term>
-<listitem>
-<para>shows a list of all of the currently selected modules.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-</para>
-</section>
-
-<section id="hdbk-bars-menubar-settings"><title>Settings</title>
-<para>
-
-<variablelist>
-
-<varlistentry>
-<term>Configure Toolbar</term>
-<listitem>
-<para>show the <guilabel>Configure Toolbar</guilabel> dialog.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Configure &bibletime;</term>
-<listitem>
-<para>Shows the <guilabel>Options dialog</guilabel>.
-From this dialog the startup mode, fonts, colors, profiles,
-sword features, and accelerators are configurable. </para>
-</listitem>
-</varlistentry>
-</variablelist>
-
-</para>
-</section>
+	</para>
+	</section>
 
 <section id="hdbk-bars-menubar-Help"><title>Help</title>
 <para>
@@ -750,4 +739,3 @@ Opens a window with general &kde; information.
 
 </chapter>
 
- find /opt/kde3/share/ -name pencil
