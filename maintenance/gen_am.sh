@@ -210,12 +210,12 @@ merge:
 		name=../../bibletime/pot/messages.pot ; \
 		echo $$cat $$name; \
 		msgmerge $$cat $$name > $$cat.new ; \
-		if diff $$cat $$cat.new; then \
-			rm $$cat.new;  \
-		else  \
-			mv $$cat.new $$cat ; \
-		fi; \
+		mv $$cat.new $$cat ; \
 	done
+
+clean:
+	rm *.gmo
+
 EOF
 
 ###########################
@@ -231,12 +231,12 @@ for DOC_PO_PART in handbook howto; do
 		echo '	name=../../../bibletime/pot/'$DOC_PO_PART'.pot ; \'
 		echo '		echo $$cat $$name; \'
 		echo '		msgmerge $$cat $$name > $$cat.new; \'
-		echo '		if diff $$cat $$cat.new; then \'
-		echo '			rm $$cat.new;  \'
-		echo '		else  \'
-		echo '			mv $$cat.new $$cat ; \'
-		echo '		fi;\'
+		echo '		mv $$cat.new $$cat ; \'
 		echo '	done;'
+
+		echo 'clean:'
+		echo '	rm *.gmo'
+		echo
 
 	) > ../../bibletime-i18n/po/$DOC_PO_PART/Makefile.am
 
