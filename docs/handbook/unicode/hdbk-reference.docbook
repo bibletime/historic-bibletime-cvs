@@ -1,12 +1,6 @@
 <chapter id="hdbk-reference">
 <title>Reference</title>
 
-<sect1 id="reference-windows">
-<title>Windows</title>
-	TODO: WRITE.
-</sect1>
-
-
 <sect1 id="hdbk-reference-toolbar"><title>Toolbar</title>
 
 	<para>This section describes the most important toolbar actions. You can find a
@@ -63,6 +57,7 @@
 
 		<varlistentry id="view-shominfodisp">
 			<term><menuchoice>
+			<shortcut><keycombo action="simul"><keycap>F8</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="view_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
 			View</guimenu> <guimenuitem>Show Info Display</guimenuitem></menuchoice></term>
@@ -88,7 +83,7 @@
 
 		<varlistentry id="search-openmodules">
 			<term><menuchoice>
-			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>M</keycap></keycombo></shortcut>
+			<shortcut><keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="find.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Search</guimenu> <guimenuitem>Search in open module(s)</guimenuitem></menuchoice></term>
@@ -134,6 +129,7 @@
 
 		<varlistentry id="window-configuresessions">
 			<term><menuchoice>
+			<shortcut><keycombo action="simul"><keycap>F5</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="view_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Window</guimenu> <guimenuitem>Configure sessions</guimenuitem></menuchoice></term>
@@ -192,7 +188,7 @@
 
 		<varlistentry id="window-closeall">
 			<term><menuchoice>
-			<shortcut><keycombo action="simul">&Ctrl;<keycap>K</keycap></keycombo></shortcut>
+			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>W</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="fileclose.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Window</guimenu> <guimenuitem>Close all</guimenuitem></menuchoice></term>

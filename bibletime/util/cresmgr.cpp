@@ -60,13 +60,6 @@ namespace CResMgr {
 
   namespace mainMenu { //Main menu
     namespace file { //Main menu->File
-      namespace clearQueue {
-        QString tooltip;
-        QString whatsthis;
-        const QString icon       = QString::fromLatin1("button_cancel");
-        const KShortcut accel    = KKeySequence();
-        const char* actionName   = "file_clear_queue_action";
-      }
       namespace print { //a standard action
         QString tooltip;
         QString whatsthis;
@@ -89,7 +82,7 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "view_sidetree";
-        const KShortcut accel     = KKeySequence();
+        const KShortcut accel     = Qt::Key_F8;
         const char* actionName    = "viewInfoDisplay_action";
       }
       namespace showToolBar { //a standard action
@@ -103,7 +96,7 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "find";
-        const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_M;
+        const KShortcut accel     = Qt::CTRL + Qt::Key_G;
         const char* actionName    = "groupmanager_search_action";
       }
       namespace searchdefaultbible {
@@ -139,7 +132,7 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "view_sidetree";
-        const KShortcut accel     = KKeySequence();
+        const KShortcut accel     = Qt::Key_F5;
         const char* actionName    = "windowEditProfiles_action";
       }
       namespace showFullscreen {
@@ -181,7 +174,7 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "fileclose";
-        const KShortcut accel     = Qt::CTRL + Qt::Key_K;
+        const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_W;
         const char* actionName    = "windowCloseAll_action";
       }
     }
@@ -232,7 +225,7 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "idea";
-        const KShortcut accel     = KKeySequence();
+        const KShortcut accel     = Qt::Key_F3;
         const char* actionName    = "helpDailyTip_action";
       };
       namespace aboutBibleTime { // available as KStdAction
@@ -417,7 +410,7 @@ namespace CResMgr {
       namespace nextVerse {
         QString tooltip;
         QString whatsthis;
-        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_V;
+        const KShortcut accel = Qt::CTRL + Qt::Key_V;
       }
       namespace previousVerse {
         QString tooltip;
@@ -441,7 +434,7 @@ namespace CResMgr {
          QString whatsthis;
          const QString icon 		= "bt_sync";
          const KShortcut accel 	= KKeySequence(); //CResMgr::displaywindows::biblewindow::nextBook::accel;
-				 const char* actionName	= "commentary_syncWindow";
+		 const char* actionName	= "commentary_syncWindow";
        }
 
     };
@@ -453,12 +446,12 @@ namespace CResMgr {
       namespace nextEntry {
         QString tooltip;
         QString whatsthis;
-        const KShortcut accel = KKeySequence();
+        const KShortcut accel = Qt::CTRL + Qt::Key_V;
       }
       namespace previousEntry {
         QString tooltip;
         QString whatsthis;
-        const KShortcut accel = KKeySequence();
+        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_V;
       }
 
       namespace copyMenu {
@@ -573,73 +566,6 @@ namespace CResMgr {
     };
   };
 
-  namespace printing {
-    namespace itemPage {
-      namespace styleChooser {
-        QString tooltip;
-        QString whatsthis;
-      };
-      namespace itemList {
-        QString tooltip;
-        QString whatsthis;
-      };
-      namespace itemUp {
-        const QString icon = "up";
-        QString tooltip;
-        QString whatsthis;
-      };
-      namespace itemDown {
-        const QString icon = "down";
-        QString tooltip;
-        QString whatsthis;
-      };
-      namespace itemDelete {
-        const QString icon = "edittrash";
-        QString tooltip;
-        QString whatsthis;
-      };
-    };
-
-    namespace styleList {
-      namespace newStyle {
-        QString tooltip;
-        QString whatsthis;
-        const QString icon = "filenew";
-      };
-      namespace deleteStyle {
-        QString tooltip;
-        QString whatsthis;
-        const QString icon = "editdelete";
-      };
-      namespace editStyle {
-        QString tooltip;
-        QString whatsthis;
-        const QString icon = "pencil";
-      };
-    };
-    namespace printerSettings {
-      namespace margins {
-        QString whatsthis;
-
-        namespace upper {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace lower {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace left {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace right {
-          QString tooltip;
-          QString whatsthis;
-        };
-      };
-    };
-  };
   namespace settings {
     namespace startup {
       const QString icon = "bt_startconfig";
@@ -901,11 +827,6 @@ namespace CResMgr {
       using namespace mainMenu;
       {
         using namespace file;
-        {
-          using namespace clearQueue;
-          tooltip    = makeToolTip( i18n("Clear print queue") );
-          whatsthis  = makeWhatsThis( tooltip, i18n("Clear the print queue of BibleTime.") );
-        };
         {
           using namespace print;
           tooltip     = makeToolTip( i18n("Open the printer dialog") );
@@ -1327,86 +1248,6 @@ namespace CResMgr {
         { using namespace fontColor;
           tooltip   = makeToolTip( i18n("Set the color") );
           whatsthis = makeWhatsThis( tooltip, i18n("Choose a new color for the selected text.") );
-        };
-      };
-    };
-
-    {
-      using namespace printing;
-      {
-        using namespace itemPage;
-        {
-          using namespace styleChooser;
-          tooltip = makeToolTip(i18n("Styles"));
-          whatsthis = makeWhatsThis(tooltip,i18n("This list contains the available print styles."));
-        };
-        {
-          using namespace itemList;
-          tooltip = makeToolTip(i18n("List of print items"));
-          whatsthis = makeWhatsThis(tooltip,i18n("This is the list which contains the items to be printed."));
-        };
-        {
-          using namespace itemUp;
-          tooltip = makeToolTip(i18n("Move item up"));
-          whatsthis = makeWhatsThis(tooltip,i18n("Move the selected item up one line."));
-        };
-        {
-          using namespace itemDown;
-          tooltip = makeToolTip(i18n("Move item down"));
-          whatsthis = makeWhatsThis(tooltip,i18n("Move the selected item down one line."));
-        };
-        {
-          using namespace itemDelete;
-          tooltip = makeToolTip(i18n("Delete items"));
-          whatsthis = makeWhatsThis(tooltip,i18n("Delete the selected items."));
-        };
-      };
-
-      {
-        using namespace styleList;
-        {
-          using namespace newStyle;
-          tooltip = makeToolTip( i18n("New printing style") );
-          whatsthis = makeWhatsThis( tooltip, i18n("Create a new printing style.") );
-
-        };
-        {
-          using namespace deleteStyle;
-          tooltip = makeToolTip( i18n("Delete printing style") );
-          whatsthis = makeWhatsThis( tooltip, i18n("Remove the selected printing style from the list.") );
-
-        };
-        {
-          using namespace editStyle;
-          tooltip = makeToolTip( i18n("Edit printing style") );
-          whatsthis = makeWhatsThis( tooltip, i18n("Change the properties of the selected printing style.") );
-
-        };
-      };
-      {
-        using namespace printerSettings;
-        {
-          margins::whatsthis = makeWhatsThis( makeToolTip(i18n("Size of page borders")), i18n("This group contains the page borders of the page measured in millimeters.") );
-          {
-            using namespace margins::upper;
-            tooltip = makeToolTip( i18n("Upper border") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The size of the border on the top of the paper.") );
-          };
-          {
-            using namespace margins::lower;
-            tooltip = makeToolTip( i18n("Lower border") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The size of the border on the bottom of the paper.") );
-          };
-          {
-            using namespace margins::left;
-            tooltip = makeToolTip( i18n("Left border") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The size of the border on the left side of the paper.") );
-          };
-          {
-            using namespace margins::right;
-            tooltip = makeToolTip( i18n("Right border") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The size of the border on the right side of the paper.") );
-          };
         };
       };
     };

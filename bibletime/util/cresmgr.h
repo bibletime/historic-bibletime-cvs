@@ -56,13 +56,6 @@ namespace CResMgr {
   
   namespace mainMenu { //Main menu
     namespace file { //Main menu->File
-      namespace clearQueue {
-        extern QString tooltip;
-        extern QString whatsthis;
-        extern const QString icon;
-        extern const KShortcut accel;
-        extern const char* actionName;
-      }
       namespace print { //a standard action
         extern QString tooltip;
         extern QString whatsthis;
@@ -571,74 +564,6 @@ namespace CResMgr {
         extern QString whatsthis;
       };
 
-    };
-  };
-
-   namespace printing {
-    namespace itemPage {
-      namespace styleChooser {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace itemList {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace itemUp {
-        extern const QString icon;
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace itemDown {
-        extern const QString icon;
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace itemDelete {
-        extern const QString icon;
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-    };
-
-    namespace styleList {
-      namespace newStyle {
-        extern const QString icon;
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace deleteStyle {
-        extern const QString icon;
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace editStyle {
-        extern const QString icon;
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-    };
-    namespace printerSettings {
-      namespace margins {
-        extern QString whatsthis;
-
-        namespace upper {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace lower {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace left {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace right {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-      };
     };
   };
 

@@ -1,6 +1,6 @@
 Source: bibletime
 Section: kde
-Build-Depends: debhelper, kdelibs4-dev, libsword-dev (>= 1.5.7-1), libsword-dev (<< 1.5.7.90-1)
+Build-Depends: debhelper, kdelibs4-dev
 Priority: optional
 Maintainer: Daniel Glassey <wdg@debian.org>
 Standards-Version: 3.6.1.0

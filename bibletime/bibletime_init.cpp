@@ -212,7 +212,7 @@ void BibleTime::initActions() {
 
 	m_windowAutoCascade_action 	= new KToggleAction(i18n("&Auto cascade"),
     CResMgr::mainMenu::window::autoCascade::icon,
-		CResMgr::mainMenu::window::autoCascade::accel,
+	CResMgr::mainMenu::window::autoCascade::accel,
     this, SLOT(slotAutoCascade()), actionCollection(),
     CResMgr::mainMenu::window::autoCascade::actionName
   );
@@ -225,7 +225,7 @@ void BibleTime::initActions() {
 
 	m_windowAutoTile_action = new KToggleAction(i18n("A&uto Tile"),
     CResMgr::mainMenu::window::autoTile::icon,
-		CResMgr::mainMenu::window::autoTile::accel,
+	CResMgr::mainMenu::window::autoTile::accel,
     this, SLOT(slotAutoTile()), actionCollection(),
     CResMgr::mainMenu::window::autoTile::actionName
   );
@@ -301,7 +301,7 @@ void BibleTime::initActions() {
 
 	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"),
     CResMgr::mainMenu::window::showFullscreen::icon,
-		CResMgr::mainMenu::window::showFullscreen::accel,
+	CResMgr::mainMenu::window::showFullscreen::accel,
     this, SLOT(toggleFullscreen()), actionCollection(),
     CResMgr::mainMenu::window::showFullscreen::actionName
   );
