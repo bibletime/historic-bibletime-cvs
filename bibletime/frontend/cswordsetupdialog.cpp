@@ -656,13 +656,19 @@ void CSwordSetupDialog::populateInstallCombos(){
     	m_sourceCombo->insertItem( i18n("[Remote]") + " " + *it );
 		}
 		else {
-			m_sourceCombo->insertItem( i18n("[Local]") + " " + *it );
+			QFileInfo fi(*it);
+			if (fi.isDir() && fi.isReadable()) {
+				m_sourceCombo->insertItem( i18n("[Local]") + " " + *it );
+			}
 		}
   }
 
   list = BTInstallMgr::Tool::LocalConfig::targetList();
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
-    m_targetCombo->insertItem( *it );
+			QFileInfo fi(*it);
+			if (fi.isDir() && fi.isWritable()) {
+		    m_targetCombo->insertItem( *it );
+			}
   }
 
 	m_targetCombo->setEnabled( (m_targetCombo->count() > 0) );
@@ -1216,9 +1222,18 @@ void CSwordSetupDialog::slot_showInstallSourcePage(){
 void CSwordSetupDialog::slot_swordEditClicked(){
   if (QListViewItem* i = m_swordPathListBox->currentItem()) {
     KURL url = KDirSelectDialog::selectDirectory(i->text(0), true);
-    if (url.isValid()) {
-      i->setText(0, url.path());
-    }
+		if (url.isValid()) {
+			const QFileInfo fi( url.path() );
+			if (fi.exists() && fi.isWritable()) {
+				i->setText(0, url.path());
+			}
+			else {
+				const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, so modules can not be installed here using BibleTime. Do you want to use this directory instead of the previous value?"));
+				if (result == KMessageBox::Yes) {
+					i->setText(0, url.path());
+				}
+			}
+		}
   }
 }
 
@@ -1226,7 +1241,16 @@ void CSwordSetupDialog::slot_swordEditClicked(){
 void CSwordSetupDialog::slot_swordAddClicked(){
   KURL url = KDirSelectDialog::selectDirectory(QString::null, true);
   if (url.isValid()) {
-    new KListViewItem(m_swordPathListBox, url.path());
+		const QFileInfo fi( url.path() );
+		if (fi.exists() && fi.isWritable()) {
+	    (void)new KListViewItem(m_swordPathListBox, url.path());
+		}
+		else {
+			const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, so modules can not be installed here using BibleTime. Do you want to add it to the list of module directories?"));
+			if (result == KMessageBox::Yes) {
+		    (void)new KListViewItem(m_swordPathListBox, url.path());
+			}
+		}
   }
 }
 
