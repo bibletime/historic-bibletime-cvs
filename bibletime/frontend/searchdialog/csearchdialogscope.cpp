@@ -46,8 +46,8 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
 	QWhatsThis::add(noScope, WT_SD_SCOPE_NO_SCOPE);
 	
   lastResultScope = new QRadioButton(i18n("Last result"),this);
-	QToolTip::add(lastResultScope, TT_SD_SCOPE_NO_SCOPE);
-	QWhatsThis::add(lastResultScope, WT_SD_SCOPE_NO_SCOPE);
+	QToolTip::add(lastResultScope, TT_SD_SCOPE_LAST_RESULT);
+	QWhatsThis::add(lastResultScope, WT_SD_SCOPE_LAST_RESULT);
 
   useScope = new QRadioButton(i18n("Use scope"  ),this);
 	QToolTip::add(useScope, TT_SD_SCOPE_OWN_SCOPE);

@@ -63,6 +63,8 @@
 #define TT_PRESENTER_COMMENTARY_WIDGET i18n("The commentary window")
 #define TT_PRESENTER_LEXICON_WIDGET i18n("The lexicon window")
 
+#define TT_PRESENTER_NEXT_ENTRY i18n("Show the next entry")
+#define TT_PRESENTER_PREVIOUS_ENTRY i18n("Show the previous entry")
 #define TT_PRESENTER_NEXT_VERSE i18n("Jump to next verse")
 #define TT_PRESENTER_PREVIOUS_VERSE i18n("Jump to previous verse")
 #define TT_PRESENTER_NEXT_CHAPTER i18n("Show next chapter")

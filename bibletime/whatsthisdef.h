@@ -72,6 +72,8 @@
 #define WT_PRESENTER_COMMENTARY_WIDGET WT(TT_PRESENTER_COMMENTARY_WIDGET, i18n("This is the commentary display window."))
 #define WT_PRESENTER_LEXICON_WIDGET WT(TT_PRESENTER_LEXICON_WIDGET, i18n("This is the lexicon display window."))
 
+#define WT_PRESENTER_NEXT_ENTRY WT(TT_PRESENTER_NEXT_ENTRY, i18n("The next entry of the module will be shwon."))
+#define WT_PRESENTER_PREVIOUS_ENTRY WT(TT_PRESENTER_PREVIOUS_ENTRY, i18n("The previous entry of the module will be shown."))
 #define WT_PRESENTER_NEXT_VERSE WT(TT_PRESENTER_NEXT_VERSE, i18n("If you view the text of a Bible the next verse will be highlighted. If you read a commentary the next entry will be shown."))
 #define WT_PRESENTER_PREVIOUS_VERSE WT(TT_PRESENTER_PREVIOUS_VERSE, i18n("If you view the text of a Bible the previous verse will be highlighted. If you read a commentary the next entry will be shown."))
 #define WT_PRESENTER_NEXT_CHAPTER WT(TT_PRESENTER_NEXT_CHAPTER, i18n("Show the next chapter of the module. The verse will be set to \"1\"."))

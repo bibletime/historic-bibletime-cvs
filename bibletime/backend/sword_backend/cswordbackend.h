@@ -48,9 +48,9 @@ typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
 class CSwordBackend : public CBackend, virtual public SWMgr  {
 public:
   /**
-  	* These are the options which could be supported by modules and by this backend.
-  	* It's used in @ref isOptionEnabled and @ref setOption
-  	*/
+ 	* These are the options which could be supported by modules and by this backend.
+ 	* It's used in @ref isOptionEnabled and @ref setOption
+ 	*/
   enum moduleOptions {
   	footnotes	= 0x000000001,
   	strongNumbers	= 0x000000002
@@ -131,11 +131,16 @@ public:
   */
   CSwordModuleInfo* findModuleByName(const QString& name);
   /**
-  * Returns our local config object to store the cipher keys etc. locally for each user.
-	* The values of the config are merged with the global config.
+  * @return Our global config object to store the cipher keys etc.
 	*/
   SWConfig* getConfig() const;
-		
+  /**
+  * Tries to find the config object for the module. The second paramter will be the found config.
+  * @return True if the config was found, false if not. If false is returned the moduleConfig object is in undefined/unknwon state.
+  *
+	*/
+  const bool getModuleConfig(const QString& module, SWConfig& moduleConfig);
+  		
 	CHTMLChapterDisplay* m_chapterDisplay;	
 	CHTMLEntryDisplay* m_entryDisplay;
 
@@ -170,9 +175,7 @@ inline SWConfig* CSwordBackend::getConfig() const {
 
 /** Returns the current language of the international booknames. */
 inline const QString CSwordBackend::getCurrentBooknameLanguage() const {
-//	if (LocaleMgr::systemLocaleMgr.getDefaultLocaleName())
 		return QString::fromLatin1(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());	
-//	return QString::null;;
 }
 
 /** Sets the language for the international booknames of Sword. */

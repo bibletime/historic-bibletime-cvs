@@ -24,6 +24,8 @@
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
 
+#include <dirent.h>
+
 //Qt includes
 #include <qdir.h>
 
@@ -316,4 +318,30 @@ CSwordModuleInfo* CSwordBackend::findModuleByName(const QString& name){
       if ( QString::fromLocal8Bit(m_moduleList->current()->module()->Name()) == name )
         return m_moduleList->current();
   return 0;
+}
+
+/** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
+const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& moduleConfig) {
+	SectionMap::iterator section;
+	DIR *dir = opendir(configPath);
+	struct dirent *ent;
+	
+	bool foundConfig = false;	
+	QString modFile;
+	
+	if (dir) {    // find and update .conf file
+		rewinddir(dir);
+		while ((ent = readdir(dir)) && !foundConfig) {
+			if ((strcmp(ent->d_name, ".")) && (strcmp(ent->d_name, ".."))) {								
+				modFile = configPath;
+				modFile += "/";
+				modFile += ent->d_name;
+				moduleConfig = SWConfig( modFile.latin1() );
+				section =	moduleConfig.Sections.find( module.latin1() );
+				foundConfig = ( section != moduleConfig.Sections.end() );
+			}
+		}
+		closedir(dir);
+	}
+	return foundConfig;
 }

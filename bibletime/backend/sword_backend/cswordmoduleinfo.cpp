@@ -49,10 +49,15 @@ CSwordModuleInfo::~CSwordModuleInfo(){
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
 const CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString unlockKey ){
 	CSwordModuleInfo::unlockErrorCode	ret = CSwordModuleInfo::noError;
-  (*m_backend->getConfig())[m_module->Name()]["CipherKey"] = unlockKey.local8Bit();	
-	m_backend->setCipherKey( (const char*)m_module->Name(), unlockKey.local8Bit());
-	
-	m_backend->getConfig()->Save();	
+	SWConfig moduleConfig("");
+	if ( m_backend->getModuleConfig(m_module->Name(), moduleConfig) ) {
+		moduleConfig[m_module->Name()]["CipherKey"] = unlockKey.local8Bit();	
+		m_backend->setCipherKey(m_module->Name(), unlockKey.local8Bit());	
+		moduleConfig.Save();
+		*(m_backend->getConfig())+=moduleConfig;
+	}	
+	else
+		CSwordModuleInfo::wrongUnlockKey;
 	return ret;
 }
 
