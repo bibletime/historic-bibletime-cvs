@@ -15,7 +15,7 @@ bookmarks you enter.
 <screeninfo>Module Tree</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-module-tree-1.png" format="PNG"/>
+<imagedata fileref="ss_maintree.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
@@ -33,7 +33,7 @@ the desired group.  To open a document, click on it's icon.
 <screeninfo>Document Selection</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-module-select-1.png" format="PNG"/>
+<imagedata fileref="ss_mainselect.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
@@ -74,7 +74,7 @@ found <link linkend="hdbk-op-search">here</link>.
 <screeninfo>Bookmark Selection</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-module-select-2.png" format="PNG"/>
+<imagedata fileref="ss_maincontext.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
@@ -98,7 +98,7 @@ bookmarks. </para>
 <screeninfo>Bookmark Selection</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-module-tree-bookmark-bookmarkandfolder.png" format="PNG"/>
+<imagedata fileref="ss_mainbookmark.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
@@ -149,7 +149,7 @@ have permission to write to the personal commentary.</para></tip>
 <para>The pencil icon is shown for the commentary editor</para>.
 <inlinemediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-pencil.png"/>
+<imagedata fileref="i_pencil.png"/>
 </imageobject>
 <textobject>
 <phrase>Enter your notes</phrase>
@@ -165,7 +165,7 @@ To delete notes for a selected verse, click the
 <guibutton>delete verse button</guibutton>
 <inlinemediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-delete-verse.png"/>
+<imagedata fileref="i_delete.png"/>
 </imageobject>
 <textobject>
 <phrase>Delete Verse Symbol</phrase>
@@ -220,7 +220,7 @@ the drop down select the magnifying glass.  You can also
 customize &bibletime; to put the search icon 
 <inlinemediaobject>
 <imageobject>
-<imagedata fileref="find.png" format="PNG"/>
+<imagedata fileref="i_find.png" format="PNG"/>
 </imageobject>
 </inlinemediaobject>
 in the toolbar if you would prefer.</para>
@@ -233,7 +233,7 @@ in the toolbar if you would prefer.</para>
 <screeninfo>Search Text Dialog Options Tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-search-dialog-options.png" format="PNG"/>
+<imagedata fileref="ss_searchopts.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
@@ -251,7 +251,7 @@ Select modules with a click in the checkbox, then click the <guibutton>Use Selec
 <screeninfo>Choose Modules Dialog Box</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-search-dialog-modsel.png" format="PNG"/>
+<imagedata fileref="ss_searchmods.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
@@ -357,7 +357,7 @@ for the search by clicking on the <guibutton>Setup Custom Ranges</guibutton> but
 
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-search-dialog-range.png" format="PNG"/>
+<imagedata fileref="ss_searchrange.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>Change Range Entry Box</phrase>
@@ -395,7 +395,7 @@ You can also paste text into the entry field.</para></tip>
 <screeninfo>Search TextCustom Range Dialog Box</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-search-dialog-range.png" format="PNG"/>
+<imagedata fileref="ss_searchrange.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
@@ -409,7 +409,7 @@ the search.</para>
 <screeninfo>Search Text Dialog Box</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-search-dialog-options.png" format="PNG"/>
+<imagedata fileref="ss_searchtext.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
@@ -444,7 +444,7 @@ to the verse location (Bibles and commentaries only).</para></tip>
 <screeninfo>Search Result Dialog Box</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-search-dialog-searchresult.png" format="PNG"/>
+<imagedata fileref="ss_searchresult.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
@@ -463,7 +463,7 @@ your hard drive. </para>
 <screeninfo>Search Analysis Dialog Box</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-search-dialog-searchanal.png" format="PNG"/>
+<imagedata fileref="ss_searchanal.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 

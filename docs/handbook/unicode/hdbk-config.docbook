@@ -13,7 +13,7 @@ to launch the options dialog.</para>
 	can also be changed.</para>
 	<mediaobject>
 		<imageobject>
-		<imagedata fileref="hdbk-config-toolbar.png" format="PNG"/>
+		<imagedata fileref="ss_configtoolbar.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		<phrase>Toolbar Configuration Dialog</phrase>
@@ -38,7 +38,7 @@ to launch the options dialog.</para>
 		</simplelist>
 		<mediaobject>
 		<imageobject>
-		<imagedata fileref="hdbk-conf-optdialog-start.png" format="PNG"/>
+		<imagedata fileref="ss_configstart.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		<phrase>Preferences Dialog</phrase>
@@ -57,7 +57,7 @@ to launch the options dialog.</para>
 		</para>
 		<mediaobject>
 		<imageobject>
-		<imagedata fileref="hdbk-conf-optdialog-fonts.png" format="PNG"/>
+		<imagedata fileref="ss_configfonts.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		<phrase>Options Dialog - fonts</phrase>
@@ -165,7 +165,7 @@ to launch the options dialog.</para>
 		&bibletime;.</para>
 		<mediaobject>
 		<imageobject>
-		<imagedata fileref="hdbk-conf-optdialog-sword.png" format="PNG"/>
+		<imagedata fileref="ss_configsword.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		<phrase>Options Dialog - Sword</phrase>

@@ -7,7 +7,7 @@ the applications group.
 
 <mediaobject>
 <imageobject>
-<imagedata fileref="hi32-app-bibletime.png" format="PNG"/>
+<imagedata fileref="i-bibletime.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>Icon used to start &bibletime;</phrase> </textobject>
@@ -95,7 +95,7 @@ can not be found.
 you turn them off.
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-start-sequence-tips.png" format="PNG"/>
+<imagedata fileref="ss_starttips.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>Daily tips</phrase> </textobject>
@@ -110,7 +110,7 @@ you turn them off.
 Now the main &bibletime; window will open.  It's operation is covered in the next chapter.
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-start-screen-terms.png" format="PNG"/>
+<imagedata fileref="ss_mainterms.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The &bibletime; Application Window</phrase> </textobject>
