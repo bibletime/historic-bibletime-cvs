@@ -1,20 +1,25 @@
+%{expand:%%define buildfor %(A=$(awk '{print $4}' /etc/mandrake-release); if [ "$A" = 9.0 ]; then echo 9.0; else echo 9.1; fi)}
+%{expand:%%define buildfor9_0 %(A=$(awk '{print $4}' /etc/mandrake-release); if [ "$A" = 9.0 ]; then echo 1; else echo 0; fi)}
+%{expand:%%define buildfor9_1 %(A=$(awk '{print $4}' /etc/mandrake-release); if [ "$A" = 9.1 ]; then echo 1; else echo 0; fi)}
+
+%if %buildfor9_1
+%define unstable 0
+%else
+%define unstable 0
+%endif
+
 %define         name 		bibletime
-%define         version 	1.3beta2
+%define         version 	1.3beta4
 
 # This should not be changed but set this to static or dynamic.
-# Sword should always be set to static for these builds.
-%define		swordlibs 	static
+# Sword should always be set to 1 if version is wanted that
+# deos not require sword to be installed.
+%define		swordlibs	0
+%define		kdelibs		0
 
 # this needs to be changed depending on build number 
 # and weather or not it is static
-%define		release 	1mdk9.0
-
-# This should be set to your os.
-# Possible values are  Mandrake, Red Hat, Turbolinux, Caldera, SuSE, Debian, etc.
-%define		ostype 		Mandrake
-
-# This should be set to the version of your OS (6.0, 6.1, 6.2, 7.0, 7.1, 7.2, 8.0, etc.)
-%define		osversion 	9.0
+%define		release 	2mdk%{buildfor}
 
 # This is your cpu i486, i586, i686, ppc, sparc, alfa, etc.
 %define		buildarch 	i586
@@ -29,9 +34,7 @@
 %define     SwordPath 	/usr/share/sword
 %define	    ModsPath 	%{SwordPath}/mods.d
 
-# This for Mandrake menus if you have another system do not edit this line. it is for
-# compatability with those systems.
-%define		build_menus	1
+# This for Mandrake menus
 %define		_menudir 	/usr/lib/menu 
 # Nothing else should need to be changed.
 # Please do not edit below this line unless you know what you are doing.
@@ -50,15 +53,15 @@ BuildArch:      %{buildarch}
 Source0:        %{name}-%{version}.tar.bz2
 
 # For use with mandrake menu system. 
-%if %build_menus
 Source1:        bibletime_icons.tar.bz2
-%endif
 
 # This source comes from sword and will conflict woth sword if it is installed so we will make it a seperarte package.
 Source2:		locales.d.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
-Provides:       sword-base sword = %{libversion}
+%if %swordlibs
+	Provides:       sword-base sword = %{libversion}
+%endif 
 Prefix: 		%{_prefix} 
 
 %description
@@ -72,13 +75,6 @@ default is %{_prefix}
 
 The SWORD Project is an effort to create an ever expanding software package for research and study of God and His Word.  The SWORD Bible Framework allows easy manipulation of Bible texts, commentaries, lexicons, dictionaries, etc.  Many frontends are build using this framework.  An installed module set may be shared between any frontend using the framework.
 
-This rpm was compiled on a %{ostype} %{osversion} system for %{buildarch} class cpu's.
-
-This RPM has these compiled options Sword is compiled %{swordlibs} and KDE/QT is compiled %{kdelibs}.
-
-Although this binary no longer requires sword to run the source.rpm will not build correctly
-without the sword-devel package installed.
-
 %prep
 rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_DIR/%{name}-%{version}
@@ -89,43 +85,73 @@ mkdir -p $RPM_BUILD_ROOT%{_menudir}
 mkdir -p $RPM_BUILD_ROOT/usr/share/config
 
 # generate directories for sword if building static
-if [ %{swordlibs} = "static" ] ; then
+%if %swordlibs
  mkdir -p $RPM_BUILD_ROOT%{SwordPath}
  mkdir -p $RPM_BUILD_ROOT%{ModsPath}
-fi
+%endif 
 
 
 %setup -q
+#Icons for Mandrake menu system
+tar jxvf %{SOURCE1}
+
+%if %swordlibs
 tar jxvf %{SOURCE2}
-if [ %{ostype} = "Mandrake" ] ; then
- %if %build_menus
-  #Icons for Mandrake menu system
-  tar jxvf %{SOURCE1}
- %endif
- export KDEDIR=/usr QTDIR=/usr/lib/qt2
-elif [%{ostype} = "SuSE"] ; then
- export KDEDIR=/opt/kde2 QTDIR=/usr/lib/qt2
-else
-	echo "Using $KDEDIR as KDE2 directory";
-	echo "Using $QTDIR as QT 2.2.x directory";
-	echo "If the directories are not correct please set them using \"export KDEDIR=<KDE2 directory> QTDIR=<QT2.2 directory>\""
-	sleep 5
-fi
+%endif 
 
-# uncomment this to complie from cvs
-#make -f Makefile.cvs
+%build
+export QTDIR=%qtdir
+export KDEDIR=%_prefix
 
-if [ %{swordlibs} = "static" ] ; then
-        ./configure --enable-static-sword; #--enable-static-linking;
-else
-        ./configure;
-fi
+export LD_LIBRARY_PATH="$QTDIR:/%_lib:$LD_LIBRARY_PATH"
+export PATH="$KDEDIR/bin:$PATH"
 
-make -j2
+# Search for qt/kde libraries in the right directories (avoid patch)
+# NOTE: please don't regenerate configure scripts below
+perl -pi -e "s@/lib(\"|\b[^/])@/%_lib\1@g if /(kde|qt)_(libdirs|libraries)=/" configure
+
+%ifarch %ix86
+CFLAGS="%optflags" CXXFLAGS="`echo %optflags |sed -e 's/-fomit-frame-pointer//'`" \
+%else
+CFLAGS="%optflags" CXXFLAGS="%optflags" \
+%endif
+
+
+./configure --prefix=%_prefix \
+			--libdir=%_libdir \
+			--sysconfdir=%_sysconfdir \
+			--build=%_target_platform \
+			--host=%_target_platform \
+%if %unstable
+			--enable-debug=full \
+%else
+			--disable-debug \
+%endif	
+			--enable-final \
+%if %kdelibs
+			--enable-static-linking \
+%endif
+			--enable-static \
+			--disable-shared \
+%if %swordlibs
+			--enable-static-sword \
+%endif    
+			--disable-qt-embedded \
+			--disable-palm-top \
+			--disable-rpath \
+			--with-gnu-ld \
+			--with-pic \
+			--with-xinerama \
+			--x-includes=/usr/X11R6/include \
+			--x-libraries=/usr/X11R6/%_lib
+
+
+%make -j2
 
 %install
 make prefix=$RPM_BUILD_ROOT%{prefix} install
 
+%if %swordlibs
 # Copy Sword language.conf files to our install dir
 mkdir -p $RPM_BUILD_ROOT%{SwordPath}/locales.d
 cp locales.d/*.conf $RPM_BUILD_ROOT%{SwordPath}/locales.d/
@@ -134,6 +160,7 @@ cp locales.d/*.conf $RPM_BUILD_ROOT%{SwordPath}/locales.d/
 cat << EOF >$RPM_BUILD_ROOT%{ModsPath}/globals.conf
  [Globals]
 EOF
+%endif
 
 # For use with mandrake menu system 
 cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
@@ -149,9 +176,31 @@ cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}-setupwizard
                 longtitle="A setup tool for the easy to use Bible study tool."
 EOF
 
+# make README.RPM:
+
+COMPILER="Compiler:               $(gcc -v 2>& 1|tail -1)"
+HARDWARE="Hardware platform:      $(uname -m)"
+LIBRARY="Library:                $(rpm -q glibc)"
+OSVERSION="Linux Kernel:           $(uname -sr)"
+PACKAGER="Packager:               %{packager}"
+MDKRELEASE="Linux-Mandrake release: $(cat /etc/mandrake-release)"
+RPMVERSION="RPM Version:            $(rpm -q rpm)"
+
+cat <<EOF >>$RPM_BUILD_DIR/%{name}-%{version}/README.RPM
+The pure-ftpd rpm packages were created in the following build environment:
+
+$MDKRELEASE
+$HARDWARE
+$OSVERSION
+$LIBRARY
+$COMPILER
+$RPMVERSION
+$PACKAGER
+
+EOF
+
 # For use with mandrake menu system 
 # icons: this is for the mandrake menu system
-%if %build_menus
   mkdir -p $RPM_BUILD_ROOT%{_liconsdir}
   mkdir -p $RPM_BUILD_ROOT%{_iconsdir}
   mkdir -p $RPM_BUILD_ROOT%{_miconsdir}
@@ -159,9 +208,10 @@ EOF
   install -m 644 hi16-app-%{name}.png $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
   install -m 644 hi32-app-%{name}.png $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
   install -m 644 hi48-app-%{name}.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
-%endif 
+ 
 
 %post
+%if %swordlibs
 # this is for creation of the sword.conf for systems that are using bibletime without Sword installed.
 if [ -f /etc/sword.conf ] ; then
          echo "sword.conf already exists skiping sword.conf creation." ;
@@ -171,45 +221,50 @@ cat << EOF >/etc/sword.conf
 DataPath=%{SwordPath}
 EOF
 fi
+%endif
 
 /sbin/ldconfig
 
 # For use with mandrake menu system
-if [ %{ostype} = "Mandrake" ] ; then
- %{update_menus}
-fi
+%{update_menus}
 
 %postun
-
 # For use with mandrake menu system
-if [ %{ostype} = "Mandrake" ] ; then
- %{clean_menus}
-fi
+%{clean_menus}
 
 /sbin/ldconfig
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_DIR/%{name}-%{version}
+
 
 %files
 %defattr(-,root,root)
+%if %swordlibs
 #Sword config files
 %config %{ModsPath}/globals.conf
 %config %{SwordPath}/locales.d/*.conf
+%endif
 # global BibleTime config files
 #%config %{prefix}/share/config/bt-printing
 %doc %{prefix}/share/doc/HTML/*
+%doc README.RPM
 %{prefix}/bin/*
 %{prefix}/share/applnk/Applications/*
 %{prefix}/share/apps/bibletime/*
 %{prefix}/share/icons/*
 # For use with mandrake menu system
-%if %build_menus
 %{_menudir}/%{name}
 %{_menudir}/%{name}-setupwizard
-%endif
+
 
 %changelog
+* Wed Jan 21 2003 Brook Humphrey <bah@webmedic.net> bibleitme-1.3.beta4-1mdk
+
+- Massive clean up of spec file
+- hopefully more readable and all arround usable. 
+
 * Fri Dec 13 2002 Brook Humphrey <bah@webmedic.net> bibleitme-1.3.beta2-1mdk9.0
 
 - Betabuild of bibletime for testing only 
