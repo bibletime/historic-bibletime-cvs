@@ -44,6 +44,12 @@ CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module ){
 	m_backend = backend;
 	m_module = module;
 	m_searchResult.ClearList();
+	
+	if (backend) {
+		if (requiredSwordVersion() != -1 && requiredSwordVersion() > backend->Version()) {
+		 	qWarning("THIS MODULE IS NOT USABLE WITH THIS SWORD VERSION: UPDATE TO SWORD version %f", backend->Version());
+		}
+	}
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) : CModuleInfo() {
@@ -285,9 +291,7 @@ CSwordBackend* CSwordModuleInfo::backend() const {
 
 /** Returns the encoding of the used modules  */
 const QFont::CharSet CSwordModuleInfo::encoding(){
-//	qDebug("CSwordModuleInfo::encoding()");
 	const QString charset = QString::fromLatin1((*m_backend->getConfig())[m_module->Name()]["Encoding"].c_str());
-//	qDebug(charset.latin1());
 	
 	if (charset.isEmpty())
 		return QFont::charSetForLocale();		//unknown charset					
@@ -295,4 +299,23 @@ const QFont::CharSet CSwordModuleInfo::encoding(){
 		return QFont::Unicode;
 	}
 	return QFont::charSetForLocale();		//unknown charset	
+}
+
+/** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
+const float CSwordModuleInfo::requiredSwordVersion(){
+	const string version = (*m_backend->getConfig())[m_module->Name()]["MinimumVersion"];
+	if (!strlen(version.c_str()))	//no special version required
+		return -1;
+	const float swordVersion = QString::fromLatin1( version.c_str() ).toFloat();	
+	qDebug("%f", swordVersion);
+	return swordVersion;
+}
+
+/** Returns the text direction used in this module. */
+const CSwordModuleInfo::TextDirection CSwordModuleInfo::getTextDirection(){
+	const string dir = (*m_backend->getConfig())[m_module->Name()]["Direction"];;
+	if (dir == "RTL")
+		return CSwordModuleInfo::RTL;
+	else
+		return CSwordModuleInfo::LTR;
 }

@@ -46,6 +46,10 @@ class CHTMLEntryDisplay;
 class CSwordModuleInfo : public CModuleInfo  {
 public:
 	enum type { Bible, Commentary, Lexicon, Unknown };
+	enum TextDirection {
+		LTR = 0, /*LTR = Left to right*/		
+		RTL /*RTL = Right To Left*/
+	};
   /**
   	* This enum is used to give
   	* back an error code after unlocking the module
@@ -156,7 +160,12 @@ public:
   /**
   * Returns the type of the module.
   */
+  /** Returns the text direction used in this module. */
+  const CSwordModuleInfo::TextDirection getTextDirection();
   virtual const CSwordModuleInfo::type getType() const;
+  /** Returns the required Sword version for this module.
+Returns -1 if no special Sword version is required. */
+  const float requiredSwordVersion();
   /**
   * Returns the encoding of the used modules. If it does use no locale it returns QFont::charSetForLocale()
   */
