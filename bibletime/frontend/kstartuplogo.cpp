@@ -33,8 +33,9 @@ KStartupLogo::KStartupLogo()
 
   setBackgroundPixmap(pm);
 
-  QLabel*  textLabel = new QLabel(this);	
+  textLabel = new QLabel(this);	
   textLabel->setGeometry(0,pm.height(),pm.width(),textLabel->sizeHint().height());
+  textLabel->setBackgroundColor( Qt::black );
 
   setFixedSize(pm.width(), pm.height()+textLabel->sizeHint().height());
   setGeometry(
@@ -44,7 +45,7 @@ KStartupLogo::KStartupLogo()
     pm.height()+textLabel->sizeHint().height());
 
 
-  //Does not display ??
+  //Does not display ?? -- only for testing...
   textLabel->setText("BibleTime");
 }
 void KStartupLogo::setText(const QString text){
