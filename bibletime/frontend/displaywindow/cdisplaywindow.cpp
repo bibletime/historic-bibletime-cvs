@@ -289,7 +289,8 @@ const bool CDisplayWindow::init( const QString& keyName ){
   setFocusPolicy(QWidget::ClickFocus);
   parentWidget()->setFocusPolicy(QWidget::ClickFocus);
 
-  show();
+	//Why do we need the show call here? It's done in BibleTime::createReadWindow after the init() call
+//   show();
  	initConnections();
   initKeyboardActions();
  	setupPopupMenu();

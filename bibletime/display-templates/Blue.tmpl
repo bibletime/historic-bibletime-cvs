@@ -144,12 +144,18 @@ td.entry + td.entry {
 	font-weight: normal;
 	color: blue;
 	font-size: 80%;
+	cursor: help;
 }
+.footnote:before { content:"("; font-size:60%; cursor:help;}
+.footnote:after { content:")"; font-size:60%; cursor:help;}
+
 .crossreference {
 	font-size: 80%;
-	/*vertical-align:middle;*/
 	color: blue;
+	cursor: help;
 }
+.crossreference:before  { content:"["; }
+.crossreference:after  { content:"]"; }
 
 .strongnumber {
 	vertical-align: top;

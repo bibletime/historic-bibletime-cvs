@@ -48,13 +48,13 @@ CLexiconReadWindow::CLexiconReadWindow(ListCSwordModuleInfo moduleList, CMDIArea
 CLexiconReadWindow::~CLexiconReadWindow(){
 }
 
-void CLexiconReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
-	CReadWindow::applyProfileSettings(profileWindow);
-};
-
-void CLexiconReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
-	CReadWindow::storeProfileSettings(profileWindow);
-};
+// void CLexiconReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
+// 	CReadWindow::applyProfileSettings(profileWindow);
+// };
+// 
+// void CLexiconReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
+// 	CReadWindow::storeProfileSettings(profileWindow);
+// };
 
 /** Reimplementation. */
 void CLexiconReadWindow::insertKeyboardActions( KAccel* a ){

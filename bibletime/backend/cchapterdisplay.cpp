@@ -22,6 +22,7 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
   Q_ASSERT( modules.count() >= 1 );
 	Q_ASSERT( !keyName.isEmpty() );
 	
+	qWarning("rendering");
 	CSwordVerseKey key(0);
   key = keyName;
 	

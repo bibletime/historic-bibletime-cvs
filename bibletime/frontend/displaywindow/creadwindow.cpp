@@ -37,8 +37,10 @@
 #include <klocale.h>
 
 CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
-		: CDisplayWindow(modules,parent,name),
-m_displayWidget(0) {
+	: CDisplayWindow(modules,parent,name),
+		m_displayWidget(0) 
+{
+
 }
 
 CReadWindow::~CReadWindow() {
@@ -69,7 +71,8 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 
 	using namespace Rendering;
 
-	if (!newKey || !modules().first()) {
+ 	Q_ASSERT(isReady());
+	if (!isReady() || !newKey || !modules().first()) {
 		return;
 	}
 
@@ -90,8 +93,9 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 /** Reimplementation to use the popup menu. */
 const bool CReadWindow::init( const QString& keyName ) {
 	CDisplayWindow::init(keyName);
-	keyChooser()->setKey(key());
+	
 	setReady(true);
+	keyChooser()->setKey(key());
 
 	return true;
 }
@@ -124,8 +128,8 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings) {
 	}
 
 	QStringList mods;
+	
 	ListCSwordModuleInfo allMods = modules();
-// 	for (CSwordModuleInfo* m = allMods.first(); m; m = allMods.next()) {
 	ListCSwordModuleInfo::iterator end_it = allMods.end();
 	for (ListCSwordModuleInfo::iterator it(allMods.begin()); it != end_it; ++it) {
 		mods.append((*it)->name());
