@@ -83,7 +83,7 @@ interested in more detailed changes. </para>
 
 <para>A listing of the features included in the current package can be found
 in the sourcecode at
-<ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog">
+<ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/bibletime/bibletime/ChangeLog?rev=HEAD&amp;content-type=text/plain">
 CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink></para>
 
 <section><title>Changes for &bibletime; Release 1.3</title>

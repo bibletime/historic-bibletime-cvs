@@ -85,7 +85,7 @@ found <link linkend="hdbk-op-search">here</link>.
 <section id="hdbk-op-module-tree-bookmark">
 <title>Accessing bookmark functions</title> <para>
 <tip><para>Drag &amp; Drop Works Here</para></tip>
-Click with the <mousebutton>right</mousebutton> mouse button on the bookmark group of the module tree window and select <guimenuitem>"Create a new folder"</guimenuitem> to create a new bookmark sub folder. You can use normal drag 'n' drop
+Click with the <mousebutton>right</mousebutton> mouse button on the bookmark group of the module tree window and select <guimenuitem>"Create new folder"</guimenuitem> to create a new bookmark sub folder. You can use normal drag 'n' drop
 functions to drag verse numbers from search dialog results to the bookmark folder,
 and to rearrange bookmarks between folders.  There is an import/export function
 for bookmarks also.  From the <guimenu>right-mouse-button menu</guimenu>, select "Export
