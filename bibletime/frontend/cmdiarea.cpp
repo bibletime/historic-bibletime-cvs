@@ -45,6 +45,7 @@ CMDIArea::CMDIArea(QWidget *parent, const char *name )
 	initView();
 	initConnections();
 	readSettings();
+  setAcceptDrops(true);
 }
 
 CMDIArea::~CMDIArea(){
@@ -114,6 +115,7 @@ void CMDIArea::childEvent( QChildEvent * e ){
 	 		default:
 	 			break;
 		}
+
 	}
 
   m_childEvent = false;

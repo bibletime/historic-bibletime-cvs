@@ -89,7 +89,6 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
     m_popupMenu(0),
     m_displayWidget(0)
 {
-
 }
 
 CDisplayWindow::~CDisplayWindow(){
@@ -244,7 +243,12 @@ void CDisplayWindow::setModules( const ListCSwordModuleInfo& newModules ){
 /** Initialize the window. Call this method from the outside, because calling this in the constructor is not possible! */
 const bool CDisplayWindow::init( const QString& keyName ){
   initView();
-  setMinimumSize( 350,300 );   	
+  setMinimumSize( 350,300 );
+//  setAcceptDrops( true );
+//  if (parentWidget()) {
+//    parentWidget()->setAcceptDrops( true );
+//  }
+  
   setCaption(windowCaption());
   show();
  	initConnections();
@@ -253,11 +257,13 @@ const bool CDisplayWindow::init( const QString& keyName ){
   
   m_filterOptions = CBTConfig::getFilterOptionDefaults();
 	m_displayOptions = CBTConfig::getDisplayOptionDefaults();
-	if (displaySettingsButton())
+	if (displaySettingsButton()) { 
 		displaySettingsButton()->reset(modules());
-//  Q_ASSERT(key());
-  if (key())
+  }
+
+  if (key()) {
     key()->key(keyName);
+  }
 
   return true;
 }
@@ -373,4 +379,10 @@ void CDisplayWindow::closeEvent(QCloseEvent* e) {
 		e->accept();
 	}
 }
-
+//
+///** Reimplementation to enable the focus of the child windows. */
+//void CDisplayWindow::dragEnterEvent( QDragEnterEvent* e ){
+//  qWarning("DisplaWindow: dragEnterEvent");
+//  setFocus();
+//  KMainWindow::dragEnterEvent(e);
+//}

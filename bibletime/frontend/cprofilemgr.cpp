@@ -29,7 +29,7 @@ CProfileMgr::CProfileMgr() : m_startupProfile(0) {
 	m_profiles.setAutoDelete(true);
 	
 	KStandardDirs stdDirs;
-	m_profilePath = stdDirs.saveLocation("data", "bibletime/sessions/");	
+	m_profilePath = stdDirs.saveLocation("data", "bibletime/profiles/");	
 	
 	QDir d( m_profilePath );
 	QStringList files = d.entryList("*.xml");

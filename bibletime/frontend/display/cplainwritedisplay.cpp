@@ -17,6 +17,7 @@
 
 #include "cplainwritedisplay.h"
 
+#include "frontend/cdragdropmgr.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/displaywindow/cwritewindow.h"
 
@@ -29,7 +30,9 @@
 CPlainWriteDisplay::CPlainWriteDisplay(CWriteWindow* parentWindow, QWidget* parent) : QTextEdit(parentWindow ? parentWindow : parent), CWriteDisplay(parentWindow) {
 //  qWarning("constructor of CPlainWriteDisplay");
   setTextFormat(Qt::PlainText);
-
+  setAcceptDrops(true);
+  viewport()->setAcceptDrops(true);
+  
   connect(this, SIGNAL(textChanged()),
     connectionsProxy(), SLOT(emitTextChanged()));
 }
@@ -91,5 +94,62 @@ QPopupMenu* CPlainWriteDisplay::createPopupMenu( ){
 }
 
 /** Creates the necessary action objects and puts them on the toolbar. */
-void CPlainWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actionCollection) {
+void CPlainWriteDisplay::setupToolbar(KToolBar* /*bar*/, KActionCollection* /*actionCollection*/) {
+}
+
+/** Reimplementation to insert the text of a dragged reference into the edit view. */
+void CPlainWriteDisplay::contentsDragEnterEvent( QDragEnterEvent* e ){
+  qWarning("drag enter event");
+  if (CDragDropMgr::canDecode(e)) {
+    qWarning("accept drag");
+    e->accept(true);
+  }
+  else {
+    e->accept(false);
+    e->ignore();
+  }
+}
+
+/** Reimplementation to insert the text of a dragged reference into the edit view. */
+void CPlainWriteDisplay::contentsDragMoveEvent( QDragMoveEvent* e ){
+  if (CDragDropMgr::canDecode(e)) {
+    placeCursor(e->pos());
+    ensureCursorVisible();
+    e->accept(true);
+  }
+  else {
+    e->accept(false);
+    e->ignore();
+  }
+}
+
+/** Reimplementation to manage drops of our drag and drop objects. */
+void CPlainWriteDisplay::contentsDropEvent( QDropEvent* e ){
+  if ( CDragDropMgr::canDecode(e) ) {
+    e->acceptAction();
+
+    CDragDropMgr::ItemList items = CDragDropMgr::decode(e);
+    CDragDropMgr::ItemList::iterator it;
+    for (it = items.begin(); it != items.end(); ++it) {
+      switch ((*it).type()) {
+        case CDragDropMgr::Item::Bookmark:
+        {
+          QString text = QString::fromLatin1("<BR>(%1, %2)<BR>").arg((*it).bookmarkKey()).arg((*it).bookmarkModule());
+          
+          placeCursor( e->pos() );
+          insert( text );
+          break;        
+        }
+        case CDragDropMgr::Item::Text:
+        {
+          placeCursor( e->pos() );
+          insert( (*it).text() );
+          break;
+        }  
+        default:
+          break;
+      }
+      
+    };
+  }
 }

@@ -19,7 +19,7 @@
 
 CProfileWindow::CProfileWindow(CSwordModuleInfo::ModuleType type)
 	: m_type(type), m_windowGeometry(),m_moduleList(), m_key(QString::null),
-	m_maximized(false), m_windowSettings(0), m_isWriteWindow(false)
+	m_maximized(false), m_windowSettings(0), m_writeWindowType(0)
 {
 
 }
@@ -108,11 +108,11 @@ void CProfileWindow::setWindowSettings( const int settings ){
 }
 
 /** Tells this profile window to represent a write window. */
-void CProfileWindow::setIsWriteWindow( const int isWriteWindow ){
-  m_isWriteWindow = isWriteWindow;
+void CProfileWindow::setWriteWindowType( const int writeWindowType ){
+  m_writeWindowType = writeWindowType;
 }
 
 /** Returns whether this profile window represents a write window. */
-const bool CProfileWindow::isWriteWindow() const{
-  return m_isWriteWindow;
+const int CProfileWindow::writeWindowType() const {
+  return m_writeWindowType;
 }

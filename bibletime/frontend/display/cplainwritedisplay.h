@@ -82,6 +82,18 @@ protected:
   * Reimplementation from QTextEdit. Provides an popup menu.
   */
   virtual QPopupMenu* createPopupMenu();
+  /**
+  * Reimplementation to manage drops of our drag and drop objects.
+  */
+  virtual void contentsDropEvent( QDropEvent* e );
+  /**
+  * Reimplementation to insert the text of a dragged reference into the edit view.
+  */
+  virtual void contentsDragEnterEvent( QDragEnterEvent* e );
+  /**
+  * Reimplementation to insert the text of a dragged reference into the edit view.
+  */
+  virtual void contentsDragMoveEvent( QDragMoveEvent* e );
 
 };
 

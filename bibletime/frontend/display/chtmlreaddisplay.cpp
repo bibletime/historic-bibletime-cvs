@@ -256,9 +256,9 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
       m_dndData.isDragging = true;
       m_dndData.mousePressed = false;
 
+//      KHTMLPart::khtmlMouseMoveEvent(e);
       d->drag();
       //khtmlMouseMoveEvent would start it's own drag!
-//      KHTMLPart::khtmlMouseMoveEvent(e);      
 //      return;
     }
   }

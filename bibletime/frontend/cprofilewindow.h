@@ -98,11 +98,11 @@ public:
   /**
   * Returns whether this profile window represents a write window.
   */
-  const bool isWriteWindow() const;
+  const int writeWindowType() const;
   /**
   * Tells this profile window to represent a write window.
   */
-  void setIsWriteWindow( const int isWriteWindow );
+  void setWriteWindowType( const int writeWindowType );
 
 private:
 	CSwordModuleInfo::ModuleType m_type;
@@ -112,7 +112,7 @@ private:
 	ScrollbarPos m_scrollbarPos;
 	bool m_maximized;
 	int m_windowSettings;
-  int m_isWriteWindow;
+  int m_writeWindowType;
 };
 
 #endif

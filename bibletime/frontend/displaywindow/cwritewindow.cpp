@@ -58,7 +58,7 @@ void CWriteWindow::initKeyboardActions() {
 
 void CWriteWindow::storeProfileSettings(CProfileWindow * const settings) {
 
-  settings->setIsWriteWindow( writeWindowType() );
+  settings->setWriteWindowType( writeWindowType() );
   
 	QRect rect;
 	rect.setX(parentWidget()->x());

@@ -48,6 +48,7 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   //set the size for the tooltip now only one time, and not everytime in tip()
   screenSize = KApplication::desktop()->geometry();
   setMaximumSize(QSize(int(screenSize.width()*0.6), int(screenSize.height()*0.6) ));
+  setMinimumWidth( int(screenSize.width()*0.3) );  
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff); //never show a horizontal bar, only the vertcal one  
 //  resize(screenSize.width()*0.3,1);
 
@@ -78,14 +79,15 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
 
   // the maximum size was set in our constructor, so we won't grow too large
   // resize((int)((float)screenSize.width()*0.6), 0);
-  resize(screenSize.width()*0.50,1);
+  resize(int(double(screenSize.width())*0.50),1);
 
   show();
+  m_display->view()->layout();
     
   // resize to the size hint,
   // we can't grow too large
   // because maximumSize was set in the constructor
-  resize(m_display->view()->sizeHint());
+  resize( sizeHint() );
 
   
   // if the scrollbar is not visible position the tooltip
