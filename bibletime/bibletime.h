@@ -234,7 +234,7 @@ protected: // Protected methods
 	KAction*	m_windowSaveProfile_action;
 	KActionMenu*	m_windowLoadProfile_action;	
 	KAction*	m_windowEditProfiles_action;	
-	KAction*	m_windowFullscreen_action;		
+	KToggleAction*	m_windowFullscreen_action;		
 
 	/** HELP menu actions */	
 	KAction*	m_helpContents_action;
