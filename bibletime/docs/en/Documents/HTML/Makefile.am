@@ -1,3 +1,0 @@
-SUBDIRS=common
-EXTRA_DIST=hdbk_bars.html hdbk_bars_menubar.html hdbk_idx.html hdbk_intro.html hdbk_intro_motivation.html hdbk_intro_todo.html hdbk_op.html hdbk_op_mdi_window.html hdbk_op_search.html hdbk_start_screen.html hdbk_term.html hdbk_term_hotkeys.html help_first_startup.html help_first_time_search.html help_idx.html help_initbackend_failed.html help_module_encrypted.html help_no_mods_d.html help_no_modules.html index.html inst_bin.html inst_devl.html inst_devl_cvs.html inst_devl_cvs_commands.html inst_devl_cvs_gui.html inst_idx.html inst_preq.html inst_preq_install.html inst_sources.html inst_sources_bibletime.html inst_sources_compiler_notes.html inst_user.html
-
