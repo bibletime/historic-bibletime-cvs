@@ -270,10 +270,10 @@ void COptionsDialog::initColors(){
 	gridLayout->addWidget(label,2,0);
 	gridLayout->addWidget(m_settings.colors.background,2,1);
 
-	m_settings.colors.background2 = new KColorButton(CBTConfig::get(CBTConfig::background2Color), page);			
-	label = new QLabel(m_settings.colors.background2, i18n("Background 2 (in tables)"), page);		
-	gridLayout->addWidget(label,2,3);
-	gridLayout->addWidget(m_settings.colors.background2,2,4);
+//	m_settings.colors.background2 = new KColorButton(CBTConfig::get(CBTConfig::background2Color), page);			
+//	label = new QLabel(m_settings.colors.background2, i18n("Background 2 (in tables)"), page);		
+//	gridLayout->addWidget(label,2,3);
+//	gridLayout->addWidget(m_settings.colors.background2,2,4);
 
 	m_settings.colors.swordrefs = new KColorButton(CBTConfig::get(CBTConfig::swordRefColor), page);
 	label = new QLabel(m_settings.colors.swordrefs,i18n("Hyperlinks"), page);
@@ -759,7 +759,7 @@ void COptionsDialog::saveAccelerators(){
 void COptionsDialog::saveColors(){
  	CBTConfig::set(CBTConfig::textColor, m_settings.colors.text->color().name());	
  	CBTConfig::set(CBTConfig::backgroundColor, m_settings.colors.background->color().name());	
- 	CBTConfig::set(CBTConfig::background2Color, m_settings.colors.background2->color().name());	
+// 	CBTConfig::set(CBTConfig::background2Color, m_settings.colors.background2->color().name());	
  	CBTConfig::set(CBTConfig::highlightedVerseColor, m_settings.colors.highlightedVerse->color().name());		
  	CBTConfig::set(CBTConfig::swordRefColor, m_settings.colors.swordrefs->color().name());		
  	CBTConfig::set(CBTConfig::footnotesColor, m_settings.colors.footnotes->color().name());		

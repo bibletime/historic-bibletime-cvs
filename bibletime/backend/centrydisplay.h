@@ -61,7 +61,7 @@ protected: // Protected methods
     Link,
     LinkHover,
     Background,
-    Background2,
+//    Background2,
     HighlightedText,
     UnicodeText,
 

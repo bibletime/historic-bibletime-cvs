@@ -97,8 +97,8 @@ const QColor CEntryDisplay::color( const CEntryDisplay::ColorType type ) {
       return CBTConfig::get(CBTConfig::highlightedVerseColor);
     case BackgroundColor:
       return CBTConfig::get(CBTConfig::backgroundColor);
-    case BackgroundColor2:
-      return CBTConfig::get(CBTConfig::background2Color);
+//    case BackgroundColor2:
+//      return CBTConfig::get(CBTConfig::background2Color);
     case FootnoteColor:
       return CBTConfig::get(CBTConfig::footnotesColor);
     case StrongsNumberColor:
@@ -160,7 +160,7 @@ const QString CEntryDisplay::finishText( const QString text, QPtrList <CSwordMod
 
 const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
   const QString bgColor = color(BackgroundColor).name();
-  const QString bgColor2 = color(BackgroundColor2).name();
+//  const QString bgColor2 = color(BackgroundColor2).name();
 
   const QString textColor = color(TextColor).name();
   const QString highlightColor = color(HighlightedTextColor).name();
@@ -194,10 +194,10 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
       text = QString::fromLatin1(".background1 {background-color:%1;}")
               .arg(bgColor);
       break;
-    case Background2:
-      text = QString::fromLatin1(".background2 {background-color:%1;}")
-              .arg(bgColor2);
-      break;
+//    case Background2:
+//      text = QString::fromLatin1(".background2 {background-color:%1;}")
+//              .arg(bgColor2);
+//      break;
     case HighlightedText:
       text = QString::fromLatin1(".highlighted {color: %1;}")
               .arg(highlightColor);
