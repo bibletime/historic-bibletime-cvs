@@ -1,4 +1,4 @@
-2003-07-xx Joachim Ansorg <joachim@ansorgs.de>
+2003-08-24 Joachim Ansorg <joachim@ansorgs.de>
   * Released BibleTime 1.3. Major changes are:
     -Redesign of the main index; bookmarks are seperated into an own folder, modules are sorted by type and language;
      better menu structure
@@ -10,6 +10,7 @@
     -BibleTime 1.3 requires Sword 1.5.6 now
     -Many, many bugs and memory leaks fixed, although some bugs can't be fixed due to KDE or Qt problems.
     -Updates to all translations, including new languages
+	We're sorry for the long time it took to prepare the 1.3 release!
 
 2003-03-10 Joachim Ansorg <joachim@ansorgs.de>
   * Fixed BibleTime to work in all places with the new SWBuffer class. Should be now more bug free.

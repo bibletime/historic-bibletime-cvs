@@ -88,7 +88,7 @@ BibleTime::BibleTime()
 	setPlainCaption("BibleTime " VERSION);
 
   // we don't save the geometry, it's stored in the startup profile
-  setAutoSaveSettings(QString::fromLatin1("MainWindow"), false);
+  setAutoSaveSettings(QString::fromLatin1("MainWindow"), true);
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */
@@ -128,8 +128,6 @@ void BibleTime::saveSettings(){
 
 /** Reads the settings from the configfile and sets the right properties. */
 void BibleTime::readSettings(){
-  applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
-	
 	accel()->readSettings(KGlobal::config());
 
  	m_viewToolbar_action->setChecked( CBTConfig::get(CBTConfig::toolbar) );
@@ -286,4 +284,6 @@ void BibleTime::processCommandline(){
 void BibleTime::polish(){
   m_initialized = true;
   KMainWindow::polish();
+  applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
 }
+
