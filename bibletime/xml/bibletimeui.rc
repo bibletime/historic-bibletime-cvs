@@ -50,7 +50,10 @@
  <Separator/>
  <Action name="viewGroupmanager_action"/>		
  <Separator/>
- <Action name="GMsearch_action"/>		
+ <Action name="GMback_action"/>
+ <Action name="GMselect_action"/>
+ <Action name="GMsearch_action"/>
+ <Action name="GMforward_action"/>
  <Separator/>
  <Action name="windowLoadProfile_action"/>
  <Action name="windowFullscreen_action"/>	
