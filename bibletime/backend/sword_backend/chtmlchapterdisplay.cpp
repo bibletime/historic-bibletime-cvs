@@ -148,7 +148,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		while (m) {
 			m->SetKey(*key);
 			rowText += QString("<TD %1 BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\" %5>%6</FONT></TD>\n")
-				.arg(d!=lastModule ? QString("width=\"%1%\"").arg(width) : QString("") )
+				.arg(/*d!=lastModule ? */QString("width=\"%1%\"").arg(width) /*: QString("")*/ )
 				.arg(currentVerse % 2 ? "white" : "#F1F1F1")
 				.arg(fontMap.contains(d) ? fontMap[d].family() : m_standardFontName)
 				.arg(fontMap.contains(d) ? CToolClass::makeLogicFontSize(fontMap[d].pointSize()) : m_standardFontSize)

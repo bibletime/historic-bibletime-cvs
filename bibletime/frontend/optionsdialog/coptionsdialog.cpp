@@ -124,7 +124,7 @@ void COptionsDialog::initFontPage(){
 }
 
 void COptionsDialog::initFontManagerPage(){
-	foreign_font_page = this->addVBoxPage(i18n("Font Manager"), i18n("Configure BibleTime's foreign fonts"), DesktopIcon("kfontmanager"));	
+	foreign_font_page = this->addVBoxPage(i18n("Font Manager"), i18n("Configure BibleTime's foreign fonts"), OD_ICON_FONTMANAGER);	
 	
 	fontModuleList = new KListBox(foreign_font_page);
  	QWhatsThis::add(fontModuleList, WT_OD_FFM_FONTS_LIST );		

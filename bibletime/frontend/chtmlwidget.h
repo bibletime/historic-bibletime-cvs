@@ -32,6 +32,8 @@ class CBiblePresenter;
 class KConfig;
 class KPopupMenu;
 class KAction;
+class KToggleAction;
+class KFontSizeAction;
 class KToolBar;
 class QToolButton;
 class KFontAction;
@@ -101,7 +103,9 @@ public slots: // Public slots
   * Copies the displayed document into the clipboard.
   */
   void copyDocument();
-  /** Sets the source of this widget. */
+  /**
+  * Sets the source of this widget.
+  */
   void setSource(const QString& name);
 
 
@@ -175,7 +179,7 @@ protected slots: // Protected slots
   /**
   *
   */
-  void slotSetCurrentFontSize( const QString& );	
+  void slotSetCurrentFontSize( int );	
 	/**
 	*
 	*/
@@ -223,32 +227,23 @@ private:
   */
   virtual void emitLinkClicked( const QString& s);
 
-  /**
- 	* Our popup menu.
- 	*/
   QPopupMenu* m_popup;
-  /**
- 	* Our config object
- 	*/
   KConfig* m_config;
-
   QGuardedPtr<QPopupMenu>	m_anchorMenu;
-  		
-	QToolButton* m_docDeleteButton;	
-	QToolButton* m_docSaveButton;
+    		
+	KAction* m_docDeleteAction;	
+	KAction* m_docSaveAction;
 	
-	QToolButton* m_colorButton;
+	KToggleAction* m_boldAction;
+	KToggleAction* m_italicAction;
+	KToggleAction* m_underlineAction;
 	
-	QToolButton* m_boldButton;
-	QToolButton* m_italicButton;
-	QToolButton* m_underlineButton;		
+	KToggleAction* m_alignLeftAction;			
+	KToggleAction* m_alignCenterAction;		
+	KToggleAction* m_alignRightAction;	
+	KToggleAction* m_alignJustifyAction;
 	
-	QToolButton* m_alignLeftButton;			
-	QToolButton* m_alignCenterButton;		
-	QToolButton* m_alignRightButton;			
-	QToolButton* m_alignJustifyButton;				
-	
-	QComboBox* m_fontSizeCombo;
+	KFontSizeAction* m_fontSizeAction;
 	KFontAction* m_fontAction;
 	KColorButton* m_colorChooser;
 			

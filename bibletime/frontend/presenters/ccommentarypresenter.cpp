@@ -53,12 +53,12 @@ void CCommentaryPresenter::initView(){
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Commentary, this );
 	addToolBar(m_moduleChooserBar);
 	
-	presenterSync_action =  new KToggleAction(i18n("Synchronize..."), SYNC_ICON_SMALL,
+	presenterSync_action =  new KToggleAction(i18n("Synchronize..."), ICON_SYNC,
 															IDK_PRESENTER_EDIT, this,	SLOT(syncToggled()), actionCollection(), "syncComment_action");
 	presenterSync_action->setWhatsThis( WT_PRESENTER_SYNC );
 	presenterSync_action->plug(m_mainToolBar);
 	
-	presenterEdit_action =  new KToggleAction(i18n("Edit entry..."), PRESENTER_EDIT,
+	presenterEdit_action =  new KToggleAction(i18n("Edit entry..."), ICON_EDIT,
 															IDK_PRESENTER_EDIT, this,	SLOT(editComment()), actionCollection(), "editComment_action");
 	presenterEdit_action->setEnabled( m_moduleList.first()->module()->isWritable() );
 	presenterEdit_action->setWhatsThis( WT_PRESENTER_EDIT );
@@ -68,13 +68,13 @@ void CCommentaryPresenter::initView(){
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
-	m_popup->insertTitle(i18n("Bible window"));
-	m_popup->insertItem(i18n("Save chapter as HTML..."), m_htmlWidget, SLOT(slotSaveAsHTML()), 0,ID_PRESENTER_SAVE_AS_HTML);	
-	m_popup->insertItem(i18n("Save chapter as plain text..."), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_AS_TEXT);
+	m_popup->insertTitle(i18n("Commentary window"));
+	m_popup->insertItem(i18n("Save entry as HTML..."), m_htmlWidget, SLOT(slotSaveAsHTML()), 0,ID_PRESENTER_SAVE_AS_HTML);	
+	m_popup->insertItem(i18n("Save entry as plain text..."), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_AS_TEXT);
 	m_popup->insertSeparator();
 	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
 	m_popup->insertItem(i18n("Copy selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);	
-	m_popup->insertItem(i18n("Copy chapter into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);
+	m_popup->insertItem(i18n("Copy entry into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);
 	m_popup->insertSeparator();		
   m_popup->insertItem(i18n("Lookup word in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP );	
 	m_popup->insertSeparator();			

@@ -151,8 +151,19 @@
 #define LOAD_OD_ICON(name)	KGlobal::instance()->iconLoader()->loadIcon(name, KIcon::NoGroup, KIcon::SizeMedium)
 
 //ICONS
-#define ICON_FILE_CLEAR_QUEUE "bt_clear_queue"
-#define ICON_FILE_PRINT "bt_printer"
+#define ICON_FILE_CLEAR_QUEUE "queue"
+#define ICON_FILE_PRINT "fileprint"
+#define ICON_FILE_SAVE "filesave"
+#define ICON_FILE_DELETE "editdelete"
+
+#define ICON_EDIT "pencil"
+#define ICON_EDIT_BOLD "text_bold"
+#define ICON_EDIT_ITALIC "text_italic"
+#define ICON_EDIT_UNDER "text_under"
+#define ICON_EDIT_LEFT "text_left"
+#define ICON_EDIT_CENTER "text_center"
+#define ICON_EDIT_RIGHT "text_right"
+#define ICON_EDIT_JUST "text_block"
 
 #define ICON_MAININDEX_RESET "bt_reset"
 #define ICON_MAININDEX_SEARCH "bt_search"
@@ -166,9 +177,11 @@
 #define ICON_WINDOW_CASCADE "bt_cascade"
 #define ICON_WINDOW_TILE_AUTO "bt_tile_auto"
 #define ICON_WINDOW_CASCADE_AUTO "bt_cascade_auto"
-#define ICON_WINDOW_CLOSE_ALL "bt_close_all"
+#define ICON_WINDOW_CLOSE_ALL "fileclose"
 
 #define ICON_HELP_DAILY_TIP "bt_tip"
+
+#define ICON_SYNC	"bt_sync"
 
 //CGroupManager icons
 #define GROUP_ICON_SMALL	LOAD_SMALL_ICON("bt_folder")
@@ -185,7 +198,7 @@
 #define LEXICON_ICON_SMALL	LOAD_SMALL_ICON("bt_lexicon")
 #define LEXICON_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_lexicon_locked")
 #define PARALLEL_ICON_SMALL	LOAD_SMALL_ICON("bt_parallel")
-#define SYNC_ICON_SMALL	LOAD_SMALL_ICON("bt_sync")
+#define SYNC_ICON_SMALL	LOAD_SMALL_ICON(ICON_SYNC)
 #define ITEMS_DELETE_ICON_SMALL	LOAD_SMALL_ICON("bt_trashcan_empty")
 
 #define BOOKMARK_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark")
@@ -193,15 +206,14 @@
 #define BOOKMARK_NEW_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_new")
 #define BOOKMARK_IMPORT_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_import")
 #define BOOKMARK_EXPORT_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_export")
-#define BOOKMARK_PRINT_ICON_SMALL	LOAD_SMALL_ICON("bt_printer")
-#define PRESENTER_EDIT LOAD_SMALL_ICON("bt_presenter_edit")
+#define BOOKMARK_PRINT_ICON_SMALL	LOAD_SMALL_ICON(ICON_FILE_PRINT)
 
 #define SHOW_GM_ICON_SMALL	LOAD_SMALL_ICON( ICON_MAININDEX )
 #define RESET_GM_ICON_SMALL	LOAD_SMALL_ICON( ICON_MAININDEX_RESET )
 
 #define MODULE_SEARCH_ICON_SMALL	LOAD_SMALL_ICON( ICON_MAININDEX_SEARCH )
 #define MODULE_UNLOCK_ICON_SMALL	LOAD_SMALL_ICON("bt_module_unlock")
-#define MODULE_ABOUT_ICON_SMALL	LOAD_SMALL_ICON("bt_info")
+#define MODULE_ABOUT_ICON_SMALL	LOAD_SMALL_ICON("info")
 
 //used for Drag&Drop
 #define REFERENCE_ICON_SMALL	LOAD_SMALL_ICON("bt_verseref")
@@ -209,10 +221,11 @@
 #define FOOTNOTES_ICON_SMALL	LOAD_SMALL_ICON("bt_footnotes")
 
 //Icons for the optionsdialog; OD == OptionsDialog
-#define OD_ICON_GENERAL	LOAD_OD_ICON("bt_general_settings")
-#define OD_ICON_KEY_BINDINGS LOAD_OD_ICON("bt_key_settings")
-#define OD_ICON_FONTS LOAD_OD_ICON("bt_font_settings")
-#define OD_ICON_COLORS	LOAD_OD_ICON("bt_color_settings")
+#define OD_ICON_GENERAL	LOAD_OD_ICON("go")
+#define OD_ICON_KEY_BINDINGS LOAD_OD_ICON("key_bindings")
+#define OD_ICON_FONTS LOAD_OD_ICON("fonts")
+#define OD_ICON_FONTMANAGER LOAD_OD_ICON("fonts")
+#define OD_ICON_COLORS	LOAD_OD_ICON("colorize")
 
 //define HelpDialog aliases for defines
 #define HELPDIALOG_MODULE_LOCKED	"bibletime/help_module_encrypted.html"

@@ -124,6 +124,8 @@ bibletime/pics/highcolor/32x32/Makefile \
 bibletime/pics/highcolor/48x48/Makefile \
 bibletime/pics/lowcolor/Makefile \
 bibletime/pics/lowcolor/16x16/Makefile \
+bibletime/pics/lowcolor/22x22/Makefile \
+bibletime/pics/lowcolor/32x32/Makefile \
 bibletime/printing/Makefile \
 bibletime/xml/Makefile \
 po/Makefile \

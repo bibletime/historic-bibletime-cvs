@@ -150,8 +150,7 @@ void CGroupManagerItem::update(){
   else if (m_type == Bookmark) {
 		QString title = QString::null;
 		setPixmap(0, BOOKMARK_ICON_SMALL);
-		ASSERT(m_moduleInfo);				
-		CKey* key = 0;		
+		ASSERT(m_moduleInfo);
 		if ( getBookmarkKey() ) {	//if we have a valid key
 			CKey* key = getBookmarkKey();
 			if (key && dynamic_cast<SWKey*>(key)) {	// a valid Sword key

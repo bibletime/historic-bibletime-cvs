@@ -13,7 +13,6 @@ lo16-action-bt_folder_change.png \
 lo16-action-bt_folder_open.png \
 lo16-action-bt_folder_new.png \
 lo16-action-bt_groupmanager.png \
-lo16-action-bt_info.png \
 lo16-action-bt_lexicon.png \
 lo16-action-bt_lexicon_locked.png \
 lo16-action-bt_search.png \

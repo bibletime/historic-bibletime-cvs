@@ -21,6 +21,8 @@
 #include "thirdparty/qt3stuff/qrichtext_p.h"
 #include "thirdparty/qt3stuff/qt3stuff.h"
 #include "../ressource.h"
+#include "../tooltipdef.h"
+#include "../whatsthisdef.h"
 
 #include <stdio.h>
 
@@ -407,64 +409,41 @@ void CHTMLWidget::createEditToolbar( KToolBar* bar ){
 	if (!bar)
 		return;
 
-	m_docSaveButton = new QToolButton(SmallIcon("filesave"),i18n("Save"), "",
-		this, SLOT(slotSaveDocument()), bar);
-	m_docDeleteButton = new QToolButton(SmallIcon("trashcan_empty"),i18n("Delete"), "",
-		this, SIGNAL(sigDeleteDocument()), bar);
-				
+	m_docSaveAction = new KAction(i18n("Save"), ICON_FILE_SAVE, 0, this, SLOT(slotSaveDocument()),bar, "saveDoc_action");	
+	m_docSaveAction->setToolTip( TT_PRESENTER_EDIT_SAVE );
+	m_docSaveAction->setWhatsThis( WT_PRESENTER_EDIT_SAVE );	
+	m_docSaveAction->plug(bar);
+	
+	m_docDeleteAction = new KAction(i18n("Delete"), ICON_FILE_DELETE, 0, this, SLOT(sigDeleteDocument()),bar, "deleteDoc_action");	
+	m_docDeleteAction->setToolTip( TT_PRESENTER_EDIT_DELETE );
+	m_docDeleteAction->setWhatsThis( WT_PRESENTER_EDIT_DELETE );	
+	m_docDeleteAction->plug(bar);
+			
 	m_colorChooser = new KColorButton(black, bar);
-	connect(m_colorChooser, SIGNAL(changed(const QColor&)),
-		this, SLOT(slotSetCurrentColor(const QColor&)));
-		
+	connect(m_colorChooser, SIGNAL(changed(const QColor&)),SLOT(slotSetCurrentColor(const QColor&)));		
 	m_fontAction = new KFontAction(i18n("Choose a font:"), 0, bar);
-	connect(m_fontAction, SIGNAL(activated(const QString&)),
-		this, SLOT(slotSetCurrentFont(const QString&)));
+	connect(m_fontAction, SIGNAL(activated(const QString&)), SLOT(slotSetCurrentFont(const QString&)));
 	m_fontAction->plug(bar);
-		
-	m_fontSizeCombo = new QComboBox(bar, "toolbar");
-	m_fontSizeCombo->setEditable(true);
-	connect(m_fontSizeCombo, SIGNAL(activated(const QString&)),
-		this, SLOT(slotSetCurrentFontSize(const QString&)));
 	
-	//insert items into the combo box, we use the sized introduced in StarOffice	
-	int index = 6;
-	int stepSize = 1;
-	for (index = 6; index <= 100; index+=stepSize) {
-		m_fontSizeCombo->insertItem( QString::number(index) );
-		if (index >=12 )
-			stepSize = 2;
-		if (index >= 28)
-			stepSize = 4;
-		if (index >= 48)
-			stepSize = 6;
-		if (index >= 72)
-			stepSize = 8;
-	}
+	m_fontSizeAction = new KFontSizeAction(i18n("Choose font size"), 0, bar);		
+	connect(m_fontSizeAction, SIGNAL(fontSizeChanged(int)), SLOT(setPointSize(int)));
+	m_fontSizeAction->plug(bar);
 	
-	//format buttons		
-	m_boldButton = new QToolButton(SmallIcon("text_bold"),i18n("Set bold"), "",
-		this, SLOT(slotToggleBold()), bar);
-	m_boldButton->setToggleButton(true);
-	m_italicButton = new QToolButton(SmallIcon("text_italic"),i18n("Set italic"), "",
-		this, SLOT(slotToggleItalic()), bar);
-	m_italicButton->setToggleButton(true);		
-	m_underlineButton = new QToolButton(SmallIcon("text_under"),i18n("Set underlined"), "",
-		this, SLOT(slotToggleUnderline()), bar);		
-	m_underlineButton->setToggleButton(true);		
-	
-	//alignement buttons
-	m_alignLeftButton = new QToolButton(SmallIcon("text_left"),i18n("Align left"), "",
-		this, SLOT(slotAlignLeft()), bar);
-	m_alignLeftButton->setToggleButton(true);		
-	m_alignCenterButton = new QToolButton(SmallIcon("text_center"),i18n("Center text"), "",
-		this, SLOT(slotAlignCenter()), bar);
-	m_alignCenterButton->setToggleButton(true);		
-	m_alignRightButton = new QToolButton(SmallIcon("text_right"),i18n("Align right"), "",
-		this, SLOT(slotAlignRight()), bar);
-	m_alignRightButton->setToggleButton(true);		
-	m_alignJustifyButton = new QToolButton(SmallIcon("text_block"),i18n("Justify"), "",
-		this, SLOT(slotAlignJustify()), bar);
-	m_alignJustifyButton->setToggleButton(true);
+	m_boldAction = new KToggleAction(i18n("Bold"), ICON_EDIT_BOLD,0,this, SLOT(slotToggleBold()), bar);
+	m_boldAction->plug(bar);
+	m_italicAction = new KToggleAction(i18n("Italic"), ICON_EDIT_ITALIC,0, this, SLOT(slotToggleItalic()),bar);	
+	m_italicAction->plug(bar);	
+	m_underlineAction = new KToggleAction(i18n("Underlined"), ICON_EDIT_UNDER,0, this, SLOT(slotToggleUnderline()),bar);	
+	m_underlineAction->plug(bar);
+			
+	m_alignLeftAction = new KToggleAction(i18n("Left"), ICON_EDIT_LEFT,0, this, SLOT(slotAlignLeft()),bar);
+	m_alignLeftAction->plug(bar);
+	m_alignCenterAction = new KToggleAction(i18n("Center"), ICON_EDIT_CENTER,0, this, SLOT(slotAlignCenter()),bar);
+	m_alignCenterAction->plug(bar);
+	m_alignRightAction = new KToggleAction(i18n("Right"), ICON_EDIT_RIGHT,0, this, SLOT(slotAlignRight()),bar);
+	m_alignRightAction->plug(bar);
+	m_alignJustifyAction = new KToggleAction(i18n("Justify"), ICON_EDIT_JUST,0, this, SLOT(slotAlignJustify()),bar);
+	m_alignJustifyAction->plug(bar);
 }
 
 /** emit a signal to save the text */
@@ -475,24 +454,23 @@ void CHTMLWidget::slotSaveDocument(){
 /** No descriptions */
 void CHTMLWidget::slotToggleBold(){
 	QTextEdit::setBold( !bold() );
-	m_boldButton->setOn(bold());	
+	m_boldAction->setChecked(bold());	
 }
 
 /** No descriptions */
 void CHTMLWidget::slotToggleItalic(){
 	QTextEdit::setItalic(!italic() );
-	m_italicButton->setOn(italic());	
+	m_italicAction->setChecked(italic());	
 }
 
 /** No descriptions */
 void CHTMLWidget::slotToggleUnderline(){
 	QTextEdit::setUnderline( !underline() );
-	m_underlineButton->setOn(underline());		
+	m_underlineAction->setChecked(underline());		
 }
 
 /** No descriptions */
-void CHTMLWidget::slotSetCurrentFontSize( const QString& sizeText ){
-	const int size = sizeText.toInt();
+void CHTMLWidget::slotSetCurrentFontSize( int size ){
 	if (size > 0)
 		setPointSize(size);
 }
@@ -517,16 +495,18 @@ void CHTMLWidget::slotSetCurrentColor( const QColor& color){
 /** No descriptions */
 void CHTMLWidget::slotCurrentFontChanged( const QFont& f){
 	m_fontAction->setFont( f.family() );	
-	for (int index = 0; index < m_fontSizeCombo->count(); index++ ) {		
-		if (m_fontSizeCombo->text(index).toInt() == f.pointSize()) {
-			m_fontSizeCombo->setCurrentItem(index);	
-			break;
-		}
-	}
-	m_fontSizeCombo->setEditText( QString::number(f.pointSize()) );
-	m_boldButton->setOn( f.bold() );
-	m_italicButton->setOn( f.italic() );
-	m_underlineButton->setOn( f.underline() );	
+//	for (int index = 0; index < m_fontSizeCombo->count(); index++ ) {		
+//		if (m_fontSizeCombo->text(index).toInt() == f.pointSize()) {
+//			m_fontSizeCombo->setCurrentItem(index);	
+//			break;
+//		}
+//	}
+//	m_fontSizeCombo->setEditText( QString::number(f.pointSize()) );
+	m_fontSizeAction->setFontSize( f.pointSize() );	
+
+	m_boldAction->setChecked( f.bold() );
+	m_italicAction->setChecked( f.italic() );
+	m_underlineAction->setChecked( f.underline() );	
 }
 
 /** No descriptions */
@@ -536,48 +516,48 @@ void CHTMLWidget::slotCurrentColorChanged( const QColor& c){
 
 /** No descriptions */
 void CHTMLWidget::slotCurrentAlignementChanged(int a){
-	m_alignLeftButton->setOn( (a == AlignLeft) || (a == Qt3::AlignAuto) );
-	m_alignCenterButton->setOn( a == AlignHCenter );
-	m_alignRightButton->setOn( a == AlignRight );
-	m_alignJustifyButton->setOn( a == Qt3::AlignJustify );	
+	m_alignLeftAction->setChecked( (a == AlignLeft) || (a == Qt3::AlignAuto) );
+	m_alignCenterAction->setChecked( a == AlignHCenter );
+	m_alignRightAction->setChecked( a == AlignRight );
+	m_alignJustifyAction->setChecked( a == Qt3::AlignJustify );	
 }
 
 /** No descriptions */
 void CHTMLWidget::slotAlignLeft(){
-	m_alignLeftButton->setOn(true);	
-	m_alignCenterButton->setOn(false);	
-	m_alignRightButton->setOn(false);	
-	m_alignJustifyButton->setOn(false);		
+	m_alignLeftAction->setChecked(true);	
+	m_alignCenterAction->setChecked(false);	
+	m_alignRightAction->setChecked(false);	
+	m_alignJustifyAction->setChecked(false);		
 		
 	setAlignment(AlignLeft);
 }
 
 /** No descriptions */
 void CHTMLWidget::slotAlignCenter(){
-	m_alignLeftButton->setOn(false);	
-	m_alignCenterButton->setOn(true);	
-	m_alignRightButton->setOn(false);	
-	m_alignJustifyButton->setOn(false);		
+	m_alignLeftAction->setChecked(false);	
+	m_alignCenterAction->setChecked(true);	
+	m_alignRightAction->setChecked(false);	
+	m_alignJustifyAction->setChecked(false);		
 	
 	setAlignment(AlignHCenter);
 }
 
 /** No descriptions */
 void CHTMLWidget::slotAlignRight(){
-	m_alignLeftButton->setOn(false);	
-	m_alignCenterButton->setOn(false);	
-	m_alignRightButton->setOn(true);	
-	m_alignJustifyButton->setOn(false);		
+	m_alignLeftAction->setChecked(false);	
+	m_alignCenterAction->setChecked(false);	
+	m_alignRightAction->setChecked(true);	
+	m_alignJustifyAction->setChecked(false);		
 		
 	setAlignment(AlignRight);
 }
 
 /** No descriptions */
 void CHTMLWidget::slotAlignJustify(){
-	m_alignLeftButton->setOn(false);	
-	m_alignCenterButton->setOn(false);	
-	m_alignRightButton->setOn(false);	
-	m_alignJustifyButton->setOn(true);		
+	m_alignLeftAction->setChecked(false);	
+	m_alignCenterAction->setChecked(false);	
+	m_alignRightAction->setChecked(false);	
+	m_alignJustifyAction->setChecked(true);		
 		
 	setAlignment(Qt3::AlignJustify);
 }
@@ -589,7 +569,6 @@ void CHTMLWidget::slotSelectAll(){
 
 /** Returns true if the links are enabled. */
 bool CHTMLWidget::linksEnabled() const {
-//	qDebug("CHTMLWidget::linksEnabled()");	
 	return true;
 }
 
