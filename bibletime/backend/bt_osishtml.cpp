@@ -53,23 +53,13 @@ BT_OSISHTML::BT_OSISHTML() {
 	
 	addTokenSubstitute("devineName", "<span class=\"name\"><span class=\"devine\">");
 	addTokenSubstitute("/devineName", "</span></span>");
-//	addTokenSubstitute("lg", "<br />");
-//	addTokenSubstitute("/lg", "<br />");
 	
 	setEscapeStart("&");
 	setEscapeEnd(";");
 	setEscapeStringCaseSensitive(true);
-	
-//	addEscapeStringSubstitute("amp", "&");
-//	addEscapeStringSubstitute("apos", "'");
-//	addEscapeStringSubstitute("lt", "<");
-//	addEscapeStringSubstitute("gt", ">");
-//	addEscapeStringSubstitute("quot", "\"");
 
-	
-	
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes
-
+	
 	setTokenCaseSensitive(true);
 }
 
@@ -88,7 +78,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 		// <w> tag
 		if (!strcmp(tag.getName(), "w")) {
-			//qWarning("%s", tag.toString());
 			if ((!tag.isEmpty()) && (!tag.isEndTag())) { //start tag
 				const char *attrib;
 				const char *val;
@@ -96,8 +85,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				XMLTag outTag;
 				SWBuf attrValue;
 				outTag = "<span>";
-				//outTag.setAttribute("text", "testvalue");
-				//qWarning("%s", outTag.toString());
 				
 				if ((attrib = tag.getAttribute("xlit"))) {
 					val = strchr(attrib, ':');
@@ -200,9 +187,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					}
 
 					if (refList.length()) {
-						buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\"> ",
+/*						buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\"> ",
 							refList.c_str()
-						);
+						);*/
+						buf.append(" <span class=\"crossreference\" crossrefs=\"");
+						buf.append(refList.c_str());
+						buf.append("\"> ");
+							
           	myUserData->noteType = BT_UserData::CrossReference;
 					}
 					else {
@@ -211,16 +202,29 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
         }
         else if (type == "explanation") {
         }
-        else if (type == "strongsMarkup") {
+        else if (type == "strongsMarkup") { 
+					/**
+					* leave strong's markup notes out, in the future we'll probably have 
+					* different option filters to turn different note types on or off
+					*/
+					
   				myUserData->suspendTextPassThru = true;
           myUserData->noteType = BT_UserData::StrongsMarkup;
         }
-        else {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
-					buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">n</span> ", 
+        else {	
+/*					buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">n</span> ", 
 						myModule->Name(),
 						myUserData->key->getShortText(),
 						tag.getAttribute("swordFootnote")
-					);
+					);*/
+					buf.append(" <span class=\"footnote\" note=\"");
+					buf.append(myModule->Name());
+					buf.append('/');
+					buf.append(myUserData->key->getShortText());
+					buf.append('/');
+					buf.append(tag.getAttribute("swordFootnote"));
+					buf.append("\">*n</span> ");
+					
           myUserData->noteType = BT_UserData::Footnote;
 					
 					myUserData->suspendTextPassThru = true;
@@ -231,16 +235,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           buf += "</span> ";
 					myUserData->suspendTextPassThru = false;
         }
-//         else if (myUserData->noteType == BT_UserData::Footnote) {
-//         }
 
         myUserData->noteType = BT_UserData::Unknown;
 				myUserData->suspendTextPassThru = false;
 			}
 		}
 		// <p> paragraph tag is handled by OSISHTMLHref
-		// <reference> tag
-		else if (!strcmp(tag.getName(), "reference")) {
+		else if (!strcmp(tag.getName(), "reference")) { // <reference> tag
 /*			if (!tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
         const char* ref = tag.getAttribute("osisRef");
 
@@ -327,17 +328,20 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				if (type == "geographic") {
 					buf += "<span class=\"name\"><span class=\"geographic\">";
 				}
-				if (type == "holiday") {
+				else if (type == "holiday") {
 					buf += "<span class=\"name\"><span class=\"holiday\">";
 				}
-				if (type == "nonhuman") {
+				else if (type == "nonhuman") {
 					buf += "<span class=\"name\"><span class=\"nonhuman\">";
 				}
-				if (type == "person") {
+				else if (type == "person") {
 					buf += "<span class=\"name\"><span class=\"person\">";
 				}
-				if (type == "ritual") {
+				else if (type == "ritual") {
 					buf += "<span class=\"name\"><span class=\"ritual\">";
+				}
+				else{
+					buf += "<span class=\"name\"><span>";
 				}
 			}
 			else if (tag.isEndTag()) { //all hi replacements are html spans
@@ -407,7 +411,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				myUserData->quote.who = "";
 			}
 		}
-		// <transChange> is handled by OSISHTMLHref
     else { //all tokens handled by OSISHTMLHref will run through the filter now
       return sword::OSISHTMLHREF::handleToken(buf, token, userData);
     }

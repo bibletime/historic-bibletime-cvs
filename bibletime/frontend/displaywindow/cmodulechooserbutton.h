@@ -41,6 +41,8 @@ class CModuleChooserButton : public KToolBarButton, public CPointers  {
    Q_OBJECT
 public: 
 	CModuleChooserButton(CSwordModuleInfo* useModule, CSwordModuleInfo::ModuleType type, const int id, CModuleChooserBar *parent, const char *name = 0 );
+	~CModuleChooserButton();
+	
   CSwordModuleInfo* module();
   /**
   * Returns the id used for this button.

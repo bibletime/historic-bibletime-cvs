@@ -60,12 +60,6 @@ class CSearchDialog : public KDialogBase  {
 public:
   static void openDialog(const ListCSwordModuleInfo modules, const QString& searchText = QString::null, QWidget* parentDialog = 0);
 
-public slots: // Public slots
-  /**
-  * Reimplemented to show the First time searchdialog page.
-  */
-  virtual void show();
-  
 protected:
   friend class CSearchAnalysis;
   friend class CSearchResultPage;  
@@ -79,8 +73,8 @@ protected:
   * The dialog destroys itself if it was closed.
   */
 	CSearchDialog(QWidget *parent);
-	virtual ~CSearchDialog();
-  /**
+  
+	/**
   * Initializes this object.
   */
   void initView();
@@ -126,7 +120,7 @@ protected slots:
   /**
   * Updates the percentage bars.
   */
-  void percentUpdate();
+//   void percentUpdate();
   /**
   * Starts the search with the set modules and the set search text.
   */
@@ -149,7 +143,9 @@ protected slots:
   * Is the slot which is called when a page will be shown.
   */
   void slotShowPage(QWidget* page);
-  /** Reimplementation. */
+  /** 
+	* Reimplementation. 
+	*/
   virtual void slotClose();
 
 private:

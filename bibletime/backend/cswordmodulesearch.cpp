@@ -27,7 +27,7 @@
 #include <listkey.h>
 
 
-static CSwordModuleSearch* searcher = 0;
+CSwordModuleSearch* CSwordModuleSearch::searcher = 0;
 
 CSwordModuleSearch::CSwordModuleSearch() :
 	m_searchedText(QString::null),
@@ -41,19 +41,6 @@ CSwordModuleSearch::CSwordModuleSearch() :
 
 CSwordModuleSearch::~CSwordModuleSearch(){
 	searcher = 0;
-}
-
-void CSwordModuleSearch::percentUpdate(char percent, void *){
-	Q_ASSERT(searcher);
-	
-	searcher->cms_currentProgress = (int)percent;
-	if (searcher->cms_module_count > 1) {
-	  searcher->cms_overallProgress = (int)((float)((searcher->cms_module_current - 1) * 100 + searcher->cms_currentProgress)) / searcher->cms_module_count;
-	}
-	else {
-	  searcher->cms_overallProgress = searcher->cms_currentProgress;
-	}
-	searcher->m_updateSig.activate();	
 }
 
 /** This function sets the modules which should be searched. */
@@ -142,19 +129,6 @@ void CSwordModuleSearch::setSearchOptions( const int options ){
 	m_searchOptions = options;
 }
 
-/** Returns the percent for the given type. */
-const int CSwordModuleSearch::getPercent( const PercentType type ){
-	switch (type) {
-		case currentModule:
-			return cms_currentProgress;
-		case allModules:
-			return cms_overallProgress;
-//		default:
-//			return 0;
-	};
-	return 0;
-}
-
 /** Returns a copy of the used search scope. */
 const sword::ListKey& CSwordModuleSearch::scope() const {
 	return m_searchScope;
@@ -162,11 +136,11 @@ const sword::ListKey& CSwordModuleSearch::scope() const {
 
 void CSwordModuleSearch::connectPercentUpdate( QObject *receiver, const char *member ) {
 	m_updateSig.connect(receiver, member);
-};
+}
 
 void CSwordModuleSearch::connectFinished( QObject *receiver, const char *member ) {
 	m_finishedSig.connect(receiver, member);
-};
+}
 
 /** Should be called when the search finished. */
 void CSwordModuleSearch::searchFinished(){

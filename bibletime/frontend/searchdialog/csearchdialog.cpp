@@ -101,26 +101,16 @@ CSearchDialog::CSearchDialog(QWidget *parent)
 
   setWFlags( getWFlags() | Qt::WStyle_MinMax );
 	setIcon(CResMgr::searchdialog::icon);
-	m_searcher.connectPercentUpdate(this, SLOT(percentUpdate()));
+	
+	m_searcher.connectPercentUpdate(this, SLOT(updateProgress()));
 	m_searcher.connectFinished(this, SLOT(searchFinished()));
 
   initView();
   initConnections();
 }
 
-CSearchDialog::~CSearchDialog(){
-}
-
-/** Reimplemented to show the First time searchdialog page. */
-void CSearchDialog::show(){
-  KDialogBase::show();
-
-//  if (CBTConfig::get(CBTConfig::firstSearchDialog)) { //is this the first time we show the dialog?
-//    CHTMLDialog dlg(CResMgr::helpDialog::firstTimeSearchDialog);
-//    dlg.exec();
-//    CBTConfig::set(CBTConfig::firstSearchDialog, false);
-//  };  
-}
+// CSearchDialog::~CSearchDialog(){
+// }
 
 /** Starts the search with the set modules and the set search text. */
 void CSearchDialog::startSearch(){
@@ -149,7 +139,6 @@ void CSearchDialog::startSearch(){
   m_searcher.setSearchedText(searchText);
   m_searcher.setSearchOptions(searchFlags);
 
-//  qWarning("start the search");
   m_searcher.startSearchThread();
 }
 
@@ -216,9 +205,9 @@ void CSearchDialog::initView(){
 }
 
 /** Updates the percentage bars. */
-void CSearchDialog::percentUpdate(){
-  updateProgress();
-}
+// void CSearchDialog::percentUpdate(){
+//   updateProgress();
+// }
 
 /** Updates the percentage bars. */
 void CSearchDialog::searchFinished(){
@@ -251,7 +240,8 @@ void CSearchDialog::initConnections(){
 
 /** Updates the progress. */
 void CSearchDialog::updateProgress(){
-  KApplication::kApplication()->processEvents();
+  KApplication::kApplication()->processEvents(1);//not too long
+	
   m_searchOptionsPage->setOverallProgress(m_searcher.getPercent(CSwordModuleSearch::allModules));
   m_searchOptionsPage->setCurrentModuleProgress(m_searcher.getPercent(CSwordModuleSearch::currentModule));
 }

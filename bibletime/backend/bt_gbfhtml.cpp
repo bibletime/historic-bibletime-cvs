@@ -42,9 +42,7 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 	
 	setEscapeStringCaseSensitive(true);
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
-
   
-//	replaceTokenSubstitute("Rf", ")</span>");// end of footnote
   if (tokenSubMap.find("Rf") != tokenSubMap.end()) { //remove note tag
 	  tokenSubMap.erase( tokenSubMap.find("Rf") );
   }
@@ -61,8 +59,6 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 	replaceTokenSubstitute("FU", "<u>"); // underline begin
 	replaceTokenSubstitute("Fu", "</u>");
 
-//	replaceTokenSubstitute("FO", "<cite>"); //  Old Testament quote begin
-//	replaceTokenSubstitute("Fo", "</cite>");
 	replaceTokenSubstitute("FO", "<span class=\"quotation\">"); //  Old Testament quote begin
 	replaceTokenSubstitute("Fo", "</span>");
 
@@ -73,8 +69,6 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
   replaceTokenSubstitute("FV", "<span class=\"sub\">"); // Subscript begin
 	replaceTokenSubstitute("Fv", "</span>");
 
-//	replaceTokenSubstitute("TT", QString::fromLatin1(" <h1><font color=\"%1\">").arg(text_color).local8Bit());
-//	replaceTokenSubstitute("Tt", "</font></h1>");
 	replaceTokenSubstitute("TT", "<div class=\"booktitle\">");
 	replaceTokenSubstitute("Tt", "</div>");
 
@@ -202,7 +196,8 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
   	const unsigned int tokenLength = strlen(token);
 		unsigned long i;
     sword::SWBuf value;
-    BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
+    
+		BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
     sword::SWModule* myModule = const_cast<sword::SWModule*>(myUserData->module); //hack to be able to call stuff like Lang()
 
     if (	 !strncmp(token, "WG", 2) 
@@ -215,37 +210,41 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 			buf.append('>');
 		}
 		else if (!strncmp(token, "RB", 2)) {
-//			buf += "<span class=\"footnotepre\">";
 			myUserData->hasFootnotePreTag = true;
 		}
-
-		else if (!strncmp(token, "RF", 2)) {
-			buf.appendFormatted("<span class=\"footnote\" note=\"%s/%s/%s\">n</span>", 
-				myModule->Name(),
-				myUserData->key->getShortText(),
-				QString::number(myUserData->swordFootnote++).latin1()
-			);
+		else if (!strncmp(token, "RF", 2)) {			
+			//we use several append calls because appendFormatted slows down filtering, which should be fast
+			buf.append(" <span class=\"footnote\" note=\"");
+			buf.append(myModule->Name());
+			buf.append('/');
+			buf.append(myUserData->key->getShortText());
+			buf.append('/');
+			buf.append( QString::number(myUserData->swordFootnote++).latin1() );
+			buf.append("\">*n</span> ");
+			
 			userData->suspendTextPassThru = true;
 		}
 		else if (!strncmp(token, "Rf", 2)) { //end of footnote
 			userData->suspendTextPassThru = false;
 		}
-		
-		else if (!strncmp(token, "FN", 2)) {
-			buf += "<font face=\"";
+		else if (!strncmp(token, "FN", 2)) { //the end </font> tag is inserted in replaceTokenSubsitutes
+			buf.append("<font face=\"");
+			
 			for (i = 2; i < tokenLength; i++) {
 				if(token[i] != '\"') {
-					buf += token[i];
+					buf.append( token[i] );
         }
       }
-			buf += "\">";
+			
+			buf.append("\">");
 		}
 		else if (!strncmp(token, "CA", 2)) {	// ASCII value
-			buf += (char)atoi(&token[2]);
+			buf.append( (char)atoi(&token[2]) );
 		}		
 		else {
 			return GBFHTML::handleToken(buf, token, userData);
 		}
 	}
+	
 	return true;
 }

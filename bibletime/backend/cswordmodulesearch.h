@@ -96,10 +96,6 @@ public:
  	*/
   void setSearchScope( const sword::ListKey& scope );
   /**
- 	*	Calls with true if you want to use the last searchresult as search scope.
- 	*/
-//  void useLastSearchResult( const bool );
-  /**
  	* Sets the seaech scope back.
  	*/
   void resetSearchScope();
@@ -124,7 +120,7 @@ public:
   /**
  	* Returns the percent for the given type.
  	*/
-  const int getPercent( const PercentType type );
+  inline const int getPercent( const PercentType type );
 	inline static void percentUpdate(char percent, void *p);
   /**
   * Returns a copy of the used search scope.
@@ -153,6 +149,35 @@ protected:
 private:
 	QSignal m_updateSig;
 	QSignal m_finishedSig;
+	
+	static CSwordModuleSearch* searcher;
 };
+
+/** Returns the percent for the given type. */
+inline const int CSwordModuleSearch::getPercent( const PercentType type ){
+	switch (type) {
+		case currentModule:
+			return cms_currentProgress;
+		case allModules:
+			return cms_overallProgress;
+	};
+	
+	return 0;
+}
+
+inline void CSwordModuleSearch::percentUpdate(char percent, void *){
+	searcher->cms_currentProgress = (int)percent;
+	
+	if (searcher->cms_module_count > 1) {
+	  searcher->cms_overallProgress = (int)((float)((searcher->cms_module_current - 1) * 100 + searcher->cms_currentProgress)) / searcher->cms_module_count;
+	}
+	else {
+	  searcher->cms_overallProgress = searcher->cms_currentProgress;
+	}
+	
+	searcher->m_updateSig.activate();	
+}
+
+
 
 #endif

@@ -47,10 +47,17 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
   }
 	
 	setIcon( iconName() );
-	setPopupDelay(0001);
+	setPopupDelay(1);
 
 	populateMenu();
 }	
+
+CModuleChooserButton::~CModuleChooserButton() {	
+	m_submenus.setAutoDelete(true); //delete all submenus
+	m_submenus.clear();
+	
+	delete m_popup;
+}
 
 /** Returns the icon used for the current status. */
 const QString CModuleChooserButton::iconName(){
@@ -137,9 +144,10 @@ void CModuleChooserButton::moduleChosen( int ID ){
 
 /** No descriptions */
 void CModuleChooserButton::populateMenu(){
-	delete m_popup;
 	m_submenus.setAutoDelete(true); //delete all submenus
 	m_submenus.clear();
+	
+	delete m_popup;
 
 	//create a new, empty popup
 	m_popup = new KPopupMenu(this);	
