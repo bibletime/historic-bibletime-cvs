@@ -27,13 +27,10 @@ KStartupLogo::KStartupLogo()
   bool success = false;
 
 	success = pm.load(locate("BT_pic","startuplogo.jpg"));		
-  if ( success )
-  	qDebug("Startuplogo sucessfully loaded!");
-  else
-  	qDebug("Can't load startuplogo!");
+  if ( !success )
+  	qWarning("Can't load startuplogo! Check your installation.");
   	  	
   setBackgroundPixmap(pm);
-  setAutoMask(true);
   setFixedSize(pm.width(), pm.height());
   setGeometry( (KApplication::desktop()->width()-pm.width())/2,(KApplication::desktop()->height()-pm.height())/2, pm.width(), pm.height());
 }

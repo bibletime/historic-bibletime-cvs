@@ -236,6 +236,7 @@ void CPrintItem::updateListViewItem(){
 	SWKey* key = 0;	
 	if ( (key = dynamic_cast<SWKey*>(getStartKey())) )
 		m_listViewItem->setText(1,(const char*)*key);
+	
 	if ( (key = dynamic_cast<SWKey*>(getStopKey())) )
 		m_listViewItem->setText(2,(const char*)*key);
 	else if ( (key = dynamic_cast<SWKey*>(getStartKey())) )

@@ -281,7 +281,6 @@ void CBiblePresenter::printChapter(){
 	CSwordBibleModuleInfo* b = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
 	if (b)
 		stopKey->Verse( b->getVerseCount(b->getBookNumber(startKey->getBook()),startKey->Chapter()) );
-
 	printKey(startKey, stopKey, m_moduleList.first());	
 }
 

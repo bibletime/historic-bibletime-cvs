@@ -148,12 +148,10 @@ const QString CSwordModuleInfo::getPath() const {
 
 /** Returns true if something was found, otherwise return false. */
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
-	//workaround for thread-insafety
-	
-	
-	SWKey* k = module()->CreateKey();
-	module()->SetKey(*k);
-	delete k;
+	//workaround for thread-insafety	
+//	SWKey* k = module()->CreateKey();
+//	module()->SetKey(*k);
+//	delete k;
 	
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
@@ -168,27 +166,19 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 	else if (searchOptions & CSwordModuleSearch::regExp)
 		searchType = 0;	//regexp matching
 
+	static SWMgr searchModulesMgr;
+		
 	SWKey* searchScope = 0;
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
 		searchScope = &m_searchResult;
-    m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, searchScope, 0, percentUpdate);
+		m_searchResult = searchModulesMgr.Modules[module()->Name()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, searchScope, 0, percentUpdate);
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
-//		VerseKey* vkScope = 0;
-//		if (scope.Count() == 2)
-//			vkScope = new VerseKey( (const char*)scope.GetElement(0), (const char*)scope.GetElement(1));			
-//		else
 		searchScope = &scope;		
-//  	if (vkScope) {
-//  		qWarning("using versekey as scope");
-//  		searchScope = vkScope;
-//  	}
-  	m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, getType() != Lexicon ? searchScope : 0, 0, percentUpdate);
-//  	if (vkScope)//clean up
-//  		delete vkScope;
+		m_searchResult = searchModulesMgr.Modules[module()->Name()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags,  getType() != Lexicon ? searchScope : 0, 0, percentUpdate);
 	}
   else
-  	m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, 0, 0, percentUpdate);
+  	m_searchResult = searchModulesMgr.Modules[module()->Name()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, 0, 0, percentUpdate);
 
 	return m_searchResult.Count();
 }

@@ -5337,7 +5337,7 @@ QTextFormat QTextFormat::makeTextFormat( const QStyleSheetItem *style, const QMa
   if ( style ) {
 		format.style = style->name();
 		if ( style->name() == "font") {
-			qDebug("font tag found");
+//			qDebug("font tag found");
 	    if ( attr.contains("color") ) {
 				QString s = attr["color"];
 				if ( !s.isEmpty() ) {
@@ -5356,12 +5356,12 @@ QTextFormat QTextFormat::makeTextFormat( const QStyleSheetItem *style, const QMa
 	    }
 	    if ( attr.contains("face") ) {
 				QString a = attr["face"];
-				qWarning("use the font face \"%s\"",a.latin1());
+//				qWarning("use the font face \"%s\"",a.latin1());
 				if ( a.contains(',') )
 			    a = a.left( a.find(',') );
 				format.fn.setFamily( a );
 				if (m_charsetMap && m_charsetMap->contains(format.fn.family())) {
-					qWarning("contained in list");
+//					qWarning("contained in list");
 					format.fn.setCharSet((*m_charsetMap)[format.fn.family()]);
 				}
 			}

@@ -573,7 +573,7 @@ const bool CPrinterDialog::applySettingsToPrinter( const bool preview ){
 	m_printer->setPreviewApplication(m_general.previewProgram->text());
 	
 	//apply general settings
-	if (!m_general.printerList->currentItem() )
+	if (m_general.printerList->currentItem())
 		m_printer->setPrinterName(m_general.printerList->currentItem()->text(0));
 
   m_printer->setNumCopies( m_general.pageSpin->value() );

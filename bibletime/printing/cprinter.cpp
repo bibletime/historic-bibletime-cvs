@@ -290,7 +290,6 @@ void CPrinter::printQueue(){
 //		cmd(QPaintDevice::PdcEnd,&p,0);
 //		p.end();		
 //	}
-	p.end();
 	qDebug("finished");
 }
 
