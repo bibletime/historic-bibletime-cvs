@@ -28,7 +28,6 @@
 
 //Sword includes
 #include <swmgr.h>
-#include <swencodingmgr.h>
 #include <swmodule.h>
 #include <localemgr.h>
 
@@ -46,7 +45,7 @@ typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
   *	@author The BibleTime team
   * @version $Id$
   */
-class CSwordBackend : public SWEncodingMgr {
+class CSwordBackend : public SWMgr {
 public:
   /**
  	* These are the options which could be supported by modules and by this backend.

@@ -35,6 +35,8 @@
 
 //Sword includes
 #include <swdisp.h>
+#include <swfiltermgr.h>
+#include <encfiltmgr.h>
 #include <plainhtml.h>
 #include <rawgbf.h>
 #include <rtfhtml.h>
@@ -45,8 +47,14 @@
 static QMap<QString, QString> moduleDescriptionMap;
 
 CSwordBackend::CSwordBackend()
-	: SWEncodingMgr(0,0,false,ENC_UTF8), m_errorCode(noError), m_entryDisplay(0), m_chapterDisplay(0), m_moduleList(0),
-	m_gbfFilter(0), m_plainTextFilter(0), m_thmlFilter(0)/*, m_rwpFilter(0)*/ {
+	: SWMgr(0,0,false,new EncodingFilterMgr( ENC_UTF8 )),
+	m_errorCode(noError),
+	m_entryDisplay(0),
+	m_chapterDisplay(0),
+	m_moduleList(0),
+	m_gbfFilter(0),
+	m_plainTextFilter(0),
+	m_thmlFilter(0)/*, m_rwpFilter(0)*/ {
 }
 
 CSwordBackend::~CSwordBackend(){
