@@ -18,6 +18,9 @@
 #ifndef CSWORDMODULEINFO_H
 #define CSWORDMODULEINFO_H
 
+#define NO_SWORD_NAMESPACE
+
+
 //BibleTime includes
 #include "cswordbackend.h"
 #include "frontend/cpointers.h"
@@ -47,11 +50,7 @@ class CHTMLEntryDisplay;
   */
 class CSwordModuleInfo : public CPointers  {
 public:
-  enum TextDirection { /* The text direction of the modules's text */
-    LeftToRight,
-    RightToLeft
-  };
-  enum ModuleType {
+	enum ModuleType {
 		Bible,
 		Commentary,
 		Lexicon,
@@ -76,8 +75,7 @@ public:
 		Description, /* The module decsription stored in the config file */
 		ModuleVersion, /* The module's version.*/
 		MinimumSwordVersion, /* The required Sword Version of this module. Otherwise some things may not work (compression etc.).*/
-	  TextDir,	
-    DisplayLevel /* Mostly used for books. Gives the level which should contain the connected entries.*/
+		DisplayLevel /* Mostly used for books. Gives the level which should contain the connected entries.*/
 	};
 	enum Feature {
 		StrongsNumbers, /*Use for Bibles which have embedded strong numbers*/
@@ -177,10 +175,6 @@ public:
   virtual const bool snap() {return false;};
   const bool has( const CSwordModuleInfo::Feature );
 	const bool has( const CSwordBackend::FilterOptions option )	;
-  /**
-  * Returns the text direction of the module's text.,
-  */
-  virtual const CSwordModuleInfo::TextDirection textDirection();
 
 private:
 	SWModule*	m_module;

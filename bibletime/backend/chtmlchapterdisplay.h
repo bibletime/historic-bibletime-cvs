@@ -18,6 +18,9 @@
 #ifndef CHTMLCHAPTERDISPLAY_H
 #define CHTMLCHAPTERDISPLAY_H
 
+#define NO_SWORD_NAMESPACE
+
+
 #include "chtmlentrydisplay.h"
 
 /**
@@ -38,12 +41,6 @@ public:
   * Generates code to display the given modules side by side.
   */
   virtual char Display( QPtrList<CSwordModuleInfo>* moduleList);
-
-protected: // Protected methods
-  /**
-  * Returns the header which should be used for each page.
-  */
-  const QString& header();
 };
 
 #endif

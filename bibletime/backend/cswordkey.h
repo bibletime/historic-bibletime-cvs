@@ -18,6 +18,9 @@
 #ifndef CSWORDKEY_H
 #define CSWORDKEY_H
 
+#define NO_SWORD_NAMESPACE
+
+
 //Own includes
 
 

@@ -22,6 +22,8 @@
 #ifndef GBFHTML_H
 #define GBFHTML_H
 
+#define NO_SWORD_NAMESPACE
+
 #include "bt_basicfilter.h"
 
 class SWKey;
@@ -35,10 +37,14 @@ class BT_GBFHTML : public BT_BASICFILTER{
 public:
   BT_GBFHTML ();
   virtual bool handleToken(char **buf, const char *token, DualStringMap &userData);
+  /** No descriptions */
   virtual char ProcessText(char * text, int maxlen, const SWKey *, const SWModule * = 0);
 
 protected: // Protected methods
-//  virtual void updateTokens();
+  /**
+  * Update the tokens which use changeable setttings.
+  */
+  virtual void updateTokens();
 };
 
 #endif

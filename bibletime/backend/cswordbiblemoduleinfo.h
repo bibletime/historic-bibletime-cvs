@@ -18,6 +18,9 @@
 #ifndef CSWORDBIBLEMODULEINFO_H
 #define CSWORDBIBLEMODULEINFO_H
 
+#define NO_SWORD_NAMESPACE
+
+
 //own includes
 #include "cswordmoduleinfo.h"
 

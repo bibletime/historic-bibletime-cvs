@@ -18,6 +18,9 @@
 #ifndef CSWORDTREEKEYIDX_H
 #define CSWORDTREEKEYIDX_H
 
+#define NO_SWORD_NAMESPACE
+
+
 //BibleTime includes
 #include "cswordkey.h"
 #include "cswordmoduleinfo.h"

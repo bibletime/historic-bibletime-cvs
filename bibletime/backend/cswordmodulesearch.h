@@ -18,6 +18,8 @@
 #ifndef CSWORDMODULESEARCH_H
 #define CSWORDMODULESEARCH_H
 
+#define NO_SWORD_NAMESPACE
+
 //BibleTime includes
 //#include "cswordmoduleinfo.h"
 //#include "../structdef.h"

@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#define NO_SWORD_NAMESPACE 
+ 
 #include "coptionsdialog.h"
 #include "cprofile.h"
 #include "ctoolclass.h"
@@ -66,6 +68,9 @@
 
 //Sword includes
 #include <localemgr.h>
+
+using std::list;
+using std::string;
 
 COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel )
 	: KDialogBase(IconList, i18n("Optionsdialog"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {

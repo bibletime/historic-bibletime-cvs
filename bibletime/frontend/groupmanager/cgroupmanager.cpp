@@ -66,6 +66,8 @@
 #include <kmessagebox.h>
 
 
+using std::cout;
+
 CGroupManager::ToolTip::ToolTip(QWidget* parent) : QToolTip(parent) {
 }
 

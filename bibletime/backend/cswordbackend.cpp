@@ -29,6 +29,7 @@
 #include "bt_gbfhtml.h"
 #include <dirent.h>
 #include <unistd.h>
+#include <string.h>
 
 //Qt includes
 #include <qdir.h>
@@ -45,6 +46,8 @@
 #include <rtfhtml.h>
 #include <filemgr.h>
 #include <utilstr.h>
+
+using std::string;
 
 //static class-wide members
 static QMap<QString, QString> moduleDescriptionMap;

@@ -18,6 +18,9 @@
 #ifndef CHTMLENTRYDISPLAY_H
 #define CHTMLENTRYDISPLAY_H
 
+#define NO_SWORD_NAMESPACE
+
+
 //BibleTime includes
 
 //Qt includes

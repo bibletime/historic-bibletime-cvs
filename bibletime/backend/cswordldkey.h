@@ -19,6 +19,9 @@
 #define CSWORDLDKEY_H
 
 
+#define NO_SWORD_NAMESPACE
+
+
 //own includes
 #include "cswordkey.h"
 #include "cswordmoduleinfo.h"

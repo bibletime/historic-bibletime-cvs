@@ -19,6 +19,9 @@
 #ifndef THMLHTML_H
 #define THMLHTML_H
 
+#define NO_SWORD_NAMESPACE
+
+
 #include "bt_basicfilter.h"
 
 /**

@@ -18,6 +18,8 @@
 #ifndef CSEARCHDIALOGSCOPE_H
 #define CSEARCHDIALOGSCOPE_H
 
+#define NO_SWORD_NAMESPACE
+
 #include <qwidget.h>
 #include <qdialog.h>
 

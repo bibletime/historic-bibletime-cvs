@@ -18,6 +18,9 @@
 #ifndef CSWORDGENBOOKMODULEINFO_H
 #define CSWORDGENBOOKMODULEINFO_H
 
+#define NO_SWORD_NAMESPACE
+
+
 //BibleTime includes
 #include "cswordmoduleinfo.h"
 

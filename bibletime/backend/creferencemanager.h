@@ -18,6 +18,9 @@
 #ifndef CREFERENCEMANAGER_H
 #define CREFERENCEMANAGER_H
 
+#define NO_SWORD_NAMESPACE
+
+
 //Qt includes
 #include <qstring.h>
 

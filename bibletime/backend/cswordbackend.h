@@ -18,6 +18,9 @@
 #ifndef CSWORDBACKEND_H
 #define CSWORDBACKEND_H
 
+#define NO_SWORD_NAMESPACE
+
+
 //BibleTime includes
 //#include "cswordmoduleinfo.h"
 

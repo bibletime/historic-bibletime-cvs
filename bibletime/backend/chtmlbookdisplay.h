@@ -21,6 +21,9 @@
 #include "chtmlentrydisplay.h"
 #include "cswordtreekey.h"
 
+#define NO_SWORD_NAMESPACE
+
+
 class CSwordBookModuleInfo;
 
 /**

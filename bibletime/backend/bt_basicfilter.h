@@ -18,6 +18,8 @@
 #ifndef BT_BASICFILTER_H
 #define BT_BASICFILTER_H
 
+#define NO_SWORD_NAMESPACE
+
 #include <swbasicfilter.h>
 
 class SWKey;
