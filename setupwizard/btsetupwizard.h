@@ -21,12 +21,11 @@
 #include <qwidget.h>
 #include <kmainwindow.h>
 
-class KJanusWidget;
-
 class QLabel;
 class QCheckBox;
 class QListView;
-class QFrame;
+class QWidgetStack;
+class QButton;
 
 class CSwordBackend;
 
@@ -46,10 +45,15 @@ private: // Private methods
   /** No descriptions */
   void populateRemoveModuleListView();
 
-	KJanusWidget* m_mainWidget;
+	QWidgetStack* m_widgetStack;
 
 	QCheckBox* m_startBibleTimeBox;
+
 	QListView* m_removeModuleListView;
+	QLabel* m_populateListNotification;
+	QButton* m_removeBackButton;
+	QButton* m_removeRemoveButton;
+
 	CSwordBackend* m_backend;
 
 	QWidget* m_mainPage;
@@ -61,6 +65,9 @@ private slots: // Private slots
   void slot_backtoMainPage();
   /** No descriptions */
   void slot_gotoRemovePage();
+  /** No descriptions */
+  void slot_doRemoveModules();
+
 };
 
 #endif

@@ -28,13 +28,13 @@
 #include <qlayout.h>
 #include <qlistview.h>
 #include <qfileinfo.h>
+#include <qwidgetstack.h>
 
 //KDE includes
-#include <kjanuswidget.h>
 #include <kiconloader.h>
 #include <kcmdlineargs.h>
 #include <kapplication.h>
-#include <kprogress.h>
+#include <kmessagebox.h>
 
 
 BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(parent,name),
@@ -54,8 +54,8 @@ BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(p
 	mainLayout->addWidget(replaceWithImage);
 
 	mainLayout->addSpacing(20);
-	m_mainWidget = new KJanusWidget(main, 0, KJanusWidget::Swallow);
-  mainLayout->addWidget(m_mainWidget);
+	m_widgetStack = new QWidgetStack(main);
+  mainLayout->addWidget(m_widgetStack);
   setCentralWidget(main);
   
 	addMainPage();
@@ -72,7 +72,9 @@ BTSetupWizard::~BTSetupWizard(){
 /** No descriptions */
 void BTSetupWizard::addMainPage(void){
 
-  m_mainPage = new QWidget(0);//m_mainWidget->addPage(QString("main page") );
+  m_mainPage = new QWidget(0);
+	m_widgetStack->addWidget(m_mainPage);
+
 	m_mainPage->setMinimumSize(500,400);
 
 	QGridLayout* layout = new QGridLayout(m_mainPage, 6, 3);
@@ -150,6 +152,7 @@ void BTSetupWizard::slot_exitRequested(){
 void BTSetupWizard::addRemovePage(){
 
   m_removePage = new QWidget(0);//m_mainWidget->addPage(QString("remove page") );
+	m_widgetStack->addWidget(m_removePage);
 	m_removePage->setMinimumSize(500,400);
 
 	QGridLayout* layout = new QGridLayout(m_removePage, 4, 4);
@@ -168,28 +171,31 @@ void BTSetupWizard::addRemovePage(){
 	QLabel* headingLabel = new QLabel("<b>Select modules to be uninstalled</b>", m_removePage);
 	layout->addMultiCellWidget(headingLabel, 1, 1, 0, 3);
 
+	m_populateListNotification = new QLabel("", m_removePage);
+	layout->addWidget(m_populateListNotification, 3, 2, Qt::AlignCenter);
+
 	m_removeModuleListView = new QListView(m_removePage, "remove modules view");
 	layout->addMultiCellWidget( m_removeModuleListView, 2,2,0,3);
 	m_removeModuleListView->addColumn("Name");
   m_removeModuleListView->addColumn("Location");
 
-  QButton* removeButton = new QPushButton(m_removePage);
-	removeButton->setText( "Remove selected module(s)");
-	layout->addWidget(removeButton, 3, 3, Qt::AlignRight);
+  m_removeRemoveButton = new QPushButton(m_removePage);
+	m_removeRemoveButton->setText( "Remove selected module(s)");
+	layout->addWidget(m_removeRemoveButton, 3, 3, Qt::AlignRight);
 
-  QButton* backButton = new QPushButton(m_removePage);
-	backButton->setText( "Back");
-	layout->addWidget(backButton, 3, 0, Qt::AlignLeft);
+  m_removeBackButton = new QPushButton(m_removePage);
+	m_removeBackButton->setText( "Back");
+	layout->addWidget(m_removeBackButton, 3, 0, Qt::AlignLeft);
 
-	connect(backButton, SIGNAL(clicked()), this, SLOT(slot_backtoMainPage()));
+	connect(m_removeBackButton, SIGNAL(clicked()), this, SLOT(slot_backtoMainPage()));
+	connect(m_removeRemoveButton, SIGNAL(clicked()), this, SLOT(slot_doRemoveModules()));
 
 }
 /** No descriptions */
 void BTSetupWizard::populateRemoveModuleListView(){
 
-//	KProgressDialog progress;
-//	progress.setAllowCancel(false);
-//	progress.show();
+	m_removeBackButton->setEnabled(false);
+	m_removeRemoveButton->setEnabled(false);
 
 	if (m_backend){ //Make sure we have a current list of modules
 		m_backend->shutdownModules();
@@ -218,8 +224,11 @@ void BTSetupWizard::populateRemoveModuleListView(){
 
 	for ( list.first(), mod = 1; list.current(); list.next(), mod++ ){
 
-//		progress.progressBar()->setValue( (modcount*100)/mod );
-//		KApplication::kApplication()->processEvents();
+		if (mod % 20){			
+			m_populateListNotification->setText(QString("Scanning your system: %1%").arg((mod*100)/modcount));
+			KApplication::kApplication()->processEvents();
+		}
+
 		location = list.current()->config( CSwordModuleInfo::AbsoluteDataPath ) ;
 		name = list.current()->name() ;
 
@@ -238,23 +247,51 @@ void BTSetupWizard::populateRemoveModuleListView(){
 			newItem = new QListViewItem(parent, name);
 		newItem->setText(1, location);
   }
-//	progress.done(0);
-
+	m_populateListNotification->setText("");
+	m_removeBackButton->setEnabled(true);
+	m_removeRemoveButton->setEnabled(true);
 }
+
+/** No descriptions */
+void BTSetupWizard::slot_doRemoveModules(){
+	QStringList list;
+	QListViewItem* item1 = 0;
+	QListViewItem* item2 = 0;
+	
+	for (item1 = m_removeModuleListView->firstChild(); item1; item1 = item1->nextSibling())
+		for (item2 = item1->firstChild(); item2; item2 = item2->nextSibling())
+			if ( dynamic_cast<QCheckListItem*>(item2) && dynamic_cast<QCheckListItem*>(item2)->isOn() )
+				list << item2->text(0);
+
+	QString catList;
+
+	for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+		if (!catList.isEmpty())
+			catList += ", ";
+     catList += *it;
+  }
+	QString Message("You selected the following modules: %1.\n\n"
+		"Do you really want to remove them from your system?");
+	Message = Message.arg(catList);
+	if (catList.isEmpty()){
+		KMessageBox::error(0, "No modules selected.", "Error") ;
+	}
+	else if ((KMessageBox::warningYesNo(0, Message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
+//
+// Perform actual removal here.
+//
+	}
+}
+
 /** No descriptions */
 void BTSetupWizard::slot_backtoMainPage(){
-  qWarning("swallow main page");
-	m_mainWidget->setSwallowedWidget(m_mainPage);
-  m_mainWidget->show();
+	m_widgetStack->raiseWidget(m_mainPage);
+  m_mainPage->show();
 }
 
 /** No descriptions */
 void BTSetupWizard::slot_gotoRemovePage(){
-
-	populateRemoveModuleListView();
-
-  qWarning("swallow remove page");  
-  Q_ASSERT(m_removePage);
-  m_mainWidget->setSwallowedWidget(m_removePage);
+  m_widgetStack->raiseWidget(m_removePage);
   m_removePage->show();
+	populateRemoveModuleListView();
 }
