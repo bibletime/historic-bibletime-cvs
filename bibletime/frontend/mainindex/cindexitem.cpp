@@ -262,7 +262,7 @@ const QString CModuleItem::toolTip(){
       + QString::fromLatin1(": <B>%1</B></DIV>").arg( module()->name() )
       + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<B>%1</B><BR>").arg(i18n("Take care, this module contains cult / questionable material!")) : QString::null);
 		text += QString::fromLatin1("<DIV STYLE=\"border-bottom:thin solid black;\">") + module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("</DIV>");
-		text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(module()->language().translatedName());
+		text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(module()->language()->translatedName());
 		if (module()->isEncrypted())
 			text += i18n("Unlock key") + QString::fromLatin1(": %1<BR>")
 				.arg(!module()->config(CSwordModuleInfo::CipherKey).isEmpty() ? module()->config(CSwordModuleInfo::CipherKey) : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
@@ -304,7 +304,7 @@ const QString CModuleItem::aboutInfo(){
 		.arg(i18n("Location"))
 		.arg(module()->config(CSwordModuleInfo::AbsoluteDataPath))
 		.arg(i18n("Language"))
-		.arg(module()->language().translatedName());
+		.arg(module()->language()->translatedName());
 
 	if (module()->isWritable())
 		text += QString::fromLatin1("<b>%1:</b> %2<br>")
@@ -689,9 +689,9 @@ void CTreeFolder::init(){
     };
   }
   else {
-    CLanguageMgr::Language lang = languageMgr()->languageForAbbrev( language() );
+    const CLanguageMgr::Language* const lang = languageMgr()->languageForAbbrev( language() );
     
-    setText(0, !language().isEmpty() ? ( lang.isValid() ? lang.translatedName() : language()) : i18n("Unknown language"));
+    setText(0, !language().isEmpty() ? ( lang->isValid() ? lang->translatedName() : language()) : i18n("Unknown language"));
   }
   initTree();
   update();
@@ -1231,11 +1231,11 @@ void CGlossaryFolder::init(){
     setText(0,i18n("Glossaries"));
   }
   else {
-    CLanguageMgr::Language fromLang = languageMgr()->languageForAbbrev( m_fromLanguage );    
-    CLanguageMgr::Language toLang = languageMgr()->languageForAbbrev( m_toLanguage );
+    const CLanguageMgr::Language* const fromLang = languageMgr()->languageForAbbrev( m_fromLanguage );    
+    const CLanguageMgr::Language* const toLang = languageMgr()->languageForAbbrev( m_toLanguage );
 
-    QString fromLangString  = fromLang.translatedName();
-    QString toLangString    = toLang.translatedName();
+    QString fromLangString  = fromLang->translatedName();
+    QString toLangString    = toLang->translatedName();
         
     if (fromLangString.isEmpty()) { //use abbrev!
       fromLangString = m_fromLanguage;

@@ -24,6 +24,7 @@
 #include <qvaluelist.h>
 #include <qpixmap.h>
 #include <qmap.h>
+#include <qdict.h>
 
 /** Manages the anguages of BibleTime and provides functions to work with them.
   * @author The BibleTime team
@@ -67,30 +68,33 @@ public:
     QStringList* m_altAbbrevs;
   };
 
-  typedef QMap<QString, Language> LangMap;
+  typedef QDict<Language> LangMap;
+  typedef QDictIterator<Language> LangMapIterator;
 
   CLanguageMgr();
 	virtual ~CLanguageMgr();
   /**
   * Returns the standard languages available as standard. Does nothing for Sword.
   */
-  const CLanguageMgr::LangMap& languages() const;
+  const CLanguageMgr::LangMap* const languages() const;
   /**
   * Returns the languages which are available. The languages cover all available modules, but nothing more.
   */
-//  const QStringList availableAbbrevs();
   const CLanguageMgr::LangMap availableLanguages();
-  const CLanguageMgr::Language& languageForAbbrev( const QString& abbrev ) const;
-  const CLanguageMgr::Language& languageForName( const QString& language ) const;
-  const CLanguageMgr::Language& languageForTranslatedName( const QString& language ) const;
+  const CLanguageMgr::Language* const languageForAbbrev( const QString& abbrev ) const;
+  const CLanguageMgr::Language* const languageForName( const QString& language ) const;
+  const CLanguageMgr::Language* const languageForTranslatedName( const QString& language ) const;
 	
-	const CLanguageMgr::Language& defaultLanguage() const;
+	const CLanguageMgr::Language* const defaultLanguage() const;
 
-  void debug();
+  //void debug();
 
 private:
   void init();
-  const QStringList makeStringList(const QString& abbrevs);
+  inline const QStringList makeStringList(const QString& abbrevs) {
+	  return QStringList::split( ";", abbrevs, false );
+	}
+	
   mutable LangMap m_langMap;
 };
 

@@ -50,7 +50,9 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module, CSwordBackend* cons
   m_backend = usedBackend;
 	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString();
 	m_dataCache.isUnicode = module ? module->isUnicode() : false;
-	m_dataCache.isUnicode = UnknownCategory;
+	m_dataCache.category = UnknownCategory;
+	m_dataCache.language = 0;
+	m_dataCache.hasVersion = (*m_backend->getConfig())[name().latin1()]["Version"].length();
 
 	if (backend()) {
 		if (hasVersion() && (minimumSwordVersion() > sword::SWVersion::currentVersion)) {
@@ -97,8 +99,9 @@ CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
 const bool CSwordModuleInfo::isLocked() {
   //still works, but the cipherkey is stored in CBTConfig.
 	//Works because it is set in sword on program startup.
-	if (isEncrypted() && config(CipherKey).isEmpty())
+	if (isEncrypted() && config(CipherKey).isEmpty()) {
 		return true;
+	}
 	return false;
 }
 
@@ -111,8 +114,10 @@ const bool CSwordModuleInfo::isEncrypted()/* const*/ {
 	//This code is still right, though we do no longer write to the module config files any more
 	sword::ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
 	sword::ConfigEntMap::iterator it = config.find("CipherKey");
-	if (it != config.end())
+	if (it != config.end()) {
 		return true;
+	}
+	
 //  if (!config(CipherKey).isEmpty()) {
 //    return true;
 //  };
@@ -120,8 +125,7 @@ const bool CSwordModuleInfo::isEncrypted()/* const*/ {
 }
 
 const bool CSwordModuleInfo::hasVersion() const {
-	const sword::SWBuf version = (*backend()->getConfig())[name().latin1()]["Version"];
-	return version.length();
+	return m_dataCache.hasVersion;
 }
 
 
@@ -312,10 +316,12 @@ const bool CSwordModuleInfo::has( const CSwordBackend::FilterTypes option ){
 
 /** Returns the text direction of the module's text., */
 const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection(){
-  if (config(TextDir) == "RtoL")
+  if (config(TextDir) == "RtoL") {
     return CSwordModuleInfo::RightToLeft;
-  else
+	}
+  else {
     return CSwordModuleInfo::LeftToRight;
+	}
 }
 
 /** Writes the new text at the given position into the module. This does only work for writable modules. */
@@ -336,15 +342,23 @@ const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
 }
 
 /** Returns the language of the module. */
-const CLanguageMgr::Language& CSwordModuleInfo::language() {
-  if (module()) {
-    if (category() == Glossary) {
-      //special handling for glossaries, we use the "from language" as language for the module
-      return languageMgr()->languageForAbbrev( config(GlossaryFrom) );
-    }
-    return languageMgr()->languageForAbbrev( module()->Lang() );
-  }
-  return languageMgr()->defaultLanguage(); //default language
+const CLanguageMgr::Language* const CSwordModuleInfo::language() {
+	if (!m_dataCache.language) {
+	  if (module()) {
+			if (category() == Glossary) {
+				//special handling for glossaries, we use the "from language" as language for the module
+				m_dataCache.language = languageMgr()->languageForAbbrev( config(GlossaryFrom) );
+			}
+			else {
+				m_dataCache.language = languageMgr()->languageForAbbrev( module()->Lang() );
+			}
+		}
+		else {
+			m_dataCache.language = languageMgr()->defaultLanguage(); //default language
+		}
+	}
+	
+	return m_dataCache.language;	
 }
 
 /** Returns true if this module may be written by the write display windows. */

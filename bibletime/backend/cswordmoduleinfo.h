@@ -198,7 +198,7 @@ public:
   /**
   * Returns the language of the module.
   */
-  const CLanguageMgr::Language& language();
+  const CLanguageMgr::Language* const language();
   /**
   * Returns true if this module may be written by the write display windows.
   */
@@ -233,6 +233,8 @@ private:
 		QString name;
 		bool isUnicode;
 		CSwordModuleInfo::Category category;
+		const CLanguageMgr::Language* language;
+		bool hasVersion;
 	} m_dataCache;
 
   CSwordBackend* m_backend;

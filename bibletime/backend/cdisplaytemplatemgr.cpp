@@ -64,15 +64,15 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 
 	QString langCSS;
   CLanguageMgr::LangMap langMap = CPointers::languageMgr()->availableLanguages();
-  CLanguageMgr::LangMap::Iterator it;
-	CLanguageMgr::LangMap::Iterator end = langMap.end();
+//   CLanguageMgr::LangMapIterator it;
+// 	CLanguageMgr::LangMapIterator end = langMap.end();
 	
-  for ( it = langMap.begin(); it != end; ++it ) {
-  	const CLanguageMgr::Language lang = it.data();
-		if (lang.isValid() && CBTConfig::get(lang).first) {
+  for ( CLanguageMgr::LangMapIterator it( langMap ); it.current(); ++it ) {
+  	const CLanguageMgr::Language* lang = it.current();
+		if (lang->isValid() && CBTConfig::get(lang).first) {
 			const QFont f = CBTConfig::get(lang).second;
 			langCSS += QString::fromLatin1("*[lang=%1] { font-family:%2; font-size:%3pt; font-weight:%3; font-style: %4;}\n")
-				.arg(lang.abbrev())
+				.arg(lang->abbrev())
 				.arg(f.family()).arg(f.pointSize())
 				.arg(f.bold() ? "bold" : "normal")
 				.arg(f.italic() ? "italic" : "normal");

@@ -181,7 +181,6 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
 	
 	//taken out of the loop for optimization
 	QString preverseHeading;
-	CLanguageMgr::Language lang;
 	QString langAttr;
 	
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
@@ -191,9 +190,8 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
     isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
 		entry = QString::null;
 
-		lang =  m->language();
-		langAttr = lang.isValid()
-			? QString::fromLatin1("lang=\"%1\"").arg(lang.abbrev()) 
+		langAttr = m->language()->isValid()
+			? QString::fromLatin1("lang=\"%1\"").arg(m->language()->abbrev()) 
 			: QString::null;
 		
 		const QString key_renderedText = key->renderedText();
@@ -271,13 +269,13 @@ void CHTMLExportRendering::initRendering() {
 const QString CHTMLExportRendering::finishText( const QString& text, KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();
 	
-	CLanguageMgr::Language lang = modules.first()->language();
+	const CLanguageMgr::Language* const lang = modules.first()->language();
 	
 	CDisplayTemplateMgr tMgr;
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
-	settings.langAbbrev = ((modules.count() == 1) && lang.isValid())
-		?	lang.abbrev() 
+	settings.langAbbrev = ((modules.count() == 1) && lang->isValid())
+		?	lang->abbrev() 
 		: "unknown";
 
 	return tMgr.fillTemplate(i18n("Export"), text, settings);
@@ -363,13 +361,13 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	}
 */
 	
-	CLanguageMgr::Language lang = modules.first()->language();
+	const CLanguageMgr::Language* const lang = modules.first()->language();
 	
 	CDisplayTemplateMgr tMgr;
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
-	settings.langAbbrev = ((modules.count() == 1) && lang.isValid())
-		?	lang.abbrev() 
+	settings.langAbbrev = ((modules.count() == 1) && lang->isValid())
+		?	lang->abbrev() 
 		: QString::null;
 
 	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), oldText, settings);

@@ -60,9 +60,11 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       if (tag.getAttribute("lang")) {
         const char* abbrev = tag.getAttribute("lang");
 
-        CLanguageMgr::Language language = CPointers::languageMgr()->languageForAbbrev( QString::fromLatin1(abbrev) );
+        const CLanguageMgr::Language* const language = CPointers::languageMgr()->languageForAbbrev( QString::fromLatin1(abbrev) );
 
-        if (language.isValid()) {
+				Q_ASSERT(language);
+				
+        if (language->isValid()) {
           CBTConfig::FontSettingsPair fontSetting = CBTConfig::get(language);
           if (fontSetting.first) {
             const QFont f = fontSetting.second;

@@ -241,11 +241,11 @@ to be displayed correctly.")
   hLayout->addWidget(m_settings.fonts.usage);
 
   CLanguageMgr::LangMap langMap = languageMgr()->availableLanguages();
-  CLanguageMgr::LangMap::Iterator it;
 
-  for ( it = langMap.begin(); it != langMap.end(); ++it ) {
-    const QString name = it.data().translatedName().isEmpty() ? it.data().abbrev() : it.data().translatedName();
-    m_settings.fonts.fontMap.insert(name, CBTConfig::get(it.data()) );
+  for ( CLanguageMgr::LangMapIterator it( langMap ); it.current(); ++it ) {
+    const QString name = it.current()->translatedName().isEmpty() ? it.current()->abbrev() : it.current()->translatedName();
+    
+		m_settings.fonts.fontMap.insert(name, CBTConfig::get(it.current()) );
   }
 
   for( QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
@@ -821,11 +821,15 @@ void COptionsDialog::saveDisplayStyle(){
 /** No descriptions */
 void COptionsDialog::saveFonts(){
 	for(QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
-    CLanguageMgr::Language lang = languageMgr()->languageForTranslatedName(it.key());
-    if (!lang.isValid()) { //we probably use a language, for which we have only the abbrev
-      lang = CLanguageMgr::Language(it.key(), it.key(), it.key());
+    const CLanguageMgr::Language* const lang = languageMgr()->languageForTranslatedName(it.key());
+    if (!lang->isValid()) { //we probably use a language, for which we have only the abbrev
+      CLanguageMgr::Language l(it.key(), it.key(), it.key());
+	    CBTConfig::set(&l, it.data());
+
     }
-    CBTConfig::set(lang, it.data());
+		else {
+    	CBTConfig::set(lang, it.data());
+		}
  	}
 }
 

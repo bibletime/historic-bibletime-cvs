@@ -916,9 +916,9 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 		}
 
 		//now we know the category, find the right language group in that category
-		CLanguageMgr::Language lang = list.current()->language();
-		QString langName = lang.translatedName();
-		if (!lang.isValid()) {
+		const CLanguageMgr::Language* const lang = list.current()->language();
+		QString langName = lang->translatedName();
+		if (!lang->isValid()) {
 			langName = QString::fromLatin1(list.current()->module()->Lang());
 		}
 
@@ -1051,15 +1051,18 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 		}
 
 		//now we know the category, find the right language group in that category
-		CLanguageMgr::Language lang = newModule->language();
-		QString langName = lang.translatedName();
-		if (!lang.isValid())
+		const CLanguageMgr::Language* const lang = newModule->language();
+		QString langName = lang->translatedName();
+		if (!lang->isValid()) {
 			langName = QString::fromLatin1(newModule->module()->Lang());
+		}
 
 		QListViewItem * langFolder = parent->firstChild();
     while( langFolder ) { //try to find language folder if it exsists
-			if (langFolder->text(0) == langName) //found right folder
+			if (langFolder->text(0) == langName) { //found right folder
 				break;
+			}
+			
 			langFolder = langFolder->nextSibling();
 		}
 

@@ -171,9 +171,11 @@ void CModuleChooserButton::populateMenu(){
   };
 
 	for (modules.first(); modules.current(); modules.next()) {
- 		QString lang = modules.current()->language().translatedName();
- 		if (lang.isEmpty())
+ 		QString lang = modules.current()->language()->translatedName();
+ 		if (lang.isEmpty()) {
  			lang = QString::fromLatin1("xx"); //unknown language -- not use English as default!!
+		}
+		
  	 	if (languages.find( lang ) == languages.end() ){ //not yet added
  			languages += lang;
  			KPopupMenu* menu = new KPopupMenu;
@@ -185,12 +187,13 @@ void CModuleChooserButton::populateMenu(){
 
 	//Check the appropriate entry
 	for (modules.first(); modules.current(); modules.next()) {
- 		QString lang = modules.current()->language().translatedName();
- 		if (lang.isEmpty())
+ 		QString lang = modules.current()->language()->translatedName();
+ 		if (lang.isEmpty()) {
  			lang = QString::fromLatin1("xx"); //unknown language
- 		QString name = QString(modules.current()->name()) + QString(" ")+
- 			(modules.current()->isLocked() ? i18n("[locked]") : QString::null); 			
- 		int id = langdict[lang]->insertItem( name );
+		}
+		
+ 		QString name = QString(modules.current()->name()) + QString(" ") + (modules.current()->isLocked() ? i18n("[locked]") : QString::null); 			
+ 		const int id = langdict[lang]->insertItem( name );
  		if ( m_module && modules.current()->name() == m_module->name()) {
  			langdict[lang]->setItemChecked(id,true);
  		}

@@ -243,11 +243,11 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
 }
 
 
-const QString CBTConfig::getKey( const CLanguageMgr::Language& language ){
-	return language.name();
+const QString CBTConfig::getKey( const CLanguageMgr::Language* const language ){
+	return language->name();
 }
 
-const QFont CBTConfig::getDefault( const CLanguageMgr::Language& ){
+const QFont CBTConfig::getDefault( const CLanguageMgr::Language* const){
   //language specific lookup of the font name
   return KApplication::font();
 }
@@ -312,7 +312,7 @@ const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
   return getDefault(ID);
 }
 
-const CBTConfig::FontSettingsPair	CBTConfig::get( const CLanguageMgr::Language& language ){
+const CBTConfig::FontSettingsPair	CBTConfig::get( const CLanguageMgr::Language* const language ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "font standard settings");
 
@@ -397,7 +397,7 @@ void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap 
 }
 
 
-void CBTConfig::set( const CLanguageMgr::Language& language, const FontSettingsPair& value ){
+void CBTConfig::set( const CLanguageMgr::Language* const language, const FontSettingsPair& value ){
 	KConfig* config = KGlobal::config();
 
   KConfigGroupSaver groupSaver(config, "fonts");

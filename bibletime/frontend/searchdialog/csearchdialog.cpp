@@ -439,7 +439,7 @@ void CModuleChooser::initTree(){
     QString language = QString::null;
     CLanguageMgr* langMgr = languageMgr();
     for ( QStringList::Iterator it = langs.begin(); it != langs.end(); ++it ) {
-      language = langMgr->languageForAbbrev(*it).translatedName();
+      language = langMgr->languageForAbbrev(*it)->translatedName();
       if (language.isEmpty()) {
         language = (*it);
       }

@@ -112,7 +112,7 @@ public:
   static const QStringList	get( const CBTConfig::stringLists );
   static const CBTConfig::StringMap	get( const CBTConfig::stringMaps );
 
-  static const FontSettingsPair	get( const CLanguageMgr::Language& );
+  static const FontSettingsPair	get( const CLanguageMgr::Language* const );
 
 	static const QString	getDefault( const CBTConfig::strings );
 	static const bool		getDefault( const CBTConfig::bools );
@@ -120,7 +120,7 @@ public:
 	static const QValueList<int> getDefault( const CBTConfig::intLists );
 	static const QStringList getDefault( const CBTConfig::stringLists );
 	static const CBTConfig::StringMap getDefault( const CBTConfig::stringMaps );
-  static const QFont getDefault( const CLanguageMgr::Language& );
+  static const QFont getDefault( const CLanguageMgr::Language* const );
 
 	static void set( const CBTConfig::strings, 	const QString value );
 	static void set( const CBTConfig::bools, 		const bool value );
@@ -128,7 +128,7 @@ public:
 	static void set( const CBTConfig::intLists,	const QValueList<int> value );
   static void set( const CBTConfig::stringLists, const QStringList value);
   static void set( const CBTConfig::stringMaps, const CBTConfig::StringMap value);
-  static void	set( const CLanguageMgr::Language& language, const FontSettingsPair& fontSettings );    
+  static void	set( const CLanguageMgr::Language* const language, const FontSettingsPair& fontSettings );    
 
   static const CSwordBackend::FilterOptions getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
@@ -144,7 +144,7 @@ private:
 	static const QString getKey( const CBTConfig::intLists );
 	static const QString getKey( const CBTConfig::stringLists );
 	static const QString getKey( const CBTConfig::stringMaps );
-	static const QString getKey( const CLanguageMgr::Language& );    
+	static const QString getKey( const CLanguageMgr::Language* const );    
 };
 
 
