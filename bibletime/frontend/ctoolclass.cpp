@@ -91,7 +91,7 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 		ret = true;
 	}
 	else {
-		KMessageBox::error(0, "<qt>Sory! But the file couldn't be saved!<BR><B>Please check permissions etc. !</B></qt>");
+		KMessageBox::error(0, "<qt>Sorry! But the file couldn't be saved!<BR><B>Please check permissions etc. !</B></qt>");
 		saveFile.close();		
 		ret = false;		
 	}	
