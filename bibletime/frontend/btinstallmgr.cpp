@@ -272,12 +272,13 @@ BTInstallMgr::~BTInstallMgr() {
 }
 
 void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
+// 	qWarning("statusUpdate");
 // 	qWarning("total: %f of %f; now: %f of %f", dltotal, m_totalBytes, dlnow, m_totalBytes);
 	if (dlnow > dltotal)
 		dlnow = dltotal;
 		
 //   int totalPercent = (int)((float)(dlnow + m_completedBytes+1) / (float)(m_totalBytes) * 100);
-	int totalPercent = (int)((float)(dlnow + m_completedBytes+1) / (float)(m_totalBytes) * 100);
+	int totalPercent = (int)((float)(dlnow + m_completedBytes) / (float)(m_totalBytes) * 100.0);
 
 	if (totalPercent > 100) {
 		totalPercent = 100;
@@ -286,7 +287,7 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
 		totalPercent = 0;
 	}
 
-  int filePercent  = (int)((float)(dlnow + 1) / (float)(dltotal) * 100);
+  int filePercent  = (int)((float)(dlnow) / (float)(dltotal+1) * 100.0);
 	if (filePercent > 100) {
 		filePercent = 100;
 	}
@@ -294,13 +295,14 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
 		filePercent = 0;
 	}
 
-//   emit completed(dlnow, 0.0);
+// 	qWarning("end1");
 	emit completed(totalPercent, filePercent);
+// 	qWarning("end2");
 //   KApplication::kApplication()->processEvents();
 }
 
 void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* message) {
-	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
+// 	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
 	emit downloadStarted( "unknown filename" );
 
 // 	qWarning("sword: %s", message);

@@ -24,9 +24,10 @@ namespace InstallationManager {
 bool finishedDownload = false;
 
 KIO_FTPTransport::KIO_FTPTransport(const char *host, sword::StatusReporter *statusReporter )
-	: QObject(), sword::FTPTransport(host, statusReporter) 
+	: QObject(), 
+		sword::FTPTransport(host, statusReporter),
+		m_totalSize(-1)
 {
-
 }
 
  
@@ -38,7 +39,7 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 		false
 	);	
 	
-	statusReporter->statusUpdate(100.0, 0.0); //completed
+// 	statusReporter->statusUpdate(100.0, 0.0); //completed
 	
 	KIO::Job* job = KIO::copy(
 		KURL(QString::fromLocal8Bit(sourceURL)),
@@ -49,13 +50,29 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 	//make sure to wait as long as the job is working
 	finishedDownload = false;
 	const int progressID = job->progressId();
-	connect(job, SIGNAL(result(KIO::Job*)), this, SLOT(slotCopyResult(KIO::Job*)));
-	connect(job, SIGNAL(percent(KIO::Job*, unsigned long)), this, SLOT(slotCopyPercent(KIO::Job*, unsigned long)));
+	connect(
+		job, SIGNAL(result(KIO::Job*)),
+		this, SLOT(slotCopyResult(KIO::Job*))
+	);
+	connect(
+		job, SIGNAL(totalSize(KIO::Job*, KIO::filesize_t)),
+		this, SLOT(slotTotalSize(KIO::Job*, KIO::filesize_t))
+	);
+	connect(
+		job, SIGNAL(processedSize(KIO::Job*, KIO::filesize_t)),
+		this, SLOT(slotCopyProgress(KIO::Job*, KIO::filesize_t))
+	);
+	
 	while (!finishedDownload) {
-		KApplication::kApplication()->processEvents(10);
+		KApplication::kApplication()->processEvents(1);
+		if (term) {
+			if (job)
+				job->kill(false);
+// 			break; //kill(false) emits an result signal
+		}
 	}
 
-	statusReporter->statusUpdate(100.0, 100.0); //completed
+	statusReporter->statusUpdate(m_totalSize, m_totalSize); //completed
 
 	if (!m_copyResults.contains(progressID)) {
 		return 1; //Error
@@ -66,6 +83,12 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 	return 0;
 }
 
+void KIO_FTPTransport::slotTotalSize(KIO::Job *job, KIO::filesize_t size) {
+// 	qWarning("got total size of %d", (int)size);
+	if (size > 0)
+		m_totalSize = size;
+}
+
 void KIO_FTPTransport::slotCopyResult(KIO::Job *job) {
 	m_copyResults.insert(job->progressId(),job->error());
 	finishedDownload = true;
@@ -73,21 +96,21 @@ void KIO_FTPTransport::slotCopyResult(KIO::Job *job) {
 	if ( job->error() ) {
 //       job->showErrorDialog( 0 );
 	}
-	
-
 }
 
-void KIO_FTPTransport::slotCopyPercent(KIO::Job *job, unsigned long percent) {
-	qWarning("%d percent", percent);
-	statusReporter->statusUpdate(100.0, double(percent));
+void KIO_FTPTransport::slotCopyProgress(KIO::Job *job, KIO::filesize_t processedSize) {
+// 	qWarning("%d progressed size", (int)processedSize);
+	if (m_totalSize > 0) {
+		statusReporter->statusUpdate(m_totalSize, processedSize);
+	}
 }
 
 std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
-	qWarning("dirlist %s", dirURL);
+// 	qWarning("dirlist %s", dirURL);
 	KDirLister lister;
 	lister.openURL(KURL(dirURL));
 	while (!lister.isFinished()) {
-		KApplication::kApplication()->processEvents();
+		KApplication::kApplication()->processEvents(1);
 	}
 	
 	std::vector< struct ftpparse > ret;
