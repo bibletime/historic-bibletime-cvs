@@ -193,7 +193,8 @@ int main(int argc, char* argv[]) {
 		// a new BibleTime version was installed (maybe a completely new installation)
 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
 			CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
-			HTML_DIALOG(HELPDIALOG_FIRST_START);
+			CHTMLDialog dlg(HELPDIALOG_FIRST_START);
+			dlg.exec();
 			bibletime->slotSettingsOptions();
 		}			
 

@@ -41,9 +41,10 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	m_initialized(false)
 
 {		
-	for (backend()->moduleList()->first(); backend()->moduleList()->current(); backend()->moduleList()->next()) {
-		if (backend()->moduleList()->current()->type() == CSwordModuleInfo::Lexicon) {
-			m_lexiconPopup->insertItem( backend()->moduleList()->current()->name() );
+	ListCSwordModuleInfo& modules =  backend()->moduleList();
+	for (modules.first(); modules.current(); modules.next()) {
+		if (modules.current()->type() == CSwordModuleInfo::Lexicon) {
+			m_lexiconPopup->insertItem( modules.current()->name() );
 		}
 	}	
 	connect(m_lexiconPopup, SIGNAL(activated(int)),this, SLOT(lookupWord(int)));

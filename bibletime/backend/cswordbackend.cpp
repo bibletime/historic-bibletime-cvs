@@ -50,25 +50,23 @@
 static QMap<QString, QString> moduleDescriptionMap;
 
 CSwordBackend::CSwordBackend()
-	: SWMgr(0,0,false,new EncodingFilterMgr( ENC_UTF8 )),
-	m_errorCode(noError),
-	m_entryDisplay(0),	
-	m_chapterDisplay(0),
-	m_bookDisplay(0),	
-	m_moduleList(0),
-	m_gbfFilter(0),
-	m_plainTextFilter(0),
-	m_thmlFilter(0)
+	: SWMgr(0,0,false,new EncodingFilterMgr( ENC_UTF8 ))
 {	
+	m_displays.entry = 0;
+	m_displays.chapter = 0;
+	m_displays.book = 0;
 
+	m_filters.gbf = 0;
+	m_filters.thml = 0;
+	m_filters.plain = 0;
 }
 
 CSwordBackend::~CSwordBackend(){
 	shutdownModules();	
 	//delete filters
-	delete m_gbfFilter;
-	delete m_plainTextFilter;	
-	delete m_thmlFilter;	
+	delete m_filters.gbf;
+	delete m_filters.plain;	
+	delete m_filters.thml;	
 	
 	//delete display objects??
 //	delete m_entryDisplay;
@@ -76,65 +74,43 @@ CSwordBackend::~CSwordBackend(){
 //	delete m_bookDisplay;
 }
 
-#define CHECK_HTML_CHAPTER_DISLPAY \
-	if (!m_chapterDisplay) \
-		m_chapterDisplay = new CHTMLChapterDisplay();
-
-#define CHECK_HTML_ENTRY_DISLPAY \
-	if (!m_entryDisplay) \
-		m_entryDisplay = new CHTMLEntryDisplay();
-
-#define CHECK_HTML_BOOK_DISLPAY \
-	if (!m_bookDisplay) \
-		m_bookDisplay = new CHTMLBookDisplay();
-				
 /** Initializes the Sword modules. */
-const CSwordBackend::ErrorCode CSwordBackend::initModules() {
+const SWMgr::LoadError CSwordBackend::initModules() {
+	SWMgr::LoadError ret = SWMgr::NoError;
+
 	ModMap::iterator it;
 	SWModule*	curMod = 0;
 	CSwordModuleInfo* newModule = 0;
-	if (!m_moduleList)
-		m_moduleList = new ListCSwordModuleInfo();
 		 	
  	shutdownModules(); //remove previous modules
- 	m_moduleList->clear();	
+ 	m_moduleList.clear();	
 
+	ret = Load();
 	for (it = Modules.begin(); it != Modules.end(); it++) {
 		curMod = (*it).second;
 		if (!strcmp(curMod->Type(), "Biblical Texts")) {
 			newModule = new CSwordBibleModuleInfo(curMod);
-			CHECK_HTML_CHAPTER_DISLPAY	//a macro to check the chapter display			
-			newModule->module()->Disp(m_chapterDisplay);
+			newModule->module()->Disp(m_displays.chapter ? m_displays.chapter : (m_displays.chapter = new CHTMLChapterDisplay));
 		} else if (!strcmp(curMod->Type(), "Commentaries")) {
 			newModule = new CSwordCommentaryModuleInfo(curMod);
-			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display
-			newModule->module()->Disp(m_entryDisplay);
+			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CHTMLEntryDisplay));
 		} else if (!strcmp(curMod->Type(), "Lexicons / Dictionaries")) {
 			newModule = new CSwordLexiconModuleInfo(curMod);
-			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
-			newModule->module()->Disp(m_entryDisplay);
+			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CHTMLEntryDisplay));
 		} else if (!strcmp(curMod->Type(), "Generic Books")) {
 			newModule = new CSwordBookModuleInfo(curMod);
-			CHECK_HTML_BOOK_DISLPAY	//a macro to check the book display			
-			newModule->module()->Disp(m_bookDisplay);
+			newModule->module()->Disp(m_displays.book ? m_displays.book : (m_displays.book = new CHTMLBookDisplay));
 		}
-
 		if (newModule)	//append the new modules to our list
-			m_moduleList->append( newModule );
-	}	
-	if (m_moduleList->count() == 0)
-		m_errorCode = noModulesAvailable;
-		
-//module are now available, fill the static lists
-	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
-		moduleDescriptionMap.insert(m_moduleList->current()->config(CSwordModuleInfo::Description), m_moduleList->current()->name());
+			m_moduleList.append( newModule );
 	}
 
-	return m_errorCode;
+	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+		moduleDescriptionMap.insert(m_moduleList.current()->config(CSwordModuleInfo::Description), m_moduleList.current()->name());
+	}
+
+	return ret;
 }
-#undef CHECK_HTML_CHAPTER_DISPLAY
-#undef CHECK_HTML_ENTRY_DISPLAY
-#undef CHECK_HTML_BOOK_DISPLAY
 
 void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	string sourceformat;
@@ -146,31 +122,31 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	moduleDriver = ((entry = section.find("ModDrv")) != section.end()) ? (*entry).second : (string) "";
 
 	if (!stricmp(sourceformat.c_str(), "GBF")) {
-		if (!m_gbfFilter)
-			m_gbfFilter = new BT_GBFHTML();
-		module->AddRenderFilter(m_gbfFilter);
+		if (!m_filters.gbf)
+			m_filters.gbf = new BT_GBFHTML();
+		module->AddRenderFilter(m_filters.gbf);
 		noDriver = false;
 	}
 
 	if (!stricmp(sourceformat.c_str(), "PLAIN")) {
-		if (!m_plainTextFilter)
-			m_plainTextFilter = new PLAINHTML();	
-		module->AddRenderFilter(m_plainTextFilter);
+		if (!m_filters.plain)
+			m_filters.plain = new PLAINHTML();	
+		module->AddRenderFilter(m_filters.plain);
 		noDriver = false;
 	}
 
 	if (!stricmp(sourceformat.c_str(), "ThML")) {
-		if (!m_thmlFilter)
-			m_thmlFilter = new BT_ThMLHTML();
-		module->AddRenderFilter(m_thmlFilter);
+		if (!m_filters.thml)
+			m_filters.thml = new BT_ThMLHTML();
+		module->AddRenderFilter(m_filters.thml);
 		noDriver = false;
 	}
 
 	if (noDriver){
 		if (!stricmp(moduleDriver.c_str(), "RawCom") || !stricmp(moduleDriver.c_str(), "RawLD")) {
-			if (!m_plainTextFilter)
-				m_plainTextFilter = new PLAINHTML();
-			module->AddRenderFilter(m_plainTextFilter);
+			if (!m_filters.plain)
+				m_filters.plain = new PLAINHTML();
+			module->AddRenderFilter(m_filters.plain);
 			noDriver = false;
 		}
 	}
@@ -178,14 +154,14 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 
 /** This function deinitializes the modules and deletes them. */
 const bool CSwordBackend::shutdownModules(){
-	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
-		if (m_moduleList->current()) {
-			CSwordModuleInfo* current = m_moduleList->current();
-			m_moduleList->removeRef(current);
+	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+		if (m_moduleList.current()) {
+			CSwordModuleInfo* current = m_moduleList.current();
+			m_moduleList.removeRef(current);
 			delete current;
 		}		
 	}
-	m_moduleList->clear();	
+	m_moduleList.clear();	
 	return true;
 }
 
@@ -212,10 +188,10 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptionsBool opt
 }
 
 void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptionsBool options){
-  if (m_entryDisplay)
-		m_entryDisplay->setDisplayOptions(options);	
-  if (m_chapterDisplay)
-		m_chapterDisplay->setDisplayOptions(options);	
+  if (m_displays.entry)
+		m_displays.entry->setDisplayOptions(options);	
+  if (m_displays.chapter)
+		m_displays.chapter->setDisplayOptions(options);	
 }
 
 
@@ -223,86 +199,86 @@ void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptionsBool o
 	* that BibleTime isn't closed when
 	* mods.d wasn't found.
 	*/
-void CSwordBackend::Load() {
-	if (!config) {	// If we weren't passed a config object at construction, find a config file
-		if (!configPath)	// If we weren't passed a config path at construction...
-			findConfig(&configType, &prefixPath, &configPath);
-		if (configPath) {
-			if (configType)
-				loadConfigDir(configPath);
-			else	config = myconfig = new SWConfig(configPath);
-		}
-	}
-
-	if (config) {
-		SectionMap::iterator Sectloop, Sectend;
-		ConfigEntMap::iterator Entryloop, Entryend;
-
-		DeleteMods();
-
-		for (Sectloop = config->Sections.lower_bound("Globals"), Sectend = config->Sections.upper_bound("Globals"); Sectloop != Sectend; Sectloop++) {		// scan thru all 'Globals' sections
-			for (Entryloop = (*Sectloop).second.lower_bound("AutoInstall"), Entryend = (*Sectloop).second.upper_bound("AutoInstall"); Entryloop != Entryend; Entryloop++)	// scan thru all AutoInstall entries
-				InstallScan((*Entryloop).second.c_str());		// Scan AutoInstall entry directory for new modules and install
-		}		
-		if (configType) {	// force reload on config object because we may have installed new modules
-			delete myconfig;
-			config = myconfig = 0;
-			loadConfigDir(configPath);
-		}
-		else	config->Load();
-
-		CreateMods();
-
-//	augment config with ~/.sword/mods.d if it exists ---------------------
-			char *envhomedir  = getenv ("HOME");
-			if (envhomedir != NULL && configType != 2) { // 2 = user only
-				string path = envhomedir;
-				if ((envhomedir[strlen(envhomedir)-1] != '\\') && (envhomedir[strlen(envhomedir)-1] != '/'))
-					path += "/";
-				path += ".sword/";
-				if (FileMgr::existsDir(path.c_str(), "mods.d")) {
-					char *savePrefixPath = 0;
-					char *saveConfigPath = 0;
-					SWConfig *saveConfig = 0;
-					stdstr(&savePrefixPath, prefixPath);
-					stdstr(&prefixPath, path.c_str());
-					path += "mods.d";
-					stdstr(&saveConfigPath, configPath);
-					stdstr(&configPath, path.c_str());
-					saveConfig = config;
-					config = myconfig = 0;
-					loadConfigDir(configPath);
-
-					CreateMods();
-
-					stdstr(&prefixPath, savePrefixPath);
-					delete []savePrefixPath;
-					stdstr(&configPath, saveConfigPath);
-					delete []saveConfigPath;
-					(*saveConfig) += *config;
-					homeConfig = myconfig;
-					config = myconfig = saveConfig;
-				}
-			}
-// -------------------------------------------------------------------------
-  }
-	else {
-		if (!configPath)
-			m_errorCode = noSwordModuleConfigDirectory;
-		else
-			m_errorCode = noModulesAvailable;	
-		qWarning("BibleTime: Can't find 'mods.conf' or 'mods.d'. Please setup /etc/sword.conf! Read the documentation on www.bibletime.de how to do this!");
-	}
-//	if ( (access("/etc/sword.conf",R_OK) == -1) && !strlen(getenv("SWORD_PATH")))
-//		m_errorCode = noSwordConfigFile;
-}
+//void CSwordBackend::Load() {
+//	if (!config) {	// If we weren't passed a config object at construction, find a config file
+//		if (!configPath)	// If we weren't passed a config path at construction...
+//			findConfig(&configType, &prefixPath, &configPath);
+//		if (configPath) {
+//			if (configType)
+//				loadConfigDir(configPath);
+//			else	config = myconfig = new SWConfig(configPath);
+//		}
+//	}
+//
+//	if (config) {
+//		SectionMap::iterator Sectloop, Sectend;
+//		ConfigEntMap::iterator Entryloop, Entryend;
+//
+//		DeleteMods();
+//
+//		for (Sectloop = config->Sections.lower_bound("Globals"), Sectend = config->Sections.upper_bound("Globals"); Sectloop != Sectend; Sectloop++) {		// scan thru all 'Globals' sections
+//			for (Entryloop = (*Sectloop).second.lower_bound("AutoInstall"), Entryend = (*Sectloop).second.upper_bound("AutoInstall"); Entryloop != Entryend; Entryloop++)	// scan thru all AutoInstall entries
+//				InstallScan((*Entryloop).second.c_str());		// Scan AutoInstall entry directory for new modules and install
+//		}		
+//		if (configType) {	// force reload on config object because we may have installed new modules
+//			delete myconfig;
+//			config = myconfig = 0;
+//			loadConfigDir(configPath);
+//		}
+//		else	config->Load();
+//
+//		CreateMods();
+//
+////	augment config with ~/.sword/mods.d if it exists ---------------------
+//			char *envhomedir  = getenv ("HOME");
+//			if (envhomedir != NULL && configType != 2) { // 2 = user only
+//				string path = envhomedir;
+//				if ((envhomedir[strlen(envhomedir)-1] != '\\') && (envhomedir[strlen(envhomedir)-1] != '/'))
+//					path += "/";
+//				path += ".sword/";
+//				if (FileMgr::existsDir(path.c_str(), "mods.d")) {
+//					char *savePrefixPath = 0;
+//					char *saveConfigPath = 0;
+//					SWConfig *saveConfig = 0;
+//					stdstr(&savePrefixPath, prefixPath);
+//					stdstr(&prefixPath, path.c_str());
+//					path += "mods.d";
+//					stdstr(&saveConfigPath, configPath);
+//					stdstr(&configPath, path.c_str());
+//					saveConfig = config;
+//					config = myconfig = 0;
+//					loadConfigDir(configPath);
+//
+//					CreateMods();
+//
+//					stdstr(&prefixPath, savePrefixPath);
+//					delete []savePrefixPath;
+//					stdstr(&configPath, saveConfigPath);
+//					delete []saveConfigPath;
+//					(*saveConfig) += *config;
+//					homeConfig = myconfig;
+//					config = myconfig = saveConfig;
+//				}
+//			}
+//// -------------------------------------------------------------------------
+//  }
+//	else {
+//		if (!configPath)
+//			m_errorCode = noSwordModuleConfigDirectory;
+//		else
+//			m_errorCode = noModulesAvailable;	
+//		qWarning("BibleTime: Can't find 'mods.conf' or 'mods.d'. Please setup /etc/sword.conf! Read the documentation on www.bibletime.de how to do this!");
+//	}
+////	if ( (access("/etc/sword.conf",R_OK) == -1) && !strlen(getenv("SWORD_PATH")))
+////		m_errorCode = noSwordConfigFile;
+//}
 
 /** This function searches for a module with the specified description */
 CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& description){
-  if (m_moduleList && m_moduleList->count())
-    for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
-      if ( m_moduleList->current()->config(CSwordModuleInfo::Description) == description )
-        return m_moduleList->current();
+  if (m_moduleList.count())
+    for ( m_moduleList.first();m_moduleList.current();m_moduleList.next() )
+      if ( m_moduleList.current()->config(CSwordModuleInfo::Description) == description )
+        return m_moduleList.current();
   return 0;
 }
 
@@ -315,10 +291,10 @@ const QString CSwordBackend::findModuleNameByDescription(const QString& descript
 
 /** This function searches for a module with the specified name */
 CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name){
-  if (m_moduleList && m_moduleList->count())
-    for ( m_moduleList->first(); m_moduleList->current(); m_moduleList->next() )
-      if ( m_moduleList->current()->name() == name )
-        return m_moduleList->current();
+  if (m_moduleList.count())
+    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() )
+      if ( m_moduleList.current()->name() == name )
+        return m_moduleList.current();
   return 0;
 }
 

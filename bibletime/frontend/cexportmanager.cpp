@@ -52,7 +52,7 @@ const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module,
 	if (!file.isEmpty()) {
 		QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );	
 		progress.setProgress(0);	
-		progress.setMinimumDuration(0);	
+		progress.setMinimumDuration(10);	
 		progress.show();
 	
 		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
@@ -91,7 +91,7 @@ const bool CExportManager::saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo
 	
 		QProgressDialog progress( label, i18n("Cancel"), list.count(), 0,"progress", true );	
 		progress.setProgress(0);	
-		progress.setMinimumDuration(0);	
+		progress.setMinimumDuration(10);	
 		progress.show();
 
 		QString text;	
@@ -132,7 +132,7 @@ const bool CExportManager::copyKey( CSwordKey* key, const bool withText ) {
 const bool CExportManager::copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
 	QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );	
 	progress.setProgress(0);	
-	progress.setMinimumDuration(0);	
+	progress.setMinimumDuration(10);	
 	progress.show();
 	
 	QString text;	
@@ -168,7 +168,7 @@ const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& st
 const bool CExportManager::printKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool showProgress ){
 	QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );	
 	progress.setProgress(0);	
-	progress.setMinimumDuration(0);	
+	progress.setMinimumDuration(10);	
 	progress.show();
 	
 	int index = 0;	

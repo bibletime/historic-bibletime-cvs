@@ -3,10 +3,8 @@ libfrontend_a_METASOURCES = AUTO
 noinst_LIBRARIES = libfrontend.a
 
 libfrontend_a_SOURCES = \
-cmdiarea.cpp \
-kstartuplogo.cpp \
-chtmlwidget.cpp \
 chtmldialog.cpp \
+chtmlwidget.cpp \
 ctoolclass.cpp \
 cbtconfig.cpp \
 cinputdialog.cpp \
@@ -14,8 +12,10 @@ coptionsdialog.cpp \
 cprofilemgr.cpp \
 cprofile.cpp \
 cprofilewindow.cpp \
-cpointers.cpp \
-cexportmanager.cpp
+cexportmanager.cpp \
+cmdiarea.cpp \
+kstartuplogo.cpp \
+cpointers.cpp
 
 all_headers=cmdiarea.h \
 kstartuplogo.h \
@@ -38,5 +38,7 @@ keychooser \
 presenters \
 searchdialog \
 thirdparty
+
+
 
 

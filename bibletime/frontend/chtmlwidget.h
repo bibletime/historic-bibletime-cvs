@@ -21,7 +21,8 @@
 //BibleTime includes
 #include "cpointers.h"
 #include "../backend/cswordbackend.h"
-#define private public
+
+#define private public // It's a really bad hack, but I don't know how to do it in another way
 #include "thirdparty/qt3stuff/qtextedit.h"
 #undef private
 
@@ -47,7 +48,7 @@ class KColorButton;
 	* management and to support verse references and the like.
   * @author The BibleTime Team
   */
-class CHTMLWidget : public QTextEdit, public CPointers {
+class CHTMLWidget : public Qt3::QTextEdit, public CPointers {
    Q_OBJECT
    friend class CHTMLDialog;
 

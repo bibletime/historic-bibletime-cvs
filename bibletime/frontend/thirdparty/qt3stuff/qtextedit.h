@@ -35,21 +35,21 @@
 **
 **********************************************************************/
 
-#ifndef QTEXTEDIT_H
-#define QTEXTEDIT_H
+#ifndef QT3_QTEXTEDIT_H
+#define QT3_QTEXTEDIT_H
 
 #ifndef QT_H
 #include "qlist.h"
 #include "qpixmap.h"
 #include "qcolor.h"
-#include "qtextview.h"
 #endif // QT_H
+
+#include "qtextview.h"
 
 #ifndef QT_NO_TEXTEDIT
 
-// This class is out of the Qt3 namespace on purpose : it will make code
-// more easy to port to Qt 3. The other classes are inside Qt3 because otherwise
-// they would conflict with Qt 2.
+namespace Qt3 {
+
 class Q_EXPORT QTextEdit : public Qt3::QTextView
 {
     Q_OBJECT
@@ -157,232 +157,234 @@ private:	// Disabled copy constructor and operator=
 #endif
 };
 
-inline void QTextEdit::getCursorPosition( int &parag, int &index ) const
+};
+
+inline void Qt3::QTextEdit::getCursorPosition( int &parag, int &index ) const
 {
     Qt3::QTextView::getCursorPosition( parag, index );
 }
 
-inline bool QTextEdit::isModified() const
+inline bool Qt3::QTextEdit::isModified() const
 {
     return Qt3::QTextView::isModified();
 }
 
-inline bool QTextEdit::italic() const
+inline bool Qt3::QTextEdit::italic() const
 {
     return Qt3::QTextView::italic();
 }
 
-inline bool QTextEdit::bold() const
+inline bool Qt3::QTextEdit::bold() const
 {
     return Qt3::QTextView::bold();
 }
 
-inline bool QTextEdit::underline() const
+inline bool Qt3::QTextEdit::underline() const
 {
     return Qt3::QTextView::underline();
 }
 
-inline QString QTextEdit::family() const
+inline QString Qt3::QTextEdit::family() const
 {
     return Qt3::QTextView::family();
 }
 
-inline int QTextEdit::pointSize() const
+inline int Qt3::QTextEdit::pointSize() const
 {
     return Qt3::QTextView::pointSize();
 }
 
-inline QColor QTextEdit::color() const
+inline QColor Qt3::QTextEdit::color() const
 {
     return Qt3::QTextView::color();
 }
 
-inline QFont QTextEdit::font() const
+inline QFont Qt3::QTextEdit::font() const
 {
     return Qt3::QTextView::font();
 }
 
-inline int QTextEdit::alignment() const
+inline int Qt3::QTextEdit::alignment() const
 {
     return Qt3::QTextView::alignment();
 }
 
-inline bool QTextEdit::isOverwriteMode() const
+inline bool Qt3::QTextEdit::isOverwriteMode() const
 {
     return Qt3::QTextView::isOverwriteMode();
 }
 
-inline int QTextEdit::undoDepth() const
+inline int Qt3::QTextEdit::undoDepth() const
 {
     return Qt3::QTextView::undoDepth();
 }
 
-inline void QTextEdit::insert( const QString &text, bool indent, bool checkNewLine, bool removeSelected )
+inline void Qt3::QTextEdit::insert( const QString &text, bool indent, bool checkNewLine, bool removeSelected )
 {
     Qt3::QTextView::insert( text, indent, checkNewLine, removeSelected );
 }
 
-inline void QTextEdit::setOverwriteMode( bool b )
+inline void Qt3::QTextEdit::setOverwriteMode( bool b )
 {
     Qt3::QTextView::setOverwriteMode( b );
 }
 
-inline void QTextEdit::undo()
+inline void Qt3::QTextEdit::undo()
 {
     Qt3::QTextView::undo();
 }
 
-inline void QTextEdit::redo()
+inline void Qt3::QTextEdit::redo()
 {
     Qt3::QTextView::redo();
 }
 
-inline void QTextEdit::cut()
+inline void Qt3::QTextEdit::cut()
 {
     Qt3::QTextView::cut();
 }
 
-inline void QTextEdit::paste()
+inline void Qt3::QTextEdit::paste()
 {
     Qt3::QTextView::paste();
 }
 
-inline void QTextEdit::pasteSubType( const QCString &subtype )
+inline void Qt3::QTextEdit::pasteSubType( const QCString &subtype )
 {
     Qt3::QTextView::pasteSubType( subtype );
 }
 
-inline void QTextEdit::clear()
+inline void Qt3::QTextEdit::clear()
 {
     Qt3::QTextView::clear();
 }
 
-inline void QTextEdit::del()
+inline void Qt3::QTextEdit::del()
 {
     Qt3::QTextView::del();
 }
 
-inline void QTextEdit::indent()
+inline void Qt3::QTextEdit::indent()
 {
     Qt3::QTextView::indent();
 }
 
-inline void QTextEdit::setItalic( bool b )
+inline void Qt3::QTextEdit::setItalic( bool b )
 {
     Qt3::QTextView::setItalic( b );
 }
 
-inline void QTextEdit::setBold( bool b )
+inline void Qt3::QTextEdit::setBold( bool b )
 {
     Qt3::QTextView::setBold( b );
 }
 
-inline void QTextEdit::setUnderline( bool b )
+inline void Qt3::QTextEdit::setUnderline( bool b )
 {
     Qt3::QTextView::setUnderline( b );
 }
 
-inline void QTextEdit::setFamily( const QString &f )
+inline void Qt3::QTextEdit::setFamily( const QString &f )
 {
     Qt3::QTextView::setFamily( f );
 }
 
-inline void QTextEdit::setPointSize( int s )
+inline void Qt3::QTextEdit::setPointSize( int s )
 {
     Qt3::QTextView::setPointSize( s );
 }
 
-inline void QTextEdit::setColor( const QColor &c )
+inline void Qt3::QTextEdit::setColor( const QColor &c )
 {
     Qt3::QTextView::setColor( c );
 }
 
-inline void QTextEdit::setFont( const QFont &f )
+inline void Qt3::QTextEdit::setFont( const QFont &f )
 {
     Qt3::QTextView::setFontInternal( f );
 }
 
-inline void QTextEdit::setAlignment( int a )
+inline void Qt3::QTextEdit::setAlignment( int a )
 {
     Qt3::QTextView::setAlignment( a );
 }
 
-inline void QTextEdit::setParagType( Qt3::QStyleSheetItem::DisplayMode dm, Qt3::QStyleSheetItem::ListStyle listStyle )
+inline void Qt3::QTextEdit::setParagType( Qt3::QStyleSheetItem::DisplayMode dm, Qt3::QStyleSheetItem::ListStyle listStyle )
 {
     Qt3::QTextView::setParagType( dm, listStyle );
 }
 
-inline void QTextEdit::setCursorPosition( int parag, int index )
+inline void Qt3::QTextEdit::setCursorPosition( int parag, int index )
 {
     Qt3::QTextView::setCursorPosition( parag, index );
 }
 
-inline void QTextEdit::setSelection( int parag_from, int index_from, int parag_to, int index_to, int selNum )
+inline void Qt3::QTextEdit::setSelection( int parag_from, int index_from, int parag_to, int index_to, int selNum )
 {
     Qt3::QTextView::setSelection( parag_from, index_from, parag_to, index_to, selNum );
 }
 
-inline void QTextEdit::setSelectionAttributes( int selNum, const QColor &back, bool invertText )
+inline void Qt3::QTextEdit::setSelectionAttributes( int selNum, const QColor &back, bool invertText )
 {
     Qt3::QTextView::setSelectionAttributes( selNum, back, invertText );
 }
 
-inline void QTextEdit::setModified( bool m )
+inline void Qt3::QTextEdit::setModified( bool m )
 {
     Qt3::QTextView::setModified( m );
 }
 
-inline void QTextEdit::resetFormat()
+inline void Qt3::QTextEdit::resetFormat()
 {
     Qt3::QTextView::resetFormat();
 }
 
-inline void QTextEdit::setUndoDepth( int d )
+inline void Qt3::QTextEdit::setUndoDepth( int d )
 {
     Qt3::QTextView::setUndoDepth( d );
 }
 
-inline void QTextEdit::setFormat( Qt3::QTextFormat *f, int flags )
+inline void Qt3::QTextEdit::setFormat( Qt3::QTextFormat *f, int flags )
 {
     Qt3::QTextView::setFormat( f, flags );
 }
 
-inline void QTextEdit::ensureCursorVisible()
+inline void Qt3::QTextEdit::ensureCursorVisible()
 {
     Qt3::QTextView::ensureCursorVisible();
 }
 
-inline void QTextEdit::placeCursor( const QPoint &pos, Qt3::QTextCursor *c )
+inline void Qt3::QTextEdit::placeCursor( const QPoint &pos, Qt3::QTextCursor *c )
 {
     Qt3::QTextView::placeCursor( pos, c );
 }
 
-inline void QTextEdit::moveCursor( MoveDirection direction, bool shift, bool control )
+inline void Qt3::QTextEdit::moveCursor( MoveDirection direction, bool shift, bool control )
 {
     Qt3::QTextView::moveCursor( (MoveDirectionPrivate)direction, shift, control );
 }
 
-inline void QTextEdit::moveCursor( MoveDirection direction, bool control )
+inline void Qt3::QTextEdit::moveCursor( MoveDirection direction, bool control )
 {
     Qt3::QTextView::moveCursor( (MoveDirectionPrivate)direction, control );
 }
 
-inline void QTextEdit::removeSelectedText()
+inline void Qt3::QTextEdit::removeSelectedText()
 {
     Qt3::QTextView::removeSelectedText();
 }
 
-inline void QTextEdit::doKeyboardAction( KeyboardAction action )
+inline void Qt3::QTextEdit::doKeyboardAction( KeyboardAction action )
 {
     Qt3::QTextView::doKeyboardAction( (KeyboardActionPrivate)action );
 }
 
-inline Qt3::QTextCursor *QTextEdit::textCursor() const
+inline Qt3::QTextCursor *Qt3::QTextEdit::textCursor() const
 {
     return cursor;
 }
 
-inline bool QTextEdit::getFormat( int parag, int index, QFont &font, QColor &color )
+inline bool Qt3::QTextEdit::getFormat( int parag, int index, QFont &font, QColor &color )
 {
     return Qt3::QTextView::getFormat( parag, index, font, color );
 }

@@ -152,7 +152,6 @@ void COptionsDialog::renameProfile(){
 
 /** Opens the page which contaisn the given part ID. */
 const bool COptionsDialog::showPart(  COptionsDialog::Parts ID ){
-#warning "Add the necessary case statements"
 	bool ret = false;
 	switch (ID) {
 		case COptionsDialog::ViewProfiles:
@@ -562,11 +561,11 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	gridLayout->setRowStretch(8,5);							
 		
  	//fill the comboboxes with the right modules
- 	ListCSwordModuleInfo* modules = backend()->moduleList();
+ 	ListCSwordModuleInfo& modules = backend()->moduleList();
 	QString modDescript;
-  for ( modules->first(); modules->current(); modules->next() ) {
-		modDescript = modules->current()->config(CSwordModuleInfo::Description);
- 		switch (modules->current()->type()) {
+  for ( modules.first(); modules.current(); modules.next() ) {
+		modDescript = modules.current()->config(CSwordModuleInfo::Description);
+ 		switch (modules.current()->type()) {
  			case CSwordModuleInfo::Bible:
  				m_settings.sword.standardBible->insertItem(modDescript);
  				break;
@@ -576,16 +575,16 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  			case CSwordModuleInfo::Lexicon:
  			{
 				m_settings.sword.standardLexicon->insertItem(modDescript);
- 				if (modules->current()->has(CSwordModuleInfo::HebrewDef)) {
+ 				if (modules.current()->has(CSwordModuleInfo::HebrewDef)) {
 					m_settings.sword.standardHebrewStrong->insertItem(modDescript);				
  				}
- 				if (modules->current()->has(CSwordModuleInfo::GreekDef)) {
+ 				if (modules.current()->has(CSwordModuleInfo::GreekDef)) {
 					m_settings.sword.standardGreekStrong->insertItem(modDescript);				
  				}
- 				if (modules->current()->has(CSwordModuleInfo::HebrewParse)) {
+ 				if (modules.current()->has(CSwordModuleInfo::HebrewParse)) {
 					m_settings.sword.standardHebrewMorph->insertItem(modDescript);				
  				}
- 				if (modules->current()->has(CSwordModuleInfo::GreekParse)) {
+ 				if (modules.current()->has(CSwordModuleInfo::GreekParse)) {
 					m_settings.sword.standardGreekMorph->insertItem(modDescript);				
  				}
  				break;

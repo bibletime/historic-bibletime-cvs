@@ -35,8 +35,8 @@
 **
 **********************************************************************/
 
-#ifndef QSTYLESHEET_H
-#define QSTYLESHEET_H
+#ifndef QT3_QSTYLESHEET_H
+#define QT3_QSTYLESHEET_H
 
 #ifndef QT_H
 #include "qnamespace.h"

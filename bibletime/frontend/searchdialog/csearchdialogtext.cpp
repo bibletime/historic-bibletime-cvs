@@ -47,7 +47,7 @@
 
 
 CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
-						: QWidget(parent, name, 48)
+	: QWidget(parent, name, 48)
 {
 	/* the first main Group - search text, options etc.*/
 	QGroupBox *textBox = new QGroupBox(2,Qt::Vertical,i18n("Search properties"),this,"textBox");
@@ -136,12 +136,10 @@ CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 }
 
 CSearchDialogText::~CSearchDialogText() {
-	qWarning("CSearchDialogText::~CSearchDialogText()");
 	saveSettings();
 }
 	
 const QString CSearchDialogText::getText() const {
-//	qWarning("m_editCombo: %s", m_editCombo->currentText().latin1());
 	return m_editCombo->currentText();
 }
 

@@ -251,7 +251,8 @@ void CSearchDialog::show(){
 	KDialogBase::show();
 
 	if ( CBTConfig::get(CBTConfig::firstSearchDialog) ){
-		HTML_DIALOG(HELPDIALOG_FIRSTTIME_SEARCH)
+		CHTMLDialog dlg(HELPDIALOG_FIRSTTIME_SEARCH);
+		dlg.exec();
 		CBTConfig::set(CBTConfig::firstSearchDialog, false);
 	}			
 }

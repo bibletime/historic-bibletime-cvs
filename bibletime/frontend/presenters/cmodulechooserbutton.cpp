@@ -50,10 +50,10 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
 	m_popup->insertItem(i18n("NONE"));
 	m_popup->insertSeparator();	
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));
-	ListCSwordModuleInfo* modules = backend()->moduleList();
-	for (modules->first(); modules->current(); modules->next()) {
-		if (modules->current()->type() == m_moduleType) {
-			m_popup->insertItem( modules->current()->name() );
+	ListCSwordModuleInfo& modules = backend()->moduleList();
+	for (modules.first(); modules.current(); modules.next()) {
+		if (modules.current()->type() == m_moduleType) {
+			m_popup->insertItem( modules.current()->name() );
 		}
 	}	
 	//Check the appropriate entry

@@ -38,24 +38,19 @@
 //KDE includes
 #include <klocale.h>
 
-#define OUTER_BORDER 5
-#define INNER_BORDER 5
-
-
-
 CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *name )
 	: KPrintDialogPage(parent,name), m_printer(printer) {
 	setTitle(i18n("Styles"));
 
 //  QFrame *page = addPage( i18n("Layout"), i18n("Layout specific settings") );
-  QVBoxLayout *topLayout = new QVBoxLayout( this, OUTER_BORDER, INNER_BORDER );
+  QVBoxLayout *topLayout = new QVBoxLayout( this, 5, 5 );
   	
   QButtonGroup *group = new QButtonGroup( i18n("Margins (in millimeter)"), this );
   QWhatsThis::add(group, WT_PD_LAYOUT_BORDER);
   topLayout->addWidget( group, 0 );
 
-  QGridLayout *gbox = new QGridLayout( group, 4, 2, OUTER_BORDER, INNER_BORDER );
-  gbox->addRowSpacing( 0, group->fontMetrics().height()-INNER_BORDER );
+  QGridLayout *gbox = new QGridLayout( group, 4, 2, 5, 5 );
+  gbox->addRowSpacing( 0, group->fontMetrics().height()-5 );
 
   const QString name[4] = {i18n("&Top"),i18n("&Bottom"),i18n("&Left"), i18n("&Right") };
   for( int i=0; i<4; i++ ) {
@@ -97,9 +92,9 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
   m_marginSpin[2]->setRange(0, 100);	//left margin
   m_marginSpin[3]->setRange(0, 100);	//right margin
 
-  QHBoxLayout *entryLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
-  QVBoxLayout *styleLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
-  QVBoxLayout *buttonLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
+  QHBoxLayout *entryLayout = new QHBoxLayout( 0, 5, 5 );
+  QVBoxLayout *styleLayout = new QVBoxLayout( 0, 5, 5 );
+  QVBoxLayout *buttonLayout = new QVBoxLayout( 0, 5, 5 );
   	
   m_styleList = new CStyleList( m_printer, &(m_printer->styleList()), this, "CStyleList1");
 	connect(m_styleList, SIGNAL(currentChanged(QListViewItem*)), SLOT(currentStyleChanged(QListViewItem*)));
@@ -200,8 +195,8 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
 {
 	setTitle(i18n("Print queue"));
 
-  QVBoxLayout *topLayout = new QVBoxLayout( this, OUTER_BORDER, INNER_BORDER );
-  QVBoxLayout *entryLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
+  QVBoxLayout *topLayout = new QVBoxLayout( this, 5, 5 );
+  QVBoxLayout *entryLayout = new QVBoxLayout( 0, 5, 5 );
   QLabel*	label = 0;
 
   m_styleComboBox = new QComboBox( this, "styleComboBox" );
@@ -210,12 +205,12 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
   connect(m_styleComboBox, SIGNAL(activated(const QString&)), SLOT(slotListApplyStyle(const QString&)));
 
   label = new QLabel( m_styleComboBox, i18n("Choose a style"), this);
-  QHBoxLayout*	hboxLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
+  QHBoxLayout*	hboxLayout = new QHBoxLayout( 0, 5, 5 );
   hboxLayout->addWidget( label );
   hboxLayout->addWidget( m_styleComboBox );
   topLayout->addLayout( hboxLayout );
 
-  hboxLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
+  hboxLayout = new QHBoxLayout( 0, 5, 5 );
 
   m_printItemList = new CPrintItemList( &(m_printer->printQueue()), this, "CPrintItemList1");
 	QToolTip::add(m_printItemList, TT_PD_ENTRIES_PI_LIST);
@@ -226,7 +221,7 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
   entryLayout->addWidget( m_printItemList );
   hboxLayout->addLayout(entryLayout);
 
-  QVBoxLayout *buttonLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
+  QVBoxLayout *buttonLayout = new QVBoxLayout( 0, 5, 5 );
   m_moveUpButton = new QToolButton(this);
  	m_moveUpButton->setOnIconSet( SmallIcon("up"));
 	m_moveUpButton->setOffIconSet( SmallIcon("up"));	

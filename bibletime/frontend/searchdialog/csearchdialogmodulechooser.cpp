@@ -51,7 +51,7 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(QWidget *parent, const ch
 
 	QHBoxLayout* chooserLayout = new QHBoxLayout();
 	  		
-	m_moduleIndex = new CGroupManager(this, "module index", backend()->moduleList(), false, false, false, false, false, false);	
+	m_moduleIndex = new CGroupManager(this, "module index", &backend()->moduleList(), false, false, false, false, false, false);	
 	QWhatsThis::add(m_moduleIndex, WT_SD_MODULECHOOSER);
 	
 	m_moduleList = new QListBox(this);

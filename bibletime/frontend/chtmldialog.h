@@ -63,12 +63,5 @@ private:
 	KComboBox* m_historyCombo;
 };
 
-#define HTML_DIALOG(filename) \
-{ \
-	CHTMLDialog *dlg = new CHTMLDialog( filename, 0, "HTML_DIALOG" ); \
-	dlg->exec(); \
-	delete dlg; \
-};
-
 #endif
 

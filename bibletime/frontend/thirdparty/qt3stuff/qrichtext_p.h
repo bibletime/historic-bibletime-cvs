@@ -34,8 +34,8 @@
 **
 **********************************************************************/
 
-#ifndef QRICHTEXT_P_H
-#define QRICHTEXT_P_H
+#ifndef QT3_QRICHTEXT_P_H
+#define QT3_QRICHTEXT_P_H
 
 //
 //  W A R N I N G

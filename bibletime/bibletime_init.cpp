@@ -295,40 +295,45 @@ void BibleTime::initBackends(){
 	
 	m_backend = new CSwordBackend();	
 	CPointers::setBackend(m_backend);
-	m_backend->Load();
-	const CSwordBackend::ErrorCode errorCode = m_backend->initModules();
+	const SWMgr::LoadError errorCode = m_backend->initModules();
+	qWarning("ErrorCode = %i", errorCode);
 
 	m_moduleList = 0;		
-	if ( errorCode == CSwordBackend::noError ) {	//no error
-		m_moduleList = m_backend->moduleList();
+	if ( errorCode == CSwordBackend::NoError ) {	//no error
+		m_moduleList = &(m_backend->moduleList());
 	} else {
 		m_moduleList = 0;
 		//show error message that initBackend failed		
 		switch (errorCode) {
-			case CSwordBackend::noModulesAvailable:			
-				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULES);
+			case CSwordBackend::NoModuleConfig: //mods.d or mods.conf missing
+			{
+				KStartupLogo::hideSplash();
+				CHTMLDialog dlg(HELPDIALOG_NO_SWORD_MODULE_CONFIG_DIR);
+				dlg.exec();				
+				KStartupLogo::showSplash();				
 				break;
-// --- The following pages are not yet available ---
-/*			case CSwordBackend::noSwordConfigFile:
-				HTML_DIALOG(HELPDIALOG_NO_SWORD_CONFIG);
+	    }
+	
+			case CSwordBackend::NoModules: //no modules installed, but config exists
+			{
+				KStartupLogo::hideSplash();
+				CHTMLDialog dlg(HELPDIALOG_NO_SWORD_MODULES);
+				dlg.exec();
+				KStartupLogo::showSplash();				
 				break;
-			case CSwordBackend::noSwordModuleDirectory:
-				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULES_DIR);
-				break;		
-*/
-			case CSwordBackend::noSwordModuleConfigDirectory:
-				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULE_CONFIG_DIR);				
-				break;						
-			default:
-				HTML_DIALOG(HELPDIALOG_INITBACKEND_FAILED);
+		  }
+		
+			default: //unknown error
+			{
+				KStartupLogo::hideSplash();
+				CHTMLDialog dlg(HELPDIALOG_INITBACKEND_FAILED);
+				dlg.exec();
+				KStartupLogo::showSplash();				
 				break;
+		  }
 		}
 	}
-
-	//initialize international bookname language
-	const QString language = CBTConfig::get(CBTConfig::language);
-	m_backend->booknameLanguage(language);
-	ASSERT(m_moduleList);
+	m_backend->booknameLanguage( CBTConfig::get(CBTConfig::language) );
 }
 
 /** Initializes the CPrinter object. */

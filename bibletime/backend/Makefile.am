@@ -1,4 +1,4 @@
-KDE_OPTIONS = foreign
+KDE_OPTIONS = qt-only
 libbackend_a_METASOURCES = AUTO
 noinst_LIBRARIES = libbackend.a
 
@@ -10,7 +10,8 @@ chtmlchapterdisplay.cpp \
 chtmlentrydisplay.cpp \
 chtmlbookdisplay.cpp \
 cswordbackend.cpp \
-cswordkey.cpp cswordldkey.cpp \
+cswordkey.cpp \
+cswordldkey.cpp \
 cswordversekey.cpp \
 cswordmoduleinfo.cpp \
 cswordlexiconmoduleinfo.cpp \
@@ -21,8 +22,7 @@ cswordtreekey.cpp \
 creferencemanager.cpp \
 bt_thmlhtml.cpp \
 bt_gbfhtml.cpp \
-bt_basicfilter.cpp \
-bt_rwphtml.cpp
+bt_basicfilter.cpp 
 
 all_headers = cswordbiblemoduleinfo.h \
 cswordcommentarymoduleinfo.h \
@@ -41,8 +41,7 @@ cswordbookmoduleinfo.h \
 cswordtreekey.h \
 bt_thmlhtml.h \
 bt_gbfhtml.h \
-bt_basicfilter.h \
-bt_rwphtml.h
+bt_basicfilter.h
 
 EXTRA_DIST = $(libbackend_a_SOURCES) $(all_headers)
 

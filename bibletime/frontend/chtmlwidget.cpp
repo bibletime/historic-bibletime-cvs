@@ -138,7 +138,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 }
 
 CHTMLWidget::CHTMLWidget(const bool useColorsAndFonts,QWidget *parent, const char *name )
-	: QTextEdit(parent, name),m_moduleList( new ListCSwordModuleInfo ) {
+	: Qt3::QTextEdit(parent, name),m_moduleList( new ListCSwordModuleInfo ) {
 	
 	m_popup = 0;
 	m_anchor = QString::null;
@@ -298,13 +298,13 @@ void CHTMLWidget::slotSaveAsText(){
 
 //**  */
 void CHTMLWidget::contentsDragEnterEvent(QDragEnterEvent* e){
-	QTextEdit::contentsDragEnterEvent(e);
+	Qt3::QTextEdit::contentsDragEnterEvent(e);
   e->accept(QTextDrag::canDecode(e));
 }
 
 /**  */
 void CHTMLWidget::contentsDragMoveEvent(QDragMoveEvent* e){
-	QTextEdit::contentsDragMoveEvent(e);
+	Qt3::QTextEdit::contentsDragMoveEvent(e);
   e->accept(QTextDrag::canDecode(e));
 }
 
@@ -354,7 +354,7 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
   m_pressedPos = e->pos();
   m_anchor = anchorAt(e->pos());
 	viewport()->setCursor(anchorAt(e->pos()).isEmpty() ? arrowCursor : KCursor::handCursor() );
-	QTextEdit::contentsMousePressEvent(e);
+	Qt3::QTextEdit::contentsMousePressEvent(e);
 		
  	if (!onLink.isEmpty() && (e->button() == RightButton) && m_anchorMenu) {	//popup installed menu 	
 		m_anchorMenu->exec( e->globalPos() );
@@ -530,19 +530,19 @@ void CHTMLWidget::slotSaveDocument(){
 
 /** No descriptions */
 void CHTMLWidget::slotToggleBold(){
-	QTextEdit::setBold( !bold() );
+	Qt3::QTextEdit::setBold( !bold() );
 	m_boldAction->setChecked(bold());	
 }
 
 /** No descriptions */
 void CHTMLWidget::slotToggleItalic(){
-	QTextEdit::setItalic(!italic() );
+	Qt3::QTextEdit::setItalic(!italic() );
 	m_italicAction->setChecked(italic());	
 }
 
 /** No descriptions */
 void CHTMLWidget::slotToggleUnderline(){
-	QTextEdit::setUnderline( !underline() );
+	Qt3::QTextEdit::setUnderline( !underline() );
 	m_underlineAction->setChecked(underline());		
 }
 
@@ -721,18 +721,16 @@ void CHTMLWidget::setSource(const QString& name){
 
 /** Is called if a link was highlighted. Normally a signal should be emitted. */
 void CHTMLWidget::emitHighlighted( const QString& s ){
-//	qWarning("%s was highlighted at %i|%i", s.latin1(), m_hoverPos.x(), m_hoverPos.y());
-
 }
 
 /** Returns the document used by this widget */
 Qt3::QTextDocument* CHTMLWidget::getDocument() const{
-	return QTextEdit::document();
+	return Qt3::QTextEdit::document();
 }
 
 /** Places the cursor at position pos */
 void CHTMLWidget::placeCursor( const QPoint &pos, Qt3::QTextCursor *c ){
-	QTextEdit::placeCursor(pos, c);
+	Qt3::QTextEdit::placeCursor(pos, c);
 }
 
 /** Returns a list of modules which are used by the display window which uses this HTML widget. */

@@ -35,8 +35,8 @@
 **
 **********************************************************************/
 
-#ifndef QTEXTVIEW_H
-#define QTEXTVIEW_H
+#ifndef QT3_QTEXTVIEW_H
+#define QT3_QTEXTVIEW_H
 
 #ifndef QT_H
 #include "qscrollview.h"
@@ -54,10 +54,10 @@ class QTimer;
 class QFont;
 class QColor;
 class QPopupMenu;
-class QTextEdit;
 
 namespace Qt3 {
-
+		class QTextEdit;
+		
     class QTextString;
     class QTextCommand;
     class QTextParag;
@@ -70,7 +70,7 @@ namespace Qt3 {
 
 class Q_EXPORT QTextView : public QScrollView
 {
-    friend class ::QTextEdit;
+    friend class QTextEdit;
     friend class QTextBrowser;
 
     Q_OBJECT

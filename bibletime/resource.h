@@ -274,7 +274,7 @@
 //define HelpDialog aliases for defines
 #define HELPDIALOG_MODULE_LOCKED				"bibletime/helpdialog/help-module-encrypted.html"
 #define HELPDIALOG_FIRST_START					"bibletime/helpdialog/help-first-startup.html"
-#define HELPDIALOG_NO_SWORD_MODULES				"bibletime/helpdialog/help-no_modules.html"
+#define HELPDIALOG_NO_SWORD_MODULES				"bibletime/helpdialog/help-no-modules.html"
 //#define HELPDIALOG_NO_SWORD_MODULES_DIR				"bibletime/helpdialog/help_no_sword_modules_dir.html"
 #define HELPDIALOG_NO_SWORD_MODULE_CONFIG_DIR	"bibletime/helpdialog/help-no-mods-d.html"
 //#define HELPDIALOG_NO_SWORD_CONFIG						"bibletime/helpdialog/help_no_sword_config.html"

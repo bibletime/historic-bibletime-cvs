@@ -523,8 +523,8 @@
 /*! Constructs a QTextEdit. The \a parent and \a name arguments are as
   for QWidget. */
 
-QTextEdit::QTextEdit( QWidget *parent, const char *name )
-    : QTextView( parent, name )
+Qt3::QTextEdit::QTextEdit( QWidget *parent, const char *name )
+    : Qt3::QTextView( parent, name )
 {
 #ifndef QT_NO_CURSOR
     viewport()->setCursor( ibeamCursor );
@@ -533,7 +533,7 @@ QTextEdit::QTextEdit( QWidget *parent, const char *name )
 
 /*! \reimp */
 
-QTextEdit::~QTextEdit()
+Qt3::QTextEdit::~QTextEdit()
 {
 }
 

@@ -80,14 +80,14 @@ public:
 		bool lineBreaks;
 		bool verseNumbers;
 	};
-  enum ErrorCode {
-		noError,
-		noSwordConfigFile,
-		noSwordModuleDirectory,
-		noSwordModuleConfigDirectory,
-		noModulesAvailable,
-		unknown
-	};
+//  enum ErrorCode {
+//		noError,
+//		noSwordConfigFile,
+//		noSwordModuleDirectory,
+//		noSwordModuleConfigDirectory,
+//		noModulesAvailable,
+//		unknown
+//	};
 
 	/**
 	* The constructor of the Sword backend.
@@ -105,13 +105,13 @@ public:
   *	
   *	@return The list of modules managed by this backend
   */
-  virtual ListCSwordModuleInfo* const moduleList() const;
+  virtual ListCSwordModuleInfo& moduleList();
   /**
   * Initializes the Sword modules.
   *
   *	@return True if the initializiation was succesful, otherwise return false.
   */
-  virtual const ErrorCode initModules();
+  virtual const SWMgr::LoadError initModules();
   /**
   * This function deinitializes the modules and deletes them.
   *
@@ -136,7 +136,7 @@ public:
 	/**
 	*
 	*/
-	virtual void Load();
+//	virtual void Load();
   /**
   * Sets the language for the international booknames of Sword.
   */
@@ -194,18 +194,22 @@ protected:
 	
 private:
 	//filters
-	SWFilter *m_gbfFilter;
-	SWFilter *m_plainTextFilter;
-	SWFilter *m_thmlFilter;		
-	ListCSwordModuleInfo* m_moduleList;
-	ErrorCode m_errorCode;
-	CHTMLChapterDisplay* 	m_chapterDisplay;	
-	CHTMLEntryDisplay* 		m_entryDisplay;	
-	CHTMLBookDisplay* 		m_bookDisplay;	
+	struct {
+		SWFilter *gbf;
+		SWFilter *plain;
+		SWFilter *thml;		
+	} m_filters;
+	ListCSwordModuleInfo m_moduleList;
+
+	struct {
+		CHTMLChapterDisplay* 	chapter;
+		CHTMLEntryDisplay* 		entry;
+		CHTMLBookDisplay* 		book;
+	} m_displays;
 };
 
 /**Returns The list of modules managed by this backend*/
-inline ListCSwordModuleInfo* const CSwordBackend::moduleList() const {
+inline ListCSwordModuleInfo& CSwordBackend::moduleList() {
 	return m_moduleList;
 }
 

@@ -36,9 +36,6 @@
 #include <qradiobutton.h>
 #include <qspinbox.h>
 
-#define INNER_BORDER 4
-#define OUTER_BORDER 4
-
 CStyleEditorDialog::CStyleEditorDialog(CStyle* style, QWidget *parent, const char *name )
 	: KDialogBase(parent,name, true, i18n("style editor")) {
 	m_style = style;
@@ -60,9 +57,9 @@ void CStyleEditorDialog::initView(){
   QFrame *mainWidget = makeMainWidget();
   QLabel* label = 0;
 
-  QVBoxLayout *topLayout = new QVBoxLayout( mainWidget, OUTER_BORDER, INNER_BORDER );
+  QVBoxLayout *topLayout = new QVBoxLayout( mainWidget, 5, 5 );
 	
-	QHBoxLayout *hboxLayout = new QHBoxLayout(0, OUTER_BORDER, INNER_BORDER);
+	QHBoxLayout *hboxLayout = new QHBoxLayout(0, 5, 5);
   m_styleNameEdit = new QLineEdit( mainWidget );
 	label = new QLabel(m_styleNameEdit, i18n("Name of style:"), this);
 	hboxLayout->addWidget(label);
@@ -70,7 +67,7 @@ void CStyleEditorDialog::initView(){
 
   topLayout->addLayout(hboxLayout);
 
-	hboxLayout = new QHBoxLayout(0, OUTER_BORDER, INNER_BORDER);	
+	hboxLayout = new QHBoxLayout(0, 5, 5);	
   m_styleTypeChooser = new KComboBox( mainWidget, "styleTypeChooser" );
   label = new QLabel( m_styleTypeChooser, i18n("Choose the part of the style:"), mainWidget );
   hboxLayout->addWidget(label);
@@ -89,7 +86,7 @@ void CStyleEditorDialog::initView(){
   topLayout->addLayout( hboxLayout );
 
 
-	hboxLayout = new QHBoxLayout(0, OUTER_BORDER, INNER_BORDER);
+	hboxLayout = new QHBoxLayout(0, 5, 5);
 	topLayout->addLayout(hboxLayout);
 
   m_alignRadios.buttongroup = new QVButtonGroup( mainWidget );
@@ -101,7 +98,7 @@ void CStyleEditorDialog::initView(){
   hboxLayout->addWidget( m_alignRadios.buttongroup );
 
 	QButtonGroup* box = new QButtonGroup( mainWidget );
-	QVBoxLayout* boxLayout = new QVBoxLayout( box, OUTER_BORDER, INNER_BORDER );
+	QVBoxLayout* boxLayout = new QVBoxLayout( box, 5, 5 );
 	
 	QHBoxLayout* layout1 = new QHBoxLayout(0, 1, 1);
 	m_colors.foregroundChooser = new KColorButton( box );

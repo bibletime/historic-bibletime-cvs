@@ -861,8 +861,10 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 					  	
 	  	if (m_pressedItem->moduleInfo()->isEncrypted()) {
   			KConfigGroupSaver groupSaver(m_config, "Groupmanager");
-	  		if (m_showHelpDialogs && !m_config->readBoolEntry(QString::fromLatin1("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->name()), false))
-	  			HTML_DIALOG(HELPDIALOG_MODULE_LOCKED);
+	  		if (m_showHelpDialogs && !m_config->readBoolEntry(QString::fromLatin1("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->name()), false)) {
+					CHTMLDialog dlg(HELPDIALOG_MODULE_LOCKED);
+					dlg.exec();				
+				}
 	  		if (m_showHelpDialogs)
 	  			m_config->writeEntry(QString::fromLatin1("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->name()), true);
 	  	}
