@@ -5,11 +5,14 @@
 <section ID="hdbk_bars_toolbar_config"><title>Configuration</title>
 <para>
 The main window toolbar is configurable.  Access this with the "Configure
-tool bars" entry under the "Settings" menubar entry.</para>
-<screenshot><screeninfo>Toolbar Configuration Dialog Box</screeninfo>
-<graphic fileref="common/hdbk_bars_toolbar_Configtoolbar.png" format="png">
-Toolbar Configuration Dialog Box</graphic>
-</screenshot>
+tool bars" entry under the "Settings" menubar entry.
+
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_bars_toolbar_Configtoolbar.png" format="png"> </imageobject>
+<textobject> <phrase>Toolbar Configuration Dialog Box</phrase> </textobject>
+</inlinemediaobject>
+</para>
+
 <para> Each of the buttons has tooltips to tell what their function is.
 For buttons with no pixmap, the buttons could appear as blank, or just blank bars.
 </para>

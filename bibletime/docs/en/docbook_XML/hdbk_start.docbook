@@ -2,7 +2,12 @@
 <para>
 Bibletime is a KDE program and is integrated with the KDE desktop.
 You should find an icon for launching Bibletime from the desktop.
-<graphic fileref="common/hdbk_start_bticon.png" format="png"></graphic>
+
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_start_bticon.png" format="png"> </imageobject>
+<textobject> <phrase>A bunch of rectangles</phrase> </textobject>
+</inlinemediaobject>
+
 </para>
 <para>
 Bibletime can be launched from inside other window managers
@@ -32,7 +37,13 @@ Click here to see the First Time Startup help screen</link>
 </para></listitem>
 <listitem><para>Daily Tips - These show on every startup, unless
 you turn them off.
-<graphic fileref="common/hdbk_start_sequence_tips.png" format="png"></graphic>
+
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_start_sequence_tips.png" format="png"> </imageobject>
+<textobject> <phrase>Daily tips</phrase> </textobject>
+</inlinemediaobject>
+
+
 </para></listitem>
 </itemizedlist>
 
@@ -40,11 +51,11 @@ you turn them off.
 <section ID="hdbk_start_screen"><title>Parts of the Bibletime Screen</title>
 <para>
 Now the main Bibletime screen will open.  It's operation is covered in the next chapter.
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_start_screen_terms.png" format="png"> </imageobject>
+<textobject> <phrase>The Bibletime Application Window</phrase> </textobject>
+</inlinemediaobject>
 </para>
-<screenshot>
-<screeninfo>The Bibletime Application Window</screeninfo>
-<graphic fileref="common/hdbk_start_screen_terms.png" format="png"></graphic>
-</screenshot>
 </section>
 </chapter>
 

@@ -8,11 +8,13 @@ area (MDI = Multiple Document Interface). </para>
 <para>
 This is the pane on the left side of the Bibletime window.
 It contains the tree of installed documents (Sword Modules), as well as any bookmarks you enter.
+
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_op_module_tree_1.png" format="png"> </imageobject>
+<textobject> <phrase>Module Tree</phrase> </textobject>
+</inlinemediaobject>
+
 </para>
-<screenshot>
-<screeninfo>Module Tree</screeninfo>
-<graphic fileref="common/hdbk_op_module_tree_1.png" format="png"></graphic>
-</screenshot>
 </section>
 
 <section ID="hdbk_op_module_tree_select"><title>Selecting a document to
@@ -22,11 +24,13 @@ Lexicons) to display the contents of a document group, click on the icon for
 the desired group.  To open a document, click on it's icon.  To open
 another instance of the same document, right-click on the mouse and choose, "New
 Presenter".
+
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_op_module_select_1.png" format="png"> </imageobject>
+<textobject> <phrase>Document Selection</phrase> </textobject>
+</inlinemediaobject>
 </para>
-<screenshot>
-<screeninfo>Document Selection</screeninfo>
-<graphic fileref="common/hdbk_op_module_select_1.png" format="png"></graphic>
-</screenshot>
+
 <tip><para>Drag & Drop Works Here</para></tip>
 <para>
 A document can be opened from an already opened document.
@@ -53,12 +57,13 @@ list and selecting "Search in module(s)". By shift-clicking on other module
 names you can select more than one.  Then follow the same procedure to open the
 search dialog. You will be searching in all of these documents. </para>
 <para>A complete description of the operation of the search features can be found
+
+
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_op_module_select_2.png" format="png"> </imageobject>
+<textobject> <phrase>Bookmark Selection</phrase> </textobject>
+</inlinemediaobject>
 </para>
-<screenshot>
-<screeninfo>Bookmark Selection</screeninfo>
-<graphic fileref="common/hdbk_op_module_select_2.png" format="png">
-</graphic>
-</screenshot
 </section>
 
 
@@ -74,12 +79,13 @@ bookmarks". This will bring up a dialog box for you to save the bookmark
 collection.  They can be shared with other Bibletime users, archived, etc.  They
 can be imported in the same way. You can also right-click to change folder names
 and bookmark descriptions (to be implemented later), and delete folders and
-bookmarks. </para>
-<screenshot>
-<screeninfo>Bookmark Selection</screeninfo>
-<graphic fileref="common/hdbk_op_module_tree_bookmark_bookmarkandfolder.png" format="png">
-</graphic>
-</screenshot
+bookmarks.
+
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_op_module_tree_bookmark_bookmarkandfolder.png" format="png"> </imageobject>
+<textobject> <phrase>Bookmark Selection</phrase> </textobject>
+</inlinemediaobject>
+</para>
 </section>
 </section>
 
@@ -125,7 +131,13 @@ on. </para> </section>
 <section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Editing
 your own commentary</title> <para>
 The tool bar of commentary presenters has another button, with the picture of a
-pencil.<graphic fileref="common/hdbk_op_pencil.png"></graphic>
+pencil.
+
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_op_pencil.png" format="png"> </imageobject>
+<textobject> <phrase>Pencle button</phrase> </textobject>
+</inlinemediaobject>
+
 For the "Personal" commentary module, click that button to be able to
 enter your own notes into the Personal commentary, or to edit notes you've
 already entered. When you're done, click on the "Save" (disk) button to save
@@ -214,13 +226,16 @@ to behave...&quot; </para>
 
 <section ID="hdbk_op_search_dialog_text_input_search"><title>Using the Search Text Button</title>
 <para>Click the <guibutton>Search Button</guibutton> to start
-the search.</para>
+the search.
 
-<screenshot>
-<screeninfo>Search Text Dialog Box</screeninfo>
-<graphic fileref="common/hdbk_op_search_dialog_searchtext.png" format="png"></graphic>
-</screenshot>
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_op_search_dialog_searchtext.png" format="png"> </imageobject>
+<textobject> <phrase>Search Text Dialog Box</phrase> </textobject>
+</inlinemediaobject>
+
+</para>
 </section>
+
 
 <section ID="hdbk_op_search_dialog_text_regexp">
 <title>Search Syntax using GCC Regular Expression</title>
@@ -492,12 +507,13 @@ and both the titles, Christ and Lord.</para>
 
 <tip><para>Drag & Drop Works Here; you can drop
 verse numbers, and bookmarks into the custom range entry field.
-You can also paste text into the entry field.</para></tip>
+You can also paste text into the entry field.
 
-<screenshot>
-<screeninfo>Search Scope Dialog Box</screeninfo>
-<graphic fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"></graphic>
-</screenshot>
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"> </imageobject>
+<textobject> <phrase>Search Scope Dialog Box</phrase> </textobject>
+</inlinemediaobject>
+</para></tip>
 </section></section>
 
 <section ID="hdbk_op_search_dialog_text_result"><title>Using the Search Results Tab</title>
@@ -512,23 +528,28 @@ module to that verse in a new presenter </para>
 <tip><para>Select verse numbers and drop them on an unopened module in the main index
 to open the module and jump to the verse location (Bibles and commentaries only).</para></tip>
 <tip><para>Select verse numbers and drag them to an open document and the document will jump
-to the verse location (Bibles and commentaries only).</para></tip>
+to the verse location (Bibles and commentaries only).
 
-<screenshot>
-<screeninfo>Search Result Dialog Box</screeninfo>
-<graphic fileref="common/hdbk_op_search_dialog_searchresult.png" format="png"></graphic>
-</screenshot> </section>
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_op_search_dialog_searchresult.png" format="png"> </imageobject>
+<textobject> <phrase>Search Result Dialog Box</phrase> </textobject>
+</inlinemediaobject>
+</para></tip>
+</section>
 
 <section ID="hdbk_op_search_dialog_text_analysis"><title>Using the Search Analysis Tab</title>
 <para>
 Search Analysis - This gives a graphic analysis of the number of instances the
 search string was found in each book. It can display results for all documents searched.
 You have the option of saving the graph as an image file on
-your hard drive. </para>
-<screenshot>
-<screeninfo>Search Analysis Dialog Box</screeninfo>
-<graphic fileref="common/hdbk_op_search_dialog_searchanal.png" format="png"></graphic>
-</screenshot>
+your hard drive.
+
+<inlinemediaobject>
+<imageobject> <imagedata fileref="common/hdbk_op_search_dialog_searchanal.png" format="png"> </imageobject>
+<textobject> <phrase>Search Analysis Dialog Box</phrase> </textobject>
+</inlinemediaobject>
+
+</para>
 
 </section>
 </section>
