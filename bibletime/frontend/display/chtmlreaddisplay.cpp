@@ -156,7 +156,6 @@ void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
 }
 
 void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args){
-//  qWarning("CHTMLReadDisplay::urlSelected");
   KHTMLPart::urlSelected(url, button, state, _target, args);
   m_urlWorkaroundData.doWorkaround = false;
 
@@ -169,8 +168,8 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
       module = CReferenceManager::preferredModule( type );
 		}
 
-      // we have to use this workaround, otherwise the widget would scroll because it was interrupted
-      // between mouseClick and mouseRelease (I guess)
+    // we have to use this workaround, otherwise the widget would scroll because it was interrupted
+    // between mouseClick and mouseRelease (I guess)
     m_urlWorkaroundData.doWorkaround = true;
     m_urlWorkaroundData.url = url;
     m_urlWorkaroundData.state =  state;
@@ -183,9 +182,6 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
   else if (!url.isEmpty() && url.left(1) == "#") { //anchor
     moveToAnchor(url.mid(1));
   }
-  //else { //default behaviour
-    //qDebug("CHTMLReadDisplay: link or anchor is empty");
-  //};
 }
 
 /** Reimplementation. */
