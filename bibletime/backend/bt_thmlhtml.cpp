@@ -126,9 +126,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
 			userData["inscriptRef"] = "true";
-			pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/", swordref_color);									
-      char verse_str[500];
-						
 			if (!strncmp(token, "scripRef v", 10)) { //module given
 				for (i = 18; i < strlen(token)-1; i++)				
 					if(token[i] != '\"')
@@ -137,52 +134,23 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 						break;
 			}
 			else if (!strncmp(token, "scripRef p", 10)) { //passage without module
-				pushString(buf, "%s/", standard_bible);				
-				for (i = 18; i < strlen(token)-1; i++)				
-					if(token[i] != '\"') 			
-						*(*buf)++ = token[i];						
-						//++(*verse_str) = token[i];
+				char* verse_str =  new char[5000];
+				char* c = verse_str;
+				for (i = 18; i < strlen(token)-1; i++) {
+					if(token[i] != '\"') {
+						*c++ = token[i];
+					}
 					else
 						break;
-					//parse verse ref
-// 	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");
-// 	ListKey list = parseKey.ParseVerseList(verse_str, parseKey, true);
-//
-// 	//where do I now get a conat char* array from??
-// 	// char* to = new char[500]; doesn work
-// 	for(int i = 0; i < list.Count(); i++) {
-// 		SWKey* key = list.GetElement(i);
-// 		VerseKey* vk =  dynamic_cast<VerseKey*>(key);
-//
-// 		pushString(&to,"<font color=\"");
-// 		pushString(&to, swordref_color);
-// 		pushString(&to, "\">");								
-// 		pushString(&to, "<a href=\"sword://Bible/");
-// 		pushString(&to, standard_bible);
-// 		pushString(&to, "/");			
-//												
-// 		if (vk) {
-// 			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
-// 			pushString(&to, "-");					
-// 			pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
-// 			pushString(&to, "\">");
-// 			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
-// 			pushString(&to, "-");
-// 			pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
-// 			pushString(&to, "</a>");
-// 		}
-// 		else {
-// 			pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
-// 			pushString(&to, "\">");
-// 			pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
-// 			pushString(&to, "</a>");
-// 		}
-// 		pushString(&to, "</font>");
-// 		pushString(&to, ", ");
-// 	}
-					
-					
-					
+				}
+				*c++ = '\0';
+				
+				const char* ref = parseRef(verse_str);
+ 			  pushString(buf, ref);
+ 			  delete ref;//delete now because it's unused
+ 			  delete verse_str;
+				
+				userData["suspendTextPassThru"] = "true"; //we don't want the ref-text of the module
 			}
 			if ( !strncmp(token+i+2, "passage=", 8) ) { //passage after module part
 				pushString(buf, "/");
@@ -190,9 +158,10 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				for (; i < strlen(token)-1; i++)	{
 					if(token[i] != '\"') 			
 						*(*buf)++ = token[i];
+					else
+						break;
 				}
 			}
-			pushString(buf,"\">");			
 		}
 		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 		else if (!strcmp(token, "scripRef")) {
@@ -204,14 +173,20 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if (!strcmp(token, "/scripRef")) {
 			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">John 3:16</scripRef>"
 				userData["inscriptRef"] = "false";
-				pushString(buf, "</a></font>");
+				userData["suspendTextPassThru"] = "false"; 							
 			}			
 			else { // like "<scripRef>John 3:16</scripRef>"
 				//use standard Bible
 				pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/%s/", swordref_color, standard_bible);
-				pushString(buf, userData["lastTextNode"].c_str());
-				pushString(buf, "\">");
-				pushString(buf, userData["lastTextNode"].c_str());
+				
+				const char* ref = parseRef(userData["lastTextNode"].c_str());
+ 			  pushString(buf, ref);
+ 			  delete ref;//delete now because it's unused
+// 			  delete verse_str;
+				
+//				pushString(buf, userData["lastTextNode"].c_str());
+//				pushString(buf, "\">");
+//				pushString(buf, userData["lastTextNode"].c_str());
 				
 				// let's let text resume to output again
 				userData["suspendTextPassThru"] = "false";	

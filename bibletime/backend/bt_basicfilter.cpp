@@ -50,52 +50,37 @@ const char* BT_BASICFILTER::parseRef(const char* ref) {
  	cerr << "BT_BASICFILTER::parseRef(const char* ref)" << endl;
  	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");
  	ListKey list = parseKey.ParseVerseList(ref, parseKey, true);
-
+	cout << ref << endl;
  	//where do I now get a const char* array from??
-  char* to = new char[1023]; //not right and doesn't work (refs do not appear)
+  char* to = new char[5000]; //not right and doesn't work (refs do not appear)
 	char* ret = to;//erstes Zeichen
  	 	
  	for(int i = 0; i < list.Count(); i++) {
  		SWKey* key = list.GetElement(i);
  		VerseKey* vk =  dynamic_cast<VerseKey*>(key);
-
-// 		pushString(&to,"<font color=\""); //to wird erhöht!
-// 		pushString(&to, swordref_color);
-// 		pushString(&to, "\">");								
-// 		pushString(&to, "<a href=\"sword://Bible/");
-// 		pushString(&to, standard_bible);
-// 		pushString(&to, "/");			
-
- 		pushString(&to,"<font color=\"%s\"><a href=\"sword://Bible/%s/", //to wird erhöht!
-			swordref_color, standard_bible);
-		//man sollte versuchen so wenig pushString()s wie möglich zu verwenden
-		// das muss in unseren Filtern noch gefixt werden, ist mir erst heute aufgefallen ;)
-		// ein Zeichen kann man mit
-		// to++='a' schnell zufügen. =)
-		// pushString geht wie printf(char*, ...), nur ein Argument mehr --> langsam!
-												
- 		if (vk) {
- 			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
- 			pushString(&to, "-");					
- 			pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
- 			pushString(&to, "\">");
- 			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
- 			pushString(&to, "-");
- 			pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
- 			pushString(&to, "</a>");
+ 		
+ 		pushString(&to,"<font color=\"%s\"><a href=\"sword://Bible/%s/",
+			swordref_color,
+			standard_bible
+		);
+ 		if (vk && vk->UpperBound() != vk->LowerBound()) {
+ 			pushString(&to, "%s-%s\">%s-%s</a>",
+ 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
+ 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8(),
+ 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
+ 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8()
+ 			); 			
  		}
  		else {
- 			pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
- 			pushString(&to, "\">");
- 			pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
- 			pushString(&to, "</a>");
+ 			pushString(&to, "%s\">%s</a>",
+ 				(const char*)QString::fromLocal8Bit((const char*)*key).utf8(),
+				(const char*)QString::fromLocal8Bit((const char*)*key).utf8()
+			);
  		}
- 		pushString(&to, "</font>");
- 		pushString(&to, ", ");
+ 		(i+1 < list.Count()) ? pushString(&to, "</font>, ") : pushString(&to, "</font>");
  	}
-
- 	cerr << "return now!" << endl;
- 	return ret;  //who deletes to ??
+ 	*to++ = '\0';
+ 	return ret;  //don't forget to delete it!
 }
 
 
@@ -139,46 +124,11 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
 				verse_str[i + 1] = '\0';
 				from++;
 			}			
-
-			//I want to have pushString(&to, parseRef(verse_str)); working here! How?
-		   pushString(&to, parseRef(verse_str));
-		
-      //now parse the ref
-//    	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");
-//    	ListKey list = parseKey.ParseVerseList(verse_str, parseKey, true);
-//
-//    	for(int i = 0; i < list.Count(); i++) {
-//    		SWKey* key = list.GetElement(i);
-//    		VerseKey* vk =  dynamic_cast<VerseKey*>(key);
-//
-//    		pushString(&to,"<font color=\"");
-//    		pushString(&to, swordref_color);
-//    		pushString(&to, "\">");								
-//    		pushString(&to, "<a href=\"sword://Bible/");
-//    		pushString(&to, standard_bible);
-//    		pushString(&to, "/");			
-//   												
-//    		if (vk) {
-//    			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
-//    			pushString(&to, "-");					
-//    			pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
-//    			pushString(&to, "\">");
-//    			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
-//    			pushString(&to, "-");
-//    			pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
-//    			pushString(&to, "</a>");
-//    		}
-//    		else {
-//    			pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
-//    			pushString(&to, "\">");
-//    			pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
-//    			pushString(&to, "</a>");
-//    		}
-//    		pushString(&to, "</font>");
-//    		pushString(&to, ", ");
-//    	}
 			
-			pushString(&to, " ");			
+			const char* ref = parseRef(verse_str);
+		  pushString(&to,"%s ", ref);
+		  delete ref;//delet now because it's unused
+		
 			continue;
 		}
 		*to++ = *from;
