@@ -243,6 +243,10 @@ const bool CDisplayWindow::init( const QString& keyName ){
   setMinimumSize( 350,300 );
   
   setCaption(windowCaption());
+  //setup focus stuff.
+  setFocusPolicy(QWidget::ClickFocus);
+  parentWidget()->setFocusPolicy(QWidget::ClickFocus);
+  
   show();
  	initConnections();
   initKeyboardActions();

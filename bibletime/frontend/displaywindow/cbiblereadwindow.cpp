@@ -122,6 +122,8 @@ void CBibleReadWindow::initConnections(){
 void CBibleReadWindow::initView(){
  	CLexiconReadWindow::initView();
 
+  parentWidget()->installEventFilter( this );  
+  
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
@@ -303,4 +305,18 @@ void CBibleReadWindow::refresh(){
   keyChooser()->refreshContent();
   
   lookup(key());
+}
+
+/** No descriptions */
+bool CBibleReadWindow::eventFilter( QObject* o, QEvent* e) {
+  if (e && (e->type() == QEvent::FocusIn)) {
+  	QWidgetList windows = mdi()->windowList();
+  	if (windows.count()) {
+    	for (windows.first(); windows.current(); windows.next()) {
+    		if (CCommentaryReadWindow* p = dynamic_cast<CCommentaryReadWindow*>(windows.current()))
+    			p->syncToKey(key()  );
+    	}
+    }
+  }
+  CLexiconReadWindow::eventFilter(o,e);
 }

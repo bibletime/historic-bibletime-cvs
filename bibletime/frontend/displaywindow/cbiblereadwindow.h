@@ -67,6 +67,10 @@ protected:
 	* Reimplemented.
 	*/
   virtual void updatePopupMenu();
+  /** Event filter.
+  * Reimplementation of the event filter to filter out events like focus in.
+  */
+  virtual bool eventFilter( QObject* o, QEvent* e);
 
   struct {
     KAction* selectAll;
