@@ -176,7 +176,7 @@ int main(int argc, char* argv[]) {
 		showDebugMessages = true;
 
 	if (kapp->isRestored()){
-		for(int n = 1; KMainWindow::canBeRestored(n), n++)
+		for(int n = 1; KMainWindow::canBeRestored(n); n++)
 			(new BibleTime)->restore(n);
  	}
 	else {
