@@ -356,6 +356,7 @@ void CGroupManager::slotSearchSelectedModules() {
 	connect(m_searchDialog, SIGNAL(finished()),
 		this, SLOT(slotDeleteSearchdialog()));
 	m_searchDialog->show();
+	m_searchDialog->raise();
 }	
 
 void CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerItem* item) {	
