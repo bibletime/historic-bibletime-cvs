@@ -46,7 +46,7 @@ der dann angezeigt wird.
 
 <sect1 ID="hdbk_intro_changes"><title>Änderungen</title>
 <para>
-Bitte lesen sie die Datei Changelog des Quellcode Paketes falls Sie an detailierteren
+Bitte lesen sie die Datei &quote;Changelog&quote; des Quellcode Paketes falls Sie an detailierteren
 Änderungen interessiert sind.
 </para>
 
@@ -61,7 +61,7 @@ CVS Log für <filename>bibletime/bibletime/ChangeLog</filename></ulink> gefunden 
 Ziemlich viel!
 </para>
 <para>
-Wir haben viel zu tun. Da wir ein sehr kleines Team von aktiven Entwicklern sind
+Wir haben viel zu tun. Da wir ein sehr kleines Team von aktiven Entwicklern sind,
 ist es sehr schwierig vernünftige Ergebnisse in einer kurzen Zeit zu bekommen.
 Falls Sie daran interessiert sind dem BibleTime Team zu helfen, kontaktieren Sie uns bitte
 mit der <ulink url="http://sourceforge.net/pm/?group_id=954">SourceForge BibleTime Hompage</ulink>.
@@ -75,11 +75,10 @@ Zeit bis Sie ein voll funktionsfähiges Bibelstudien Werkzeug bekommen.
 
 <sect1 ID="hdbk_intro_motivation"><title>Motivation</title>
 <para>
-Unser Verlangen ist es Gott zu dienen und unserer Teil dazu beizutragen, dass andere
-in ihrer Beziehung mit IHM wachsen. Wir haben ein klaffende Lücke gefunden, das es keine
-benutzerfreundliche Bibelstudiensoftware unter Linux gab.
-Wir haben BibleTime entwickelt um diese Lücke zu füllen.
-Wir haben uns bemüht dies ein mächtiges, qualitatives Programm zu machen, dass jedoch gleichzeitig einfach und intuitiv zu
+Unser Verlangen ist es Gott zu dienen und unseren Teil dazu beizutragen, dass andere
+in ihrer Beziehung mit IHM wachsen. Wir haben eine klaffende Lücke gefunden: Es gab keine
+benutzerfreundliche Bibelstudiensoftware unter Linux. Wir haben BibleTime entwickelt um diese Lücke zu füllen.
+Wir haben uns bemüht dies zu einem mächtigen und qualitatives Programm zu machen, dass jedoch gleichzeitig einfach und intuitiv zu
 bedienen ist.
 Es ist unser Verlangen, dass Gott gepriesen wird, da Er die Quelle aller guten Dinge ist.
 </para>
@@ -91,8 +90,7 @@ von dem Vater des Lichts, bei welchem ist keine Veränderung noch Wechsel des Lic
 -Jakobus 1:17, Luther Übersetzung
 </screen>
 <para>
-Gott segne dich wenn Sie dieses Programm benutzen und möge Er
-durch die Arbeit unserer Hände verherrlicht werden.
+Gott segne dich wenn Sie dieses Programm benutzen und möge Er durch die Arbeit unserer Hände verherrlicht werden.
 </para>
 
 </sect1>

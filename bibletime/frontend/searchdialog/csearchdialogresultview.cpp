@@ -128,7 +128,7 @@ void CSearchDialogResultModuleView::initView(){
 	
 	m_savePopup = new KPopupMenu(m_popup);		
 	m_savePopup->insertItem(i18n("Search result"), this, SLOT(slotSaveSearchResult()));
-	m_savePopup->insertItem(i18n("Sesult with text"), this, SLOT(slotSaveSearchResultWithKeytext()));
+	m_savePopup->insertItem(i18n("Result with text"), this, SLOT(slotSaveSearchResultWithKeytext()));
 	
 	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy..."), 	m_copyPopup);
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup);
