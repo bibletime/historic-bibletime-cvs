@@ -514,7 +514,8 @@ void CModuleChooser::setModules( ListCSwordModuleInfo modules ){
 
 /****************************/
 
-CModuleChooserDialog::CModuleChooserDialog( QWidget* parentDialog, ListCSwordModuleInfo modules ) : KDialogBase(Plain, i18n("Choose modules"), Ok, Ok, parentDialog, "CModuleChooser", false, true) {
+CModuleChooserDialog::CModuleChooserDialog( QWidget* parentDialog, ListCSwordModuleInfo modules ) : 
+		KDialogBase(Plain, i18n("Choose work(s)"), Ok, Ok, parentDialog, "CModuleChooser", false, true) {
   initView();
   initConnections();
 
@@ -527,7 +528,7 @@ CModuleChooserDialog::~CModuleChooserDialog() {
 
 /** Initializes the view of this dialog */
 void CModuleChooserDialog::initView(){
-  setButtonOKText(i18n("Use chosen modules"));
+  setButtonOKText(i18n("Use chosen work(s)"));
 
   QFrame* page = plainPage();
   QHBoxLayout* layout = new QHBoxLayout(page);
@@ -1226,7 +1227,10 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
 
 /** No descriptions */
 void CSearchAnalysis::saveAsHTML(){
- 	const QString file = KFileDialog::getSaveFileName(QString::null, QString("*.html | %1").arg(i18n("HTML files")), 0, i18n("Save Search Analysis"));
+ 	const QString file = KFileDialog::getSaveFileName(QString::null, 
+		QString("*.html | %1").arg(i18n("HTML files")), 
+		0, 
+		i18n("Save Search Analysis"));
 	if (file.isNull()) {
     return;
   }

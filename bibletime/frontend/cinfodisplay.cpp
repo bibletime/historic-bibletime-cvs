@@ -46,7 +46,7 @@ CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
     : QWidget(parent, name)
 {
 	QVBoxLayout* layout = new QVBoxLayout(this);
-	QLabel* headingLabel = new QLabel(i18n("Info display (\"shift\" to freeze)"),this);
+	QLabel* headingLabel = new QLabel(i18n("Mag (\"shift\" to lock)"),this);
 	
 	m_htmlPart = CDisplay::createReadInstance(0, this);
 	m_htmlPart->setMouseTracking(false); //we don't want strong/lemma/note mouse infos

@@ -226,7 +226,7 @@ void COptionsDialog::initFonts(){
     CToolClass::explanationLabel(
       page,
       i18n("Select custom fonts per-language"),
-      i18n("Here you find a list of all languages of the installed modules. \
+      i18n("Here you find a list of all languages of the installed works. \
 You can specify a custom font for each language that needs a special font \
 to be displayed correctly.")
     )
@@ -291,7 +291,7 @@ void COptionsDialog::initDisplayStyle(){
 	gridLayout->addMultiCellWidget(
 		CToolClass::explanationLabel(page,
 			i18n("Display templates"),
-			i18n("Display templates define how the text of modules is displayed. Please choose a template you like.")
+			i18n("Display templates define how text is displayed. Please choose a template you like.")
 		),
 		0,0,0,-1
 	);
@@ -329,9 +329,9 @@ void COptionsDialog::initProfiles(){
 	gridLayout->addMultiCellWidget(
 		CToolClass::explanationLabel(page,
 			i18n("Manage sessions"),
-			i18n("Sessions define the appereance of the work area, \
-for example which windows are open and which texts should displayed in these windows. \
-New sessions only work after you've saved something into them.")
+			i18n("Sessions define the appereance of your desk, \
+				for example which windows are open and which texts should displayed in these windows. \
+				New sessions only work after you've saved something into them.")
 		),
 		0,0,0,-1
 	);
@@ -388,7 +388,7 @@ void COptionsDialog::initAccelerators(){
 // ----- new tab: All display windows ------ //
 	currentTab = new QVBox(tabCtl);
 	currentTab->setMargin(3);
-	tabCtl->addTab(currentTab, i18n("All display windows"));
+	tabCtl->addTab(currentTab, i18n("All read windows"));
 
 	m_settings.keys.general.accel = new KAccel(this); //delete in destructor
 	CBTConfig::setupAccel( CBTConfig::readWindow, m_settings.keys.general.accel  );
@@ -462,10 +462,10 @@ void COptionsDialog::initAccelerators(){
 
 /** Init Sword section. */
 void COptionsDialog::initSword(){
-	QVBox* page = addVBoxPage(i18n("Sword"),QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
+	QVBox* page = addVBoxPage(i18n("Desk"),QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
   KTabCtl* tabCtl = new KTabCtl(page);
   QFrame* currentTab = new QFrame(tabCtl);
-  tabCtl->addTab(currentTab, i18n("General"));
+  tabCtl->addTab(currentTab, i18n("Navigation"));
 
   QGridLayout* gridLayout = new QGridLayout(currentTab,7,2,5,5);
 	gridLayout->setResizeMode(QLayout::Minimum);
@@ -569,21 +569,21 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 	}
 	
 
-// ---------- new tab: Default modules -------- //
+// ---------- new tab: Standard modules -------- //
   currentTab = new QFrame(tabCtl);
-  tabCtl->addTab(currentTab, i18n("Default modules"));
+  tabCtl->addTab(currentTab, i18n("Standard works"));
 	gridLayout = new QGridLayout(currentTab,10,2, 5,5); //the last row is for stretching available space
 	gridLayout->setResizeMode(QLayout::Minimum);
 
   gridLayout->addMultiCellWidget(
-  	CToolClass::explanationLabel(currentTab, i18n("Default modules"),
-			i18n("Default modules are used when no module is specified, \
-for example when a hyperlink into a Bible or Lexicon was clicked .")),
+  	CToolClass::explanationLabel(currentTab, i18n("Standard works"),
+			i18n("Standard works are used when no particular work is specified, \
+for example when a hyperlink into a Bible or lexicon was clicked .")),
   	0,0,0,-1 /*fill the horizontal space*/
   );
 
  	m_settings.swords.standardBible = new QComboBox(currentTab);
-  label = new QLabel(m_settings.swords.standardBible, i18n("Default Bible"), currentTab);
+  label = new QLabel(m_settings.swords.standardBible, i18n("Standard Bible"), currentTab);
   label->setAutoResize(true);
  	QToolTip::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::tooltip);
  	QWhatsThis::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::whatsthis);
@@ -591,7 +591,7 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
  	gridLayout->addWidget(m_settings.swords.standardBible,1,1);
 
  	m_settings.swords.standardCommentary = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardCommentary, i18n("Default Commentary"), currentTab);
+ 	label = new QLabel(m_settings.swords.standardCommentary, i18n("Standard Commentary"), currentTab);
   label->setAutoResize(true);
  	QToolTip::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::tooltip);
  	QWhatsThis::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::whatsthis);
@@ -600,7 +600,7 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
 
 
  	m_settings.swords.standardLexicon = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardLexicon, i18n("Default Lexicon"), currentTab);
+ 	label = new QLabel(m_settings.swords.standardLexicon, i18n("Standard Lexicon"), currentTab);
   label->setAutoResize(true);
  	QToolTip::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::tooltip);
  	QWhatsThis::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::whatsthis);
@@ -608,7 +608,7 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
  	gridLayout->addWidget(m_settings.swords.standardLexicon,3,1);
 
  	m_settings.swords.standardDailyDevotional = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardDailyDevotional, i18n("Default Daily Devotional"), currentTab);
+ 	label = new QLabel(m_settings.swords.standardDailyDevotional, i18n("Standard Daily Devotional"), currentTab);
   label->setAutoResize(true);
  	QToolTip::add(m_settings.swords.standardDailyDevotional, CResMgr::settings::sword::modules::dailyDevotional::tooltip);
  	QWhatsThis::add(m_settings.swords.standardDailyDevotional, CResMgr::settings::sword::modules::dailyDevotional::whatsthis);
@@ -616,7 +616,7 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
  	gridLayout->addWidget(m_settings.swords.standardDailyDevotional,4,1);
 
  	m_settings.swords.standardHebrewStrong = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardHebrewStrong, i18n("Default Hebrew Strong's Lexicon"), currentTab);
+ 	label = new QLabel(m_settings.swords.standardHebrewStrong, i18n("Standard Hebrew Strong's Lexicon"), currentTab);
   label->setAutoResize(true);
  	QToolTip::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::tooltip);
  	QWhatsThis::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::whatsthis);
@@ -624,7 +624,7 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
  	gridLayout->addWidget(m_settings.swords.standardHebrewStrong,5,1);
 
  	m_settings.swords.standardGreekStrong = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardGreekStrong, i18n("Default Greek Strong's Lexicon"), currentTab);
+ 	label = new QLabel(m_settings.swords.standardGreekStrong, i18n("Standard Greek Strong's Lexicon"), currentTab);
   label->setAutoResize(true);
  	QToolTip::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::tooltip);
  	QWhatsThis::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::whatsthis);
@@ -632,14 +632,14 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
  	gridLayout->addWidget(m_settings.swords.standardGreekStrong,6,1);
 		
  	m_settings.swords.standardHebrewMorph = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardHebrewMorph, i18n("Default Hebrew Morphological Lexicon"), currentTab);
+ 	label = new QLabel(m_settings.swords.standardHebrewMorph, i18n("Standard Hebrew Morphological Lexicon"), currentTab);
  	QToolTip::add(m_settings.swords.standardHebrewMorph, CResMgr::settings::sword::modules::hebrewMorph::tooltip);
  	QWhatsThis::add(m_settings.swords.standardHebrewMorph, CResMgr::settings::sword::modules::hebrewMorph::whatsthis);
  	gridLayout->addWidget(label,7,0);
  	gridLayout->addWidget(m_settings.swords.standardHebrewMorph,7,1);
 
  	m_settings.swords.standardGreekMorph = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardGreekMorph, i18n("Default Greek Morphological Lexicon"), currentTab);
+ 	label = new QLabel(m_settings.swords.standardGreekMorph, i18n("Standard Greek Morphological Lexicon"), currentTab);
   label->setAutoResize(true); 	 	
  	QToolTip::add(m_settings.swords.standardGreekMorph, CResMgr::settings::sword::modules::greekMorph::tooltip);
  	QWhatsThis::add(m_settings.swords.standardGreekMorph, CResMgr::settings::sword::modules::greekMorph::whatsthis);
@@ -767,9 +767,9 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
   QVBoxLayout* layout = new QVBoxLayout(currentTab,5);
 
   layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"),
-		i18n("Filters control the appereance of the text in the display windows. \
-Here you can specify default settings for all filters. \
-You can change the filter settings in each display window, of course.")) );
+		i18n("Filters control the appearance of text. \
+			Here you can specify default settings for all filters. \
+			You can change the filter settings in each display window, of course.")) );
 
   layout->addSpacing(5);
   		

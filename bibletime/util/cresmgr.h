@@ -623,39 +623,6 @@ namespace CResMgr {
     };
     namespace colors {
       extern const QString icon;
-
-      namespace text {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace background {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace links {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace footnotes {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace strongNumbers {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace highlightedVerse {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace jesusWords {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
-      namespace morphTags {
-        extern QString tooltip;
-        extern QString whatsthis;
-      };
     };
     namespace profiles {
       extern const QString icon;

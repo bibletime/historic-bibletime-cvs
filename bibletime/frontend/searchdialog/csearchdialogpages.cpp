@@ -281,7 +281,7 @@ CModuleResultView::~CModuleResultView() {
 
 /** Initializes this widget. */
 void CModuleResultView::initView(){
-  addColumn(i18n("Module"));
+  addColumn(i18n("Work"));
   addColumn(i18n("Found items"));
   
 //  setFullWidth(true);
@@ -662,7 +662,7 @@ void CSearchOptionsPage::initView(){
   m_modulesLabel->setTextFormat(Qt::RichText);
   m_modulesLabel->setAlignment( AlignLeft | WordBreak );
 
-  m_chooseModulesButton = new QPushButton(i18n("Choose modules"), box1);
+  m_chooseModulesButton = new QPushButton(i18n("Choose work(s)"), box1);
   connect(m_chooseModulesButton, SIGNAL(clicked()),
 	  this, SLOT(chooseModules()));
   QToolTip::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
@@ -740,10 +740,10 @@ void CSearchOptionsPage::initView(){
   grid->addMultiCellWidget(box3, 9,10,0,2);
 
 
-  label = new QLabel(i18n("Current module:"), box3);
+  label = new QLabel(i18n("Current work:"), box3);
 	m_currentProgressBar = new KProgress(box3);
 
-  label = new QLabel(i18n("All modules:"), box3);
+  label = new QLabel(i18n("All works:"), box3);
 	m_overallProgressBar = new KProgress(box3);
 
   //set the initial focus

@@ -82,7 +82,7 @@ void BibleTime::initView(){
 	QSplitter* mainIndexSplitter = new QSplitter(Qt::Vertical, m_splitter);
 
 	QVBox* vBox = new QVBox(mainIndexSplitter);
-	new QLabel( i18n("Library"), vBox );
+	new QLabel( i18n("Bookshelf"), vBox );
 	
 	m_mainIndex = new CMainIndex(vBox);
 	m_mainIndex->initTree();
@@ -109,7 +109,7 @@ void BibleTime::initActions() {
     action->plugAccel( accel() );
   #endif
 
-  action = new KAction(i18n("Search in open module(s)"),
+  action = new KAction(i18n("Search in open work(s)"),
     CResMgr::mainMenu::mainIndex::search::icon,
     CResMgr::mainMenu::mainIndex::search::accel,
     this, SLOT(slotSearchModules()), actionCollection(),
@@ -121,7 +121,7 @@ void BibleTime::initActions() {
     action->plugAccel( accel() );
   #endif
 
-  action = new KAction(i18n("Search in default bible"),
+  action = new KAction(i18n("Search in standard Bible"),
     CResMgr::mainMenu::mainIndex::searchdefaultbible::icon,
     CResMgr::mainMenu::mainIndex::searchdefaultbible::accel,
     this, SLOT(slotSearchDefaultBible()), actionCollection(),
@@ -141,7 +141,7 @@ void BibleTime::initActions() {
   #endif
 
 
-  m_viewMainIndex_action = new KToggleAction(i18n("&Show main index"),
+  m_viewMainIndex_action = new KToggleAction(i18n("&Show bookshelf"),
     CResMgr::mainMenu::view::showMainIndex::icon,
     CResMgr::mainMenu::view::showMainIndex::accel,
 		this, SLOT(slotToggleMainIndex()), actionCollection(),
@@ -152,7 +152,7 @@ void BibleTime::initActions() {
     m_viewMainIndex_action->plugAccel( accel() );
   #endif
 
-  m_viewInfoDisplay_action = new KToggleAction(i18n("Show &info display"),
+  m_viewInfoDisplay_action = new KToggleAction(i18n("Show &mag"),
     CResMgr::mainMenu::view::showInfoDisplay::icon,
     CResMgr::mainMenu::view::showInfoDisplay::accel,
 		this, SLOT(slotToggleInfoDisplay()), actionCollection(),
@@ -170,7 +170,7 @@ void BibleTime::initActions() {
   	action->plugAccel( accel() );
   #endif
 
-  action = new KAction(i18n("Configure &Sword"),
+  action = new KAction(i18n("&Bookshelf Manager"),
     CResMgr::mainMenu::settings::swordSetupDialog::icon,
     CResMgr::mainMenu::settings::swordSetupDialog::accel,
 		this, SLOT( slotSwordSetupDialog() ), actionCollection(),

@@ -132,8 +132,8 @@ int main(int argc, char* argv[]) {
 	{
 		{"debug", I18N_NOOP("Enable debug messages"),0},
 		{"ignore-session", I18N_NOOP("Ignore the startup session that was saved when BibleTime was closed the last time."),0},
-		{"open-default-bible <key>", I18N_NOOP("Open the default bible with the given key. Use <random> to open at a random position."),0},
-		//{"install-local <path>", I18N_NOOP("Open the SwordSetup dialog to install modules from <path>"),0},
+		{"open-default-bible <key>", I18N_NOOP("Open the standard Bible with the given key. Use <random> to open at a random position."),0},
+		//{"install-local <path>", I18N_NOOP("Open the SwordSetup dialog to install works from <path>"),0},
 		{0,0,0}
 	};
 

@@ -54,7 +54,7 @@ void CPlainWriteWindow::initView(){
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
  	mainToolBar()->setFullSize(false);
 
-	m_actions.syncWindow = new KToggleAction(i18n("Sync with active bible"),
+	m_actions.syncWindow = new KToggleAction(i18n("Sync with active Bible"),
 		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
 		CResMgr::displaywindows::commentaryWindow::syncWindow::accel,
 		actionCollection(),

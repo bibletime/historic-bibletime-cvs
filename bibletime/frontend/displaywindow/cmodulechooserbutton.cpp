@@ -132,8 +132,8 @@ void CModuleChooserButton::moduleChosen( int ID ){
   	setIcon( iconName() );
    	emit sigChanged();
 
-    setText( i18n("Select a module") );
-    m_popup->changeTitle(m_titleId, i18n("Select a module"));	
+    setText( i18n("Select a work") );
+    m_popup->changeTitle(m_titleId, i18n("Select a work"));	
      	
    	QToolTip::remove(this);
    	if (module()) {
@@ -153,10 +153,10 @@ void CModuleChooserButton::populateMenu(){
 	m_popup = new KPopupMenu(this);	
 
 	if (m_module) {
-	  m_titleId = m_popup->insertTitle( i18n("Select a module") );	
+	  m_titleId = m_popup->insertTitle( i18n("Select a work") );	
 	}
 	else {
-	  m_titleId = m_popup->insertTitle( i18n("Select an additional module") );
+	  m_titleId = m_popup->insertTitle( i18n("Select an additional work") );
 	}
 
 	m_popup->setCheckable(true);
@@ -243,7 +243,7 @@ void CModuleChooserButton::populateMenu(){
  		QToolTip::add(this, module()->name());
 	}
 	else {
- 		QToolTip::add(this, i18n("No module selected"));
+ 		QToolTip::add(this, i18n("No work selected"));
 	}
 }
 

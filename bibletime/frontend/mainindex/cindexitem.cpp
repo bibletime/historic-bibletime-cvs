@@ -260,7 +260,7 @@ void CModuleItem::dropped( QDropEvent* e ){
 const QString CModuleItem::toolTip(){
     QString text;
 		text = QString::fromLatin1("<b>%1</b> ").arg( module()->name() )
-      + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<small><b>%1</b></small><br>").arg(i18n("Take care, this module contains cult / questionable material!")) : QString::null);
+      + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<small><b>%1</b></small><br>").arg(i18n("Take care, this work contains cult / questionable material!")) : QString::null);
 		
 		text += QString::fromLatin1("<small>(") + module()->config(CSwordModuleInfo::Description) + QString::fromLatin1(")</small><hr>");
 		
@@ -335,7 +335,7 @@ const QString CModuleItem::aboutInfo(){
 
   if (m_module->category() == CSwordModuleInfo::Cult) { //clearly say the module contains cult/questionable materials
     text += QString::fromLatin1("<BR><B>%1</B><BR><BR>")
-              .arg(i18n("Take care, this module contains cult / questionable material!"));
+              .arg(i18n("Take care, this work contains cult / questionable material!"));
   };
 
 	text += QString::fromLatin1("<b>%1:</b><br> <font size=\"-1\">%2</font>")

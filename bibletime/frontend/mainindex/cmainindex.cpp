@@ -146,7 +146,7 @@ void CMainIndex::initView(){
 
   //setup the popup menu
   m_popup = new KPopupMenu(viewport());
-  m_popup->insertTitle(i18n("Main index"));
+  m_popup->insertTitle(i18n("Bookshelf"));
 
   m_actions.newFolder = new KAction(i18n("Create a new folder"), CResMgr::mainIndex::newFolder::icon, 0, this, SLOT(createNewFolder()), this);
   m_actions.changeFolder = new KAction(i18n("Change this folder"),CResMgr::mainIndex::changeFolder::icon, 0, this, SLOT(changeFolder()), this);
@@ -158,13 +158,13 @@ void CMainIndex::initView(){
 
   m_actions.deleteEntries = new KAction(i18n("Remove selected item(s)"),CResMgr::mainIndex::deleteItems::icon, 0, this, SLOT(deleteEntries()), this);
 
-  m_actions.editModuleMenu = new KActionMenu(i18n("Edit this module"),CResMgr::mainIndex::editModuleMenu::icon, this);
+  m_actions.editModuleMenu = new KActionMenu(i18n("Edit this work"),CResMgr::mainIndex::editModuleMenu::icon, this);
   m_actions.editModulePlain = new KAction(i18n("Plain text"),CResMgr::mainIndex::editModulePlain::icon, 0, this, SLOT(editModulePlain()), this);
   m_actions.editModuleHTML = new KAction(i18n("HTML"),CResMgr::mainIndex::editModuleHTML::icon, 0, this, SLOT(editModuleHTML()), this);
 
-  m_actions.searchInModules = new KAction(i18n("Search in selected module(s)"),CResMgr::mainIndex::search::icon, 0, this, SLOT(searchInModules()), this);
-  m_actions.unlockModule = new KAction(i18n("Unlock this module"),CResMgr::mainIndex::unlockModule::icon, 0, this, SLOT(unlockModule()), this);
-  m_actions.aboutModule = new KAction(i18n("About this module"),CResMgr::mainIndex::aboutModule::icon, 0, this, SLOT(aboutModule()), this);
+  m_actions.searchInModules = new KAction(i18n("Search in selected work(s)"),CResMgr::mainIndex::search::icon, 0, this, SLOT(searchInModules()), this);
+  m_actions.unlockModule = new KAction(i18n("Unlock this work"),CResMgr::mainIndex::unlockModule::icon, 0, this, SLOT(unlockModule()), this);
+  m_actions.aboutModule = new KAction(i18n("About this work"),CResMgr::mainIndex::aboutModule::icon, 0, this, SLOT(aboutModule()), this);
 
 
   m_actions.newFolder->plug(m_popup);
@@ -502,7 +502,10 @@ void CMainIndex::searchInModules(){
 void CMainIndex::unlockModule(){
   if (CModuleItem* i = dynamic_cast<CModuleItem*>(currentItem())) {
   	bool ok;
-  	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the unlock key for this module."),QLineEdit::Normal, i->module()->config(CSwordModuleInfo::CipherKey), &ok);
+  	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock work"),
+			i18n("Enter the unlock key for this work."),
+			QLineEdit::Normal, i->module()->config(CSwordModuleInfo::CipherKey), 
+			&ok);
   	if (ok) {
   		/*const bool ret =*/ i->module()->unlock( unlockKey );
 //  		if ( !ret ) { // an error occured

@@ -150,7 +150,7 @@ sword::InstallSource CInstallSourcesMgrDialog::InstallSourceItem::swordInstallSo
 }
 
 CInstallSourcesMgrDialog::CInstallSourcesMgrDialog(QWidget *parent, const char *name )
-	: KDialogBase(IconList, i18n("Manage installation sources"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
+	: KDialogBase(IconList, i18n("Manage libraries"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
 	initLocalSourcesPage();
 	initRemoteSourcesPage();
@@ -188,25 +188,27 @@ void CInstallSourcesMgrDialog::slotOk() {
 }
 
 void CInstallSourcesMgrDialog::initLocalSourcesPage() {
-	m_localSourcesPage = addPage(i18n("Local sources"), QString::null, DesktopIcon("folder",32));
+	m_localSourcesPage = addPage(i18n("Local libraries"), QString::null, DesktopIcon("folder",32));
  	m_localSourcesPage->setMinimumSize(500,400);
 
 	QGridLayout* grid = new QGridLayout(m_localSourcesPage, 4,3, 5,5);
 
 	QLabel* mainLabel = CToolClass::explanationLabel(m_localSourcesPage,
-		i18n("Manage local sources"),
-		i18n("Here you can setup the local sources for module installation, e.g. the path to your CD-Rom to install from a Sword CD.<br>On many Linux distributions the path to your cdrom is either <i>/media/cdrom</i> or <i>/cdrom</i> Please make sure you mounted the CD-Rom before you use BibleTime to install from CD-Rom.")
+		i18n("Manage local libraries"),
+		i18n("Here you can setup the local libraries for installation of works, e.g. the path to your CD-Rom to install from a Sword CD.<br>\
+		On many Linux distributions the path to your cdrom is either <i>/media/cdrom</i> or <i>/cdrom</i> \
+		Please make sure you mounted the CD-Rom before you use BibleTime to install from CD-Rom.")
   );
 	grid->addMultiCellWidget(mainLabel, 0, 0, 0, 2);
 
 	m_localSourcesList = new KListView( m_localSourcesPage );
-	m_localSourcesList->addColumn(i18n("Local sources"));
+	m_localSourcesList->addColumn(i18n("Local libraries"));
 	m_localSourcesList->setFullWidth(true);
 
-	QPushButton* addButton = new QPushButton(i18n("Add new directory"), m_localSourcesPage);
+	QPushButton* addButton = new QPushButton(i18n("Add new library"), m_localSourcesPage);
 	connect(addButton, SIGNAL(clicked()), SLOT(slot_localAddSource()));
 
-	QPushButton* removeButton = new QPushButton(i18n("Remove directory"), m_localSourcesPage);
+	QPushButton* removeButton = new QPushButton(i18n("Remove library"), m_localSourcesPage);
 	connect(removeButton, SIGNAL(clicked()), SLOT(slot_localRemoveSource()));
 
 	grid->addMultiCellWidget( m_localSourcesList, 1,3, 0,1 );
@@ -257,14 +259,14 @@ void CInstallSourcesMgrDialog::slot_localRemoveSource() {
 }
 
 void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
-	m_remoteSourcesPage = addPage(i18n("Remote sources"), QString::null, DesktopIcon("network",32));
+	m_remoteSourcesPage = addPage(i18n("Remote libraries"), QString::null, DesktopIcon("network",32));
  	m_remoteSourcesPage->setMinimumSize(500,400);
 
 	QGridLayout* grid = new QGridLayout(m_remoteSourcesPage, 5,5, 5,5);
 
 	QLabel* mainLabel = CToolClass::explanationLabel(m_remoteSourcesPage,
-		i18n("Manage remote sources"),
-		i18n("Setup remote sources like FTP servers which can be used to download Sword modules on your computer.")
+		i18n("Manage remote libraries"),
+		i18n("Setup remote libraries like FTP servers which can be used to download works on your computer.")
   );
 	grid->addMultiCellWidget(mainLabel, 0, 0, 0, 4);
 
@@ -297,7 +299,7 @@ void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 
 	//contains the remote sources edit controls, we need boxes for the caption, the server, the dir on the server
 	QGroupBox* box = new QGroupBox(m_remoteSourcesPage);
-	box->setTitle(i18n("Edit remote source"));
+	box->setTitle(i18n("Edit remote library settings"));
 	grid->addMultiCellWidget( box, 1,4, 3,4 );
 
 	QGridLayout* boxGrid = new QGridLayout(box, 4, 3, box->insideMargin() + box->insideSpacing(), 5);
@@ -355,7 +357,7 @@ void CInstallSourcesMgrDialog::slot_remoteAddSource() {
 	CInstallSourcesMgrDialog::InstallSourceItem* i = new CInstallSourcesMgrDialog::InstallSourceItem(m_remoteSourcesList);
 
 	m_remoteSourcesList->setCurrentItem( i );
-	m_remoteCaptionEdit->setText(i18n("New remote source"));
+	m_remoteCaptionEdit->setText(i18n("New remote library"));
 	m_remoteServerEdit->setText("ftp.domain.org");
 	m_remotePathEdit->setText("/pub/sword/raw");
 	m_remoteCaptionEdit->setFocus();
@@ -409,7 +411,7 @@ void CInstallSourcesMgrDialog::slot_remotePathChanged( const QString& t) {
 
 
 CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
-	: KDialogBase(IconList, i18n("Sword configuration"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null),
+	: KDialogBase(IconList, i18n("Bookshelf Manager"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null),
 		m_removeModuleListView(0),
 		m_installModuleListPage(0),
 		m_installModuleListView(0),
@@ -425,7 +427,7 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
 
 
 void CSwordSetupDialog::initSwordConfig(){
-	QFrame* page = m_swordConfigPage = addPage(i18n("Sword Path"), QString::null, DesktopIcon("bt_swordconfig",32));
+	QFrame* page = m_swordConfigPage = addPage(i18n("Bookshelf path(s)"), QString::null, DesktopIcon("bt_swordconfig",32));
  	page->setMinimumSize(500,400);
 
 	QGridLayout* layout = new QGridLayout(page, 6, 4);
@@ -436,19 +438,19 @@ void CSwordSetupDialog::initSwordConfig(){
 	layout->setRowStretch(5,1);
 
 	QLabel* mainLabel = CToolClass::explanationLabel(page,
-		i18n("Configure Sword"),
-		i18n("The underlying Sword software uses an own configuration file. This page let you set up this file.")
+		i18n("Configure bookshelf path(s)"),
+		i18n("You can store your bookshelfs in one or more directories, which you can specify here.")
   );
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
 
   QString swordConfPath = BTInstallMgr::Tool::LocalConfig::swordConfigFilename();
-	QLabel* confPathLabel = new QLabel(i18n("Your Sword configuration file is <b>%1</b>").arg(swordConfPath), page);
+	QLabel* confPathLabel = new QLabel(i18n("Your bookshelf configuration file is <b>%1</b>").arg(swordConfPath), page);
 	layout->addMultiCellWidget(confPathLabel, 1,1,0,3);
 
   m_swordPathListBox = new KListView(page);
   m_swordPathListBox->setFullWidth(true);
-  m_swordPathListBox->addColumn(i18n("Path to Sword modules"));
+  m_swordPathListBox->addColumn(i18n("Path to bookshelf"));
   connect(m_swordPathListBox, SIGNAL(selectionChanged()), this, SLOT(slot_swordPathSelected()));
   layout->addMultiCellWidget(m_swordPathListBox, 2,5,0,1);
 
@@ -471,7 +473,7 @@ void CSwordSetupDialog::initSwordConfig(){
 }
 
 void CSwordSetupDialog::initInstall(){
-	m_installPage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("bt_bible",32));
+	m_installPage = addPage(i18n("Install/Update works"), QString::null, DesktopIcon("bt_bible",32));
 
 	QVBoxLayout* vboxlayout = new QVBoxLayout(m_installPage);
 	QHBoxLayout* hboxlayout = new QHBoxLayout();
@@ -493,18 +495,21 @@ void CSwordSetupDialog::initInstall(){
 	layout->setRowStretch(6,5);
 
 	QLabel* installLabel = CToolClass::explanationLabel(m_installSourcePage,
-		i18n("Install/update modules - Step 1"),
-		i18n("Please choose a source and a destination. After that step click on the connect button.<br/><b>WARNING: If you live in a persecuted country and do not wish to risk detection you should NOT use the module remote installation feature!</b>")
+		i18n("Install/update works - Step 1"),
+		i18n("Please choose a (local or remote) library and a bookshelf path to install the work(s) to. \
+		After that step click on the connect button.<br/>\
+		<b>WARNING: If you live in a persecuted country and do not wish to risk detection you should NOT use \
+		the module remote installation feature!</b>")
   );
 	layout->addMultiCellWidget(installLabel, 0,0,0,1);
 
-	QLabel* sourceHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select source location")), m_installSourcePage);
+	QLabel* sourceHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select library")), m_installSourcePage);
 	layout->addMultiCellWidget(sourceHeadingLabel, 1,1,0,1);
 
 	m_sourceCombo = new QComboBox(m_installSourcePage);
 	layout->addWidget(m_sourceCombo, 2, 0);
 
-	QPushButton* maintainSourcesButton = new QPushButton(i18n("Maintain sources"), m_installSourcePage);
+	QPushButton* maintainSourcesButton = new QPushButton(i18n("Maintain libraries"), m_installSourcePage);
 	maintainSourcesButton->setIconSet(DesktopIcon("edit", 16));
 	connect(maintainSourcesButton, SIGNAL(clicked()), SLOT(slot_installManageSources()));
 	layout->addWidget(maintainSourcesButton, 2, 1, Qt::AlignLeft);
@@ -512,7 +517,7 @@ void CSwordSetupDialog::initInstall(){
 	m_sourceLabel = new QLabel(m_installSourcePage);
 	layout->addMultiCellWidget(m_sourceLabel, 3,3,0,1);
 
-	QLabel* targetHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select target location")), m_installSourcePage);
+	QLabel* targetHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select bookshelf path")), m_installSourcePage);
 	layout->addMultiCellWidget(targetHeadingLabel, 4,4,0,1);
 
 	m_targetCombo = new QComboBox(m_installSourcePage);
@@ -532,7 +537,7 @@ void CSwordSetupDialog::initInstall(){
 	myHBox->addSpacing(10);
 	myHBox->addStretch(5);
 
-  m_installContinueButton = new QPushButton(i18n("Connect to source"), m_installPage);
+  m_installContinueButton = new QPushButton(i18n("Connect to library"), m_installPage);
 	m_installContinueButton->setIconSet(DesktopIcon("forward",16));
   connect(m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
 	myHBox->addWidget(m_installContinueButton);
@@ -547,7 +552,7 @@ void CSwordSetupDialog::initInstall(){
 }
 
 void CSwordSetupDialog::initRemove(){
-	QFrame* page = m_removePage = addPage(i18n("Remove Modules"), QString::null, DesktopIcon("edittrash",32));
+	QFrame* page = m_removePage = addPage(i18n("Remove works"), QString::null, DesktopIcon("edittrash",32));
 
 	page->setMinimumSize(500,400);
 
@@ -559,18 +564,18 @@ void CSwordSetupDialog::initRemove(){
 	layout->setRowStretch(2,1);
 
 	QLabel* mainLabel= CToolClass::explanationLabel(page,
-		i18n("Remove installed module(s)"),
-		i18n("This dialog lets you remove installed Sword modules from your system. Choose the modules and then click on the remove button.")
+		i18n("Remove installed work(s)"),
+		i18n("This dialog lets you remove installed works from your system. Choose the modules and then click on the remove button.")
   );
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
-	QLabel* headingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select modules to be uninstalled")), page);
+	QLabel* headingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select works to be uninstalled")), page);
 	layout->addMultiCellWidget(headingLabel, 1, 1, 0, 3);
 
 	m_populateListNotification = new QLabel("", page);
 	layout->addWidget(m_populateListNotification, 3, 2, Qt::AlignCenter);
 
-	m_removeModuleListView = new KListView(page, "remove modules view");
+	m_removeModuleListView = new KListView(page, "remove works view");
 	layout->addMultiCellWidget( m_removeModuleListView, 2,2,0,3);
 	m_removeModuleListView->addColumn(i18n("Name"));
   m_removeModuleListView->addColumn(i18n("Location"));
@@ -582,7 +587,7 @@ void CSwordSetupDialog::initRemove(){
 	connect(m_removeModuleListView, SIGNAL(spacePressed(QListViewItem*)),
 		SLOT(slot_removeModuleItemExecuted(QListViewItem*)));
 
-  m_removeRemoveButton = new QPushButton(i18n("Remove selected module(s)"), page);
+  m_removeRemoveButton = new QPushButton(i18n("Remove selected work(s)"), page);
 	m_removeRemoveButton->setIconSet( DesktopIcon("edittrash", 16) );
 	layout->addWidget(m_removeRemoveButton, 3, 3, Qt::AlignRight);
 
@@ -771,7 +776,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 		++list_it;
 	}
 
-	const QString message = i18n("You selected the following modules: %1.\n\n"
+	const QString message = i18n("You selected the following work(s): %1.\n\n"
 		"Do you really want to remove them from your system?").arg(moduleList.join(", "));
 
 	if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
@@ -890,7 +895,7 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 	
 	for (ListCSwordModuleInfo::iterator it(list.begin()); it != end_it; ++it, ++mod) {
 		if (mod % 20){
-			m_populateListNotification->setText(i18n("Scanning your modules: %1%").arg((mod*100)/modcount));
+			m_populateListNotification->setText(i18n("Scanning your bookshelf: %1%").arg((mod*100)/modcount));
 			//KApplication::kApplication()->processEvents();
 			m_removeModuleListView->triggerUpdate();
 		}
@@ -987,7 +992,7 @@ const bool CSwordSetupDialog::refreshRemoteModuleCache( const QString& sourceNam
   
 	m_progressDialog->progressBar()->setTotalSteps(100);
 	m_progressDialog->setMinimumDuration(0); //sow immediately
-	m_progressDialog->setLabel( i18n("Downloading module information...") );
+	m_progressDialog->setLabel( i18n("Downloading library information...") );
 	
 	if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
 // 		int errorCode = 0;
@@ -1182,8 +1187,8 @@ void CSwordSetupDialog::slot_connectToSource(){
 		layout->setSpacing(10);
 
 		QLabel* installLabel = CToolClass::explanationLabel(m_installModuleListPage,
-			i18n("Install/update modules - Step 2"),
-			i18n("Please choose the modules which should be installed / updated and click the install button.")
+			i18n("Install/update works - Step 2"),
+			i18n("Please choose the works which should be installed and/or updated and click the install button.")
 		);
 		layout->addMultiCellWidget(installLabel, 0,0,0,1);
 		layout->setRowStretch(0,0);
@@ -1192,7 +1197,7 @@ void CSwordSetupDialog::slot_connectToSource(){
 		m_installModuleListPage->setMinimumSize(500,400);
 
 		//insert a list box which contains all available remote modules
-		m_installModuleListView = new KListView(m_installModuleListPage, "install modules view");
+		m_installModuleListView = new KListView(m_installModuleListPage, "install works view");
 		layout->addMultiCellWidget( m_installModuleListView, 1,6,0,1);
 		layout->setColStretch(0,5);
 		layout->setRowStretch(1,5);
@@ -1216,7 +1221,7 @@ void CSwordSetupDialog::slot_connectToSource(){
   connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
 
   populateInstallModuleListView( currentInstallSource() );
-  m_installContinueButton->setText(i18n("Install modules"));
+  m_installContinueButton->setText(i18n("Install works"));
   m_installContinueButton->setEnabled(false);
 
   m_installWidgetStack->raiseWidget(m_installModuleListPage);
@@ -1281,7 +1286,8 @@ void CSwordSetupDialog::slot_installModules(){
 		++list_it;
 	}
 
-	const QString& message = i18n("You selected the following modules: %1.\n\nDo you really want to install them on your system?").arg(moduleList.join(", "));
+	const QString& message = i18n("You selected the following works: %1.\n\n\
+		Do you really want to install them on your system?").arg(moduleList.join(", "));
 
 	if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
     BTInstallMgr iMgr;
@@ -1307,7 +1313,7 @@ void CSwordSetupDialog::slot_installModules(){
 
     //module are removed in this section of code
 		m_installedModuleCount = 0;
-    m_progressDialog = new KProgressDialog(0,0,i18n("Module download"), QString::null, true);
+    m_progressDialog = new KProgressDialog(0,0,i18n("Download of work(s)"), QString::null, true);
 		
 		connect(
 			m_progressDialog, SIGNAL(cancelClicked()), 
@@ -1380,7 +1386,7 @@ void CSwordSetupDialog::slot_showInstallSourcePage(){
   disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
   m_installBackButton->setEnabled(false);
 
-	m_installContinueButton->setText(i18n("Connect to source"));
+	m_installContinueButton->setText(i18n("Connect to library"));
   m_installContinueButton->setEnabled(true);
 
   m_installWidgetStack->raiseWidget(m_installSourcePage);
@@ -1397,7 +1403,9 @@ void CSwordSetupDialog::slot_swordEditClicked(){
 				populateInstallCombos(); //update target list bof on install page
 			}
 			else {
-				const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, so modules can not be installed here using BibleTime. Do you want to use this directory instead of the previous value?"));
+				const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, so works \
+					can not be installed here using BibleTime. \
+					Do you want to use this directory instead of the previous value?"));
 				if (result == KMessageBox::Yes) {
 					i->setText(0, url.path());
 					populateInstallCombos(); //update target list bof on install page
@@ -1417,7 +1425,9 @@ void CSwordSetupDialog::slot_swordAddClicked(){
 			populateInstallCombos(); //update target list bof on install page
 		}
 		else {
-			const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, so modules can not be installed here using BibleTime. Do you want to add it to the list of module directories?"));
+			const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, \
+			so works can not be installed here using BibleTime. \
+			Do you want to add it to the list of module directories?"));
 			if (result == KMessageBox::Yes) {
 		    (void)new KListViewItem(m_swordPathListBox, url.path());
 				populateInstallCombos(); //update target list bof on install page

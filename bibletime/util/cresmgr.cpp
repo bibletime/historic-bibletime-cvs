@@ -871,8 +871,8 @@ namespace CResMgr {
           using namespace view;
           {
             using namespace showMainIndex;
-            tooltip     = makeToolTip(i18n("Show main index"));
-            whatsthis   = makeWhatsThis(tooltip, i18n("Toggle the main index view."));
+            tooltip     = makeToolTip(i18n("Show bookshelf"));
+            whatsthis   = makeWhatsThis(tooltip, i18n("Show or hide the bookshelf."));
           }
           {
             using namespace showToolBar;
@@ -885,13 +885,13 @@ namespace CResMgr {
           using namespace mainMenu::mainIndex;
           {
             using namespace search;
-            tooltip     = makeToolTip(i18n("Search in open modules"));
-            whatsthis   = makeWhatsThis(tooltip, i18n("Open the search dialog to search in all modules that are currently open."));
+            tooltip     = makeToolTip(i18n("Search in open work(s)"));
+            whatsthis   = makeWhatsThis(tooltip, i18n("Open the search dialog to search in all works that are currently open."));
           }
           {
             using namespace searchdefaultbible;
-            tooltip     = makeToolTip(i18n("Search default bible"));
-            whatsthis   = makeWhatsThis(tooltip, i18n("Open the search dialog to search in the default bible."));
+            tooltip     = makeToolTip(i18n("Search default Bible"));
+            whatsthis   = makeWhatsThis(tooltip, i18n("Open the search dialog to search in the standard Bible."));
           }
         };
 
@@ -925,40 +925,40 @@ namespace CResMgr {
           {
             using namespace tile;
             tooltip     = makeToolTip(i18n("Tile windows"));
-            whatsthis   = makeWhatsThis(tooltip,i18n("Tile the open display windows."));
+            whatsthis   = makeWhatsThis(tooltip,i18n("Tile the open windows."));
           }
           {
             using namespace cascade;
             tooltip     = makeToolTip(i18n("Cascade windows"));
-            whatsthis   = makeWhatsThis(tooltip,i18n("Cascade the open display windows."));
+            whatsthis   = makeWhatsThis(tooltip,i18n("Cascade the open windows."));
           }
           {
 						{
 							using namespace arrangementMode;
 						
             	tooltip     = makeToolTip(i18n("Choose the window arrangement mode"));
-            	whatsthis   = makeWhatsThis(tooltip,i18n("Choose the way that is used to arrange the display windows."));
+            	whatsthis   = makeWhatsThis(tooltip,i18n("Choose the way that is used to arrange the windows."));
 						}
 						{
             	using namespace arrangementMode::autoTileVertical;
             	tooltip     = makeToolTip(i18n("Automatically tile windows vertical"));
-            	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open display windows."));
+            	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open windows."));
 						}
 						{
             	using namespace arrangementMode::autoTileHorizontal;
             	tooltip     = makeToolTip(i18n("Automatically tile windows horizontal"));
-            	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open display windows."));
+            	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open windows."));
 						}
 						{
 							using namespace arrangementMode::autoCascade;
 							tooltip     = makeToolTip(i18n("Automatically cascade windows"));
-							whatsthis   = makeWhatsThis(tooltip, i18n("Automatically cascade the open display windows."));
+							whatsthis   = makeWhatsThis(tooltip, i18n("Automatically cascade the open windows."));
 						}
           }
 					{
             using namespace closeAll;
             tooltip     = makeToolTip(i18n("Close all windows"));
-            whatsthis   = makeWhatsThis(tooltip, i18n("Close all open display windows."));
+            whatsthis   = makeWhatsThis(tooltip, i18n("Close all open windows."));
           }
         }
 
@@ -976,8 +976,8 @@ namespace CResMgr {
           };
           {
             using namespace swordSetupDialog;
-            tooltip     = makeToolTip(i18n("Configure Sword"));
-            whatsthis   = makeWhatsThis(tooltip, i18n("Open the dialog to configure Sword and install/update/remove Sword modules."));
+            tooltip     = makeToolTip(i18n("Bookshelf Manager"));
+            whatsthis   = makeWhatsThis(tooltip, i18n("Open the dialog to configure your bookshelf and install/update/remove works."));
           };
 
         };
@@ -1028,7 +1028,7 @@ namespace CResMgr {
       {
         using namespace searchButton;
         tooltip     = makeToolTip(i18n("Start the search"));
-        whatsthis   = makeWhatsThis(tooltip, i18n("Start to search the text in each of the chosen modules."));
+        whatsthis   = makeWhatsThis(tooltip, i18n("Start to search the text in each of the chosen work(s)."));
       };
       {
         using namespace cancelSearchButton;
@@ -1040,13 +1040,13 @@ namespace CResMgr {
         using namespace options;
         {
           using namespace moduleChooserButton;
-          tooltip     = makeToolTip(i18n("Choose modules"));
-          whatsthis   = makeWhatsThis(tooltip, i18n("Open a dialog to choose modules for the search."));
+          tooltip     = makeToolTip(i18n("Choose work(s)"));
+          whatsthis   = makeWhatsThis(tooltip, i18n("Open a dialog to choose work(s) for the search."));
         };
         {
           using namespace searchedText;
           tooltip     = makeToolTip(i18n("Search text"));
-          whatsthis   = makeWhatsThis(tooltip, i18n("Enter the text you want to search in the chosen modules here."));
+          whatsthis   = makeWhatsThis(tooltip, i18n("Enter the text you want to search in the chosen work(s) here."));
         };
         {
           using namespace searchType;
@@ -1083,7 +1083,9 @@ namespace CResMgr {
         {
           using namespace chooseScope;
           tooltip     = makeToolTip(i18n("Choose a search scope"));
-          whatsthis   = makeWhatsThis(tooltip, i18n("Choose a scope from the list. Select the first item to use no scope, the second one is to use each module's last search result as search scope. The others are user defined search scopes."));
+          whatsthis   = makeWhatsThis(tooltip, i18n("Choose a scope from the list. \
+						Select the first item to use no scope, the second one is to use each work's last search result as search scope. \
+						The others are user defined search scopes."));
         };
         {
           using namespace scopeEditor;
@@ -1123,13 +1125,13 @@ namespace CResMgr {
         using namespace result;
         {
           using namespace moduleList;
-          tooltip     = makeToolTip(i18n("Used modules"));
-          whatsthis   = makeWhatsThis(tooltip, i18n("The list of modules chosen for the search."));
+          tooltip     = makeToolTip(i18n("Used work(s)"));
+          whatsthis   = makeWhatsThis(tooltip, i18n("The list of works chosen for the search."));
         };
         {
           using namespace foundItems;
-          tooltip     = makeToolTip(i18n("Found items of selected module"));
-          whatsthis   = makeWhatsThis(tooltip, i18n("This list contains the search result of the selected module."));
+          tooltip     = makeToolTip(i18n("Found items of selected work"));
+          whatsthis   = makeWhatsThis(tooltip, i18n("This list contains the search result of the selected work."));
         };
         {
           using namespace textPreview;
@@ -1151,8 +1153,8 @@ namespace CResMgr {
 					}
 					{
 	          using namespace search;
-						tooltip = makeToolTip( i18n("Search in modules") );
-						whatsthis = makeWhatsThis(tooltip, i18n("This button open the search dialog with the module of this window."));
+						tooltip = makeToolTip( i18n("Search in work(s)") );
+						whatsthis = makeWhatsThis(tooltip, i18n("This button opens the search dialog with the work(s) of this window."));
 						
 					}
         };
@@ -1160,17 +1162,17 @@ namespace CResMgr {
         {
           using namespace bookList;
           tooltip = makeToolTip( i18n("List of books") );
-          whatsthis = makeWhatsThis(tooltip, i18n("This list contains the books which are available in this module."));
+          whatsthis = makeWhatsThis(tooltip, i18n("This list contains the books which are available in this work."));
         };
         {
           using namespace nextBook;
           tooltip = makeToolTip( i18n("Show the next book") );
-          whatsthis = makeWhatsThis(tooltip, i18n("Show the next book of this module."));
+          whatsthis = makeWhatsThis(tooltip, i18n("Show the next book of this work."));
          }
         {
           using namespace previousBook;
           tooltip = makeToolTip( i18n("Show the previous book") );
-          whatsthis = makeWhatsThis(tooltip, i18n("Show the previous book of this module."));
+          whatsthis = makeWhatsThis(tooltip, i18n("Show the previous book of this work."));
         }
         {
           using namespace chapterList;
@@ -1180,12 +1182,12 @@ namespace CResMgr {
         {
           using namespace nextChapter;
           tooltip = makeToolTip( i18n("Show the next chapter") );
-          whatsthis = makeWhatsThis(tooltip, i18n("Show the previous chapter of the module."));
+          whatsthis = makeWhatsThis(tooltip, i18n("Show the previous chapter of the work."));
         }
         {
          using namespace previousChapter;
           tooltip = makeToolTip( i18n("Show the previous chapter") );
-          whatsthis = makeWhatsThis(tooltip, i18n("Show the next chapter of the module."));
+          whatsthis = makeWhatsThis(tooltip, i18n("Show the next chapter of the work."));
         }
         {
          using namespace verseList;
@@ -1208,7 +1210,7 @@ namespace CResMgr {
         {
           using namespace syncWindow;
            tooltip = makeToolTip(i18n("Synchronize with Bible windows"));
-           whatsthis = makeWhatsThis(tooltip, i18n("Synchronize the displayed entry of this module with the active Bible window."));
+           whatsthis = makeWhatsThis(tooltip, i18n("Synchronize the displayed entry of this work with the active Bible window."));
          }
       };
       {
@@ -1216,17 +1218,17 @@ namespace CResMgr {
         {
           using namespace entryList;
           tooltip = makeToolTip( i18n("List of entries") );
-          whatsthis = makeWhatsThis(tooltip, i18n("This list contains the entries of the current module."));
+          whatsthis = makeWhatsThis(tooltip, i18n("This list contains the entries of the current work."));
         };
         {
           using namespace nextEntry;
           tooltip = makeToolTip( i18n("Show the next entry") );
-          whatsthis = makeWhatsThis(tooltip, i18n("The next entry of the module will be shown."));
+          whatsthis = makeWhatsThis(tooltip, i18n("The next entry of the work will be shown."));
         };
         {
           using namespace previousEntry;
           tooltip = makeToolTip( i18n("Show the previous entry") );
-          whatsthis = makeWhatsThis(tooltip, i18n("The previous entry of the module will be shown."));
+          whatsthis = makeWhatsThis(tooltip, i18n("The previous entry of the work will be shown."));
         };
       };
 
@@ -1235,17 +1237,17 @@ namespace CResMgr {
       {
         using namespace saveText;
         tooltip   = makeToolTip( i18n("Save the current text") );
-        whatsthis = makeWhatsThis( tooltip, i18n("Save the curent text into the module. The old text will be overwritten.") );
+        whatsthis = makeWhatsThis( tooltip, i18n("Save the curent text into the work. The old text will be overwritten.") );
       };
       {
         using namespace restoreText;
         tooltip   = makeToolTip( i18n("Restore the old text") );
-        whatsthis = makeWhatsThis( tooltip, i18n("Loads the old text from the module and loads it into the edit area. The unsaved text will be lost.") );
+        whatsthis = makeWhatsThis( tooltip, i18n("Loads the old text from the work and loads it into the edit area. The unsaved text will be lost.") );
       };
       {
         using namespace deleteEntry;
         tooltip   = makeToolTip( i18n("Delete the current entry") );
-        whatsthis = makeWhatsThis( tooltip, i18n("Deletes the current entry out of the module. The text will be lost.") );
+        whatsthis = makeWhatsThis( tooltip, i18n("Deletes the current entry out of the work. The text will be lost.") );
       };
 
       //formatting buttons
@@ -1330,49 +1332,6 @@ namespace CResMgr {
         };
       };
       {
-        using namespace colors;
-        {
-          using namespace text;
-          tooltip = makeToolTip( i18n("Text color") );
-          whatsthis = makeWhatsThis( tooltip, i18n("The color used for normal text in the display windows."));
-        };
-        {
-          using namespace background;
-          tooltip = makeToolTip( i18n("Color of the background") );
-          whatsthis = makeWhatsThis( tooltip, i18n("This is the background color used in display windows."));
-        };
-        {
-          using namespace links;
-          tooltip   = makeToolTip( i18n("Link color") );
-          whatsthis = makeWhatsThis( tooltip, i18n("The color used for all references into Sword modules."));
-        };
-        {
-          using namespace footnotes;
-          tooltip   = makeToolTip( i18n("Footnote color") );
-          whatsthis = makeWhatsThis( tooltip, i18n("This color will be used for all footnotes in the display windows."));
-        };
-        {
-          using namespace strongNumbers;
-          tooltip   = makeToolTip( i18n("Strong's Numbers") );
-          whatsthis = makeWhatsThis( tooltip, i18n("This color will be used for every Strong's Number in the display windows."));
-        };
-        {
-          using namespace highlightedVerse;
-          tooltip   = makeToolTip( i18n("Color of the highlighted verse") );
-          whatsthis = makeWhatsThis( tooltip, i18n("This is the color of the highlighted verse used in display windows."));
-        };
-        {
-          using namespace jesusWords;
-          tooltip   = makeToolTip( i18n("Words of Jesus") );
-          whatsthis = makeWhatsThis( tooltip, i18n("All words spoken by Jesus will appear in this color."));
-        };
-        {
-          using namespace morphTags;
-          tooltip = makeToolTip( i18n("Morphological tags") );
-          whatsthis = makeWhatsThis( tooltip, i18n("All morphological tags will appear in this color."));
-        };
-      };
-      {
         using namespace profiles;
         {
           using namespace list;
@@ -1402,7 +1361,8 @@ namespace CResMgr {
           {
             using namespace cacheKeys;
             tooltip   = makeToolTip( i18n("Use cache files for the lexicon entries") );
-            whatsthis = makeWhatsThis( tooltip, i18n("Activate this to let BibleTime create index files for the lexicon entries. This increases the speed of opening large lexicon modules significantly, but does consume some disk space. Recommended."));
+            whatsthis = makeWhatsThis( tooltip, i18n("Activate this to let BibleTime create index files for the lexicon entries. \
+							This increases the speed of opening large lexicons significantly, but does consume some disk space. Recommended."));
           };
           {
             using namespace scrolling;
@@ -1419,42 +1379,42 @@ namespace CResMgr {
           using namespace settings::sword::modules;
           {
             using namespace bible;
-            tooltip   = makeToolTip( i18n("The default bible used in the workspace area") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The default Bible is used when a hyperlink into a Bible is clicked."));
+            tooltip   = makeToolTip( i18n("The standard Bible") );
+            whatsthis = makeWhatsThis( tooltip, i18n("The standard Bible is used when a hyperlink into a Bible is clicked."));
           };
           {
             using namespace commentary;
-            tooltip   = makeToolTip( i18n("The default commentary used in the workspace area") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The default commentary is used when a hyperlink into a commentary is clicked."));
+            tooltip   = makeToolTip( i18n("The standard commentary") );
+            whatsthis = makeWhatsThis( tooltip, i18n("The standard commentary is used when a hyperlink into a commentary is clicked."));
           };
           {
             using namespace lexicon;
-            tooltip   = makeToolTip( i18n("The default lexicon used in the workspace area") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The default lexicon is used when a hyperlink into a lexicon is clicked."));
+            tooltip   = makeToolTip( i18n("The standard lexicon") );
+            whatsthis = makeWhatsThis( tooltip, i18n("The standard lexicon is used when a hyperlink into a lexicon is clicked."));
           };
           {
             using namespace dailyDevotional;
-            tooltip   = makeToolTip( i18n("The default daily devotional module") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The default devotional will be used to display a short start up devotional."));
+            tooltip   = makeToolTip( i18n("The standard daily devotional work") );
+            whatsthis = makeWhatsThis( tooltip, i18n("The standard devotional will be used to display a short start up devotional."));
           };
           {
             using namespace hebrewStrongs;
-            tooltip   = makeToolTip( i18n("The default Hebrew lexicon used in the workspace area") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The default Hebrew lexicon is used when a hyperlink into a Hebrew lexicon is clicked."));
+            tooltip   = makeToolTip( i18n("The standard Hebrew lexicon") );
+            whatsthis = makeWhatsThis( tooltip, i18n("The standard Hebrew lexicon is used when a hyperlink into a Hebrew lexicon is clicked."));
           };
           {
             using namespace greekStrongs;
-            tooltip   = makeToolTip( i18n("The default Greek lexicon used in the workspace area") );
-            whatsthis = makeWhatsThis( tooltip, i18n("The default Greek lexicon is used when a hyperlink into a Greek lexicon is clicked."));
+            tooltip   = makeToolTip( i18n("The standard Greek lexicon") );
+            whatsthis = makeWhatsThis( tooltip, i18n("The standard Greek lexicon is used when a hyperlink into a Greek lexicon is clicked."));
           };
           {
             using namespace hebrewMorph;
-            tooltip   = makeToolTip( i18n("The default Morphological lexicon for Hebrew texts used in the workspace area") );
+            tooltip   = makeToolTip( i18n("The standard Morphological lexicon for Hebrew texts") );
             whatsthis = makeWhatsThis( tooltip, i18n("The standard morphological lexicon for Hebrew texts is used when a hyperlink of a morphological tag in a Hebrew text is clicked."));
           };
           {
             using namespace greekMorph;
-            tooltip   = makeToolTip( i18n("The default Morphological lexicon for Greek texts used in the workspace area") );
+            tooltip   = makeToolTip( i18n("The standard Morphological lexicon for Greek texts") );
             whatsthis = makeWhatsThis( tooltip, i18n("The standard morphological lexicon for Greek texts is used when a hyperlink of a morphological tag in a Greek text is clicked."));
           };
         };
@@ -1473,22 +1433,22 @@ namespace CResMgr {
           {
             using namespace footnotes;
             tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::footnotes) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show footnotes embedded in the module's text."));
+            whatsthis = makeWhatsThis( tooltip, i18n("Show footnotes embedded in the work's text."));
           };
           {
             using namespace strongsNumbers;
             tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::strongNumbers) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show Strong's Numbers embedded in the text of modules which support this feature."));
+            whatsthis = makeWhatsThis( tooltip, i18n("Show Strong's Numbers embedded in the text of works which support this feature."));
           };
           {
             using namespace morphTags;
             tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::morphTags) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show tags providing morphological information in the text of modules which support this feature."));
+            whatsthis = makeWhatsThis( tooltip, i18n("Show tags providing morphological information in the text of works which support this feature."));
           };
           {
             using namespace headings;
             tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::headings) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show section headings in the text in the text of modules which support this feature."));
+            whatsthis = makeWhatsThis( tooltip, i18n("Show section headings in the text in the text of works which support this feature."));
           };
           {
             using namespace lemmas;
@@ -1522,8 +1482,8 @@ namespace CResMgr {
       using namespace mainIndex;
       {
         using namespace search;
-        tooltip     = makeToolTip(i18n("Search in open modules"));
-        whatsthis   = makeWhatsThis(tooltip, i18n("Opens the search dialog to search in the modules that are currently open."));
+        tooltip     = makeToolTip(i18n("Search in open work(s)"));
+        whatsthis   = makeWhatsThis(tooltip, i18n("Opens the search dialog to search in the work(s) that are currently open."));
       };
     };
   };
