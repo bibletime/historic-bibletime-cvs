@@ -45,6 +45,10 @@ public:
   * Synchronizes to the given key if sync is enabled.
   */
   void synchronize( CKey* syncKey );
+  /**
+  * Reimplementation.
+  */
+  virtual const QString caption() const;
 
 	
 public slots: // Public slots

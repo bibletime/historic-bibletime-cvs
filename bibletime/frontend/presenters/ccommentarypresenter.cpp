@@ -243,3 +243,8 @@ void CCommentaryPresenter::synchronize( CKey* syncKey ){
 		m_keyChooser->setKey(m_key);
 	}
 }
+
+/** Reimplementation. */
+const QString CCommentaryPresenter::caption() const {
+	return m_key->getKey();
+}

@@ -157,3 +157,8 @@ void CLexiconPresenter::printEntry(){
 	
 	printKey(key, key, m_moduleList.first());
 }
+
+/** Reimplmentation. */
+const QString CLexiconPresenter::caption() const {
+	return m_key->getKey();
+}

@@ -100,7 +100,7 @@ void CBiblePresenter::lookup(CKey* key){
 		m_key->setKey(*vKey);
 		
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
-	setPlainCaption( m_key->getKey() );
+	setPlainCaption( caption() );
 	
 	setUpdatesEnabled(true);		
 }
@@ -198,4 +198,9 @@ void CBiblePresenter::printHighlightedVerse(){
 	key->setKey(currentAnchor);
 	
 	printKey(key, key, m_moduleList.first());
+}
+
+/** Reimplementation. */
+const QString CBiblePresenter::caption() const{
+	return m_key->getKey();
 }

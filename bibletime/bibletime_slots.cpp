@@ -220,7 +220,6 @@ void BibleTime::slotAutoTile(){
 	if (m_windowAutoTile_action->isChecked()) {
 		m_windowAutoCascade_action->setChecked(false);
 		m_mdi->setGUIOption( CMDIArea::autoTile );
-//		m_mdi->tile();
 	}
 	else if (!m_windowAutoCascade_action->isChecked())
 		m_mdi->setGUIOption( CMDIArea::Nothing );
@@ -232,7 +231,6 @@ void BibleTime::slotAutoCascade(){
 	if (m_windowAutoCascade_action->isChecked()) {
 		m_windowAutoTile_action->setChecked(false);
 		m_mdi->setGUIOption( CMDIArea::autoCascade );
-//		m_mdi->cascade();
 	}
 	else if (!m_windowAutoTile_action->isChecked())
 		m_mdi->setGUIOption( CMDIArea::Nothing );
@@ -245,8 +243,6 @@ void BibleTime::slotWindowMenuActivated( int id ) {
   	
   QString dummy;
   QWidget* w = m_mdi->windowList().at( id );
-//	qDebug( dummy.setNum(id) );
-	ASSERT(w);
   if ( w )
 		w->setFocus();
 }
@@ -300,9 +296,4 @@ void BibleTime::slotFilePrint(){
 void BibleTime::slotSetPrintingStatus(){
 	m_filePrint_action->setEnabled( m_important->printer->getPrintQueue()->count()>0 );
 	m_fileClearQueue_action->setEnabled( m_important->printer->getPrintQueue()->count()>0 );
-}
-
-/** Reimplementation. Sets the caption and takes care of special captions set by the MDI window */
-void BibleTime::setCaption(const QString& caption){
-	KMainWindow::setCaption(caption);
 }

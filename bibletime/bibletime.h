@@ -125,14 +125,10 @@ public slots:
   */
   void lastWindowClosed();
   /**
-  	* Reimplementation from QWidget.
-  	* Sets the correct plain caption.
-  	*/
-  virtual void setPlainCaption( const QString& );
-  /**
- 	* Reimplementation. Sets the caption and takes care of special captions set by the MDI window
+ 	* Reimplementation from QWidget.
+ 	* Sets the correct plain caption.
  	*/
-  virtual void setCaption(const QString&);
+  virtual void setPlainCaption( const QString& );
 
 protected: // Protected methods
   /**

@@ -69,8 +69,7 @@ void CMDIArea::slotClientActivated(QWidget* client){
 	if (!client)
 		return;
 				
-	if (windowList().count())
-		emit sigSetToplevelCaption( QString("%1").arg(client->caption().stripWhiteSpace()) );	
+	emit sigSetToplevelCaption( QString("%1").arg(client->caption().stripWhiteSpace()) );	
 	if (client->isA("CBiblePresenter")) {
 		CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
 		syncCommentaries( p->getKeyChooser()->getKey() );
@@ -88,7 +87,7 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	
 	if (!windowList().count()) {
 		emit sigLastPresenterClosed();
-		emit sigSetToplevelCaption( QString("BibleTime %1").arg(VERSION) );
+		emit sigSetToplevelCaption( QString() );
 	}	
 	
 	if (e->inserted() || e->removed()) {
@@ -104,10 +103,10 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 		}
 	}
 	
-	if (e->type() == QEvent::ShowMaximized) {
+	if (e->type() == QEvent::ShowMaximized || e->type() == QEvent::ShowNormal || e->type() == QEvent::ShowMinimized ) {
 		QWidget* c = (QWidget*)e->child();
 		if (c)
-			emit sigSetToplevelCaption( QString("BibleTime [%1]").arg(c->caption()) );	
+			emit sigSetToplevelCaption( QString("%1").arg(c->caption()) );	
 	}
 	m_childEvent = false;
 }
@@ -147,7 +146,7 @@ void CMDIArea::deleteAll(){
 		if ( windows.at(i) )
 			delete windows.at(i);
 	}
-	setUpdatesEnabled(true);
+	setUpdatesEnabled(true);	
 }
 
 /** Enable / disable autoCascading */
@@ -171,8 +170,10 @@ void CMDIArea::tile(){
 	if (!isUpdatesEnabled() || (windowList().count() == 0) )	
 		return;
 	
-	if (windowList().count() == 1)
+	if (windowList().count() == 1) {
 		windowList().at(0)->showMaximized();
+		emit sigSetToplevelCaption( QString("%1").arg(windowList().at(0)->caption().stripWhiteSpace()) );			
+	}		
 	else
 		QWorkspace::tile();
 }
@@ -182,8 +183,10 @@ void CMDIArea::cascade(){
 	if (!isUpdatesEnabled() || (windowList().count() == 0) )	
 		return;
 		
-	if (windowList().count() == 1)
+	if (windowList().count() == 1) {
 		windowList().at(0)->showMaximized();
+		emit sigSetToplevelCaption( QString("%1").arg(windowList().at(0)->caption().stripWhiteSpace()) );			
+	}
  	else
 		QWorkspace::cascade(); 		
 }
