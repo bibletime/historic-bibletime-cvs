@@ -125,27 +125,21 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings){
 }
 
 void CReadWindow::applyProfileSettings(CProfileWindow * const settings){
-	setUpdatesEnabled(false);
+//  parentWidget()->setUpdatesEnabled(false);
+  setUpdatesEnabled(false);
 	
-	if (settings->maximized()) {
-    // Use parentWidget() to call showMaximized. Otherwise we'd get lot's of X11 errors
-    parentWidget()->showMaximized();
+	if (settings->maximized()) { //maximize this window
+   // Use parentWidget() to call showMaximized. Otherwise we'd get lot's of X11 errors
+   parentWidget()->showMaximized();
 	}
 	else {
 		const QRect rect = settings->geometry();
 		resize(rect.width(), rect.height());
 		parentWidget()->move(rect.x(), rect.y());
 	}
-//  if (settings->hasFocus()) {
-//    parentWidget()->setFocus();
-//  }
-//  else {
-//    parentWidget()->clearFocus();
-//  }
-//	displayWidget()->view()->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
-//	m_htmlWidget->view()->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
 	
 	setUpdatesEnabled(true);	
+//  parentWidget()->setUpdatesEnabled(true);
 }
 
 void CReadWindow::insertKeyboardActions( KAccel* const a ){
