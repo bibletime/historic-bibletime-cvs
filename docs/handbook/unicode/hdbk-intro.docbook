@@ -109,7 +109,7 @@ in the search menu.</para>
 <section><title>Searchdialog</title>
 <para>Major redesign of the user interface, reducing the number 
 of tabs to two (search and result).  Features have been
-moved to the approperate tab.</para>
+moved to the appropriate tab.</para>
 </section>
 <section><title>Display windows</title>
 <para>Separated now in Read only and write only windows. Write

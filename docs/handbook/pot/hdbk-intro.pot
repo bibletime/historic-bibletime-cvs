@@ -146,7 +146,7 @@ msgstr ""
 
 #: index.docbook:110
 #, no-c-format
-msgid "Major redesign of the user interface, reducing the number of tabs to two (search and result). Features have been moved to the approperate tab."
+msgid "Major redesign of the user interface, reducing the number of tabs to two (search and result). Features have been moved to the appropriate tab."
 msgstr ""
 
 #: index.docbook:114
