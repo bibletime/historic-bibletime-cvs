@@ -702,7 +702,7 @@ void CSearchOptionsPage::initView(){
 	QGroupBox* box3 = new QGroupBox(2, Qt::Horizontal , i18n("Search progress"), this);
   grid->addMultiCellWidget(box3, 9,10,0,2);
 
-	
+
   label = new QLabel(i18n("Current module:"), box3);
 	m_currentProgressBar = new KProgress(box3);
 
@@ -830,7 +830,7 @@ sword::ListKey CSearchOptionsPage::searchScope(){
     CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
     QString scope = map[ m_rangeChooserCombo->currentText() ];
     if (!scope.isEmpty())
-      return sword::VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1-Revelation 22:21", true);
+      return sword::VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1", true);
   };
   return sword::ListKey();
 }
