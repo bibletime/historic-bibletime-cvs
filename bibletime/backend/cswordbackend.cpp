@@ -499,7 +499,7 @@ const QString CSwordBackend::booknameLanguage( const QString& language ) {
 	if (!language.isEmpty())
 		sword::LocaleMgr::getSystemLocaleMgr()->setDefaultLocaleName( language.latin1() );
 		
-	return QString::fromLatin1(sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName());
+	return QString::fromLatin1( sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName() );
 }
 
 

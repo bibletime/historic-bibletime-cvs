@@ -20,8 +20,8 @@
 	margin:10px;
 }
 #content > table {
-	margin:0;
-	padding:0;
+	margin: 0;
+	padding: 0;
 	border-spacing:10px;
 	border-collapse: collapse;
 	vertical-align:top;
@@ -49,8 +49,9 @@ a:hover {
 
 /* Settings which apply to all entries in all modules */
 .entry {
-	padding:2px;
-	text-align:justify;
+	padding: 2px;
+	vertical-align: top;
+	text-align: justify;
 }
 #printer .entry {
 	font-size:90%;
@@ -66,8 +67,9 @@ div.entry, td.entry {
 	vertical-align:top;	
 }
 
+/*Keep the values the same as in .entry*/
 .currententry {
-	padding:3px;
+	padding:2px;
 	vertical-align:top;
 	text-align:justify;
 }
@@ -89,6 +91,7 @@ td.entry + td.entry {
 /* Several additional settings for display of modules*/
 #bible div.currententry, #bible td.currententry {
 	border:1px solid black;
+	padding: 1px;
 	background-color:#F6FFF7;
 }
 #bible span.currententry {
@@ -110,7 +113,7 @@ td.entry + td.entry {
 	padding:0 3px 0 0;
 	vertical-align:top;
 }
-.entry[dir=rtl] .entryname {
+.entry[dir=rtl] .entryname, .currententry[dir=rtl] .entryname {
 	padding:0 0 0 3px;
 }
 .entryname a, #printer .entryname  {
