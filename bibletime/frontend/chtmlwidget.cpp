@@ -141,18 +141,6 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,QWidget *parent, const char *name )
 	: QTextEdit(parent, name),m_important( importantClasses ) {	
 	
-//	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
-////	QFont font;
-//	for (modules->first(); modules->current(); modules->next()) {
-//		if (modules->current()->encoding() == QFont::Unicode) {
-//			if (!document()->charsetMap->contains(font.family())) {
-////				document()->charsetMap->insert(font.family(), QFont::AnyCharSet);
-////				document()->charsetMap->insert(font.family(), QFont::Unicode);
-////				qWarning("inserted %s", font.family().latin1());
-//			}
-//		}
-//	}
-	
 	m_config = KGlobal::config();
 	m_popup = 0;
 	m_anchor = QString::null;
@@ -164,12 +152,11 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 
 	{
 		KConfigGroupSaver gs(m_config, "Fonts");	
-		const QFont unicodeFont = m_config->readFontEntry(i18n("Display window Unicode")); 		
+		QFont unicodeFont = COptionsDialog::getBTFont(COptionsDialog::unicode);
  		if (!document()->charsetMap->contains(unicodeFont.family())) {
  			document()->charsetMap->insert(unicodeFont.family(), QFont::Unicode);
  		}
 	}
-	
 		
 	initView();	
 	initConnections();

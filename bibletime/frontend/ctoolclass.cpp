@@ -160,4 +160,3 @@ const QString CToolClass::getOpenFileName( const QString& startDir, const QStrin
 	return KFileDialog::getOpenFileName(startDir, filter, parent, caption);
 #endif
 }
-

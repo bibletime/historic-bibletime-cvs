@@ -176,22 +176,7 @@ int main(int argc, char* argv[]) {
 			};
 	  }
 		
-		//first startup of BibleTime?		
-		{
-			KConfigGroupSaver groupSaver(config, "General");
-			if (config->readBoolEntry(QString::fromLatin1("firstStartup %1").arg(VERSION), true)) {
-				config->writeEntry( QString::fromLatin1("firstStartup %1").arg(VERSION), false);
-				HTML_DIALOG(HELPDIALOG_FIRST_START);
-			}			
-		}	
 	  bibletime = new BibleTime();
-		{
-			KConfigGroupSaver groupSaver(config, "General");
-			if (!config->readBoolEntry(QString::fromLatin1("isConfigured %1").arg(VERSION), false)) {
-				config->writeEntry( QString::fromLatin1("isConfigured %1").arg(VERSION), true);
-				bibletime->slotSettingsOptions();
-			}
-		}
 	
 	  if (showIt) {
 			start_logo->hide();			
@@ -199,6 +184,21 @@ int main(int argc, char* argv[]) {
 			delete start_logo;
 		}
 		
+		//first startup of BibleTime?		
+		{
+			KConfigGroupSaver groupSaver(config, "General");
+			if (config->readBoolEntry(QString::fromLatin1("firstStartup %1").arg(VERSION), true)) {
+				config->writeEntry( QString::fromLatin1("firstStartup %1").arg(VERSION), false);
+				HTML_DIALOG(HELPDIALOG_FIRST_START);
+			}			
+		}			
+		{
+			KConfigGroupSaver groupSaver(config, "General");
+			if (!config->readBoolEntry(QString::fromLatin1("isConfigured %1").arg(VERSION), false)) {
+				config->writeEntry( QString::fromLatin1("isConfigured %1").arg(VERSION), true);
+				bibletime->slotSettingsOptions();
+			}
+		}		
 		{ //The tip of the day
 			KConfigGroupSaver groupSaver(config, "Startup");
 			if (config->readBoolEntry("show tips", true))

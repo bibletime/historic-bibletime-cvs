@@ -22,7 +22,6 @@ BT_BASICFILTER::BT_BASICFILTER(){
 }
 
 char BT_BASICFILTER::ProcessText (char *text, int maxlen = -1){
-
 // This updates the settings (colors etc.) which are used in ProcessText
 // (HandleToken is reimplemented in the children)
 	updateSettings();

@@ -587,14 +587,15 @@ void COptionsDialog::renameProfile(){
 /** No descriptions */
 QFont COptionsDialog::getBTFont( BTFont which){
   KConfig* config = KGlobal::config();
+
   KConfigGroupSaver groupSaver(config,"Fonts");
 
 	switch (which){
 		case COptionsDialog::unicode:
-			return config->readFontEntry( i18n("Display window") );
+			return config->readFontEntry( i18n("Display window Unicode") );
 		case COptionsDialog::standard:
 		default:
-			return config->readFontEntry( i18n("Display window Unicode") );
+			return config->readFontEntry( i18n("Display window") );
 	}
 }
 
