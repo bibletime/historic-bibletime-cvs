@@ -1,6 +1,6 @@
 2004-01-29 Joachim Ansorg <junkmail@joachim.ansorgs.de>
   * BibleTime 1.4.1 release
-    -Bugfixes
+    -Bugfixes, especially in the Sword setup dialog part
     -Changed default icons to crystalsvg
     -Updated GUI translations
 
