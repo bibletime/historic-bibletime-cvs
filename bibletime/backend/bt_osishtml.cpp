@@ -190,8 +190,8 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						myUserData->noteType = BT_UserData::Unknown;
 					}
         }
-        else if (type == "explanation") {
-        }
+/*        else if (type == "explanation") {
+        }*/
         else if (type == "strongsMarkup") { 
 					/**
 					* leave strong's markup notes out, in the future we'll probably have 
