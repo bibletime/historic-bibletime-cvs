@@ -275,7 +275,7 @@ const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool 
   bool ret = false;
 	switch (ID) {
 		case CSwordSetupDialog::Sword:
-      showPage( pageIndex(m_swordConfigPage) );
+      showPage( pageIndex(m_swordConfigPage->parentWidget()) );
 //      if (exlusive) {
 //        m_swordConfigPage->setEnabled(false);
 //        m_installPage->setEnabled(false)
@@ -283,7 +283,7 @@ const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool 
 //      }
 			break;
 		case CSwordSetupDialog::Install:
-      showPage( pageIndex(m_installPage) );
+      showPage( pageIndex(m_installPage->parentWidget()));
 //      if (exlusive) {
 //        m_swordConfigPage->setEnabled(false);
 //        m_installPage->setEnabled(false)
@@ -291,7 +291,7 @@ const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool 
 //      }
 			break;
 		case CSwordSetupDialog::Remove:
-      showPage( pageIndex(m_removePage) );
+      showPage( pageIndex(m_removePage->parentWidget()) );
 //      if (exlusive) {
 //        m_swordConfigPage->setEnabled(false);
 //        m_installPage->setEnabled(false)

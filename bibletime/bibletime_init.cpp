@@ -472,8 +472,8 @@ void BibleTime::initBackends(){
 			{
 				KStartupLogo::hideSplash();
         CSwordSetupDialog dlg;
-        dlg.exec();
         dlg.showPart( CSwordSetupDialog::Sword );
+        dlg.exec();
 //				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModuleConfigDir);
 //				dlg.exec();
 //				KStartupLogo::showSplash();
@@ -484,8 +484,8 @@ void BibleTime::initBackends(){
 			{
 				KStartupLogo::hideSplash();
         CSwordSetupDialog dlg;
-        dlg.exec();
         dlg.showPart( CSwordSetupDialog::Install );
+        dlg.exec();
 //				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModules);
 //				dlg.exec();
 //				KStartupLogo::showSplash();				
@@ -496,7 +496,8 @@ void BibleTime::initBackends(){
 			{
 				KStartupLogo::hideSplash();
         CSwordSetupDialog dlg;
-        dlg.showPart( CSwordSetupDialog::Remove );
+        dlg.showPart( CSwordSetupDialog::Sword );
+        dlg.exec();
 //				CHTMLDialog dlg(CResMgr::helpDialog::initBackendFailed);
 //				dlg.exec();
 //				KStartupLogo::showSplash();				
