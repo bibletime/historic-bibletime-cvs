@@ -866,12 +866,10 @@ void CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e){
 }
 
 void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
-	qDebug("CGroupManager::contentsMouseReleaseEvent");
 	KListView::contentsMouseReleaseEvent(e);		
  	
 	if ((e->state() & ControlButton) || (e->state() & ShiftButton))
 		return;
-
   if ( !(m_pressedItem=(CGroupManagerItem*)itemAt(contentsToViewport(e->pos()))) )
     return;
 
@@ -884,10 +882,20 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	  			HTML_DIALOG(HELPDIALOG_MODULE_LOCKED);
 	  		config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
 	  	}
-			emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
+			if (selectedItems().count()>1) {
+				ListCSwordModuleInfo modules;
+				for (selectedItems().first(); selectedItems().current(); selectedItems().next()) {
+					CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(selectedItems().current());
+					if (i && i->type() == CGroupManagerItem::Module && i->moduleInfo()) {
+						modules.append(i->moduleInfo());
+					}
+				}
+				emit createSwordPresenter( modules, QString::null );
+			}
+			else
+				emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
 		}
 		else if  (m_pressedItem->type() == CGroupManagerItem::Bookmark) {
-			ASSERT(m_pressedItem->getBookmarkKey());
 			if (m_pressedItem->moduleInfo() && m_pressedItem->getBookmarkKey() ) {
 				emit createSwordPresenter( m_pressedItem->moduleInfo(), m_pressedItem->getKeyText() );
 			}			

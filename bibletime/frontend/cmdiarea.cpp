@@ -16,10 +16,14 @@
  ***************************************************************************/
 
 #include "cmdiarea.h"
-//#include "presenters/cmodulepresenter.h"
-//#include "presenters/cbiblepresenter.h"
+#include "../backend/ckey.h"
+#include "../backend/sword_backend/cswordversekey.h"
+#include "presenters/cbiblepresenter.h"
+#include "presenters/ccommentarypresenter.h"
+#include "keychooser/ckeychooser.h"
 #include "../ressource.h"
 #include "../whatsthisdef.h"
+#include "../structdef.h"
 #include "../../config.h"
 
 //KDE includes
@@ -36,11 +40,10 @@
 
 CMDIArea::CMDIArea(CImportantClasses* importantClasses, QWidget *parent, const char *name )
 	: QWorkspace(parent, name) {
-	qDebug("constructor of CMDIArea");
 	m_important = importantClasses;
-	m_childEvent = false;
-	
+	m_childEvent = false;	
 	config = KGlobal::config();	
+	
 	guiOption = Nothing;
 	initView();
 	initConnections();
@@ -48,7 +51,6 @@ CMDIArea::CMDIArea(CImportantClasses* importantClasses, QWidget *parent, const c
 }
 
 CMDIArea::~CMDIArea(){
-	qDebug("destructor of CMDIArea");
 }
 
 /** Initializes the view of the MDI area */
@@ -64,31 +66,30 @@ void CMDIArea::initConnections(){
 
 /** Called whan a client window was activated */
 void CMDIArea::slotClientActivated(QWidget* client){
-	qDebug("CMDIArea::slotClientActivated(QWidget* client)");
-	ASSERT(client);
-	if (!client) {
-		qDebug("client is 0, return");
+	if (!client)
 		return;
-	};
-	if (windowList().count() > 1 ) {
-		emit sigSetToplevelCaption( QString("BibleTime - [%1]").arg(client->caption()) );	
+				
+	if (windowList().count())
+		emit sigSetToplevelCaption( QString("%1").arg(client->caption().stripWhiteSpace()) );	
+	if (client->isA("CBiblePresenter")) {
+		CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
+		syncCommentaries( p->getKeyChooser()->getKey() );
 	}
 }
 
 /** Reimplementation. Used to make use of the fixedGUIOption part. */
 void CMDIArea::childEvent ( QChildEvent * e ){
 	if (m_childEvent) {
-		qDebug("already in child event, return");
 		return;
 	}	
 	QWorkspace::childEvent(e);	
 	
 	m_childEvent = true;
 	
-	if (windowList().count() == 0) {
+	if (!windowList().count()) {
 		emit sigLastPresenterClosed();
-		emit sigSetToplevelCaption( QString("BibleTime " VERSION) );
-	}
+		emit sigSetToplevelCaption( QString("BibleTime %1").arg(VERSION) );
+	}	
 	
 	if (e->inserted() || e->removed()) {
 		switch (guiOption) {
@@ -101,6 +102,12 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	 		case Nothing:
 	 			break;
 		}
+	}
+	
+	if (e->type() == QEvent::ShowMaximized) {
+		QWidget* c = (QWidget*)e->child();
+		if (c)
+			emit sigSetToplevelCaption( QString("BibleTime [%1]").arg(c->caption()) );	
 	}
 	m_childEvent = false;
 }
@@ -132,16 +139,15 @@ void CMDIArea::readSettings(){
 
 /** Deletes all the presenters in the MDI area. */
 void CMDIArea::deleteAll(){
-	qDebug("CMDIArea::deleteAll");
 	QWidgetList windows = windowList();
 
-	this->setUpdatesEnabled(false);			
+	setUpdatesEnabled(false);			
 	int count = windows.count();
 	for ( int i = 0; i < count; ++i ) {
 		if ( windows.at(i) )
 			delete windows.at(i);
 	}
-	this->setUpdatesEnabled(true);
+	setUpdatesEnabled(true);
 }
 
 /** Enable / disable autoCascading */
@@ -162,7 +168,6 @@ void CMDIArea::setGUIOption( mdiOption new_GUIOption){
 
 /**  */
 void CMDIArea::tile(){
-	qDebug("CMDIArea::tile()");	
 	if (!isUpdatesEnabled() || (windowList().count() == 0) )	
 		return;
 	
@@ -174,7 +179,6 @@ void CMDIArea::tile(){
 
 /**  */
 void CMDIArea::cascade(){
-	qDebug("CMDIArea::cascade()");
 	if (!isUpdatesEnabled() || (windowList().count() == 0) )	
 		return;
 		
@@ -182,4 +186,18 @@ void CMDIArea::cascade(){
 		windowList().at(0)->showMaximized();
  	else
 		QWorkspace::cascade(); 		
+}
+
+/** Sync the commentaries to the given key. */
+void CMDIArea::syncCommentaries(CKey* syncKey){
+	QWidgetList windows = windowList();	
+	if (!windows.count())
+		return;
+	
+	for (windows.first(); windows.current(); windows.next()) {
+		if (windows.current()->isA("CCommentaryPresenter")) {
+			CCommentaryPresenter* p = (CCommentaryPresenter*)windows.current();
+			p->synchronize(syncKey);
+		}
+	}	
 }

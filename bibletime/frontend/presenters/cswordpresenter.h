@@ -80,18 +80,21 @@ public:
   /**
   * Refreshes the presenter depending on the events given as parameter.
   */
-  virtual void refresh( const int events);
+  virtual void refresh( const int events );
   /**
   * Returns the listof used modules.
   */
-  ListCSwordModuleInfo& getModuleList();
+  ListCSwordModuleInfo& getModuleList() const;
 
 public slots: // Public slots
   /**
   * Look up the key given as parameter.
   */
   virtual void lookup(const QString&);
-
+  /**
+  * Returns the used keychooser object of this presenter.
+  */
+  CKeyChooser* getKeyChooser() const;
 
 protected: // Protected methods
   /**

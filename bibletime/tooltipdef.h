@@ -88,6 +88,8 @@
 #define TT_PRESENTER_EDIT_COLOR_CHOOSER i18n("Choose a color")
 #define TT_PRESENTER_EDIT_FONTSIZE_CHOOSER i18n("Choose a fontsize")
 
+#define TT_PRESENTER_SYNC i18n("Synchronize with Bibles")
+
 //HTML widget related #defines
 #define TT_HTML_SAVE_AS i18n("Save as HTML")
 #define TT_HTML_SELECT_ALL i18n("Select all")

@@ -107,6 +107,10 @@ signals: // Signals
   * Is emitted when a module in the tree was selected.
   */
   void createSwordPresenter(CSwordModuleInfo*, const QString);
+  /**
+  * Is emitted when more than one module are selected
+  */
+  void createSwordPresenter(ListCSwordModuleInfo, const QString);
 
 protected slots: // Protected slots
   /**
@@ -179,6 +183,9 @@ protected slots: // Protected slots
   void slotDeleteSearchdialog();
 
 private:
+	/**
+	* Our tooltip class. It displays a tooltip depending on the current item under the mouse cursor.
+	*/
 	class ToolTip : public QToolTip {
 	public:
 		ToolTip(QWidget* parent);
@@ -187,7 +194,6 @@ private:
 		*/		
 		void maybeTip( const QPoint &pos);
 	};
-
 	/**
 	*
 	*/

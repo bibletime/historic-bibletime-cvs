@@ -50,14 +50,17 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 	layout->setResizeMode(QLayout::Fixed);
 		
 	w_book = new CKeyChooserWidget(m_info->getBooks(),this);	
+//w_book->ComboBox->setMaximumWidth(200);
 	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);
 	w_book->setWhatsThis(WT_PRESENTER_BOOK_COMBO, WT_PRESENTER_NEXT_BOOK, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_BOOK);
 	
 	w_chapter = new CKeyChooserWidget( m_info->getChapterCount(1), this);		
+//w_chapter->ComboBox->setMaximumWidth(75);
 	w_chapter->setToolTips(TT_PRESENTER_CHAPTER_COMBO, TT_PRESENTER_NEXT_CHAPTER, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_CHAPTER);	
 	w_chapter->setWhatsThis(WT_PRESENTER_CHAPTER_COMBO, WT_PRESENTER_NEXT_CHAPTER, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_CHAPTER);		
 	
 	w_verse = new CKeyChooserWidget( m_info->getVerseCount(1,1),this);
+//w_verse->ComboBox->setMaximumWidth(75);	
 	w_verse->setToolTips(TT_PRESENTER_VERSE_COMBO, TT_PRESENTER_NEXT_VERSE, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_VERSE);
 	w_verse->setWhatsThis(WT_PRESENTER_VERSE_COMBO, WT_PRESENTER_NEXT_VERSE, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_VERSE);
 						
@@ -70,11 +73,13 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 	connect(w_book,SIGNAL(next_requested())   ,SLOT(bookNextRequested()));
 	connect(w_book,SIGNAL(prev_requested())   ,SLOT(bookPrevRequested()));
 	connect(w_book,SIGNAL(focusOut(int))      ,SLOT(bookFocusOut(int)));	
+	
 	/*Chapter Connections*/
 	connect(w_chapter,SIGNAL(changed(int))    ,SLOT(chapterChanged(int)));
 	connect(w_chapter,SIGNAL(next_requested()),SLOT(chapterNextRequested()));
 	connect(w_chapter,SIGNAL(prev_requested()),SLOT(chapterPrevRequested()));
   connect(w_chapter,SIGNAL(focusOut(int))   ,SLOT(chapterFocusOut(int)));		
+	
 	/*Verse Connections*/
 	connect(w_verse,SIGNAL(changed(int))      ,SLOT(verseChanged(int)));
 	connect(w_verse,SIGNAL(next_requested())  ,SLOT(verseNextRequested()));

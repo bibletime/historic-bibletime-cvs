@@ -26,11 +26,11 @@
 #include <qstrlist.h>
 #include <qevent.h>
 
-#include "../structdef.h"
-
 class KPopupMenu;
 class KConfig;
 class CBackEnd;
+class CImportantClasses;
+class CKey;
 
 /** The MDI widget we use in BibleTime.
 	* Enhances QWorkspace.
@@ -41,20 +41,24 @@ class CMDIArea : public QWorkspace  {
 
 public:
 	/**
-		* The options you can set for this widget.
-		*/
-	enum mdiOption { autoTile, autoCascade, Nothing };	
+	* The options you can set for this widget.
+	*/
+	enum mdiOption {
+		autoTile,
+		autoCascade,
+		Nothing
+	};
 	
 	CMDIArea(CImportantClasses* importantClasses, QWidget *parent=0, const char *name = 0 );
-	virtual ~CMDIArea();
+	~CMDIArea();
   /**  */
-  virtual void readSettings();
+  void readSettings();
   /**  */
-  virtual void saveSettings();
+  void saveSettings();
   /**
    * Enable / disable autoCascading
    */
-  virtual void setGUIOption( mdiOption );
+  void setGUIOption( mdiOption );
 
 public slots:
   /**
@@ -74,10 +78,9 @@ public slots:
   	*/
   void tile();
   /**
-  	* Scrolls all presenters which are able
-		* to do parallel scrolling to the given position.
-		*/
-//  void scrollPresentersTo(const QString& book, const int chapter, const int verse, CModulePresenter* caller);
+  * Sync the commentaries to the given key.
+  */
+  void syncCommentaries(CKey* syncKey);
 
 protected: // Protected methods
   /**
@@ -89,25 +92,13 @@ protected: // Protected methods
    */
   virtual void resizeEvent(QResizeEvent* e);
   /**
-  	* Reimplementation. Used to popup the context menu.
-  	*/
-//  virtual void mousePressEvent(QMouseEvent *e);
-  /**
    * Initializes the connectiosn to SIGNALS
    */
-  virtual void initConnections();
+  void initConnections();
   /**
    * Initializes the view of the MDI area
    */
-  virtual void initView();
-
-	mdiOption guiOption;
-	KConfig* config;
-  /**
-   * The backend of BibleTime
-   */
-	CImportantClasses*	m_important;
-	bool m_childEvent;
+  void initView();
 		
 signals: // Signals
   /**
@@ -118,5 +109,11 @@ signals: // Signals
    * Is emitted when the last presenter was closed.
    */
   void sigLastPresenterClosed();
+
+private:
+	mdiOption guiOption;
+	KConfig* config;
+	CImportantClasses*	m_important;
+	bool m_childEvent;
 };
 #endif

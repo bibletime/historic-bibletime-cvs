@@ -125,6 +125,11 @@ public slots:
   */
   void lastWindowClosed();
   /**
+  	* Reimplementation from QWidget.
+  	* Sets the correct plain caption.
+  	*/
+  virtual void setPlainCaption( const QString& );
+  /**
  	* Reimplementation. Sets the caption and takes care of special captions set by the MDI window
  	*/
   virtual void setCaption(const QString&);
@@ -241,7 +246,7 @@ protected slots:
   /**
  	* Creates a new presenter in the MDI area according to the type of the module.
  	*/
-  void createNewSwordPresenter(ListCSwordModuleInfo*,const QString);
+  void createNewSwordPresenter(ListCSwordModuleInfo,const QString);
   /**
   * No descriptions
   */

@@ -67,13 +67,11 @@ BibleTime::BibleTime() : KMainWindow() {
 }
 
 BibleTime::~BibleTime() {
-	qDebug("destructor of BibleTime's mainwindow");
 	saveSettings();
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */
 void BibleTime::saveSettings(){
-	qDebug("BibleTime::saveSettings()");
 	ASSERT(m_groupmanager);	
 	ASSERT(m_mdi);
 	ASSERT(m_config);
@@ -93,7 +91,7 @@ void BibleTime::saveSettings(){
 		m_config->writeEntry("showFootnotes", m_viewFootnotes_action->isChecked());
 		m_config->writeEntry("showStrongs", m_viewStrongs_action->isChecked());
 		m_config->writeEntry("show toolbar", m_viewToolbar_action->isChecked());
-		m_config->writeEntry("show groupmanager", m_viewGroupManager_action->isChecked());		
+		m_config->writeEntry("show main index", m_viewGroupManager_action->isChecked());		
 		if (m_viewGroupManager_action->isChecked())	//only save changes when the groupmanager is visible
 			m_config->writeEntry("splitterSizes", m_splitter->sizes());
 	}
@@ -139,7 +137,7 @@ void BibleTime::readSettings(){
 		m_viewToolbar_action->setChecked( m_config->readBoolEntry("show toolbar", true) );
 		slotToggleToolbar();
 		
-		m_viewGroupManager_action->setChecked( m_config->readBoolEntry("show groupmanager", true) );
+		m_viewGroupManager_action->setChecked( m_config->readBoolEntry("show main index", true) );
 		slotToggleGroupManager();
 		
 		m_splitter->setSizes( m_config->readIntListEntry("splitterSizes") );		
@@ -189,28 +187,19 @@ void BibleTime::readSettings(){
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-void BibleTime::createNewSwordPresenter(ListCSwordModuleInfo* modules, const QString key) {
-
-}
-
-
-/** Creates a new presenter in the MDI area according to the type of the module. */
-void BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString key) {
-	kapp->setOverrideCursor( waitCursor );		
-	
-	ListCSwordModuleInfo list;
-	list.append(module);
+void BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules, const QString key) {
+	kapp->setOverrideCursor( waitCursor );
 	
 	CSwordPresenter* presenter = 0;
-	switch (module->getType()) {
+	switch (modules.first()->getType()) {
 		case CSwordModuleInfo::Bible:
-			presenter = new CBiblePresenter(list, m_important, m_mdi);
+			presenter = new CBiblePresenter(modules, m_important, m_mdi);
 			break;
 		case CSwordModuleInfo::Commentary:
-			presenter = new CCommentaryPresenter(list, m_important, m_mdi);
+			presenter = new CCommentaryPresenter(modules, m_important, m_mdi);
 			break;
 		case CSwordModuleInfo::Lexicon:
-			presenter = new CLexiconPresenter(list, m_important, m_mdi);
+			presenter = new CLexiconPresenter(modules, m_important, m_mdi);
 			break;
 		default:
 			qWarning("unknown module type");
@@ -218,83 +207,65 @@ void BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString 
 	if (presenter) {
 		connect(presenter, SIGNAL(createSwordPresenter(CSwordModuleInfo*, const QString)),
 			this, SLOT(createNewSwordPresenter(CSwordModuleInfo*, const QString)));
-		presenter->lookup(key);
+		if (presenter->isA("CBiblePresenter")) {
+			connect(presenter->getKeyChooser(), SIGNAL(keyChanged(CKey*)),
+				m_mdi, SLOT(syncCommentaries(CKey*)));		
+		}
+		presenter->lookup(key);		
 	}
-
 			
 	kapp->restoreOverrideCursor();
-	
-
-//	if (!key.isEmpty() && presenter) {	//set key to presenter
-//		if ((CSwordModuleInfo*)(module_info)) { //it is a Sword module?
-//			CSwordModuleInfo* dummy = (CSwordModuleInfo*)(module_info);
-//			if (!dummy)
-//				return;
-//			if ( dynamic_cast<CSwordCommentaryModuleInfo*>(dummy)) {
-//				CCommentaryPresenter* commentaryPresenter = dynamic_cast<CCommentaryPresenter*>(presenter);
-//				ASSERT(commentaryPresenter);				
-//				if (commentaryPresenter && commentaryPresenter->m_keyChooser) {
-//					commentaryPresenter->m_key->setKey( key );
-//					commentaryPresenter->m_keyChooser->setKey( commentaryPresenter->m_key ); //setting the key will also lookup
-//				}
-//			}
-//			else if ( dynamic_cast<CSwordBibleModuleInfo*>(dummy)) {
-//				CBiblePresenter* biblePresenter = dynamic_cast<CBiblePresenter*>(presenter);
-//				ASSERT(biblePresenter);
-//				if (biblePresenter && biblePresenter->m_keyChooser) {
-//					biblePresenter->m_key->setKey( key );
-//					biblePresenter->m_keyChooser->setKey( biblePresenter->m_key );	//setting the key will also lookup					
-//				}
-//			}			
-//			else if ( dynamic_cast<CSwordLexiconModuleInfo*>(dummy)) {
-//				CLexiconPresenter* lexiconPresenter = dynamic_cast<CLexiconPresenter*>(presenter);
-//				lexiconPresenter->m_key->setKey( key );
-//				lexiconPresenter->m_keyChooser->setKey( lexiconPresenter->m_key ); //setting the key will also lookup
-//			}
-//		}
-//	}
 	presenter->setFocus();
+}
+
+
+/** Creates a new presenter in the MDI area according to the type of the module. */
+void BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString key) {
+	ListCSwordModuleInfo list;
+	list.append(module);
+	
+	createNewSwordPresenter(list, key);		
 }
 
 /** Refreshes all presenter supporting at least in of the features given as parameter.*/
 void BibleTime::refreshPresenters( int useFeatures ) {
 	/*
-		Iterate through all features and test their support by the psenters.
-		If the feature is supported refresh the presenter and continue.
+	*	Iterate through all features and test their support by the psenters.
+	*	If the feature is supported refresh the presenter and continue.
 	*/		
 	unsigned int index;				
 	for ( index = 0; index < m_mdi->windowList().count(); index++) {
 		CSwordPresenter* myPresenter = (CSwordPresenter*)m_mdi->windowList().at(index);
-		ASSERT(myPresenter);
 		if (myPresenter)
-     		myPresenter->refresh(useFeatures);
+   		myPresenter->refresh(useFeatures);
 	}
 }
 
 /** Called before quit. */
 bool BibleTime::queryExit(){
-	qDebug("BibleTieme: queryExit");
   if (!m_initialized) {
-  	qDebug("return false");
   	return false;
   }
-  qDebug( (const char*)QString("m_initialized == %1").arg(m_initialized).local8Bit() );
 	saveSettings();
 	return true;
 }
 
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
-	qDebug("BibleTime::queryClose()");
 	return true;
 }
 
 /** No descriptions */
 void BibleTime::show(){
 	KMainWindow::show();
-		
-	qDebug("BibleTime::show()");
+	
 	//if we show BibleTime for the first time we are ready for processing
 	//but not before this point.
 	m_initialized = true;
+}
+
+/** Reimplementation from QWidget. Sets the correct plain caption. */
+void BibleTime::setPlainCaption( const QString& c){
+	qWarning(c.local8Bit());
+	KMainWindow::setPlainCaption(QString("%1 - BibleTime").arg(c));
 }

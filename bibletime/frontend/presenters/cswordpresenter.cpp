@@ -88,8 +88,8 @@ void CSwordPresenter::refreshFeatures(){
 	}
 }
 
-void CSwordPresenter::lookupWord(int ID){
-	const QString text = m_lexiconPopup->text(ID);	
+void CSwordPresenter::lookupWord(int moduleID){
+	const QString text = m_lexiconPopup->text(moduleID);	
 
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(text);	
 	if (m_htmlWidget && m && !m_htmlWidget->selectedText().isEmpty()) {
@@ -102,6 +102,11 @@ void CSwordPresenter::lookup(const QString&){
 }
 
 /** Returns the listof used modules. */
-ListCSwordModuleInfo& CSwordPresenter::getModuleList(){
+ListCSwordModuleInfo& CSwordPresenter::getModuleList() const {
 	return m_moduleList;
+}
+
+/** Returns the used keychooser object of this presenter. */
+CKeyChooser* CSwordPresenter::getKeyChooser() const {
+	return m_keyChooser;
 }

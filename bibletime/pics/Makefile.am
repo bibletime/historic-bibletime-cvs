@@ -11,7 +11,6 @@ cross.png
 BIBLETIME_PICS = \
 tipday.jpg \
 startuplogo.jpg \
-startuplogo.png \
 cross.png 
 
 install-data-local:

@@ -41,6 +41,10 @@ public:
 	* Default destructor
 	*/	
 	~CCommentaryPresenter();
+  /**
+  * Synchronizes to the given key if sync is enabled.
+  */
+  void synchronize( CKey* syncKey );
 
 	
 public slots: // Public slots
@@ -88,23 +92,20 @@ private: // Private methods
   * Initializes our view.
   */
   void initView();
-	/**
-	*
-	*/
 	KToggleAction *presenterEdit_action;
-	/**
-	*
-	*/
+	KToggleAction *presenterSync_action;
   CSwordVerseKey* m_key;
-	
+	KToolBar* m_editToolBar;
+		
 private slots: // Private slots
   /**
   * No descriptions
   */
   void popupAboutToShow();
-
-private:
-	KToolBar* m_editToolBar;
+  /**
+  * The sync button was pressed for synchronization.
+  */
+  void syncToggled();
 };
 
 #endif

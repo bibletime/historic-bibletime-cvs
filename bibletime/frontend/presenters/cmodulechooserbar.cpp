@@ -22,8 +22,6 @@
 
 CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordModuleInfo useModules, CSwordModuleInfo::type type, QWidget *parent, const char *name )
 	: KToolBar(parent,name) {
-  qDebug("CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordModuleInfo* useModules, CSwordModuleInfo::type type, QWidget *parent, const char *name )");
-
   m_important = important;	
 	m_moduleType = type;
 	m_idCounter = 0;
@@ -47,7 +45,6 @@ CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordMod
 
 
 CModuleChooserBar::~CModuleChooserBar(){	
-	qDebug("destructor of CModuleChooserBar");
 }
 
 /** Adds a button to the toolbar */
@@ -65,7 +62,6 @@ void CModuleChooserBar::addButton(){
 
 /** Removes a button from the toolbar */
 void CModuleChooserBar::removeButton( const int ID ){
-	qDebug("CModuleChooserBar::removeButton");	
 	for (m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
 		if (m_buttonList.current()->getId() == ID) {	//found the right button
 			CModuleChooserButton* b = m_buttonList.current();
@@ -83,14 +79,12 @@ void CModuleChooserBar::removeButton( const int ID ){
 
 /** Returns a list of selected modules. */
 ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
-  qDebug("ListCSwordModuleInfo CModuleChooserBar::getModuleList()");
 	ListCSwordModuleInfo list;
 	list.setAutoDelete(false);
 	list.clear();
 	
 	for (m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
 	  CSwordModuleInfo* m = m_buttonList.current()->getModule();
-	  ASSERT(m);
 	  if (m)
   		list.append( m );
 	}
@@ -99,7 +93,7 @@ ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
 
 /** No descriptions */
 void CModuleChooserBar::deleteButton(){
-		removeItem(m_deleteID);
+	removeItem(m_deleteID);
 }
 
 /** Sets the number of the maximum count of buttons. */
@@ -111,8 +105,6 @@ void CModuleChooserBar::setButtonLimit(const int limit){
 			m_buttonList.remove(b);
 			b->hide();
 			delete b;
-//	 	  m_deleteID = b->getId();
-//	 	  QTimer::singleShot( 5000, this, SLOT(deleteButton()) );
 		}
 	}
 }

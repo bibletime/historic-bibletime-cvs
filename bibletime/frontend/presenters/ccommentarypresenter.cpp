@@ -45,8 +45,6 @@ CCommentaryPresenter::~CCommentaryPresenter(){
 
 /** Initializes our view. */
 void CCommentaryPresenter::initView(){
-	ASSERT(m_moduleList.first());
-	
 	m_mainToolBar = new KToolBar(this);
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
@@ -55,7 +53,12 @@ void CCommentaryPresenter::initView(){
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Commentary, this );
 	addToolBar(m_moduleChooserBar);
 	
-	presenterEdit_action =  new KToggleAction(i18n("Edit entry..."), "pencil",
+	presenterSync_action =  new KToggleAction(i18n("Synchronize..."), SYNC_ICON_SMALL,
+															IDK_PRESENTER_EDIT, this,	SLOT(syncToggled()), actionCollection(), "syncComment_action");
+	presenterSync_action->setWhatsThis( WT_PRESENTER_SYNC );
+	presenterSync_action->plug(m_mainToolBar);
+	
+	presenterEdit_action =  new KToggleAction(i18n("Edit entry..."), PRESENTER_EDIT,
 															IDK_PRESENTER_EDIT, this,	SLOT(editComment()), actionCollection(), "editComment_action");
 	presenterEdit_action->setEnabled( m_moduleList.first()->module()->isWritable() );
 	presenterEdit_action->setWhatsThis( WT_PRESENTER_EDIT );
@@ -101,7 +104,6 @@ void CCommentaryPresenter::initConnections(){
 
 /** Is called when the selected modules changed. */
 void CCommentaryPresenter::modulesChanged(){
-  qDebug("CBiblePresenter::modulesChanged()");
   m_moduleList = m_moduleChooserBar->getModuleList();
 
   if (!m_moduleList.count())
@@ -225,4 +227,19 @@ void CCommentaryPresenter::printHighlightedVerse(){
 	CSwordVerseKey* key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
 	key->setKey(m_key->getKey());	
 	printKey(key, key, m_moduleList.first());
+}
+
+/** The sync button was pressed for synchronization. */
+void CCommentaryPresenter::syncToggled(){
+}
+
+/** Synchronizes to the given key if sync is enabled. */
+void CCommentaryPresenter::synchronize( CKey* syncKey ){
+	if (presenterSync_action->isChecked()) {
+		CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(syncKey);
+		if (!vk)
+			return;
+		m_key->setKey(vk->getKey());
+		m_keyChooser->setKey(m_key);
+	}
 }

@@ -153,16 +153,18 @@ void CKeyChooserWidget::unlock(void){
 
 /** Initializes this widget. We need this function because we have more than one constructor. */
 void CKeyChooserWidget::init( ){
+//	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed) );	
+	
 	oldKey = QString::null;
 	btn_up = btn_down = btn_fx = 0;
 	
-	
-	QHBoxLayout *m_mainLayout = new QHBoxLayout( this );
+		
+	QHBoxLayout *m_mainLayout = new QHBoxLayout( this );	
 	QVBoxLayout *m_buttonLayout = new QVBoxLayout();	
 			
 	ComboBox = new CKCComboBox( true, this, "ComboBox" );
 	ComboBox->setAutoCompletion( true );
-	ComboBox->setMaximumWidth( 300 );
+//	ComboBox->setMaximumWidth( 150 );
 	ComboBox->setInsertionPolicy(QComboBox::NoInsertion);
 	ComboBox->insertStringList(m_list, 0);
 	

@@ -95,6 +95,8 @@
 #define WT_PRESENTER_EDIT_COLOR_CHOOSER WT(TT_PRESENTER_EDIT_COLOR_CHOOSER, i18n("Use this to change the color of the selected text."))
 #define WT_PRESENTER_EDIT_FONTSIZE_CHOOSER WT(TT_PRESENTER_EDIT_FONTSIZE_CHOOSER, i18n("use this to change the fontsize of the selected text."))
 
+#define WT_PRESENTER_SYNC WT(TT_PRESENTER_SYNC, i18n("Synchronize the displayed text with the active Bible display window."))
+
 //HTML widget related #defines
 #define WT_HTML_SAVE_AS WT(TT_HTML_SAVE_AS, i18n("This will save the displayed text as a HTML page to disk."))
 #define WT_HTML_SELECT_ALL WT(TT_HTML_SELECT_ALL, i18n("This will select all displayed text."))

@@ -123,12 +123,12 @@ void CBiblePresenter::modulesChanged(){
 void CBiblePresenter::initConnections(){
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
 		this, SLOT(lookup(const QString&))); 	
- 	connect( m_keyChooser, SIGNAL(keyChanged(CKey*)),
+ 	connect(m_keyChooser, SIGNAL(keyChanged(CKey*)),
  		this, SLOT(lookup(CKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()),
 		SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
-		SLOT( modulesChanged() ));
+		SLOT(modulesChanged() ));
 }
 
 

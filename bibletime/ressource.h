@@ -182,6 +182,7 @@
 #define BOOKMARK_PRINT_ICON_SMALL	LOAD_SMALL_ICON("bt_printer")
 
 #define PRESENTER_NEW_ICON_SMALL	LOAD_SMALL_ICON("bt_presenter_new")
+#define PRESENTER_EDIT LOAD_SMALL_ICON("bt_presenter_edit")
 
 #define SHOW_GM_ICON_SMALL	LOAD_SMALL_ICON("bt_gm")
 #define RESET_GM_ICON_SMALL	LOAD_SMALL_ICON("bt_gm_reset")

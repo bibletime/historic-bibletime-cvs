@@ -43,9 +43,12 @@ CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *pa
 	}	
 	//we use a layout because the key chooser should be resized to full size
  	QHBoxLayout *m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
+	
 	m_widget = new CKeyChooserWidget(m_info->getEntries(), this);
+	m_widget->ComboBox->setMaximumWidth(200);
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,QString::null, QString::null, QString::null);
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,QString::null, QString::null, QString::null);
+	
 	m_layout->addWidget(m_widget,0,Qt::AlignLeft);
 	
 	connect(m_widget,SIGNAL(changed(int)),SLOT(activated(int)));
