@@ -88,7 +88,6 @@ void CBookReadWindow::initView(){
   addDockWindow( moduleChooserBar() );
 
 	m_treeChooser = new CBookTreeChooser(modules(), key(), splitter);
-
   setDisplayWidget( CDisplay::createReadInstance(this, splitter) ); 	 	
 
   m_treeAction->setChecked(false);
@@ -98,12 +97,10 @@ void CBookReadWindow::initView(){
 
   setCentralWidget( splitter );
 	setIcon(CToolClass::getIconForModule(modules().first()));
-
 }
 
 /** Reimplementation. */
 void CBookReadWindow::setupPopupMenu(){
-	qWarning("CBookReadWindow::setupPopupMenu()");
 	CLexiconReadWindow::setupPopupMenu();
 }
 

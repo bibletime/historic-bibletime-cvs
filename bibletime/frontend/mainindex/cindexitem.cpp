@@ -27,6 +27,7 @@
 #include "frontend/cexportmanager.h"
 #include "frontend/ctooltipmanager.h"
 #include "frontend/cbtconfig.h"
+#include "frontend/cinputdialog.h"
 #include "resource.h"
 
 //Qt includes
@@ -281,12 +282,12 @@ const bool CModuleItem::enableAction( const MenuAction action ){
 /* ----------------------------------------------*/
 
 CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, const QString& key, const QString& description) : CItemBase(parentItem), m_key(key), m_description(description), m_module(module) {
-  qWarning("constructor of CVBookamrkItem");
+//  qWarning("constructor of CVBookamrkItem");
   if (module && (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary)  ) {
     CSwordVerseKey vk(0);
     vk = key;
     vk.setLocale("en");
-    qWarning("key is %s", vk.key().latin1());
+//    qWarning("key is %s", vk.key().latin1());
     m_key = vk.key(); //the m_key member is always the english key!
   }
   else
@@ -295,7 +296,7 @@ CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, 
 }
 
 CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, QDomElement& xml ) : CItemBase(parentItem), m_key(QString::null), m_description(QString::null), m_module(0) {
-  qWarning("2nd constructor of CBookmarkItem");
+//  qWarning("2nd constructor of CBookmarkItem");
   m_startupXML = xml;
 }
 
@@ -312,7 +313,7 @@ void CBookmarkItem::update(){
 }
 
 void CBookmarkItem::init(){
-  qWarning("CBookmarkItem::init()");
+//  qWarning("CBookmarkItem::init()");
   if (!m_startupXML.isNull())
     loadFromXML(m_startupXML);
 
@@ -341,7 +342,7 @@ CSwordModuleInfo* const CBookmarkItem::module() {
 
 /** Returns the used key. */
 const QString CBookmarkItem::key(){
-  qWarning("CBookmarkItem::key()");
+//  qWarning("CBookmarkItem::key()");
   QString keyName = englishKey();
   if (!module())
     return keyName;
@@ -379,12 +380,17 @@ void CBookmarkItem::print(){
 
 /** Changes this bookmark. */
 void CBookmarkItem::rename(){
-
+  bool ok  = false;
+  QString newDescription = CInputDialog::getText(i18n("Change description ..."),i18n("Enter a new description for the chosen bookmark!"), description(), &ok, listView(), true);
+  if (ok) {
+    m_description = newDescription;
+    update();
+  }
 }
 
 /** Reimplementation of CItemBase::saveToXML. */
 QDomElement CBookmarkItem::saveToXML( QDomDocument& doc ){
-  qWarning("CBookmarkItem::saveToXML( QDomDocument& doc )");
+//  qWarning("CBookmarkItem::saveToXML( QDomDocument& doc )");
   QDomElement elem = doc.createElement("Bookmark");
 
   QString keyName = key();
@@ -403,7 +409,7 @@ QDomElement CBookmarkItem::saveToXML( QDomDocument& doc ){
 }
 
 void CBookmarkItem::loadFromXML( QDomElement& element ) {
-  qWarning("CBookmarkItem::loadFromXML( QDomElement& element )");
+//  qWarning("CBookmarkItem::loadFromXML( QDomElement& element )");
   Q_ASSERT(!element.isNull());
   if (element.isNull())
     return;
@@ -431,7 +437,7 @@ void CBookmarkItem::loadFromXML( QDomElement& element ) {
 
   if (element.hasAttribute("description"))
     m_description = element.attribute("description");
-  qWarning("finished");
+//  qWarning("finished");
 }
 
 /** Returns the english key. */
@@ -617,7 +623,7 @@ void CTreeFolder::initTree(){
     }
   }
 
-  qWarning("using %i modules language %s", usedModules.count(), language().latin1());
+//  qWarning("using %i modules language %s", usedModules.count(), language().latin1());
 
   //we have now all modules we want to have
   if (language() == QString::fromLatin1("*")) { //create subfolders for each language
@@ -657,12 +663,12 @@ COldBookmarkFolder::COldBookmarkFolder(CTreeFolder* folder) : CBookmarkFolder(fo
 }
 
 COldBookmarkFolder::~COldBookmarkFolder() {
-  qWarning("descructor of COldBookmarkFolder");
+//  qWarning("descructor of COldBookmarkFolder");
 }
 
 /** Reimplementation to handle special bookmark tree. */
 void COldBookmarkFolder::initTree(){
-  qWarning("COldBookmarkFolder::initTree()");
+//  qWarning("COldBookmarkFolder::initTree()");
   //import the bookmarks of the previous BibleTime versions
   if (CBTConfig::get( CBTConfig::readOldBookmarks )) { //we already imported them, they'll be restored by our normal readFromXML
     return;
@@ -964,12 +970,12 @@ CBookmarkFolder::CBookmarkFolder(CFolderBase* parentItem, const Type type) : CTr
 }
 
 CBookmarkFolder::~CBookmarkFolder() {
-	qWarning("descructor of CBookmarkFolder");
+//	qWarning("descructor of CBookmarkFolder");
 
 }
 
 void CBookmarkFolder::initTree(){
-  qWarning("CBookmarkFolder::initTree()");
+//  qWarning("CBookmarkFolder::initTree()");
   addGroup(OldBookmarkFolder, "*");
 
   KStandardDirs stdDirs;
@@ -999,7 +1005,7 @@ void CBookmarkFolder::importBookmarks(){
 }
 
 bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
-  qWarning("CBookmarkFolder::acceptDrop(const QMimeSource * src)");
+//  qWarning("CBookmarkFolder::acceptDrop(const QMimeSource * src)");
   if (src->provides("text/"REFERENCE) || src->provides("text/"BOOKMARK)) {
     return true;
   }
@@ -1025,7 +1031,7 @@ void CBookmarkFolder::dropped(QDropEvent * e) {
 
 /** Saves the bookmarks in a file. */
 const bool CBookmarkFolder::saveBookmarks( const QString& filename ){
-  qWarning("CBookmarkFolder::saveBookmarks( const QString& filename )");
+//  qWarning("CBookmarkFolder::saveBookmarks( const QString& filename )");
 
 	bool ret = false;
   QDomDocument doc("DOC");

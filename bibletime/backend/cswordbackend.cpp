@@ -196,7 +196,7 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 }
 
 void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options){
-  qWarning("CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options)");
+//  qWarning("CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options)");
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
   setOption( headings, 						options.headings );

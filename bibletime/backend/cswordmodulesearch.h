@@ -91,7 +91,7 @@ public:
   /**
  	* This function sets the modules which should be searched.
  	*/
-  void setModules( ListCSwordModuleInfo& );
+  void setModules( ListCSwordModuleInfo );
   /**
  	* Sets the search scope.
  	*/

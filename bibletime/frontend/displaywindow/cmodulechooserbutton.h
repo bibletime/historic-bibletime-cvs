@@ -28,14 +28,14 @@
 
 class KPopupMenu;
 
-/**
-  *@author The BibleTime team
+/** The CModuleChooserButton displays a list of submenus sorted by language which contain the possible modules
+  * which can be displayed together with the first one.
+  * @author The BibleTime team
   */
-
 class CModuleChooserButton : public KToolBarButton, public CPointers  {
    Q_OBJECT
 public: 
-	CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent = 0, const char *name = 0 );
+	CModuleChooserButton(CSwordModuleInfo* useModule, CSwordModuleInfo::ModuleType type, const int id, QWidget *parent = 0, const char *name = 0 );
   CSwordModuleInfo* module();
   /**
   * Returns the id used for this button.
@@ -43,7 +43,6 @@ public:
   int getId() const;
 
 protected: // Protected methods
-  /** No descriptions */
   void populateMenu();
 	
 private:

@@ -92,15 +92,19 @@ void CDisplayConnections::saveAnchorWithText(){
 	m_display->save(CDisplay::PlainText, CDisplay::AnchorWithText);
 }
 
+void CDisplayConnections::clear(){
+  m_display->setText(QString::null);
+}
+
 /*----------------------*/
 
 CReadDisplay* CDisplay::createReadInstance( CReadWindow* readWindow, QWidget* parent ) {
 	Q_ASSERT(readWindow);
   Q_ASSERT(parent);
- 	if (readWindow)
+// 	if (readWindow)
 	 	return new CHTMLReadDisplay(readWindow, parent);
-  else
-  	return 0;
+//  else
+//  	return 0;
 }
 
 CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow ) {

@@ -85,7 +85,9 @@ public:
 		GreekParse,
 		HebrewParse,
 		DailyDevotional,
-		Glossary
+		Glossary,
+    featureMin = StrongsNumbers,
+    featureMax = Glossary
 	};
 	
 	/**

@@ -71,14 +71,14 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
   m_searchDialog(0), m_toolTip(0), m_itemsMovable(false), m_autoOpenFolder(0), m_autoOpenTimer(this)
 {
-  qWarning("constructor of CMainIndex!");
+//  qWarning("constructor of CMainIndex!");
   initView();
   initConnections();
-  qWarning("finished");
+//  qWarning("finished");
 }
 
 CMainIndex::~CMainIndex(){
-  qWarning("destructor of CMainIndex");
+//  qWarning("destructor of CMainIndex");
 
   //find the bookmark folder
   CItemBase* i = 0;
@@ -265,15 +265,15 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* after){
 /** Opens the searchdialog using the given modules using the given search text. */
 void CMainIndex::openSearchDialog( ListCSwordModuleInfo modules, const QString searchText){
 	if (!m_searchDialog)
-		m_searchDialog = new CSearchDialog(modules,0);
-	else
-		m_searchDialog->setModuleList(modules);
+		m_searchDialog = new CSearchDialog(this);
+  m_searchDialog->reset();
+	m_searchDialog->setModules(modules);
+
   m_searchDialog->setSearchText(searchText);
   m_searchDialog->show();
   m_searchDialog->raise();
  	if (!searchText.isEmpty())
-    m_searchDialog->startSearch();	
-
+    m_searchDialog->startSearch();
 }
 
 /** No descriptions */
@@ -540,5 +540,5 @@ const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
 
 /** Is called when items should be moved. */
 void CMainIndex::moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow){
-  qWarning("moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)");
+//  qWarning("moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)");
 }

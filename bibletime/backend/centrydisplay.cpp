@@ -412,21 +412,20 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 	};
 	
 	if (moved <= 1) { //display entries together
-		while(key->previousSibling()); //first entry of it's parent		
+//		while(key->previousSibling()); //first entry of it's parent		
+    key->parent();
+    key->firstChild(); //go to the first sibling on the same level
+
 		m_text = QString::null;
     printTree(*key, modules);	
 	}
 	else { //do not display entries together
     return finishText( entryText(modules, keyName), modules, keyName );
-	}	
+	}
+	
 	key->key(keyName);
   return finishText(m_text, modules, keyName);
 }
-
-/** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-//const QString CBookDisplay::previewText( CSwordModuleInfo*  module, const QString& key,const QString& headerText, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions){
-//  return QString::null;
-//}
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const int level){
@@ -444,12 +443,13 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const
 void CBookDisplay::printTree(CSwordTreeKey treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos){
   m_text += entryText(modules, treeKey.getFullName(), levelPos);
 
-  if (treeKey.hasChildren()) {
+  if (treeKey.hasChildren()) { //print tree for the child items
     treeKey.firstChild();
     printTree(treeKey, modules, levelPos+1);
     treeKey.parent();
   }
-  if (treeKey.nextSibling())
+
+  if (treeKey.nextSibling()) //print tree for next entry on the same depth
 		printTree(treeKey, modules, levelPos);
 }
 

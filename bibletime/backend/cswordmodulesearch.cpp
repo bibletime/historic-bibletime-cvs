@@ -62,7 +62,7 @@ void CSwordModuleSearch::percentUpdate(char percent, void *){
 }
 
 /** This function sets the modules which should be searched. */
-void CSwordModuleSearch::setModules( ListCSwordModuleInfo& list ) {
+void CSwordModuleSearch::setModules( ListCSwordModuleInfo list ) {
 	m_moduleList = list;
 }
 
@@ -92,7 +92,7 @@ const bool CSwordModuleSearch::startSearch() {
 	m_isSearching = false;
 	m_terminateSearch = false;
 
-	m_finishedSig.activate();		
+  m_finishedSig.activate();		
 	return true;
 }
 

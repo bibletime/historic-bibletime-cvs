@@ -1216,7 +1216,10 @@ install_location=
 type=HEADER
 
 [bibletime/frontend/searchdialog/Makefile.am]
-files=bibletime/frontend/searchdialog/csearchdialog.h,bibletime/frontend/searchdialog/csearchdialogtext.cpp,bibletime/frontend/searchdialog/csearchdialogtext.h,bibletime/frontend/searchdialog/csearchdialogresult.cpp,bibletime/frontend/searchdialog/csearchdialogresult.h,bibletime/frontend/searchdialog/csearchdialogresultview.cpp,bibletime/frontend/searchdialog/csearchdialogresultview.h,bibletime/frontend/searchdialog/csearchdialoganalysis.cpp,bibletime/frontend/searchdialog/csearchdialoganalysis.h,bibletime/frontend/searchdialog/csearchdialog.cpp,bibletime/frontend/searchdialog/csearchdialogscope.cpp,bibletime/frontend/searchdialog/csearchdialogscope.h,bibletime/frontend/searchdialog/csearchdialoganalysisview.cpp,bibletime/frontend/searchdialog/csearchdialoganalysisview.h,bibletime/frontend/searchdialog/csearchdialogmodulechooser.cpp,bibletime/frontend/searchdialog/csearchdialogmodulechooser.h
+dist=true
+files=bibletime/frontend/searchdialog/csearchdialog.h,bibletime/frontend/searchdialog/csearchdialogtext.cpp,bibletime/frontend/searchdialog/csearchdialogtext.h,bibletime/frontend/searchdialog/csearchdialogresult.cpp,bibletime/frontend/searchdialog/csearchdialogresult.h,bibletime/frontend/searchdialog/csearchdialogresultview.cpp,bibletime/frontend/searchdialog/csearchdialogresultview.h,bibletime/frontend/searchdialog/csearchdialoganalysis.cpp,bibletime/frontend/searchdialog/csearchdialoganalysis.h,bibletime/frontend/searchdialog/csearchdialog.cpp,bibletime/frontend/searchdialog/csearchdialogscope.cpp,bibletime/frontend/searchdialog/csearchdialogscope.h,bibletime/frontend/searchdialog/csearchdialoganalysisview.cpp,bibletime/frontend/searchdialog/csearchdialoganalysisview.h,bibletime/frontend/searchdialog/csearchdialogmodulechooser.cpp,bibletime/frontend/searchdialog/csearchdialogmodulechooser.h,bibletime/frontend/searchdialog/Makefile.am,bibletime/frontend/searchdialog/csearchdialogpages.cpp,bibletime/frontend/searchdialog/csearchdialogpages.h
+install=false
+install_location=
 sub_dirs=
 type=static_library
 
@@ -1263,6 +1266,18 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/searchdialog/csearchdialogmodulechooser.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/frontend/searchdialog/csearchdialogpages.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/frontend/searchdialog/csearchdialogpages.h]
 dist=true
 install=false
 install_location=

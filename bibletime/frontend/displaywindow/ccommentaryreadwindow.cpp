@@ -59,7 +59,7 @@ void CCommentaryReadWindow::storeProfileSettings( CProfileWindow* profileWindow 
 
 void CCommentaryReadWindow::initView(){
 	CLexiconReadWindow::initView();
-	m_syncButton = new KToggleAction(i18n("Sync with active bible"), ICON_SYNC, KShortcut(0), this, SLOT(syncToggled(bool)), actionCollection());	
+	m_syncButton = new KToggleAction(i18n("Sync with active bible"), ICON_SYNC, KShortcut(0)/*, this, SLOT(syncToggled(bool))*/, actionCollection());	
   m_syncButton->plug(mainToolBar());	
 }
 

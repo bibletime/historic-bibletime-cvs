@@ -46,7 +46,7 @@
 #include <dom/html_element.h>
 
 
-CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow), CReadDisplay(readWindow) {
+CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget), CReadDisplay(readWindow) {
 //	qWarning("constructor of CHTMLReadDisplay");
   Q_ASSERT(readWindow);
   Q_ASSERT(parentWidget);

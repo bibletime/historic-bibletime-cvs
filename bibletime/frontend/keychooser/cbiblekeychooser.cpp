@@ -98,7 +98,7 @@ CSwordKey* const CBibleKeyChooser::key(){
 }
 
 void CBibleKeyChooser::setKey(CSwordKey* key){
-	qWarning("CBibleKeyChooser::setKey(CSwordKey* key)");
+//	qWarning("CBibleKeyChooser::setKey(CSwordKey* key)");
  	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
 		
@@ -194,7 +194,7 @@ void CBibleKeyChooser::versePrevRequested(void){
 }
 
 void CBibleKeyChooser::bookChanged(int /*i*/){
-	qWarning("CBibleKeyChooser::bookChanged(int /*i*/)");
+//	qWarning("CBibleKeyChooser::bookChanged(int /*i*/)");
  	Q_ASSERT(m_key);
 
 	if (!isUpdatesEnabled())
@@ -212,7 +212,7 @@ void CBibleKeyChooser::bookChanged(int /*i*/){
 }
 
 void CBibleKeyChooser::chapterChanged(int /*i*/){
-	qWarning("CBibleKeyChooser::chapterChanged(int /*i*/)");
+//	qWarning("CBibleKeyChooser::chapterChanged(int /*i*/)");
 	if (!isUpdatesEnabled())
 		return;
 	

@@ -23,29 +23,68 @@
 #include <qlayout.h>
 #include <qheader.h>
 #include <qlistview.h>
+#include <qcursor.h>
+
+//KDE includes
+#include <kapplication.h>
 
 ////////////
 
-CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent, QListViewItem* after, const QString caption, const QString key)
-	: KListViewItem(parent, after, caption) {	
-	m_key = key;
+CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent, QListViewItem* after, CSwordTreeKey* key, const QString keyName)
+	: KListViewItem(parent, after), m_key(key), m_keyName(keyName) {	
+  m_key->key(m_keyName);
+  setText(0, QString::fromLatin1(m_key->getLocalName()) );
 };
 
-CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent,const QString caption, const QString key)
-	: KListViewItem(parent, caption) {	
-	m_key = key;
+CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent,CSwordTreeKey* key, const QString keyName)
+	: KListViewItem(parent), m_key(key), m_keyName(keyName) {	
+  m_key->key(m_keyName);
+  setText(0, QString::fromLatin1(m_key->getLocalName()) );
+
 };
 
-CBookTreeChooser::TreeItem::TreeItem(QListView* view, QListViewItem* after, const QString caption, const QString key)
-	: KListViewItem(view,after, caption) {	
-	m_key = key;
+CBookTreeChooser::TreeItem::TreeItem(QListView* view, QListViewItem* after,CSwordTreeKey* key, const QString keyName)
+	: KListViewItem(view,after), m_key(key), m_keyName(keyName) {	
+  m_key->key(m_keyName);
+  setText(0, QString::fromLatin1(m_key->getLocalName()) );
 };
 
 const QString& CBookTreeChooser::TreeItem::key() const {
-	return m_key;
+	return m_keyName;
 };	
 
-////////////
+/** Initializes this item with the correct caption. */
+void CBookTreeChooser::TreeItem::setup() {
+  m_key->key(m_keyName);
+  setExpandable(m_key->hasChildren());
+
+  KListViewItem::setup();
+}
+
+void CBookTreeChooser::TreeItem::createChilds() {
+  m_key->key(m_keyName);
+  m_key->firstChild();
+  QListViewItem* oldItem = 0;
+  do {
+    if (oldItem)
+      oldItem = new TreeItem(this, oldItem, m_key, m_key->key());
+    else
+      oldItem = new TreeItem(this, m_key, m_key->key());
+  } while (m_key->nextSibling());
+}
+
+
+void CBookTreeChooser::TreeItem::setOpen(bool o) {
+  //setup the tree under this item
+  if (o && !childCount()) {
+    listView()->viewport()->setCursor(WaitCursor);
+    createChilds();
+    listView()->viewport()->unsetCursor();
+  }
+  KListViewItem::setOpen(o);
+}
+
+//////////////////////////////////
 
 CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name)
 	: CKeyChooser(modules, key, parent,name) {
@@ -70,7 +109,7 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	m_treeView->setRootIsDecorated(true);
   m_treeView->setFullWidth(true);
 
-  setModules(modules); //fill the tree
+//  setModules(modules); //fill the tree
 }
 
 CBookTreeChooser::~CBookTreeChooser(){
@@ -82,7 +121,7 @@ void CBookTreeChooser::setKey(CSwordKey* newKey){
 
 /** Sets a new key to this keychooser */
 void CBookTreeChooser::setKey(CSwordKey* newKey, const bool emitSignal){
-	if (m_key != newKey )
+ 	if (m_key != newKey )
 		m_key = dynamic_cast<CSwordTreeKey*>(newKey);
 	
 	const QString key = m_key->key();
@@ -98,13 +137,14 @@ void CBookTreeChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	
   QListViewItem* child = m_treeView->firstChild();
   while( child && index < count ) {
-  	if (child->text(0) == currentSibling) { //found parent of our item
+  	if (child->text(0) == currentSibling) { //found a parent of our item
   		//found right entry?
   		TreeItem* i = dynamic_cast<TreeItem*>(child);
   		if (!i || i->key() == key) {
   			break;
   		}
-  		child = child->firstChild();
+  		i->createChilds();
+      child = i->firstChild();
   		currentSibling = siblings[++index];
   	}
   	else
@@ -132,16 +172,17 @@ void CBookTreeChooser::setModules(ListCSwordModuleInfo modules, const bool refre
   }
 	
 	if (refresh && m_modules.count() && m_key) {
-		m_treeView->clear();
-	
-    const QString oldKey = m_key->key();
-		m_key->root();
-		m_key->firstChild();
-		setupTree(0,0,m_key);
-
-    m_key->key(oldKey);
-		
-		updateKey(m_key);
+    setupTree();
+//		m_treeView->clear();
+//	
+//    const QString oldKey = m_key->key();
+//		m_key->root();
+//		m_key->firstChild();
+//		setupTree(0,0,m_key);
+//
+//    m_key->key(oldKey);
+//		
+//		updateKey(m_key);
 	}
 }
 
@@ -155,14 +196,14 @@ void CBookTreeChooser::refreshContent(){
 void CBookTreeChooser::setupTree( QListViewItem* parent, QListViewItem* after, CSwordTreeKey* key ){
 	QListViewItem* item = 0;
 	if (parent)
-		item = new TreeItem(parent, after, key->getLocalName(), key->key());
+		item = new TreeItem(parent, after, key, key->key());
 	else
-		item = new TreeItem(m_treeView, after, key->getLocalName(), key->key());
+		item = new TreeItem(m_treeView, after, key, key->key());
 	
-	if (key->firstChild()) {
-		setupTree(item, 0, key);
-		key->parent();
-	}
+//	if (key->firstChild()) {
+//		setupTree(item, 0, key);
+//		key->parent();
+//	}
 	if (key->nextSibling())
 		setupTree(parent, item, key);
 }
@@ -172,14 +213,36 @@ void CBookTreeChooser::itemClicked( QListViewItem* item ){
 	TreeItem* i = dynamic_cast<TreeItem*>(item);
 	if (!i)
 		return;
-
-	const QString key = i->key();
-	m_key->key(key);
-	
+	m_key->key(i->key());	
 	emit keyChanged(m_key);
 }
 
 /** No descriptions */
 void CBookTreeChooser::updateKey( CSwordKey* key ){	
 	setKey(key, false);
+}
+
+/** Reimplementationm to handle tree creation on show. */
+void CBookTreeChooser::show(){
+  CKeyChooser::show();
+  if (!m_treeView->childCount()) {
+    KApplication::setOverrideCursor(WaitCursor);
+    setupTree(); //create the first level of the tree structure
+    m_treeView->resize(m_treeView->sizeHint());
+    KApplication::restoreOverrideCursor();
+  }
+}
+
+/** Creates the first level of the tree structure. */
+void CBookTreeChooser::setupTree(){
+ 	m_treeView->clear();
+	
+  const QString oldKey = m_key->key();
+ 	m_key->root();
+ 	m_key->firstChild();
+ 	setupTree(0,0,m_key);
+
+  m_key->key(oldKey);
+		
+  updateKey(m_key);
 }

@@ -70,32 +70,50 @@ public:
   virtual void setKey(CSwordKey*);
   void setKey(CSwordKey*, const bool emitSinal);
 
+public slots: // Public slots
+  virtual void updateKey( CSwordKey* );
+  /**
+  * Reimplementationm to handle tree creation on show.
+  */
+  virtual void show();
+
+
+protected: // Protected methods
+  /**
+  * Set up the tree with the current level of key.
+  */
+  void setupTree( QListViewItem* parent,QListViewItem* after, CSwordTreeKey* key );
+  /**
+  * Creates the first level of the tree structure.
+  */
+  void setupTree();
+
+protected slots: // Protected slots
+  void itemClicked( QListViewItem* item );
+
 private:
 	class TreeItem : public KListViewItem {
 		public:
-			TreeItem(QListViewItem* parent, QListViewItem* after, const QString caption, const QString key);
-			TreeItem(QListViewItem* parent, const QString caption, const QString key);			
-			TreeItem(QListView* view,QListViewItem* after, const QString caption, const QString key);						
+			TreeItem(QListViewItem* parent, QListViewItem* after, CSwordTreeKey* key, const QString keyName);
+			TreeItem(QListViewItem* parent, CSwordTreeKey* key, const QString keyName);
+			TreeItem(QListView* view,QListViewItem* after, CSwordTreeKey* key, const QString keyName);
 			const QString& key() const;
+      void createChilds();
+
+    protected:
+      /**
+      * Initializes this item with the correct caption.
+      */
+      virtual void setup();
+      virtual void setOpen(bool);
 		private:
-			QString m_key;
+			CSwordTreeKey* m_key;
+      QString m_keyName;
 	};
 
 	QPtrList<CSwordBookModuleInfo>	m_modules;
-	CSwordTreeKey *m_key;
+	CSwordTreeKey* m_key;
 	KListView* m_treeView;
-
-protected: // Protected methods
-  /** Set up the tree with the current level of key. */
-  void setupTree( QListViewItem* parent,QListViewItem* after, CSwordTreeKey* key );
-
-protected slots: // Protected slots
-  /** No descriptions */
-  void itemClicked( QListViewItem* item );
-
-public slots: // Public slots
-  /** No descriptions */
-  virtual void updateKey( CSwordKey* );
 };
 
 #endif

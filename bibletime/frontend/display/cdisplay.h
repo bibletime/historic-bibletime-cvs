@@ -142,6 +142,8 @@ public slots:
   void copyAnchorTextOnly();
   void copyAnchorOnly();
 
+  void clear();
+
 signals:
   void referenceClicked(const QString& module, const QString& key);
   void referenceDropped(const QString& key);
