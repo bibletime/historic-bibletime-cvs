@@ -33,7 +33,7 @@ class CToolTip : public QFrame  {
    Q_OBJECT
 public: 
 	CToolTip(QWidget *parent=0, const char *name=0);
-	~CToolTip();
+//	virtual ~CToolTip();
   /**
   * Returns the widget this tooltip applies to. This tooltip widget is destroyed when he parent is deleted.
   */

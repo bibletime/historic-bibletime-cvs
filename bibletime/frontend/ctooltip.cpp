@@ -29,11 +29,13 @@
 #include <dom/html_element.h>
 
 CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_Tool | WStyle_StaysOnTop | WX11BypassWM ),
-  m_parentWidget( parent ), m_filter(false) {
+  m_filter(false), m_parentWidget( parent ) {
 
   connect(m_parentWidget, SIGNAL(destroyed()), SLOT(destroyObject()));
 
   QHBoxLayout* layout = new QHBoxLayout(this,0,0);
+  layout->setResizeMode(QLayout::FreeResize);
+
   m_display = new KHTMLPart(this);
   m_display->view()->setMarginWidth(4);
   m_display->view()->setMarginHeight(4);
@@ -48,8 +50,8 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   setFilter(false);
 }
 
-CToolTip::~CToolTip(){
-}
+//CToolTip::~CToolTip(){
+//}
 
 /** Returns the widget this tooltip applies to. This tooltip widget is destroyed when he parent is deleted. */
 QWidget* const CToolTip::parentWidget() const{
@@ -62,16 +64,16 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
 
   //m_tipRect must have global coordinates!
   QPoint globalPos = parentWidget()->mapToGlobal(rect.topLeft());
-  qWarning("tooltip rect is %i|%i with size %i x %i", globalPos.x(), globalPos.y(), rect.width(), rect.height() );
+//  qWarning("tooltip rect is %i|%i with size %i x %i", globalPos.x(), globalPos.y(), rect.width(), rect.height() );
   m_tipRect = QRect(globalPos.x(), globalPos.y(), rect.width(), rect.height());
 
   m_display->begin();
   m_display->write(text);
   m_display->end();
-
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff);
 
-  QPoint pos = parentWidget()->mapToGlobal( QPoint(p.x()+5, p.y()+5) /*QPoint(rect.x()-2, rect.y()-2)*/ );
+  const QPoint mp = !m_display->view()->verticalScrollBar()->isHidden() ? QPoint(p.x()-5, p.y()-5) : QPoint(p.x()+5, p.y()+5);
+  QPoint pos = parentWidget()->mapToGlobal( mp );
   QRect widgetRect = QRect(pos.x(), pos.y(), width(), height());
   if (!KApplication::desktop()->geometry().contains(widgetRect, true)) {
     qWarning("outside of the screen!");
@@ -80,14 +82,20 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
     pos = widgetRect.topLeft();
   }
   move(pos);
+
   m_display->view()->setContentsPos(0,0);
+
+  const QRect screenSize = KApplication::desktop()->geometry();
+  resize((int)((float)screenSize.width()*0.5), 0);
   show();
+
+//now resize to the correct size!
+  m_display->view()->layout();
+  resize(m_display->view()->sizeHint());
 }
 
 /** Reimplementation. */
 void CToolTip::timerEvent( QTimerEvent* e ) {
-//  qWarning("CToolTip::timerEvent( QTimerEvent* e )");
-
   killTimers();
   if ( !isVisible() ) {
 //    startTimer( 15000 );

@@ -191,8 +191,6 @@ void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )
 
 void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
 //  qWarning("CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event )");	
-  KHTMLPart::khtmlMousePressEvent(event);
-
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
   m_dndData.mousePressed = false;
@@ -200,6 +198,21 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
 
   if (event->qmouseEvent()->button() == Qt::RightButton) {
     setActiveAnchor( event->url().string() );
+
+    //try to select the word under the mouse cursor!
+//    DOM::Node node = event->innerNode();
+//
+//    if (event->target().isEmpty())
+//      qWarning("TARGET is EMPTY!");
+//    qWarning("target: %s", event->target().string().latin1());
+//    qWarning("node: %s", event->innerNode().nodeName().string().latin1());
+//    qWarning("mouse node: %s",nodeUnderMouse().nodeName().string().latin1());
+//
+//    DOM::Range range = document().createRange();
+////    qWarning("range is %s", range.toHTML().string().latin1());
+//    range.selectNode(node);
+//    if (!range.isNull() && !node.isNull())
+//      setSelection(range);
   }
   else if (event->qmouseEvent()->button() == Qt::LeftButton) {
     m_dndData.node = event->innerNode();
@@ -211,6 +224,8 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
       m_dndData.dragType = DNDData::Link;
     }
   }
+
+  KHTMLPart::khtmlMousePressEvent(event);
 }
 
 /** Reimplementation for our drag&drop system. */
