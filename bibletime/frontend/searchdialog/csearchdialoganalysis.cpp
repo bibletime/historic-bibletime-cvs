@@ -190,14 +190,14 @@ void CSearchDialogAnalysis::slotResized(){
 QColor CSearchDialogAnalysis::getColor(int index){
   switch (index){
     case  0: return Qt::red;
-    case 	1: return Qt::black;
+    case 	1: return Qt::darkGreen;
     case  2: return Qt::blue;
     case  3: return Qt::cyan;
     case  4: return Qt::magenta;
     case  5: return Qt::white;
     case  6: return Qt::darkRed;
     case  7: return Qt::darkGray;
-    case  8: return Qt::darkBlue;
+    case  8: return Qt::black;
     case  9: return Qt::darkCyan;
     case 10: return Qt::darkMagenta;
     default: return Qt::red;

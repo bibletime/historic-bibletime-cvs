@@ -29,3 +29,4 @@ uninstall-local:
 	done
 
 KDE_ICON = AUTO
+
