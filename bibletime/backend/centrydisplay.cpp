@@ -307,10 +307,14 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key.module(m);
     key.key(keyName); //necessary?
+    const QString tdStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; %1 %2\"")
+      .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
+      .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
+
     renderedText += QString::fromLatin1("<TD class=\"%1\" %2 %3 valign=\"top\"><SPAN %4><SUP>%5</SUP> %6</SPAN></TD>")
                       .arg((modules.at() % 2) == 0 ? QString::fromLatin1("background1") : QString::fromLatin1("background2") )
                       .arg((m->textDirection() == CSwordModuleInfo::RightToLeft) ? QString::fromLatin1("dir=\"rtl\"") : QString::null)
-                      .arg(modules.at() < modules.count() ? QString::fromLatin1("style=\"padding-right:1mm;\"") : QString::null)
+                      .arg(tdStyle)
                       .arg(m->isUnicode() ? QString::fromLatin1("class=\"unicodetext\"") : QString::null)
                       .arg(m_displayOptions.verseNumbers ? htmlReference(m, key.key(), QString::number(key.Verse()), key.key())  : QString::null)
                       .arg(key.key() == chosenKey ? QString::fromLatin1("<SPAN class=\"highlighted\">%1</SPAN>").arg(key.renderedText()) : key.renderedText());

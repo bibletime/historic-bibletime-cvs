@@ -65,7 +65,7 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 		const QString s = (!key.isEmpty() ? key : QString::null);
 		QString newKey = QString::null;	
 	  //replace all / of the key (e.g. of a CSwordTreeKey) with
-	  // the escape sequence \/ so we know it's a link divider!
+	  // the escape sequence \/ so we know it's a link internal divider (e.g. of CSwordTreeKey)!
 		for(unsigned int i = 0; i < s.length(); ++i) {
 			if (s[i] == '/')
 				newKey += "\\/";
@@ -91,7 +91,7 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 	type = Unknown; //not yet known
 	QString ref = hyperlink;
 	//remove the trailing slash
-	if (ref.right(1)=="/")
+	if (ref.right(1)=="/" && ref.right(2) != "\\/") //triling slash, but not escaped
 		ref = ref.left(ref.length()-1);
 	
 	//find out which type we have by looking at the beginning (protocoll section of URL)

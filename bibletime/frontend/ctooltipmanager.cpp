@@ -43,6 +43,8 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
   if (moduleName.isEmpty()) {
     moduleName = CReferenceManager::preferredModule( type );
   }
+
+  qWarning("link was %s, key is %s", link.latin1(), keyName.latin1());
   if (moduleName.isEmpty()) {
     QString typeName = QString::null;
     switch (type) {
@@ -99,7 +101,7 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
 
 /** Returns the tooltip text for the given hyperlink. */
 const QString CTooltipManager::textForReference( const QString& moduleName, const QString& keyName, const QString& description){
-	CSwordModuleInfo* module = backend()->findModuleByName(moduleName);
+	CSwordModuleInfo* const module = backend()->findModuleByName(moduleName);
   CEntryDisplay* display = module ? module->getDisplay() : 0;
 #warning "Fix Me"!
   return QString::fromLatin1("<HEAD>%1</HEAD><B>%1 %2</B>%3<HR>%4")
