@@ -187,6 +187,10 @@ public:
   * Writes the new text at the given position into the module. This does only work for writabe modules.
   */
   virtual void write( CSwordKey* key, const QString& newText );
+  /**
+  * Deletes the current entry and removes it from the module.
+  */
+  const bool deleteEntry( CSwordKey* const key );
 
 private:
 	sword::SWModule*	m_module;

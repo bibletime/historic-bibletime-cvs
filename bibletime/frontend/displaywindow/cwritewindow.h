@@ -64,10 +64,6 @@ public slots:
         
 protected: // Protected methods
   /**
-  * Sets the write display-widget for this write display window.
-  */
-  const bool saveText( CSwordKey* key, const QString newText );
-  /**
   * Saves the given text as text of the given key. Use this function as backend in each write window implementation.
   */
   void setDisplayWidget( CWriteDisplay* display );

@@ -286,6 +286,35 @@ namespace CResMgr {
   };
 
   namespace displaywindows {
+    namespace biblewindow {
+
+    };
+    namespace commentarywindow {
+
+    };
+    namespace lexiconwindow {
+
+    };
+    namespace writewindow {
+      namespace saveText {
+        const QString tooltip   = makeToolTip( i18n("Save the current text") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Save the curent text into the module. The old text will get lost.") );
+        const QString icon      = "filesave";
+        const KShortcut accel   = KShortcut();
+      };
+      namespace restoreText {
+        const QString tooltip   = makeToolTip( i18n("Restore the old text") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Loads the old text from the module and loads it into the edit area. The unsaved text will get lost.") );
+        const QString icon      = "undo";
+        const KShortcut accel   = KShortcut();
+      };
+      namespace deleteEntry {
+        const QString tooltip   = makeToolTip( i18n("Delete the current entry") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Deletes the current entry out of the module. The text will get lost.") );
+        const QString icon      = "editdelete";
+        const KShortcut accel   = KShortcut();
+      };
+    };
   };
 
   namespace printing {

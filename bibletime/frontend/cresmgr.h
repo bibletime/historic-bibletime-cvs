@@ -304,8 +304,37 @@ namespace CResMgr {
   };
 
   namespace displaywindows {
-  };
+    namespace biblewindow {
 
+    };
+    namespace commentarywindow {
+
+    };
+    namespace lexiconwindow {
+
+    };
+    namespace writewindow {
+      namespace saveText {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+      namespace restoreText {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+      namespace deleteEntry {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+    };
+  };
+  
   namespace printing {
   };
 }

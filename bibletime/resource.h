@@ -70,12 +70,12 @@
 #define IDK_PRESENTER_PREVIOUS_ENTRY	0
 
 
-#define IDK_PRESENTER_EDIT					CTRL+SHIFT+Key_E
-#define IDK_PRESENTER_EDIT_DELETE		CTRL+Key_D
-#define IDK_PRESENTER_EDIT_BOLD			CTRL+Key_B
-#define IDK_PRESENTER_EDIT_ITALIC		CTRL+Key_I
-#define IDK_PRESENTER_EDIT_UNDERLINE	CTRL+Key_U
-
+//#define IDK_PRESENTER_EDIT					CTRL+SHIFT+Key_E
+//#define IDK_PRESENTER_EDIT_DELETE		CTRL+Key_D
+//#define IDK_PRESENTER_EDIT_BOLD			CTRL+Key_B
+//#define IDK_PRESENTER_EDIT_ITALIC		CTRL+Key_I
+//#define IDK_PRESENTER_EDIT_UNDERLINE	CTRL+Key_U
+//
 #define IDK_PRESENTER_TOGGLE_TREE		CTRL+Key_T
 
 //#define IDK_WINDOW_CASCADE			CTRL+Key_A
@@ -113,13 +113,13 @@
 
 #define ICON_EDIT						"pencil"
 #define ICON_EDIT_COPY			"editcopy"
-#define ICON_EDIT_BOLD			"text_bold"
-#define ICON_EDIT_ITALIC		"text_italic"
-#define ICON_EDIT_UNDER			"text_under"
-#define ICON_EDIT_LEFT			"text_left"
-#define ICON_EDIT_CENTER		"text_center"
-#define ICON_EDIT_RIGHT			"text_right"
-#define ICON_EDIT_JUST			"text_block"
+//#define ICON_EDIT_BOLD			"text_bold"
+//#define ICON_EDIT_ITALIC		"text_italic"
+//#define ICON_EDIT_UNDER			"text_under"
+//#define ICON_EDIT_LEFT			"text_left"
+//#define ICON_EDIT_CENTER		"text_center"
+//#define ICON_EDIT_RIGHT			"text_right"
+//#define ICON_EDIT_JUST			"text_block"
 
 #define ICON_VIEW_BOOKTREE				"view_sidetree"
 

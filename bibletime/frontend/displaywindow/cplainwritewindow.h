@@ -46,7 +46,8 @@ protected: // Protected methods
 private:
   struct {
     KAction* saveText;
-    KAction* restoreText;
+    KAction* deleteEntry;
+    KAction* restoreText;    
   } m_actions;
   
 protected slots: // Protected slots
@@ -62,6 +63,8 @@ protected slots: // Protected slots
   * Loads the original text from the module.
   */
   void restoreText();
+  /** Deletes the module entry and clears the edit widget, */
+  void deleteEntry();
 };
 
 #endif

@@ -286,3 +286,13 @@ void CSwordModuleInfo::write( CSwordKey* key, const QString& newText ){
 //  (*module()) << (isUnicode() ? (const char*)newText.utf8() : newText.latin1());
 
 }
+
+/** Deletes the current entry and removes it from the module. */
+const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
+  module()->KeyText( isUnicode() ? (const char*)(key->key().utf8()) : key->key().latin1() );
+  if (module()) {
+    module()->deleteEntry();
+    return true;
+  };
+  return false;
+}

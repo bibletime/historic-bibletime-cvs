@@ -17,6 +17,7 @@
 
 #include "cplainwritewindow.h"
 #include "frontend/keychooser/ckeychooser.h"
+#include "frontend/cresmgr.h"
 
 //Qt includes
 
@@ -48,10 +49,35 @@ void CPlainWriteWindow::initView(){
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
  	mainToolBar()->setFullSize(false);
 
- 	m_actions.saveText = new KAction(i18n("Save the text"), KShortcut(0), this, SLOT(saveCurrentText()), actionCollection());
+ 	m_actions.saveText = new KAction(i18n("Save the text"),
+    CResMgr::displaywindows::writewindow::saveText::icon,
+    CResMgr::displaywindows::writewindow::saveText::accel,
+    this, SLOT(saveCurrentText()),
+    actionCollection()
+  );
+  m_actions.saveText->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
+  m_actions.saveText->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
   m_actions.saveText->plug(mainToolBar());
 
- 	m_actions.restoreText = new KAction(i18n("Restore original text"), KShortcut(0), this, SLOT(restoreText()), actionCollection());
+
+ 	m_actions.deleteEntry = new KAction(i18n("Delete the current entry"),
+    CResMgr::displaywindows::writewindow::deleteEntry::icon,
+    CResMgr::displaywindows::writewindow::deleteEntry::accel,
+    this, SLOT(deleteEntry()),
+    actionCollection()
+  );
+  m_actions.deleteEntry->setToolTip( CResMgr::displaywindows::writewindow::deleteEntry::tooltip );
+  m_actions.deleteEntry->setWhatsThis( CResMgr::displaywindows::writewindow::deleteEntry::whatsthis );
+  m_actions.deleteEntry->plug(mainToolBar());
+
+
+ 	m_actions.restoreText = new KAction(i18n("Restore original text"),
+    CResMgr::displaywindows::writewindow::restoreText::icon,
+    CResMgr::displaywindows::writewindow::restoreText::accel,
+    this, SLOT(restoreText()), actionCollection()
+  );
+  m_actions.restoreText->setToolTip( CResMgr::displaywindows::writewindow::restoreText::tooltip );
+  m_actions.restoreText->setWhatsThis( CResMgr::displaywindows::writewindow::restoreText::whatsthis );
   m_actions.restoreText->plug(mainToolBar());
 }
 
@@ -66,19 +92,28 @@ void CPlainWriteWindow::initConnections(){
 /** Saves the text for the current key. Directly writes the changed text into the module. */
 void CPlainWriteWindow::saveCurrentText(){
   qWarning("CPlainWriteWindow::saveText()");
-  saveText(key(), displayWidget()->plainText() );
+  modules().first()->write(key(), displayWidget()->plainText() );
 
   displayWidget()->setModified(false);
+  textChanged();
 }
 
 /** Loads the original text from the module. */
 void CPlainWriteWindow::restoreText(){
   lookup(key());
-  displayWidget()->setModified(false);  
+  displayWidget()->setModified(false);
+  textChanged();  
 }
 
 /** Is called when the current text was changed. */
-void CPlainWriteWindow::textChanged(){
+void CPlainWriteWindow::textChanged() {
   m_actions.saveText->setEnabled( displayWidget()->isModified() );
   m_actions.restoreText->setEnabled( displayWidget()->isModified() );  
+}
+
+/** Deletes the module entry and clears the edit widget, */
+void CPlainWriteWindow::deleteEntry(){
+  modules().first()->deleteEntry( key() );
+  lookup( key() );
+  displayWidget()->setModified(false);
 }
