@@ -49,11 +49,15 @@ const bool CWriteWindow::init( const QString& keyName ) {
 
 
 void CWriteWindow::initConnections() {
+	qWarning("CWriteWindow::initConnections()");
+	Q_ASSERT(keyChooser());
 
+	connect(keyChooser(), SIGNAL(beforeKeyChange(const QString&)),
+		this, SLOT(beforeKeyChange(const QString&))
+	);
 };
 
 void CWriteWindow::initKeyboardActions() {
-
 };
 
 void CWriteWindow::storeProfileSettings(CProfileWindow * const settings) {
@@ -126,10 +130,8 @@ void CWriteWindow::lookup( CSwordKey* newKey ){
   }
 
 	if ( modules().first() ) {
-    displayWidget()->setText( key()->rawText() );
+  	displayWidget()->setText( key()->rawText() );
   }
-
-
 	setCaption( windowCaption() );
 }
 
@@ -156,4 +158,24 @@ bool CWriteWindow::queryClose(){
 		}
 	}
 	return true;
+}
+
+void CWriteWindow::beforeKeyChange(const QString& key) {
+	Q_ASSERT(displayWidget());
+	Q_ASSERT(keyChooser());
+	if (!isReady()) {
+		return;
+	}
+
+	//If the text changed and we'd do a lookup ask the user if the text should be saved
+	if (modules().first() && displayWidget()->isModified()) {
+		switch (KMessageBox::warningYesNo( this, i18n("Your edited the text of the current verse. Should we save it before displaying the new verse?")) ) {
+			case KMessageBox::Yes: { //save the changes
+	   		saveCurrentText();
+	     	break;
+			}
+	    default: // do nothing
+	     	break;
+		}
+	}
 }

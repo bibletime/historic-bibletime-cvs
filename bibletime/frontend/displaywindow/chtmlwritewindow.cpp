@@ -111,6 +111,8 @@ void CHTMLWriteWindow::initView() {
 };
 
 void CHTMLWriteWindow::initConnections() {
+	CWriteWindow::initConnections();
+	
  	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 		this, SLOT(lookup(CSwordKey*)));
   connect(displayWidget()->connectionsProxy(), SIGNAL(textChanged()),

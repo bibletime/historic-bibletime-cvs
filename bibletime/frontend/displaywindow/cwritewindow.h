@@ -61,7 +61,7 @@ public slots:
   */
   virtual void lookup( CSwordKey* key );
 
-        
+
 protected: // Protected methods
   /**
   * Saves the given text as text of the given key. Use this function as backend in each write window implementation.
@@ -74,9 +74,10 @@ protected slots:
   /** Save text to the module
   */
   virtual void saveCurrentText() = 0;
-    
+	virtual void beforeKeyChange(const QString&);
+
 private:
-  CWriteDisplay* m_writeDisplay;  
+  CWriteDisplay* m_writeDisplay;
 };
 
 #endif

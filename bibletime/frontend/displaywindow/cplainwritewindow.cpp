@@ -99,7 +99,8 @@ void CPlainWriteWindow::initView(){
 }
 
 void CPlainWriteWindow::initConnections(){
- 	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
+	CWriteWindow::initConnections();
+	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 		this, SLOT(lookup(CSwordKey*)));
 
   connect(displayWidget()->connectionsProxy(), SIGNAL(textChanged()),
@@ -125,7 +126,7 @@ void CPlainWriteWindow::saveCurrentText(){
   QRegExp re("(?:<html.*>.+<body.*>)", false); //remove headers, match case insensitive
   re.setMinimal(true);
   t.replace(re, "");
-  t.replace(QRegExp("</BODY></HTML>", false), "");//remove footer
+  t.replace(QRegExp("</body></html>", false), "");//remove footer
 
   modules().first()->write(key(), t );
 
