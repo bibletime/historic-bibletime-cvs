@@ -25,8 +25,8 @@
 //#include <qwidget.h>
 //#include <qframe.h>
 //#include <qlabel.h>
-//#include <qstring.h>
-//#include <qmap.h>
+#include <qstring.h>
+#include <qmap.h>
 //#include <qcombobox.h>
 //#include <qdict.h>
 //#include <qmap.h>
@@ -38,6 +38,9 @@
 //#include <kcolorbutton.h>
 //#include <kapp.h>
 
+class QWidget;
+class QLabel;
+class QComboBox;
 //class QHBox;
 //class QCheckBox;
 //class QRadioButton;
@@ -65,6 +68,32 @@ public:
   const bool showPart( CSwordSetupDialog::Parts ID );
 
 private:
+  /** No descriptions */
+  void loadSourceLocations();
+  /** No descriptions */
+  void saveSourceLocations();
+  /** No descriptions */
+  void determineTargetLocations();
+  /** No descriptions */
+  void populateInstallCombos();
+
+	QString source;
+  QString target;
+
+	QLabel* m_sourceLabel;
+	QLabel* m_targetLabel;
+	QComboBox* m_sourceCombo;
+	QComboBox* m_targetCombo;
+
+	QMap<QString, QString> m_sourceMap;
+	QMap<QString, QString> m_targetMap;
+
+
+private slots:
+  /** No descriptions */
+  void slot_sourceSelected(const QString &sourceName);
+  /** No descriptions */
+  void slot_targetSelected(const QString &targetName);
 
 protected slots: // Protected slots
 	void slotOk();

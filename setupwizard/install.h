@@ -38,8 +38,6 @@ public:
 
   /** No descriptions */
   void addPage();
-	QString source;
-  QString target;
 
 
 private: // Private methods
@@ -58,20 +56,7 @@ public slots: // Private slots
   /** No descriptions */
   void activate();
 
-private: // Private methods
-  /** No descriptions */
-  void populateCombos();
-  /** No descriptions */
-  void loadSourceLocations();
-  /** No descriptions */
-  void saveSourceLocations();
-  /** No descriptions */
-  void determineTargetLocations();
-private slots: // Private slots
-  /** No descriptions */
-  void slot_sourceSelected(const QString &sourceName);
-  /** No descriptions */
-  void slot_targetSelected(const QString &targetName);
+
 };
 
 #endif
