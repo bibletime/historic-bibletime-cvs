@@ -25,6 +25,7 @@
 #include "csearchdialogresult.h"
 #include "csearchdialogresultview.h"
 #include "../ctoolclass.h"
+#include "../optionsdialog/coptionsdialog.h"
 
 //Qt includes
 #include <qpixmap.h>
@@ -165,7 +166,7 @@ void CSearchDialogResult::updatePreview(QString text) {
 	}
 	//module is Unicode-based
 	if (resultModuleTree->getCurrentModule()->encoding() == QFont::Unicode ) {
-		QFont f = CToolClass::getDisplayUnicodeFont();
+		QFont f = COptionsDialog::getBTFont( COptionsDialog::unicode);
 		text = QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(f.pointSize()).arg(text);
 	}
 	html_widget->setText(

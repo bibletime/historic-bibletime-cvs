@@ -28,6 +28,8 @@
 #include "../ressource.h"
 #include "../tooltipdef.h"
 #include "../whatsthisdef.h"
+#include "optionsdialog/coptionsdialog.h"
+
 
 #include <stdio.h>
 
@@ -123,9 +125,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 				}
 			}
 			if (m->encoding() == QFont::Unicode) {
-//				QFont newFont = font();
-//				newFont.setCharSet(QFont::AnyCharSet);
-				setFont( CToolClass::getDisplayUnicodeFont() );
+				setFont( COptionsDialog::getBTFont( COptionsDialog::unicode) );
 			}
 		}
 //		qWarning("text is %s", text.latin1());

@@ -160,17 +160,4 @@ const QString CToolClass::getOpenFileName( const QString& startDir, const QStrin
 	return KFileDialog::getOpenFileName(startDir, filter, parent, caption);
 #endif
 }
-/** No descriptions */
-const QFont CToolClass::getDisplayStandardFont(){
-  KConfig* config = KGlobal::config();
-  KConfigGroupSaver groupSaver(config,"Fonts");
 
-  return config->readFontEntry( i18n("Display window") );
-}
-/** No descriptions */
-const QFont CToolClass::getDisplayUnicodeFont(){
-  KConfig* config = KGlobal::config();
-  KConfigGroupSaver groupSaver(config,"Fonts");
-
-  return config->readFontEntry( i18n("Display window Unicode") );
-}

@@ -109,13 +109,7 @@ void BibleTime::saveSettings(){
 			m_config->writeEntry("autoTile", false);
  		m_config->writeEntry("autoCascade", false);	
  	}
-	
-	//backend specific things
-	if (m_important->swordBackend->m_entryDisplay) {
-		m_config->setGroup("Colors");
-		m_config->writeEntry("Highlighted Verse", QColor(m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor));
-	}
-	
+
 	m_config->setGroup("Startup");
 	if (m_config->readBoolEntry("restore workspace", false)) {
 		CProfile* p = m_profileMgr.startupProfile();
@@ -168,29 +162,6 @@ void BibleTime::readSettings(){
  		m_windowAutoTile_action->setChecked(false);
  		m_windowAutoCascade_action->setChecked(false);		
  	}
-	//backend specific things
-	if (m_important->swordBackend->m_entryDisplay) {
-		m_config->setGroup("Colors");
-		QColor tempColor;
-		tempColor = m_config->readColorEntry("Highlighted Verse", &red);
-		m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor = tempColor.name();
-		
-//		m_config->setGroup("Fonts");
-//		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
-//		m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );
-	}
-	
-	if (m_important->swordBackend->m_chapterDisplay) {
-		m_config->setGroup("Colors");		
-		QColor tempColor;
-		tempColor = m_config->readColorEntry("Highlighted Verse", &red);
-		m_important->swordBackend->m_chapterDisplay->m_highlightedVerseColor = tempColor.name();
-		
-//		m_config->setGroup("Fonts");
-//		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
-//		m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ));
-	}	
-
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */

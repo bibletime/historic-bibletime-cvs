@@ -71,9 +71,6 @@ public:
   * Generates code to display the given modules side by side.
   */
   virtual char Display( QList<CSwordModuleInfo>* moduleList);
-  QString m_highlightedVerseColor;
-//	QString m_textColor;
-//	QString m_linkColor;
 		
 private:
 	friend class CHTMLChapterDisplay;	

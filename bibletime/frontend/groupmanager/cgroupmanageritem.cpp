@@ -24,6 +24,7 @@
 #include "../../backend/cswordlexiconmoduleinfo.h"
 #include "../../ressource.h"
 #include "../ctoolclass.h"
+#include "../optionsdialog/coptionsdialog.h"
 
 //Qt includes
 #include <qpixmap.h>
@@ -230,7 +231,7 @@ const QString CGroupManagerItem::getToolTip(){
 
 			//Module is Unicode-based
 			if (moduleInfo() && moduleInfo()->encoding() == QFont::Unicode ) {
-  			QFont f = CToolClass::getDisplayUnicodeFont();
+  			QFont f = COptionsDialog::getBTFont(COptionsDialog::unicode);
 				text.append( QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(CToolClass::makeLogicFontSize(f.pointSize())).arg(bookmarkText) );
 			}
 			else

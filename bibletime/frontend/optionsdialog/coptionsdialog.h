@@ -60,6 +60,22 @@ public:
   */
   const int getChangedSettings() const;
 
+  enum BTFont {
+		standard,
+		unicode
+	};
+  enum BTColor {
+		background,
+		highlighted_verse,
+		footnote,
+		strongs,
+		morph,
+		jesuswords
+	};
+
+	static QFont getBTFont( BTFont which );
+	static QColor getBTColor( BTColor which );
+
 private:
   void initGeneral();
   void saveGeneral();
@@ -101,7 +117,11 @@ private:
 		
 		struct ColorSettings {
 			KColorButton* background;
-			KColorButton* highlightedVerse;			
+			KColorButton* highlightedVerse;
+			KColorButton* footnotes;
+			KColorButton* strongs;
+			KColorButton* morph;
+			KColorButton* jesuswords;
 		} colors;
 		
 		struct FontSettings {		

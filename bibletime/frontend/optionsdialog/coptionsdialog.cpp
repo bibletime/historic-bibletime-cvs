@@ -322,10 +322,31 @@ void COptionsDialog::initDisplayWindow() {
 		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
 		m_displayWindows.colors.background = new KColorButton(m_config->readColorEntry("Background", &Qt::white), group);		
 		
-		label = new QLabel(i18n("Highlighted Verse"), group);
+		label = new QLabel(i18n("Highlighted verse"), group);
 		QToolTip::add(label, TT_OD_COLORS_CURRENT_VERSE );	
 		QWhatsThis::add(label, WT_OD_COLORS_CURRENT_VERSE );
 		m_displayWindows.colors.highlightedVerse = new KColorButton(m_config->readColorEntry("Highlighted Verse", &Qt::red ), group);
+
+		label = new QLabel(i18n("Footnotes"), group);		
+//		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
+//		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
+		m_displayWindows.colors.footnotes = new KColorButton(m_config->readColorEntry("footnotes", &Qt::blue), group);		
+
+		label = new QLabel(i18n("Strong's numbers"), group);		
+//		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
+//		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
+		m_displayWindows.colors.strongs = new KColorButton(m_config->readColorEntry("strongs", &Qt::blue), group);		
+
+		label = new QLabel(i18n("Morphologic tags"), group);		
+//		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
+//		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
+		m_displayWindows.colors.morph = new KColorButton(m_config->readColorEntry("morph", &Qt::blue), group);		
+
+		label = new QLabel(i18n("Words of Jesus"), group);		
+//		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
+//		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
+		m_displayWindows.colors.jesuswords = new KColorButton(m_config->readColorEntry("jesuswords", &Qt::red), group);		
+
 	}	
 	
 	items.clear();
@@ -467,7 +488,7 @@ void COptionsDialog::saveDisplayWindow() {
 	{ //save color options
 		KConfigGroupSaver groupSaver(m_config, "Colors");
 		if ( m_config->readColorEntry("Background") != m_displayWindows.colors.background->color() )
-		m_changedSettings |= CSwordPresenter::backgroundColor;
+			m_changedSettings |= CSwordPresenter::backgroundColor;
 
 		m_config->writeEntry("Background", m_displayWindows.colors.background->color().name());	
 	
@@ -475,6 +496,11 @@ void COptionsDialog::saveDisplayWindow() {
 				m_changedSettings |= CSwordPresenter::highlightedVerseColor;
 
 		m_config->writeEntry("Highlighted Verse", m_displayWindows.colors.highlightedVerse->color().name());		
+#warning missing change notice in enum value of CSWordPresenter? Maybe only CSwordPresenter::colorchaged for all color changes?
+		m_config->writeEntry("footnotes", m_displayWindows.colors.footnotes->color().name());		
+		m_config->writeEntry("strongs", m_displayWindows.colors.strongs->color().name());		
+		m_config->writeEntry("morph", m_displayWindows.colors.morph->color().name());		
+		m_config->writeEntry("jesuswords", m_displayWindows.colors.jesuswords->color().name());		
 	}
 	
 	{//save accel settings
@@ -558,4 +584,39 @@ void COptionsDialog::renameProfile(){
 		m_displayWindows.profiles.profiles->changeItem(newName, m_displayWindows.profiles.profiles->currentItem());
 	}	
 }
+/** No descriptions */
+QFont COptionsDialog::getBTFont( BTFont which){
+  KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config,"Fonts");
 
+	switch (which){
+		case COptionsDialog::unicode:
+			return config->readFontEntry( i18n("Display window") );
+		case COptionsDialog::standard:
+		default:
+			return config->readFontEntry( i18n("Display window Unicode") );
+	}
+}
+
+/** No descriptions */
+QColor COptionsDialog::getBTColor( BTColor which){
+  KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config,"Colors");
+
+	switch (which){
+		case COptionsDialog::background:
+			return config->readColorEntry( "Background" );
+		case COptionsDialog::highlighted_verse:
+			return config->readColorEntry( "Highlighted Verse" );
+		case COptionsDialog::footnote:
+			return config->readColorEntry( "footnote" );
+		case COptionsDialog::strongs:
+			return config->readColorEntry( "strongs" );
+		case COptionsDialog::morph:
+			return config->readColorEntry( "morph" );
+		case COptionsDialog::jesuswords:
+			return config->readColorEntry( "jesuswords" );
+		default:
+			return QColor( Qt::black );
+	}
+}

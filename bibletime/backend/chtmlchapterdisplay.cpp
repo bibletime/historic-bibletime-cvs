@@ -21,6 +21,7 @@
 #include "cswordversekey.h"
 #include "../frontend/ctoolclass.h"
 #include "creferencemanager.h"
+#include "../frontend/optionsdialog/coptionsdialog.h"
 
 //Qt includes
 #include <qfont.h>
@@ -54,10 +55,10 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");//dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
 	
   //automatically reloaded with every display() call
-	QString StandardFontName = CToolClass::getDisplayStandardFont().family();
-	QString UnicodeFontName = CToolClass::getDisplayUnicodeFont().family();
-  int StandardFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayStandardFont().pointSize() );
-  int UnicodeFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayUnicodeFont().pointSize() );
+	QString StandardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
+	QString UnicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
+  int StandardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
+  int UnicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
 
  	QString FontName = StandardFontName;
  	int FontSize = StandardFontSize;
@@ -75,7 +76,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 			.arg(verse)
 		);
 		m_htmlText.append( QString::fromLatin1("<FONT %1 FACE=\"%2\" SIZE=\"%3\"> %4</FONT>")
-			.arg((verse == currentVerse) ? QString::fromLatin1("COLOR=\"%1\"").arg(m_highlightedVerseColor) : QString::null)
+			.arg((verse == currentVerse) ? QString::fromLatin1("COLOR=\"%1\"").arg(COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name()) : QString::null)
 			.arg(FontName)
 			.arg(FontSize)
 			.arg(key.renderedText())
@@ -90,6 +91,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 
 /** Generates code to display the given modules side by side. */
 char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){	
+#warning make table colors configurable
 	qDebug("CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		m_htmlText = QString::null;
@@ -97,10 +99,10 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	}
 
   //automatically reloaded with every display() call
-	QString StandardFontName = CToolClass::getDisplayStandardFont().family();
-	QString UnicodeFontName = CToolClass::getDisplayUnicodeFont().family();
-  int StandardFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayStandardFont().pointSize() );
-  int UnicodeFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayUnicodeFont().pointSize() );
+	QString StandardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
+	QString UnicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
+  int StandardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
+  int UnicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
 
  	QString FontName = StandardFontName;
  	int FontSize = StandardFontSize;
@@ -150,7 +152,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 				.arg(currentVerse % 2 ? "white" : "#F1F1F1")
 				.arg(d->encoding()==QFont::Unicode ? UnicodeFontName : StandardFontName)
 				.arg(d->encoding()==QFont::Unicode ? UnicodeFontSize : StandardFontSize)
-				.arg((currentVerse == chosenVerse) ? QString::fromLatin1("color=\"%1\"").arg(m_highlightedVerseColor) : QString::null)
+				.arg((currentVerse == chosenVerse) ? QString::fromLatin1("color=\"%1\"").arg(COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name()) : QString::null)
 				.arg(current.renderedText());
 			m = (d = moduleList->next()) ? d->module() : 0;
 		}

@@ -19,6 +19,10 @@
 #include <string.h>
 #include "bt_gbfhtml.h"
 
+#include <qstring.h>
+#include "../frontend/optionsdialog/coptionsdialog.h"
+
+
 
 BT_GBFHTML::BT_GBFHTML(){
   setTokenStart("<");
@@ -26,13 +30,13 @@ BT_GBFHTML::BT_GBFHTML(){
 
 	setTokenCaseSensitive(true);
 
-	addTokenSubstitute("Rf", ")</SMALL></FONT>");
+	addTokenSubstitute("Rf", ")</SMALL></FONT>");// end of footnote
 	addTokenSubstitute("FI", "<I>"); // italics begin
 	addTokenSubstitute("Fi", "</I>");
 	addTokenSubstitute("FB", "<B>"); // bold begin
 	addTokenSubstitute("Fb", "</B>");
-#warning make configurable
-	addTokenSubstitute("FR", "<FONT COLOR=\"#FF0000\">"); // words of Jesus begin
+//#warning make configurable
+//	addTokenSubstitute("FR", "<FONT COLOR=\"#FF0000\">"); // words of Jesus begin
 	addTokenSubstitute("Fr", "</FONT>");
 	addTokenSubstitute("FU", "<U>"); // underline begin
 	addTokenSubstitute("Fu", "</U>");
@@ -61,59 +65,57 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 	if (!substituteToken(buf, token)) {  //more than a simple replace
 
 		if (!strncmp(token, "WG", 2)){ // strong's numbers greek
-			pushString(buf, " <small><em><a href=\"sword://strongs_greek/");
-			for (i = 1; i < strlen(token); i++)
-				//if(token[i] != '\"')
-					*(*buf)++ = token[i];
-			pushString(buf, "\">&lt;");
-//			*(*buf)++ = '\"';
-//			*(*buf)++ = '>';
+			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://strongs_greek/")
+				.arg(COptionsDialog::getBTColor(COptionsDialog::strongs).name()).utf8() );
+//			pushString(buf, " <small><em><a href=\"sword://strongs_greek/");
 			for (i = 2; i < strlen(token); i++)
 				//if(token[i] != '\"')
 					*(*buf)++ = token[i];
-			pushString(buf, "&gt;</A></em></small> ");
+			pushString(buf, "\">&lt;");
+			for (i = 2; i < strlen(token); i++)
+				//if(token[i] != '\"')
+					*(*buf)++ = token[i];
+			pushString(buf, "&gt;</A></em></small></font> ");
 		}
 
 		if (!strncmp(token, "WH", 2)){ // strong's numbers hebrew
-			pushString(buf, " <small><em><a href=\"sword://strongs_hebrew/");
-			for (i = 1; i < strlen(token); i++)
-				//if(token[i] != '\"')
-					*(*buf)++ = token[i];
-			pushString(buf, "\">&lt;");
-//			*(*buf)++ = '\"';
-//			*(*buf)++ = '>';
+			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://strongs_hebrew/")
+				.arg(COptionsDialog::getBTColor(COptionsDialog::strongs).name()).utf8() );
+//			pushString(buf, " <small><em><a href=\"sword://strongs_hebrew/");
 			for (i = 2; i < strlen(token); i++)
 				//if(token[i] != '\"')
 					*(*buf)++ = token[i];
-			pushString(buf, "&gt;</A></em></small> ");
+			pushString(buf, "\">&lt;");
+			for (i = 2; i < strlen(token); i++)
+				//if(token[i] != '\"')
+					*(*buf)++ = token[i];
+			pushString(buf, "&gt;</A></em></small></font> ");
 		}
 
 		else if (!strncmp(token, "WTG", 3)) { // strong's numbers tense greek
-			pushString(buf, " <small><em><a href=\"sword://morph_greek/");
+			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://morph_greek/")
+				.arg(COptionsDialog::getBTColor(COptionsDialog::morph).name()).utf8() );
 			for (i = 2; i < strlen(token); i++)				
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
 			pushString(buf, "\">(");
-//			*(*buf)++ = '\"';
-//			*(*buf)++ = '>';
 			for (i = 3; i < strlen(token); i++)
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];
-			pushString(buf, ")</A></EM></SMALL>");
+			pushString(buf, ")</a></em></small></font>");
 		}
 
 		else if (!strncmp(token, "WTH", 3)) { // strong's numbers tense hebrew
-			pushString(buf, " <small><em><a href=\"sword://morph_hebrew/");
+			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://morph_hebrew/")
+				.arg(COptionsDialog::getBTColor(COptionsDialog::morph).name()).utf8() );
 			for (i = 2; i < strlen(token); i++)				
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
 			pushString(buf, "\">(");
-//			*(*buf)++ = '\"';
-//			*(*buf)++ = '>';
 			for (i = 3; i < strlen(token); i++)
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];
-			pushString(buf, ")</A></EM></SMALL>");
+			pushString(buf, ")</a></em></small></font>");
 		}
 
 //		else if (!strncmp(token, "WT", 2)) { // morph tags
@@ -139,7 +141,8 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 				userData["hasFootnotePreTag"] = "false";
 				pushString(buf, "</I> ");
 			}
-			pushString(buf, "<FONT COLOR=\"#800000\"><SMALL> (");
+			pushString(buf, QString("<FONT COLOR=\"%1\"><SMALL> (")
+				.arg(COptionsDialog::getBTColor(COptionsDialog::footnote).name()).utf8() );
 		}
 
 		else if (!strncmp(token, "FN", 2)) {
@@ -147,8 +150,12 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 			for (i = 2; i < strlen(token); i++)				
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
-			*(*buf)++ = '\"';
-			*(*buf)++ = '>';
+			pushString(buf,"\">");
+		}
+
+		else if (!strncmp(token, "FR", 2)) {
+			pushString(buf, QString("<FONT COLOR=\"%1\">")
+				.arg(COptionsDialog::getBTColor(COptionsDialog::jesuswords).name()).utf8() );
 		}
 
 		else if (!strncmp(token, "CA", 2)) {	// ASCII value
