@@ -78,7 +78,7 @@ protected: // Protected methods
   /**
   * Sets up the entries of the given key chooser.
   */
-  void setupKeyChooser(const int number, TreeKeyIdx* tree);
+  void setupKeyChooser(const int number);
 
 protected slots: // Protected slots
   void keyChooserChanged(int);

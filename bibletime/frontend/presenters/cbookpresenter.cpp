@@ -26,22 +26,28 @@
 //#include "../keychooser/ckeychooser.h"
 //#include "../../ressource.h"
 //#include "../../backend/cswordbiblemoduleinfo.h"
-//#include "../../backend/cswordversekey.h"
-//#include "../../backend/chtmlchapterdisplay.h"
+#include "../../backend/cswordtreekey.h"
+#include "../../backend/chtmlentrydisplay.h"
 #include "../../backend/cswordbackend.h"
 //#include "../../backend/creferencemanager.h"
 //#include "../cprofile.h"
 //#include "../cprofilewindow.h"
 
 CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0 )
-	: CSwordPresenter(useModules, importantClasses, parent,name)
+	: CSwordPresenter(useModules, importantClasses, parent, name)
 {
+	m_key = dynamic_cast<CSwordTreeKey*>(CSwordKey::createInstance( useModules.first() ));
+	
+	//please note that book display windows only support one module!
 	initView();
 	show();
 	initConnections();
 }
 
 CBookPresenter::~CBookPresenter(){
+	if (m_key)
+		delete m_key;
+	m_key = 0;
 }
 
 /** Initializes the interface of this presenter. */
@@ -87,6 +93,26 @@ void CBookPresenter::modulesChanged(){
 	}
 }
 
-void CBookPresenter::lookup(CSwordKey*) {
+void CBookPresenter::lookup(CSwordKey* key) {
+	qWarning("CBookPresenter::lookup(CSwordKey*)");
+	CSwordTreeKey* treeKey = dynamic_cast<CSwordTreeKey*>(key);
+	ASSERT(treeKey);
+  qWarning(treeKey->getFullName());
 
+	setUpdatesEnabled(false);	
+	
+//	m_important->swordBackend->setAllModuleOptions( m_moduleOptions );
+//	m_important->swordBackend->setAllDisplayOptions( m_displayOptions );
+
+	m_moduleList.first()->module()->SetKey(*treeKey);
+	
+	if (m_moduleList.first()->getDisplay()) {
+		m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
+		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());
+	}	
+	if (m_key != treeKey)
+		m_key->key(treeKey->key());
+		
+	setUpdatesEnabled(true);
+	setCaption( windowCaption() );
 }

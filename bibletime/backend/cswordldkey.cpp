@@ -40,7 +40,7 @@ CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey(k), CSwordKey(k) {
 
 /** No descriptions */
 CSwordLDKey::CSwordLDKey( const SWKey *k, CSwordModuleInfo* module) : SWKey(*k), CSwordKey() {
-	m_module = m_module;
+	m_module = module;
 }
 
 CSwordLDKey::~CSwordLDKey(){
@@ -63,8 +63,9 @@ CSwordModuleInfo* CSwordLDKey::module(CSwordModuleInfo* newModule){
 
 /** Sets the key of this instance */
 const QString CSwordLDKey::key( const QString& newKey ){
+	qWarning("const QString CSwordLDKey::key( const QString& newKey )");
 	if (!newKey.isNull()) {
-		SWKey::operator = ((const char*)newKey.utf8());		
+		SWKey::operator = ((const char*)newKey.local8Bit());		
 		m_module->module()->SetKey(this);
 		(const char*)*(m_module->module()); //snap to entry
 		SWKey::operator = (m_module->module()->KeyText());

@@ -29,7 +29,6 @@ CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKe
 }
 
 CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k)/*, CSwordKey()*/ {	
-	qWarning("CSwordTreeKey: second 'copy' constructor of CSwordTreeKey");	
 	m_module = module;
 }
 
@@ -50,7 +49,9 @@ const QString CSwordTreeKey::key( const QString& newKey ){
 		(const char*)*(m_module->module()); //snap to entry
 		TreeKeyIdx::operator = (m_module->module()->KeyText());
 	}
- 	return QString::fromLocal8Bit(m_module->module()->KeyText());//don't use fromUtf8
+// 	return QString::fromLocal8Bit(m_module->module()->KeyText());//don't use fromUtf8
+ 	qWarning(getFullName());
+ 	return QString::fromLocal8Bit( getFullName() );//don't use fromUtf8
 }
 
 void CSwordTreeKey::key( const char* newKey ){

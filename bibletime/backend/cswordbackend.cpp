@@ -109,8 +109,8 @@ const CSwordBackend::errorCode CSwordBackend::initModules() {
 			newModule->module()->Disp(m_entryDisplay);
 		} else if (!strcmp(curMod->Type(), "Generic Book")) {
 			newModule = new CSwordBookModuleInfo(this, curMod);
-//			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
-//			newModule->module()->Disp(m_entryDisplay);
+			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
+			newModule->module()->Disp(m_entryDisplay);
 		}
 
 		if (newModule)	//append the new modules to our list

@@ -32,6 +32,7 @@ public:
 		Bible,
 		Commentary,
 		Lexicon,
+		GenericBook,
 		MorphHebrew,
 		MorphGreek,
 		StrongsHebrew,

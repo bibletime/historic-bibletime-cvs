@@ -21,9 +21,14 @@
 #include <qwidget.h>
 #include "cswordpresenter.h"
 
+
+class CSwordTreeKey;
+
 /**Creates a presenter object for generic book support.
   *@author The BibleTime team
   */
+
+
 
 class CBookPresenter : public CSwordPresenter  {
    Q_OBJECT
@@ -50,6 +55,9 @@ protected slots:
   * renders text and set it to the HTML widget
   */
   void lookup(CSwordKey*);	
+
+private:
+	CSwordTreeKey* m_key;
 };
 
 #endif

@@ -29,7 +29,6 @@ CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, Q
 	qWarning("CBookKeyChooser::CBookKeyChooser");
 	if ( module && (module->getType() == CSwordModuleInfo::GenericBook) ) {
 		m_module = dynamic_cast<CSwordBookModuleInfo*>(module);		
-		m_key = dynamic_cast<CSwordTreeKey*>(CSwordKey::createInstance(m_module));
 	}
 	else {
 		m_module = 0;
@@ -37,32 +36,43 @@ CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, Q
 		qWarning("CBookKeyChooser: module is not a book!");
 		return;
 	}		
-	ASSERT(m_key);
+	if (m_module)
+		m_key = dynamic_cast<CSwordTreeKey*>(CSwordKey::createInstance(m_module));	
 	refreshContent();
 }
 
 CBookKeyChooser::~CBookKeyChooser(){
-	
+	if (m_key)
+		delete m_key;
+	m_key = 0;	
 }
 
 /** Sets te module and refreshes the combos */
 void CBookKeyChooser::setModule(CSwordModuleInfo* module){
 	if (module != m_module && module) {
 		m_module = dynamic_cast<CSwordBookModuleInfo*>(module);
+		delete m_key;
+		m_key = dynamic_cast<CSwordTreeKey*>(CSwordKey::createInstance(module));
 		refreshContent();
 	}
 }
 
 CSwordKey*	CBookKeyChooser::getKey() {
-
+	//ToDo: setup getKey in the right way to point to the right entry
+	return m_key;
 }
 
 void CBookKeyChooser::setKey(CSwordKey *key) {
+	qWarning("CBookKeyChooser::setKey(CSwordKey *key)");
+	ASSERT(key);
 
+//	qWarning( m_key->getFullName() );
+//	
+//	emit keyChanged(key);
 }
 
 QSize CBookKeyChooser::sizeHint() {
-	return QWidget::sizeHint();
+	return QWidget::sizeHint(); // we have to change this eventually
 }
 
 void CBookKeyChooser::refreshContent() {
@@ -85,13 +95,9 @@ void CBookKeyChooser::refreshContent() {
 		layout->addWidget(newKeyChooser);		
 	}	
 
-//	TreeKeyIdx* tree = m_module->getTree();
-//	tree->root();
-ASSERT(m_key);
 	m_key->root();
 	if (m_key->firstChild())	{
 		do {
-//			qWarning("append now %s",QString::fromLocal8Bit(tree->getLocalName()).latin1());		
 			m_topElements.append( QString::fromLocal8Bit(m_key->getLocalName()) );
 		}  	
 		while (m_key->nextSibling());
@@ -100,19 +106,23 @@ ASSERT(m_key);
 			
 	//fill the keychoosers
 	for (int i = 2; i <= maxDepth; i++) {
-		setupKeyChooser(i, m_key);
+		setupKeyChooser(i);
 	}
+	
+	emit keyChanged(m_key);
 }
 
 /** Sets up the entries of the given key chooser. */
-void CBookKeyChooser::setupKeyChooser(const int number, TreeKeyIdx* tree){
+void CBookKeyChooser::setupKeyChooser(const int number){
 	qWarning("CBookKeyChooser::setupKeyChooser");
+ 	//remember old key
+ 	const QString oldKey = QString::fromLocal8Bit(m_key->getFullName());
+// 	qWarning("oldKey is %s", oldKey.loca8Bit());
+ 	
  	m_key->root(); //first entry
  	for (int chooser = 1; chooser < number; chooser++)	 {
- 		m_key->firstChild(); 		
- 		//get current entry of first and set tree to this entry
+ 		m_key->firstChild();
  		const int currentEntry = m_chooserWidgets.at(chooser-1)->comboBox()->currentItem();
- 		qWarning("currentEntry == %i", currentEntry);
  		for (int sibling = 0; sibling < currentEntry; sibling++) {
  			if (!m_key->nextSibling())
  				break;
@@ -131,22 +141,24 @@ void CBookKeyChooser::setupKeyChooser(const int number, TreeKeyIdx* tree){
 	else
 	 	qWarning("no success calling firstChild()");
  	chooserWidget->reset(entries, 0, false);	
+ 	
+ 	//restore old settings
+// 	m_key->key( oldKey );
+ 	qWarning(m_key->key().local8Bit());
 }
 
 /** Set the right content to the key choosers */
 void CBookKeyChooser::keyChooserChanged(int){
 	//find the combobox which changed
 	CKeyChooserWidget* keyChooser = (CKeyChooserWidget*)(sender()); //why does dynamic_cast not work here?
-	ASSERT(keyChooser);
 	if (!keyChooser)
 		return;
 	const int pos = m_chooserWidgets.find(keyChooser);
-	qWarning("index of changed keyChooser: %i",pos);
-	
-	//all combos following to the changed combo have to be cleared and refilled
   const int maxDepth = m_module->depth();		
-//	TreeKeyIdx* tree = m_module->getTree();
-	for (int i = pos+2; i <= maxDepth; i++) { // i+2 because m_chooserWidgets starts with 0 and the found keyChooser needs no update
-		setupKeyChooser(i, m_key);
+
+  // i+2 because m_chooserWidgets starts with 0 and the found keyChooser needs no update	
+	for (int i = pos+2; i <= maxDepth; i++) {
+		setupKeyChooser(i);
 	}
+	emit keyChanged(m_key);		
 }

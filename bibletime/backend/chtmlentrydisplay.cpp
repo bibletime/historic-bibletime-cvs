@@ -39,6 +39,7 @@ CHTMLEntryDisplay::CHTMLEntryDisplay(){
 }
 
 void CHTMLEntryDisplay::updateSettings(void){
+	qWarning("CHTMLEntryDisplay::updateSettings(void)");
   m_highlightedVerseColorName = CBTConfig::get(CBTConfig::highlightedVerseColor).name();
 	m_standardFontColorName 		= CBTConfig::get(CBTConfig::textColor).name();
 	m_swordRefColorName 				= CBTConfig::get(CBTConfig::swordRefColor).name();
@@ -52,6 +53,7 @@ void CHTMLEntryDisplay::updateSettings(void){
 
 /** Displays the current entry of the module as HTML */
 char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
+	qWarning("CHTMLEntryDisplay::Display(CSwordModuleInfo* module)");
 	if (!module) {
 		m_htmlText = QString::null;
 		return -1;
@@ -59,12 +61,22 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
   //refresh font settings
 	updateSettings();
 	
-  CSwordKey* key = 0;
-  if (module->getType() == CSwordModuleInfo::Commentary || module->getType() == CSwordModuleInfo::Bible)
-		key = new CSwordVerseKey(module);
-  else if (module->getType() == CSwordModuleInfo::Lexicon)
-		key = new CSwordLDKey(module);
-	key->key(module->module()->KeyText());
+	CSwordKey* key = CSwordKey::createInstance(module);
+	if (!key) {
+		m_htmlText = QString::null;
+		return 0;
+	}
+	key->key( module->module()->KeyText() );
+		
+	CReferenceManager::Type refType = CReferenceManager::Unknown;
+	if (module->getType() == CSwordModuleInfo::Bible)
+		refType = CReferenceManager::Bible;
+	else if (module->getType() == CSwordModuleInfo::Commentary)
+		refType = CReferenceManager::Commentary;
+	else if (module->getType() == CSwordModuleInfo::Lexicon)
+		refType = CReferenceManager::Lexicon;
+	else if (module->getType() == CSwordModuleInfo::GenericBook)
+		refType = CReferenceManager::GenericBook;
 	
 	if (m_includeHeader) {
 		m_htmlText = m_htmlHeader;
@@ -76,16 +88,18 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 
 		m_htmlText.append(QString::fromLatin1("<font color=\"%1\"><a href=\"%2\">%3: <b>%4</b></a></font><hr>%5")
 			.arg(m_highlightedVerseColorName)
- 			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), CReferenceManager::Commentary))
+ 			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), refType ))
 			.arg(module->getDescription())
 			.arg(key->key())
 			.arg(key->renderedText()));
 
 		m_htmlText += QString::fromLatin1("</font>") + m_htmlBody;
 	}
-	else
+	else {
 		m_htmlText = key->renderedText();
+	}
 
+//clean up
 	delete key;
 	return 1;
 }

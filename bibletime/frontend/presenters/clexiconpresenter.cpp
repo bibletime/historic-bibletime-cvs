@@ -55,6 +55,8 @@ CLexiconPresenter::~CLexiconPresenter(){
 
 /** Initializes the view. */
 void CLexiconPresenter::initView(){
+	qWarning("CLexiconPresenter::initView()");
+	
 	m_mainToolBar = new KToolBar(this);
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
@@ -105,6 +107,7 @@ void CLexiconPresenter::initView(){
 
 /** No descriptions */
 void CLexiconPresenter::initConnections(){
+	qWarning("CLexiconPresenter::initConnections()");
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)), SLOT(lookup(const QString&))); 	
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)), SLOT(lookup(CSwordKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()), SLOT(popupAboutToShow()));
@@ -114,6 +117,7 @@ void CLexiconPresenter::initConnections(){
 
 /** No descriptions */
 void CLexiconPresenter::lookup(CSwordKey* key){
+	qWarning("CLexiconPresenter::lookup(CSwordKey* key)");
 	setUpdatesEnabled(false);	
 	
 	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);
@@ -126,7 +130,7 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 	m_moduleList.first()->module()->SetKey(*ldKey);
 	
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
-		if (m_moduleChooserBar->getModuleList().count()>1)  //we want to display more than one module
+		if (m_moduleChooserBar->getModuleList().count() > 1)  //we want to display more than one module
 			m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 		else
 			m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
@@ -137,6 +141,7 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 		
 	setUpdatesEnabled(true);
 	setCaption( windowCaption() );
+	qWarning("finished CLexiconPresenter::lookup(CSwordKey* key)");
 }
 
 /** No descriptions */
