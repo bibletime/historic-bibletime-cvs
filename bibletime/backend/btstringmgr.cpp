@@ -12,6 +12,9 @@
 
 #include "btstringmgr.h"
 
+//System includes
+#include <ctype.h>
+
 char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
 	const int max = (maxlen>0) ? maxlen : strlen(text);
 	
