@@ -26,7 +26,6 @@
 /**Contains static functions to compute with referneces used for Drag&Drop and for hyperlinks used in HTML.
   *@author The BibleTime team
   */
-
 class CReferenceManager {
 public:
 	enum Type {

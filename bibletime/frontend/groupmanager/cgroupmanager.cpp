@@ -569,11 +569,11 @@ void CGroupManager::slotShowAbout(){
 	if (module->supportsFeature(CSwordBackend::strongNumbers))
 		hasStrongNumbers = i18n("Yes");
 		
-	QString unlockKey = i18n("<I>Not necessary!</I>");
+	QString unlockKey = QString::fromLatin1("<I>%1</I>").arg(i18n("Not necessary"));
 	if ( module->isEncrypted() )
 		unlockKey = module->getCipherKey();	
 		
-	QString encoding = i18n("Unicode");
+	QString encoding = i18n("Unicode") ;
 	if (module->encoding() != QFont::Unicode)
 		encoding = i18n("iso8859-1");		
 				
@@ -588,7 +588,7 @@ void CGroupManager::slotShowAbout(){
 	.arg(i18n("Datapath"))
 	.arg(module->getPath())
 	.arg(i18n("Version"))
-	.arg(module->getVersion())
+	.arg(module->hasVersion() ? module->getVersion() : QString::fromLatin1("<I>%1</I>").arg(i18n("Not available")))
 	.arg(i18n("Unlock key"))
 	.arg(unlockKey)
 	.arg(i18n("Writable"))

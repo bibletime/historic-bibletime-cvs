@@ -123,23 +123,21 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					*(*buf)++ = token[i];
 			pushString(buf,"\">");
 		}
-
 		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 		else if (!strcmp(token, "scripRef")) {
 			userData["inscriptRef"] = "false";
 			// let's stop text from going to output
 			userData["suspendTextPassThru"] = "true";
 		}
-
 		// we've ended a scripRef
 		else if (!strcmp(token, "/scripRef")) {
 			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">John 3:16</scripRef>"
 				userData["inscriptRef"] = "false";
 				pushString(buf, "</a></font>");
-			}
-			
+			}			
 			else { // like "<scripRef>John 3:16</scripRef>"
-				pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/", swordref_color);
+				//use standard Bible
+				pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/%s/", swordref_color, standard_bible);
 				pushString(buf, userData["lastTextNode"].c_str());
 				pushString(buf, "\">");
 				pushString(buf, userData["lastTextNode"].c_str());
@@ -147,8 +145,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				userData["suspendTextPassThru"] = "false";	
 				pushString(buf, "</a></font>");
 			}
-		}
-			
+		}			
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
 			pushString(buf, "<H2><FONT color=\"%s\">", text_color);
@@ -157,7 +154,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
       userData["Title"] = "true";
 			pushString(buf, "<H1><FONT color=\"%s\">", text_color);
 		}
-
 		else if (!strncmp(token, "/div", 4)) {
 			if (userData["SecHead"] == "true") {
 				pushString(buf, "</FONT></H2>");

@@ -49,14 +49,16 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 	}
 
 	if (!module.isEmpty())
-		ret += module+QString::fromLatin1("/");
+		ret += module + QString::fromLatin1("/");
+	else { //if module is empty uise fallback module
+		ret += preferredModule(type) + QString::fromLatin1("/");
+	}	
+	
 	if (!key.isEmpty())
 		ret += key;
-	ret += QString::fromLatin1("/");
+	ret += QString::fromLatin1("/");  //necessary?
 	
-//	qWarning(ret.local8Bit());
 	return ret;
-//	return QString::fromLatin1("sword://%1/%2/%3").arg(module/*.replace("/", "\\/")*/).arg(key/*.replace("/", "\\/")*/);
 }
 
 /** Decodes the given hyperlink to module and key. */

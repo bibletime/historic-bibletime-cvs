@@ -139,7 +139,7 @@ const QString CSwordPresenter::windowCaption() {
 
 /** Sets the caption of this display window */
 void CSwordPresenter::setCaption(const QString&){
-	qWarning("CSwordPresenter::setCaption");
+//	qWarning("CSwordPresenter::setCaption");
 	QWidget::setCaption( windowCaption() ); //set everytime our own caption
 	qWarning(caption().local8Bit());
 }

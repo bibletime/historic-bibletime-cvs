@@ -109,6 +109,10 @@ public:
   */
   const QString getVersion() const;
   /**
+  * @return true if this module has a version number and false if it doesn't have one.
+  */
+  const bool hasVersion() const;
+  /**
   * Returns the about information of this module.
   * This function uses the config file to get the about information.
   */
@@ -169,7 +173,9 @@ public:
 	* Returns -1 if no special Sword version is required.
 	*/
   const float requiredSwordVersion();
-  /** Returns the name of the module. */
+  /**
+  * Returns the name of the module.
+  */
   const QString name() const;
   /**
   * Returns the encoding of the used modules. If it does use no locale it returns QFont::charSetForLocale()

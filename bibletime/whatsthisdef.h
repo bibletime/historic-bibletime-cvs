@@ -52,7 +52,9 @@
 #define WT_SETTINGS_EDIT_TOOLBAR WT(TT_SETTINGS_EDIT_TOOLBAR, i18n("Open the BibleTime tool bar editor."))
 #define WT_SETTINGS_OPTIONS WT(TT_SETTINGS_OPTIONS, i18n("Open BibleTime's optionsdialog where you can set most of the preferences."))
 
-#define WT_HELP_CONTENT WT(TT_HELP_CONTENT, i18n("Open KDE's helpbrowser with BibleTime's handbook."))
+#define WT_HELP_HANDBOOK WT(TT_HELP_HANDBOOK, i18n("Open KDE's helpbrowser with BibleTime's handbook.<BR>The handbook explains how to use BibleTime in the best way."))
+#define WT_HELP_INSTALLATION WT(TT_HELP_INSTALLATION, i18n("Open KDE's helpbrowser with BibleTime's installation instructions.<BR>The installation instructions explain how to set up BibleTime and the text modules."))
+#define WT_HELP_BIBLESTUDY WT(TT_HELP_BIBLESTUDY, i18n("Open KDE's helpbrowser with the Bible study HowTo included with BibleTime.<BR>This HowTo is an introduction how to study the Bible in an efficient way."))
 #define WT_HELP_WHATSTHIS WT(TT_HELP_WHATSTHIS, i18n("Switch into the <B>\"What's this?\"</B> mode.<BR>All important elements of BibleTime's GUI offer a \"What's this?\" help message."))
 #define WT_HELP_BUGREPORT WT(TT_HELP_BUGREPORT, i18n("Send a bugreport to the developers of BibleTime!"))
 #define WT_HELP_DAILY_TIP WT(TT_HELP_DAILY_TIP, i18n("Show a daily tip.<BR>The tips contain important Bible quotations and helpful usage tips for BibleTime."))

@@ -285,8 +285,8 @@ void CSwordBackend::Load() {
 			m_errorCode = noModulesAvailable;	
 		qWarning("BibleTime: Can't find 'mods.conf' or 'mods.d'. Please setup /etc/sword.conf! Read the documentation on www.bibletime.de how to do this!");
 	}
-	if ( (access("/etc/sword.conf",R_OK) == -1) && !strlen(getenv("SWORD_PATH")))
-		m_errorCode = noSwordConfigFile;
+//	if ( (access("/etc/sword.conf",R_OK) == -1) && !strlen(getenv("SWORD_PATH")))
+//		m_errorCode = noSwordConfigFile;
 }
 
 /** This function searches for a module with the specified description */

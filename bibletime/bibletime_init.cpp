@@ -122,6 +122,7 @@ void BibleTime::initActions() {
 
 	m_viewGroupManager_action = new KToggleAction(i18n("&Show main index"), ICON_VIEW_MAININDEX, IDK_VIEW_GROUPMANAGER,
 		this, SLOT(slotToggleGroupManager()), actionCollection(), "viewGroupManager_action");
+	m_viewGroupManager_action->setToolTip( TT_VIEW_GROUPMANAGER );	
 	m_viewGroupManager_action->setWhatsThis( WT_VIEW_GROUPMANAGER );
 	
 	action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());
@@ -196,28 +197,26 @@ void BibleTime::initActions() {
 		loadPopup->insertItem(p->name());
 	}
 	
-//	if ( !(m_helpHandbook_action = actionCollection()->action("help_handbook")) )	
-//		delete m_helpHandbook_action;
-// 	m_helpHandbook_action = KStdAction::helpContents(this, SLOT(openOnlineHelp_Handbook()), actionCollection() );
-//	m_helpHandbook_action->setToolTip(TT_HELP_CONTENT);
-
-//	m_helpHandbook_action->setWhatsThis(WT_HELP_CONTENT);
-
-#warning check
+	if ( actionCollection()->action("help_contents") )	 //delete help action if KDE created it
+		actionCollection()->remove(actionCollection()->action("help_contents"));
+		
 	action = new KAction(i18n("&Handbook"), ICON_HELP_CONTENTS, 0, this,
 		SLOT(openOnlineHelp_Handbook()), actionCollection(), "help_handbook");
-//  action->setToolTip( );
-//  action->setWhatsThis( );
+  action->setToolTip( TT_HELP_HANDBOOK );
+  action->setWhatsThis( WT_HELP_HANDBOOK  );
+	action->plugAccel( m_keyAccel );
 
 	action = new KAction(i18n("&Installation"), ICON_HELP_CONTENTS, 0, this,
 		SLOT(openOnlineHelp_Install()), actionCollection(), "help_install");
-//  action->setToolTip( );
-//  action->setWhatsThis( );
+  action->setToolTip( TT_HELP_INSTALLATION );
+  action->setWhatsThis( WT_HELP_INSTALLATION  );
+	action->plugAccel( m_keyAccel );
 
 	action = new KAction(i18n("&Bible Study Howto"), ICON_HELP_CONTENTS, 0, this,
 		SLOT(openOnlineHelp_Howto()), actionCollection(), "help_howto");
-//  action->setToolTip( );
-//  action->setWhatsThis( );
+  action->setToolTip( TT_HELP_BIBLESTUDY );
+  action->setWhatsThis( WT_HELP_BIBLESTUDY  );
+	action->plugAccel( m_keyAccel );
 
 	action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
 	action->setToolTip(TT_HELP_WHATSTHIS);
@@ -236,6 +235,9 @@ void BibleTime::initActions() {
 	action->setToolTip(TT_HELP_ABOUT);
 	action->setWhatsThis(WT_HELP_ABOUT);	
 	
+	//delete About KDE action if KDE created it already
+	if ( actionCollection()->action("help_about_kde") )	 //delete About KDE action if KDE created it
+		actionCollection()->remove(actionCollection()->action("help_about_kde"));	
 	action = KStdAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());	
 	action->setToolTip(TT_HELP_ABOUT_KDE);
 	action->setWhatsThis(WT_HELP_ABOUT_KDE);	
@@ -340,7 +342,10 @@ void BibleTime::initPrinter(){
 
 /** Apply the settings given by the profile p*/
 void BibleTime::applyProfileSettings( CProfile* p ){
-	ASSERT(p);
+	if (!p) {
+	 	qWarning("profile is empty!");
+		return;
+	}
 	if (p->fullscreen()) { //we can set only fullscreen OR geometry
 		m_windowFullscreen_action->setChecked( true );
 		toggleFullscreen();

@@ -42,7 +42,9 @@
 #define TT_SETTINGS_EDIT_TOOLBAR i18n("Edit toolbar")
 #define TT_SETTINGS_OPTIONS i18n("Options")
 
-#define TT_HELP_CONTENT i18n("BibleTime's handbook")
+#define TT_HELP_HANDBOOK i18n("BibleTime's handbook")
+#define TT_HELP_INSTALLATION i18n("BibleTime's installation documentation")
+#define TT_HELP_BIBLESTUDY i18n("BibleTime's Bible study HowTo")
 #define TT_HELP_WHATSTHIS i18n("Enter \"What's this?\" mode")
 #define TT_HELP_BUGREPORT i18n("Send bugreport")
 #define TT_HELP_DAILY_TIP i18n("Show daily tips at startup")

@@ -145,9 +145,17 @@ const QString CSwordModuleInfo::getVersion() const{
 	const string version = (*m_backend->getConfig())[name().latin1()]["Version"];
 	if (strlen( version.c_str() ))
 		return QString::fromLocal8Bit( version.c_str() );
-	else 	
-		return  QString::null;
+	return  QString::null;
 }
+
+/** Returns the version number of this module. */
+const bool CSwordModuleInfo::hasVersion() const {
+	const string version = (*m_backend->getConfig())[name().latin1()]["Version"];
+	if (strlen( version.c_str() ))
+		return true;
+	return  false;
+}
+
 
 /** Returns the path to this module. */
 const QString CSwordModuleInfo::getPath() const {
