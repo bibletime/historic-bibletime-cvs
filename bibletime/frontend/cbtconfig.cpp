@@ -128,7 +128,7 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 
 		case lexiconCache: 				return true;
 
-		case lineBreaks: 					return true;
+		case lineBreaks: 					return false;
 		case verseNumbers: 				return true;
 		case scroll:			 				return true;
 
@@ -148,12 +148,12 @@ const int CBTConfig::getDefault( const CBTConfig::ints ID){
   	case headings: 						return true;
   	case morphTags: 					return false;
 		case lemmas: 							return false;
-		case hebrewPoints: 				return false;
-		case hebrewCantillation: 	return false;
-		case greekAccents: 				return false;
+		case hebrewPoints: 				return true;
+		case hebrewCantillation: 	return true;
+		case greekAccents: 				return true;
 		case textualVariants:			return false;
     case transliteration:     return 0;
-    case scriptureReferences:     return true;
+    case scriptureReferences:	return true;
   }
   return 0;
 }
@@ -176,7 +176,7 @@ const QString CBTConfig::getKey( const CBTConfig::colors ID){
 const QColor CBTConfig::getDefault( const CBTConfig::colors ID){
 	switch ( ID ){
 		case textColor: 							return QColor(Qt::black);
-		case backgroundColor: 				return QColor(Qt::white);
+		case backgroundColor: 				return QColor(QString::fromLatin1("#fffaee"));
 		case background2Color: 				return QColor(QString::fromLatin1("#f1f1f1"));
 		case highlightedVerseColor:		return QColor(Qt::red);
 		case footnotesColor: 					return QColor(QString::fromLatin1("#515151"));
