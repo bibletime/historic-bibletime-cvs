@@ -138,9 +138,9 @@ void CSearchDialog::startSearch(){
   const CSwordModuleSearch::scopeType scopeType = m_searchOptionsPage->scopeType();
   if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
     searchFlags |= CSwordModuleSearch::useLastResult;
-  } else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
+  } else if ( (scopeType == CSwordModuleSearch::Scope_Bounds) && strlen(m_searchOptionsPage->searchScope().getRangeText()) ) {
+    //we need the scope flag and a valid scope!
     searchFlags |= CSwordModuleSearch::useScope;
-//    qWarning(m_searchOptionsPage->searchScope());
     m_searcher.setSearchScope( m_searchOptionsPage->searchScope() );
   }  
   
@@ -676,11 +676,16 @@ void CRangeChooserDialog::editRange(QListViewItem* item){
 /** Parses the entered text and prints out the result in the list box below the edit area. */
 void CRangeChooserDialog::parseRange(){
   m_resultList->clear();
+
+  //hack: repair range to  work with Sword 1.5.6
+  QString range( m_rangeEdit->text() );
+  range.replace(QRegExp("\\s{0,}-\\s{0,}"), "-" );
   
   sword::VerseKey key;
-  sword::ListKey verses = key.ParseVerseList((const char*)m_rangeEdit->text().local8Bit(), "Genesis 1:1", true);
+  sword::ListKey verses = key.ParseVerseList((const char*)range.local8Bit(), "Genesis 1:1", true);
 	for (int i = 0; i < verses.Count(); ++i) {
     new KListViewItem(m_resultList, QString::fromLocal8Bit(verses.GetElement(i)->getRangeText()));
+//    qWarning("range=%s, text=%s",verses.GetElement(i)->getRangeText(), verses.GetElement(i)->getText() );
 	}
 
 }
@@ -688,7 +693,10 @@ void CRangeChooserDialog::parseRange(){
 /** No descriptions */
 void CRangeChooserDialog::rangeChanged(){
   if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
-    i->setRange(m_rangeEdit->text());
+    QString range( m_rangeEdit->text() );
+    //hack: repair range to work with Sword 1.5.6
+    range.replace(QRegExp("\\s{0,}-\\s{0,}"), "-" );
+    i->setRange(range);
   };
 }
 

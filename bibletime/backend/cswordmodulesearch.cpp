@@ -104,9 +104,17 @@ void CSwordModuleSearch::setSearchedText( const QString text ){
 
 /** Sets the search scope. */
 void CSwordModuleSearch::setSearchScope( sword::ListKey scope ) {
-//  qWarning("CSwordModuleSearch::setSearchScope( ListKey scope )");
   m_searchScope.copyFrom( scope );
-//  qWarning("CSwordModuleSearch::setSearchScope( ListKey scope ) finished");
+  if (!strlen(scope.getRangeText())) { //we can't search with an empty search scope, would crash
+    //reset the scope
+    resetSearchScope();
+    
+    //disable searching with a scope!
+    if (m_searchOptions | useScope) {
+//      qWarning("using the scope!");
+      //set back the scope flag
+    }
+  }
 }
 
 /** Sets the search scope back. */

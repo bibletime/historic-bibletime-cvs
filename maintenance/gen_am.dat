@@ -16,7 +16,7 @@
 # WARNING: for a release, only include the languages that are ready to go!!
 
 # RELEASE:
-export FOREIGN_PO_LANGUAGES="bg cs de en_GB es fr fi nl pl pt_br ro ru sk ua"
+export FOREIGN_PO_LANGUAGES="bg cs de en_GB es fr fi ko nl pl pt_br ro ru sk ua"
 # WORK:
 # export FOREIGN_PO_LANGUAGES="bg cs de en_GB es fr fi hu it nl no pl pt_br ro ru sk ua"
 

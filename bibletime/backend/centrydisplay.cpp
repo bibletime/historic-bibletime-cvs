@@ -213,7 +213,7 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
 //                .arg(font(UnicodeFont).pointSize());
       break;
     case Reference:
-      text = QString::fromLatin1(".reference {color:%1; font-decoration:none; font-weight:light; font-size:small; vertical-align:top;}")
+      text = QString::fromLatin1(".reference {color:%1; font-weight:light; font-size:small;}")
               .arg(swordRefColor);
       break;
     case MorphCode:
@@ -229,11 +229,11 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
 //              .arg(lemmaColor);
       break;
     case Footnote:
-      text = QString::fromLatin1(".footnote  {font-size: smaller; color: %1; font-style:italic;}")
+      text = QString::fromLatin1(".footnote  {font-size:smaller; color:%1; font-style:italic;}")
               .arg(footnotesColor);
       break;
     case FootnotePre:
-      text = QString::fromLatin1(".footnotepre {font-size: smaller; color: %1; font-weight: bolder;}")
+      text = QString::fromLatin1(".footnotepre {font-size:smaller; color:%1; font-weight:bolder;}")
               .arg(footnotesColor);
       break;
     case Poetry:
