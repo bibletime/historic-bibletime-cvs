@@ -53,7 +53,9 @@ public:
 	 	highlightedVerseColor = 0x000000100, /* Set if different color for the highlighted verse are supported*/
 	 	verseNumberColor = 0x000000200, /* Set if different colors for the versenumber are supported*/
 	 	backgroundColor = 0x000000400, /* Set if different background colors are supported*/
-	 	font = 0x000000800	/* Set if different fonts are supported*/
+	 	font = 0x000000800,	/* Set if different fonts are supported*/
+	 	headings = 0x000001600,	/* Set if headings are supported*/
+	 	morphTags = 0x000003200	/* Set if morphological tags fonts are supported*/	 		 	
   };	
 	enum events {
   	strongNumbersChanged = strongNumbers,
@@ -63,7 +65,9 @@ public:
   	highlightedVerseColorChanged = highlightedVerseColor,
   	verseNumberColorChanged = verseNumberColor,
   	backgroundChanged = backgroundColor,
-  	fontChanged = font  	
+  	fontChanged = font,
+  	headingsChanged = headings,
+  	morphTagsChanged = morphTags
   };
 
 	/**

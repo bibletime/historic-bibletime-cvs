@@ -109,7 +109,17 @@ void BibleTime::initActions() {
 		this, SLOT(slotToggleStrongs()), actionCollection(), "viewStrongs_action");	
 	m_viewStrongs_action->setToolTip( TT_VIEW_STRONGS );	
 	m_viewStrongs_action->setWhatsThis( WT_VIEW_STRONGS );
- 	
+
+	m_viewHeadings_action = new KToggleAction(i18n("S&how headings"),ICON_VIEW_STRONGS, IDK_VIEW_STRONGS,
+		this, SLOT(slotToggleHeadings()), actionCollection(), "viewHeadings_action");	
+	m_viewHeadings_action->setToolTip( TT_VIEW_STRONGS );	
+	m_viewHeadings_action->setWhatsThis( WT_VIEW_STRONGS );
+
+	m_viewMorphTags_action = new KToggleAction(i18n("S&how morpholocic tags"),ICON_VIEW_STRONGS, IDK_VIEW_STRONGS,
+		this, SLOT(slotToggleMorphTags()), actionCollection(), "viewMorphTags_action");	
+	m_viewMorphTags_action->setToolTip( TT_VIEW_STRONGS );	
+	m_viewMorphTags_action->setWhatsThis( WT_VIEW_STRONGS );
+		 	
 	m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
 	m_viewToolbar_action->setToolTip( TT_VIEW_TOOLBAR );	
 	m_viewToolbar_action->setWhatsThis( WT_VIEW_TOOLBAR );

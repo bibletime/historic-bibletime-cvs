@@ -211,6 +211,8 @@ protected: // Protected methods
   /** VIEW menu actions */
   KToggleAction*	m_viewFootnotes_action;
 	KToggleAction*	m_viewStrongs_action;		
+	KToggleAction*	m_viewHeadings_action;
+	KToggleAction*	m_viewMorphTags_action;				
 	KToggleAction*	m_viewToolbar_action;		
 	KToggleAction*	m_viewGroupManager_action;			
 	
@@ -269,7 +271,15 @@ protected slots:
  	* Switches footnotes on or off
  	*/
   void slotToggleFootnotes();
-  /**
+   /**
+ 	* Switches headings of modules on or off
+ 	*/
+  void slotToggleHeadings();
+	/**
+ 	* Switches morphological tags in modules on or off
+ 	*/
+  void slotToggleMorphTags();	
+  /** 	
  	* Is called when the window menu is about to show ;-)
  	*/
   void slotWindowMenuAboutToShow();

@@ -152,14 +152,28 @@ void BibleTime::slotHelpTipOfDay(){
 void BibleTime::slotToggleFootnotes(){
 	m_important->swordBackend->setOption(CSwordBackend::footnotes, m_viewFootnotes_action->isChecked() );
 	
-	refreshPresenters( CSwordPresenter::footnotes );
+	refreshPresenters( CSwordPresenter::footnotesChanged );
 }
 
 /** Switches displaying of strong number on or off */
 void BibleTime::slotToggleStrongs(){
 	m_important->swordBackend->setOption(CSwordBackend::strongNumbers, m_viewStrongs_action->isChecked());	
 	
-	refreshPresenters( CSwordPresenter::strongNumbers );
+	refreshPresenters( CSwordPresenter::strongNumbersChanged );
+}
+
+/** Switches footnotes on or off */
+void BibleTime::slotToggleHeadings(){
+	m_important->swordBackend->setOption(CSwordBackend::headings, m_viewHeadings_action->isChecked() );
+	
+	refreshPresenters( CSwordPresenter::headingsChanged );
+}
+
+/** Switches footnotes on or off */
+void BibleTime::slotToggleMorphTags(){
+	m_important->swordBackend->setOption(CSwordBackend::morphTags, m_viewMorphTags_action->isChecked() );
+	
+	refreshPresenters( CSwordPresenter::morphTagsChanged );
 }
 
 /** Is called just before the window menu is ahown. */
