@@ -33,6 +33,7 @@ CHTMLChapterDisplay::CHTMLChapterDisplay(){
 
 /** Renders the text and puts the result into the member variable m_htmlText */
 char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
+	qDebug("CHTMLChapterDisplay::Display( module )");	
 	if (!module) {
 		m_htmlText = QString::null;
 		return 1;
@@ -60,9 +61,9 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		keyName = QString::fromLocal8Bit( (const char*)key );
 		verseText = QString::fromLocal8Bit((const char*)*swordModule);		
 		if (verse == currentVerse)
-			m_htmlText.append( QString("<A HREF=\"sword://%1\">%2</A><A NAME=\"%3\"><FONT COLOR=\"%4\" FACE=\"%5\" SIZE=\"%6\"> %7</FONT></A>")
+			m_htmlText.append( QString("<A NAME=\"%1\" HREF=\"sword://%2\">%3</A><FONT COLOR=\"%4\" FACE=\"%5\" SIZE=\"%6\"> %7</FONT>")
+				.arg( verse )				
 				.arg( keyName)
-				.arg( verse )
 				.arg( verse )
 				.arg( m_highlightedVerseColor )
 				.arg( FontName )
@@ -70,9 +71,9 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 				.arg( verseText )
 			);
 		else
-			m_htmlText.append( QString("<A HREF=\"sword://%1\"><B>%2</B></A><A NAME=\"%3\"><FONT FACE=\"%4\" SIZE=\"%5\" > %6</FONT></A>")
+			m_htmlText.append( QString("<A NAME=\"%1\" HREF=\"sword://%2\"><B>%3</B></A><FONT FACE=\"%4\" SIZE=\"%5\" > %6</FONT>")
+				.arg( verse )				
 				.arg( keyName )
-				.arg( verse )
 				.arg( verse )
 				.arg( FontName )
 				.arg( FontSize )				
@@ -91,7 +92,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 
 /** Generates code to display the given modules side by side. */
 char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){	
-	ASSERT(moduleList);
+	qDebug("CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		m_htmlText = QString::null;
 		return 0;
@@ -137,14 +138,15 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	int currentVerse = 0;
 	for (key->Verse(1); key->Book() == currentBook && key->Chapter() == currentChapter && !module->Error(); (*module)++ ) {
 		currentVerse = key->Verse();
-		rowText = QString("<TR><TD bgcolor=\"#F1F1F1\"><B><A HREF=\"sword://%2\">%3</A></B></TD>\n")
+		rowText = QString("<TR><TD bgcolor=\"#F1F1F1\"><B><A NAME=\"%1\" HREF=\"sword://%2\">%3</A></B></TD>\n")
+			.arg(key->Verse())
 			.arg(QString::fromLocal8Bit((const char*)*key))
 			.arg(currentVerse);					
 		m = (d = moduleList->first()) ? d->module() : 0;
 		while (m) {
 			m->SetKey(*key);
 			rowText += QString("<TD %1 BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\" %5>%6</FONT></TD>\n")
-				.arg(/*d!=lastModule ? */QString("width=\"%1%\"").arg(width) /*: QString("")*/ )
+				.arg(QString("width=\"%1%\"").arg(width))
 				.arg(currentVerse % 2 ? "white" : "#F1F1F1")
 				.arg(fontMap.contains(d) ? fontMap[d].family() : m_standardFontName)
 				.arg(fontMap.contains(d) ? CToolClass::makeLogicFontSize(fontMap[d].pointSize()) : m_standardFontSize)
