@@ -17,7 +17,7 @@
 
 #include "cfx_btn.h"
 
-#include <math.h>
+#include <stdlib.h>
 
 #include <qevent.h>
 #include <qapplication.h>
@@ -27,10 +27,8 @@ cfx_btn::cfx_btn(QWidget *parent, const char *name ) : QToolButton(parent,name) 
 	setCursor( splitVCursor );	
 		
 	isLocked = false;
-	connect(this, SIGNAL(pressed()),
-		this, SLOT(was_pressed()));
-	connect(this, SIGNAL(released() ),
-		this, SLOT(was_released()));
+	connect(this, SIGNAL(pressed() ), SLOT(was_pressed() ));
+	connect(this, SIGNAL(released()), SLOT(was_released()));
 }
 
 void cfx_btn::was_pressed( void ){
@@ -55,16 +53,8 @@ QPoint cfx_btn::get_lock_Point(void){
 void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
 	if (isLocked) {
 		int vchange = QCursor::pos().y() - lock_Point.y();
-//		qWarning("%i",vchange);		
-		//invert the vchange
-//		qWarning(QString::number(pow((double)vchange,1.9)).latin1());
-		double d = pow((double)vchange,2.0);
-//		qWarning("%d",d);
-//		if (/*d == nan ||*/ !d)
-//			d = 1;
-		vchange = (int)(d * (vchange < 0 ? 1 :-1));
-		emit change_requested(vchange);
-		
+		vchange = ( abs(vchange)<10 ? -vchange : vchange*vchange*(vchange>0?-1:1) );
+		emit change_requested( vchange );
 		QCursor::setPos( lock_Point );
 	}
 	else
