@@ -22,7 +22,7 @@
       <part>VisualBoy Advance (KDevelop)</part>
     </ignoreparts>
     <version>1.5pre</version>
-    <description/>
+    <description></description>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
@@ -146,15 +146,15 @@
       <includeTypedefs>true</includeTypedefs>
       <automaticCodeCompletion>true</automaticCodeCompletion>
       <automaticArgumentsHint>true</automaticArgumentsHint>
-      <codeCompletionDelay>250</codeCompletionDelay>
-      <argumentsHintDelay>400</argumentsHintDelay>
+      <codeCompletionDelay>673</codeCompletionDelay>
+      <argumentsHintDelay>760</argumentsHintDelay>
       <automaticHeaderCompletion>true</automaticHeaderCompletion>
       <headerCompletionDelay>250</headerCompletionDelay>
     </codecompletion>
     <references>
       <pcs>Qt</pcs>
       <pcs>KDElibs</pcs>
-      <pcs>SWORD</pcs>
+      <pcs>SWORD-CVS</pcs>
     </references>
   </kdevcppsupport>
   <kdevfilecreate>

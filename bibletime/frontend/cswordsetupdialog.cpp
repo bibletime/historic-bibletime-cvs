@@ -301,12 +301,11 @@ void CSwordSetupDialog::populateInstallCombos(){
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, *it);
 		
-		if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) { //remote source?
-    	m_sourceCombo->insertItem( i18n("[Remote]") + " " + *it );
+		if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) { 
+    	m_sourceCombo->insertItem( i18n("[Remote]") + " " + *it ); //remote source
 		}
-		else {
-			QFileInfo fi(*it);
-			qWarning( "test dir" );
+		else { // local source
+			QFileInfo fi( is.directory.c_str() );
 			if (fi.isDir() && fi.isReadable()) {
 				m_sourceCombo->insertItem( i18n("[Local]") + " " + *it );
 			}
@@ -528,6 +527,8 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 	}
 	
 	CSwordBackend local_backend;
+	KApplication::kApplication()->processEvents();
+	local_backend.initModules();
 
   ListCSwordModuleInfo mods = remote_backend->moduleList();
 	ListCSwordModuleInfo::iterator end_it = mods.end();
