@@ -86,9 +86,8 @@ for PART in $DOC_PARTS; do
 	) > $I2/Makefile.am
 
 	#####################################
-	#create $PART/html/Makefile.am
+	#create $PART/????/Makefile.am
 	#####################################
-	#export I2=$I1/$PART/html
 
 	for SECTION in html unicode; do
 		I2=$PART/$SECTION
@@ -137,12 +136,30 @@ for PART in $DOC_PARTS; do
 	done
 done
 
-
-###########################
-# create Makefile.am's in /bibletime-i18n-??/docs directories
-###########################
+#####################################################
 
 for I1 in $FOREIGN_DOC_LANGUAGES; do
+
+	###########################
+	# create Makefile.am's in bibletime-i18n-??/po directories
+	###########################
+
+	echo generating ../../bibletime-i18n-$I1/po/Makefile.am
+	( # output to Makefile.am
+		echo -e $HEADER
+
+		echo "POFILES = $I1.po"
+		echo
+		####
+		#This reads in the template of the Makefile.am for the po dirs
+		####
+		cat Makefile.am.po.skel
+
+	) > ../../bibletime-i18n-$I1/po/Makefile.am
+	
+	###########################
+	# create Makefile.am's in bibletime-i18n-??/docs directories
+	###########################
 
 	echo generating ../../bibletime-i18n-$I1/docs/Makefile.am
 	( # output to Makefile.am
@@ -159,8 +176,9 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 		echo
 	) > ../../bibletime-i18n-$I1/docs/Makefile.am
 
+
 	###########################
-	# create Makefile.am's in /bibletime/docs/LANG/PART directories
+	# create Makefile.am's in bibletime-i18n-??/$PART directories
 	###########################
 	for PART in $DOC_PARTS; do
 
