@@ -102,8 +102,11 @@ void CSearchResultView::initView(){
 
 /** No descriptions */
 void CSearchResultView::initConnections(){
-  connect(this, SIGNAL(selectionChanged(QListViewItem*)),
-	  SLOT(executed(QListViewItem*)));
+//  connect(this, SIGNAL(executed(QListViewItem*)),
+//	  this, SLOT(executed(QListViewItem*)));
+  connect(this, SIGNAL(currentChanged(QListViewItem*)),
+	  this, SLOT(executed(QListViewItem*)));
+    
   connect(this, SIGNAL(contextMenu(KListView*, QListViewItem*, const QPoint&)),
     this, SLOT(showPopup(KListView*, QListViewItem*, const QPoint&)));    
 }
@@ -138,7 +141,8 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m){
 
 /** Is connected to the signal executed, which is emitted when a mew item was chosen. */
 void CSearchResultView::executed(QListViewItem* item){
-//  Q_ASSERT(item);
+  Q_ASSERT(item);
+  qWarning("executed");
   emit keySelected(item->text(0));
 }
 
@@ -462,6 +466,7 @@ void CSearchResultPage::reset(){
 
 /** Update the preview of the selected key. */
 void CSearchResultPage::updatePreview(const QString& key){
+  qWarning("update preview");
   if ( CSwordModuleInfo* module = m_moduleListBox->activeModule() ) {
   	if (CEntryDisplay* display = module->getDisplay()) {	//do we have a display object?
       ListCSwordModuleInfo moduleList;
