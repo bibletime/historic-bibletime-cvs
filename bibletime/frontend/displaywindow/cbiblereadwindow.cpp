@@ -264,4 +264,20 @@ void CBibleReadWindow::copyChapter(){
 
 /** Saves the chapter as valid HTML page. */
 void CBibleReadWindow::saveChapter(){
+  //saves the complete chapter to disk
+
+  CSwordVerseKey vk(*verseKey());
+  CSwordVerseKey dummy(*verseKey());
+
+  dummy.Verse(1);
+  qWarning("copyChapter: lower bound is %s", (const char*)dummy);
+  vk.LowerBound(dummy);
+
+  CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
+  dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
+  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
+  vk.UpperBound(dummy);
+
+  CExportManager::saveKey(&vk, true, filterOptions(), displayOptions());
+
 }

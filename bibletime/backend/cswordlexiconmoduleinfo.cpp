@@ -54,14 +54,12 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* const CSwordLexiconModuleInfo::entries(){
-  qWarning("QStringList* const CSwordLexiconModuleInfo::entries() #");
+//  qWarning("QStringList* const CSwordLexiconModuleInfo::entries()");
 	if (!module())
 		return 0;
 
-//	Q_ASSERT(m_entryList);
   if (!m_entryList) {
 		m_entryList = new QStringList();
-
     const bool lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
 		bool read = false;
 
@@ -85,8 +83,9 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
       }
 		}
 
-    if (!read){
+    if (!read || !m_entryList->count()){
 			(*module()) = TOP;
+      snap(); //snap to top entry
   		do {
         if (isUnicode())
      			m_entryList->append(QString::fromUtf8(module()->KeyText()));
@@ -96,10 +95,13 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   		} while ( !module()->Error() );
 			(*module()) = TOP;
 
-  		if (m_entryList->first().stripWhiteSpace().isEmpty())
-	  		m_entryList->remove( m_entryList->begin() );			
+      if (m_entryList->count()) {
+        m_entryList->first().simplifyWhiteSpace();
+    		if (m_entryList->first().stripWhiteSpace().isEmpty())
+  	  		m_entryList->remove( m_entryList->begin() );			
+      }
 
-			if (lexiconCache){
+			if (lexiconCache && m_entryList->count()){
   			//create cache
 		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
         QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );

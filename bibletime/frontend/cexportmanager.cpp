@@ -44,16 +44,44 @@
 #include <listkey.h>
 
 /** Saves the key to disk. */
-const bool CExportManager::saveKey( CSwordKey* key, const bool withText ) {
-	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));
-  if (key && !file.isEmpty()) {
-		QString text = QString::fromLatin1("%1").arg(key->key());
-		if (withText)
-			text += QString::fromLatin1("\n\t%1").arg(key->strippedText());
-		CToolClass::savePlainFile(file, text);		
-		return true;
+const bool CExportManager::saveKey( CSwordKey* key, const bool withText, const CSwordBackend::FilterOptions filterOptions, const CSwordBackend::DisplayOptions displayOptions) {
+  const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));
+  QString text = QString::null;
+  if (!key || file.isEmpty())
+    return false;
+
+  if (!withText) {
+    text = key ? key->key() : QString::null;
+  	return true;
   }
-	return false;
+  else {
+    CPointers::backend()->setFilterOptions(filterOptions);
+    CPointers::backend()->setDisplayOptions(displayOptions);
+
+    CSwordModuleInfo* module = key->module();
+    Q_ASSERT(module);
+  	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) {
+      CSwordVerseKey startKey(module);
+      CSwordVerseKey stopKey(module);
+
+  		startKey.key(vk->LowerBound());
+  		stopKey.key(vk->UpperBound());
+  	
+  		while ( startKey < stopKey || startKey == stopKey ) {
+  			text += ((bool)displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
++ startKey.strippedText() + ((bool)displayOptions.lineBreaks ? QString::fromLatin1("\n") : QString::null);
+  			
+        startKey.next(CSwordVerseKey::UseVerse);
+  		}
+  	}		
+    else {
+      text = key->strippedText();
+    }
+    text += "\n" + QString::fromLatin1("(%1, %1)").arg(key->key()).arg(module->name());
+  }	
+
+	CToolClass::savePlainFile(file, text);		
+	return true;
 }
 
 /** Saves the key to disk. */

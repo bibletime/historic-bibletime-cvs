@@ -800,13 +800,14 @@ void COptionsDialog::saveSword(){
    		
   CBTConfig::set( CBTConfig::lexiconCache, new_lexiconCache );	
 
-  if (old_lexiconCache && !new_lexiconCache){  //delete cache files
-  	QString dirname = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
-  	QDir dir = QDir(dirname);
-   	QStringList files = QStringList( dir.entryList() );
-   	for (QStringList::Iterator it = files.begin(); it != files.end(); ++it)
-   		dir.remove((*it),false);			
-  }
+  //don't delete the old cache files, doesn't make sense to recreate them later again
+//  if (old_lexiconCache && !new_lexiconCache){  //delete cache files
+//  	QString dirname = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
+//  	QDir dir = QDir(dirname);
+//   	QStringList files = QStringList( dir.entryList() );
+//   	for (QStringList::Iterator it = files.begin(); it != files.end(); ++it)
+//   		dir.remove((*it),false);			
+//  }
        	
   CBTConfig::set(CBTConfig::standardBible, m_settings.sword.standardBible->currentText());
   CBTConfig::set(CBTConfig::standardCommentary, m_settings.sword.standardCommentary->currentText());

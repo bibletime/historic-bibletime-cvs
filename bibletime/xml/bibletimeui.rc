@@ -1,16 +1,10 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="13">
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="14">
 <MenuBar>
  <Menu name="file" noMerge="1"><text>&amp;File</text>
   <Action name="fileClearQueue_action"/>
   <Action name="file_print"/>
   <Separator/>
   <Action name="file_quit"/>
- </Menu>
- <Menu name="main index"><text>&amp;Main index</text>
-  <Action name="GMsearch_action"/>
-  <Separator/>
-  <Action name="GMreset_action"/>
-  <Action name="GMdelete_action"/>
  </Menu>
  <Menu name="view" noMerge="1"><Text>&amp;View</Text>
   <Action name="options_show_toolbar"/>
@@ -54,12 +48,9 @@
  <Action name="file_print"/>
  <Action name="file_clearQueue"/>
  <Separator/>
- <Action name="viewStrongs_action"/>
- <Action name="viewFootnotes_action"/>
  <Action name="viewGroupmanager_action"/>		
  <Separator/>
  <Action name="GMsearch_action"/>		
- <Separator/>
  <Separator/>
  <Action name="windowLoadProfile_action"/>
  <Action name="windowFullscreen_action"/>	

@@ -23,6 +23,7 @@
 #include <qtooltip.h>
 #include <qlayout.h>
 #include <qcursor.h>
+#include <qbitmap.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -50,9 +51,6 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   setFilter(false);
 }
 
-//CToolTip::~CToolTip(){
-//}
-
 /** Returns the widget this tooltip applies to. This tooltip widget is destroyed when he parent is deleted. */
 QWidget* const CToolTip::parentWidget() const{
   return m_parentWidget;
@@ -60,11 +58,8 @@ QWidget* const CToolTip::parentWidget() const{
 
 /** This function shows a tip with the given text. The tip disappears if the mouse moves out of the rectangle rect. */
 void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
-  qWarning("CToolTip::tip");
-
   //m_tipRect must have global coordinates!
   QPoint globalPos = parentWidget()->mapToGlobal(rect.topLeft());
-//  qWarning("tooltip rect is %i|%i with size %i x %i", globalPos.x(), globalPos.y(), rect.width(), rect.height() );
   m_tipRect = QRect(globalPos.x(), globalPos.y(), rect.width(), rect.height());
 
   m_display->begin();
@@ -72,11 +67,11 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   m_display->end();
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff);
 
-  const QPoint mp = !m_display->view()->verticalScrollBar()->isHidden() ? QPoint(p.x()-5, p.y()-5) : QPoint(p.x()+5, p.y()+5);
+  const QPoint mp = (!m_display->view()->verticalScrollBar()->isHidden()) ? QPoint(p.x()-5, p.y()-5) : QPoint(p.x()+10, p.y()+10);
   QPoint pos = parentWidget()->mapToGlobal( mp );
   QRect widgetRect = QRect(pos.x(), pos.y(), width(), height());
   if (!KApplication::desktop()->geometry().contains(widgetRect, true)) {
-    qWarning("outside of the screen!");
+    //the tooltip would be outside of the screen, move inside the screen now
     QRect intersect = KApplication::desktop()->geometry().intersect(widgetRect);
     widgetRect.moveBy(-(widgetRect.width()-intersect.width()),-(widgetRect.height()-intersect.height()));
     pos = widgetRect.topLeft();
@@ -86,7 +81,7 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   m_display->view()->setContentsPos(0,0);
 
   const QRect screenSize = KApplication::desktop()->geometry();
-  resize((int)((float)screenSize.width()*0.5), 0);
+  resize((int)((float)screenSize.width()*0.6), 0);
   show();
 
 //now resize to the correct size!
@@ -98,11 +93,9 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
 void CToolTip::timerEvent( QTimerEvent* e ) {
   killTimers();
   if ( !isVisible() ) {
-//    startTimer( 15000 );
     maybeTip( parentWidget()->mapFromGlobal(QCursor::pos()) );
   }
   else {
-//    setFilter( false );
     hide();
   }
 }
@@ -151,10 +144,6 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
     {
       bool validMousePos = widgetContainsPoint(this, me->globalPos());
       validMousePos = validMousePos || m_tipRect.contains(me->globalPos());
-//        if (m_tipRect.contains(me->globalPos()))
-//          qWarning("m_tipRect contains %i | %i!", me->globalPos().x(), me->globalPos().y());
-//        else
-//          qWarning("m_tiprect DOESNT contain the mouse pos");
       if (isVisible() && !validMousePos)
         hide();
       if (isVisible() && validMousePos)

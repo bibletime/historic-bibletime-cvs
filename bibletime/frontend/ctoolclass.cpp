@@ -142,22 +142,22 @@ QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ){
  	}
 }
 
-int CToolClass::makeLogicFontSize( const int s ) {
-	const int defSize = QApplication::font().pointSize();
-  if ( s < defSize - 4 )
-		return 1;
-	if ( s < defSize )
-		return 2;
-	if ( s < defSize + 4 )
-		return 3;
-	if ( s < defSize + 8 )
-		return 4;
-	if ( s < defSize + 12 )
-		return 5;
-	if (s < defSize + 16 )
-		return 6;
-	return 7;
-}
+//int CToolClass::makeLogicFontSize( const int s ) {
+//	const int defSize = QApplication::font().pointSize();
+//  if ( s < defSize - 4 )
+//		return 1;
+//	if ( s < defSize )
+//		return 2;
+//	if ( s < defSize + 4 )
+//		return 3;
+//	if ( s < defSize + 8 )
+//		return 4;
+//	if ( s < defSize + 12 )
+//		return 5;
+//	if (s < defSize + 16 )
+//		return 6;
+//	return 7;
+//}
 
 QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, const QString& text ){
   QLabel* label = new QLabel( QString::fromLatin1("<B>%1</B><BR>%2").arg(heading).arg(text),parent );

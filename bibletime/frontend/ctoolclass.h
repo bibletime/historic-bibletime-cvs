@@ -76,7 +76,7 @@ public:
  	* Returns the logical font size which should
  	* be used for the absolute size s
  	*/
-  static int makeLogicFontSize( const int s );
+//  static int makeLogicFontSize( const int s );
   static QLabel* explanationLabel(QWidget* parent, const QString& heading, const QString& text );
   static bool inHTMLTag(int pos, QString & text);
 };

@@ -37,7 +37,7 @@ class CSwordModuleInfo;
 class CExportManager : CPointers {
 public: // Public methods
   //save functions
-  static const bool saveKey( CSwordKey* key, const bool withText = true );
+  static const bool saveKey( CSwordKey* key, const bool withText = true,  const CSwordBackend::FilterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions = CBTConfig::getDisplayOptionDefaults() );
   static const bool saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
   static const bool saveKeyList( QPtrList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
 
