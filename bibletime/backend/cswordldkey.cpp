@@ -35,11 +35,11 @@ CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 }
 
 /** No descriptions */
-CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey((const char*)k), CSwordKey(k) {
+CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : CSwordKey(k), SWKey((const char*)k) {
 }
 
 /** No descriptions */
-CSwordLDKey::CSwordLDKey( const SWKey *k, CSwordModuleInfo* module) : SWKey(*k), CSwordKey(module) {
+CSwordLDKey::CSwordLDKey( const SWKey *k, CSwordModuleInfo* module) : CSwordKey(module), SWKey(*k) {
 }
 
 /** Clones this object by copying the members. */

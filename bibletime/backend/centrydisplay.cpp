@@ -77,8 +77,8 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
   renderedText = QString::fromLatin1("<TR valign=\"top\">");
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     const QString tdStyle = QString::fromLatin1("style=\"%1 %2\"")
-      .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
-      .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
+      .arg(((modules.at()+1) < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
+      .arg(((modules.at()>0) && ((modules.at()+1) <= modules.count() )) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
     key->module(m);
     key->key(keyName);
@@ -345,7 +345,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
 }
 
 const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName) {
-  CSwordModuleInfo* module = modules.first();
+//  CSwordModuleInfo* module = modules.first();
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   key->key(keyName);
 

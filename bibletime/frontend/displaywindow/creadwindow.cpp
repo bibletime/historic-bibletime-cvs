@@ -103,11 +103,12 @@ void CReadWindow::updatePopupMenu(){
 
 /** Reimplementation to use the popup menu. */
 const bool CReadWindow::init( const QString& keyName ){
-  qWarning("CReadWindow::init( const QString& keyName )");
+//  qWarning("CReadWindow::init( const QString& keyName )");
   CDisplayWindow::init(keyName);
  	setupPopupMenu();
   keyChooser()->setKey(key());
 	setReady(true);
+  return true;
 }
 
 /** Store the settings of this window in the given CProfileWindow object. */

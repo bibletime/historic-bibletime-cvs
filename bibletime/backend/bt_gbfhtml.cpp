@@ -94,6 +94,7 @@ char BT_GBFHTML::ProcessText(char * text, int maxlen, const SWKey * key, const S
 //	t.replace(QRegExp("\n{2,}"), "<P>\n");
 //
 //	text = (const char*)t.utf8();
+  return 1;
 }
 
 

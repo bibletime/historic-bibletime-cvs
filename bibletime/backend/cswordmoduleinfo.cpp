@@ -30,6 +30,7 @@
 #include <regex.h>
 
 //Qt includes
+#include <qregexp.h>
 
 //Sword includes
 #include <swmodule.h>
@@ -199,8 +200,11 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 		}		
 		case CipherKey:
 			return QString::fromLatin1(m_module->getConfigEntry("CipherKey"));
-		case AbsoluteDataPath:
-			return QString::fromLatin1(m_module->getConfigEntry("AbsoluteDataPath"));
+		case AbsoluteDataPath: {
+			QString path = QString::fromLatin1(m_module->getConfigEntry("AbsoluteDataPath"));
+      path.replace(QRegExp("/./"), "/");
+      return path;
+    }
 		case DataPath:
 			return QString::fromLatin1(m_module->getConfigEntry("DataPath"));
 		case Description:

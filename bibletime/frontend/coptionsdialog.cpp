@@ -724,7 +724,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 }
 
 void COptionsDialog::saveAccelerators(){
-#warning check
+//#warning check
 // 	m_settings.keys.application.accel->writeSettings();
 // 	m_settings.keys.application.keyChooser->save();
  	m_settings.keys.application.keyChooser->commitChanges();

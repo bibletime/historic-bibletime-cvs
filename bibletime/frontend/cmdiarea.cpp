@@ -85,7 +85,7 @@ void CMDIArea::slotClientActivated(QWidget* client){
 	
 	emit sigSetToplevelCaption( ( m_appCaption = client->caption().stripWhiteSpace() ) );	
 
-#warning Check!
+//#warning Check!
 //	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
 //	if (p && p->keyChooser())
 //		syncCommentaries( p->keyChooser()->key() );

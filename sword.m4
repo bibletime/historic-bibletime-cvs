@@ -60,8 +60,6 @@ else
 fi
 AC_MSG_RESULT([$MESSAGE])
 
-
-
 dnl -- try to find Swords include files --
 AC_MSG_CHECKING([for Sword include files])
 ac_sword_include_dirs="$ac_sword_dir/include/sword $ac_sword_dir/include /usr/include/sword /usr/include /usr/local/include/sword /usr/local/include /usr/local/sword/include /usr/local/sword/include/sword"
@@ -111,15 +109,12 @@ int main(int argc, char* argv[]) {
 	if (argc != 2) {
 		cout << SWVersion::currentVersion << endl;
 	}
-	else if (argc == 2) 
-	{
-		if (SWVersion(&argv[[1]]) < SWVersion::currentVersion || SWVersion(&argv[[1]]) == SWVersion::currentVersion)
-		{
+	else if (argc == 2) {
+		if (SWVersion(&argv[[1]]) < SWVersion::currentVersion || SWVersion(&argv[[1]]) == SWVersion::currentVersion) {
 			cout << 0 << endl;
 			return 0;
 		}
-		else	
-		{
+		else {
 			cout << 1 << endl;
 			return 1; //version not recent enough
 		}
@@ -152,14 +147,13 @@ AC_LANG_RESTORE
 ])
 
 right_version="ok";
-if test $sword_test_returncode = 1;  then
+if test "$sword_test_returncode" = "1";  then
 	right_version="wrong version";
 fi;
-	
+
 AC_MSG_RESULT([$ac_cv_installed_sword_version])
 if test $right_version != "ok"; then
-        AC_MSG_ERROR([Your Sword installation is not recent enoought! Please
-upgrade to version $1!]);
+        AC_MSG_ERROR([Your Sword installation is not recent enoought! Please upgrade to version $1!]);
 fi;
 
 ])

@@ -359,7 +359,7 @@ void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
 //      qWarning("ACCEPT DROP EVENT!");
       QString str;
       QCString submime;
-      const bool accept = QTextDrag::decode(e, str);
+      /*const bool accept =*/ QTextDrag::decode(e, str);
 //      qWarning("DROP: %s", str.latin1());
 
       QString module;

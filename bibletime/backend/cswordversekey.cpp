@@ -32,11 +32,11 @@ CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) : CSwordKey(module) {
   }
 }
 
-CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKey(k) {
+CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : CSwordKey(k), VerseKey(k) {
 
 }
 
-CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(*k),CSwordKey(module) {
+CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : CSwordKey(module), VerseKey(*k) {
 }
 
 /** Clones this object. */
