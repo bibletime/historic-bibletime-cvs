@@ -286,7 +286,6 @@ void BibleTime::initBackends(){
 /** Initializes the CPrinter object. */
 void BibleTime::initPrinter(){
 	qDebug("BibleTime::initPrinter()");
-	ASSERT(m_important->swordBackend);
 	m_important->printer = new CPrinter(m_important, this);
 }
 

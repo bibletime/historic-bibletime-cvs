@@ -30,29 +30,29 @@ public:
 	CStyleFormatFrame();
 	~CStyleFormatFrame();
   /**
-  	* Sets the color of this frame.
-  	*/
+  * Sets the color of this frame.
+  */
   void setColor( const QColor& );
   /**
-  	* Returns the color of this frame.
-  	*/
-  QColor& getColor();
+  * Returns the color of this frame.
+  */
+  const QColor& getColor() const;
   /**
-  	* Sets the style how to paint the lines.
-  	*/
-  void setLineStyle( Qt::PenStyle );
+  * Sets the style how to paint the lines.
+  */
+  void setLineStyle( const Qt::PenStyle );
+	/**
+  * Returns the style how to paint the lines of this frame.
+  */
+  const Qt::PenStyle& getLineStyle() const;
   /**
-  	* Returns the style how to paint the lines of this frame.
-  	*/
-  Qt::PenStyle getLineStyle();
+  * Sets te thickness of this frame.
+  */
+  void setThickness( const unsigned short int );
   /**
-  	* Sets te thickness of this frame.
-  	*/
-  void setThickness( unsigned short int );
-  /**
-  	* Returns the thickness of this frame.
-  	*/
-  unsigned short int getThickness();
+  * Returns the thickness of this frame.
+  */
+  const unsigned short int getThickness() const;
 
 protected:
 	QColor m_color;

@@ -18,47 +18,39 @@
 #include "cstyleformatframe.h"
 
 CStyleFormatFrame::CStyleFormatFrame() {
-	qDebug("constructor of CStyleFormatFrame");
 	m_thickness = 1;
 	m_color = Qt::black;
 }
 
 CStyleFormatFrame::~CStyleFormatFrame(){
-	qDebug("destructor of CStyleFormatFrame");
 }
 
 /** Returns the thickness of this frame. */
-unsigned short int CStyleFormatFrame::getThickness() {
-	qDebug("CStyleFormatFrame::getThickness()");
+const unsigned short int CStyleFormatFrame::getThickness() const {
 	return m_thickness;
 }
 
 /** Sets te thickness of this frame. */
-void CStyleFormatFrame::setThickness( unsigned short int newThickness ) {
-	qDebug("CStyleFormatFrame::setThickness( unsigned short int newThickness )");
+void CStyleFormatFrame::setThickness( const unsigned short int newThickness ) {
 	m_thickness = newThickness;
 }
 
 /** Returns the style how to paint the lines of this frame. */
-Qt::PenStyle CStyleFormatFrame::getLineStyle() {
-	qDebug("CStyleFormatFrame::getLineStyle()");
+const Qt::PenStyle& CStyleFormatFrame::getLineStyle() const {
 	return m_lineStyle;
 }
 
 /** Sets the style how to paint the lines. */
-void CStyleFormatFrame::setLineStyle( Qt::PenStyle newLineStyle ){
-	qDebug("CStyleFormatFrame::setLineStyle( Qt::PenStyle newLineStyle )");
+void CStyleFormatFrame::setLineStyle( const Qt::PenStyle newLineStyle ){
 	m_lineStyle = newLineStyle;
 }
 
 /** Returns the color of this frame. */
-QColor& CStyleFormatFrame::getColor() {
-	qDebug("CStyleFormatFrame::getColor()");
+const QColor& CStyleFormatFrame::getColor() const {
 	return m_color;
 }
 
 /** Sets the color of this frame. */
 void CStyleFormatFrame::setColor( const QColor& newColor ) {
-	qDebug("CStyleFormatFrame::setColor( const QColor& newColor )");
 	m_color = newColor;
 }

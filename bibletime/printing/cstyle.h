@@ -33,8 +33,8 @@ class CStyleList;
 class CStyle;
 typedef QList<CStyle> styleItemList;
 
-/**The class containing the properties requiredfor prinitng styles.
-  *@author The BibleTime team
+/** The class containing the properties requiredfor prinitng styles.
+  * @author The BibleTime team
   */
 class CStyle {
 public:
@@ -43,50 +43,50 @@ public:
 	CStyle();
 	~CStyle();
   /**
-  	* Returns the proper CStyleFormat for the given type.
-  	*/
-  CStyleFormat* getFormatForType( const CStyle::styleType );
+ 	* Returns the proper CStyleFormat for the given type.
+ 	*/
+  CStyleFormat* getFormatForType( const CStyle::styleType ) const;
   /**
-  	* Sets the format for the given type.
-  	*/
+ 	* Sets the format for the given type.
+ 	*/
   void setFormatForType( const CStyle::styleType type, CStyleFormat* format);
   /**
-  	* Set the printing of the header (true enables it).
-  	*/
-  void setFormatTypeEnabled( CStyle::styleType, bool );
+ 	* Set the printing of the header (true enables it).
+ 	*/
+  void setFormatTypeEnabled( CStyle::styleType, const bool );
   /**
-  	* Returns true if we have the given type enabled.
-  	*/
-  bool hasFormatTypeEnabled( CStyle::styleType );
+ 	* Returns true if we have the given type enabled.
+ 	*/
+  const bool hasFormatTypeEnabled( CStyle::styleType ) const;
   /**
-  	* Returns a QListViewItem for inserted in list.
-  	*/
+ 	* Returns a QListViewItem for inserted in list.
+ 	*/
   QListViewItem* getListViewItem( CStyleList* list );
   /**
-  	* Sets the name of the style.
-  	*/
-  void setStyleName( const QString& name);
+ 	* Sets the name of the style.
+ 	*/
+  void setStyleName( const QString name);
   /**
-  	* Returns the style name
-  	*/
-  QString getStyleName() const;
+ 	* Returns the style name
+ 	*/
+  const QString& getStyleName() const;
   /**
-  	* Retusnt eh listvuiewitem of this style, if it's no created already return 0.
-  	*/
-  QListViewItem* getListViewItem();
+ 	* Retusnt eh listvuiewitem of this style, if it's no created already return 0.
+ 	*/
+  QListViewItem* getListViewItem() const;
   /**
-  	* Updates the Listview items
-  	*/
+ 	* Updates the Listview items
+ 	*/
   void updateListViewItem();
   /**
-  	* Deletes the list view item.
-  	*/
+ 	* Deletes the list view item.
+ 	*/
   void deleteListViewItem();
 
 private:
   /**
-  	* Clears all variables and sets them back
-  	*/
+ 	* Clears all variables and sets them back
+ 	*/
   void clearData();
 	
 	QString	m_styleName;

@@ -18,67 +18,54 @@
 #include "cstyleformat.h"
 #include "cstyleformatframe.h"
 
+#include <qapplication.h>
 #include <qcolor.h>
 
-CStyleFormat::CStyleFormat(/*QObject* parent*/)/* :  QObject(parent)*/{
-	qDebug("constructor of CStyleFormat");
-	
-	m_frame = 0;
-	
+CStyleFormat::CStyleFormat() {
 	clearData();
 }
 
 CStyleFormat::~CStyleFormat(){
-	qDebug("destructor of CStyleFormat");
-	if (m_frame)
-		delete m_frame;
+	clearData();
 }
 
 /** Returns the font of this style. */
-QFont& CStyleFormat::getFont() {
-	qDebug("CStyleFormat::getFont()");
+const QFont& CStyleFormat::getFont() const {
 	return m_font;
 }
 
 /** sets the font of this format. */
 void CStyleFormat::setFont( QFont newFont) {
-	qDebug("CStyleFormat::setFont( QFont& newFont)");
 	m_font = newFont;
 }
 
 /** Returns the foreground color of this format. */
-QColor& CStyleFormat::getFGColor() {
-	qDebug("CStyleFormat::getFGColor()");
+const QColor& CStyleFormat::getFGColor() const {
 	return m_FGColor;
 }
 
 /** Sets the background color of this format. */
 void CStyleFormat::setFGColor( const QColor& newColor) {
-	qDebug("CStyleFormat::setFGColor( const QColor& newColor)");
 	m_FGColor = newColor;
 }
 
 /** Returns the background color of this format. */
-QColor& CStyleFormat::getBGColor() {
-	qDebug("CStyleFormat::getBGColor()");
+const QColor& CStyleFormat::getBGColor() const {
 	return m_BGColor;
 }
 
 /** Sets the foreground color of this format. */
 void CStyleFormat::setBGColor( const QColor& newColor ) {
-	qDebug("CStyleFormat::setBGColor( const QColor& newColor )");
 	m_BGColor = newColor;
 }
 
 /** Returns true if this style has a frame for the given type. */
-bool CStyleFormat::hasFrame() {
+const bool& CStyleFormat::hasFrame() const {
 	return m_hasFrame;
 }
 
 /** Returns the frame if we have one. Otherwise we return 0. */
-CStyleFormatFrame* CStyleFormat::getFrame(){
-	qDebug("CStyleFormat::getFrame()");
-	ASSERT(m_frame);
+CStyleFormatFrame* CStyleFormat::getFrame() {
 	if (!m_frame)
 		m_frame = new CStyleFormatFrame();
 	return m_frame;
@@ -86,42 +73,40 @@ CStyleFormatFrame* CStyleFormat::getFrame(){
 
 /** Sets the frame of this style. */
 void CStyleFormat::setFrame( bool haveFrame, CStyleFormatFrame* frame ) {
-	qDebug("CStyleFormat::setFrame( bool haveFrame, CStyleFormatFrame* frame = 0)");
-	ASSERT(frame);
 	m_hasFrame = haveFrame;
 	if (m_frame != frame)
 		m_frame = frame;
 }
 
 /** Returns the alignement of this style format. */
-CStyleFormat::alignement CStyleFormat::getAlignement(){
-	qDebug("CStyleFormat::getAlignement()");
+const CStyleFormat::alignement& CStyleFormat::getAlignement() const {
 	return m_alignement;
 }
 
 /** Sets the alignement flags of this style format. */
 void CStyleFormat::setAlignement( CStyleFormat::alignement newAlignement) {
-	qDebug("CStyleFormat::setAlignement( CStyleFormat::alignement newAlignement)");
 	m_alignement = newAlignement;
 }
 
 /** Returns the ident of this format */
-int CStyleFormat::getIdentation(){
-	qDebug("CStyleFormat::getIdentation()");
+const int CStyleFormat::getIdentation() const {
 	return m_ident;
 }
 
 /** sets the identation of this format. */
 void CStyleFormat::setIdentation( int newIdent) {
-	qDebug("CStyleFormat::setIdentation( int newIdent)");
 	m_ident = newIdent;
 }
 
 /** Resets the data variables. */
 void CStyleFormat::clearData(){
-	qDebug("CStyleFormat::clearData()");
 	m_BGColor = Qt::white;
-	m_FGColor = Qt::black;
+	m_FGColor = Qt::black;	
+	if (m_frame)
+		delete m_frame;
+	m_frame = 0;	
 	m_hasFrame = false;
+	m_font = QApplication::font();
 	m_ident = 0;
 }
+

@@ -80,17 +80,15 @@ void CPrintItemList::deleteCurrentItem(){
 	
 	QListViewItem* item = currentItem();
 	//search item in list
-//	qDebug( QString::number(m_items->count()) );
 	for (m_items->first(); m_items->current(); m_items->next() ) {
 		if (m_items->current()->getListViewItem() == item) {
 			CPrintItem*	dummyItem = m_items->current();			
-			ASSERT(dummyItem);
 			dummyItem->deleteListViewItem();
 			m_items->remove(dummyItem);
-			delete dummyItem;			
-			dummyItem = 0;
-			
-			qDebug("deleted item");
+			if (!m_items->autoDelete()) {
+				delete dummyItem;			
+				dummyItem = 0;
+			}
 			return;
 		}
 	}
@@ -141,5 +139,5 @@ void CPrintItemList::clear(){
 		if (m_items->current())
 			m_items->current()->deleteListViewItem();
 	}
-	QListView::clear();
+	KListView::clear();
 }

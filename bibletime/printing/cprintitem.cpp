@@ -35,7 +35,6 @@
 #include <versekey.h>
 
 CPrintItem::CPrintItem() {
-	qDebug("construcotor of CPrintItem");
 	m_listViewItem = 0;
 	m_module = 0;
 	m_style = 0;
@@ -45,7 +44,6 @@ CPrintItem::CPrintItem() {
 }
 
 CPrintItem::~CPrintItem(){
-	qDebug("destrutor of CPrintItem");
 	if (m_startKey && m_startKey == m_stopKey)
 		delete m_startKey;
 	else {
@@ -58,18 +56,15 @@ CPrintItem::~CPrintItem(){
 			m_stopKey = 0;		
 		}
 	}
-	qDebug("destructor finished");
 }
 
 /** Returns the first key covered by this entry. */
-CKey* CPrintItem::getStartKey(){
-//	ASSERT(m_startKey);
+CKey* CPrintItem::getStartKey() const{
 	return m_startKey;
 }
 
 /** Sets the startkey. */
 void CPrintItem::setStartKey(CKey* newKey) {
-//	ASSERT(newKey);
 	m_startKey = newKey;
 
 	if ( dynamic_cast<SWKey*>(m_startKey) ) {
@@ -90,7 +85,6 @@ void CPrintItem::setStartKey(CKey* newKey) {
 
 /** Sets the end key. */
 void CPrintItem::setStopKey( CKey* newKey ){
-//	ASSERT(newKey);
 	m_stopKey = newKey;
 	
 	if ( dynamic_cast<SWKey*>(m_startKey) ) {
@@ -110,35 +104,32 @@ void CPrintItem::setStopKey( CKey* newKey ){
 }
 
 /** Returns the last covered key. */
-CKey* CPrintItem::getStopKey(){
-//	ASSERT(m_stopKey);
+CKey* CPrintItem::getStopKey() const {
 	return m_stopKey;
 }
 
 /** Returns the used module. */
-CModuleInfo* CPrintItem::getModule(){
-	ASSERT(m_module);
+CModuleInfo* CPrintItem::getModule() const {
 	return m_module;
 }
 
 /** Sets the used module. */
 void CPrintItem::setModule( CModuleInfo* newModule){
-//	ASSERT(newModule);
 	m_module = newModule;
 }
 
 /** Returns the description. Only valid for inserted bookmarks. */
-QString CPrintItem::getDescription(){
+const QString& CPrintItem::getDescription() const {
 	return m_description;
 }
 
 /** Sets the decsription. */
-void CPrintItem::setDescription( QString newDescription ){
+void CPrintItem::setDescription( const QString& newDescription ){
 	m_description = newDescription;
 }
 
 /** Returns the moduletext used by this item. */
-QString CPrintItem::getModuleText() {	
+const QString CPrintItem::getModuleText() const {
 	/** If a special text is set use the text.
 		* If the moduleText variable is empty use the CModuleInfo
 		* object to retrieve the text,
@@ -153,17 +144,17 @@ QString CPrintItem::getModuleText() {
 }
 
 /** Sets the module text. */
-void CPrintItem::setModuleText( QString newText ){
+void CPrintItem::setModuleText( const QString& newText ){
 	m_moduleText = newText;
 }
 
 /** Returns the text of the header. */
-QString CPrintItem::getHeader() {
+const QString& CPrintItem::getHeader() const {
 	return m_headerText;
 }
 
 /**  */
-void CPrintItem::setHeader( QString newText){
+void CPrintItem::setHeader( const QString& newText){
 	m_headerText = newText;
 }
 
@@ -173,8 +164,7 @@ void CPrintItem::setStyle( CStyle* newStyle ) {
 }
 
 /** Returns the style used by this item. */
-CStyle* CPrintItem::getStyle() {
-	ASSERT( m_style );
+CStyle* CPrintItem::getStyle() const {
 	return m_style;
 }
 /** Returns the listview item for this printitem. */
@@ -221,9 +211,10 @@ void CPrintItem::updateListViewItem(){
 }
 
 /**  */
-QListViewItem* CPrintItem::getListViewItem(){
+QListViewItem* CPrintItem::getListViewItem() const {
 		return m_listViewItem;
 }
+
 /** Deletes the list view item. */
 void CPrintItem::deleteListViewItem(){
 	if (m_listViewItem)

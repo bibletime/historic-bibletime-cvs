@@ -42,84 +42,80 @@ public:
 	CPrintItem();
 	~CPrintItem();
   /**
-  	* Returns thestyle used by this item.
-  	*/
-  CStyle* getStyle();
+ 	* Returns thestyle used by this item.
+ 	*/
+  CStyle* getStyle() const;
   /**
   	* Sets the style for this item.
-  	*/
-  void setStyle( CStyle* );
+ 	*/
+ void setStyle( CStyle* );
   /**
-  	*
-  	*/
-  void setHeader( QString );
+ 	*
+ 	*/
+  void setHeader( const QString& );
   /**
-  	* Returns the text of the header.
-  	*/
-  QString getHeader();
+ 	* Returns the text of the header.
+ 	*/
+  const QString& getHeader() const;
   /**
-  	* Sets the module text.
-  	*/
-  void setModuleText( QString );
+ 	* Sets the module text.
+ 	*/
+  void setModuleText( const QString& );
   /**
-  	* Returns the moduletext used by this item.
-  	*/
-  QString getModuleText();
+ 	* Returns the moduletext used by this item.
+ 	*/
+  const QString getModuleText() const;
   /**
-  	* Sets the decsription.
-  	*/
-  void setDescription( QString );
+ 	* Sets the decsription.
+ 	*/
+	void setDescription( const QString& );
   /**
-  	* Returns the description. Only valid for inserted bookmarks.
-  	*/
-  QString getDescription();
+  * Returns the description. Only valid for inserted bookmarks.
+  */
+  const QString& getDescription() const;
   /**
-  	* Sets the used module.
-  	*/
+  * Sets the used module.
+  */
   void setModule( CModuleInfo* );
   /**
-  	* Returns the used module.
-  	*/
-  CModuleInfo* getModule();
+ 	* Returns the used module.
+ 	*/
+  CModuleInfo* getModule() const;
   /**
-  	* Returns the last covered key.
-  	*/
-  CKey* getStopKey();
+ 	* Returns the last covered key.
+ 	*/
+  CKey* getStopKey() const;
   /**
-  	* Sets the end key.
-  	*/
+ 	* Sets the end key.
+ 	*/
   void setStopKey( CKey* );
   /**
-  	* Sets the startkey.
-  	*/
+ 	* Sets the startkey.
+ 	*/
   void setStartKey( CKey* );
   /**
-  	* Returns the first key covered by this entry.
-  	*/
-  CKey* getStartKey();
+ 	* Returns the first key covered by this entry.
+ 	*/
+  CKey* getStartKey() const;
   /**
-  	* Returns the listview item for this printitem.
-  	*/
+ 	* Returns the listview item for this printitem.
+ 	*/
   QListViewItem* getListViewItem( CPrintItemList* );
   /**
-  	* Updates the item.
-  	*/
+ 	* Updates the item.
+ 	*/
   void updateListViewItem();
   /**
-		*
-		*/
-  QListViewItem* getListViewItem();
+	*
+	*/
+  QListViewItem* getListViewItem() const;
   /**
-  	* Deletes the list view item.
-  	*/
+ 	* Deletes the list view item.
+ 	*/
   void deleteListViewItem();
 
 private: // Protected attributes
-  /**
-  	* Sets the variables back.
-  	*/
   void clearData();
-
   CStyle* m_style;
   QString m_description;
   QString m_headerText;

@@ -56,13 +56,13 @@ public:
 	CPrinterDialog(CPrinter* printer, QWidget *parent=0, const char *name=0);
 	~CPrinterDialog();
   /**
-  	* Initializes the layout page of the printerdialog.
-  	*/
-  virtual void initLayoutPage();
+ 	* Initializes the layout page of the printerdialog.
+ 	*/
+  void initLayoutPage();
   /**
-  	* Initialitzes the page which contains the two lists of CStyles and PrintItems.
-  	*/
-  virtual void initListPage();
+ 	* Initialitzes the page which contains the two lists of CStyles and PrintItems.
+ 	*/
+  void initListPage();
 
 protected: // Protected methods
   struct GeneralWidgets {
@@ -99,65 +99,68 @@ protected: // Protected methods
 	
 	CPrinter*	m_printer;
   /**
-   * Initializes the general printing page
-   */
-  virtual void initGeneralPage();
-  virtual void addPrinterName( const QString &printer );
+  * Initializes the general printing page
+  */
+  void initGeneralPage();
+  void addPrinterName( const QString &printer );
   /**
-   * Initializes the widgets.
-   */
-  virtual void initView();
+  * Initializes the widgets.
+  */
+  void initView();
   /**
-   * parses the printcap file!
-   */
-  virtual bool parsePrintcap();
-	virtual void setSelectedPrinter( const QString &name );
+  * parses the printcap file!
+  */
+  const bool parsePrintcap();
+	void setSelectedPrinter( const QString &name );
   /**
-  	* Saves the states of the widgets to config file.
-  	*/
-  virtual void saveSettings();
+ 	* Saves the states of the widgets to config file.
+ 	*/
+  void saveSettings();
   /**
-  	* Initializes the widgets from config file.
-  	*/
-  virtual void readSettings();
+ 	* Initializes the widgets from config file.
+ 	*/
+  void readSettings();
 	/**
-		* Inserts known paper types into the list
-		*/
-	virtual void paperType( QStringList &list );
-	virtual CPrinter::CPageSize paperSize( QPrinter::PageSize pageSize );
+	* Inserts known paper types into the list
+	*/
+	void paperType( QStringList &list );
+	const CPrinter::CPageSize paperSize( QPrinter::PageSize pageSize );
   /**
-  	* Calls the CPrinter methods to set settings.
-  	*/
-  virtual bool applySettingsToPrinter( bool preview );
+ 	* Calls the CPrinter methods to set settings.
+ 	*/
+  const bool applySettingsToPrinter( const bool preview );
 	
 protected slots: // Protected slots
   /**
-  	* Is called when "Browse for file was clicked."
-  	*/
+ 	* Is called when "Browse for file was clicked."
+ 	*/
   void slotFileBrowserClicked();
   /**
-  	* Is called when the print to file checkbox was clicked.
-  	*/
+ 	* Is called when the print to file checkbox was clicked.
+ 	*/
   void slotPrintFileCheck();
   /**
-  	* Is called when the papertype was changed.
-  	*/
-  void paperTypeChanged(int);
+ 	* Is called when the papertype was changed.
+ 	*/
+  void paperTypeChanged(const int);
   /**
-  	*
-  	*/
+ 	*
+ 	*/
   void slotUser2();
   /**
-  	*
-  	*/
+ 	*
+ 	*/
   void slotUser1();
   /**
-  	* Applies the given styles to the print item list.
-  	*/
+ 	* Applies the given styles to the print item list.
+ 	*/
   void slotListApplyStyle(const QString&);
+
 private slots: // Private slots
-  /** No descriptions */
-  void currentStyleChanged( QListViewItem* );
+  /**
+  * Is called when the style selection changed in the syle list box.
+  */
+  void currentStyleChanged(QListViewItem*);
 };
 
 #endif

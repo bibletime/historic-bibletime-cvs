@@ -64,8 +64,6 @@
 CPrinterDialog::CPrinterDialog(CPrinter* printer, QWidget *parent, const char *name )
 	: KDialogBase(KDialogBase::Tabbed, i18n("Printdialog"), Help | Cancel | User1 | User2,
 			User1, parent, name, true, true, i18n("Preview"), i18n("Print")) {	
-	qDebug("constructor of CPrinterDialog");			
-	
 	m_printer = printer;
 	initView();
 	parsePrintcap();
@@ -73,7 +71,6 @@ CPrinterDialog::CPrinterDialog(CPrinter* printer, QWidget *parent, const char *n
 }
 
 CPrinterDialog::~CPrinterDialog(){
-	qDebug("destructor of CPrinterDialog");
 	saveSettings();
 }
 
@@ -81,16 +78,13 @@ CPrinterDialog::~CPrinterDialog(){
 void CPrinterDialog::initView(){
 	initGeneralPage();
 	initListPage();
-	initLayoutPage();	
-	
-//  m_layout.styleList->setStyleList( m_printer->getStyleList() );	
+	initLayoutPage();		
 	if (m_entryWidgets.styleComboBox)
 		m_layout.styleList->setStyleComboBox( m_entryWidgets.styleComboBox );
 }
 
 /** Initializes the general printing page */
 void CPrinterDialog::initGeneralPage(){
-	qDebug("CPrinterDialog::initGeneralPage()");
 	QFrame* page = addPage( i18n("General"), i18n("The general options for printing") );
 	QVBoxLayout *topLayout = new QVBoxLayout( page, OUTER_BORDER, INNER_BORDER );  	
 
@@ -196,9 +190,7 @@ void CPrinterDialog::initGeneralPage(){
   paperTypeChanged(0);
 }
 
-bool CPrinterDialog::parsePrintcap() {
-  qDebug("CPrinterDialog::parsePrintcap()");
-
+const bool CPrinterDialog::parsePrintcap() {
   bool emptyPrintcap, noPrintcap;
   QString tmp, name;
 
@@ -252,21 +244,16 @@ bool CPrinterDialog::parsePrintcap() {
 }
 
 void CPrinterDialog::addPrinterName( const QString &printer ) {
-  qDebug("CPrinterDialog::addPrinterName");
   ASSERT(m_general.printerList);
   const QListViewItem *entry = m_general.printerList->firstChild();
   ASSERT(entry);
   if (entry) {
 	  for( ; entry; entry = entry->nextSibling() ) {
-	     qDebug("new loop");
-	     if( entry->text(0) == printer ) {
+	     if( entry->text(0) == printer )
 	       return;
-	    }
 	  }
 	}
-  qDebug("create new QListViewItem");
   (void)new QListViewItem( m_general.printerList, printer, "", "" );
-  qDebug("addPrinterName finished");
 }
 
 void CPrinterDialog::setSelectedPrinter( const QString &name ) {
@@ -277,13 +264,9 @@ void CPrinterDialog::setSelectedPrinter( const QString &name ) {
       return;
     }
   }
-  //
-  // Use the first
-  //
   entry = m_general.printerList->firstChild();
-  if( entry != 0 ) {
+  if( entry != 0 )
   	m_general.printerList->setSelected ( entry, true );
-  }
 }
 
 /** Is called when the print to file checkbox was clicked. */
@@ -291,7 +274,7 @@ void CPrinterDialog::slotPrintFileCheck(){
   bool state = m_general.fileCheck->isChecked();
   m_general.fileInput->setEnabled( state );
   m_general.browseButton->setEnabled( state );
-  state = state == true ? false : true;
+  state = !state;
   m_general.printerListLabel->setEnabled( state );
   m_general.printerList->setEnabled( state );
 }
@@ -301,14 +284,11 @@ void CPrinterDialog::slotFileBrowserClicked(){
   QString url = KFileDialog::getSaveFileName( 0, i18n("*.ps | Postscript files"), topLevelWidget() );
   if( url.isEmpty() )
     return;
-
   m_general.fileInput->setText( url );
 }
 
 /** Initializes the widgets from config file. */
 void CPrinterDialog::readSettings(){
-	qDebug("CPrinterDialog::readSettings()");	
-	
 	//setup general widgets
 	m_general.fileCheck->setChecked(false);	
 	slotPrintFileCheck();
@@ -341,11 +321,9 @@ void CPrinterDialog::readSettings(){
 
 /** Saves the states of the widgets to config file. */
 void CPrinterDialog::saveSettings(){
-	qDebug("CPrinterDialog::saveSettings()");	
 	KConfig* config = m_printer->getConfig();
 	KConfigGroupSaver gs(config, "Printerdialog");
 	config->writeEntry("Printername", m_general.printerList->currentItem()->text(0));	
-	
 	
 	config->sync();	
 }
@@ -435,10 +413,10 @@ void CPrinterDialog::initLayoutPage(){
   gbox->activate();	
   group->setFixedHeight( group->sizeHint().height() );
   //set minimum borders
-  m_layout.marginSpin[0]->setRange( m_printer->margins().height(), MAXINT );	//upper margin
-  m_layout.marginSpin[1]->setRange( m_printer->margins().height(), MAXINT );	//lower margin
-  m_layout.marginSpin[2]->setRange( m_printer->margins().width(), MAXINT );	//left margin
-  m_layout.marginSpin[3]->setRange( m_printer->margins().width(), MAXINT );	//right margin
+  m_layout.marginSpin[0]->setRange( m_printer->upperMargin(), MAXINT );	//upper margin
+  m_layout.marginSpin[1]->setRange( m_printer->lowerMargin(), MAXINT );	//lower margin
+  m_layout.marginSpin[2]->setRange( m_printer->leftMargin(), MAXINT );	//left margin
+  m_layout.marginSpin[3]->setRange( m_printer->rightMargin(), MAXINT );	//right margin
 
   QHBoxLayout *entryLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   QVBoxLayout *styleLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
@@ -554,7 +532,7 @@ void CPrinterDialog::initListPage(){
 }
 
 /** Is called when the papertype was changed. */
-void CPrinterDialog::paperTypeChanged(int id){
+void CPrinterDialog::paperTypeChanged(const int id){
   char buf[30];
 
   CPrinter::CPageSize size = paperSize( (QPrinter::PageSize)id );
@@ -564,8 +542,7 @@ void CPrinterDialog::paperTypeChanged(int id){
   m_general.paperSizeLabel->show();
 }
 
-CPrinter::CPageSize CPrinterDialog::paperSize( QPrinter::PageSize pageSize ) {
-  qDebug("CPrinterDialog::paperSize( QPrinter::PageSize pageSize )");
+const CPrinter::CPageSize CPrinterDialog::paperSize( QPrinter::PageSize pageSize ) {
   m_printer->setPageSize( pageSize );
   QPaintDeviceMetrics paintMetric( m_printer );
 
@@ -575,16 +552,12 @@ CPrinter::CPageSize CPrinterDialog::paperSize( QPrinter::PageSize pageSize ) {
 
 /**  */
 void CPrinterDialog::slotUser1(){
-	qDebug("CPrinterDialog::slotUser1()");
-	qDebug("use preview");
 	applySettingsToPrinter(true);
 	m_printer->printQueue();
 }
 
 /**  */
 void CPrinterDialog::slotUser2(){
-	qDebug("CPrinterDialog::slotUser2()");
-	qDebug("do _not_ use preview");
 	applySettingsToPrinter(false);
 	m_printer->printQueue();	
 	
@@ -592,26 +565,20 @@ void CPrinterDialog::slotUser2(){
 }
 
 /** Calls the CPrinter methods to set settings. */
-bool CPrinterDialog::applySettingsToPrinter( bool preview ){
-	qDebug("CPrinterDialog::applySettingsToPrinter()");
+const bool CPrinterDialog::applySettingsToPrinter( const bool preview ){
 	m_printer->setPreview( preview );	
-	if (preview) {
+	if (preview)
 		m_printer->setPreviewApplication("kghostview");
-	}
-	else {
+	else
 		m_printer->setPreviewApplication("");
-	}
 
 	m_printer->setFullPage(true);
 	m_printer->setCreator( i18n("BibleTime version %1").arg(VERSION) );
 	
 	//apply general settings
-	if (m_general.printerList->currentItem() == 0) {
-		qDebug("no printer selected");
-	}	
-	else {
+	if (!m_general.printerList->currentItem() )
 		m_printer->setPrinterName(m_general.printerList->currentItem()->text(0));
-	}
+
   m_printer->setNumCopies( m_general.pageSpin->value() );
   if ( m_general.portraitRadio->isChecked() )
     m_printer->setOrientation( QPrinter::Portrait );
@@ -620,10 +587,8 @@ bool CPrinterDialog::applySettingsToPrinter( bool preview ){
    m_printer->setPageSize((QPrinter::PageSize)m_general.paperSelector->currentItem());
 
   if (m_general.fileCheck->isChecked()) {	//print to file
-  	qDebug("print into file");		
 		m_printer->setOutputToFile( true );		
 		if (m_general.fileInput->text().isEmpty()) {
-			qDebug("Filename is empty");
 			return false;
 		}
 		else {
@@ -631,15 +596,14 @@ bool CPrinterDialog::applySettingsToPrinter( bool preview ){
 		}
   }
   else { // do not print into file
-  	qDebug("do not print into file");
 		m_printer->setOutputToFile(false);
   }
 		
 	//apply layout settings
-	m_printer->setUpperMargin( m_layout.marginSpin[0]->value());	
-	m_printer->setLowerMargin( m_layout.marginSpin[1]->value());	
-	m_printer->setLeftMargin( m_layout.marginSpin[2]->value());
-	m_printer->setRightMargin( m_layout.marginSpin[3]->value());			
+	m_printer->setUpperMargin(m_layout.marginSpin[0]->value());	
+	m_printer->setLowerMargin(m_layout.marginSpin[1]->value());	
+	m_printer->setLeftMargin(m_layout.marginSpin[2]->value());
+	m_printer->setRightMargin(m_layout.marginSpin[3]->value());			
 
 	return true;
 }
@@ -650,15 +614,13 @@ void CPrinterDialog::slotListApplyStyle(const QString& styleName ){
 	ASSERT(styleList);
 	
 	for(styleList->first(); styleList->current(); styleList->next()) {
-		if (styleList->current()->getStyleName() == styleName) {
-		 	qDebug("found style - apply now");
+		if (styleList->current()->getStyleName() == styleName)
 		 	m_entryWidgets.printItemList->applyStyleToSelected( styleList->current() );
-		}	
 	}
 }
 
 /** No descriptions */
-void CPrinterDialog::currentStyleChanged( QListViewItem* style){
-	m_layout.deleteStyleButton( (bool)style );
-	m_layout.editStyleButton( (bool)style );
+void CPrinterDialog::currentStyleChanged( QListViewItem* item){
+	m_layout.deleteStyleButton->setEnabled( (bool)item );
+	m_layout.editStyleButton->setEnabled( (bool)item );
 }

@@ -113,7 +113,6 @@ void CStyleList::openStyleEditor( CStyle* style ){
 /** Deletes the current style item. */
 void CStyleList::deleteCurrentStyle(){
 	QListViewItem* item = currentItem();
-	ASSERT(item);
 	if (!item)
 		return;
 		
@@ -123,18 +122,17 @@ void CStyleList::deleteCurrentStyle(){
 		ASSERT(m_items->current());
 		if (m_items->current()->getListViewItem() == item) {
 			currentStyle = m_items->current();
-			break;
+			m_items->remove(currentStyle);
+			currentStyle->deleteListViewItem();			
+			if (!m_items->autoDelete() && currentStyle) {
+				if (currentStyle)
+					delete currentStyle;			
+				currentStyle = 0;
+			}	
+			updateStyleCombo();					
+			return;
 		}
 	}
-	if (currentStyle) {
-		m_items->remove(currentStyle);	
-		if (currentStyle) {
-			currentStyle->deleteListViewItem();
-			delete currentStyle;			
-		}
-		currentStyle = 0;
-	}
-	updateStyleCombo();
 }
 
 /** Sets the combo box which contains the style names. */

@@ -92,35 +92,35 @@ public:
   /**
  	* Returns the right margin.
  	*/
-  unsigned int rightMargin();
+  const unsigned int rightMargin() const;
   /**
  	* Sets the right margin.
  	*/
-  void setRightMargin( unsigned int margin );
+  void setRightMargin( const unsigned int margin );
   /**
  	* Returns the right margin.
  	*/
-  unsigned int leftMargin();
+  const unsigned int leftMargin() const;
   /**
  	* Sets the right margin.
  	*/
-  void setLeftMargin( unsigned int margin );
+  void setLeftMargin( const unsigned int margin );
   /**
  	* Returns the right margin.
  	*/
-  unsigned int upperMargin();
+  const unsigned int upperMargin() const;
   /**
  	* Sets the right margin.
  	*/
-  void setUpperMargin( unsigned int margin );
+  void setUpperMargin( const unsigned int margin );
   /**
  	* Returns the right margin.
  	*/
-  unsigned int lowerMargin();
+  const unsigned int lowerMargin() const;
   /**
  	* Sets the right margin.
  	*/
-  void setLowerMargin( unsigned int margin );
+  void setLowerMargin( const unsigned int margin );
   /**
  	* Sets te preview application.
  	*/
@@ -128,7 +128,7 @@ public:
   /**
  	* Returns the path to the preview application.
  	*/
-  QString getPreviewApplication();
+  const QString& getPreviewApplication() const;
   /**
  	* Prints the footer.
  	*/
@@ -137,7 +137,10 @@ public:
  	* Paints the header.
  	*/
   void printHeader( QPainter* painter);
-  bool newPage();
+	/**
+	* Creates a new page and positions the painter at the beginning of it.
+	*/
+  const bool newPage();
   /**
  	* Returns the margins of the pages.
  	*/
@@ -149,7 +152,7 @@ public:
   /**
  	* Sets all the margins at one time.
  	*/
-  void setAllMargins( CPageMargin margins );
+  void setAllMargins( const CPageMargin margins );
   /**
  	* Setups the printer using CPrinterDialog.
  	*/
@@ -158,7 +161,7 @@ public:
  	* Print item at bottom of the current page.
  	* If there's no more space left on the current page create a new one.
  	*/
-  void printItem( QPainter* p, CPrintItem* item);
+  void printItem( QPainter* p, const CPrintItem* item);
   /**
  	* Returns true if we use the preview mechanism.
  	*/
@@ -166,11 +169,11 @@ public:
   /**
  	* Set to true if you want to open the printed things in the preview application.
  	*/
-  void setPreview( bool usePreview );
+  void setPreview( const bool usePreview );
   /**
  	* Sets the status of the page header.
  	*/
-  void setPageHeader( bool enableHeader, CPageHeader header);
+  void setPageHeader( const bool enableHeader, const CPageHeader header);
   /**
  	* Sets the status of the page footer.
  	*/
@@ -182,11 +185,11 @@ public:
   /**
  	* Sets the printing queue to queue.
  	*/
-  void setPrintQueue( printItemList* queue);
+  void setPrintQueue(printItemList* queue);
   /**
  	* Returns the print queue object.
  	*/
-  printItemList* getPrintQueue();
+  printItemList* getPrintQueue() const;
   /**
  	* Appends items to the printing queue.
  	*/
@@ -202,11 +205,11 @@ public:
   /**
   * Returns the list of styles.
   */
-  styleItemList* getStyleList();
+  styleItemList* getStyleList() const;
   /**
   * Reimplementation. cReates a new page.
   */
-  QRect getPageSize();
+  const QRect getPageSize() const;
   /**
   * Returns the config used for this printer object.
   */
@@ -214,7 +217,7 @@ public:
 
 public slots: // Public slots
   /**
-  *
+  * Clears the printing queue.
   */
   void clearQueue();
 

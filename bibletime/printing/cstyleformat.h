@@ -38,57 +38,57 @@ public:
 	CStyleFormat();
 	~CStyleFormat();
   /**
-  	* Sets the foreground color of this format.
-  	*/
+ 	* Sets the foreground color of this format.
+ 	*/
   void setFGColor( const QColor& );
   /**
-  	* Returns the foreground color of this format.
-  	*/
-  QColor& getFGColor();
+ 	* Returns the foreground color of this format.
+ 	*/
+	const QColor& getFGColor() const;
   /**
-  	* Sets the background color of this format.
-  	*/
+ 	* Sets the background color of this format.
+ 	*/
   void setBGColor( const QColor& );
   /**
-  	* Returns the background color of this format.
-  	*/
-  QColor& getBGColor();
+ 	* Returns the background color of this format.
+ 	*/
+	const QColor& getBGColor() const;
   /**
-  	* sets the font of this format.
-  	*/
+  * sets the font of this format.
+  */
   void setFont( QFont );
   /**
-  	* Returns the font of this style.
-  	*/
-  QFont& getFont();
+  * Returns the font of this style.
+  */
+  const QFont& getFont() const;
   /**
-  	* sets the identation of this format.
-  	*/
+ 	* sets the identation of this format.
+ 	*/
   void setIdentation( int ) ;
   /**
-  	* Returns the ident of this format
-  	*/
-  int getIdentation();
+ 	* Returns the ident of this format
+ 	*/
+  const int getIdentation() const;
   /**
-  	* Sets the alignement flags of this style format.
-  	*/
+ 	* Sets the alignement flags of this style format.
+ 	*/
   void setAlignement( CStyleFormat::alignement );
   /**
-  	* Returns the alignement of this style format.
-  	*/
-  CStyleFormat::alignement getAlignement();
+ 	* Returns the alignement of this style format.
+ 	*/
+  const CStyleFormat::alignement& getAlignement() const;
   /**
-  	* Sets the frame of this style.
-  	*/
+ 	* Sets the frame of this style.
+ 	*/
   void setFrame( bool hasFrame, CStyleFormatFrame* frame = 0);
   /**
-  	* Returns the frame if we have one. Otherwise we return 0.
-  	*/
+ 	* Returns the frame if we have one. Otherwise we return 0.
+ 	*/
   CStyleFormatFrame* getFrame();
   /**
-  	* Returns true if this style has a frame for the given type.
-  	*/
-  bool hasFrame();
+ 	* Returns true if this style has a frame for the given type.
+ 	*/
+  const bool& hasFrame() const;
 
 private:
 	QFont m_font;
@@ -98,9 +98,6 @@ private:
 	bool m_hasFrame;
 	CStyleFormatFrame* m_frame;
 	CStyleFormat::alignement m_alignement;
-  /**
-  	* Resets the data variables.
-  	*/
   void clearData();
 };
 

@@ -63,7 +63,6 @@ protected: // Protected methods
 		KColorButton*	colorChooser;
 		QSpinBox* lineThicknessChooser;
 		QGroupBox*	groupbox;
-//		CLineStyleChooser*	lineStyleChooser;
 	};
 	struct fontWidgets {
 		QFont font;
@@ -72,18 +71,49 @@ protected: // Protected methods
 	};
 	
   /**
-  	* Saves settings to config file.
-  	*/
-  virtual void saveSettings();
+  * Saves settings to config file.
+  */
+  void saveSettings();
   /**
-  	* Reads settings from config file
-  	*/
-  virtual void readSettings();
-  /**
-  	* Initializes te view.
-  	*/
-  virtual void initView();
+  * Reads settings from config file
+  */
+  void readSettings();
+	/**
+  * Initializes te view.
+  */
+  void initView();
 
+protected slots:
+  /**
+  * Opens the font chooser dialog.
+  */
+  void showFontChooser();
+  /**
+  *
+  */
+  void useFrameClicked();
+  /**
+ 	* Setups the font widgets using the parameter.
+ 	*/
+  void setupFontWidgets( QFont& font );
+  /**
+  * Sets up the states of the child widgets using the styl format given as parameter.
+  */
+  void applySettingsToFormat( CStyleFormat* );  	
+  /**
+  * Sets the properties of the cuzrrent format which are changed in the editor.
+  */
+  void setupWithFormat( CStyleFormat* format);
+  /**
+  * Is called when the enablePart box was clicked.
+  */
+  void enableBoxClicked();
+  /**
+  * Called when the type was changed in the combobox.
+  */
+  void styleTypeChanged( const QString& );
+
+private:
   KLineEdit*	m_styleNameEdit;
   KComboBox*	m_styleTypeChooser;
 	CStyle*	m_style;
@@ -95,38 +125,6 @@ protected: // Protected methods
 	fontWidgets m_font;
 
 	bool m_formatEnabled;
-	
-protected slots:
-  /**
-  	* Opens the font chooser dialog.
-  	*/
-  virtual void showFontChooser();
-  /**
-  	*
-  	*/
-  virtual void useFrameClicked();
-  /**
-  	* Setups the font widgets using the parameter.
-  	*/
-  virtual void setupFontWidgets( QFont& font );
-  /**
-  	* Sets up the states of the child widgets using the styl format given as parameter.
-  	*/
-  virtual void applySettingsToFormat( CStyleFormat* );  	
-  /**
-  	* Sets the properties of the cuzrrent format which are changed in the editor.
-  	*/
-  virtual void setupWithFormat( CStyleFormat* format);
-
-protected slots: // Protected slots
-  /**
-  	* Is called when the enablePart box was clicked.
-  	*/
-  void enableBoxClicked();
-  /**
-  	* Called when the type was changed in the combobox.
-  	*/
-  void styleTypeChanged( const QString& );
 };
 
 #endif
