@@ -323,7 +323,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
         .arg(CBTConfig::get(m->language()).family())
         .arg(CBTConfig::get(m->language()).pointSize())
         .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-        .arg(m_displayOptions.verseNumbers ? QString::fromLatin1("<SUP>%1</SUP>").arg(htmlReference(m, key.key(), QString::number(key.Verse()), key.key())) : htmlReference(m, QString::null, QString::null, key.key()) )
+        .arg(m_displayOptions.verseNumbers ? QString::fromLatin1("<SPAN STYLE=\"vertical-align:text-top; font-size:%1pt;\">%2</SPAN> ").arg(int(float(CBTConfig::get(m->language()).pointSize()) / 1.5)).arg(htmlReference(m, key.key(), QString::number(key.Verse()), key.key())) : htmlReference(m, QString::null, QString::null, key.key()) )
         .arg(key.renderedText())
         .arg((modules.count() == 1 && m_displayOptions.lineBreaks) ? QString::fromLatin1("<BR>") : QString::fromLatin1(" "));
 
