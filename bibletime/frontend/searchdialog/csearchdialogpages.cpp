@@ -631,14 +631,17 @@ const QString CSearchOptionsPage::searchText() {
     regexp.replace( QRegExp("\\s+"), "|" ); //replace one or more white spaces with regexp's OR marker
     return regexp;
   }
-	else if (searchFlags() && CSwordModuleSearch::entryAttribs) { //special treatment neccessary
-		QString textType = m_textTypeCombo->currentText();
+	else if (searchFlags() & CSwordModuleSearch::entryAttribs) { //special treatment neccessary
+		const QString textType = m_textTypeCombo->currentText();
 		if (textType == "Footnotes")
 			return QString("Footnote//body/") + m_searchTextCombo->currentText() + QString("/");
+		
 		if (textType == "Headings")
-			return QString("Headings//Interverse/") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
+			return QString("Heading///") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
+		
 		if (textType == "Strong's numbers")
 			return QString("Word//Strongs/") + m_searchTextCombo->currentText() + QString("/"); // e.g. Word//Strongs/G1234/
+		
 		if (textType == "Morph codes")
 			return QString("Word//Morph/") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
 	}

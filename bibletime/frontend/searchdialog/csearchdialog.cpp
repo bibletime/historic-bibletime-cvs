@@ -131,7 +131,10 @@ void CSearchDialog::startSearch(){
   const CSwordModuleSearch::scopeType scopeType = m_searchOptionsPage->scopeType();
   if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
     searchFlags |= CSwordModuleSearch::useLastResult;
-  } else if ( (scopeType == CSwordModuleSearch::Scope_Bounds) && strlen(m_searchOptionsPage->searchScope().getRangeText()) ) {
+  } 
+	else if ( (scopeType == CSwordModuleSearch::Scope_Bounds)
+					 && strlen(m_searchOptionsPage->searchScope().getRangeText()))
+	{
     //we need the scope flag and a valid scope!
     searchFlags |= CSwordModuleSearch::useScope;
     m_searcher.setSearchScope( m_searchOptionsPage->searchScope() );

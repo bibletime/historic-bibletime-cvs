@@ -143,7 +143,7 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 	else if (searchOptions & CSwordModuleSearch::multipleWords) {
 		searchType = -2; //multiple words
 		
-		if (m_module->isSearchOptimallySupported((const char*)searchedText.utf8(), searchType, searchFlags, 0)) {
+		if (m_module->hasSearchFramework() && m_module->isSearchOptimallySupported((const char*)searchedText.utf8(), -4, 0, 0)) {
 			searchType = -4;
 		}
   }
@@ -239,15 +239,15 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 		case Description:
 			return QString(m_module->Description());
 		case ModuleVersion: {
-			QString version = QString(m_module->getConfigEntry("Version"));
+			QString version(m_module->getConfigEntry("Version"));
       if (version.isEmpty()) {
         version = "1.0";
 			}
       return version;
     }        
 		case MinimumSwordVersion: {
-			const QString version(m_module->getConfigEntry("MinimumVersion"));
-			return !version.isEmpty() ? version : QString("0.0");
+			const QString minimumVersion(m_module->getConfigEntry("MinimumVersion"));
+			return !minimumVersion.isEmpty() ? minimumVersion : QString("0.0");
 		}
 		case TextDir: {
 			const QString dir(m_module->getConfigEntry("Direction"));
