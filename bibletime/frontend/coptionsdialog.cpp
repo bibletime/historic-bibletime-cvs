@@ -978,7 +978,7 @@ void COptionsDialog::saveSword(){
 	if (l && l->isValid()) {
 		languageAbbrev = l->abbrev();
 	}
-	else { //it seems it's a description of a Sword locale	
+	else { //it can be the lang abbrev like de_abbrev or the Sword description
 		list <sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
 		
 		for (list <sword::SWBuf>::iterator it = locales.begin(); it != locales.end(); it++) {
@@ -989,7 +989,11 @@ void COptionsDialog::saveSword(){
 				languageAbbrev = QString::fromLatin1(locale->getName());	//we found the abbrevation for the current language
 				break;
 			}
-		}	
+		}
+		
+		if (languageAbbrev.isEmpty()) {
+			languageAbbrev = currentLanguageName; //probably a non-standard locale name like de_abbrev
+		}
 	}
 	
  	if (!languageAbbrev.isEmpty()) {

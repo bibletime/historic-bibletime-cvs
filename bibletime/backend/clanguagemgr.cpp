@@ -31,7 +31,7 @@
 
 //initialize static language list
 typedef QPtrList<CLanguageMgr::Language> LanguageList;
-static LanguageList m_langList;
+LanguageList CLanguageMgr::m_langList = LanguageList();
 static LanguageList cleanupLangPtrs;
 
 CLanguageMgr::Language::Language() : m_altAbbrevs(0) {
@@ -290,7 +290,7 @@ xx-???, including the AleWiesler module.
 //  m_langList.append( new Language("lb"  , "Letzeburgesch" , i18n("Letzeburgesch")) );
 //  m_langList.append( new Language("ln"  , "Lingala"     , i18n("Lingala")) );
 //  m_langList.append( new Language("lo"  , "Lao"         , i18n("Lao")) );
-//  m_langList.append( new Language("lt"  , "Lithuanian"  , i18n("Lithuanian")) );
+  m_langList.append( new Language("lt"  , "Lithuanian"  , i18n("Lithuanian")) );
   m_langList.append( new Language("lv"  , "Latvian"     , i18n("Latvian")) );
 
 //  m_langList.append( new Language("mg"  , "Malagasy"    , i18n("Malagasy")) );
@@ -330,6 +330,7 @@ xx-???, including the AleWiesler module.
   m_langList.append( new Language("pl"  , "Polish"      , i18n("Polish")) );
 //  m_langList.append( new Language("ps"  , "Pushto"      , i18n("Pushto")) );
   m_langList.append( new Language("pt"  , "Portuguese"  , i18n("Portuguese")) );
+	m_langList.append( new Language("pt_BR"  , "Brasilian Portuguese"  , i18n("Brasilian Portuguese")) );//added by ourself
 
 //  m_langList.append( new Language("qu"  , "Quechua"     , i18n("Quechua")) );
 

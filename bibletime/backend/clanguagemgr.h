@@ -93,6 +93,9 @@ private:
   mutable LangMap m_langMap;
 	Language m_defaultLanguage;
 	
+	typedef QPtrList<CLanguageMgr::Language> LanguageList;
+	static LanguageList m_langList;
+	
 	struct {
 		unsigned int moduleCount;
 		LangMap availableLanguages;
