@@ -329,22 +329,11 @@ void CKeyChooserWidget::slotComboChanged(int index){
 	setUpdatesEnabled(true);		
 }
 
-/**  */
-//void CKeyChooserWidget::adjustSize( ){
-////	setUpdatesEnabled(false);
-//
-//  QWidget::adjustSize();
-//
-////  QSize s = sizeHint();
-////	if (s.width() > maximumWidth())
-////		s.setWidth( maximumWidth() );
-////	resize(s);
-////	setUpdatesEnabled(true);
-//}
-
 /** Sets the tooltips for the given entries using the parameters as text. */
 void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
-	QToolTip::add(comboBox(),comboTip);
+  qWarning("add tooltip heklps: %s, %s, %s, %s", comboTip.latin1(), nextEntryTip.latin1(), scrollButtonTip.latin1(), previousEntryTip.latin1());
+
+  QToolTip::add(comboBox(),comboTip);
 	QToolTip::add(btn_fx,  scrollButtonTip);
 
  	if ( CBTConfig::get(CBTConfig::scroll) ){
@@ -359,7 +348,8 @@ void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextE
 
 /** No descriptions */
 void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
-	QWhatsThis::add(comboBox(),comboTip);
+  qWarning("add whatsthis heklps: %s, %s, %s, %s", comboTip.latin1(), nextEntryTip.latin1(), scrollButtonTip.latin1(), previousEntryTip.latin1());
+  QWhatsThis::add(comboBox(),comboTip);
 	QWhatsThis::add(btn_fx,  scrollButtonTip);
 
  	if ( CBTConfig::get(CBTConfig::scroll) ) {
@@ -374,7 +364,6 @@ void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextE
 
 /** Sets the current item to the one with the given text */
 bool CKeyChooserWidget::setItem( const QString item ){
-//	qDebug("CKeyChooserWidget::setItem( const QString item )");
 	bool ret = false;
 	const int count = comboBox()->count();
 	for (int i = 0; i < count; ++i) {

@@ -20,6 +20,8 @@
 
 #include "backend/cswordbackend.h"
 
+//KDE includes
+#include <klocale.h>
 
 namespace CResMgr {
   namespace modules {

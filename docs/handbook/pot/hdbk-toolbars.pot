@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: application/x-xml2pot; charset=utf-8\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
 #: index.docbook:1
@@ -46,7 +46,7 @@ msgstr ""
 
 #: index.docbook:13
 #, no-c-format
-msgid "In the <guilabel>Options Dialog</guilabel>, this icon opens the <guilabel>Manage Profiles</guilabel> dialog. Here you can save a display for later recall."
+msgid "In the <guilabel>Options Dialog</guilabel>, this icon opens the <guilabel>Manage sessions</guilabel> dialog. Here you can save a display for later recall."
 msgstr ""
 
 #: index.docbook:13
@@ -404,7 +404,7 @@ msgstr ""
 msgid "Closes &bibletime;."
 msgstr ""
 
-#: index.docbook:498 index.docbook:526
+#: index.docbook:498
 #, no-c-format
 msgid "View"
 msgstr ""
@@ -427,6 +427,11 @@ msgstr ""
 #: index.docbook:499
 #, no-c-format
 msgid "If <guimenuitem>show main index</guimenuitem> is selected, the left pane showing the available &sword; documents is displayed. If <guimenuitem>show main index</guimenuitem> is unselected then the left pane is hidden."
+msgstr ""
+
+#: index.docbook:526
+#, no-c-format
+msgid "Search"
 msgstr ""
 
 #: index.docbook:527
@@ -456,7 +461,7 @@ msgstr ""
 
 #: index.docbook:554
 #, no-c-format
-msgid "Save Session"
+msgid "Save session"
 msgstr ""
 
 #: index.docbook:554
@@ -466,27 +471,27 @@ msgstr ""
 
 #: index.docbook:554
 #, no-c-format
-msgid "Save as Session"
+msgid "Save as new session"
 msgstr ""
 
 #: index.docbook:554
 #, no-c-format
-msgid "Saves the current configuration to a Session, and allows the new profile to be named."
+msgid "Saves the current configuration to a session, and allows the new session to be named."
 msgstr ""
 
 #: index.docbook:554
 #, no-c-format
-msgid "Load Session"
+msgid "Load session"
 msgstr ""
 
 #: index.docbook:554
 #, no-c-format
-msgid "Loads the contents of the named Session to the current session of &bibletime;."
+msgid "Loads the contents of the named session to the current session of &bibletime;."
 msgstr ""
 
 #: index.docbook:554
 #, no-c-format
-msgid "Configure Sessions"
+msgid "Configure sessions"
 msgstr ""
 
 #: index.docbook:554
@@ -541,7 +546,7 @@ msgstr ""
 
 #: index.docbook:554
 #, no-c-format
-msgid "ditto for tiling newly opened display windows."
+msgid "Ditto for tiling newly opened display windows."
 msgstr ""
 
 #: index.docbook:554
@@ -576,7 +581,7 @@ msgstr ""
 
 #: index.docbook:637
 #, no-c-format
-msgid "show the <guilabel>Configure Toolbar</guilabel> dialog."
+msgid "Show the <guilabel>Configure Toolbar</guilabel> dialog."
 msgstr ""
 
 #: index.docbook:637
@@ -586,7 +591,7 @@ msgstr ""
 
 #: index.docbook:637
 #, no-c-format
-msgid "Shows the <guilabel>Options dialog</guilabel>. From this dialog the startup mode, fonts, colors, profiles, sword features, and accelerators are configurable."
+msgid "Shows the <guilabel>Options dialog</guilabel>. From this dialog the startup mode, fonts, colors, sessions, sword features, and accelerators are configurable."
 msgstr ""
 
 #: index.docbook:661
@@ -621,7 +626,7 @@ msgstr ""
 
 #: index.docbook:662
 #, no-c-format
-msgid "Select <guimenuitem>Biblestudy HowTo</guimenuitem> to access A good basic text with recommendations for studying the Bible."
+msgid "Select <guimenuitem>Biblestudy HowTo</guimenuitem> to access a good basic text with recommendations for studying the Bible."
 msgstr ""
 
 #: index.docbook:662

@@ -170,6 +170,7 @@ const ListCSwordModuleInfo CSearchDialog::modules(){
 /** Sets the list of modules for the search. */
 void CSearchDialog::setModules( const ListCSwordModuleInfo modules ){
   m_searchOptionsPage->setModules(modules);
+  resize( sizeHint() );
 }
 
 /** Returns the search text which is set currently. */
@@ -270,16 +271,17 @@ void CSearchDialog::reset(){
 
 /** Is the slot which is called when a page will be shown. */
 void CSearchDialog::slotShowPage(QWidget* page){
-//  qWarning("show a page");
   if (pageIndex(page) == m_index.optionsPage) {
-//    qWarning("show options page"),
     m_searchOptionsPage->aboutToShow();
   };
 }
 
 /** Reimplementation. */
 void CSearchDialog::slotClose(){
-//  qWarning("delayed destruction");
+  //try to stop the search before we close the dialog which destroys the search object
+  m_interruptedSearch = true;
+  m_searcher.interruptSearch();
+
   delayedDestruct();
   m_staticDialog = 0;
 }

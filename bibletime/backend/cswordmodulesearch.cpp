@@ -21,9 +21,6 @@
 #include "cswordbackend.h"
 #include "../frontend/cbtconfig.h"
 
-//System includes
-//#include <pthread.h>
-
 //Sword includes
 #include <swmodule.h>
 #include <swkey.h>

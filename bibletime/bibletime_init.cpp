@@ -65,16 +65,13 @@ void BibleTime::initView(){
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
 
 	m_splitter = new QSplitter(this, "mainsplitter");
+//  m_splitter->setOpaqueResize( true );
 	setCentralWidget(m_splitter);	
 
 	m_mainIndex = new CMainIndex(m_splitter);
 	m_mainIndex->initTree();
 	m_mainIndex->setFocusPolicy(WheelFocus);       	
 
-//  m_splitter->setResizeMode(m_mainIndex, QSplitter::KeepSize);
-//  m_mainIndex->setMinimumWidth(0);
-//  m_splitter->setMinimumWidth(0);
-    
 	m_mdi = new CMDIArea(m_splitter, "mdiarea" );
 	m_mdi->setFocusPolicy(ClickFocus);
 
@@ -362,33 +359,39 @@ void BibleTime::initConnections(){
 	connect(m_mainIndex, SIGNAL(createWriteDisplayWindow(CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType&)),
 		this, SLOT(createWriteDisplayWindow(CSwordModuleInfo*,const QString&, const CDisplayWindow::WriteWindowType&)));
     
-	//connect to the signals of the printer object
-	connect(m_printer, SIGNAL(addedFirstQueueItem()),
+
+  //connect to the signals of the printer object
+  connect(m_printer, SIGNAL(addedFirstQueueItem()),
 		this, SLOT(slotSetPrintingStatus()));
-	connect(m_printer, SIGNAL(printingStarted()),
+	connect(m_printer, SIGNAL(printingFinished()),
+		this, SLOT(slotPrintingFinished()));
+	connect(m_printer, SIGNAL(queueCleared()),
+		this, SLOT(slotSetPrintingStatus()));
+
+  //if we use KDE 3.1 we do not use our own printing status window, KDE >= 3.1 has a better one
+#ifdef KDE_VERSION_MINOR
+#if KDE_VERSION_MINOR >= 1
+  connect(m_printer, SIGNAL(printingStarted()),
 		this, SLOT(slotPrintingStarted()));		
 	connect(m_printer, SIGNAL(printingFinished()),
 		this, SLOT(slotSetPrintingStatus()));		
-	connect(m_printer, SIGNAL(printingFinished()),
-		this, SLOT(slotPrintingFinished()));				
 	connect(m_printer, SIGNAL(printingInterrupted()),
 		this, SLOT(slotSetPrintingStatus()));				
 	connect(m_printer, SIGNAL(printingInterrupted()),
 		this, SLOT(slotPrintingFinished()));						
-	connect(m_printer, SIGNAL(queueCleared()),
-		this, SLOT(slotSetPrintingStatus()));
 	connect(m_printer, SIGNAL(percentCompleted(const int)),
-		this, SLOT(slotPrintedPercent(const int)));		
+		this, SLOT(slotPrintedPercent(const int)));
+#endif
+#endif
 }
 
 /** Initializes the backend */
 void BibleTime::initBackends(){
-	KStartupLogo::setStatusMessage(i18n("Initializing Sword")+QString::fromLatin1("..."));
+	KStartupLogo::setStatusMessage(i18n("Initializing Sword") + QString::fromLatin1("..."));
 	
 	m_backend = new CSwordBackend();	
 	CPointers::setBackend(m_backend);
 	const CSwordBackend::LoadError errorCode = m_backend->initModules();
-//	qWarning("ErrorCode = %i", errorCode);
 
 	m_moduleList = 0;		
 	if ( errorCode == CSwordBackend::NoError ) {	//no error
@@ -436,8 +439,9 @@ void BibleTime::initPrinter() {
 
 /** Apply the settings given by the profile p*/
 void BibleTime::applyProfileSettings( CProfile* p ){
-	if (!p)
+	if (!p) {
 		return;
+  }
 
 	setGeometry( p->geometry() );
 	m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state

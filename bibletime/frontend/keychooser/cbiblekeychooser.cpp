@@ -46,7 +46,6 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	}
 
 	QHBoxLayout* layout = new QHBoxLayout(this);
-//	layout->setResizeMode(QLayout::Minimum);
   layout->setDirection( QBoxLayout::LeftToRight );
 		
 	w_book = new CKeyChooserWidget(m_modules.first()->books(),false,this);	

@@ -32,20 +32,28 @@
 ////////////
 
 CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent, QListViewItem* after, CSwordTreeKey* key, const QString keyName)
-	: KListViewItem(parent, after), m_key(key), m_keyName(keyName) {	
+	: KListViewItem(parent, after),
+  m_key(key),
+  m_keyName(keyName)
+{	
   m_key->key(m_keyName);
   setText(0, QString::fromLatin1(m_key->getLocalName()) );
 };
 
 CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent,CSwordTreeKey* key, const QString keyName)
-	: KListViewItem(parent), m_key(key), m_keyName(keyName) {	
+	: KListViewItem(parent),
+  m_key(key),
+  m_keyName(keyName)
+{	
   m_key->key(m_keyName);
   setText(0, QString::fromLatin1(m_key->getLocalName()) );
-
 };
 
 CBookTreeChooser::TreeItem::TreeItem(QListView* view, QListViewItem* after,CSwordTreeKey* key, const QString keyName)
-	: KListViewItem(view,after), m_key(key), m_keyName(keyName) {	
+	: KListViewItem(view,after),
+  m_key(key),
+  m_keyName(keyName)
+{	
   m_key->key(m_keyName);
   setText(0, QString::fromLatin1(m_key->getLocalName()) );
 };

@@ -51,7 +51,7 @@ protected:
   /**
   * Parses the verse reference ref and returns it.
   */
-  const string parseSimpleRef(const char* ref);
+  const string parseSimpleRef(const string& ref);
   /**
   * Parses the verse reference ref and returns it.
   */

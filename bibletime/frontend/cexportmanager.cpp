@@ -430,7 +430,8 @@ void CExportManager::setProgressRange( const int items ){
     dlg->setProgress(0);
   	dlg->setMinimumDuration(0);
     dlg->show();
-//  	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
+    dlg->repaint();
+  	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
   }
 }
 
@@ -442,11 +443,6 @@ QProgressDialog* const CExportManager::progressDialog(){
   if (!m_progressDialog) {
     m_progressDialog = new QProgressDialog( m_caption, m_progressLabel, 1, 0, "progress", true );
     m_progressDialog->setCaption("BibleTime");
-//    m_progressDialog->setMinimumDuration(10);
-//    m_progressDialog->setAllowCancel(true);
-//    m_progressDialog->setAutoClose(true);
-//  	m_progressDialog->show();
-//  	KApplication::kApplication()->processEvents(); //do not lock the GUI!
   };
   return m_progressDialog;
 }
@@ -454,8 +450,10 @@ QProgressDialog* const CExportManager::progressDialog(){
 /** Increments the progress by one item. */
 void CExportManager::incProgress(){
   if (QProgressDialog* dlg = progressDialog()) {
+    KApplication::kApplication()->processEvents(); //do not lock the GUI!
     dlg->setProgress( dlg->progress() + 1 );
-//		KApplication::kApplication()->processEvents(); //do not lock the GUI!
+    dlg->repaint();
+    KApplication::kApplication()->processEvents(); //do not lock the GUI!
   }
 }
 
@@ -470,7 +468,9 @@ const bool CExportManager::progressWasCancelled(){
 /** Closes the progress dialog immediatly. */
 void CExportManager::closeProgressDialog(){
   if (QProgressDialog* dlg = progressDialog()) {
+    dlg->repaint();
     dlg->close();
     dlg->reset();
-  }  
+  }
+  KApplication::kApplication()->processEvents(); //do not lock the GUI!
 }

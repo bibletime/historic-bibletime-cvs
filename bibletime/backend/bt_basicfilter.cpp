@@ -50,11 +50,12 @@ void BT_BASICFILTER::updateSettings(){
 	updateTokens();
 }
 
-const string BT_BASICFILTER::parseSimpleRef(const char* ref) {
-  sword::SWModule* m = const_cast<sword::SWModule*>(m_module);
-  const string myRef( ref );
-
-  return parseRef( myRef, m );
+const string BT_BASICFILTER::parseSimpleRef(const string& ref) {
+//  sword::SWModule* m = const_cast<sword::SWModule*>(m_module);
+  if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(standard_bible) ) {
+    return parseRef( ref, m->module() );
+  }
+  return string();
 }
 
 /** Parses the verse reference ref and returns it. */
@@ -114,10 +115,9 @@ const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module,
 }
 
 const string BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
-//  char* to = new char[7000];
 	const char* moduleName = (mod ? mod : standard_bible);
   sword::SWModule* module = 0;
-  if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(mod) ) {
+  if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(moduleName) ) {
     module = m->module();
   }
   return parseRef( ref, module, false );

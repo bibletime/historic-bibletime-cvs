@@ -93,7 +93,6 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 
 /** Returns the key of this kechooser. */
 CSwordKey* const CBookKeyChooser::key(){
-//	ASSERT(m_key);
 	return m_key;
 }
 
@@ -149,7 +148,7 @@ void CBookKeyChooser::refreshContent(){
 
 void CBookKeyChooser::setupCombo(const QString key, const int depth, const int currentItem){
 	CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);
-	if (depth == 0 && chooserWidget && chooserWidget->comboBox()->count()) { //has already items
+	if ((depth == 0) && chooserWidget && chooserWidget->comboBox()->count()) { //has already items
 		//set now the right item		
 		if (CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth)) {
 			chooserWidget->setItem( chooserWidget->comboBox()->text(currentItem) );
@@ -186,8 +185,9 @@ void CBookKeyChooser::keyChooserChanged(int /*newIndex*/){
 	for (int i = 0; i < count; ++i) {
 		chooser = m_chooserWidgets.at(i);
 		const QString currentText = (chooser && chooser->comboBox()) ? chooser->comboBox()->currentText() : QString::null;
-		if (currentText.isEmpty() || i > activeID)
+		if (currentText.isEmpty() || i > activeID) {
 			break;
+    }
 		items << currentText;
 	}
 

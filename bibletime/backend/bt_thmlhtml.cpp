@@ -154,11 +154,10 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if (!strcmp(token, "/scripRef")) {
 			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
 				userData["inscriptRef"] = "false";
-//        userData["suspendTextPassThru"] = "false";
 				pushString(buf, thmlRefEnd().c_str());
 			}			
 			else { // like "<scripRef>John 3:16</scripRef>"
- 			  pushString(buf, parseSimpleRef( userData["lastTextNode"].c_str()).c_str() );
+ 			  pushString(buf, parseSimpleRef( userData["lastTextNode"] ).c_str() );
 				userData["suspendTextPassThru"] = "false";
 			}
 		}
@@ -170,16 +169,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
       userData["Title"] = "true";
 			pushString(buf, "<div class=\"booktitle\">");
 		}
-//		else if (!strncmp(token, "/div", 4)) {
-//			if (userData["SecHead"] == "true") {
-//				pushString(buf, "</FONT></H2>");
-//				userData["SecHead"] = "false";
-//			}
-//			else if(userData["Title"] == "true") {
-//				pushString(buf, "</FONT></H1>");
-//				userData["Title"] = "false";
-//			}
-//		}
 		else if (!strncmp(token, "img ", 4)) {
 			const char *src = strstr(token, "src");
 			if (!src)		// assert we have a src attribute

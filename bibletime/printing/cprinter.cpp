@@ -165,17 +165,19 @@ void CPrinter::print(){
 	emit percentCompleted(0);
 	
 	for (int copy = 0; copy < copies && !aborted(); copy++) {	//make numCopies() copies of the pages
-		copyFrac = (float(copies))/ (float)(copy+1);
+		copyFrac = (float(copies)) / (float)(copy+1);
 		for (m_queue.first(), pos = 1; m_queue.current(); m_queue.next(), ++pos) {
 			KApplication::kApplication()->processEvents(5); //do not lock the GUI!
 			if (!aborted()) {
 				m_queue.current()->draw(&p,this);				
-				if ((int)((float)pos / (float)count *(float)100 * copyFrac) > lastPercent)
+				if ((int)((float)pos / (float)count *(float)100 * copyFrac) > lastPercent) {
 					emit percentCompleted(++lastPercent);
+        }
 			}
 		};
-		if (!aborted() && (copy+1 < copies) )
+		if (!aborted() && (copy+1 < copies) ) {
 			newPage();	//new pages seperate copies
+    }
 	}
 	emit printingFinished();	
 	clearQueue();//delete all items

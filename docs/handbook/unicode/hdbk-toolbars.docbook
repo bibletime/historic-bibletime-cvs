@@ -21,7 +21,7 @@
 	</textobject>
 	<caption>
 	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the
-	<guilabel>Manage Profiles</guilabel> dialog.  Here you can save a display for later recall.
+	<guilabel>Manage sessions</guilabel> dialog.  Here you can save a display for later recall.
 	</para>
 	</caption>
 	</mediaobject>
@@ -523,7 +523,7 @@
 	</para>
 	</section>
 
-	<section id="hdbk-bars-menubar-mainindex"><title>View</title>
+	<section id="hdbk-bars-menubar-mainindex"><title>Search</title>
 	<para>
 
 	<variablelist>
@@ -555,25 +555,25 @@
 	<variablelist>
 
 	<varlistentry>
-	<term>Save Session</term>
+	<term>Save session</term>
 	<listitem><para>Saves the current configuration to
 	a selected Session.</para></listitem>
 	</varlistentry>
 
 	<varlistentry>
-	<term>Save as Session</term>
+	<term>Save as new session</term>
 	<listitem><para>Saves the current configuration to
-	a Session, and allows the new profile to be named.</para></listitem>
+	a session, and allows the new session to be named.</para></listitem>
 	</varlistentry>
 
 	<varlistentry>
-	<term>Load Session</term>
-	<listitem><para>Loads the contents of the named Session to
+	<term>Load session</term>
+	<listitem><para>Loads the contents of the named session to
 	the current session of &bibletime;.</para></listitem>
 	</varlistentry>
 
 	<varlistentry>
-	<term>Configure Sessions</term>
+	<term>Configure sessions</term>
 	<listitem><para>This brings up the <guilabel>Sessions</guilabel> tab of the
 	<guilabel>Options dialog</guilabel>.
 	Here you create and manage Sessions.</para></listitem>
@@ -609,7 +609,7 @@
 	<varlistentry>
 	<term>Auto Tile</term>
 	<listitem>
-	<para>ditto for tiling newly opened display windows.</para>
+	<para>Ditto for tiling newly opened display windows.</para>
 	</listitem>
 	</varlistentry>
 
@@ -641,7 +641,7 @@
 	<varlistentry>
 	<term>Configure Toolbar</term>
 	<listitem>
-	<para>show the <guilabel>Configure Toolbar</guilabel> dialog.</para>
+	<para>Show the <guilabel>Configure Toolbar</guilabel> dialog.</para>
 	</listitem>
 	</varlistentry>
 
@@ -649,7 +649,7 @@
 	<term>Configure &bibletime;</term>
 	<listitem>
 	<para>Shows the <guilabel>Options dialog</guilabel>.
-	From this dialog the startup mode, fonts, colors, profiles,
+	From this dialog the startup mode, fonts, colors, sessions,
 	sword features, and accelerators are configurable. </para>
 	</listitem>
 	</varlistentry>
@@ -679,7 +679,7 @@ the installation instructions for &bibletime; from the &kde; Help Center.
 <varlistentry>
 <term>Biblestudy HowTo</term>
 <listitem><para>Select <guimenuitem>Biblestudy HowTo</guimenuitem> to access
-A good basic text with recommendations for studying the Bible.
+a good basic text with recommendations for studying the Bible.
 </para></listitem>
 </varlistentry>
 

@@ -85,8 +85,7 @@ found <link linkend="hdbk-op-search">here</link>.
 <section id="hdbk-op-module-tree-bookmark">
 <title>Accessing bookmark functions</title> <para>
 <tip><para>Drag &amp; Drop Works Here</para></tip>
-Click with the <mousebutton>right</mousebutton> mouse button on an empty part of the module tree window and select <guimenuitem>"Create new
-group"</guimenuitem> to create a new bookmark folder. You can use normal drag 'n' drop
+Click with the <mousebutton>right</mousebutton> mouse button on the bookmark group of the module tree window and select <guimenuitem>"Create a new folder"</guimenuitem> to create a new bookmark sub folder. You can use normal drag 'n' drop
 functions to drag verse numbers from search dialog results to the bookmark folder,
 and to rearrange bookmarks between folders.  There is an import/export function
 for bookmarks also.  From the <guimenu>right-mouse-button menu</guimenu>, select "Export
@@ -111,7 +110,7 @@ bookmarks. </para>
 <title>Multiple Document Interface (MDI) Window</title>
 <para>
 This is where the opened documents are displayed.
-documents are displayed in "Document Windows", that are specific to the three types of
+Documents are displayed in "Display Windows", that are specific to the four types of
 documents. Crosswire Bible Society may release other document types for sword in the
 future. When they are released, &bibletime; will support them as well. </para>
 
@@ -140,9 +139,9 @@ of the verse or bookmark dragged.</para></tip>
 
 <section id="hdbk-op-MDI-Window-Personal-commentary">
 <title>Editing your own commentary</title> 
-<para>If the personal commentary is opened with a <mousebutton>right</mousebutton> mouse button it opens
+<para>If the personal commentary is opened with a <mousebutton>left</mousebutton> mouse button it opens
 in read only mode.  If you wish to make entries to the personal commentary, 
-<mousebutton>left</mousebutton> mouse button on the <menuchoice>personal
+<mousebutton>right</mousebutton> mouse button on the <menuchoice>personal
 commentary</menuchoice> brings up the choice of the <guimenuitem>plane
 text or the HTML editors</guimenuitem>.</para>
 <tip><para>If the editor does not save an entry, please check that you
@@ -445,11 +444,11 @@ to the verse location (Bibles and commentaries only).</para></tip>
 
 <section id="hdbk-op-search-dialog-text-analysis">
 <title>Using the Search Analysis</title>
-<para>Click on <guibutton>Search Analsis</guibutton> to open the search analsis display.</para>
+<para>Click on <guibutton>Search Analysis</guibutton> to open the search analsis display.</para>
 <para>
 Search Analysis - This gives a graphic analysis of the number of instances the
 search string was found in each book. It can display results for all documents searched.
-You have the option of saving the analsys as an html formated list on
+You have the option of saving the analysis as an html formated list on
 your hard drive. </para>
 <screenshot>
 <screeninfo>Search Analysis Dialog Box</screeninfo>

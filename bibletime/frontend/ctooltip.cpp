@@ -31,7 +31,7 @@
 
 static QRect screenSize; // = QRect();
 
-CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_Tool | WStyle_StaysOnTop | WX11BypassWM ),
+CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, name, WStyle_Customize | WStyle_NoBorder | WStyle_Tool | WStyle_StaysOnTop | WX11BypassWM ),
   m_filter(false), m_parentWidget( parent ) {
 
   connect(m_parentWidget, SIGNAL(destroyed()), SLOT(destroyObject()));
@@ -47,8 +47,8 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
 
   //set the size for the tooltip now only one time, and not everytime in tip()
   screenSize = KApplication::desktop()->geometry();
-  setMaximumSize(QSize(int(screenSize.width()*0.6), int(screenSize.height()*0.6) ));
-  setMinimumWidth( int(screenSize.width()*0.2) );  
+  setMaximumHeight( int(screenSize.height()*0.6) );
+  setFixedWidth( int(screenSize.width()*0.25) );  
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff); //never show a horizontal bar, only the vertcal one
 
   setPalette( QToolTip::palette() );
@@ -76,7 +76,7 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
 
   // the maximum size was set in our constructor, so we won't grow too large
   // resize((int)((float)screenSize.width()*0.6), 0);
-  resize(int(double(screenSize.width())*0.50),1);
+//  resize(int(double(screenSize.width())*0.50),1);
 
   show();
   m_display->view()->layout();
@@ -84,9 +84,8 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   // resize to the size hint,
   // we can't grow too large
   // because maximumSize was set in the constructor
-  resize( sizeHint() );
-
-  
+  resize( sizeHint().width(), m_display->view()->height()+4 );
+    
   // if the scrollbar is not visible position the tooltip
   // that the tip will be hidden as soon as the mouse will be oved
   // if the bar s visible position the tip under the mouse so moving the bar is still possible
@@ -105,7 +104,7 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
 }
 
 /** Reimplementation. */
-void CToolTip::timerEvent( QTimerEvent* e ) {
+void CToolTip::timerEvent( QTimerEvent*  ) {
   killTimers();
   if ( !isVisible() ) {
     maybeTip( parentWidget()->mapFromGlobal(QCursor::pos()) );
@@ -133,15 +132,24 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
         hide();
         break;
       }
+
+      if ( !m_display->view()->verticalScrollBar()->isVisible()
+        || (m_display->view()->verticalScrollBar()->isVisible() && !widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos() ))
+      ) {
+        killTimers();
+        hide();
+        break;
+      }
       break;
     }
       
     case QEvent::MouseButtonRelease: {
       //allow clicking on the scrollbar for reading the text
-      if (m_display->view()->verticalScrollBar()->isVisible() &&
-          (m_display->view()->verticalScrollBar()->draggingSlider() || widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
-          )
+      if (    m_display->view()->verticalScrollBar()->isVisible()
+          && (m_display->view()->verticalScrollBar()->draggingSlider() || widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
+      ) {
         break;
+      }
       else {
         hide();
         break;

@@ -94,7 +94,7 @@ see the changlog.</para>
 
 <section><title>Main window</title>
 <para>Main index was reorganized, sorting the modules by 
-language, then by type of module.</para>
+type of module, then by language.</para>
 
 <para>Bookmarks are now stored in an XML file, but the
 old format can still be imported.  After upgrading an existing
@@ -118,7 +118,7 @@ Personal Commentary module (or any other RawFiles module).</para>
 </section>
 <section><title>Options dialog</title>
 <para>A custom font can now be specified for each language.
-The default text is predefined, and will work for most modules.</para>
+The default font is KDE's default font, and will work for most modules.</para>
 </section>
 </section>
 </section>

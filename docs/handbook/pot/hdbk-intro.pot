@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: application/x-xml2pot; charset=utf-8\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
 #: index.docbook:1
@@ -121,7 +121,7 @@ msgstr ""
 
 #: index.docbook:96
 #, no-c-format
-msgid "Main index was reorganized, sorting the modules by language, then by type of module."
+msgid "Main index was reorganized, sorting the modules by type of module, then by language."
 msgstr ""
 
 #: index.docbook:99
@@ -166,7 +166,7 @@ msgstr ""
 
 #: index.docbook:120
 #, no-c-format
-msgid "A custom font can now be specified for each language. The default text is predefined, and will work for most modules."
+msgid "A custom font can now be specified for each language. The default font is KDE's default font, and will work for most modules."
 msgstr ""
 
 #: index.docbook:127

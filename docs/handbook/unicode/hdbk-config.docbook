@@ -178,13 +178,13 @@ to launch the options dialog.</para>
 
 	</section>
 
-	<section id="hdbk-config-bt-profiles"><title>Profiles</title>
-	<para>Profiles define the appearance of the work area, for example which
+	<section id="hdbk-config-bt-profiles"><title>Sessions</title>
+	<para>Sessions define the appearance of the work area, for example which
 	windows are open and which texts should be displayed in these windows.
-	Once a profile is created, use the menu item <guimenu>window</guimenu> ->
-	<guimenuitem>save profile</guimenuitem> to save a current session into a
-	profile. Use <guimenu>window</guimenu> -> <guimenuitem>load profile</guimenuitem> to
-	load a previously saved profile into &bibletime;.</para>
+	Once a session is created, use the menu item <guimenu>window</guimenu> ->
+	<guimenuitem>save session</guimenuitem> to save a current session into a
+	session file. Use <guimenu>window</guimenu> -> <guimenuitem>load session</guimenuitem> to
+	load a previously saved session into &bibletime;.</para>
 	</section>
 
 	<section id="hdbk-config-bt-sword"><title>Sword</title>
@@ -203,9 +203,9 @@ to launch the options dialog.</para>
 	</mediaobject>
 
 		<section id="hdbk-config-bt-sword-gen"><title>Sword General</title>
-		<para>Key Catch for Lexicons</para>
-		<para>Bibletime can create a key catch for lexicons.  This speeds up
-		opening large lexicon modules.  The catch file does use some disc space,
+		<para>Key Cache for Lexicons</para>
+		<para>Bibletime can create a key cache for lexicons.  This speeds up
+		opening large lexicon modules.  The cache file does use some disc space,
 		so if your computer has only a small amount of free space, you might want
 		to disable this feature.</para>
 

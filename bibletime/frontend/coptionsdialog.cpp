@@ -421,8 +421,8 @@ New sessions only work after you've saved something into them.")
 
   //fill the profile list box
 	QPtrList<CProfile> profiles = m_settings.profiles.mgr.profiles();
-	if (profiles.count()) {
-		for (CProfile* p = profiles.first(); p; p = profiles.next()) {
+	if (CProfile* p = profiles.first()) { //better than count
+		for (; p; p = profiles.next()) {
 			m_settings.profiles.profiles->insertItem(p->name());
 		}
 	}
