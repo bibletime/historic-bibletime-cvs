@@ -82,13 +82,17 @@ CSearchDialogAnalysis::CSearchDialogAnalysis(QObject *parent, const char *name )
 	m_canvasItemList.resize(67);
 	m_canvasItemList.setAutoDelete(true);
 	resize(1,1);
-	connect(this, SIGNAL(resized()), SLOT(slotResized()));	
+	connect(this, SIGNAL(resized()), SLOT(slotResized()));
 }
 
 CSearchDialogAnalysis::~CSearchDialogAnalysis(){
   reset(); // deletes the legend and the items
 }
 
+QDict<CSearchDialogAnalysisItem>* CSearchDialogAnalysis::getSearchAnalysisItemList(){
+	// Returns pointer to the search analysis items
+	return &m_canvasItemList;
+}
 
 /** Starts the analysis of the search result. This should be called only once because QCanvas handles the updates automatically. */
 void CSearchDialogAnalysis::analyse(){
@@ -123,18 +127,18 @@ void CSearchDialogAnalysis::analyse(){
 	bool ok = true;
 	while (ok && analysisItem) {
 		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
-			KApplication::kApplication()->processEvents(10);
+				KApplication::kApplication()->processEvents(10);
 			if (!m_lastPosList.contains(m_moduleList.current()))
 				m_lastPosList.insert(m_moduleList.current(),0);
 			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.book(),m_moduleList.current())));
 			m_maxCount = (count > m_maxCount) ? count : m_maxCount;
 
-	}
+		}
 		analysisItem->setX(xPos);
 		analysisItem->setY(UPPER_BORDER);
 		analysisItem->show();
 		
-		xPos += (int)analysisItem->width() + SPACE_BETWEEN_PARTS;		
+		xPos += (int)analysisItem->width() + SPACE_BETWEEN_PARTS;
 		ok = key.NextBook();		
    	analysisItem = m_canvasItemList[key.book()];
 	}
@@ -255,6 +259,11 @@ void CSearchDialogAnalysisItem::setCountForModule( const int moduleIndex, const 
 	m_resultCountArray[moduleIndex] = count;
 }
 
+/** Returns the resultcount of this item for the given module */
+int CSearchDialogAnalysisItem::getCountForModule( const int moduleIndex) {
+	return m_resultCountArray[moduleIndex];
+}
+
 /** Reimplementation. Draws the content of this item. */
 void CSearchDialogAnalysisItem::draw(QPainter& painter) {
 	QFont f = painter.font();
@@ -342,6 +351,7 @@ CSearchDialogAnalysisView::CSearchDialogAnalysisView(QCanvas* canvas, QWidget* p
 	setFocusPolicy(QWidget::WheelFocus);
 	m_toolTip = new ToolTip(this);	
 	resize(sizeHint());
+
 }
 
 /** Returns the sizeHint for this view */

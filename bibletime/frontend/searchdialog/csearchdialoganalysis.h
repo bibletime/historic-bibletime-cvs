@@ -24,6 +24,7 @@
 
 //Qt includes
 #include <qwidget.h>
+#include <qstring.h>
 #include <qcanvas.h>
 #include <qarray.h>
 #include <qdict.h>
@@ -64,6 +65,10 @@ public:
   */
   static QColor getColor(int index);
 
+ 	/* This function returns a pointer to the list of AnalysisItems */
+ 	QDict<CSearchDialogAnalysisItem>* getSearchAnalysisItemList();
+
+
 protected slots: // Protected slots
   /**
   * No descriptions
@@ -75,13 +80,15 @@ private:
   * Returns the count of the book in the module
   */
   const unsigned int getCount( const QString book, CSwordModuleInfo* module );
+ // const unsigned int getCount( const QString book, CSwordModuleInfo* module );
 	
 	ListCSwordModuleInfo m_moduleList;
  	QDict<CSearchDialogAnalysisItem> m_canvasItemList;
  	QMap<CSwordModuleInfo*,unsigned int> m_lastPosList; 	
   int m_maxCount;
   double m_scaleFactor;
-  CSearchDialogAnalysisLegendItem* m_legend; 	
+  CSearchDialogAnalysisLegendItem* m_legend;
+
 };
 
 
@@ -102,6 +109,11 @@ public:
   * Sets the resultcount of this item
   */
   void setCountForModule( const int moduleIndex, const int count);
+
+  /**
+  * Returns the resultcount of this item
+  */
+	int getCountForModule( const int moduleIndex);
   /**
   * Returns the width of this item.
   */
@@ -169,6 +181,7 @@ private:
 		virtual void maybeTip(const QPoint &pos);
 	};
 	ToolTip* m_toolTip;
+	
 };
 
 
