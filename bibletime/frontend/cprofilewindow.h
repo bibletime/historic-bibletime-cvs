@@ -42,27 +42,27 @@ public:
   /**
   * Sets the modules.
   */
-  void setModules( QStringList modules );
+  void setModules( const QStringList& modules );
   /**
   * Returns the type of the managed window (bible window, commentary window or lexicon window).
   */
-  const CSwordModuleInfo::ModuleType type();
+  const CSwordModuleInfo::ModuleType type() const;
   /**
   * Sets the type of the used modules.
   */
-  void setType(const CSwordModuleInfo::ModuleType type);
+  void setType(const CSwordModuleInfo::ModuleType& type);
   /**
   * Sets the size of the window.
   */
-  void setGeometry( const QRect s );
+  void setGeometry( const QRect& s );
   /**
   * Returns the size of the window including the x,y coordinates.
   */
-  const QRect geometry();
+  const QRect& geometry() const;
   /**
   * Returns a list of module names which are chosen in the managed window profile.
   */
-  const QStringList modules();
+  const QStringList& modules() const;
   /**
   * Set the key used in the modules.
   */
@@ -70,39 +70,47 @@ public:
   /**
   * Returns the current key set in the modules.
   */
-  const QString& key();
+  const QString& key() const;
   /**
   * Sets the current position of the scrollbars.
   */
-  void setScrollbarPositions(const int x, const int y);
+  void setScrollbarPositions(const int& x, const int& y);
   /**
   * Sets the windows maximized state to true or false.
   */
-  void setMaximized( const bool maximized );
+  void setMaximized( const bool& maximized );
+  /**
+  * Sets the windows hasFocus state to true or false.
+  */
+  void setFocus( const bool& hasFocus );
   /**
   * Sets the window specific settings.
   */
-  void setWindowSettings( const int settings );
+  void setWindowSettings( const int& settings );
   /**
   * Returns an integer with the window specific settings
   */
-  const int windowSettings();
+  const int& windowSettings() const;
   /**
   * Returns true if the window is maximized.
   */
-  const bool maximized();
+  const bool& maximized() const;
+  /**
+  * Returns true if the window has the focus in the MDI area.
+  */
+  const bool& hasFocus() const;
   /**
   * Returns tghe position of the scrollbars
   */
-  const CProfileWindow::ScrollbarPos scrollbarPositions();
+  const CProfileWindow::ScrollbarPos& scrollbarPositions() const;
   /**
   * Returns whether this profile window represents a write window.
   */
-  const int writeWindowType() const;
+  const int& writeWindowType() const;
   /**
   * Tells this profile window to represent a write window.
   */
-  void setWriteWindowType( const int writeWindowType );
+  void setWriteWindowType( const int& writeWindowType );
 
 private:
 	CSwordModuleInfo::ModuleType m_type;
@@ -111,6 +119,7 @@ private:
 	QString m_key;
 	ScrollbarPos m_scrollbarPos;
 	bool m_maximized;
+	bool m_hasFocus;
 	int m_windowSettings;
   int m_writeWindowType;
 };

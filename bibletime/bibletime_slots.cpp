@@ -399,18 +399,21 @@ void BibleTime::loadProfile(CProfile* p){
 
 	m_mdi->setUpdatesEnabled(false);//don't auto tile or auto cascade, this would mess up everything!!
 
+  QWidget* focusWindow = 0;
+  
   for (CProfileWindow* w = windows.first(); w; w = windows.next()) {
-		const QString key = w->key();		
+		const QString key = w->key();
 		QStringList usedModules = w->modules();
 		ListCSwordModuleInfo modules;
 		for ( QStringList::Iterator it = usedModules.begin(); it != usedModules.end(); ++it ) {
 			if (CSwordModuleInfo* m = m_backend->findModuleByName(*it)) {
 				modules.append(m);
       }
-		}
-		if (!modules.count()) //are the modules still installed?
-			continue;		
-		
+    }
+    if (!modules.count()) { //are the modules still installed? If not continue wih next session window
+      continue;
+    }
+
     //is w->isWriteWindow is false we create a write window, otherwise a read window
     CDisplayWindow* displayWindow = 0;
     if (w->writeWindowType() > 0) { //create a write window
@@ -421,9 +424,20 @@ void BibleTime::loadProfile(CProfile* p){
 		}
     
     if (displayWindow) { //if a window was created initialize it.
+      if (w->hasFocus()) {
+        focusWindow = displayWindow;
+      }
+
       displayWindow->applyProfileSettings(w);
+      displayWindow->parentWidget()->lower();
     };
-	}		
+	}
+
+  if (focusWindow) {
+    focusWindow->parentWidget()->raise();
+    focusWindow->setFocus();
+  }
+  
 	m_mdi->setUpdatesEnabled(true);
 }
 

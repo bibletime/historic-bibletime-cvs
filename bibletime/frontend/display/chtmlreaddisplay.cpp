@@ -284,7 +284,7 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& /*p*/ ){
             break;
           }
         }
-        qWarning("looking up tooltip for %s", (const char*)link.local8Bit());
+
         const QString tooltipText = CTooltipManager::textForHyperlink( link );
         if (!tooltipText.isEmpty()) {
           QRect rect = linkNode.getRect();

@@ -95,6 +95,10 @@ void BibleTime::initActions() {
 	m_fileClearQueue_action->plugAccel( m_keyAccel );
 
 
+  //work around KDE 3.1 error messages
+//	if ( KAction* oldAction = actionCollection()->action(KStdAction::stdName(KStdAction::Print)) ) {
+//		actionCollection()->remove( oldAction );
+//  }
   m_filePrint_action = KStdAction::print(this, SLOT( slotFilePrint() ), actionCollection());
 	m_filePrint_action->setEnabled(false);
 	m_filePrint_action->setToolTip( CResMgr::mainMenu::file::print::tooltip );
@@ -102,6 +106,9 @@ void BibleTime::initActions() {
 	m_filePrint_action->plugAccel( m_keyAccel );
 
 
+//	if ( KAction* oldAction = actionCollection()->action( KStdAction::stdName( KStdAction::Quit ) ) ) {	 //delete quit action if KDE created it
+//		actionCollection()->remove( oldAction );
+//  }
   action = KStdAction::quit(this, SLOT( slotFileQuit() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::file::quit::tooltip );
 	action->setWhatsThis( CResMgr::mainMenu::file::quit::whatsthis );
@@ -275,7 +282,7 @@ void BibleTime::initActions() {
 		actionCollection()->remove(actionCollection()->action(KStdAction::stdName(KStdAction::HelpContents)) );
   }
 
-    action = new KAction(i18n("&Handbook"),
+  action = new KAction(i18n("&Handbook"),
     CResMgr::mainMenu::help::handbook::icon,
     CResMgr::mainMenu::help::handbook::accel,
     this, SLOT(openOnlineHelp_Handbook()), actionCollection(),

@@ -141,6 +141,9 @@ QPtrList<CProfileWindow> CProfile::load(){
 			if (elem.hasAttribute("writeWindowType")) {
 				p->setWriteWindowType( elem.attribute("writeWindowType").toInt() );
 			}
+			if (elem.hasAttribute("hasFocus")) {
+				p->setFocus( static_cast<bool>(elem.attribute("hasFocus").toInt()) );
+			}
 			
 			QRect rect;
 						
@@ -247,6 +250,7 @@ const bool CProfile::save(QPtrList<CProfileWindow> windows){
 			break;
 		window.setAttribute("windowSettings", p->windowSettings());
 		window.setAttribute("writeWindowType", p->writeWindowType());    
+		window.setAttribute("hasFocus", p->hasFocus());
 		
 		//save geomtery
 		const QRect r = p->geometry();

@@ -23,6 +23,7 @@
 
 #include "frontend/cbtconfig.h"
 #include "frontend/cexportmanager.h"
+#include "frontend/cmdiarea.h"
 #include "frontend/cprofilewindow.h"
 //#include "frontend/display/creaddisplay.h"
 #include "frontend/displaywindow/cmodulechooserbar.h"
@@ -35,8 +36,11 @@
 #include <kstdaccel.h>
 #include <klocale.h>
 
-CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name ) : CDisplayWindow(modules,parent,name) {
-  m_displayWidget = 0;
+CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
+  : CDisplayWindow(modules,parent,name),
+    m_displayWidget(0)
+{
+  
 }
 
 CReadWindow::~CReadWindow(){
@@ -97,6 +101,7 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings){
 //	settings->setScrollbarPositions( m_htmlWidget->view()->horizontalScrollBar()->value(), m_htmlWidget->view()->verticalScrollBar()->value() );
 	settings->setType(modules().first()->type());
 	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
+	settings->setFocus( (this == mdi()->activeWindow()) ); //set property to true if this window is the active one.
 	
 	if (key()) {
 		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key());
@@ -123,13 +128,20 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings){
 	setUpdatesEnabled(false);
 	
 	if (settings->maximized()) {
-		showMaximized();
+    // Use parentWidget() to call showMaximized. Otherwise we'd get lot's of X11 errors
+    parentWidget()->showMaximized();
 	}
 	else {
 		const QRect rect = settings->geometry();
 		resize(rect.width(), rect.height());
 		parentWidget()->move(rect.x(), rect.y());
 	}
+//  if (settings->hasFocus()) {
+//    parentWidget()->setFocus();
+//  }
+//  else {
+//    parentWidget()->clearFocus();
+//  }
 //	displayWidget()->view()->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
 //	m_htmlWidget->view()->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
 	

@@ -204,7 +204,9 @@ void CMDIArea::myTile(){
 		windowList().at(0)->showMaximized();
 	}
 	else {
-	  tile();	
+    QWidget* active = activeWindow();
+	  tile();
+    active->setFocus();
   }
 }
 
