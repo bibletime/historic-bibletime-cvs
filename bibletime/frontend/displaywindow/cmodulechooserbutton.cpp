@@ -59,7 +59,7 @@ const QString CModuleChooserButton::iconName(){
 			if (m_hasModule)
 				return QString::fromLatin1(COMMENTARY_ICON_MC);
 			else
-				return QString::fromLatin1(COMMENTARY_ICON_MC);
+				return QString::fromLatin1(COMMENTARY_ADD_ICON_MC);
 		case CSwordModuleInfo::Lexicon:
 			if (m_hasModule)
 				return QString::fromLatin1(LEXICON_ICON_MC);
@@ -102,6 +102,10 @@ void CModuleChooserButton::moduleChosen( int ID ){
    	popup->setItemChecked(ID, true);
 	}
 
+	for (unsigned int i = 0; i < m_popup->count(); i++){
+ 		m_popup->setItemChecked(m_popup->idAt(i),false);	
+ 	}	
+
  	if (m_popup->text(ID) == i18n("NONE")) { // note: this is for m_popup, the toplevel!
  		if (m_hasModule) {
  			emit sigRemoveButton(m_id);
@@ -115,6 +119,8 @@ void CModuleChooserButton::moduleChosen( int ID ){
  		m_module = module();
   	setIcon( iconName() );
    	emit sigChanged();
+
+ 	  m_popup->changeTitle(m_titleId, i18n("Select a module"));	
      	
    	QToolTip::remove(this);
    	if (module())
@@ -130,16 +136,24 @@ void CModuleChooserButton::populateMenu(){
 
 	//create popup
 	m_popup = new KPopupMenu(this);	
-	m_popup->insertTitle(i18n("Select additional modules"));	
+
+	if (m_module)
+	  m_titleId = m_popup->insertTitle(i18n("Select a module"));	
+	else
+	  m_titleId = m_popup->insertTitle(i18n("Select an additional module"));	
+
 	m_popup->setCheckable(true);
-	m_popup->insertItem(i18n("NONE"));
+
+	m_noneId =	m_popup->insertItem(i18n("NONE"));
+  if ( !m_module )
+		m_popup->setItemChecked(m_noneId, true);
+
 	m_popup->insertSeparator();	
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));		
 	setPopup(m_popup);
 
 	QStringList languages;
 	QDict<KPopupMenu> langdict;
-
 
   //the modules list contains only the modules we can use, i.e. same type and same features
   ListCSwordModuleInfo modules;
@@ -176,17 +190,15 @@ void CModuleChooserButton::populateMenu(){
  			langdict[lang]->setItemChecked(id,true);
  		}
 	}	
-	
-  if ( !m_module ) {
-		for (unsigned int i = 0; i < m_popup->count(); i++) {
-			if (m_popup->text(m_popup->idAt(i)) == i18n("NONE") )
-				m_popup->setItemChecked(m_popup->idAt(i),true);
-				break;
-		}
-	}
 
 	languages.sort();
   for ( QStringList::Iterator it = languages.begin(); it != languages.end(); ++it ) {
 		m_popup->insertItem( *it, langdict[*it]);
 	}
+
+ 	if (module())
+ 		QToolTip::add(this, module()->name());
+	else
+ 		QToolTip::add(this, i18n("No module selected"));
+
 }

@@ -57,6 +57,8 @@ private:
 	
 	bool m_hasModule;
   int m_id;
+  int m_noneId;
+	int m_titleId;
 	CSwordModuleInfo::ModuleType m_moduleType;
 	CSwordModuleInfo* m_module;
 

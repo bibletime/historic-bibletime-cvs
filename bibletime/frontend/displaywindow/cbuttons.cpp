@@ -33,11 +33,10 @@
 CTransliterationButton::CTransliterationButton(CSwordBackend::FilterOptions* filterOptions, QWidget *parent, const char *name ) : KToolBarButton(DSB_ICON, 0,parent,name) {
  	m_filterOptions = filterOptions;
   m_filterOptions->transliteration = 0;
-  setToggle(true);
 
   m_popup = new KPopupMenu(this);	
-	setDelayedPopup(m_popup);
-//	setPopupDelay(0);
+	setPopup(m_popup);
+	setPopupDelay(0);
 
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionSelected(int)));
 	populateMenu();
@@ -57,6 +56,7 @@ void CTransliterationButton::reset( ListCSwordModuleInfo& modules ){
 void CTransliterationButton::populateMenu(){
   m_popup->clear();
   m_popup->insertTitle(i18n("Transliteration"));
+	m_popup->setCheckable(true);
 
   if (!CPointers::backend()->useICU())
     return;
@@ -67,15 +67,20 @@ void CTransliterationButton::populateMenu(){
 
   sword::OptionsList options = CPointers::backend()->transliterator()->getOptionValues();
   sword::OptionsList::iterator it;
+
   for (it = options.begin(); it != options.end(); ++it) {
-    m_popup->insertItem(QString::fromLatin1((*it).c_str()));
+		int id = m_popup->insertItem(QString::fromLatin1((*it).c_str()));
+		if (m_filterOptions->transliteration == m_popup->indexOf(id) -1 ) //workaround
+			m_popup->setItemChecked(id, true);
   }
 }
 
 /** No descriptions */
 void CTransliterationButton::optionSelected(int ID){
-  const QString caption = m_popup->text(ID);
-  qWarning("selected text is %s", caption.latin1());
+  for (unsigned int i = 0; i < m_popup->count(); i++)
+ 		m_popup->setItemChecked(m_popup->idAt(i),false);	
+ 	m_popup->setItemChecked(ID, true);
+	
   m_filterOptions->transliteration = m_popup->indexOf( ID )-1; //workaround
   emit sigChanged();
 }
@@ -151,6 +156,9 @@ int CDisplaySettingsButton::populateMenu(){
 		isOptionAvailable(CSwordBackend::textualVariants ));
   ret += addMenuEntry(i18n("Show scripture cross-references"), &m_moduleSettings->scriptureReferences,
 		isOptionAvailable(CSwordBackend::scriptureReferences ));
+
+	QToolTip::add(this, i18n("Display settings"));
+
 
 	return ret;
 }
