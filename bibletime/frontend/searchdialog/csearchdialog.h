@@ -110,7 +110,7 @@ private:
 	CSearchDialogResult	*searchResult;
 	CSearchDialogAnalysis* searchAnalysis;
 	CSearchDialogAnalysisView* 	searchAnalysisView;
-	CSwordModuleSearch *searcher;
+	CSwordModuleSearch *m_searcher;
 	ListCSwordModuleInfo m_moduleList;
 	int old_overallProgress;
 	int old_currentProgress;

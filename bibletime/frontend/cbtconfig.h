@@ -89,7 +89,8 @@ public:
 		splitterSizes
 	};
 	enum stringLists{
-		searchTexts
+		searchCompletionTexts,
+		searchTexts		
 	};
 
   static const QString 		get( const CBTConfig::strings );

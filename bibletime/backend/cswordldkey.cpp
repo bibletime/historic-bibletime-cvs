@@ -34,12 +34,12 @@ CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 }
 
 /** No descriptions */
-CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey(k), CSwordKey(k) {
+CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey((const char*)k), CSwordKey(k) {
 }
 
 /** No descriptions */
-CSwordLDKey::CSwordLDKey( const SWKey *k, CSwordModuleInfo* module) : SWKey(*k), CSwordKey() {
-	m_module = module;
+CSwordLDKey::CSwordLDKey( const SWKey *k, CSwordModuleInfo* module) : SWKey(*k), CSwordKey(module) {
+//	m_module = module;
 }
 
 CSwordLDKey::~CSwordLDKey(){

@@ -18,10 +18,15 @@
 #include "cswordtreekey.h"
 #include "cswordbookmoduleinfo.h"
 
-CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKey(k) {
+CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx((const char*)k), CSwordKey(k) {
+
 }
 
-CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k), CSwordKey(module) {
+CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module )
+	: TreeKeyIdx(*k), CSwordKey(module)
+{
+
+
 }
 
 CSwordKey* CSwordTreeKey::copy() const {
@@ -41,7 +46,7 @@ const QString CSwordTreeKey::key( const QString& newKey ){
 		else
 			TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!
 	}
- 	return QString::fromLocal8Bit( getFullName() );//don't use fromUtf8
+ 	return QString::fromLocal8Bit( getFullName() ); //don't use fromUtf8
 }
 
 void CSwordTreeKey::key( const char* newKey ){

@@ -82,7 +82,7 @@ void CSwordModuleSearch::percentUpdate(char percent, void *){
 void CSwordModuleSearch::setModules( ListCSwordModuleInfo& list ){
 //	if (!list.count())
 //		return;		
-	m_moduleList.clear();
+//	m_moduleList.clear();
 	m_moduleList = list;
 }
 

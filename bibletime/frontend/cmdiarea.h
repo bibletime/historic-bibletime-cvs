@@ -131,7 +131,7 @@ signals: // Signals
 private:
 	mdiOption guiOption;
 	bool m_childEvent;
-	CSwordPresenter* m_currentPresenter;
+	QList<CSwordPresenter> m_deleteWindows;
 	QString m_appCaption;
 		
 private slots: // Private slots

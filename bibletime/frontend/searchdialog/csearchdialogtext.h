@@ -21,7 +21,7 @@
 //Qt includes
 #include <qwidget.h>
 
-class QComboBox;
+class KHistoryCombo;
 class QRadioButton;
 class QCheckBox;
 class KProgress;
@@ -81,12 +81,15 @@ private:
   void readSettings();
   void saveSettings();
 
-	QComboBox 		*editSearchText;
-	QRadioButton	*radioMultipleWords;
-	QRadioButton	*radioExactSearch;
-	QRadioButton	*radioRegularExpression;
-	QCheckBox			*checkCaseSensitive;
-	KProgress			*currentProgressBar;
-	KProgress			*overallProgressBar;
+	KHistoryCombo *m_editCombo;
+	QRadioButton	*m_radioMultipleWords;
+	QRadioButton	*m_radioExactSearch;
+	QRadioButton	*m_radioRegularExpression;
+	QCheckBox			*m_checkCaseSensitive;
+	KProgress			*m_currentProgressBar;
+	KProgress			*m_overallProgressBar;
+
+protected slots: // Protected slots
+  void slotReturnPressed( const QString& );
 };
 #endif

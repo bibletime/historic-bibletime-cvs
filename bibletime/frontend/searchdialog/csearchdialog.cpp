@@ -53,12 +53,12 @@
 
 CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
 	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null),
-	searcher(new CSwordModuleSearch()),
+	m_searcher(new CSwordModuleSearch()),
 	old_currentProgress(0), old_overallProgress(0)			
 {
 	setIcon(MODULE_SEARCH_ICON_SMALL);
-	searcher->connectPercentUpdate(this, SLOT(percentUpdate()));
-	searcher->connectFinished(this, SLOT(searchFinished()));
+	m_searcher->connectPercentUpdate(this, SLOT(percentUpdate()));
+	m_searcher->connectFinished(this, SLOT(searchFinished()));
 		
 	initView();	
 	readSettings();	
@@ -70,7 +70,7 @@ CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, co
 
 CSearchDialog::~CSearchDialog(){
 	saveSettings();	
-	delete searcher;
+	delete m_searcher;
 }
 
 /** Reads the settings from the configfile */
@@ -147,7 +147,7 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 		key.key("Genesis 1:1");
 	
 		if (searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) {
-			ListKey verses = searcher->scope();
+			ListKey verses = m_searcher->scope();
 			for (int i = 0; i < verses.Count(); ++i) {
 				VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
 				if (element) {
@@ -202,7 +202,7 @@ void CSearchDialog::slotUser1() {
 
 void CSearchDialog::slotUser2() {
 //	if (searcher->isSearching())
-		searcher->interruptSearch();
+	m_searcher->interruptSearch();
 }
 
 void CSearchDialog::startSearch(void) {
@@ -212,12 +212,12 @@ void CSearchDialog::startSearch(void) {
 	searchText->updateOverallProgress(0);
 	searchText->setText( searchText->getText() );
 		
-	searcher->setModules( getModuleList() );
-	searcher->setSearchedText(searchText->getText());
+	m_searcher->setModules( getModuleList() );
+	m_searcher->setSearchedText(searchText->getText());
 
 	if (searchText->isCaseSensitive())
 		searchFlags |= CSwordModuleSearch::caseSensitive;
-	searcher->resetSearchScope();
+	m_searcher->resetSearchScope();
 	CSwordModuleSearch::scopeType scopeType = searchText->scopeChooser->getScopeType();
 	
 	if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
@@ -225,15 +225,15 @@ void CSearchDialog::startSearch(void) {
 	}
 	else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
 		searchFlags |= CSwordModuleSearch::useScope;	
-		searcher->setSearchScope( searchText->scopeChooser->getScope() );
+		m_searcher->setSearchScope( searchText->scopeChooser->getScope() );
 	}
-	searcher->setSearchOptions(searchFlags);
+	m_searcher->setSearchOptions(searchFlags);
 	enableButton(User1,false);
 	enableButton(User2,true);
  	searchAnalysis->reset();
  	searchResult->clearResult();
  		
-	searcher->startSearchThread();
+	m_searcher->startSearchThread();
 }
 
 void CSearchDialog::setSearchText(const QString text){
@@ -268,7 +268,7 @@ void CSearchDialog::searchFinished(){
  	searchText->updateCurrentProgress(100);
  	searchText->updateOverallProgress(100);
  	searchAnalysis->reset();
- 	if ( searcher->foundItems() ){
+ 	if ( m_searcher->foundItems() ){
  		searchResult->setModuleList(getModuleList());			
  		searchAnalysis->setModuleList(getModuleList());
  		searchAnalysisView->setContentsPos(0,0);
@@ -288,8 +288,8 @@ void CSearchDialog::searchFinished(){
 /** No descriptions */
 void CSearchDialog::percentUpdate(){
 	qWarning("CSearchDialog::percentUpdate()");
- 	const int newOverallPercentage = searcher->getPercent(CSwordModuleSearch::allModules); 	
- 	const int newCurrentPercentage = searcher->getPercent(CSwordModuleSearch::currentModule);
+ 	const int newOverallPercentage = m_searcher->getPercent(CSwordModuleSearch::allModules); 	
+ 	const int newCurrentPercentage = m_searcher->getPercent(CSwordModuleSearch::currentModule);
 
 // 	if (old_overallProgress != newOverallPercentage) {
  		searchText->updateOverallProgress(newOverallPercentage);

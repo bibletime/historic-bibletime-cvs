@@ -104,20 +104,29 @@ void CBookPresenter::lookup(CSwordKey* key) {
 
 	setUpdatesEnabled(false);	
 
-	m_moduleList.first()->module()->SetKey(*treeKey);
-  qWarning("have set key!");
-		
-	if (m_moduleList.first()->getDisplay()) {
-		m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
-	  qWarning("Displayed!");
-		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());
-	}	
-	if (m_key != treeKey)
-		m_key->key(treeKey->key());
-  qWarning("finished!");		
+//	m_moduleList.first()->module()->SetKey(*treeKey);
+	CSwordModuleInfo* m = m_moduleList.first();
+	if (((SWKey*)*m->module()) != treeKey) {
+		m->module()->SetKey(treeKey);
+	  qWarning("CBookPresenter::lookup have set key!");
+	}
 	
+		
+	if (m->getDisplay()) {
+		m->getDisplay()->Display( m );
+	  qWarning("CBookPresenter::lookup: Displayed!");
+	  qWarning(m->getDisplay()->getHTML().latin1());
+#warning "Comment out?"
+		m_htmlWidget->setText(m->getDisplay()->getHTML());
+	}	
+	if (m_key != treeKey) {
+		m_key->key(treeKey->key());
+	  qWarning("CBookPresenter::lookup: setKey");			
+	}
 	setUpdatesEnabled(true);
 	setCaption( windowCaption() );
+
+  qWarning("CBookPresenter::lookup: finished!");			
 }
 
 /** No descriptions */

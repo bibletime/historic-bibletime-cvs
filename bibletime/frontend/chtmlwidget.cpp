@@ -646,10 +646,12 @@ bool CHTMLWidget::linksEnabled() const {
 /** Reimplementation from QTextView. */
 void CHTMLWidget::emitLinkClicked( const QString& link){
 	if (link.left(7) == QString::fromLatin1("mailto:")) {
-//		qDebug("open mailer for %s", link.mid(7).latin1());
+		qDebug("open mailer for %s", link.mid(7).latin1());
 		KApplication::kApplication()->invokeMailer(link.mid(7), QString::null);
+		return;
 	}
-	else if (CReferenceManager::isHyperlink(link)) {
+	
+	if (CReferenceManager::isHyperlink(link)) {
 		QString ref;
 		QString module;
 		CReferenceManager::Type type;			

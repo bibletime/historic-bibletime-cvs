@@ -43,7 +43,6 @@ CProfile::CProfile( const QString& file, const QString& name )
 		m_filename = name;
 		m_filename.replace(QRegExp("\\s=#."),"_");
 		KStandardDirs stdDirs;
-//		const QString profilePath = ;
 		m_filename = stdDirs.saveLocation("data", "bibletime/profiles/") + m_filename + ".xml";
 		init(m_filename);
 	}
@@ -299,9 +298,11 @@ void CProfile::init(const QString file){
 }
 
 /** Changes the name of this profile. */
-void CProfile::setName( const QString& name ){
-	m_name = name;
+void CProfile::setName( const QString& newName ){
+	qWarning("Profile %s renamed to %s", m_name.latin1(), newName.latin1());	
+	m_name = newName;
 	saveBasics();
+	qWarning("name is now %s", name().latin1());
 }
 
 /** Loads the basic settings requires for proper operation. */

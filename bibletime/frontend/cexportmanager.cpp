@@ -130,7 +130,8 @@ const bool CExportManager::saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo
 
 const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){
 	qWarning("CExportManager::printKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
-	printer()->appendItem( new CPrintItem(module,startKey, stopKey, description) );	
+	qWarning("start = %s, stop = %s", startKey.latin1(), stopKey.latin1());
+	printer()->appendItem( new CPrintItem(module, startKey, stopKey, description) );	
 	return true;
 }
 
@@ -166,12 +167,12 @@ const bool CExportManager::printKeyList( ListKey* list, CSwordModuleInfo* module
 	}
 	
 	//add all items to the queue
-//	if (progress.wasCancelled()) {
-//		itemList.setAutoDelete(true);	
-//		itemList.clear();//delete all items
-//		
-//		return false;
-//	}	
+	if (progress.wasCancelled()) {
+		itemList.setAutoDelete(true);	
+		itemList.clear();//delete all items
+		
+		return false;
+	}	
 	progress.setProgress(list->Count());	
 	printer()->appendItems(itemList);	
 	

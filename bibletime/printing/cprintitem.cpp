@@ -68,11 +68,11 @@ CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const 
 	m_headerText(QString::null), m_description(description), m_moduleText(QString::null)	
 {	
 	m_startEmpty = startKey.isEmpty();	
-	m_stopKey = (m_startEmpty && startKey != stopKey) ? stopKey : QString::null;		
+	m_stopKey = (!m_startEmpty && (startKey != stopKey) ) ? stopKey : QString::null;
 	m_stopEmpty  = m_stopKey.isEmpty();	
 	
 	headerText();
-	moduleText(); //cache the module text, makes printing faster (at leat the user thinks this :)
+	moduleText(); //cache the module text, makes printing faster (at least the user thinks this :)
 }
 
 /** Returns the moduletext used by this item. */
@@ -108,9 +108,10 @@ const QString& CPrintItem::moduleText() {
 				vk_start->NextVerse();
 				m_moduleText += format.arg(vk_start->Verse()) + vk_start->renderedText();
 			}
-			delete startKey;
-			delete stopKey;			
 		}
+		
+		delete startKey;
+		delete stopKey;					
 	}		
 
 	m_moduleText.replace(QRegExp("$\n+"), "");
@@ -187,8 +188,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QPen pen;
 	QBrush brush;
 
-	CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(m_module);	
-	const bool isUnicode 	= (m && m->isUnicode());
+	const bool isUnicode 	= (m_module && m_module->isUnicode());
 	const int leftMargin 	= printer->leftMargin();
 	const int rightMargin = printer->rightMargin();
 	const int upperMargin = printer->upperMargin();
@@ -206,8 +206,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QRect view;
 	QPen framePen;
 	int movePixs;
-
-	ASSERT(m_style);	
+	
 	for (int i = 0; i < 3; ++i) {		
 		type = static_cast<CStyle::styleType>(i);
 		
@@ -310,7 +309,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		}
 		else if (type == CStyle::ModuleText) {		
 			p->save();
-			if (m && m->isUnicode() )
+			if (isUnicode)
 				font = CBTConfig::get( CBTConfig::unicode );
 
 			if (alignement == CStyleFormat::Center)		
@@ -398,10 +397,10 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 const QString& CPrintItem::headerText() {
 	if (!m_headerText.isEmpty())  // cached?
 		return m_headerText;
+
   if (m_startEmpty)
-  	return QString::null;
-  	
-	if ( m_stopEmpty )
+  	return QString::null; 	
+	if (m_stopEmpty)
 		m_headerText = m_startKey;
 	else {//start and stop key do exist and are different
 		m_headerText = QString::fromLatin1("%1 - %2").arg(m_startKey).arg(m_stopKey);

@@ -40,7 +40,7 @@ public:
   /**
   * @return a list of available profiles
   */
-  const QList<CProfile> profiles();
+  const QList<CProfile>& profiles();
   /**
   * Removes the profile from the list and from the directory containg the profile files.
   */
@@ -57,7 +57,9 @@ public:
   * Returns the startup profile if it exists, otherwise return 0.
   */
   CProfile* startupProfile();
-  /** Refreshes the profiles available on disk. Use this function to update the list of profiles after another instance of CProfileMgr created a new profile. */
+  /**
+  * Refreshes the profiles available on disk. Use this function to update the list of profiles after another instance of CProfileMgr created a new profile.
+  */
   void refresh();
 
 protected:	

@@ -114,6 +114,7 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 			const int pos = ref.find("/");
 			if (pos>0 && ref.at(pos-1) != '\\') { //found a slash which is not escaped
 				module = ref.mid(0,pos);
+//				qWarning("found module %s", module.latin1());
 				ref = ref.mid(pos+1);			
 				break;
 			}
@@ -139,8 +140,8 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		//qWarning("string before testament: %s", ref.latin1());
 		const int pos = ref.find("/");
 		if (pos>0) { //found
-			const QString language = ref.mid(0,pos); //pos or pos-1 ??
-			qWarning("language is %s", language.latin1());
+			const QString language = ref.mid(0,pos);
+//			qWarning("language is %s", language.latin1());
 			if (language == "Hebrew") {
 				switch (preType) {
 					case IsMorph:
@@ -163,10 +164,12 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 			}
 			ref = ref.mid(pos+1);
 			key = ref; //the remaining part is the key
+			
+			module = preferredModule(type);
 		}
 	}
 
-//  qWarning("decodeHyperlink: module %s key %s", module.latin1(), key.latin1());
+  qWarning("decodeHyperlink: module %s key %s", module.latin1(), key.latin1());
   if (key.isEmpty() && module.isEmpty())
   	return false;
 	return true;

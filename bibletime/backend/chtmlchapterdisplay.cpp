@@ -96,7 +96,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 
 	SWModule* module = moduleList->first()->module();		
 		
-	VerseKey* vk = (VerseKey*)(SWKey*)*module;
+	VerseKey* vk = (VerseKey*)((SWKey*)(*module));
 	CSwordVerseKey key(moduleList->first());
 	key.key((const char*)*vk);
 
@@ -111,12 +111,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 
 
 	m_htmlText +=
-		QString::fromLatin1("<table cellpadding=\"2\" cellspacing=\"0\"><td bgcolor=\"#f1f1f1\"></td>");
-
-//	m_htmlText += QString::fromLatin1("<font face=\"%1\" size=\"%2\"")
-//		.arg(m_standardFontName).arg(m_standardFontSize);
-
-	
+		QString::fromLatin1("<table cellpadding=\"2\" cellspacing=\"0\"><td bgcolor=\"#f1f1f1\"></td>");	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
 
 	while (m) {
@@ -163,8 +158,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		}
 		m_htmlText.append(rowText + QString::fromLatin1("</tr>\n"));
 	}
-	m_htmlText += QString("</font>");	
-	m_htmlText += QString("</table>");	
+	m_htmlText += QString::fromLatin1("</font></table>");	
 	m_htmlText += m_htmlBody + QString::fromLatin1("</qt>");
 	
 	//clean up

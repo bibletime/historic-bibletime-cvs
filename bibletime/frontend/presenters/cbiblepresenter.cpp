@@ -46,9 +46,9 @@
 #include <kaccel.h>
 
 CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
-	: CSwordPresenter(useModules,parent,name),
-	m_key( new CSwordVerseKey(m_moduleList.first()) )
+	: CSwordPresenter(useModules,parent,name)
 {		
+	m_key = new CSwordVerseKey(m_moduleList.first());
 	m_key->key("Genesis 1:1");
 	
 	initView();
@@ -291,12 +291,15 @@ void CBiblePresenter::printVerseAndText(){
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::printChapter(){
 	CSwordVerseKey startKey(*m_key);
+	startKey.Verse(1);
+	
 	CSwordVerseKey stopKey(*m_key);	
 
 	CSwordBibleModuleInfo* b = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
+	qWarning("Versecoubnt: %i", b->verseCount( b->bookNumber(startKey.book()), startKey.Chapter() ));
 	if (b)
 		stopKey.Verse( b->verseCount( b->bookNumber(startKey.book()), startKey.Chapter() ) );
-	
+	qWarning("verse: %i", stopKey.Verse());	
 	CExportManager::printKey(m_moduleList.first(), startKey.key(), stopKey.key());
 }
 

@@ -41,6 +41,7 @@
 #include <qwhatsthis.h>
 
 //KDE includes
+#include <kcombobox.h>
 #include <kiconloader.h>
 #include <kprogress.h>
 #include <klocale.h>
@@ -52,53 +53,54 @@ CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 	/* the first main Group - search text, options etc.*/
 	QGroupBox *textBox = new QGroupBox(2,Qt::Vertical,i18n("Search properties"),this,"textBox");
 
-	editSearchText = new QComboBox(textBox, "LineEdit_1");
-	editSearchText->setInsertionPolicy(QComboBox::AtTop);	
-	editSearchText->setMaxCount(15);		
-	editSearchText->setEditable(true);			
-	editSearchText->setDuplicatesEnabled(false);				
-	editSearchText->setAutoCompletion(true);	
-	editSearchText->setFocusPolicy(QWidget::StrongFocus);
-	editSearchText->setFocus();
-	QToolTip::add(editSearchText, TT_SD_SEARCH_TEXT_EDIT);
-	QWhatsThis::add(editSearchText, WT_SD_SEARCH_TEXT_EDIT);
+	m_editCombo = new KHistoryCombo(textBox);
+	m_editCombo->setInsertionPolicy(KComboBox::AtTop);	
+	m_editCombo->setMaxCount(25);		
+	m_editCombo->setDuplicatesEnabled(false);				
+	m_editCombo->setFocusPolicy(QWidget::StrongFocus);
+	m_editCombo->setFocus();
+	connect( m_editCombo, SIGNAL( activated( const QString& )),	m_editCombo, SLOT( addToHistory( const QString& )));
+	connect( m_editCombo, SIGNAL(returnPressed ( const QString& )),m_editCombo,  SLOT(addToHistory(const QString&)) );
+	
+	QToolTip::add(m_editCombo, TT_SD_SEARCH_TEXT_EDIT);
+	QWhatsThis::add(m_editCombo, WT_SD_SEARCH_TEXT_EDIT);
 	
 	QHBox *settingsBox = new QHBox(textBox,"settingsBox");
 	QVBox *radioBox = new QVBox(settingsBox,"radioBox");
 
-	radioMultipleWords = new QRadioButton( radioBox,"RadioButton_1");
-	radioMultipleWords->setFocusPolicy(QWidget::TabFocus);
-	radioMultipleWords->setText( i18n( "Multiple Words" ) );
-	radioMultipleWords->setAutoResize( true );
-	radioMultipleWords->setChecked( true );
-	QToolTip::add(radioMultipleWords, TT_SD_SEARCH_MULTIPLE_WORDS);
-	QWhatsThis::add(radioMultipleWords, WT_SD_SEARCH_MULTIPLE_WORDS);	
+	m_radioMultipleWords = new QRadioButton( radioBox,"RadioButton_1");
+	m_radioMultipleWords->setFocusPolicy(QWidget::TabFocus);
+	m_radioMultipleWords->setText( i18n( "Multiple Words" ) );
+	m_radioMultipleWords->setAutoResize( true );
+	m_radioMultipleWords->setChecked( true );
+	QToolTip::add(m_radioMultipleWords, TT_SD_SEARCH_MULTIPLE_WORDS);
+	QWhatsThis::add(m_radioMultipleWords, WT_SD_SEARCH_MULTIPLE_WORDS);	
 	
-	radioExactSearch = new QRadioButton(radioBox, "RadioButton_2");
-	radioExactSearch->setFocusPolicy(QWidget::TabFocus);
-	radioExactSearch->setText( i18n( "Exact Search" ) );
-	radioExactSearch->setAutoResize( true );
-	QToolTip::add(radioExactSearch, TT_SD_SEARCH_EXACT_MATCH);
-	QWhatsThis::add(radioExactSearch, WT_SD_SEARCH_EXACT_MATCH);	
+	m_radioExactSearch = new QRadioButton(radioBox, "RadioButton_2");
+	m_radioExactSearch->setFocusPolicy(QWidget::TabFocus);
+	m_radioExactSearch->setText( i18n( "Exact Search" ) );
+	m_radioExactSearch->setAutoResize( true );
+	QToolTip::add(m_radioExactSearch, TT_SD_SEARCH_EXACT_MATCH);
+	QWhatsThis::add(m_radioExactSearch, WT_SD_SEARCH_EXACT_MATCH);	
 
-	radioRegularExpression = new QRadioButton(radioBox, "RadioButton_3");
-	radioRegularExpression->setFocusPolicy(QWidget::TabFocus);
-	radioRegularExpression->setText( i18n( "Regular Expression" ) );
-	radioRegularExpression->setAutoResize( true );
-	QToolTip::add(radioRegularExpression, TT_SD_SEARCH_REGEXP );
-	QWhatsThis::add(radioRegularExpression, WT_SD_SEARCH_REGEXP );
+	m_radioRegularExpression = new QRadioButton(radioBox, "RadioButton_3");
+	m_radioRegularExpression->setFocusPolicy(QWidget::TabFocus);
+	m_radioRegularExpression->setText( i18n( "Regular Expression" ) );
+	m_radioRegularExpression->setAutoResize( true );
+	QToolTip::add(m_radioRegularExpression, TT_SD_SEARCH_REGEXP );
+	QWhatsThis::add(m_radioRegularExpression, WT_SD_SEARCH_REGEXP );
 	
 	/* this widget is hidden - it is only used for exclusive radio button management*/
 	QVButtonGroup *bgroup1 = new QVButtonGroup();
-	bgroup1->insert(radioMultipleWords); //they are automatically exclusive
-	bgroup1->insert(radioExactSearch);
-	bgroup1->insert(radioRegularExpression);
+	bgroup1->insert(m_radioMultipleWords); //they are automatically exclusive
+	bgroup1->insert(m_radioExactSearch);
+	bgroup1->insert(m_radioRegularExpression);
 
-	checkCaseSensitive = new QCheckBox(settingsBox, "CheckBox_1");
-	checkCaseSensitive->setFocusPolicy(QWidget::TabFocus);
-	checkCaseSensitive->setText( i18n("Case Sensitive") );
-	QToolTip::add(checkCaseSensitive, TT_SD_SEARCH_CASE_SENSITIVE);
-	QWhatsThis::add(checkCaseSensitive, WT_SD_SEARCH_CASE_SENSITIVE);
+	m_checkCaseSensitive = new QCheckBox(settingsBox, "CheckBox_1");
+	m_checkCaseSensitive->setFocusPolicy(QWidget::TabFocus);
+	m_checkCaseSensitive->setText( i18n("Case Sensitive") );
+	QToolTip::add(m_checkCaseSensitive, TT_SD_SEARCH_CASE_SENSITIVE);
+	QWhatsThis::add(m_checkCaseSensitive, WT_SD_SEARCH_CASE_SENSITIVE);
 	
   QGroupBox *scopeBox = new QGroupBox(2,Qt::Horizontal,i18n("Search scope"),this,"scopeBox");
   scopeChooser = new CSearchDialogScopeChooser(scopeBox, "scopeChooser");
@@ -109,13 +111,13 @@ CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 	/* manages the 2 buttons (vertically)*/
 	QVBox *buttonBox = new QVBox(progressBox,"currentBox");
 
-	(void)new QLabel(editSearchText,i18n("Current module:"),buttonBox);
-	(void)new QLabel(editSearchText,i18n("Overall:"),buttonBox);
+	(void)new QLabel(m_editCombo,i18n("Current module:"),buttonBox);
+	(void)new QLabel(m_editCombo,i18n("Overall:"),buttonBox);
 
 	/* manages the 2 bars (vertically) */
 	QVBox *barBox = new QVBox(progressBox,"overallBox");
-	currentProgressBar = new KProgress(0,100,0,Horizontal,barBox, "currentProgressBar");
-	overallProgressBar = new KProgress(0,100,0,Horizontal,barBox, "overallProgressBar");
+	m_currentProgressBar = new KProgress(0,100,0,Horizontal,barBox, "m_currentProgressBar");
+	m_overallProgressBar = new KProgress(0,100,0,Horizontal,barBox, "m_overallProgressBar");
 
 	/* the main layout for the 3 groupboxes (vertical)*/
 	QVBoxLayout* layout_1 = new QVBoxLayout( this );
@@ -130,8 +132,7 @@ CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 	progressBox->setFixedHeight( progressBox->sizeHint().height() );	
 	layout_1->addWidget( progressBox,1,Qt::AlignBottom );
 	
-	
-	
+		
 	readSettings();
 }
 
@@ -141,77 +142,83 @@ CSearchDialogText::~CSearchDialogText() {
 }
 	
 const QString CSearchDialogText::getText() const {
-	return editSearchText->currentText();
+	return m_editCombo->currentText();
 }
 
 void CSearchDialogText::setText(const QString text){
 	//only insert the item to the list if it's not yet included
 	bool found = false;
-	for (int i = 0; !found && i < editSearchText->count(); ++i) {
-		if (editSearchText->text(i) == text)
+	for (int i = 0; !found && i < m_editCombo->count(); ++i) {
+		if (m_editCombo->text(i) == text)
 			found = true;
 	}
 	if (!found) {
-		editSearchText->insertItem(text,0);
-		editSearchText->setCurrentItem(0);
+		m_editCombo->insertItem(text,0);
+		m_editCombo->setCurrentItem(0);
 	}
-	editSearchText->setFocus();	
+	m_editCombo->setFocus();	
 }
 
 const bool CSearchDialogText::isCaseSensitive() {
-	return checkCaseSensitive->isChecked();
+	return m_checkCaseSensitive->isChecked();
 }
 
 const int CSearchDialogText::getSearchType() {
 	int ret = CSwordModuleSearch::multipleWords;	//"multiple words" is standard
-	if (radioExactSearch->isChecked()) {
+	if (m_radioExactSearch->isChecked()) {
 		ret = CSwordModuleSearch::exactPhrase;
 	}
-	else if (radioRegularExpression->isChecked()) {
+	else if (m_radioRegularExpression->isChecked()) {
 		ret = CSwordModuleSearch::regExp;
 	}
 	return ret;
 }
 
 const QString CSearchDialogText::getSearchTypeString() {
-	QString ret = radioMultipleWords->text();	//"multiple words" is standard
-	if (radioExactSearch->isChecked()) {
-		ret = radioExactSearch->text();
+	QString ret = m_radioMultipleWords->text();	//"multiple words" is standard
+	if (m_radioExactSearch->isChecked()) {
+		ret = m_radioExactSearch->text();
 	}
-	else if (radioRegularExpression->isChecked()) {
-		ret = radioRegularExpression->text();
+	else if (m_radioRegularExpression->isChecked()) {
+		ret = m_radioRegularExpression->text();
 	}
 	return ret;
 
 }
 void CSearchDialogText::updateCurrentProgress(const unsigned short int percent){
-	currentProgressBar->setValue(percent);
+	m_currentProgressBar->setValue(percent);
 }
 
 void CSearchDialogText::updateOverallProgress(const unsigned short int percent){
-	overallProgressBar->setValue(percent);
+	m_overallProgressBar->setValue(percent);
 }
 
 /** resets the widgets. */
 void CSearchDialogText::reset(){
-	currentProgressBar->setValue(0);
-	overallProgressBar->setValue(0);
-	editSearchText->clear();
+	m_currentProgressBar->setValue(0);
+	m_overallProgressBar->setValue(0);
+	m_editCombo->clear();
 }
 
 /** Reads settings to restore the last used state. */
 void CSearchDialogText::readSettings(){
-	QStringList items = CBTConfig::get(CBTConfig::searchTexts);	
-	editSearchText->clear();
-	editSearchText->insertItem("");	
-	editSearchText->insertStringList(items);
+	QStringList list = CBTConfig::get( CBTConfig::searchCompletionTexts );
+	m_editCombo->completionObject()->setItems( list );
+	
+	list = CBTConfig::get(CBTConfig::searchTexts);
+	m_editCombo->setHistoryItems( list );
 }
 
 void CSearchDialogText::saveSettings(){
-	QStringList items;
-	for (int i = 0; i < editSearchText->count(); ++i) {
-		if (!editSearchText->text(i).isEmpty())
-			items.append(editSearchText->text(i));
-	}		
-	CBTConfig::set(CBTConfig::searchTexts, items);
+	QStringList list = m_editCombo->completionObject()->items();
+	CBTConfig::set(CBTConfig::searchCompletionTexts, list);
+	
+	list = m_editCombo->historyItems();
+	CBTConfig::set(CBTConfig::searchTexts, list);	
+}
+
+/** No descriptions */
+void CSearchDialogText::slotReturnPressed( const QString& text ){
+	qWarning(text.latin1());
+	m_editCombo->addToHistory(text);	
 }

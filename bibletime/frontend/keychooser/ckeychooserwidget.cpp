@@ -38,7 +38,8 @@
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
   : QComboBox(rw,parent,name){
 	setFocusPolicy(QWidget::WheelFocus);
-  installEventFilter( lineEdit() );
+  if (lineEdit())
+  	installEventFilter( lineEdit() );
 }
 
 /** Reimplementation. */
@@ -91,31 +92,24 @@ void CKCComboBox::wheelEvent( QWheelEvent* e ) {
 
 ///** Returns the size this widget would like to have. */
 QSize CKCComboBox::sizeHint() const {
+//	return QComboBox::sizeHint();
+	
+	qWarning("CKCComboBox::sizeHint()");
 	// IMHO Qt has a bug: The sizehint is not updated if the list is refreshed with other items
 	const QSize oldSize = QComboBox::sizeHint();
 	QRect contentsRect = style().comboButtonRect(0,0, oldSize.width(), oldSize.height());
 	const int buttonWidth = (oldSize.width() - contentsRect.width());
-	ASSERT(listBox());
-	if (listBox())	
+
+	if (listBox())	{
+		qWarning("CKCComboBox::sizeHint() finished 1");				
 		return QSize( listBox()->sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());
-	else
-		return QSize( sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());	
+	}
+	else {
+		qWarning("CKCComboBox::sizeHint() finished 2");					
+		return QSize( QComboBox::sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());	
+	}
 }
 
-
-//void CKCComboBox::insertItem ( const QString & text, int index, unsigned long int userData ) {
-//	insertItem(text, index);
-//	const int newIndex = ((index == -1) ? count()-1 : index);
-//	m_userDataMap.insert(newIndex, userData);
-//}
-
-/** Returns the user data for index. */
-//const unsigned long int CKCComboBox::userData( const int index ){
-//	if (index < (count()-1))
-//		return m_userDataMap[index];
-//	else
-//		return 0;
-//}
 
 //**********************************************************************************/
 
@@ -167,6 +161,7 @@ void CKeyChooserWidget::changeCombo(int i){
 }
 
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
+	qWarning("CKeyChooserWidget::reset(const int count, int index, bool do_emit)");
 	if (!isUpdatesEnabled())
 		return;
 
@@ -174,6 +169,8 @@ void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 	for (int i=1; i <= count; i++)
 		m_list.append( QString::number(i) );
 	reset(&m_list,index,do_emit);
+	
+	qWarning("chooserWidget::reset(count) finished");
 }
 
 void CKeyChooserWidget::reset(QStringList& list, int index, bool do_emit){
@@ -185,29 +182,41 @@ void CKeyChooserWidget::reset(QStringList& list, int index, bool do_emit){
 	reset(&m_list,index,do_emit);
 	
 	isResetting = false;		
+	qWarning("chooserWidget::reset(list&) finished");	
 }
 
 
 void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
+	qWarning("CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit)");
+	ASSERT(list);
+	ASSERT(comboBox());
+	
 	if (isResetting || !isUpdatesEnabled())
 		return;
 	isResetting = true;	
 	setUpdatesEnabled(false);
-	comboBox()->setUpdatesEnabled(false);
+	m_comboBox->setUpdatesEnabled(false);
 
+	qWarning("reset(list*): now change layout");
 	m_mainLayout->setResizeMode(QLayout::FreeResize);
-
-	oldKey = QString::null;
-	ASSERT(comboBox());
-	qWarning("%i", comboBox()->count());
-	ASSERT(list);
-	comboBox()->clear();
-	comboBox()->insertStringList(*list);
-	comboBox()->resize( comboBox()->sizeHint() );
 	
+	oldKey = QString::null;
+	qWarning("reset(*list): clear box now!");
+	for (int i = 0; i < m_comboBox->count(); ++i) {
+		qWarning("%i: %s", i, m_comboBox->text(i).latin1());
+	}
+	m_comboBox->clear();
+	qWarning("reset(list*): combo->insertStringList ");				
+	if (list)
+		m_comboBox->insertStringList(*list);
+	qWarning("reset(list*): before combo->sizeHint() ");				
+	m_comboBox->resize( m_comboBox->sizeHint() );
+	qWarning("reset(list*): refilled combobox");			
+	m_comboBox->setUpdatesEnabled(true);	
+		
 	m_mainLayout->setResizeMode(QLayout::Minimum);
-			
-	comboBox()->setCurrentItem(index);
+	qWarning("reset(list*): have chamnged layout ");			
+	m_comboBox->setCurrentItem(index);
 	if (!list || (list && !list->count())) { //nothing in the combobox
 		btn_up->setEnabled( true );
 		btn_fx->setEnabled( true );
@@ -221,13 +230,15 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		btn_fx->setEnabled( enableButtons );
 		btn_down->setEnabled( list && (list->count()>1) );
 	}
-	
-	comboBox()->setUpdatesEnabled(true);	
+	qWarning("reset(list*): before setEnabled(true)");	
 	setUpdatesEnabled(true);
 	
-	if (do_emit)
-		emit changed(comboBox()->currentItem());				
+	if (do_emit) {
+		qWarning("reset(list*): emit changed signal");
+		emit changed(m_comboBox->currentItem());				
+	}
 	isResetting = false;	
+	qWarning("chooserWidget::reset(list*) finished");	
 }
 
 void CKeyChooserWidget::lock(void){

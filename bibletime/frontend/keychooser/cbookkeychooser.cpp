@@ -63,7 +63,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 		m_key = dynamic_cast<CSwordTreeKey*>(newKey);
 	ASSERT(m_key);
 	const QString oldKey = m_key->key();
-	qWarning("setKey: %s", oldKey.latin1());
+	qWarning("CBookKeyChooser::setKey: %s", oldKey.latin1());
 	
 	QStringList siblings;
 	if (m_key && !oldKey.isEmpty())
@@ -73,11 +73,11 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 	int depth = 0;
 	int index = 0;
 	
-	qWarning("before setRoot");
+	qWarning("CBookKeyChooser::setKey before setRoot");
 	m_key->root();
 	m_key->firstChild();
 	
-	qWarning("before loop");	
+	qWarning("CBookKeyChooser::setKey: before loop");	
 	do {
 		const QString key = m_key->key();
 		index = 0;
@@ -93,8 +93,8 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 		}	
 		setupCombo(key, depth++, index);		
 	}	while(m_key->firstChild() && (depth-1 < siblings.count()));
-
-	qWarning("after loop");		
+	qWarning("CBookKeyChooser::setKey: after loop");
+	
 	//clear the combos which were not filled
 	for (; depth < m_module->depth(); ++depth)  {
 		CKeyChooserWidget* chooser = m_chooserWidgets.at(depth);
@@ -106,31 +106,44 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 		m_key->root();
 	else
 		m_key->key(oldKey);
-	qWarning("before emit");		
+	qWarning("CBookKeyChooser::setKey:before emit");		
 	emit keyChanged(m_key);
-	qWarning("after emit");			
+	qWarning("CBookKeyChooser::setKey: after emit");			
+
+	qWarning("CBookKeyChooser::setKey: finished!");					
 }
 
 /** Returns the key of this kechooser. */
 CSwordKey* CBookKeyChooser::key(){
-//	qWarning("CBookKeyChooser::key()");
+	qWarning("CBookKeyChooser::key()");
 	return m_key;
 }
 
 /** Sets another module to this keychooser */
 void CBookKeyChooser::setModule(CSwordModuleInfo* module){
-//	qWarning("CBookKeyChooser::setModule(CSwordModuleInfo* module)");
+	qWarning("CBookKeyChooser::setModule(CSwordModuleInfo* module)");
 }
 
 /** Refreshes the content. */
 void CBookKeyChooser::refreshContent(){
-//	qWarning("CBookKeyChooser::refreshContent()");
+	qWarning("CBookKeyChooser::refreshContent()");
 	if (m_key)
 		setKey( m_key ); //refresh with current key
 }
 
 void CBookKeyChooser::setupCombo(const QString key, const int depth, const int currentItem){
-//	qWarning("CBookKeyChooser::fillCombo");
+	qWarning("CBookKeyChooser::setupCombo");
+	CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);
+	ASSERT(chooserWidget);	
+	if (depth == 0 && chooserWidget && chooserWidget->comboBox()->count()) {
+//		CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);
+//		ASSERT(chooserWidget);
+//		if (chooserWidget) {
+//			chooserWidget->setItem( chooserWidget->comboBox()->text(currentItem) );
+//		};
+		return;
+	}
+	
 	const QString oldKey = m_key->key();	
 	m_key->key(key);
 	
@@ -138,24 +151,25 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 	QStringList items;	
 	items << QString::null;
 	do {
-		ASSERT(m_key);
-		qWarning(m_key->getLocalName());
 		items << QString::fromLocal8Bit(m_key->getLocalName());
 	}
 	while (m_key->nextSibling());
+	qWarning("setupCombo: finished while loop");
 		
-	CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);	
-	ASSERT(chooserWidget);
-	if (chooserWidget)
+	if (chooserWidget) {
+		qWarning("setupCombo: reset chooserWidget");
 		chooserWidget->reset(items,currentItem,false);
+	}
 	
 	//restore old key
+	qWarning("setupCombo: restore old key!");
 	m_key->key(oldKey);	
+	qWarning("setupCombo: finished!");
 }
 
 /** A keychooser changed. Update and emit a signal if necessary. */
 void CBookKeyChooser::keyChooserChanged(int newIndex){
-//	qWarning("CBookKeyChooser::keyChooserChanged(int newIndex)");
+	qWarning("CBookKeyChooser::keyChooserChanged(int newIndex)");
 	QStringList items;
 	CKeyChooserWidget* chooser;
 	const int count = m_chooserWidgets.count();
@@ -170,6 +184,8 @@ void CBookKeyChooser::keyChooserChanged(int newIndex){
 	if (newKey.length() > 1)
 		newKey.remove(newKey.length(),1); //remove the traling slash
 	
-	m_key->key(newKey);
+	ASSERT(m_key);	
+	m_key->key(newKey);	
 	setKey(m_key);
+	qWarning("CBookKeyChooser::keyChooserChanged finished");	
 }

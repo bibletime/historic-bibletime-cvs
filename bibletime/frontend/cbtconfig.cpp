@@ -173,7 +173,8 @@ const QValueList<int> CBTConfig::getDefault( const CBTConfig::intLists ID){
 
 const QString CBTConfig::getKey( const CBTConfig::stringLists ID){
 	switch ( ID ){
-		case searchTexts: return "searchTexts";
+		case searchCompletionTexts: return "searchCompletionTexts";
+		case searchTexts: return "searchTexts";		
 	}
 }
 

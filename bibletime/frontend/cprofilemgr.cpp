@@ -31,8 +31,6 @@ CProfileMgr::CProfileMgr() : m_startupProfile(0) {
 	KStandardDirs stdDirs;
 	m_profilePath = stdDirs.saveLocation("data", "bibletime/profiles/");	
 	
-	//load available profiles
-
 	QDir d( m_profilePath );
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
@@ -48,7 +46,7 @@ CProfileMgr::~CProfileMgr(){
 }
 
 /** Returns a list of available profiles. */
-const QList<CProfile> CProfileMgr::profiles(){	
+const QList<CProfile>& CProfileMgr::profiles(){	
 	return m_profiles;
 }
 
@@ -72,17 +70,21 @@ const bool CProfileMgr::remove( const QString& profile) {
 	for (CProfile* p = m_profiles.first(); p; p = m_profiles.next()) {
 		if (p->name() == profile) {
 			remove(p);
-			break;
+			return true;
 		}
 	}
+	return false;
 }
 
 /** Returns the profile with the desired name. If there's no such profile 0 is returned. */
 CProfile* CProfileMgr::profile(const QString& name) {
 	for (CProfile* p = m_profiles.first(); p ; p = m_profiles.next()) {
-		if (p->name() == name)
+		qWarning("%s == %s ??", p->name().latin1(), name.latin1());		
+		if (p->name() == name) {
 			return p;	
+		}
 	}
+	qWarning("return 0");
 	return 0;
 }
 
@@ -95,6 +97,11 @@ CProfile* CProfileMgr::startupProfile(){
 
 /** Refreshes the profiles available on disk. Use this function to update the list of profiles after another instance of CProfileMgr created a new profile. */
 void CProfileMgr::refresh(){
+	//debug all profiles
+	for (m_profiles.first(); m_profiles.current(); m_profiles.next()) {
+		qWarning("debug profiles: %s", m_profiles.current()->name().latin1());
+	}
+	
 	//appends the profiles to the list, which do not yet exist
 	QDir d( m_profilePath );
 	QStringList files = d.entryList("*.xml");

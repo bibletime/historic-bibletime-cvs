@@ -197,9 +197,7 @@ void CBibleKeyChooser::bookChanged(int /*i*/){
 		emit beforeKeyChange(m_key->key());
 	
 	if (m_key->book() != w_book->comboBox()->currentText()) {
-//		m_key->Verse( 1 );
-//		m_key->Chapter( 1 );		
-		m_key->book( w_book->comboBox()->currentText() );/*chapter and verse are set to 1 by Sword*/
+		m_key->book( w_book->comboBox()->currentText() );
 		setKey( m_key );
 	}	
 	setUpdatesEnabled(true);		
@@ -213,11 +211,10 @@ void CBibleKeyChooser::chapterChanged(int /*i*/){
 	setUpdatesEnabled(false);		
 	if (m_key)
 		emit beforeKeyChange(m_key->key());
-	if (m_key)
-		emit beforeKeyChange(m_key->key());
+//	if (m_key)
+//		emit beforeKeyChange(m_key->key());
 	
 	if (m_key->Chapter() != w_chapter->comboBox()->currentText().toInt()) {	
-//		m_key->Verse( 1 );		
 		m_key->Chapter( w_chapter->comboBox()->currentText().toInt() );
 		setKey( m_key );	
 	}

@@ -74,13 +74,22 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo *module ){
 	switch( module->type() ){
 		case CSwordModuleInfo::Bible:
 		case CSwordModuleInfo::Commentary:
-			return new CSwordVerseKey( (VerseKey *) ( (SWKey *)(*module->module()) ), module );
-		case CSwordModuleInfo::Lexicon:
-			return new CSwordLDKey( (SWKey *)(*module->module()), module);
-		case CSwordModuleInfo::GenericBook:
-			CSwordTreeKey* key =  new CSwordTreeKey( (TreeKeyIdx*)((SWKey *)(*module->module())), module );
-			qWarning("Persist? %s", key->Persist() ? "yes" : "no");
+		{
+			CSwordVerseKey* key = new CSwordVerseKey( (VerseKey *) ( (SWKey *)(*module->module()) ), module );
+//			qWarning("VerseKey Persist? %s", key->Persist() ? "yes" : "no");
 			return key;
+		}
+		case CSwordModuleInfo::Lexicon:
+		{
+			CSwordLDKey* key = new CSwordLDKey( (SWKey *)(*module->module()), module);
+//			qWarning("Lexicon key Persist? %s", key->Persist() ? "yes" : "no");		
+			return key;
+		}
+		case CSwordModuleInfo::GenericBook: {
+			CSwordTreeKey* key =  new CSwordTreeKey( (TreeKeyIdx*)((SWKey *)(*module->module())), module );
+//			qWarning("Persist? %s", key->Persist() ? "yes" : "no");
+			return key;
+		}
 	}
 	return 0;
 }

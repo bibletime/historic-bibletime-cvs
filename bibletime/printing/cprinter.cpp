@@ -356,10 +356,10 @@ void CPrinter::readSettings(){
 void CPrinter::saveSettings(){	
 	const QString leading = "kde-bibletime-";
 	KConfigGroupSaver gs(m_config, "Settings");
-	m_config->writeEntry("Left margin", option(leading+"left_margin").toInt()/*m_pagePosition.left*/);
-	m_config->writeEntry("Right margin", option(leading+"right_margin").toInt() /*m_pagePosition.right*/);
-	m_config->writeEntry("Top margin", option(leading+"upper_margin").toInt()/*m_pagePosition.top*/);
-	m_config->writeEntry("Bottom margin", option(leading+"lower_margin").toInt()/*m_pagePosition.bottom*/);
+	m_config->writeEntry("Left margin", option(leading+"left_margin").toInt());
+	m_config->writeEntry("Right margin", option(leading+"right_margin").toInt());
+	m_config->writeEntry("Top margin", option(leading+"upper_margin").toInt());
+	m_config->writeEntry("Bottom margin", option(leading+"lower_margin").toInt());
 }
 
 /** Returns the list of styles. */

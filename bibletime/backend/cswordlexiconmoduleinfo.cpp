@@ -110,7 +110,7 @@ QStringList* CSwordLexiconModuleInfo::entries(){
 
 /** Jumps to the closest entry in the module.  */
 const bool CSwordLexiconModuleInfo::snap(){
-	module()->getRawEntry();
+	module()->getRawEntry(); //snap to the current entry
 }
 
 /** No descriptions */

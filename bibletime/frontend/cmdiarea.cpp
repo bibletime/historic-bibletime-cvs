@@ -41,7 +41,6 @@
 CMDIArea::CMDIArea(QWidget *parent, const char *name )
 	: QWorkspace(parent, name) {			
 	m_childEvent = false;
-	m_currentPresenter = 0;
 	guiOption = Nothing;
 	m_appCaption = QString::null;
 	
@@ -68,7 +67,6 @@ void CMDIArea::initConnections(){
 void CMDIArea::slotClientActivated(QWidget* client){
 	if (!client)
 		return;				
-//	qWarning(client->caption().latin1());
 	m_appCaption = client->caption().stripWhiteSpace();	
 	emit sigSetToplevelCaption( m_appCaption );	
 	
@@ -144,6 +142,7 @@ void CMDIArea::deleteAll(){
 	setUpdatesEnabled(false);
 	for ( QWidget* w = windows.first(); w; w = windows.next() ) {
 		w->setUpdatesEnabled(false);
+		m_deleteWindows.clear();
 		delete w;
 	}
 	setUpdatesEnabled(true);		
@@ -238,12 +237,10 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 
 	bool found = false;	
 	QWidgetList windows = windowList();	
-//	if (!windows.count())
-//		return;
 	for (windows.first(); windows.current(); windows.next()) {
 		p = dynamic_cast<CSwordPresenter*>(windows.current());
 		if (p && (p->getModuleList().containsRef(m))) {
-//			qWarning("found");
+			qWarning("lookupInModule: found");
 			found = true;
 			break;
 		}
@@ -264,28 +261,21 @@ void CMDIArea::closePresenter(CSwordPresenter* p){
 //		return;
 //	}
 		
-	m_currentPresenter = p;
+//	m_currentPresenter = p;
+	m_deleteWindows.append(p);
   QTimer::singleShot(5000, this, SLOT(deleteCurrentPresenter()) );	
 }
 
 /** Delete the presenter. */
 void CMDIArea::deleteCurrentPresenter(){
+	qWarning("CMDIArea::deleteCurrentPresenter()");
 	setUpdatesEnabled(false);
-	if (m_currentPresenter) {
-		delete m_currentPresenter;
-		m_currentPresenter = 0;
+	CSwordPresenter* p = m_deleteWindows.first();
+	if ( p ) {
+		delete p;
+		m_deleteWindows.removeRef(p);
 	}
 	setUpdatesEnabled(true);
-//	switch (guiOption) {
-// 		case autoTile:
-//			tile();
-// 			break;
-// 		case autoCascade:
-//			cascade();
-// 			break;
-// 		default:
-// 			break;
-//	}	
 	slotClientActivated(activeWindow());
 	if (activeWindow())
 		m_appCaption = activeWindow()->caption();
