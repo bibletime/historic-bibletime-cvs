@@ -75,6 +75,8 @@ void BibleTime::initView(){
 	m_mdi->setFocusPolicy(ClickFocus);
 
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
+	
+	m_selectDialog = NULL;
 }
 
 

@@ -101,12 +101,12 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 //	qWarning("CBibleKeyChooser::setKey(CSwordKey* key)");
  	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
-		
+			
 	const unsigned int bookIndex = m_modules.first()->bookNumber( m_key->book() );
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 
-//  qWarning("setkey: %s: %i %i:%i", m_key->book().latin1(), bookIndex, chapter, verse);
+	//qWarning("setkey: %s: %i %i:%i", m_key->book().latin1(), bookIndex, chapter, verse);
 
 	//reset the keychooser parts only if we found a valid book
 	const int count = w_book->comboBox()->count();

@@ -33,6 +33,7 @@ class CMDIArea;
 class CProfile;
 class CDisplayWindow;
 class CMainIndex;
+class CRefSelectDialog;
 
 //KDE classes
 class KToggleAction;
@@ -376,7 +377,8 @@ private:
 	CSwordBackend* m_backend;
 	CPrinter* m_printer;
 
-  CMainIndex* m_mainIndex;
+	CMainIndex* m_mainIndex;
+	CRefSelectDialog* m_selectDialog;
 };
 
 #endif
