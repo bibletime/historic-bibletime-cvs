@@ -205,7 +205,6 @@ void CGroupManagerItem::setType( CGroupManagerItem::itemType type){
 /** Sets the module of ths item. */
 void CGroupManagerItem::setModuleInfo( CModuleInfo* moduleInfo ){
 	m_moduleInfo = dynamic_cast<CSwordModuleInfo*>(moduleInfo);
-	ASSERT(m_moduleInfo);
 }
 
 /** Returns a QString version of the key. */
@@ -253,10 +252,6 @@ const QString CGroupManagerItem::getToolTip(){
 				text += i18n("Unlock key:") + QString::fromLatin1(" %1<BR>").arg(!moduleInfo()->getCipherKey().isEmpty() ? moduleInfo()->getCipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
 			if (!moduleInfo()->getVersion().isEmpty())
 				text += i18n("Version:") + QString::fromLatin1(" %1<BR>").arg(moduleInfo()->getVersion());
-//			if (module->encoding() == QFont::Unicode)
-//				text += i18n("Encoding:") + QString::fromLatin1() + i18n("Unicode")
-//			if (moduleInfo()->hasFont())
-//				text += i18n("Font:")+QString::fromLatin1(" %1<BR>").arg(moduleInfo()->getFont().family());
 			if (text.right(4) == QString::fromLatin1("<BR>"))
 				text = text.left(text.length()-4);
 			return text;

@@ -381,6 +381,19 @@ sub processMakefile ($)
     $cvs_lines .= "\t-rm -f *.rpo\n";
     appendLines($cvs_lines);
     $target_adds{"clean"} .= "kde-rpo-clean ";
+
+    # some strange people like to do a install-exec, and expect that also
+    # all modules are installed.  automake doesn't know this, so we need to move
+    # this here from install-data to install-exec.
+    if ($MakefileData =~ m/\nkde_module_LTLIBRARIES\s*=/) {
+      $target_adds{"install-exec-am"} .= "install-kde_moduleLTLIBRARIES";
+      my $lookup = "install-data-am:\s*(.*)";
+      if ($MakefileData =~ /\n$lookup\n/) {
+        my $newdeps = $1;
+	$newdeps =~ s/\s*install-kde_moduleLTLIBRARIES\s*/ /g;
+	substituteLine($lookup, "install-data-am: " . $newdeps);
+      }
+    }
     
     my $lines = "";
 
@@ -1533,8 +1546,8 @@ sub tag_DOCFILES ()
       }
       $lookup = '\nindex.cache.bz2:';
       if ($MakefileData !~ /\n($lookup)/) {
-         $lines .= "index.cache.bz2: \$(srcdir)/index.docbook \$(KDE_XSL_STYLESHEET)\n";
-         $lines .= "\t-if test -n \"\$(MEINPROC)\"; then \$(MEINPROC) --check --cache index.cache.bz2 \$(srcdir)/index.docbook; fi\n";
+         $lines .= "index.cache.bz2: \$(srcdir)/index.docbook \$(KDE_XSL_STYLESHEET) $files\n";
+         $lines .= "\t\@if test -n \"\$(MEINPROC)\"; then echo \$(MEINPROC) --check --cache index.cache.bz2 \$(srcdir)/index.docbook; \$(MEINPROC) --check --cache index.cache.bz2 \$(srcdir)/index.docbook; fi\n";
          $lines .= "\n";
       }
  
@@ -1561,7 +1574,7 @@ sub tag_DOCFILES ()
       $target_adds{"clean-am"} .= "clean-docs ";
       appendLines ($lines);
     } else {
-      appendLines("docs-am:\n");
+      appendLines("docs-am: $files\n");
     }
 
     $target_adds{"install-data-am"} .= "install-nls";
@@ -1575,7 +1588,7 @@ sub tag_DOCFILES ()
     $tmp .= "\tdone\n";
     if ($appname eq 'common') {
       $tmp .= "\t\@echo \"merging common and language specific dir\" ;\\\n";
-	  $tmp .= "\tif test ! -e \$(kde_htmldir)/en/common/kde-common.css; then echo 'no english docs found in \$(kde_htmldir)/en/common/'; exit 1; fi \n";
+      $tmp .= "\tif test ! -e \$(kde_htmldir)/en/common/kde-common.css; then echo 'no english docs found in \$(kde_htmldir)/en/common/'; exit 1; fi \n";
       $tmp .= "\t\@com_files=`cd \$(kde_htmldir)/en/common && echo *` ;\\\n";
       $tmp .= "\tcd \$(DESTDIR)\$(kde_htmldir)/$kdelang/common ;\\\n";
       $tmp .= "\tif test -n \"\$\$com_files\"; then for p in \$\$com_files ; do \\\n";

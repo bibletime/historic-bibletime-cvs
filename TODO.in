@@ -26,9 +26,8 @@ Things which should be optimized:
 ---------------------------------
 	[partly] Search for mem leaks (I'm sure there are at least 100 :)
 	[partly] Optmize memory usage
-	[done] Thread safety (We should implement and use CModuleInfo's copy constructor)
+	[exp.] Thread safety (We should implement and use CModuleInfo's copy constructor)
 	-Check BibleTime with a profiler and optimize the time consuming functions
-	[done] We need a much faster search analysis
 
 Features we are thinking about:
 ------------------------------

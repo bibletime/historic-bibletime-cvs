@@ -127,7 +127,7 @@ AC_MSG_RESULT([$DISTRIBUTION $DISTRIBUTION_VERSION])
 AC_MSG_CHECKING([for RPM installation prefix])
 AC_MSG_RESULT([$RPM_PREFIX])
 
-AC_MSG_CHECKING([for the RPM group fitting for your system])
+AC_MSG_CHECKING([for the correct RPM group])
 AC_MSG_RESULT([$RPM_GROUP])
 ])
 

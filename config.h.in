@@ -12,6 +12,9 @@
 /* The number of bytes in a long.  */
 #undef SIZEOF_LONG
 
+/* Define if you have the res_init function.  */
+#undef HAVE_RES_INIT
+
 /* Name of package */
 #undef PACKAGE
 

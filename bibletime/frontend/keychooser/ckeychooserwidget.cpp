@@ -200,8 +200,10 @@ void CKeyChooserWidget::init( ){
 
 	setFocusPolicy(QWidget::StrongFocus);			
 	QHBoxLayout *m_mainLayout = new QHBoxLayout( this );	
+	
 	QVBoxLayout *m_buttonLayout = new QVBoxLayout();	
-			
+	m_buttonLayout->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);
+	
 	ComboBox = new CKCComboBox( true, this, "ComboBox" );
 	ComboBox->setAutoCompletion( true );
 	ComboBox->setInsertionPolicy(QComboBox::NoInsertion);

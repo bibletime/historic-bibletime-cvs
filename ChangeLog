@@ -1,3 +1,6 @@
+2001-07-27 Joachim Ansorg <jansorg@gmx.de>
+	* Added history box in the HTML dialog widget if history browsing is enabled
+
 2001-07-16 Joachim Ansorg <jansorg@gmx.de>
 	* Implemented better configure script. We have now options to link to a static Sword library!
 	* Added rudimentary support for version checking

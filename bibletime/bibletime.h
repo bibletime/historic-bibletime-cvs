@@ -116,10 +116,6 @@ public:
   */
   virtual void show();
   /**
-  * The function to save the settings after a crash. It's called by the crashandler of KCrash.
-  */
-//  static void emergencySave( int );
-  /**
   * Reads the settings from the configfile and sets the right properties.
   */
   void readSettings();
@@ -339,7 +335,7 @@ private slots: // Private slots
 
 private:
 	QProgressDialog* m_progress;
-	pthread_mutex_t progress_mutex;
-		
+	pthread_mutex_t progress_mutex;		
 };
+
 #endif

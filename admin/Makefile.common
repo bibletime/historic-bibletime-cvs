@@ -7,7 +7,8 @@ cvs:
 	  rm -f acinclude.m4 configure.files ;\
 	  $(MAKE) -f Makefile.am top_srcdir=. acinclude.m4 ;\
 	fi
-	@echo "!!! If you get recursion errors from autoconf, it is advisable to set the environment variable M4 to something including \"--nesting-limit=500\""
+	@echo "!!! If you get recursion errors from autoconf, it is advisable to set the"
+	@echo "    environment variable M4 to something including \"--nesting-limit=500\""
 	@if test -r configure.in.in; then \
 	  rm -f subdirs configure.in ;\
 	  echo "*** Creating list of subdirectories" ;\

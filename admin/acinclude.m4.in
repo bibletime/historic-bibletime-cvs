@@ -463,7 +463,9 @@ AC_DEFUN(KDE_MISC_TESTS,
 [
    AC_LANG_C
    dnl Checks for libraries.
-   AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
+   AC_CHECK_LIB(util, main, [LIBUTIL="-lutil"]) dnl for *BSD 
+   AC_SUBST(LIBUTIL)
+   AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for *BSD
    AC_SUBST(LIBCOMPAT)
    kde_have_crypt=
    AC_CHECK_LIB(crypt, crypt, [LIBCRYPT="-lcrypt"; kde_have_crypt=yes],
@@ -503,12 +505,27 @@ support])
    AC_CHECK_FUNC(shmat, ,
      AC_CHECK_LIB(ipc, shmat, X_EXTRA_LIBS="$X_EXTRA_LIBS -lipc"))
    
-   # Solaris 2.6 needs -lresolv for res_init
-   AC_CHECK_FUNC(res_init, ,
-     AC_CHECK_LIB(resolv, res_init, X_EXTRA_LIBS="$X_EXTRA_LIBS -lresolv"))
+   # Solaris 2.6 and others need -lresolv for res_init
+   AC_CHECK_FUNCS(res_init, , [
+     kde_libs_safe="$LIBS"
+     LIBS="$LIBS $X_EXTRA_LIBS -lresolv"
+     AC_TRY_LINK(
+[
+#include <resolv.h>
+],
+[ 
+res_init(); 
+],
+        LIBRESOLV="-lresolv"
+        X_EXTRA_LIBS="$X_EXTRA_LIBS $LIBRESOLV"
+        AC_DEFINE(HAVE_RES_INIT, 1, [Define if you have the res_init function])
+     )
+     LIBS=$kde_libs_safe
+   ])
 
    LIBSOCKET="$X_EXTRA_LIBS"
    AC_SUBST(LIBSOCKET)
+   AC_SUBST(LIBRESOLV)
    AC_SUBST(X_EXTRA_LIBS)
    AC_CHECK_LIB(ucb, killpg, [LIBUCB="-lucb"]) dnl for Solaris2.4
    AC_SUBST(LIBUCB)
@@ -2788,20 +2805,24 @@ AC_DEFUN(KDE_PAM, [
     [  --with-pam[=ARG]        enable support for PAM: ARG=[yes|no|service name]],
     [ if test "x$withval" = "xyes"; then
         use_pam=yes
+        pam_service=kde
       elif test "x$withval" = "xno"; then
         use_pam=no
       else
         use_pam=yes
-        pam_service="$withval"
+        pam_service=$withval
       fi
       ac_cv_path_pam="use_pam=$use_pam pam_service=$pam_service"
     ], [
       AC_CACHE_VAL(ac_cv_path_pam,
         [ use_pam=no
           AC_CHECK_LIB(pam, pam_start,
-            [ AC_CHECK_HEADER(security/pam_appl.h, use_pam=yes) ], , $LIBDL)
-	  ac_cv_path_pam="use_pam=$use_pam pam_service="
-	])
+            [ AC_CHECK_HEADER(security/pam_appl.h, 
+                [ use_pam=yes
+                  pam_service=kde ]) 
+            ], , $LIBDL)
+          ac_cv_path_pam="use_pam=$use_pam pam_service=$pam_service"
+        ])
     ])
   eval "$ac_cv_path_pam"
 
@@ -2811,7 +2832,7 @@ AC_DEFUN(KDE_PAM, [
     PAMLIBS=""
   else
     AC_MSG_RESULT(yes)
-    AC_DEFINE(HAVE_PAM, 1, [Defines if you have PAM (Pluggable Authentication Modules); Redhat-Users!])
+    AC_DEFINE(HAVE_PAM, 1, [Defines if you have PAM (Pluggable Authentication Modules)])
     PAMLIBS="$PAM_MISC_LIB -lpam $LIBDL"
 
     dnl test whether struct pam_message is const (Linux) or not (Sun)
@@ -2823,16 +2844,31 @@ AC_DEFUN(KDE_PAM, [
                         AC_DEFINE(PAM_MESSAGE_NONCONST, 1, [Define if your PAM support takes non-const arguments (Solaris)])]
                         )],
       [AC_MSG_RESULT([not found - assume const, Linux-type PAM])])
-
-    if test "x$pam_service" = x; then
-      AC_MSG_RESULT(["Default PAM service name will be used."])
-    else
-      AC_DEFINE_UNQUOTED(KDE_PAM_SERVICE, "$pam_service", [Define to change the default name of the PAM service used by KDE])
-      AC_MSG_RESULT([PAM service name will be: $pam_service])
-    fi
   fi
 
   AC_SUBST(PAMLIBS)
+])
+
+dnl DEF_PAM_SERVICE(arg name, full name, define name)
+AC_DEFUN(DEF_PAM_SERVICE, [
+  AC_ARG_WITH($1-pam,
+    [  --with-$1-pam=[val]    override PAM service from --with-pam for $2],
+    [ if test "x$use_pam" = xyes; then
+        $3_PAM_SERVICE="$withval"
+      else
+        AC_MSG_ERROR([Cannot use use --with-$1-pam, as no PAM was detected.
+You may want to enforce it by using --with-pam.])
+      fi
+    ], 
+    [ if test "x$use_pam" = xyes; then
+        $3_PAM_SERVICE="$pam_service"
+      fi
+    ])
+    if test -n "$$3_PAM_SERVICE"; then
+      AC_MSG_RESULT([The PAM service used by $2 will be $$3_PAM_SERVICE])
+      AC_DEFINE_UNQUOTED($3_PAM_SERVICE, "$$3_PAM_SERVICE", [The PAM service to be used by $2])
+    fi
+    AC_SUBST($3_PAM_SERVICE)
 ])
 
 AC_DEFUN(KDE_SHADOWPASSWD, [
