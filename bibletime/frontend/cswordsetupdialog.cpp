@@ -446,11 +446,11 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
       Q_ASSERT(installedModule);
 
       //check whether it's an uodated module or just the same
-      char* installedVersionString = installedModule->module()->getConfigEntry("Version");
+      const char* installedVersionString = installedModule->module()->getConfigEntry("Version");
       if (!installedVersionString || (installedVersionString && !strlen(installedVersionString)))
         installedVersionString = "1.0";
       
-      char* versionString = module->getConfigEntry("Version");
+      const char* versionString = module->getConfigEntry("Version");
       if (!versionString)
         versionString = "1.0";
 
@@ -493,7 +493,7 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
       newItem = new QCheckListItem(m_installModuleListView, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);
     }
     Q_ASSERT(newItem);
-    char* installedVersion = installedModule ? installedModule->module()->getConfigEntry("Version") : "";
+    const char* installedVersion = installedModule ? installedModule->module()->getConfigEntry("Version") : "";
     if (installedModule && !strlen(installedVersion)) {
       installedVersion = "1.0";
     }
