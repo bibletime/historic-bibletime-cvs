@@ -48,7 +48,7 @@ public:
 	virtual void key( const char* key );
 
 
-	~CSwordTreeKey();
+	virtual ~CSwordTreeKey();
 };
 
 #endif

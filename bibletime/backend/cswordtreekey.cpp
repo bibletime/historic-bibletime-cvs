@@ -28,7 +28,7 @@ CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKe
 	m_module = k.m_module;
 }
 
-CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k)/*, CSwordKey()*/ {	
+CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k) {
 	m_module = module;
 }
 

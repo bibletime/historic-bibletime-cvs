@@ -213,15 +213,15 @@ const int CSwordModuleSearch::getPercent( percentType type ){
 /** Returns a copy of the used search scope. */
 ListKey CSwordModuleSearch::scope() {
 //	qWarning("lower bound: ", m_searchScope);
-	qWarning("count of scope %i", m_searchScope.Count());
-	//output the scope
-	for (int i=0; i < m_searchScope.Count(); i++) {
-		SWKey* key = m_searchScope.GetElement(i);
-		VerseKey* vk = dynamic_cast<VerseKey*>(key);
-		if (vk) {
-			qWarning("%i. scope is from %s to %s", i, (const char*)vk->LowerBound(), (const char*)vk->UpperBound());
-		}		
-	}
+//	qWarning("count of scope %i", m_searchScope.Count());
+//	//output the scope
+//	for (int i=0; i < m_searchScope.Count(); i++) {
+//		SWKey* key = m_searchScope.GetElement(i);
+//		VerseKey* vk = dynamic_cast<VerseKey*>(key);
+//		if (vk) {
+//			qWarning("%i. scope is from %s to %s", i, (const char*)vk->LowerBound(), (const char*)vk->UpperBound());
+//		}		
+//	}
 	
 	return m_searchScope;
 }
