@@ -63,6 +63,10 @@ public:
   */
 	const int getSearchType();
   /**
+  * Returns the string of current type of search.
+  */
+  const QString getSearchTypeString();
+  /**
   * Updates the progress bar for the modulw which is searched at the moment
   */
 	void updateCurrentProgress(const unsigned short int);
