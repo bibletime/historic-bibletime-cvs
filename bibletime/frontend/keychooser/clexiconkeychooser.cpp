@@ -29,6 +29,7 @@
 
 //KDE includes
 #include <klocale.h>
+#include <kglobal.h>
 
 CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name){
@@ -41,7 +42,15 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
  	QHBoxLayout *m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	
 	m_widget = new CKeyChooserWidget(m_info->getEntries(), false, this);
+
 	m_widget->ComboBox->setMaximumWidth(200);
+  if (info && info->encoding() == QFont::Unicode){
+#warning implement reaction to font change in the optionsdialog here
+    KConfig* config = KGlobal::config();
+    KConfigGroupSaver groupSaver(config,"Fonts");
+    /*m_widget->ComboBox->*/setFont( config->readFontEntry( i18n("Display window Unicode") ) );
+  }
+
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,TT_PRESENTER_NEXT_ENTRY, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_ENTRY);
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,WT_PRESENTER_NEXT_ENTRY, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_ENTRY);
 	

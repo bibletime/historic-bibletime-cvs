@@ -84,7 +84,10 @@ private:
 	QString m_htmlHeader;
 	QString m_htmlBody;
 	QString m_standardFontName;
+	QString m_unicodeFontName;
 	short int m_standardFontSize;	
+	short int m_unicodeFontSize;	
+
 	bool m_includeHeader;
 };
 

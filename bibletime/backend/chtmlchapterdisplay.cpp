@@ -28,6 +28,11 @@
 //Sword includes
 #include <versekey.h>
 
+#include <kconfig.h>
+#include <kglobal.h>
+#include <klocale.h>
+
+
 /** The constructor */
 CHTMLChapterDisplay::CHTMLChapterDisplay(){
 	m_useLineBreak = true;	//we use breaks as default, should be changeable at runtime
@@ -54,12 +59,12 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	
   QString FontName = m_standardFontName;
   int FontSize = m_standardFontSize;
-#warning todo: use UTF-8 special font
-  /*if (module->hasFont()){ //use custom font?
-    QFont font = module->getFont();
-    FontName = font.family();
-    FontSize = CToolClass::makeLogicFontSize(font.pointSize());
-  } */
+
+  if (module->encoding() == QFont::Unicode){ //use custom font?
+    FontName = m_unicodeFontName;
+    FontSize = m_unicodeFontSize;
+  }
+
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
 		verse = key.Verse();
 		m_htmlText.append( QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\"><B>%3</B></A>")
@@ -106,10 +111,14 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
  	m_htmlText.append(QString::fromLatin1("<TR><TD BGCOLOR=\"#F1F1F1\"></TD>"));
 	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
+
+#warning change concept of the fontmap -- no longer per module
 	while (m) {
-		if (d && d->encoding() == QFont::Unicode )
-#warning todo: use UTF-8 specific font
-			;//fontMap.insert(d, d->getFont());
+		if (d && d->encoding() == QFont::Unicode ){
+      KConfig* config = KGlobal::config();
+      KConfigGroupSaver groupSaver(config,"Fonts");
+      fontMap.insert(d, config->readFontEntry( i18n("Display window Unicode") ).family() );
+    }
     if (m)
 			m_htmlText +=
 				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%1</B></TD>").arg((int)((double)100/(double)moduleList->count())).arg(d->name());

@@ -29,12 +29,25 @@
 //Sword includes
 #include <versekey.h>
 
+#include <kconfig.h>
+#include <kglobal.h>
+#include <klocale.h>
+
 CHTMLEntryDisplay::CHTMLEntryDisplay(){
 	m_highlightedVerseColor = "red";
 	m_htmlHeader = "<HTML><HEAD></HEAD>";
 	m_htmlBody = "</BODY></HTML>";
 	m_standardFontName = QFont::defaultFont().family();
-	m_standardFontSize = 4; //we use logical font sizes between 1 and 7
+  //we use logical font sizes between 1 and 7
+	m_standardFontSize = CToolClass::makeLogicFontSize( QFont::defaultFont().pointSize() );
+
+  KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config,"Fonts");
+
+  m_unicodeFontName = config->readFontEntry( i18n("Display window Unicode") ).family();
+  m_unicodeFontSize = CToolClass::makeLogicFontSize(
+    config->readFontEntry( i18n("Display window Unicode") ).pointSize() );
+
 	m_includeHeader = true;
 }
 
@@ -58,19 +71,19 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 		key = new CSwordLDKey(module);
 	key->key(module->module()->KeyText());
 	
-#warning todo: use UTF-8 specific font
-//  if (module->encoding() == QFont::Unicode ){ //use custom font
-//    QFont font = module->getFont();
-//    FontName = font.family();
-//    FontSize = CToolClass::makeLogicFontSize(font.pointSize());
-//  }
+  if (module->encoding() == QFont::Unicode ){ //use custom font
+    FontName = m_unicodeFontName;
+    FontSize = m_unicodeFontSize;
+  }
 	if (m_includeHeader) {
 		m_htmlText =
-			m_htmlHeader + QString::fromLatin1("<BODY><FONT color=\"%1\">\
-<A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
-<HR><FONT face=\"%5\" size=\"%6\">%7</FONT>")
+			m_htmlHeader + QString::fromLatin1("<BODY><FONT color=\"%1\" face=\"%2\" size=\"%3\">\
+<A HREF=\"sword://%4\">%5: <B>%6</B></A></FONT>\
+<HR><FONT face=\"%7\" size=\"%8\">%9</FONT>")
 				.arg(m_highlightedVerseColor)
-				.arg(key->key())
+        .arg(FontName)
+				.arg(FontSize)
+  			.arg(key->key())
 				.arg(module->getDescription())
 				.arg(key->key())
 				.arg(FontName)
@@ -143,13 +156,24 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
 		key->module(d);
+		if (d && d->encoding() == QFont::Unicode ) { //use custom font
+      FontName = m_unicodeFontName;
+      FontSize = m_unicodeFontSize;
+		}
+		else {
+			FontName = m_standardFontName;
+			FontSize = m_standardFontSize;
+		}
     if (m)
     	m_htmlText.append(
-				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2 (<FONT COLOR=\"%3\">%4</FONT>)</B></TD>")
+				QString::fromLatin1(
+ "<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2 (<FONT COLOR=\"%3\" FACE=\"%4\" SIZE=\"%5\">%6</FONT>)</B></TD>")
 					.arg(width)
 					.arg(d->name())
 					.arg(m_highlightedVerseColor)
-					.arg(key->key())
+          .arg(FontName)
+		  		.arg(FontSize)
+      		.arg(key->key())
 			);
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
@@ -158,16 +182,15 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	m = (d = moduleList->first()) ? d->module() : 0;
 	m_htmlText.append(QString::fromLatin1("<TR>"));
 	while (m) {
-#warning todo: use UTF-8 specific font
-//		if (d && d->encoding() == QFont::Unicode ) { //use custom font
-//			QFont font = d->getFont();
-//			FontName = font.family();
-//			FontSize = CToolClass::makeLogicFontSize(font.pointSize());
-//		}
-//		else {
+
+		if (d && d->encoding() == QFont::Unicode ) { //use custom font
+      FontName = m_unicodeFontName;
+      FontSize = m_unicodeFontSize;
+		}
+		else {
 			FontName = m_standardFontName;
 			FontSize = m_standardFontSize;
-//		}
+		}
 		key->module(d);
 		key->key(usedKey);
 		
