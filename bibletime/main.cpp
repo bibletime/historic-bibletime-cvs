@@ -134,6 +134,9 @@ int main(int argc, char* argv[]) {
 //	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
 //	aboutData.addAuthor("Tim Brodie", 	I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
 
+	//artwork (sorted by name)
+	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, banners"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");
+		
 	//documentation (sorted by name)
 	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
 	

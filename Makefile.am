@@ -36,7 +36,6 @@ install-data-local:
 
 MAINTAINERCLEANFILES = configure.files subdirs 
 
-dist-hook:
-	cd $(top_distdir) && $(MAKE) -f Makefile.cvs
-
+dist-hook:	
+	cd $(distdir) && make -f Makefile.cvs
 
