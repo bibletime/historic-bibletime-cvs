@@ -20,9 +20,9 @@
 
 #include <qwidget.h>
 #include <qmap.h>
-
-#include <qcombobox.h>
 #include <qstringlist.h>
+
+#include <kcombobox.h>
 
 class CScrollButton;
 class CLexiconKeyChooser;

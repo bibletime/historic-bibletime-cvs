@@ -42,7 +42,8 @@ const unsigned int ARROW_HEIGHT = 12;
 const unsigned int MOVER_HEIGHT = 6;
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
-  : QComboBox(rw,parent,name){
+  : QComboBox(rw,parent,name)
+{
 	setFocusPolicy(QWidget::WheelFocus);
   if (lineEdit()) {
   	installEventFilter( lineEdit() );
@@ -50,42 +51,44 @@ CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
 }
 
 /** Reimplementation. */
-bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){			
-//	qWarning("CKCComboBox::eventFilter( QObject *o, QEvent *e )");
+bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 	if (e->type() == QEvent::FocusOut) {
-		QFocusEvent* f = static_cast<QFocusEvent*>(e);
+ 		QFocusEvent* f = static_cast<QFocusEvent*>(e);
+ 		
 		if (o == lineEdit() && f->reason() == QFocusEvent::Tab) {
-	    int index = listBox()->index( listBox()->findItem(currentText()) );
-	    if (index == -1)
+ 	    int index = listBox()->index( listBox()->findItem(currentText()) );
+	    if (index == -1) {
 				index = 0;// return 0 if not found
-	  	setCurrentItem( index );	
-	    emit focusOut( index );  	
-	  }
-	  else if (/*o == lineEdit() &&*/ f->reason() == QFocusEvent::Popup) {
+			}
+	  	setCurrentItem( index );
+	    emit focusOut( index );
+			
+			return false;
+ 	  }
+	  else if (f->reason() == QFocusEvent::Popup) {
 			return false;
 		}
-	  else if (/*o == lineEdit() && */f->reason() == QFocusEvent::ActiveWindow) {
+	  else if (f->reason() == QFocusEvent::ActiveWindow) {
 			emit activated(currentText());
-			return true;
-		}
-	  else if (/*o == lineEdit() &&*/ f->reason() == QFocusEvent::Mouse) {
-			emit activated(currentText());
-			return true;
-		}		
-	  else if (o == listBox()) {  //???
 			return false;
 		}
+ 	  else if (f->reason() == QFocusEvent::Mouse) {
+ 			emit activated(currentText());
+  		return false;
+ 		}		
 	  else if (o == this) {
 			emit activated(currentText());
-			return true;
-		}		
+			return false;
+		}
 	}
-//	qWarning("not handled!");
-  return QComboBox::eventFilter(o,e);	
+  
+	return QComboBox::eventFilter(o,e);	
 }
 
 /** Scrolls in the list if the wheel of the mouse was used. */
 void CKCComboBox::wheelEvent( QWheelEvent* e ) {
+	return QComboBox::wheelEvent(e);
+
 	const signed int change = (int)((float)e->delta()/(float)120);
 	int current = currentItem();
 	

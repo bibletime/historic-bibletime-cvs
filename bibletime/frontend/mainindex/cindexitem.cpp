@@ -428,8 +428,12 @@ const QString CBookmarkItem::toolTip(){
     return QString::null;
   }
 
-	QString ret;
+	CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults();
+	filterOptions.footnotes = false;
+	filterOptions.scriptureReferences = false;
+	CPointers::backend()->setFilterOptions(filterOptions);
 	
+	QString ret;	
 	util::scoped_ptr<CSwordKey> k( CSwordKey::createInstance(module()) );
 	k->key(this->key());
 	if (k.get()) {
