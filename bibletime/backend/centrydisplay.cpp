@@ -32,115 +32,25 @@
 #include <qapplication.h>
 #include <qregexp.h>
 
-CEntryDisplay::CEntryDisplay(){
+/*CEntryDisplay::CEntryDisplay(){
 }
 
 CEntryDisplay::~CEntryDisplay(){
 }
+*/
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
 const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions )
 {
-  backend()->setDisplayOptions( displayOptions );
-  backend()->setFilterOptions( filterOptions );
 
 	CDisplayRendering render(displayOptions, filterOptions);
 	return render.renderSingleKey(keyName, modules);
-}
-
-/** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
-const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName){
-  util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
-  key->key(keyName);
-  
-	//declarations out of the loop for optimization
-  QString entry;
-	QString renderedText;
-  QString keyText;
-  bool isRTL;
-
-  for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    key->module(m);
-    key->key(keyName);
-    keyText = key->key();
-    isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
-		
-		entry = QString::null;
-
-/*		key.renderedText();
-		int pvHeading = 0;
-		do { //add sectiontitle before we add the versenumber
-			QString preverseHeading = QString::fromUtf8(
-m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeading++).latin1()].c_str());
-			if (!preverseHeading.isEmpty()) {
-				entry += QString::fromLatin1("<div lang=\"%1\" class=\"sectiontitle\">%1</div>")
-					.arg(m->language().isValid() 
-						? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
-						: QString::null
-					)
-					.arg(preverseHeading);
-			}
-			else {
-				break;
-			}
-		} while (true);
-*/
-
-		entry += QString::fromLatin1("<div %1 %2 dir=\"%3\">%4</div>")
-			.arg(m->language().isValid() 
-				? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
-				: QString::null
-			)
-			.arg((modules.count() == 1) ? QString::fromLatin1("class=\"entry\"") : QString::null)
-			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-			.arg(key->renderedText());
-		
-  	if (modules.count() == 1) {
-			renderedText += entry;
-		}
-  	else {
-	    renderedText += QString::fromLatin1("<td class=\"entry\" %1 dir=\"%2\">%3</td>")
-				.arg(m->language().isValid() 
-					? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
-					: QString::null
-				)
-				.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-				.arg(entry);
-		}
-	}
- 	if (modules.count() > 1) {
-		renderedText += QString::fromLatin1("</tr>");
-	}
-  return renderedText;
-}
-/** Returns the font of the given type. */
-//const QFont CEntryDisplay::font( const CLanguageMgr::Language& lang ) {
- // return CBTConfig::get(lang).second;
-//}
-
-void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptions options) {
-  m_displayOptions = options;
-}
-
-/** Returns the right reference text which can be incluced in the HTML */
-const QString CEntryDisplay::htmlReference( CSwordModuleInfo* module, const QString& keyName, const QString linkText, const QString& anchorText ) {
-  if (linkText.isEmpty()) {
-    return QString::fromLatin1("<a name=\"%1\"/>").arg(anchorText);
-  }
-  else {
-    return QString::fromLatin1("<a name=\"%1\" href=\"%2\">%3</a>")
-      .arg(anchorText)
-      .arg(CReferenceManager::encodeHyperlink(module->name(), keyName, CReferenceManager::typeFromModule(module->type()) ))
-      .arg(linkText);
-  }
 }
 
 /* ----------------------- new class: CChapterDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
 const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
-  backend()->setDisplayOptions( displayOptions );
-  backend()->setFilterOptions( filterOptions );
   QString text = QString::null;
 
   CSwordVerseKey key(0);
@@ -173,14 +83,15 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
-	CDisplayTemplateMgr tMgr;
-
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
-
-  // the number of levels which should be display together, 1 means display no entries together
+	CDisplayRendering render;
+	CDisplayRendering::KeyTree tree;
+	CDisplayRendering::KeyTreeItem::Settings itemSettings;
+  
+	// the number of levels which should be display together, 1 means display no entries together
   int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
 
-  util::scoped_ptr<CSwordTreeKey> key(
+  util::scoped_ptr<CSwordTreeKey> key (
 		dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) )
 	);
   key->key(keyName); //set the key to position we'd like to get
@@ -188,9 +99,10 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   // standard of DisplayLevel, display nothing together
   // if the current key is the root entry don't display anything together!
   if ((displayLevel <= 1) || (key->key().isEmpty() || (key->key() == "/") )) {
-		QString ret = tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key), modules.first()->type());
+		tree += CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings );
   	key->key(keyName); //restore before we return so make sure it doesn't break anything
-    return ret;
+    
+		return render.renderKeyTree(tree);
   };
 
   /**
@@ -210,8 +122,10 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 
   if (possibleLevels < displayLevel) { //too few levels available!
     //display current level, we could also decide to display the available levels together
-		return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key), modules.first()->type());
-  };
+ 		tree += CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings );
+    return render.renderKeyTree(tree);
+
+	};
   if ((displayLevel > 2) && (displayLevel == possibleLevels)) { //fix not to diplay the whole module
     --displayLevel;
   }
@@ -220,67 +134,41 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   // at the moment we're at the lowest level, so we only have to go up!
   for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
     if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
-			return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key), modules.first()->type());
+			tree += CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings );
+  	  return render.renderKeyTree(tree);
     };
   };
 
   // no we can display all sub levels together! We checked before that this is possible!
-  m_text = entryText(modules, key, 0, (key->key() == keyName));
+	itemSettings.highlight = (key->key() == keyName);
+	tree += CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings );
 
-  const bool hasToplevelText = !key->strippedText().isEmpty();
-
+  //const bool hasToplevelText = !key->strippedText().isEmpty();
   key->firstChild(); //go to the first sibling on the same level
-  m_chosenKey = keyName;
-
-  printTree(key, modules, hasToplevelText); //if the top level entry has text ident the other text
-
+  //m_chosenKey = keyName;
+  setupRenderTree(key.get(), &tree, keyName);
 	key->key(keyName); //restore key
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, m_text, modules.first()->type());
+	return render.renderKeyTree( tree );
 }
 
-/** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
-const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, CSwordTreeKey* const key, const int level, const bool activeKey){
-  /**
-  * We have to be careful that we don't change the value of the key! We pass pointers for optimizations reasons,
-  * since entryText is called many times!
-  * creating copies of the key object takes too long
-  */
-	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
-  const QString& keyName = key->getFullName();
-  const bool isRTL = (book->textDirection() == CSwordModuleInfo::RightToLeft);
+void CBookDisplay::setupRenderTree(CSwordTreeKey * swordTree, CTextRendering::KeyTree * renderTree, const QString& highlightKey) {
+	Q_ASSERT( swordTree );
+	Q_ASSERT( renderTree );
+	
+	const QString key = swordTree->getFullName();
+  CTextRendering::KeyTreeItem::Settings settings;
+	settings.highlight = (key == highlightKey);
+	CTextRendering::KeyTreeItem item(key , swordTree->module(0), settings );
+	renderTree->append( item );
 
-  return QString::fromLatin1("<%1 %2 class=\"%3\" dir=\"%4\"><span class=\"entryname\" dir=\"%5\">%6</span> %7</%8>")
-    .arg( m_displayOptions.lineBreaks  ? "div" : "span" )
-    .arg( book->language().isValid() 
-			? QString::fromLatin1("lang=\"%1\"").arg(book->language().abbrev()) 
-			: QString::null
-		)
-		.arg( activeKey ? "currententry" : "entry" )
-		.arg( isRTL ? "rtl" : "ltr")
-		.arg( isRTL ? "rtl" : "ltr")
-    .arg( htmlReference(book, keyName, key->getLocalName(), (!keyName.isEmpty() ? keyName : "/") ))
-		.arg( key->renderedText() )
-		.arg( m_displayOptions.lineBreaks ? "div" : "span" );
-}
-
-void CBookDisplay::printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos){
-  // make sure we don't change the value of the key!
-
-  //static for performance reasons, static is faster because the
-  //initialization isn't executed more than one time
-  static QString fullKeyName;
-  fullKeyName = treeKey->getFullName();
-
-  m_text += entryText(modules, treeKey, levelPos, (m_chosenKey == fullKeyName));
-
-  if (treeKey->hasChildren()) { //print tree for the child items
-    treeKey->firstChild();
-    printTree(treeKey, modules, levelPos+1); //doesn't change the value of the key! (this function)
-    treeKey->key(fullKeyName); //go back where we came from
+  if (swordTree->hasChildren()) { //print tree for the child items
+    swordTree->firstChild();
+    setupRenderTree(swordTree, item.childList(), highlightKey);
+    swordTree->key(key); //go back where we came from
   }
 
-  if (treeKey->nextSibling()) { //print tree for next entry on the same depth
-		printTree(treeKey, modules, levelPos);
-    treeKey->key(fullKeyName); //return to the value we had at the beginning of this block!
+  if (swordTree->nextSibling()) { //print tree for next entry on the same depth
+		setupRenderTree(swordTree, renderTree, highlightKey);
+    swordTree->key(key); //return to the value we had at the beginning of this block!
   }
 }

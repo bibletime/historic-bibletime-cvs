@@ -23,6 +23,7 @@
 #include "backend/cswordversekey.h"
 #include "backend/centrydisplay.h"
 #include "backend/cdisplaytemplatemgr.h"
+#include "backend/ctextrendering.h"
 
 #include "printing/cprintitem.h"
 #include "printing/cprinter.h"
@@ -173,23 +174,28 @@ const bool CExportManager::saveKeyList(QPtrList<CSwordKey> list, const Format fo
     return false;
 
 	const QString filename = getSaveFileName(format);
-  if (filename.isEmpty())
+  if (filename.isEmpty()) {
     return false;
+	}
 
-	QString text;
+	CHTMLExportRendering::Settings settings(addText);
+	CHTMLExportRendering render(settings, m_displayOptions, m_filterOptions);
+	CTextRendering::KeyTree tree;
+	
   setProgressRange(list.count());
+	CTextRendering::KeyTreeItem::Settings itemSettings;
+	itemSettings.highlight = false;
+	
   for (CSwordKey* k = list.first(); k && !progressWasCancelled(); k = list.next()) {
- 		if (addText) {
- 			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText(CSwordKey::HTMLEscaped) : k->strippedText() );
-		}
- 		else {
- 			text += k->key() + lineBreak(format);
-		}
+ 		tree += CTextRendering::KeyTreeItem(k->key(), k->module(), itemSettings);
     incProgress();
   };
 
+	const QString text = render.renderKeyTree(tree);	
+	
+	
   if (!progressWasCancelled()) {
- 		CToolClass::savePlainFile(filename, text);
+ 		CToolClass::savePlainFile(filename, text, false, (format==HTML) ? QTextStream::UnicodeUTF8 : QTextStream::UnicodeUTF8);
  		closeProgressDialog();
  		return true;
  	}

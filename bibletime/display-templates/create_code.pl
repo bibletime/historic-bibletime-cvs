@@ -29,8 +29,10 @@ sub extract_data {
 	open(IN, "< $file");	
 	while( <IN> ) {
 		my $line = $_;
-		chomp($line);
+		#chomp($line);
+		
 		$line =~ s/"/\\"/g;
+		$line =~ s/\n/ /g;
 		
 		$html .= $line;
 	}
@@ -46,7 +48,7 @@ my $code = "";
 foreach my $f (@ARGV) {
 	my ($name, $html) = &extract_data( $f );
 	
-	$code .= "\tm_templateMap[ i18n(\"$name\") ] = \"$html\";"
+	$code .= "\tm_templateMap[ i18n(\"$name\") ] = \"$html\";\n"
 }
 
 

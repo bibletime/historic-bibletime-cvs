@@ -21,6 +21,8 @@
 
 #include "util/scoped_resource.h"
 
+//KDE includes
+#include <klocale.h>
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo const * mod, const Settings settings ) 
 	: m_key(key),
@@ -50,6 +52,13 @@ CTextRendering::KeyTreeItem::~KeyTreeItem() {
 	delete m_childList;
 }
 
+CTextRendering::KeyTree* CTextRendering::KeyTreeItem::childList() const {
+	if (!m_childList) {
+		m_childList = new KeyTree();
+	}
+		
+	return m_childList;
+};
 
 ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 	//collect all modules which are available and used by child items
@@ -76,13 +85,18 @@ CTextRendering::~CTextRendering() {
 }
 
 const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
-	QString ret;
+	initRendering();	
 	
+	QString ret;
 	for (KeyTree::const_iterator it = tree.begin(); it != tree.end(); ++it) {
 		ret += renderEntry( *it );	
 	}
 	
 	return finishText(ret, tree);
+}
+
+const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo ) {
+	return QString::null;
 }
 
 const QString CTextRendering::renderSingleKey( const QString& key, ListCSwordModuleInfo moduleList ) {
@@ -94,23 +108,24 @@ const QString CTextRendering::renderSingleKey( const QString& key, ListCSwordMod
 }
 
 
-CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) 
-	: m_displayOptions(displayOptions),
+CHTMLExportRendering::CHTMLExportRendering(CHTMLExportRendering::Settings settings, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) 
+	: m_settings(settings),
+		m_displayOptions(displayOptions),
 		m_filterOptions(filterOptions)
 {
 
 }
 
-CDisplayRendering::~CDisplayRendering() {
+CHTMLExportRendering::~CHTMLExportRendering() {
 
 }
 
-const QString CDisplayRendering::renderEntry( const KeyTreeItem& i ) {
+const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
 	ListCSwordModuleInfo modules = i.modules();	
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
 
-	qWarning("render entry for %s", i.key().latin1());
+//	qWarning("renderEntry  %s", i.key().latin1());
 	// Only insert the table stuff if we are displaying parallel.
   // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
 
@@ -162,7 +177,16 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 				: QString::null
 			);
 		
-		entry += key->renderedText();
+		if (m_settings.addText) {
+			entry += key->renderedText();
+		}
+		
+		if (i.childList()) {
+			KeyTree const * tree = i.childList();
+			for ( KeyTree::const_iterator it = tree->begin(); it != tree->end(); ++it ) {
+				entry += renderEntry( *it );
+			}
+		}
 		
 		entry +=  (m_displayOptions.lineBreaks 
 			? QString::fromLatin1("</div>") 
@@ -188,7 +212,12 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
   return renderedText;	
 }
 
-const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tree ) {
+void CHTMLExportRendering::initRendering() {
+//  CPointers::backend()->setDisplayOptions( m_displayOptions );
+  CPointers::backend()->setFilterOptions( m_filterOptions );
+}
+
+const QString CHTMLExportRendering::finishText( const QString& oldText, KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();
 	
 	QString text;
@@ -212,18 +241,40 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 		: "unknown";
 	
 	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text, CSwordModuleInfo::Bible, langAbbrev);
+	return tMgr.fillTemplate(i18n("Export"), "title", text, CSwordModuleInfo::Bible, langAbbrev);
 }
 
 
 /*!
-    \fn CDisplayRendering::entryLink( KeyTreeItem& item )
+    \fn CHTMLExportRendering::entryLink( KeyTreeItem& item )
  */
-const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
-//	ListCSwordModuleInfo mods = item.modules();	
-//	CSwordModuleInfo* module = mods.first();
-	Q_ASSERT(module);	
+const QString CHTMLExportRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
+	Q_ASSERT(module);		
+	return item.key();
+}
+
+
+
+CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) 
+	: CHTMLExportRendering(CHTMLExportRendering::Settings(true), displayOptions, filterOptions) 
+{
+
+}
+
+//CDisplayRendering::~CExportHTMLRendering() {
+//}
 	
+//const QString CExportHTMLRendering::renderEntry( const KeyTreeItem& ) {
+//}
+
+//const QString CExportHTMLRendering::finishText( const QString&, KeyTree& tree ) {
+//}
+//void CExportHTMLRendering::initRendering() {
+//}
+
+
+const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
+	Q_ASSERT(module);		
 	QString linkText;
 	
 	if (module && module->type() == CSwordModuleInfo::Bible) {
@@ -251,4 +302,32 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
   }
 	
 	return QString::null;
+}
+
+
+const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tree ) {
+	ListCSwordModuleInfo modules = tree.collectModules();
+	
+	QString text;
+	if (modules.count() > 1) {
+		QString header;
+
+		for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
+			header += QString::fromLatin1("<th width=\"%1%\">%2</th>")
+					.arg(100 / modules.count())
+					.arg(m->name());
+		}
+		text = "<table><tr>" + header + "</tr>" + oldText + "</table>";
+	}
+	else {
+		text = oldText;
+	}
+
+	QString langAbbrev = 
+		((modules.count() == 1) && modules.first()->language().isValid())
+		?	modules.first()->language().abbrev() 
+		: "unknown";
+	
+	CDisplayTemplateMgr tMgr;
+	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text, CSwordModuleInfo::Bible, langAbbrev);
 }

@@ -54,17 +54,16 @@ public:
 		const QString& key() const {
 			return m_key;
 		};
-		KeyTree const * childList() const {
-			return m_childList;
-		};
 		Settings settings() const {
 			return m_settings;
 		};
+		KeyTree* childList() const;
+
 	
 	private:
 		ListCSwordModuleInfo m_moduleList;
 		QString m_key;
-		KeyTree* m_childList;
+		mutable KeyTree* m_childList;
 		Settings m_settings;
 	};
 	
@@ -77,26 +76,58 @@ public:
   virtual ~CTextRendering();
 
 	const QString renderKeyTree( KeyTree& );
+	const QString renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo );
 	const QString renderSingleKey( const QString& key, ListCSwordModuleInfo );
 	
 protected:
 	virtual const QString renderEntry( const KeyTreeItem& ) = 0;
 	virtual const QString finishText( const QString&, KeyTree& tree ) = 0;
+	virtual void initRendering() = 0;
 };
 
 
-class CDisplayRendering : public CTextRendering {
+class CHTMLExportRendering : public CTextRendering {
 public:
-	CDisplayRendering(CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults());
-	virtual ~CDisplayRendering();
+	struct Settings {
+		Settings(const bool text = true) {
+			addText = text;
+		};
+		
+		bool addText;
+	};
+	
+	CHTMLExportRendering(
+		Settings settings, 
+		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
+		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
+	);
+	virtual ~CHTMLExportRendering();
 	
 protected:	
 	virtual const QString renderEntry( const KeyTreeItem& );
 	virtual const QString finishText( const QString&, KeyTree& tree );
 	virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* module );
-
+	virtual void initRendering();
+	
 	CSwordBackend::DisplayOptions m_displayOptions;
 	CSwordBackend::FilterOptions m_filterOptions;
+	Settings m_settings;
+};
+
+class CDisplayRendering : public CHTMLExportRendering {
+public:
+	CDisplayRendering(
+		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
+		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
+	);
+	//virtual ~CExportHTMLRendering();
+	
+protected:	
+	virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* module );
+
+//	virtual const QString renderEntry( const KeyTreeItem& );
+	virtual const QString finishText( const QString&, KeyTree& tree );
+//	virtual void initRendering();
 };
 
 #endif

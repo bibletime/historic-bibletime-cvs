@@ -265,7 +265,7 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options
 }
 
 void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions options){
-  if (m_displays.entry) {
+/*  if (m_displays.entry) {
 		m_displays.entry->setDisplayOptions(options);	
 	}
   if (m_displays.chapter) {
@@ -274,6 +274,7 @@ void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions optio
   if (m_displays.book) {
 		m_displays.book->setDisplayOptions(options);
 	}
+	*/
 }
 
 /** This function searches for a module with the specified description */
