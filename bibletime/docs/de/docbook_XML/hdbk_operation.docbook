@@ -384,63 +384,62 @@ unterstützt.</emphasis></para>
 </section>
 
 
-<section ID="backslash"><title>The Backslash Prior to a Special Character \*</title>
-<para>The Backslash prior to a special character indicates that the
-character is not being used in its special meaning, but is just
-to match itself.
-<emphasis>amen\.</emphasis> matches <emphasis>amen.</emphasis> but not <emphasis>amen</emphasis>t
-and will not locate firm<emphasis>amen</emphasis>t.</para>
+<section ID="backslash"><title>Der Backslash vor einem besonderen Zeichen \*</title>
+<para>Der Backslash vor einem besonderen Zeichen bedeutet, dass das Zeichen nicht in seiner besonderen Bedeutung
+behandelt werden soll, sondern dass es das Zeichen selbst sein soll.
+&quot;<emphasis>amen\.</emphasis>&quot; findet &quot;<emphasis>amen.</emphasis>&quot;, jedoch nicht &quot;<emphasis>amen</emphasis>t&quot;
+und es wird nicht &quot;firm<emphasis>amen</emphasis>t&quot;.</para>
 </section>
 
-<section ID="backslash_o"><title>The Backslash Prior to an Ordinary Character \s</title>
-
-<para>The Backslash prior to an ordinary character indicates that
-the character is not being used to match itself, but has special
-meaning.</para>
+<section ID="backslash_o"><title>Der Backslash vor einem normalen Zeichen \s</title>
+<para>Der Backslash vor einem normalen Zeichen bedeutet, dass dieses statt der normalen Bedeutung
+eine besondere haben soll.
+</para>
 
 <itemizedlist>
 <listitem><para>
-\b if use outside [ ] means word boundary. If used inside [ ] means backspace.
-<emphasis>\brighteous\b</emphasis> matches <emphasis>righteous</emphasis> but
-not un<emphasis>righteous</emphasis> or <emphasis>righteous</emphasis>ness</para></listitem>
-<listitem><para>\B means non-word boundary.  <emphasis>\Brighteous\B</emphasis>
-matches un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly
-but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or <emphasis>
+\b ausßerhalb von [ ] benutzt, bedeutet es Wortgrenze. Innerhalb von [ ] hat die es die Bedeutung des Backspace.
+<emphasis>\brighteous\b</emphasis> findet <emphasis>righteous</emphasis>, aber nicht
+ un<emphasis>righteous</emphasis> oder <emphasis>righteous</emphasis>ness</para></listitem>
+<listitem><para>\B steht für keine Wortgrenze. <emphasis>\Brighteous\B</emphasis>
+findet un<emphasis>righteous</emphasis>ness und un<emphasis>righteous</emphasis>ly,
+jedoch nicht <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> oder <emphasis>
 righteous</emphasis>ness.</para></listitem>
-<listitem><para>\d means digit; same as [0-9].</para></listitem>
-<listitem><para>\D means non-digit, same as [^0-9].</para></listitem>
-<listitem><para>\s means space. </para></listitem>
-<listitem><para>\S means not a space. </para></listitem>
-<listitem><para>\w means alphanumeric; same as [a-zA-Z0-9_].</para></listitem>
-<listitem><para>\W means not alphanumeric; same as [^a-zA-Z0-9_].</para></listitem>
+<listitem><para>\d steht für Zahlen; das Gleiche wie [0-9].</para></listitem>
+<listitem><para>\D steht für nicht-Zahlen; das Gleiche wie [^0-9].</para></listitem>
+<listitem><para>\s bedeutet Leerzeichen. </para></listitem>
+<listitem><para>\S steht für nicht-Leerzeichen. </para></listitem>
+<listitem><para>\w bedeutet alphanumerisch; das Gleiche wie [a-zA-Z0-9_].</para></listitem>
+<listitem><para>\W bedeutet nicht-alphanumerisch; das Gleiche wie [^a-zA-Z0-9_].</para></listitem>
 </itemizedlist>
 
 </section>
 </section>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_scope"><title>Using the Search Scope Tab</title>
-<para>Define the Scope of your search here</para>
+<section ID="hdbk_op_search_dialog_text_scope"><title>Benutzung des Suchbereich Tabulators</title>
+<para>Definieren Sie hier den Suchbereich</para>
 
-<section ID="hd_op_sch_dia_txt_scope_options"><title>Search Scope Options</title>
+<section ID="hd_op_sch_dia_txt_scope_options"><title>Suchbereichs Optionen</title>
 <itemizedlist>
-<listitem><para><guibutton>No Scope</guibutton> this turns off the search
-scope tab.  The entire document is searched.</para></listitem>
-<listitem><para><guibutton>Last Result</guibutton> The new search will only
-search within the verses found in the previous search.</para></listitem>
-<listitem><para><guibutton>Use Scope</guibutton> The new search will be
-performed within the range specified in the maintain custom ranges portion
-of the search scope tab.</para></listitem>
+<listitem><para><guibutton>Kein Suchbereich</guibutton> Dies schaltet den Suchbereichsdialog ab.
+Das gesamte Dokument wird durchsucht.</para></listitem>
+<listitem><para><guibutton>Letztes Suchergebnis</guibutton> Die neue Suche wird nur in den
+während der letzten Suche gefundenen Versen suchen.</para></listitem>
+<listitem><para><guibutton>Benutze Suchbereiche</guibutton> Die neue Suche wird innerhalb des
+Bereichs durchgeführt, der in dem Verwaltungsdialog für Suchbereiche angegeben wurde.
+</para></listitem>
 </itemizedlist>
 
-<para>If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible module is
-done for the name, Jesus, 939 matches will result. Then if
-<guibutton>Last Result</guibutton>is checked and another search is done for the
-title, Christ, 257 matches from the first 939 matches will
-remain. Then if<guibutton>Last Result</guibutton> remains checked and another
-search is done for the title, Lord, 106 matches from the 257 will
-remain. All the remaining 106 matches will have the name, Jesus,
-and both the titles, Christ and Lord.</para>
+<para>Wenn <guibutton>Kein Suchbereich</guibutton> ausgewählt wurde und das KJV Modul durchsucht wird,
+wird der Name Jesus 939 mal gefunden werden.
+Wenn dann
+<guibutton>Letztes Suchergebnis</guibutton> ausgewählt wird und nach dem Titel Christ gesucht wird, bleiben257 von den
+939 Treffern übrig.
+Wenn <guibutton>Letztes Suchergebnis</guibutton> ausgewählt bleibt und eine weitere Suche nach dem Titel Lord
+durchgeführt wird, bleiben 106 von den 257 Treffern übrig. Alle der verbleibenden 106 Treffern enthalten den Namen Jesus und die
+Titel Christ und Lord.
+</para>
 </section>
 <section ID="hd_op_sch_dia_txt_scope_maintain"><title>Maintain Custom Ranges</title><para>Maintain Custom Ranges -
 For each document selected to be searched, you can enter and delete lower and

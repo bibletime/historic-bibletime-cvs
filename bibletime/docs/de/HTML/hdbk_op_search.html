@@ -533,7 +533,7 @@ NAME="ASTERISK"
 ></H4
 ><P
 >Das Sternchen findet null oder mehr Zeichen des vorhergehenden
-Sets,Zeichens oder besonderen Zeichens.
+Sets, Zeichens oder besonderen Zeichens.
 Die Benutzung einer Punkt Sternchen Kombination .* nach einem häufig gefundenem Muster
 kann die Suche sehr lange dauern lassen und das Programm eingefroren wirken lassen.
 <I
@@ -752,22 +752,21 @@ NAME="DOLLAR"
 >3.4.2.8.8. Das Dollarzeichen als Zeilenende Anker xxx$</A
 ></H4
 ><P
->If the Dollar Sign is the last character in a pattern it
-anchors the pattern to the end of a line. Any match must be at
-the end of a line. Because of unfiltered
-formatting characters in some texts, this feature does not always
-work, but may if a few periods are placed before the dollar sign
-to account for the formatting characters.
+>Wenn das Dollarzeichen das letzte des Musters ist, verankert es das Muster an das Ende der Zeile.
+Jeder Treffer muss am Ende der Zeile stattfinden.
+Wegen ungefilterten Formatierungszeichen in einigen texten funktioniert diese Funktion nicht immer.
+Sie könnte es jedoch, wenn einige Punkte vor das Dollarzeichen gesetzt werden,
+um die Formatierungszeichen zu umgehen.
 <I
 CLASS="EMPHASIS"
 >Amen\.$</I
-> matches lines that end with
+> findet Zeilen, die mit
 <I
 CLASS="EMPHASIS"
 >Amen.</I
-> (May
-need to use Amen\....$, Amen\..........$, or even
-Amen\....................$)</P
+> enden (Vielleicht
+müsen Sie Amen\...., Amen\..........$, oder sogar
+Amen\....................$ benutzen)</P
 ></DIV
 ><DIV
 CLASS="SECTION"
@@ -775,46 +774,49 @@ CLASS="SECTION"
 CLASS="SECTION"
 ><A
 NAME="BAR"
->3.4.2.8.9. The Vertical Bar |</A
+>3.4.2.8.9. Der senkrechte Strich |</A
 ></H4
 ><P
->The Vertical Bar between patterns means OR.
+>Der senkrechte Strich zwischen verschiedenen Mustern hat die Bedeutung des logischen ODER.
 <I
 CLASS="EMPHASIS"
 >John|Peter</I
-> matches <I
+> findet <I
 CLASS="EMPHASIS"
 >John</I
-> or <I
+> oder <I
 CLASS="EMPHASIS"
->Peter.
-John .*Peter|Peter .*John</I
-> matches <I
+>Peter</I
+>.
+<I
+CLASS="EMPHASIS"
+>John .*Peter|Peter .*John</I
+> findet <I
 CLASS="EMPHASIS"
 >John</I
 >
 ... <I
 CLASS="EMPHASIS"
 >Peter</I
-> or <I
+> oder <I
 CLASS="EMPHASIS"
 >Peter</I
 > ... <I
 CLASS="EMPHASIS"
 >John</I
 >.
-(.* slows a search)
+(.* verlangsamt die Suche)
 <I
 CLASS="EMPHASIS"
 >pain|suffering|sorrow</I
-> matches <I
+> findet <I
 CLASS="EMPHASIS"
 >pain</I
 >,
-or <I
+oder <I
 CLASS="EMPHASIS"
 >suffering</I
->, or <I
+>, oder <I
 CLASS="EMPHASIS"
 >sorrow</I
 >.</P
@@ -825,13 +827,13 @@ CLASS="SECTION"
 CLASS="SECTION"
 ><A
 NAME="PARENTH"
->3.4.2.8.10. The Parentheses ( )</A
+>3.4.2.8.10. Die runden Klammern ( )</A
 ></H4
 ><P
 ><I
 CLASS="EMPHASIS"
->The use of Parentheses ( ) is
-not supported!</I
+>Die Benutzung der runden Klammern () wird nicht
+unterstützt.</I
 ></P
 ></DIV
 ><DIV
@@ -840,23 +842,22 @@ CLASS="SECTION"
 CLASS="SECTION"
 ><A
 NAME="BACKSLASH"
->3.4.2.8.11. The Backslash Prior to a Special Character \*</A
+>3.4.2.8.11. Der Backslash vor einem besonderen Zeichen \*</A
 ></H4
 ><P
->The Backslash prior to a special character indicates that the
-character is not being used in its special meaning, but is just
-to match itself.
+>Der Backslash vor einem besonderen Zeichen bedeutet, dass das Zeichen nicht in seiner besonderen Bedeutung
+behandelt werden soll, sondern dass es das Zeichen selbst sein soll.
 <I
 CLASS="EMPHASIS"
 >amen\.</I
-> matches <I
+> findet <I
 CLASS="EMPHASIS"
 >amen.</I
-> but not <I
+>, jedoch nicht <I
 CLASS="EMPHASIS"
 >amen</I
 >t
-and will not locate firm<I
+und es wird nicht firm<I
 CLASS="EMPHASIS"
 >amen</I
 >t.</P
@@ -867,78 +868,77 @@ CLASS="SECTION"
 CLASS="SECTION"
 ><A
 NAME="BACKSLASH_O"
->3.4.2.8.12. The Backslash Prior to an Ordinary Character \s</A
+>3.4.2.8.12. Der Backslash vor einem normalen Zeichen \s</A
 ></H4
 ><P
->The Backslash prior to an ordinary character indicates that
-the character is not being used to match itself, but has special
-meaning.</P
+>Der Backslash vor einem normalen Zeichen bedeutet, dass dieses statt der normalen Bedeutung
+eine besondere haben soll.</P
 ><UL
 ><LI
 ><P
->\b if use outside [ ] means word boundary. If used inside [ ] means backspace.
+>\b ausßerhalb von [ ] benutzt, bedeutet es Wortgrenze. Innerhalb von [ ] hat die es die Bedeutung des Backspace.
 <I
 CLASS="EMPHASIS"
 >\brighteous\b</I
-> matches <I
+> findet <I
 CLASS="EMPHASIS"
 >righteous</I
-> but
-not un<I
+>, aber nicht
+ un<I
 CLASS="EMPHASIS"
 >righteous</I
-> or <I
+> oder <I
 CLASS="EMPHASIS"
 >righteous</I
 >ness</P
 ></LI
 ><LI
 ><P
->\B means non-word boundary.  <I
+>\B steht für keine Wortgrenze. <I
 CLASS="EMPHASIS"
 >\Brighteous\B</I
 >
-matches un<I
+findet un<I
 CLASS="EMPHASIS"
 >righteous</I
->ness and un<I
+>ness und un<I
 CLASS="EMPHASIS"
 >righteous</I
->ly
-but not <I
+>ly,
+jedoch nicht <I
 CLASS="EMPHASIS"
 >righteous</I
 >, un<I
 CLASS="EMPHASIS"
 >righteous</I
-> or <I
+> oder <I
 CLASS="EMPHASIS"
 >righteous</I
 >ness.</P
 ></LI
 ><LI
 ><P
->\d means digit; same as [0-9].</P
+>\d steht für Zahlen; das Gleiche wie [0-9].</P
 ></LI
 ><LI
 ><P
->\D means non-digit, same as [^0-9].</P
+>\D stehr für nicht-Zahlen, das Gleiche wie [^0-9].</P
 ></LI
 ><LI
 ><P
->\s means space. </P
+>\s bedeutet Leerzeichen. </P
 ></LI
 ><LI
 ><P
->\S means not a space. </P
+>\S steht für nicht-Leerzeichen. </P
 ></LI
 ><LI
 ><P
->\w means alphanumeric; same as [a-zA-Z0-9_].</P
+>\w bedeutet alphanumerisch; das Gleiche wie [a-zA-Z0-9_].</P
 ></LI
 ><LI
 ><P
->\W means not alphanumeric; same as [^a-zA-Z0-9_].</P
+>\W bedeutet nicht-alphanumerisch; das Gleiche wie [^a-zA-Z0-9_].</P
 ></LI
 ></UL
 ></DIV
@@ -950,63 +950,62 @@ CLASS="SECTION"
 CLASS="SECTION"
 ><A
 NAME="HDBK_OP_SEARCH_DIALOG_TEXT_SCOPE"
->3.4.3. Using the Search Scope Tab</A
+>3.4.3. Benutzung des Suchbereich Tabulators</A
 ></H2
 ><P
->Define the Scope of your search here</P
+>Definieren Sie hier den Suchbereich</P
 ><DIV
 CLASS="SECTION"
 ><H3
 CLASS="SECTION"
 ><A
 NAME="HD_OP_SCH_DIA_TXT_SCOPE_OPTIONS"
->3.4.3.1. Search Scope Options</A
+>3.4.3.1. Suchbereichs Optionen</A
 ></H3
 ><UL
 ><LI
 ><P
 ><SPAN
 CLASS="GUIBUTTON"
->No Scope</SPAN
-> this turns off the search
-scope tab.  The entire document is searched.</P
+>Kein Suchbereich</SPAN
+> Dies schaltet den Suchbereichsdialog ab.
+Das gesamte Dokument wird durchsucht.</P
 ></LI
 ><LI
 ><P
 ><SPAN
 CLASS="GUIBUTTON"
->Last Result</SPAN
-> The new search will only
-search within the verses found in the previous search.</P
+>Letztes Suchergebnis</SPAN
+> Die neue Suche wird nur in den
+während der letzten Suche gefundenen Versen suchen.</P
 ></LI
 ><LI
 ><P
 ><SPAN
 CLASS="GUIBUTTON"
->Use Scope</SPAN
-> The new search will be
-performed within the range specified in the maintain custom ranges portion
-of the search scope tab.</P
+>Benutze Suchbereiche</SPAN
+> Die neue Suche wird innerhalb des
+Bereichs durchgeführt, der in dem Verwaltungsdialog für Suchbereiche angegeben wurde.</P
 ></LI
 ></UL
 ><P
->If <SPAN
+>Wenn <SPAN
 CLASS="GUIBUTTON"
->No Scope</SPAN
-> is checked and a search of the KJV Bible module is
-done for the name, Jesus, 939 matches will result. Then if
+>Kein Suchbereich</SPAN
+> ausgewählt wurde und das KJV Modul durchsucht wird,
+wird der Name Jesus 939 mal gefunden werden.
+Wenn dann
 <SPAN
 CLASS="GUIBUTTON"
->Last Result</SPAN
->is checked and another search is done for the
-title, Christ, 257 matches from the first 939 matches will
-remain. Then if<SPAN
+>Letztes Suchergebnis</SPAN
+> ausgewählt wird und nach dem Titel Christ gesucht wird, bleiben257 von den
+939 Treffern übrig.
+Wenn <SPAN
 CLASS="GUIBUTTON"
->Last Result</SPAN
-> remains checked and another
-search is done for the title, Lord, 106 matches from the 257 will
-remain. All the remaining 106 matches will have the name, Jesus,
-and both the titles, Christ and Lord.</P
+>Letztes Suchergebnis</SPAN
+> ausgewählt bleibt und eine weitere Suche nach dem Titel Lord
+durchgeführt wird, bleiben 106 von den 257 Treffern übrig. Alle der verbleibenden 106 Treffern enthalten den Namen Jesus und die
+Titel Christ und Lord.</P
 ></DIV
 ><DIV
 CLASS="SECTION"
