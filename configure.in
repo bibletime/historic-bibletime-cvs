@@ -82,7 +82,6 @@ dnl echo "Executing perl am_edit ..."
 dnl perl am_edit
 KDE_CREATE_SUBDIRSLIST
 AC_CONFIG_FILES([ Makefile ])
-AC_CONFIG_FILES([ admin/Makefile ])
 AC_CONFIG_FILES([ bibletime/Makefile ])
 AC_CONFIG_FILES([ bibletime/backend/Makefile ])
 AC_CONFIG_FILES([ bibletime/frontend/Makefile ])

@@ -102,9 +102,7 @@ void CModuleChooserButton::moduleChosen( int ID ){
    	popup->setItemChecked(ID, true);
 	}
 
-	for (unsigned int i = 0; i < m_popup->count(); i++){
- 		m_popup->setItemChecked(m_popup->idAt(i),false);	
- 	}	
+	m_popup->setItemChecked(m_noneId, false); //uncheck the "none" item
 
  	if (m_popup->text(ID) == i18n("NONE")) { // note: this is for m_popup, the toplevel!
  		if (m_hasModule) {

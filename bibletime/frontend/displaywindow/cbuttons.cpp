@@ -30,7 +30,8 @@
 #include <klocale.h>
 
 
-CTransliterationButton::CTransliterationButton(CSwordBackend::FilterOptions* filterOptions, QWidget *parent, const char *name ) : KToolBarButton(DSB_ICON, 0,parent,name) {
+CTransliterationButton::CTransliterationButton(CSwordBackend::FilterOptions* filterOptions, QWidget *parent, const char *name )
+ : KToolBarButton(TRANSLIT_ICON, 0,parent,name) {
  	m_filterOptions = filterOptions;
   m_filterOptions->transliteration = 0;
 

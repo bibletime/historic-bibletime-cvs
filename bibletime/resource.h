@@ -176,6 +176,7 @@
 #define LEXICON_ADD_ICON_MC			"bt_lexicon_add"
 
 #define DSB_ICON			          "bt_displayconfig"
+#define TRANSLIT_ICON			          "bt_displaytranslit"
 
 //UNUSED
 #define PARALLEL_ICON_MC			LOAD_SMALL_ICON("bt_parallel")
