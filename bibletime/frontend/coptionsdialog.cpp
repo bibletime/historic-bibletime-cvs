@@ -366,7 +366,7 @@ New sessions only work after you've saved something into them.")
 
 /** Init accel key section. */
 void COptionsDialog::initAccelerators(){
-  QVBox* page = addVBoxPage(i18n("Accelerators"),QString::null, DesktopIcon(CResMgr::settings::keys::icon,32));
+  QVBox* page = addVBoxPage(i18n("HotKeys"),QString::null, DesktopIcon(CResMgr::settings::keys::icon,32));
 
   KTabCtl* tabCtl = new KTabCtl(page);
 
