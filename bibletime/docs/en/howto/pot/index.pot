@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: ENCODING\n"
 
 #: index.docbook:50
-msgid "The Bibletime HowTo"
+msgid "The Biblestudy HowTo"
 msgstr ""
 
 #: index.docbook:53
