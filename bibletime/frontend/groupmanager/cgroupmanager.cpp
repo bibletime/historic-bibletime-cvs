@@ -295,19 +295,15 @@ void CGroupManager::initView(){
 	}
 	else {		
 		popupMenu = new KPopupMenu(this);
-		popupMenu->insertTitle(i18n("Groupmanager"));
-	//	popupMenu->insertItem(PRESENTER_NEW_ICON_SMALL,i18n("New presenter"),
-	//		this, SLOT(slotCreateNewPresenter()),0,ID_GM_PRESENTER_CREATE);
-	//	popupMenu->setWhatsThis(ID_GM_PRESENTER_CREATE, WT_GM_NEW_PRESENTER);
-	//	popupMenu->insertSeparator();
-		popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create new folder"),
+		popupMenu->insertTitle(i18n("Main index"));
+		popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create a new folder"),
 			this, SLOT(slotCreateNewGroup()),0,ID_GM_GROUP_CREATE);
 		popupMenu->setWhatsThis(ID_GM_GROUP_CREATE, WT_GM_NEW_GROUP);	
-		popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change this folder"),
+		popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change folder"),
 			this, SLOT(slotChangeGroup()),0,ID_GM_GROUP_CHANGE);
 		popupMenu->setWhatsThis(ID_GM_GROUP_CHANGE, WT_GM_CHANGE_GROUP);		
 		popupMenu->insertSeparator();	
-		popupMenu->insertItem(BOOKMARK_CHANGE_ICON_SMALL,i18n("Change this bookmark"),
+		popupMenu->insertItem(BOOKMARK_CHANGE_ICON_SMALL,i18n("Change bookmark"),
 			this,SLOT(slotChangeBookmark()),0,ID_GM_BOOKMARK_CHANGE);
 		popupMenu->setWhatsThis(ID_GM_BOOKMARK_CHANGE, WT_GM_CHANGE_BOOKMARK);
 		popupMenu->insertItem(BOOKMARK_IMPORT_ICON_SMALL,i18n("Import bookmarks"),
@@ -579,37 +575,34 @@ void CGroupManager::slotShowAbout(){
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%8:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%10:</B></TD><TD BGCOLOR=\"#FFE9C8\">%11</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%12:</B></TD><TD BGCOLOR=\"#FFE9C8\">%13</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%14:</B></TD><TD BGCOLOR=\"#FFE9C8\">%15/TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%14:</B></TD><TD BGCOLOR=\"#FFE9C8\">%15</TD></TR>\
 <TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%16:</B></TD><TD BGCOLOR=\"#FFE9C8\">%17</TD></TR>\
 </TABLE></BODY></HTML>")
-	.arg( module->module()->Name() )		
-	.arg( i18n("Datapath") )
-	.arg( module->getPath() )	
-	.arg( i18n("Version") )	
-	.arg( module->getVersion() )
-	.arg(i18n("Unlock key"))	
-	.arg( unlockKey )
-	.arg(i18n("Writable"))	
-	.arg( isWritable )
-	.arg(i18n("Footnotes"))	
-	.arg( hasFootnotes )
-	.arg(i18n("Strong's numbers"))	
-	.arg( hasStrongNumbers )
-	.arg(i18n("Description"))	
-	.arg( module->getDescription() )
-	.arg(i18n("About"))	
-	.arg( module->getAboutInformation() );
+		.arg(module->module()->Name())
+		.arg(i18n("Datapath"))
+		.arg(module->getPath())
+		.arg(i18n("Version"))
+		.arg(module->getVersion())
+		.arg(i18n("Unlock key"))	
+		.arg(unlockKey)
+		.arg(i18n("Writable"))	
+		.arg(isWritable)
+		.arg(i18n("Footnotes"))	
+		.arg(hasFootnotes)
+		.arg(i18n("Strong's numbers"))	
+		.arg(hasStrongNumbers )
+		.arg(i18n("Description"))	
+		.arg(module->getDescription())
+		.arg(i18n("About"))
+		.arg(module->getAboutInformation());	
 	
-	dlg->setText(text);
-	
+	dlg->setText(text);	
 	dlg->exec();
 	delete dlg;	
 }
 
 /**  */
 void CGroupManager::slotCreateNewPresenter(){
-	ASSERT(m_pressedItem);
-	
 	if (m_pressedItem && m_pressedItem->moduleInfo()) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module || m_pressedItem->type() == CGroupManagerItem::Bookmark)
 			emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
@@ -620,8 +613,6 @@ void CGroupManager::slotCreateNewPresenter(){
 
 /**  */
 void CGroupManager::contentsDragEnterEvent( QDragEnterEvent* e){
-  qDebug("CGroupMAnager::contentsDragEnterEvent");
-  //CGroupmanager accapts every QTextDrag
   if (QTextDrag::canDecode(e)) {
     e->accept(true);
     QString str;
@@ -644,8 +635,6 @@ void CGroupManager::contentsDragEnterEvent( QDragEnterEvent* e){
   	e->ignore();
   	m_dragType = "";
   }
-
-
 }
 
 /**  */

@@ -101,7 +101,7 @@ void CBiblePresenter::lookup(CKey* key){
 		m_key->setKey(*vKey);
 		
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
-//	setPlainCaption( caption() );
+	setCaption( caption() );
 	
 	setUpdatesEnabled(true);		
 }
