@@ -18,6 +18,7 @@
 //BibleTime includes
 #include "clexiconreadwindow.h"
 #include "cmodulechooserbar.h"
+#include "cbuttons.h"
 
 #include "backend/cswordkey.h"
 #include "backend/cswordldkey.h"
@@ -95,7 +96,10 @@ void CLexiconReadWindow::initView(){
 	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());	  
   
-	setIcon(CToolClass::getIconForModule(modules().first()));
+//  setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
+//	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
+
+  setIcon(CToolClass::getIconForModule(modules().first()));
 }
 
 void CLexiconReadWindow::setupPopupMenu(){

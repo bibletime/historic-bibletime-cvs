@@ -284,6 +284,7 @@ CDisplaySettingsButton* const CDisplayWindow::displaySettingsButton() const{
 void CDisplayWindow::setDisplaySettingsButton( CDisplaySettingsButton* button ){
   if (m_displaySettingsButton)
 		disconnect(m_displaySettingsButton, SIGNAL( sigChanged() ),this,	SLOT(lookup() ));
+
   m_displaySettingsButton = button;	
  	connect(m_displaySettingsButton, SIGNAL(sigChanged()),this, SLOT(lookup()));
 }

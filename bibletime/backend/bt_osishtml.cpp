@@ -20,6 +20,8 @@
 #include "versekey.h"
 
 #include "clanguagemgr.h"
+#include "creferencemanager.h"
+#include "cswordmoduleinfo.h"
 #include "frontend/cbtconfig.h"
 #include "util/cpointers.h"
 
@@ -49,7 +51,7 @@ BT_OSISHTML::BT_OSISHTML() {
 	setTokenCaseSensitive(true);
 }
 
-bool BT_OSISHTML::handleToken(SWBuf &buf, const char *token, SWBasicFilter::UserData *userData) {
+bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::SWBasicFilter::UserData *userData) {
   // manually process if it wasn't a simple substitution
 	if (!substituteToken(buf, token)) {
     BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
@@ -142,11 +144,14 @@ bool BT_OSISHTML::handleToken(SWBuf &buf, const char *token, SWBasicFilter::User
 		}
 		// <note> tag
 		else if (!strcmp(tag.getName(), "note")) {
-			if (/*!tag.isEmpty() &&*/ !tag.isEndTag()) {
+			if (!tag.isEndTag()) {
 //				SWBuf footnoteNum = myUserData["fn"];
 				SWBuf type = tag.getAttribute("type");
 
 				if (type != "strongsMarkup") {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
+          buf += "<span class=\"footnote\">(";
+          myUserData->insertedFootnoteTags = true;
+
 //					int footnoteNumber = (footnoteNum.length()) ? atoi(footnoteNum.c_str()) : 1;
 					// see if we have a VerseKey * or descendant
 					//if (sword::VerseKey *vkey = dynamic_cast<sword::VerseKey*>(key)) {
@@ -157,17 +162,42 @@ bool BT_OSISHTML::handleToken(SWBuf &buf, const char *token, SWBasicFilter::User
 //						myUserData["fn"] = tmp.c_str();
 //					}
 				}
-				myUserData->suspendTextPassThru = true;
+        else {
+  				myUserData->suspendTextPassThru = true;
+        }
 			}
 			if (tag.isEndTag()) {
+        if (myUserData->insertedFootnoteTags) {
+          buf += ")</span>";
+          myUserData->insertedFootnoteTags = false;
+        }
 				myUserData->suspendTextPassThru = false;
 			}
 		}
 		// <p> paragraph tag is handled by OSISHTMLHref
 		// <reference> tag
 		else if (!strcmp(tag.getName(), "reference")) {
-			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
-				buf += "<a href=\"\">";
+			if (!tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
+        char* ref = tag.getAttribute("osisRef");
+
+        SWBuf typeName = "Bible";        
+        CSwordModuleInfo::ModuleType type = CSwordModuleInfo::Bible;
+        if (!strncmp(ref, "Bible:", 6)) {
+          type = CSwordModuleInfo::Bible;
+          typeName = "Bible";
+          ref += 6;
+        }        
+        else if (!strncmp(ref, "Commentary:", 11)) { //need to check with OSIS tags
+          type = CSwordModuleInfo::Commentary;
+          typeName = "Commentary";
+          ref += 11;
+        }
+        
+				buf.appendFormatted("<a href=\"sword://%s/%s/%s\">",
+          typeName.c_str(),
+          CReferenceManager::preferredModule( CReferenceManager::typeFromModule(type) ).latin1(),
+          ref
+        );
 			}
 			else if (tag.isEndTag()) {
 				buf += "</a>";
@@ -213,7 +243,7 @@ bool BT_OSISHTML::handleToken(SWBuf &buf, const char *token, SWBasicFilter::User
 				//alternate " and '
         if (who == "Jesus")
           buf += "</span>";
-        else if(osisQToTick)
+        else if (osisQToTick)
 					buf += (level % 2) ? '\"' : '\'';
 			}
 			else {	// empty quote marker

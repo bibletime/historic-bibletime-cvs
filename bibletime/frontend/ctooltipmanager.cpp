@@ -44,7 +44,7 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
     moduleName = CReferenceManager::preferredModule( type );
   }
 
-//  qWarning("link was %s, key is %s", link.latin1(), keyName.latin1());
+  qWarning("link was %s, key is %s", link.latin1(), keyName.latin1());
   if (moduleName.isEmpty()) {
     QString typeName = QString::null;
     switch (type) {
@@ -76,22 +76,22 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
         break;
     }
 
-  	return QString::fromLatin1("<FONT COLOR=\"red\"><CENTER><B>%1</B></CENTER></FONT><HR>%2</FONT>")
+  	return QString::fromLatin1("<font color=\"red\"><center><b>%1</b></center></font><hr/>%2</font>")
       .arg(i18n("Configuration problem!"))
-      .arg(i18n("Please make sure the default module for the type <FONT COLOR=\"blue\"><I>%1</I></FONT> is properly configured in the options dialog.")
+      .arg(i18n("Please make sure the default module for the type <font color=\"blue\"><i>%1</i></font> is properly configured in the options dialog.")
           .arg(typeName)
       );
   };
 
   if (CSwordModuleInfo* m = backend()->findModuleByName(moduleName)) { //found a default module for the type
-    return QString::fromLatin1("<HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><B>%1</B><HR>%2")
+    return QString::fromLatin1("<head><style type=\"text/css\">%1</style></head><b>%1</b><hr/>%2")
       .arg(tooltipCSS(m))
-      .arg(headingText(m /*? m->type() : CSwordModuleInfo::Unknown*/, keyName))
+      .arg(headingText(m, keyName))
       .arg(moduleText(moduleName, keyName)
     );
   }
   else {
-    return QString::fromLatin1("<FONT COLOR=\"red\"><CENTER><B>%1</B></CENTER>%2</FONT><HR>")
+    return QString::fromLatin1("<font color=\"red\"><center><b>%1</b></center>%2</font><hr/>")
             .arg(i18n("Configuration problem!"))
             .arg(i18n("The module <FONT COLOR=\"blue\"><I>%1</I></FONT> was not found on your system. Install the module to make this tooltip work.")
               .arg(moduleName)
@@ -102,11 +102,11 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
 /** Returns the tooltip text for the given hyperlink. */
 const QString CTooltipManager::textForReference( const QString& moduleName, const QString& keyName, const QString& description){
 	CSwordModuleInfo* const module = backend()->findModuleByName(moduleName);
-  return QString::fromLatin1("<HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><B>%1 %2</B>%3<HR>%4")
+  return QString::fromLatin1("<head><style type=\"text/css\">%1</style></head><b>%1 %2</b>%3<hr/>%4")
     .arg(tooltipCSS(module))
   	.arg(i18n("Bookmark to"))
   	.arg(headingText(module, keyName))
-   	.arg(!description.isEmpty() ? QString::fromLatin1("<BR><FONT color=\"#800000\">(%1)</FONT><BR>").arg(description.stripWhiteSpace()) : QString::null )
+   	.arg(!description.isEmpty() ? QString::fromLatin1("<br/><font color=\"#800000\">(%1)</font><br/>").arg(description.stripWhiteSpace()) : QString::null )
     .arg(moduleText(moduleName, keyName));
 }
 
@@ -136,7 +136,7 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
         	
          	while (lowerBound < upperBound) {
       			key->key( (const char*)lowerBound );
-		    		text += QString::fromLatin1("<B>%1:%2</B> %3<BR>")
+		    		text += QString::fromLatin1("<b>%1:%2</b> %3<br/>")
               .arg(lowerBound.Chapter())
               .arg(lowerBound.Verse())
               .arg(key->renderedText());
@@ -144,7 +144,7 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
           }
           if (lowerBound == upperBound) {
       			key->key( (const char*)lowerBound );
-		    		text += QString::fromLatin1("<B>%1:%2</B> %3<BR>")
+		    		text += QString::fromLatin1("<b>%1:%2</b> %3<br/>")
               .arg(lowerBound.Chapter())
               .arg(lowerBound.Verse())
               .arg(key->renderedText());
@@ -159,11 +159,11 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 
 
     const QFont font = CBTConfig::get(module->language()).second;
-    text = QString::fromLatin1("<DIV %1 STYLE=\"font-family:%2; font-size:%3pt;\">")
+    text = QString::fromLatin1("<div %1 style=\"font-family:%2; font-size:%3pt;\">")
             .arg((module->textDirection() == CSwordModuleInfo::RightToLeft) ? "dir=\"rtl\"" : 0)
             .arg(font.family())
             .arg(font.pointSize())
-         + text + QString::fromLatin1("</DIV>");
+         + text + QString::fromLatin1("</div>");
 	}
  	return text;
 }
@@ -174,7 +174,7 @@ const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QStr
     return i18n("Module not set!");
   }
 
-  const QString defaultEnding = QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name());
+  const QString defaultEnding = QString::fromLatin1("  (<small>%1 \"%2\"</small>)").arg(i18n("Module")).arg(module->name());
 
   if ((module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary)) {
     sword::ListKey keys = sword::VerseKey().ParseVerseList((const char*)keyName.local8Bit(), sword::VerseKey("Genesis 1:1"), true);

@@ -31,6 +31,8 @@ protected:
   class BT_UserData : public sword::OSISHTMLHref::MyUserData {
   public:
     BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::OSISHTMLHref::MyUserData(module, key) {}
+
+    bool insertedFootnoteTags;
   };
 
   virtual sword::SWBasicFilter::UserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {

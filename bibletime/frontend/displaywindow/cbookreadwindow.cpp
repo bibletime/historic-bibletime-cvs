@@ -17,6 +17,7 @@
 
 #include "cbookreadwindow.h"
 #include "cmodulechooserbar.h"
+#include "cbuttons.h"
 
 #include "backend/cswordtreekey.h"
 
@@ -89,6 +90,9 @@ void CBookReadWindow::initView(){
   setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
 	moduleChooserBar()->setButtonLimit(1);
 	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
+
+  setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
+	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
   
   m_treeAction = new KToggleAction(i18n("Toggle tree..."), CResMgr::displaywindows::bookWindow::toggleTree::icon, CResMgr::displaywindows::bookWindow::toggleTree::accel, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");
 	m_treeAction->plug(mainToolBar());
