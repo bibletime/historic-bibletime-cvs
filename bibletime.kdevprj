@@ -29,7 +29,7 @@ path_to_bin_program=bibletime
 [General]
 AMChanged=false
 author=The BibleTime team
-configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux --with-qt-dir=/usr/lib/qt2 --with-kdedir=/opt/kde2
+configure_args=
 debug_args=--debug --nocrashhandler
 dir_where_make_will_be_called=./
 email=info@bibletime.info
