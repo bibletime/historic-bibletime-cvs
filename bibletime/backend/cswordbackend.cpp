@@ -79,7 +79,7 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
  	shutdownModules(); //remove previous modules
  	m_moduleList.clear();	
 
-	ret = (LoadError)( Load() );
+	ret = LoadError( Load() );
 	
 	for (it = Modules.begin(); it != Modules.end(); it++) {
 		curMod = (*it).second;

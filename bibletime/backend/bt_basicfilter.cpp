@@ -79,7 +79,7 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
  				vk->LowerBound().setLocale(lang);
  				vk->UpperBound().setLocale(lang); 				
  			}
- 			if (vk && vk->UpperBound() != vk->LowerBound()) { 				
+ 			if (vk && (const char*)vk->UpperBound() != (const char*)vk->LowerBound()) { 				
 	 			pushString(&to, "%s-%s\">%s</a>",
 	 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
 	 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8(),
