@@ -32,7 +32,7 @@ class CCommentaryReadWindow : public CLexiconReadWindow  {
    Q_OBJECT
 public: 
 	CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
-	~CCommentaryReadWindow();
+//	virtual ~CCommentaryReadWindow();
   /**
   * Store the settings of this window in the given CProfileWindow object.
   */
@@ -41,38 +41,18 @@ public:
   * Store the settings of this window in the given profile window.
   */
   virtual void applyProfileSettings( CProfileWindow* profileWindow );
+  /**
+  * Jumps to the given key if syncronize is enabled for this display window.
+  */
+  void syncToKey( CSwordKey* const key);
 
 protected:
-	virtual void initKeyboardActions();
-  virtual void initConnections();
+//	virtual void initKeyboardActions();
+//  virtual void initConnections();
   virtual void initView();
-//  virtual void updatePopupMenu();
-//  virtual void setupPopupMenu();
-//
-//  struct {
-//    KAction* selectAll;
-//    KActionMenu* copyMenu;
-//  	struct {
-//			KAction* verseOnly;
-//   		KAction* textOnly;
-//     	KAction* verseAndText;
-//      KAction* entry;
-//      KAction* selectedText;
-//   	} copy;
-//
-//    KActionMenu* saveMenu;
-//    struct {
-//			KAction* verseAndText;
-//   		KAction* entryAsPlain;
-//     	KAction* entryAsHTML;
-//    } save;
-//
-//    KActionMenu* printMenu;
-//    struct {
-//			KAction* verseAndText;
-//			KAction* entry;
-//		} print;
-//  } m_actions;
+
+private:
+  KToggleAction* m_syncButton;
 };
 
 #endif

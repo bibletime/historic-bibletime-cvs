@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "cbiblereadwindow.h"
+#include "ccommentaryreadwindow.h"
 #include "cdisplaysettingsbutton.h"
 
 #include "resource.h"
@@ -26,12 +27,14 @@
 #include "frontend/cprofilewindow.h"
 #include "frontend/ctoolclass.h"
 #include "frontend/cbtconfig.h"
+#include "frontend/cmdiarea.h"
 #include "frontend/display/creaddisplay.h"
 #include "frontend/keychooser/ckeychooser.h"
 
 #include <math.h>
 
 //Qt includes
+#include <qwidgetlist.h>
 
 //KDE includes
 #include <kaccel.h>
@@ -114,10 +117,11 @@ void CBibleReadWindow::initKeyboardActions() {
 
 void CBibleReadWindow::initConnections(){
   CLexiconReadWindow::initConnections();
+  connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)), this, SLOT(keyChanged(CSwordKey*)));
 }
 
 void CBibleReadWindow::initView(){
-	qWarning("CBibleWindow::initView");
+//	qWarning("CBibleWindow::initView");
  	CLexiconReadWindow::initView();
 	
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
@@ -126,7 +130,7 @@ void CBibleReadWindow::initView(){
 
 /** Reimplementation. */
 void CBibleReadWindow::setupPopupMenu(){
-	qWarning("CBibleReadWindow::setupPopupMenu()");
+//	qWarning("CBibleReadWindow::setupPopupMenu()");
 	popup()->insertTitle(CToolClass::getIconForModule(modules().first()), i18n("Bible window"));
 
  	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
@@ -167,7 +171,7 @@ void CBibleReadWindow::setupPopupMenu(){
 
 /** Reimplemented. */
 void CBibleReadWindow::updatePopupMenu(){
-	qWarning("CBibleReadWindow::updatePopupMenu()");
+//	qWarning("CBibleReadWindow::updatePopupMenu()");
 
   m_actions.copy.referenceOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
  	m_actions.copy.referenceTextOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
@@ -217,8 +221,20 @@ void CBibleReadWindow::previousVerse(){
 
 /** rapper around key() to return the right type of key. */
 CSwordVerseKey* CBibleReadWindow::verseKey(){
-  qWarning("CBibleReadWindow::key()");
+//  qWarning("CBibleReadWindow::key()");
 	CSwordVerseKey* k = dynamic_cast<CSwordVerseKey*>(CDisplayWindow::key());
  	Q_ASSERT(k);
 	return k;
+}
+
+/** Is called when the key of the keychooser changed. */
+void CBibleReadWindow::keyChanged(CSwordKey* key){
+	QWidgetList windows = mdi()->windowList();	
+	if (!windows.count())
+		return;	
+
+	for (windows.first(); windows.current(); windows.next()) {
+		if (CCommentaryReadWindow* p = dynamic_cast<CCommentaryReadWindow*>(windows.current()))
+			p->syncToKey(key);
+	}	
 }

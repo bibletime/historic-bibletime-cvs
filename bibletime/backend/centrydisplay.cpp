@@ -76,9 +76,14 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
 
   renderedText = QString::fromLatin1("<TR valign=\"top\">");
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
+    const QString tdStyle = QString::fromLatin1("style=\"%1 %2\"")
+      .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
+      .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
+
     key->module(m);
-    key->key(keyName); //necessary?
-    renderedText += QString::fromLatin1("<TD  valign=\"top\"><SPAN %1>%2</SPAN></TD>")
+    key->key(keyName);
+    renderedText += QString::fromLatin1("<TD %1 valign=\"top\"><SPAN %2>%3</SPAN></TD>")
+                      .arg(tdStyle.latin1())
                       .arg(m->isUnicode() ? "class=\"unicodetext\"" : "")
                       .arg(key->renderedText());
   }
@@ -261,7 +266,7 @@ void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptionsBool op
 /** Returns the right reference text which can be incluced in the HTML */
 const QString CEntryDisplay::htmlReference( CSwordModuleInfo* module, const QString& keyName, const QString linkText, const QString& anchorText ) {
   if (linkText.isEmpty())
-    return QString::null;
+    return QString::fromLatin1("<A NAME=\"%1\"></A>").arg(anchorText);
   else
     return QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\">%3</A>")
       .arg(anchorText)
@@ -318,7 +323,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
         .arg((key.key() == chosenKey) ? QString::fromLatin1("class=\"highlighted\"") : QString::null)
         .arg(m->isUnicode() ? QString::fromLatin1("unicodetext") : QString::fromLatin1("standardtext"))
         .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-        .arg(m_displayOptions.verseNumbers ? QString::fromLatin1("<SUP>%1</SUP>").arg(htmlReference(m, key.key(), QString::number(key.Verse()), key.key())) : QString::null)
+        .arg(m_displayOptions.verseNumbers ? QString::fromLatin1("<SUP>%1</SUP>").arg(htmlReference(m, key.key(), QString::number(key.Verse()), key.key())) : htmlReference(m, QString::null, QString::null, key.key()) )
         .arg(key.renderedText())
         .arg((modules.count() == 1 && m_displayOptions.lineBreaks) ? QString::fromLatin1("<BR>") : QString::fromLatin1(" "));
 

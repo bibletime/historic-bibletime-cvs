@@ -97,6 +97,8 @@ protected slots: // Protected slots
   void previousChapter();
   void nextVerse();
   void previousVerse();
+  /** Is called when the key of the keychooser changed. */
+  void keyChanged(CSwordKey* key);
 
 private:
   friend class CCommentaryReadWindow;

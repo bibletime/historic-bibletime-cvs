@@ -60,7 +60,8 @@ public:
   * Enable / disable autoCascading
   */
   void setGUIOption( mdiOption );
-  /** This works around a problem/limitation in QWorkspace. QWorkspace sets every time the 	
+  /**
+  * This works around a problem/limitation in QWorkspace. QWorkspace sets every time the 	
   * application caption on its on way. This confuses BibleTime - wrong captions are generated.
 	* This function returns the right caption (using the MDI child).
 	*/
@@ -84,19 +85,9 @@ public slots:
  	*/
   void tile();
   /**
-  * Sync the commentaries to the given key.
-  */
-  void syncCommentaries(CSwordKey* syncKey);
-  /**
   * Emits the signal to create a new display window in the MDI area.
   */
   void emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName );
-  /**
-  * Look up the text in the module. If the module has already a display window
-  * of it opne use it, otherwise create a new one.
-  */
-//  void lookupInLexicon(const QString& text, const QString& module);
-//  void lookupInModule(const QString& module, const QString& key);
 
 protected: // Protected methods
   /**

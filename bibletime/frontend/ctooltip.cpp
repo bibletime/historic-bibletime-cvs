@@ -65,7 +65,7 @@ void CToolTip::tip( const QRect& rect, const QString& text ){
   m_display->end();
 
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff);
-  qWarning("view size is %i x %i", m_display->view()->width(), m_display->view()->height());
+//  qWarning("view size is %i x %i", m_display->view()->width(), m_display->view()->height());
 
   QPoint pos = parentWidget()->mapToGlobal( QPoint(rect.x()-2, rect.y()-2) );
   QRect tipRect = QRect(pos.x(), pos.y(), width(), height());
@@ -76,6 +76,7 @@ void CToolTip::tip( const QRect& rect, const QString& text ){
     pos = tipRect.topLeft();
   }
   move(pos);
+  m_display->view()->setContentsPos(0,0);
   show();
 }
 
