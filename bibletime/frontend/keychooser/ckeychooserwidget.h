@@ -142,9 +142,6 @@ signals:
 	* @param the current ComboBox index
 	*/
 	void changed(int index);
-	/**
-	*
-	*/
 	void focusOut(int index);
 
 protected:

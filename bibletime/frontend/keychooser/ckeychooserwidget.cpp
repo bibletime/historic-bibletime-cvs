@@ -43,15 +43,15 @@ CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
 }
 
 /** Reimplementation. */
-bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){		
+bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){			
 	if (e->type() == QEvent::FocusOut) {
 		qWarning("focus out event");
 		QFocusEvent* f = (QFocusEvent*)e;
 		if (o == lineEdit() && f->reason() == QFocusEvent::Tab) {
 			qWarning("focusses out by TAB");
 	    int index = listBox()->index( listBox()->findItem(currentText()) );
-	    if (index==-1)
-				index++;// return 0 if not found
+	    if (index == -1)
+				index = 0;// return 0 if not found
 	  	setCurrentItem( index );	
 	    emit focusOut( index );  	
 	  }
@@ -77,20 +77,17 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 	  	qWarning("foucess out of THIS");
 			emit activated(currentText());
 			return true;
-		}
-		
+		}		
 	}
-  QComboBox::eventFilter(o,e);	
-	return false;
+  return QComboBox::eventFilter(o,e);	
 }
 
 
 //**********************************************************************************/
 
 CKeyChooserWidget::CKeyChooserWidget(int count, QWidget *parent, const char *name) : QWidget(parent,name) {
-	for (int index=1; index <= count; index++) {
+	for (int index=1; index <= count; index++)
 		m_list.append( QString::number(index) );
-	}	
 	init();
 };
 
@@ -100,6 +97,11 @@ CKeyChooserWidget::CKeyChooserWidget(QStringList *list, QWidget *parent, const c
 }
 
 void CKeyChooserWidget::changeCombo(int i){
+	qDebug("CKeyChooserWidget::changeCombo(int i)");
+	if (!isUpdatesEnabled())
+		return;
+	setUpdatesEnabled(false);
+	
 	int current = ComboBox->currentItem();
 
 	//index of highest Item
@@ -117,11 +119,14 @@ void CKeyChooserWidget::changeCombo(int i){
 		else
 			ComboBox->setCurrentItem(0);
 	}	
-	if ((!isResetting) && (!btn_fx->isLocked) && (current != ComboBox->currentItem()))	
+	if (!isResetting && !btn_fx->isLocked && (current != ComboBox->currentItem()))	
 		emit changed(ComboBox->currentItem());
+		
+	setUpdatesEnabled(true);		
 }
 
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
+	qDebug("CKeyChooserWidget::reset(const int count, int index, bool do_emit)");
 	oldKey = QString::null;			
 	if (m_list.count() == (unsigned int)count) {	//equal->same count, not necessary to regenerate
 		ComboBox->setCurrentItem(index);
@@ -136,17 +141,20 @@ void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 }
 
 void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
-	if (isResetting)
+	qDebug("CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit)");	
+	
+	if (isResetting || !isUpdatesEnabled())
 		return;
-		
+	setUpdatesEnabled(false);
+			
 	isResetting = true;
 	
 	oldKey = QString::null;
-	ComboBox->setUpdatesEnabled(false);
+//	ComboBox->setUpdatesEnabled(false);
 	ComboBox->clear();
 	ComboBox->insertStringList(*list);
 	ComboBox->setCurrentItem(index);	
-	ComboBox->setUpdatesEnabled(true);
+//	ComboBox->setUpdatesEnabled(true);
 			
 	if (list && !list->count()) {
 		btn_up->setEnabled(false);
@@ -163,9 +171,11 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		btn_fx->setEnabled(true);
 		btn_down->setEnabled(true);			
 	}	
-	isResetting = false;
 	if (do_emit)
 		emit changed(ComboBox->currentItem());		
+	
+	isResetting = false;
+	setUpdatesEnabled(true);
 }
 
 void CKeyChooserWidget::lock(void){
@@ -200,22 +210,19 @@ void CKeyChooserWidget::init( ){
 	btn_up = new QToolButton( this, "btn_up" );	
 	QIconSet iconSet = getUpIconSet();
 	btn_up->setIconSet( iconSet );
-	btn_up->setFixedHeight(iconSet.pixmap().height());
-	btn_up->setFixedWidth(iconSet.pixmap().width());
+	btn_up->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());
 	btn_up->setFocusPolicy(QWidget::NoFocus);	
 	
 	btn_fx = new cfx_btn( this, "btn_fx" );
 	iconSet = getMoverIconSet();
 	btn_fx->setIconSet( iconSet );	
-	btn_fx->setFixedHeight(iconSet.pixmap().height());
-	btn_fx->setFixedWidth(iconSet.pixmap().width());
+	btn_fx->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());	
 	btn_fx->setFocusPolicy(QWidget::NoFocus);	
 	
 	btn_down = new QToolButton( this, "btn_down" );	
 	iconSet = getDownIconSet();
 	btn_down->setIconSet( iconSet );
-	btn_down->setFixedHeight(iconSet.pixmap().height());
-	btn_down->setFixedWidth(iconSet.pixmap().width());
+	btn_down->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());	
 	btn_down->setFocusPolicy(QWidget::NoFocus);	
 	
 	m_buttonLayout->addWidget( btn_up );	
@@ -224,22 +231,25 @@ void CKeyChooserWidget::init( ){
 	
 	m_mainLayout->addLayout( m_buttonLayout );
 	m_mainLayout->addSpacing(2);
-	
+
+	setTabOrder(ComboBox, 0);
+		
 // signals and slots connections
-	connect( btn_up, SIGNAL( clicked() ),SIGNAL( next_requested() ) );	
-	connect( btn_down, SIGNAL( clicked() ), SIGNAL( prev_requested() ) );
-	connect( btn_fx, SIGNAL( lock() ), this, SLOT( lock() ) );
-	connect( btn_fx, SIGNAL( unlock() ), this, SLOT( unlock() ) );
-	connect( btn_fx, SIGNAL( change_requested(int) ), this, SLOT( changeCombo(int) ) );
-	connect( ComboBox, SIGNAL(activated( int )), SLOT(slotComboChanged(int)));
-	connect( ComboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
-	connect( ComboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
+	connect(btn_up, SIGNAL(clicked()), SIGNAL(next_requested()) );	
+	connect(btn_down, SIGNAL(clicked()), SIGNAL(prev_requested()) );
+	connect(btn_fx, SIGNAL(lock()), SLOT(lock()) );
+	connect(btn_fx, SIGNAL(unlock()), SLOT(unlock()) );
+	connect(btn_fx, SIGNAL(change_requested(int)), SLOT(changeCombo(int)) );
+  connect(ComboBox, SIGNAL(activated(int)), SLOT(slotComboChanged(int)));
+	connect(ComboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
+  connect(ComboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
 		
 	isResetting = false;
 }
 
 /** Is called when the return key was presed in the combobox. */
 void CKeyChooserWidget::slotReturnPressed( const QString& text){
+	qDebug("CKeyChooserWidget::slotReturnPressed( const QString& text)");
 	int index = 0;
 	
 	for (index=0; index < ComboBox->count(); index++) {
@@ -254,10 +264,17 @@ void CKeyChooserWidget::slotReturnPressed( const QString& text){
 
 /** Is called when the current item of the combo box was changed. */
 void CKeyChooserWidget::slotComboChanged(int index){
+	qDebug("CKeyChooserWidget::slotComboChanged(int index)");
+	if (!isUpdatesEnabled())
+		return;
+	setUpdatesEnabled(false);	
+	
 	const QString key = ComboBox->text( index );
 	if (oldKey != key)
 		emit changed(index);
 	oldKey = key;
+
+	setUpdatesEnabled(true);		
 }
 #define WIDTH 17
 #define ARROW_HEIGHT 10
@@ -297,14 +314,15 @@ QIconSet CKeyChooserWidget::getMoverIconSet(){
 
 /**  */
 void CKeyChooserWidget::adjustSize( ){
-//	setUpdatesEnabled(false);
+	setUpdatesEnabled(false);
 	QSize s = sizeHint();
 	if (s.width() > maximumWidth())
 		s.setWidth( maximumWidth() );
 	
 	resize(s);
-//	setUpdatesEnabled(true);	
+	setUpdatesEnabled(true);	
 }
+
 /** Sets the tooltips for the given entries using the parameters as text. */
 void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
 	QToolTip::add(ComboBox,comboTip);
@@ -323,6 +341,7 @@ void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextE
 
 /** Sets the current item to the one with the given text */
 bool CKeyChooserWidget::setItem( const QString item ){
+	qDebug("CKeyChooserWidget::setItem( const QString item )");
 	bool ret = false;
 	const int count = ComboBox->count();
 	for (int i = 0; i < count; ++i) {

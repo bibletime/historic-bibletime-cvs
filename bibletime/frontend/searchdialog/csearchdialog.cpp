@@ -49,6 +49,9 @@
 
 CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
 	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null) {
+	setIcon(MODULE_SEARCH_ICON_SMALL);
+	
+	
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver gs(config, "searchdialog");	
 	if (config->readBoolEntry("first time", true)) {

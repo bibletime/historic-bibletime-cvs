@@ -52,7 +52,7 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 	m_styleList = new styleItemList;
 	m_styleList->setAutoDelete(true);		
 			
-	readSettings();	
+	readSettings();
 	setupStyles();
 	setupStandardStyle();		
 }

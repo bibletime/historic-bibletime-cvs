@@ -441,49 +441,46 @@ durchgeführt wird, bleiben 106 von den 257 Treffern übrig. Alle der verbleibende
 Titel Christ und Lord.
 </para>
 </section>
-<section ID="hd_op_sch_dia_txt_scope_maintain"><title>Maintain Custom Ranges</title><para>Maintain Custom Ranges -
-For each document selected to be searched, you can enter and delete lower and
-upper boundaries. Then click <guibutton>Add </guibutton> and an entry box for
-the range name will pop up.  After entering the name, your range is added to
-the list of custom ranges.</para>
+<section ID="hd_op_sch_dia_txt_scope_maintain"><title>Verwaltung eigener Suchbereiche</title><para>Verwalten Sie eigene Suchbereiche -
+Für jedes für die Suche ausgewählte Dokument können Sie obere und untere Grenzen eingeben und löschen.
+Klicken Sie dann auf <guibutton>Hinzufügen</guibutton> und eine Box für den Bereichsnamen wird geöffnet. Nach dem Eingeben
+des Namens, wird ihr Suchbereich zu den eigenen Bereichen hinzugefügt werden.
+</para>
 
-<para>The scope of a search can be set to the <emphasis>Entire
-Module</emphasis>or the <emphasis>Current Results. </emphasis>If
-Entire Module is checked and a search of the KJV Bible module is
-done for the name, Jesus, 939 matches will result. Then if
-Current Results is checked and another search is done for the
-title, Christ, 257 matches from the first 939 matches will
-remain. Then if Current Results remains checked and another
-search is done for the title, Lord, 106 matches from the 257 will
-remain. All the remaining 106 matches will have the name, Jesus,
-and both the titles, Christ and Lord.</para>
+<para>Der Bereich einer Suche kann entweder auf <emphasis>Gesamtes Modul</emphasis>
+oder auf <emphasis>Letztes Suchergebnis</emphasis> gesetzt werden.
+Wenn <emphasis>Gesamtes Modul</emphasis> ausgewählt wurde und eine Suche im KJV Modul nach dem Namen Jesus durchgeführt wird,
+werden 939 Treffer angezeigt. Wenn dasn <emphasis>Letztes Suchergebnis</emphasis> ausgewählt wurde
+und eine weitere Suche nach dem Titel Christ durchgeführt wird, verbleiben 257 der dersten 939 Treffer.
+Wenn <emphasis>Letztes Suchergebnis</emphasis> ausgewähl bleibt und eine weitere Suche nach dem Titel Lord
+durchgeführt wird, verbleibemn 106 Treffer, die alle den Namen Jesus und die beiden Titel Christ und Lord enthalten.
+</para>
 
-<tip><para>Drag & Drop Works Here; you can drop
-verse numbers, and bookmarks into the custom range entry field.
-You can also paste text into the entry field.</para></tip>
+<tip><para>Hier funktioniert Drag&Drop; Sie können Versnummern und Lesezeichen in das Suchbereichs Feld ziehen.
+Sie könne auch Text in das Eintragsfeld einfügen.</para></tip>
 
 <screenshot>
-<screeninfo>Search Scope Dialog Box</screeninfo>
+<screeninfo>Suchbereichs-Dialogbox/screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"></graphic>
 </screenshot>
 </section></section>
 
-<section ID="hdbk_op_search_dialog_text_result"><title>Using the Search Results Tab</title>
+<section ID="hdbk_op_search_dialog_text_result"><title>Benutzung des Suchergebnis Tabulators</title>
 <para>
-Search Result - This tells you first, by module, how many instances of the
-search string were found. Double-clicking on that document will open the list of
-references. Clicking on a reference opens that verse up in the window below.
-Drag the reference and drop it on a document in the main index to open the
-module to that verse in a new presenter </para>
-<tip><para>Drag & Drop Works Here</para></tip>
+Suchergebnis - Dies zeigt ihnen - nach Modulen geordnet - wie viele Treffer des gesuchten Textes
+gefunden wurden. Klicken auf das Dokument wird die Liste der Referenzen öffnen.
+Das Klicken auf eine Referenz öffnet diese im Fenster darunter.
+Ziehen Sie die Referenz und lassen Sie diese auf einem Dokument in der Hauptgruppe fallen, um dieses Modul
+an der gewünschten Stelle zu öffnen.</para>
+<tip><para>Hier funktioniert Drag&Drop</para></tip>
 <tip><para>Select verse numbers and drag them to the main index to create bookmarks.</para></tip>
-<tip><para>Select verse numbers and drop them on an unopened module in the main index
-to open the module and jump to the verse location (Bibles and commentaries only).</para></tip>
-<tip><para>Select verse numbers and drag them to an open document and the document will jump
-to the verse location (Bibles and commentaries only).</para></tip>
+<tip><para>Wählen Sie einen Vers aus und ziehen Sie ihn auf ein ungeöffnetes Modul um diese zu öffnen und
+damit dieses die gewünschte Stelle anzeigt (Nur für Bibeln und Kommentare).</para></tip>
+<tip><para>Wählen Sie einen Vers aus und ziehen Sie diesen auf ein geöffnetes Dokument, um das Anzeigefenster an diese Stelle springen zu lassen.
+</para></tip>
 
 <screenshot>
-<screeninfo>Search Result Dialog Box</screeninfo>
+<screeninfo>Suchergebnis Dialogbox/screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchresult.png" format="png"></graphic>
 </screenshot> </section>
 
