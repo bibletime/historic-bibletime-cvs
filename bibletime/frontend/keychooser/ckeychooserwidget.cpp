@@ -117,6 +117,22 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	ComboBox->clear();
 	ComboBox->insertStringList(*list);
 	ComboBox->setCurrentItem(index);	
+		
+	if (list && !list->count()) {
+		btn_up->setEnabled(false);
+		btn_fx->setEnabled(false);
+		btn_down->setEnabled(false);		
+	}
+	else if (list && list->count() == 1) {
+		btn_up->setEnabled(true);
+		btn_fx->setEnabled(false);
+		btn_down->setEnabled(true);		
+	}
+	else {
+		btn_up->setEnabled(true);
+		btn_fx->setEnabled(true);
+		btn_down->setEnabled(true);			
+	}
 	
 	isResetting = false;		
 	if (do_emit)
@@ -138,6 +154,8 @@ void CKeyChooserWidget::unlock(void){
 /** Initializes this widget. We need this function because we have more than one constructor. */
 void CKeyChooserWidget::init( ){
 	oldKey = QString::null;
+	btn_up = btn_down = btn_fx = 0;
+	
 	
 	QHBoxLayout *m_mainLayout = new QHBoxLayout( this );
 	QVBoxLayout *m_buttonLayout = new QVBoxLayout();	
@@ -150,20 +168,20 @@ void CKeyChooserWidget::init( ){
 	
 	m_mainLayout->addWidget( ComboBox );
 	
+	btn_up = new QToolButton( this, "btn_up" );	
 	QIconSet iconSet = getUpIconSet();
-	btn_up = new QToolButton( this, "btn_up" );
 	btn_up->setIconSet( iconSet );
 	btn_up->setFixedHeight(iconSet.pixmap().height());
 	btn_up->setFixedWidth(iconSet.pixmap().width());
 	
-	iconSet = getMoverIconSet();
 	btn_fx = new cfx_btn( this, "btn_fx" );
+	iconSet = getMoverIconSet();
 	btn_fx->setIconSet( iconSet );	
 	btn_fx->setFixedHeight(iconSet.pixmap().height());
 	btn_fx->setFixedWidth(iconSet.pixmap().width());
 
+	btn_down = new QToolButton( this, "btn_down" );	
 	iconSet = getDownIconSet();
-	btn_down = new QToolButton( this, "btn_down" );
 	btn_down->setIconSet( iconSet );
 	btn_down->setFixedHeight(iconSet.pixmap().height());
 	btn_down->setFixedWidth(iconSet.pixmap().width());
@@ -220,7 +238,8 @@ QIconSet CKeyChooserWidget::getUpIconSet(){
   QPixmap pix(WIDTH,ARROW_HEIGHT);
 	QPainter p(&pix);
 	p.fillRect(0,0, WIDTH-1, ARROW_HEIGHT-1, colorGroup().background());
-	style().drawArrow(&p, Qt::UpArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, colorGroup(), true/*enabled*/);
+	style().drawArrow(&p, Qt::UpArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_up ? btn_up->colorGroup() : colorGroup(), btn_up ? btn_up->isEnabled() : true);
+	
 	return QIconSet(pix);
 }
 
@@ -229,7 +248,8 @@ QIconSet CKeyChooserWidget::getDownIconSet(){
   QPixmap pix(WIDTH,ARROW_HEIGHT);
 	QPainter p(&pix);
 	p.fillRect(0,0, WIDTH-1, ARROW_HEIGHT-1, colorGroup().background());
-	style().drawArrow(&p, Qt::DownArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, colorGroup(), true/*enabled*/);
+	style().drawArrow(&p, Qt::DownArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_down ? btn_down->colorGroup() : colorGroup(), btn_down ? btn_down->isEnabled() : true);
+	
 	return QIconSet(pix);
 }
 

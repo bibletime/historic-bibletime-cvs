@@ -236,10 +236,10 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
  	if ( ( QTextDrag::decode(e,str,submime=BOOKMARK) || QTextDrag::decode(e,str,submime=REFERENCE) ) && !str.isEmpty() ){
 		QString ref = QString::null;
 		QString mod = QString::null;		
-		qDebug((const char*)str.local8Bit());
+//		qDebug((const char*)str.local8Bit());
   		
  		CToolClass::decodeReference(str,mod,ref);   		   		
- 		qDebug((const char*)ref.local8Bit());
+// 		qDebug((const char*)ref.local8Bit());
  		emit referenceClicked(ref);
 	}
 }

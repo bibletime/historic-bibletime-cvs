@@ -66,14 +66,12 @@ protected slots: // Protected slots
 
 private slots: // Private slots
   /**
-  * No descriptions
-  */
-  void referenceClicked(const QString&);
-  /**
   ** No descriptions
   */
   void popupAboutToShow();
-  /** Printes the verse the user has chosen. */
+  /**
+  * Printes the verse the user has chosen.
+  */
   void printHighlightedVerse();
 
 private:

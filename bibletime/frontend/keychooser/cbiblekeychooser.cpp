@@ -90,7 +90,6 @@ CKey *CBibleKeyChooser::getKey(){
 }
 
 void CBibleKeyChooser::setKey(CKey* key){
-
 	if (dynamic_cast<CSwordVerseKey*>(key))
 		m_key = dynamic_cast<CSwordVerseKey*>(key);
 	
@@ -99,16 +98,14 @@ void CBibleKeyChooser::setKey(CKey* key){
 	const int verse = m_key->Verse();
 
 	//reset the keychooser parts only if we found a valid book
-	if (bookIndex != 0) {	//we have a valid book
+	if (bookIndex > 0) {	//we have a valid book
 		w_book->ComboBox->setCurrentItem(bookIndex-1);
-
-		w_chapter->reset(	m_info->getChapterCount(bookIndex), chapter-1, false);
-		w_chapter->adjustSize();
-	
-		w_verse->reset(	m_info->getVerseCount(bookIndex, chapter), verse-1, false);
-		w_verse->adjustSize();		
-	}	
-	emit keyChanged(m_key);
+		w_chapter->reset(m_info->getChapterCount(bookIndex), chapter-1, false);
+		w_chapter->adjustSize();	
+		w_verse->reset(m_info->getVerseCount(bookIndex, chapter), verse-1, false);
+		w_verse->adjustSize();
+	}
+	emit keyChanged(m_key);			
 }
 
 /**  */

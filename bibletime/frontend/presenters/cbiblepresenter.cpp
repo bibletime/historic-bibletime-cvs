@@ -46,6 +46,7 @@ CBiblePresenter::~CBiblePresenter(){
 
 /** Initializes the view (central widget, toolbars etc) of this presenter */
 void CBiblePresenter::initView(){
+	qDebug("CBiblePresenter::initView()");
 	ASSERT(m_moduleList.first());
 	
 	m_mainToolBar = new KToolBar(this);
@@ -97,7 +98,7 @@ void CBiblePresenter::lookup(CKey* key){
 	}
 	if (m_key != vKey)
 		m_key->setKey(*vKey);
-;		
+		
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
 	setPlainCaption( m_key->getKey() );
 	
@@ -106,7 +107,6 @@ void CBiblePresenter::lookup(CKey* key){
 
 /** This slot is called when the modules selected in the module chooserbar have changed. */
 void CBiblePresenter::modulesChanged(){
-  qDebug("CBiblePresenter::modulesChanged()");
   m_moduleList = m_moduleChooserBar->getModuleList();
   if (!m_moduleList.count())
   	close();
@@ -121,7 +121,7 @@ void CBiblePresenter::modulesChanged(){
 /** Initializes the Signal / Slot connections */
 void CBiblePresenter::initConnections(){
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
-		this, SLOT(referenceClicked(const QString&))); 	
+		this, SLOT(lookup(const QString&))); 	
  	connect( m_keyChooser, SIGNAL(keyChanged(CKey*)),
  		this, SLOT(lookup(CKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()),
@@ -136,14 +136,6 @@ void CBiblePresenter::popupAboutToShow(){
 	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
 	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());
-}
-
-/** No descriptions */
-void CBiblePresenter::referenceClicked(const QString& ref){
-	if ( !ref.isEmpty() ) {
-		m_key->setKey(ref);
-		m_keyChooser->setKey( m_key );
-	}
 }
 
 /** Reimplementation from CSwordPresenter. */
