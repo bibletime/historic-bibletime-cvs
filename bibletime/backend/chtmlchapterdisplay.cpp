@@ -131,11 +131,13 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.NextVerse()) {
 		const QString currentKey = key.key();
 		currentVerse = key.Verse();
+		m = (d = moduleList->first()) ? d->module() : 0;
+		
 		rowText = QString("<tr><td bgcolor=\"#f1f1f1\"><b><a name=\"%1\" href=\"%2\">%3</a></b></td>\n")
 			.arg(currentVerse)
 			.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey ))
 			.arg(currentVerse);
-		m = (d = moduleList->first()) ? d->module() : 0;
+					
 		while (m) {
 			CSwordVerseKey current(d);
 			current.key(currentKey);

@@ -57,6 +57,7 @@
 /**Initializes the view of this widget*/
 void BibleTime::initView(){
 	qDebug("BibleTime::initView");
+	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
 	m_splitter = new QSplitter(this, "mainsplitter");
 	
 	m_groupmanager = new CGroupManager(m_important, m_splitter, "groupmanager", m_moduleList );
@@ -73,7 +74,7 @@ void BibleTime::initView(){
 
 /** Initializes the action objects of the GUI */
 void BibleTime::initActions() {
-	KStartupLogo::setStatusMessage(i18n("Initializing menu and toolbars") + QString::fromLatin1("..."));
+	KStartupLogo::setStatusMessage(i18n("Initializing menu- and toolbars") + QString::fromLatin1("..."));
 		
 	m_fileClearQueue_action = new KAction(i18n("Clear printing queue"), ICON_FILE_CLEAR_QUEUE ,0,
 		m_important->printer, SLOT(clearQueue()), actionCollection(), "fileClearQueue_action");	
@@ -242,6 +243,7 @@ void BibleTime::initMenubar(){
 
 /** Initializes the SIGNAL / SLOT connections */
 void BibleTime::initConnections(){
+	KStartupLogo::setStatusMessage(i18n("Initializing menu items") + QString::fromLatin1("..."));
 	connect(m_mdi, SIGNAL(sigSetToplevelCaption(const QString&)),
 		this, SLOT(setPlainCaption(const QString&)));
 	connect(m_mdi, SIGNAL(createNewSwordPresenter(CSwordModuleInfo*, const QString&)),
@@ -282,6 +284,7 @@ void BibleTime::initConnections(){
 
 /** Initializes the keyboard accelerators */
 void BibleTime::initKeyAccels(){
+	KStartupLogo::setStatusMessage(i18n("Initializing keyboard accelerators") + QString::fromLatin1("..."));	
 	m_keyAccel = new KAccel(this);
 
 	m_fileClearQueue_action->plugAccel( m_keyAccel );	

@@ -26,6 +26,11 @@
 #include "frontend/chtmldialog.h"
 #include "config.h"
 
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
 //KDE includes
 #include <kcmdlineargs.h>
 #include <kcrash.h>
@@ -64,17 +69,41 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 }
 
 extern "C" {
-	//saves data before the app closes after a crash
-	void emergencySave(int)  {
-		fprintf(stderr, "[emergencySave] BibleTime crashed - trying to save data!");
-		if (bibletime)
-			bibletime->saveSettings();
-	}
+  static void setSignalHandler(void (*handler)(int));
+
+  // Crash recovery signal handler
+  static void signalHandler(int sigId) {
+    setSignalHandler(SIG_DFL);
+    fprintf(stderr, "*** BibleTime got signal %d (Exiting)\n", sigId);
+    // try to cleanup all windows
+  	if (bibletime) {
+  		bibletime->saveSettings();
+  	  fprintf(stderr, "Saving seems to be succesful\n");		
+  	}
+    ::exit(-1); //
+  }
+
+  // Crash recovery signal handler
+  static void crashHandler(int sigId) {
+    setSignalHandler(SIG_DFL);
+    fprintf(stderr, "*** BibleTime got signal %d (Crashing). Trying to save settings.\n", sigId);
+  	if (bibletime) {
+  		bibletime->saveSettings();
+  	  fprintf(stderr, "Saving seemed to be succesful\n");		
+  	}
+    // Return to DrKonqi.
+  }
+
+  static void setSignalHandler(void (*handler)(int)) {
+    signal(SIGKILL, handler);
+    signal(SIGTERM, handler);
+    signal(SIGHUP,  handler);
+    KCrash::setEmergencySaveFunction(crashHandler);
+  }
 }
 
 int main(int argc, char* argv[]) {
 	qInstallMsgHandler( myMessageOutput );
-	KCrash::setEmergencySaveFunction( emergencySave );
 	
 	//create about data for this application
 	static KCmdLineOptions options[] =
@@ -171,7 +200,7 @@ int main(int argc, char* argv[]) {
 			if(showIt) {
 				KStartupLogo::createSplash();
 				KStartupLogo::showSplash();				
-				KStartupLogo::setStatusMessage( i18n("Starting BibleTime...") );
+				KStartupLogo::setStatusMessage( i18n("Starting BibleTime")+QString::fromLatin1("...") );
 			};
 	  }
 		
@@ -209,7 +238,7 @@ int main(int argc, char* argv[]) {
 		 	if (config->readBoolEntry("restore workspace", false))
 		 		bibletime->restoreWorkspace();
 		}
-		
+	  setSignalHandler(signalHandler);		
   	return app.exec();
 	}
 }
