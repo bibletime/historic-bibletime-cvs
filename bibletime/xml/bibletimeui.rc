@@ -32,7 +32,8 @@
   <Action name="windowFullscreen_action"/>
   <Separator/>
   <Action name="windowArrangementMode_action"/>
-  <Action name="windowTile_action"/>
+  <Action name="windowTileVertical_action"/>
+  <Action name="windowTileHorizontal_action"/>
   <Action name="windowCascade_action"/>
   <Separator/>
   <Action name="windowCloseAll_action"/>

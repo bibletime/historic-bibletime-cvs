@@ -269,18 +269,29 @@ void BibleTime::initActions() {
   #endif
 
 
-  m_windowTile_action = new KAction(i18n("&Tile vertical"),
-    CResMgr::mainMenu::window::tile::icon,
-    CResMgr::mainMenu::window::tile::accel,
+  m_windowTileVertical_action = new KAction(i18n("&Tile vertical"),
+    CResMgr::mainMenu::window::tileVertical::icon,
+    CResMgr::mainMenu::window::tileVertical::accel,
     this, SLOT(slotTileVertical()), actionCollection(),
-    CResMgr::mainMenu::window::tile::actionName
+    CResMgr::mainMenu::window::tileVertical::actionName
 	);
-	m_windowTile_action->setToolTip( CResMgr::mainMenu::window::tile::tooltip );
+	m_windowTileVertical_action->setToolTip( CResMgr::mainMenu::window::tileVertical::tooltip );
 
   #if KDE_VERSION_MINOR < 1
-  	m_windowTile_action->plugAccel( accel() );
+  	m_windowTileVertical_action->plugAccel( accel() );
   #endif
 
+  m_windowTileHorizontal_action = new KAction(i18n("&Tile horizontal"),
+    CResMgr::mainMenu::window::tileHorizontal::icon,
+    CResMgr::mainMenu::window::tileHorizontal::accel,
+    this, SLOT(slotTileHorizontal()), actionCollection(),
+    CResMgr::mainMenu::window::tileHorizontal::actionName
+	);
+	m_windowTileHorizontal_action->setToolTip( CResMgr::mainMenu::window::tileHorizontal::tooltip );
+
+  #if KDE_VERSION_MINOR < 1
+  	m_windowTileHorizontal_action->plugAccel( accel() );
+  #endif
 
 
   m_windowCloseAll_action = new KAction(i18n("Cl&ose all"),
@@ -463,7 +474,7 @@ void BibleTime::initActions() {
 /** Initializes the menubar of BibleTime. */
 void BibleTime::initMenubar(){
 	//get the window and edit menus using the actions and their properties
-	m_windowMenu = dynamic_cast<QPopupMenu*>(m_windowTile_action->container(0));
+	m_windowMenu = dynamic_cast<QPopupMenu*>(m_windowCloseAll_action->container(0));
 }
 
 /** Initializes the SIGNAL / SLOT connections */

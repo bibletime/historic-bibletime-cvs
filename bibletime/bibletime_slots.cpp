@@ -130,6 +130,7 @@ void BibleTime::slotHelpTipOfDay(){
 
 /** Is called just before the window menu is ahown. */
 void BibleTime::slotWindowMenuAboutToShow(){
+	Q_ASSERT(m_windowMenu);
 	if (!m_windowMenu) {
 		return;
   }
@@ -145,8 +146,10 @@ void BibleTime::slotWindowMenuAboutToShow(){
 				
 	if ( m_windowCascade_action->isPlugged() )
 		m_windowCascade_action->unplug(m_windowMenu);
-	if ( m_windowTile_action->isPlugged() )
-		m_windowTile_action->unplug(m_windowMenu);
+	if ( m_windowTileVertical_action->isPlugged() )
+		m_windowTileVertical_action->unplug(m_windowMenu);
+	if ( m_windowTileHorizontal_action->isPlugged() )
+		m_windowTileHorizontal_action->unplug(m_windowMenu);
 	if ( m_windowArrangementMode_action->isPlugged() )
 		m_windowArrangementMode_action->unplug(m_windowMenu);
 	if ( m_windowCloseAll_action->isPlugged() )
@@ -164,17 +167,20 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	m_windowMenu->insertSeparator();
 	
 	m_windowArrangementMode_action->plug(m_windowMenu);
-	m_windowTile_action->plug(m_windowMenu);
+	m_windowTileVertical_action->plug(m_windowMenu);
+	m_windowTileHorizontal_action->plug(m_windowMenu);
 	m_windowCascade_action->plug(m_windowMenu);
 	m_windowCloseAll_action->plug(m_windowMenu);	
 	
 	if ( m_mdi->windowList().isEmpty() ) {
 		m_windowCascade_action->setEnabled(false);
-		m_windowTile_action->setEnabled(false);
+		m_windowTileVertical_action->setEnabled(false);
+		m_windowTileHorizontal_action->setEnabled(false);
 		m_windowCloseAll_action->setEnabled(false);
 	}
 	else if (m_mdi->windowList().count() == 1) {
-		m_windowTile_action->setEnabled( false );
+		m_windowTileVertical_action->setEnabled( false );
+		m_windowTileHorizontal_action->setEnabled( false );
 		m_windowCascade_action->setEnabled( false );
 		m_windowCloseAll_action->setEnabled( true );
 		m_windowMenu->insertSeparator();
@@ -204,17 +210,25 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 	/* If a toggle action was clicked we see if it checked ot unchecked and
 	* enable/disable the simple cascade and tile options accordingly 
 	*/
-	m_windowTile_action->setEnabled( m_windowManualMode_action->isChecked() );
+	m_windowTileVertical_action->setEnabled( m_windowManualMode_action->isChecked() );
+	m_windowTileHorizontal_action->setEnabled( m_windowManualMode_action->isChecked() );
 	m_windowCascade_action->setEnabled( m_windowManualMode_action->isChecked() );
 	
 	if (clickedAction) {
-		m_windowManualMode_action->setEnabled( m_windowManualMode_action != clickedAction );
+		m_windowManualMode_action->setEnabled( 
+					m_windowManualMode_action != clickedAction 
+			&&	m_windowTileHorizontal_action != clickedAction 
+			&&	m_windowTileVertical_action != clickedAction 
+			&&	m_windowCascade_action != clickedAction 
+		);
 		m_windowAutoTileVertical_action->setEnabled( m_windowAutoTileVertical_action != clickedAction );
 		m_windowAutoTileHorizontal_action->setEnabled( m_windowAutoTileHorizontal_action != clickedAction );
 		m_windowAutoCascade_action->setEnabled( m_windowAutoCascade_action != clickedAction );
 	}
 	
 	if (clickedAction == m_windowManualMode_action) {
+// 		m_windowManualMode_action->setEnabled(false);
+		
 		m_windowAutoTileVertical_action->setChecked(false);
 		m_windowAutoTileHorizontal_action->setChecked(false);
 		m_windowAutoCascade_action->setChecked(false);
@@ -222,6 +236,8 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 		m_mdi->setGUIOption( CMDIArea::Nothing );
 	}
 	else if (clickedAction == m_windowAutoTileVertical_action) {		
+// 		m_windowManualMode_action->setEnabled(true);
+
 		m_windowManualMode_action->setChecked(false);
 		m_windowAutoTileHorizontal_action->setChecked(false);
 		m_windowAutoCascade_action->setChecked(false);
@@ -229,6 +245,8 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 		m_mdi->setGUIOption( CMDIArea::autoTileVertical );
 	}
 	else if (clickedAction == m_windowAutoTileHorizontal_action) {
+// 		m_windowManualMode_action->setEnabled(true);
+		
 		m_windowManualMode_action->setChecked(false);
 		m_windowAutoTileVertical_action->setChecked(false);
 		m_windowAutoCascade_action->setChecked(false);
@@ -236,6 +254,8 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 		m_mdi->setGUIOption( CMDIArea::autoTileHorizontal );
 	}
 	else if (clickedAction == m_windowAutoCascade_action) {
+// 		m_windowManualMode_action->setEnabled(true);
+		
 		m_windowManualMode_action->setChecked(false);
 		m_windowAutoTileHorizontal_action->setChecked(false);
 		m_windowAutoTileVertical_action->setChecked(false);
@@ -243,12 +263,22 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 		m_mdi->setGUIOption( CMDIArea::autoCascade );
 	}
 	else if (clickedAction == m_windowCascade_action) {
+// 		m_windowManualMode_action->setEnabled(false);
+		
 		m_mdi->setGUIOption( CMDIArea::Nothing );
 		m_mdi->myCascade();
 	}
-	else if (clickedAction == m_windowTile_action) {
+	else if (clickedAction == m_windowTileVertical_action) {
+// 		m_windowManualMode_action->setEnabled(false);
+	
 		m_mdi->setGUIOption( CMDIArea::Nothing );
  		m_mdi->myTileVertical();
+	}
+	else if (clickedAction == m_windowTileHorizontal_action) {
+// 		m_windowManualMode_action->setEnabled(false);
+	
+		m_mdi->setGUIOption( CMDIArea::Nothing );
+ 		m_mdi->myTileHorizontal();
 	}
 }
 
@@ -271,7 +301,11 @@ void BibleTime::slotCascade() {
 }
 
 void BibleTime::slotTileVertical() {
-	slotUpdateWindowArrangementActions( m_windowTile_action );
+	slotUpdateWindowArrangementActions( m_windowTileVertical_action );
+}
+
+void BibleTime::slotTileHorizontal() {
+	slotUpdateWindowArrangementActions( m_windowTileHorizontal_action );
 }
 
 /** This slot is connected with the windowAutoCascade_action object */

@@ -202,14 +202,19 @@ void CMDIArea::myTileHorizontal(){
 void CMDIArea::tileHorizontal()
 {
 	// primitive horizontal tiling
-	QWidgetList windows = windowList();
+	QPtrList<QWidget> windows = usableWindowList();
 	if ( !windows.count() ) {
 		return;
 	}
 
-	int heightForEach = height() / windows.count();
-	int y = 0;
-	for ( int i = 0; i < int(windows.count()); ++i ) {
+	if ((windows.count() == 1) && windows.at(0)) {
+    m_appCaption = windows.at(0)->caption();
+		windows.at(0)->parentWidget()->showMaximized();
+	}
+	else {
+		int heightForEach = height() / windows.count();
+		int y = 0;
+		for ( int i = 0; i < int(windows.count()); ++i ) {
 			QWidget *window = windows.at(i);
 			if ( window->testWState( WState_Maximized ) ) {
 					// prevent flicker
@@ -221,6 +226,7 @@ void CMDIArea::tileHorizontal()
 
 			window->parentWidget()->setGeometry( 0, y, width(), actHeight );
 			y += actHeight;
+		}
 	}
 }
 
@@ -229,16 +235,38 @@ void CMDIArea::myCascade(){
 	if (m_deleting || !isUpdatesEnabled() || !windowList().count() ) {
 		return;
   }
-    
-	if ((usableWindowList().count() == 1) && usableWindowList().at(0)) {
-    m_appCaption = usableWindowList().at(0)->caption();
-		usableWindowList().at(0)->parentWidget()->showMaximized();
+	
+	QPtrList<QWidget> windows = usableWindowList();
+	if ( !windows.count() ) {
+		return;
 	}
- 	else {
-    QWidget* active = activeWindow();
-	  QWorkspace::cascade();
-    active->setFocus();
-  }
+
+	if ((windows.count() == 1) && windows.at(0)) {
+    m_appCaption = windows.at(0)->caption();
+		windows.at(0)->parentWidget()->showMaximized();
+	}
+	else {
+
+		const int offsetX = 50;
+		const int offsetY = 50;
+		const int windowWidth =  width()  - (windows.count() * offsetX);
+		const int windowHeight = height() - (windows.count() * offsetY);
+		
+		int x = 0;
+		int y = 0;
+		
+		for ( int i = 0; i < int(windows.count()); ++i ) {
+			QWidget *window = windows.at(i);
+			if ( window->testWState( WState_Maximized ) ) {
+					// prevent flicker
+					window->hide();
+					window->showNormal();
+			}
+			window->parentWidget()->setGeometry( x, y, windowWidth, windowHeight);
+			x += offsetX;
+			y += offsetY;
+		}
+	}
 }
 
 

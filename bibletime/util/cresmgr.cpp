@@ -168,12 +168,19 @@ namespace CResMgr {
 					const char* actionName    = "windowAutoCascade_action";
 				}
       }
-      namespace tile {
+      namespace tileVertical {
         QString tooltip;
 
         const QString icon        = "bt_tile";
         const KShortcut accel     = Qt::CTRL + Qt::Key_T;
-        const char* actionName    = "windowTile_action";
+        const char* actionName    = "windowTileVertical_action";
+      }
+      namespace tileHorizontal {
+        QString tooltip;
+
+        const QString icon        = "bt_tile";
+        const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_T;
+        const char* actionName    = "windowTileHorizontal_action";
       }
       namespace cascade {
         QString tooltip;
@@ -809,8 +816,12 @@ namespace CResMgr {
             tooltip     = i18n ("Toggle fullscreen mode of the main window.") ;
           }
           {
-            using namespace tile;
-            tooltip     = i18n ("Tile the open windows.") ;
+            using namespace tileVertical;
+            tooltip     = i18n ("Vertically tile the open windows.") ;
+          }
+          {
+            using namespace tileHorizontal;
+            tooltip     = i18n ("Horizontally tile the open windows.") ;
           }
           {
             using namespace cascade;

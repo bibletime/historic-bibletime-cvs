@@ -173,7 +173,14 @@ namespace CResMgr {
 					extern const char* actionName;
 				}			
 			}
-      namespace tile {
+      namespace tileVertical {
+        extern QString tooltip;
+
+        extern const QString icon;
+        extern const KShortcut accel;
+        extern const char* actionName;
+      }
+      namespace tileHorizontal {
         extern QString tooltip;
 
         extern const QString icon;
