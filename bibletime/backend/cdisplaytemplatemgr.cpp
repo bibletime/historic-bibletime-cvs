@@ -71,7 +71,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	if (moduleCount >= 2) {
 		//create header for the modules
 		QString header;
-// 		for (CSwordModuleInfo* m = settings.modules.first(); m; m = settings.modules.next()) {
+		
 		ListCSwordModuleInfo::iterator end_it = settings.modules.end();
 		for (ListCSwordModuleInfo::iterator it(settings.modules.begin()); it != end_it; ++it) {
 			header.append( 
@@ -93,11 +93,20 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
   	const CLanguageMgr::Language* lang = it.current();
 		if (lang->isValid() && CBTConfig::get(lang).first) {
 			const QFont f = CBTConfig::get(lang).second;
-			langCSS += QString::fromLatin1("*[lang=%1] { font-family:%2; font-size:%3pt; font-weight:%3; font-style: %4;}\n")
+			langCSS.append( 
+				QString::fromLatin1("\n#content[lang=%1] {font-family:%2; font-size:%3pt; font-weight:%3; font-style: %4;}\n")
 				.arg(lang->abbrev())
 				.arg(f.family()).arg(f.pointSize())
 				.arg(f.bold() ? "bold" : "normal")
-				.arg(f.italic() ? "italic" : "normal");
+				.arg(f.italic() ? "italic" : "normal")
+			);
+			langCSS.append( 
+				QString::fromLatin1("\ntd[lang=%1] {font-family:%2; font-size:%3pt; font-weight:%3; font-style: %4;}\n")
+				.arg(lang->abbrev())
+				.arg(f.family()).arg(f.pointSize())
+				.arg(f.bold() ? "bold" : "normal")
+				.arg(f.italic() ? "italic" : "normal")
+			);
 		}
 	}
 		
