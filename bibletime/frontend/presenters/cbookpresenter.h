@@ -42,6 +42,8 @@ public:
 	CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0 );
 	virtual ~CBookPresenter();
   static void insertKeyboardActions(KAccel* a);
+	virtual void applySettings( CProfileWindow* settings );
+  virtual void storeSettings( CProfileWindow* setttings );
 
 public slots: // Public slots
   /**
