@@ -174,6 +174,9 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
 
 		connectionsProxy()->emitReferenceClicked(module, key);
   }
+  else if (url.left(1) == "#") { //anchor
+    moveToAnchor(url.mid(1));
+  };
 }
 
 /** Reimplementation. */
