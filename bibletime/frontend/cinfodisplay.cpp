@@ -15,6 +15,7 @@
 
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordkey.h"
+#include "backend/cdisplaytemplatemgr.h"
 
 #include "frontend/cbtconfig.h"
 
@@ -60,27 +61,33 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	  switch ( (*it).first ) {
 			case Lemma:
 				text += decodeLemma( (*it).second );
-				break;
+				continue;
 			case Morph:
 				text += decodeMorph( (*it).second );
-				break;
+				continue;
 			case CrossReference:
 				text += decodeCrossReference( (*it).second );
-				break;
+				continue;
 			case Footnote:
 				text += decodeFootnote( (*it).second );
-				break;
+				continue;
 			case WordTranslation:
 				text += getWordTranslation( (*it).second );
-				break;
+				continue;
 			case WordGloss:
 				//text += getWordTranslation( (*it).second );
-				break;
+				continue;
 			default:
-				break;
+				continue;
 		};
 	}
 
+	//text = QString::fromLatin1("<div class\"infodisplay\">%1</div>").arg(text);
+	CDisplayTemplateMgr mgr;
+	CDisplayTemplateMgr::Settings settings;
+	settings.pageCSS_ID = "infodisplay";
+	text = mgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
+	
 	m_htmlPart->begin();
 	m_htmlPart->write(text);
 	m_htmlPart->end();
@@ -118,7 +125,9 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	key->key(keyname);
 	key->renderedText(); //fotce entryAttributes
 	
-	QString ret = QString::fromUtf8(module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str());
+	QString ret = QString::fromLatin1("<div class=\"footnoteinfo\"><h3>%1</h3><p>%2</p></div>")
+		.arg(i18n("Footnote"))
+		.arg(QString::fromUtf8(module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str()));
 	
 	return ret;
 }
@@ -126,12 +135,12 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 const QString CInfoDisplay::decodeLemma( const QString& data ) {
 	//qWarning("decode lemma: %s", data.latin1());
 	
-	QString strongDesc = CBTConfig::get(data.left(1) == "H" ? 
+	QString strongModuleDesc = CBTConfig::get(data.left(1) == "H" ? 
 		CBTConfig::standardHebrewStrongsLexicon : 
 		CBTConfig::standardGreekStrongsLexicon
 	);
 	
-	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongDesc );	
+	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
 	Q_ASSERT(module);	
 	if (!module) {
 		return QString::null;
@@ -140,19 +149,22 @@ const QString CInfoDisplay::decodeLemma( const QString& data ) {
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
 	key->key( data.mid(1) ); //skip H or G (language sign)
 	
-	return key->renderedText();
+		QString ret = QString::fromLatin1("<div class=\"lemmainfo\"><h3>%1: %2</h3><p>%3</p></div>")
+		.arg(i18n("Lemma"))
+		.arg(data)
+		.arg(key->renderedText());
+	
+	return ret;
 	
 }
 
 const QString CInfoDisplay::decodeMorph( const QString& data ) {
-	//qWarning("decode morph: %s", data.latin1());
-	
-	QString strongDesc = CBTConfig::get(data.left(1) == "H" ? 
+	QString strongModuleDesc = CBTConfig::get(data.left(1) == "H" ? 
 		CBTConfig::standardHebrewMorphLexicon : 
 		CBTConfig::standardGreekMorphLexicon
 	);
 	
-	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongDesc );	
+	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
 	Q_ASSERT(module);	
 	if (!module) {
 		return QString::null;
@@ -160,8 +172,13 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 	
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
 	key->key( data.mid(1) ); //skip H or G (language sign)
-	
-	return key->renderedText();	
+
+	QString ret = QString::fromLatin1("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
+		.arg(i18n("Morph number"))
+		.arg(data)
+		.arg(key->renderedText());
+
+	return ret;	
 }
 
 const QString CInfoDisplay::getWordTranslation( const QString& data ) {
@@ -175,8 +192,14 @@ const QString CInfoDisplay::getWordTranslation( const QString& data ) {
 	
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
 	key->key( data );
+	module->snap();
 	
-	return data + "<br/>" + key->renderedText();
+	QString ret = QString::fromLatin1("<div class=\"translationinfo\"><h3>%1: %2</h3><p>%3</p></div>")
+		.arg(i18n("Word translation"))
+		.arg(data)
+		.arg(key->renderedText());
+
+	return ret;
 }
 
 

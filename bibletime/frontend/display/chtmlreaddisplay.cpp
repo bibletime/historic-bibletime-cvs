@@ -272,7 +272,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 		bool setInfo = false;
 		
 		//if no link was under the mouse try to find a title attrivute
-		if (!node.isNull()) {
+		if (!node.isNull() && (m_previousEventNode != node) ) { //we want to avoid precessing the nice again
 			DOM::Node currentNode = node;
 			DOM::Node attr;
 			
@@ -339,9 +339,11 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				}
 			}
 			
-			if ( !(e->qmouseEvent()->state() & Qt::ShiftButton) ) {
+			if ( !(e->qmouseEvent()->state() & Qt::ShiftButton) ) { //SHIFT key not pressed, so we display
 				CPointers::infoDisplay()->setInfo(infoList);
 			}
+			
+			m_previousEventNode = node;
 		}
 	} 
 	KHTMLPart::khtmlMouseMoveEvent(e);

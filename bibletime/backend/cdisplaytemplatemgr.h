@@ -31,11 +31,13 @@ public:
 			Settings() {
 				title = QString::null;
 				langAbbrev = QString::null;
+				pageCSS_ID = QString::null;
 			};
 			
 			ListCSwordModuleInfo modules;
 			QString title;
 			QString langAbbrev;
+			QString pageCSS_ID;
 		};
 		
 		CDisplayTemplateMgr();

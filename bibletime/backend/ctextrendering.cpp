@@ -19,6 +19,7 @@
 #include "backend/creferencemanager.h"
 
 #include "util/scoped_resource.h"
+#include "util/ctoolclass.h"
 
 //Sword includes
 #include <swkey.h>
@@ -333,25 +334,29 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	
 	
 	QString text = oldText; 
-/*	QRegExp re("\\s([a-zA-Z0-9öäüßÄÖÜ]+)(?=[\\s,.?!)(])");
-	re.setMinimal(true);
-	text.replace(re, " <span class\"word\">\\1</span>");
 	
-	if (modules.count() > 1) {
-		QString header;
-
-		for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-			header += QString::fromLatin1("<th width=\"%1%\">%2</th>")
-					.arg(100 / modules.count())
-					.arg(m->name());
-		}
-		text = "<table><tr>" + header + "</tr>" + text + "</table>";
+	QRegExp re("(\\b)(?=\\w)"); //word begin marker
+	int pos = text.find(re, 0);
+	
+	while (pos != -1) { //word begin found
+		
+		//qWarning("found word at %i in %i", pos, text.length());
+		int endPos = pos + 1;
+		if (!CToolClass::inHTMLTag(pos+1, text)) { //the re has a positive look ahead which matches one char before the word start
+			//qWarning("matched %s", text.mid(pos+1, 4).latin1());
+			
+			//find end of word and put a marker around it
+			endPos = text.find(QRegExp("\\b|[,.:]"), pos+1);
+			if ((endPos != -1) && !CToolClass::inHTMLTag(endPos, text) && (endPos - pos >= 3)) { //reuire wordslonger than 3 chars
+				text.insert(endPos, "</span>");
+				text.insert(pos, "<span class=\"word\">");
+				
+				endPos += 26;
+			}
+		}		
+		pos = text.find(re, endPos);		
 	}
-	else {
-		//text = oldText;
-	}
-*/
-
+	
 	const QString langAbbrev = 
 		((modules.count() == 1) && modules.first()->language().isValid())
 		?	modules.first()->language().abbrev() 

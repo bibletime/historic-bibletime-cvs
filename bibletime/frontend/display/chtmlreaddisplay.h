@@ -95,6 +95,8 @@ private:
     QString module;
     QString key;
  	} m_urlWorkaroundData;
+	
+	DOM::Node m_previousEventNode;
 };
 
 class CHTMLReadDisplayView : public KHTMLView, public CPointers {

@@ -160,9 +160,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
             }
 					} while (++i < count);
 					
-					//qWarning("morph: %s", attrValue.c_str());
 					if (attrValue.length()) {
-						//qWarning("append morph");
 						outTag.setAttribute("morph", attrValue.c_str());
 					}
 				}

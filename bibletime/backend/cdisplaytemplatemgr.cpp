@@ -77,24 +77,29 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 		}
 	}
 	
-	QString displayTypeString = "single";
-	if (settings.modules.count()) {
-		switch (settings.modules.first()->type()) {
-			case CSwordModuleInfo::Bible:
-				displayTypeString = "bible";
-				break;
-			case CSwordModuleInfo::GenericBook:
-				displayTypeString = "book";
-				break;
-			
-			case CSwordModuleInfo::Commentary:
-			case CSwordModuleInfo::Lexicon:
-			default:
-				displayTypeString = "singleentry";
-				break;
+	QString displayTypeString;
+	if (!settings.pageCSS_ID.isEmpty()) {
+		displayTypeString = settings.pageCSS_ID;
+	}
+	else {
+		if (settings.modules.count()) {
+			switch (settings.modules.first()->type()) {
+				case CSwordModuleInfo::Bible:
+					displayTypeString = "bible";
+					break;
+				case CSwordModuleInfo::GenericBook:
+					displayTypeString = "book";
+					break;
+				
+				case CSwordModuleInfo::Commentary:
+				case CSwordModuleInfo::Lexicon:
+				default:
+					displayTypeString = "singleentry";
+					break;
+			};
 		};
-	};
-	
+	}
+		
 	QString newContent = content;
 	const int moduleCount = settings.modules.count();
 	if (moduleCount >= 2) {
@@ -106,7 +111,9 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 				.arg( m->name() );
 		}
 		
-		newContent = QString::fromLatin1("<table><tr>%1</tr>%2</table>").arg(header).arg(content);
+		newContent = QString::fromLatin1("<table><tr>%1</tr>%2</table>")
+			.arg(header)
+			.arg(content);
 	}
 	
 	QString t = m_templateMap[ name ];
@@ -116,7 +123,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
  	t.replace("#DISPLAYTYPE#", displayTypeString);
 	t.replace("#CONTENT#", newContent);
 	
-	//std::cout << t.latin1() << std::endl;
+//	std::cout << t.latin1() << std::endl;
 	
 	return t;
 }
