@@ -17,14 +17,14 @@
 
 #include "cgroupmanageritem.h"
 #include "cgroupmanager.h"
-#include "../../backend/cswordversekey.h"
-#include "../../backend/cswordldkey.h"
-#include "../../backend/cswordmoduleinfo.h"
-#include "../../backend/cswordbiblemoduleinfo.h"
-#include "../../backend/cswordlexiconmoduleinfo.h"
-#include "../../resource.h"
-#include "../ctoolclass.h"
-#include "../cbtconfig.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordldkey.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordbiblemoduleinfo.h"
+#include "backend/cswordlexiconmoduleinfo.h"
+#include "frontend/ctoolclass.h"
+#include "frontend/cbtconfig.h"
+#include "resource.h"
 
 //Qt includes
 #include <qpixmap.h>
@@ -39,15 +39,15 @@
 
 
 CGroupManagerItem::CGroupManagerItem(CGroupManager *parent, const QString& caption,
-	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type)
-	: KListViewItem((QListView*)parent) {	
+	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::ItemType Type)
+	: KListViewItem(static_cast<QListView*>(parent) ) {
 	
 	init(caption, modulename, module_info, bookmarkKey, Type);
 }
 
 CGroupManagerItem::CGroupManagerItem(CGroupManagerItem *parent, const QString& caption,
-	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type)
-	: KListViewItem((QListViewItem*)parent) {
+	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::ItemType Type)
+	: KListViewItem(static_cast<QListViewItem*>(parent)) {
 	
 	init(caption, modulename, module_info,bookmarkKey, Type);
 }
@@ -65,7 +65,7 @@ CSwordModuleInfo* CGroupManagerItem::moduleInfo() const {
 }
 
 /** Returns the type of this item */
-const CGroupManagerItem::itemType CGroupManagerItem::type() const {
+const CGroupManagerItem::ItemType CGroupManagerItem::type() const {
 	return m_type;
 }
 
@@ -81,7 +81,7 @@ void CGroupManagerItem::setOpen( bool open ){
 }
 
 /** Initializes the item Used by both constructors to share the double used source code */
-void CGroupManagerItem::init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type ){
+void CGroupManagerItem::init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::ItemType Type ){
 	m_bookmarkKey = 0;
 	m_createdOwnKey = false;
 	m_moduleInfo = 0;
@@ -188,7 +188,7 @@ void CGroupManagerItem::update(){
 }
 
 /** Sets the type of the item. */
-void CGroupManagerItem::setType( const CGroupManagerItem::itemType type) {
+void CGroupManagerItem::setType( const CGroupManagerItem::ItemType type) {
 	m_type = type;
 }
 
@@ -199,7 +199,6 @@ void CGroupManagerItem::setModuleInfo( CSwordModuleInfo* moduleInfo ){
 
 /** Returns a QString version of the key. */
 const QString CGroupManagerItem::getKeyText(){
-//	CSwordKey* key = dynamic_cast<CSwordKey*>(m_bookmarkKey);
 	return m_bookmarkKey ? m_bookmarkKey->key() : QString::null;
 }
 
@@ -262,5 +261,28 @@ const QString CGroupManagerItem::getToolTip(){
 		case Group:
 		default:
 			return QString::null;
+	}
+}
+
+/** Moves this item after the item "item". */
+void CGroupManagerItem::moveAfter( CGroupManagerItem* item, const MoveType type ){
+	if (!item)
+		return;
+	
+	if ( parent() != item->parent() ) { //different levels
+		if (type == AllowDifferentParents) { //different parents are allowed
+			qWarning("allow different levels");
+			if (item->parent())
+				item->parent()->insertItem(this); //insert item to the childs
+			else
+				listView()->insertItem(this);
+			moveItem(item);
+		}
+		else
+			qWarning("don't move");
+	}
+	else {
+		qWarning("moved");
+		moveItem(item); //both items are on the same level, so we can use moveItem
 	}
 }

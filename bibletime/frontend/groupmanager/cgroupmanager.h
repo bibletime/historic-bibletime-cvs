@@ -17,20 +17,19 @@
 #ifndef CGROUPMANAGER_H
 #define CGROUPMANAGER_H
 
+//BibleTime includes
+#include "cgroupmanageritem.h"
+#include "backend/cswordmoduleinfo.h"
+#include "frontend/cpointers.h"
+
 //QT includes
 #include <qwidget.h>
 #include <qlist.h>
+#include <qlistview.h>
 #include <qtooltip.h>
 
 //KDE includes
-#define private public
-#include <qlistview.h>
 #include <klistview.h>
-#undef private
-
-#include "../../backend/cswordmoduleinfo.h"
-#include "cgroupmanageritem.h"
-#include "../cpointers.h"
 
 class KPopupMenu;
 class KConfig;
@@ -45,6 +44,8 @@ class CGroupManager : public KListView, public CPointers  {
    Q_OBJECT
 
 public:
+	enum Action {Import, Export, Normal};
+
 	CGroupManager(QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list = 0, const bool useBookmarks = true, const bool saveSettings = true, const bool useDnD=true, const bool useExtendedMode=true, const bool useRMBMenu = true, const bool showHelpDialogs = true);
 	~CGroupManager();
   /**
@@ -142,11 +143,11 @@ protected slots: // Protected slots
   /**
   * Reimplementatuiion.
   */
-  void viewportPaintEvent (QPaintEvent*)   ;
+  void viewportPaintEvent(QPaintEvent*)   ;
   /**
   * Reimplementation with different parameters
   */
-  const QRect drawDropVisualizer (QPainter *p, CGroupManagerItem *parent, CGroupManagerItem *after, const QString& type);
+  const QRect drawDropVisualizer(QPainter *p, CGroupManagerItem *parent, CGroupManagerItem *after, const QString& type);
   /**
   * Reimplementation.
   */
@@ -209,12 +210,12 @@ private:
   * Save items of group to config. If grou is 0 we save all items.
   * The  path to the group-item itself is saved, too.
   */
-  const bool saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group);
+  const bool saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group, const Action = Normal);
   /**
   * Reads in bookmarks from config and creates them as subitems of group.
 	*	If group is 0 we create them a toplevel items.
 	*/
-  const bool readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group);
+  const bool readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group, const Action = Normal);
   /**
   * Save items of group to config. If grou is 0 we save all items.
   * The  path to the group-item itself is saved, too.
@@ -229,12 +230,19 @@ private:
   * Save items of group to config. If grou is 0 we save all items.
   * The  path to the group-item itself is saved, too.
   */
-  const bool saveGroups(KConfig* configFile, CGroupManagerItem* group);
+  const bool saveGroups(KConfig* configFile, CGroupManagerItem* group, const Action = Normal);
   /**
   * Reads in bookmarks from config and creates them as subitems of group.
 	*	If group is 0 we create them a toplevel items.
 	*/	
-  const bool readGroups(KConfig* configFile, CGroupManagerItem* group);
+  const bool readGroups(KConfig* configFile, CGroupManagerItem* group, const Action = Normal);
+  /**
+  * Returns the standard group with the given name if it alredy exists.
+  * Otherwise the group will be created.
+  */
+  CGroupManagerItem* findGroup(const QString& name, CGroupManagerItem* group = 0, const int id = -1);
+
+  void printTree();
 
  	KConfig* m_config;
   KPopupMenu* m_popupMenu;

@@ -45,7 +45,8 @@ class CGroupManagerItem : public KListViewItem, public CPointers  {
 	friend class CGroupManager;
 
 public:
-	enum itemType	{ Bookmark, Module, Group };
+	enum ItemType	{ Bookmark, Module, Group };
+	enum MoveType { OnlySameParents, AllowDifferentParents };
 	
 	/**
  	* The constructor. This constructor takes a CGroupManager as parent, the created item will be on the top of the tree.
@@ -55,7 +56,7 @@ public:
  	* @param module_info The CModuleInfo object we use for the item. May be zero because a group doesn't have a CModuleInfo.
  	* @param Type The type of the created item. May ba Module, Bookmark or Group. If you leave out the parameter it will be Module by default.
  	*/
-	CGroupManagerItem( CGroupManager *parent, const QString& caption,const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module );
+	CGroupManagerItem( CGroupManager *parent, const QString& caption,const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::ItemType Type = CGroupManagerItem::Module );
 	/**
  	* The constructor. This constructor takes a CGroupManagerItem as parent. The created item will be on a child of the parent item
  	* @param parent The CGroupManagerItem which will be parent item of the new item
@@ -64,7 +65,7 @@ public:
  	* @param module_info The CModuleInfo object we use for the item. May be zero because a group doesn't have a CModuleInfo.
  	* @param Type The type of the created item. May ba Module, Bookmark or Group. If you leave out the parameter it will be Module by default.
  	*/	
-	CGroupManagerItem( CGroupManagerItem *parent, const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module);
+	CGroupManagerItem( CGroupManagerItem *parent, const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::ItemType Type = CGroupManagerItem::Module);
 	/**
  	* The destructor. Cleans up memory.
  	*/
@@ -87,7 +88,7 @@ public:
   /**
  	* Sets the type of the item.
  	*/
-  void setType( const CGroupManagerItem::itemType type);
+  void setType( const CGroupManagerItem::ItemType type);
   /**
  	* Updates this item (icons, captions, etc.)
  	*/
@@ -114,7 +115,7 @@ public:
  	* Use this function to get the type of this item.
  	* @return Returns the type of the item. May be Group, Bookmark or Module.
  	*/
-  const CGroupManagerItem::itemType type() const;
+  const CGroupManagerItem::ItemType type() const;
 	/**
  	* Show sub item if true, otherwise do not show them.
  	* Reimplementation from QListViewItem
@@ -128,6 +129,12 @@ public:
   * Returns the tooltip for this ite, QString::null is returned if this item has no tooltip.
   */
   const QString getToolTip();
+  /**
+  * Moves this item after the item "item".
+  * This function acts like the provate function "moveToJustAfter"
+  * moveItem isn't usable for items which are child of item.
+  */
+  void moveAfter( CGroupManagerItem* item, const MoveType type = OnlySameParents );
 
 private:
   /**
@@ -137,11 +144,11 @@ private:
  	* @param module_info	The CModuleInfo object for this item. May be NULL because groups have no moduleinfo.
  	* @param Type The type of the item (Group, Bookmark or Module)
  	*/
-  virtual void init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info,CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type);
+  virtual void init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info,CSwordKey* bookmarkKey, CGroupManagerItem::ItemType Type);
   /**
  	* The type of this entry
  	*/
-  CGroupManagerItem::itemType m_type;
+  ItemType m_type;
   /**
  	* The pointer to the internal module_info
 	* At the moment we assume that the module of a CGroupmanagerItem is a CSwordModuleInfo object.

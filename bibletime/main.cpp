@@ -141,7 +141,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addAuthor("Michal Rovnaník",		I18N_NOOP("Translation into Czech"), 			"Michal.Rovnanik@seznam.cz", 	"");	
 	aboutData.addAuthor("Birger Langkjer", 		I18N_NOOP("Translation into Danish"), 		"birger.langkjer@image.dk", 	"");
 	aboutData.addAuthor("Kees van Veen", 			I18N_NOOP("Translation into Dutch"), 			"cvn@interchain.nl", 					"");
-	aboutData.addAuthor("Mario Bertrand", 	  I18N_NOOP("Translation into French"), 		"mbert@tbrq.org", 						"");
+//	aboutData.addAuthor("Mario Bertrand", 	  I18N_NOOP("Translation into French"), 		"mbert@tbrq.org", 						"");
+	aboutData.addAuthor("Mathias Bavay", 	  	I18N_NOOP("Translation into French"), 		"mathias.bavay@free.fr", 						"");
 	aboutData.addAuthor("Balint Sandor", 			I18N_NOOP("Translation into Hungarian"), 	"balintsa@freemail.hu", 			"");
 	aboutData.addAuthor("Beda Szukics",				I18N_NOOP("Translation into Italian"), 		"bszukics@bluewin.ch", 				"");
 	aboutData.addAuthor("Silvio Bacchetta",		I18N_NOOP("Translation into Italian"), 		"sorgilazzaro@tiscalinet.it", "");

@@ -39,6 +39,8 @@
 #include "../../whatsthisdef.h"
 #include "../../resource.h"
 
+#include <iostream.h>
+
 //QT includes
 #include <qheader.h>
 #include <qevent.h>
@@ -120,15 +122,19 @@ CGroupManager::~CGroupManager(){
 	saveSettings();
 	m_config->sync();
 	delete m_config;
+	m_config = 0;
 }
 
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupSwordTree() {
 	readGroups(m_config, 0);
+	cout << endl << "After readGroups"<< endl;	
+	printTree();	
 	readSwordModules(m_config, 0);	
+	cout << endl << "After readSwordModules"<< endl;
+	printTree();
 	if (m_useBookmarks)
-		readSwordBookmarks(m_config, 0);	
-
+		readSwordBookmarks(m_config, 0);
 	setupStandardSwordTree();
 }
 
@@ -141,52 +147,24 @@ void CGroupManager::setupStandardSwordTree() {
 	
 	const bool initialized = m_config->readBoolEntry("initialized", false);
 	CSwordModuleInfo* moduleInfo = 0;
-	CGroupManagerItem* item = 0;
 	QListViewItemIterator it( this );
 	
-	#define CGROUPMANAGER_GROUP(name, groupItem) \
-	{ \
-		it = QListViewItemIterator(this); \
-		item = 0; \
-		for ( ; it.current(); ++it ) { \
-			if ( it.current() ) { \
-				item = dynamic_cast<CGroupManagerItem*>(it.current()); \
-				if (item && (item->text(0) == name) ) { \
-					groupItem = item; \
-					break; \
-				} \
-				else \
-					groupItem = 0; \
-			} \
-		}	\
-		if (!groupItem) \
-			groupItem = new CGroupManagerItem(this, name, QString::null, 0, 0, CGroupManagerItem::Group); \
-	}
-	CGroupManagerItem* bibleGroup = 0;
-	CGROUPMANAGER_GROUP(i18n("Bibles"), bibleGroup);
-		
-	CGroupManagerItem* commentaryGroup = 0;
-	CGROUPMANAGER_GROUP(i18n("Commentaries"), commentaryGroup);
-		
-	CGroupManagerItem* lexiconGroup = 0;
-	CGROUPMANAGER_GROUP(i18n("Lexicons"), lexiconGroup);
-
-	CGroupManagerItem* bookGroup = 0;
-	CGROUPMANAGER_GROUP(i18n("Books"), bookGroup);
-			
-	#undef CGROUPMANAGER_GROUP
+	CGroupManagerItem* bibleGroup = findGroup(i18n("Bibles"));		
+	CGroupManagerItem* bookGroup = findGroup(i18n("Books"));	
+	CGroupManagerItem* commentaryGroup = findGroup(i18n("Commentaries"));			
+	CGroupManagerItem* lexiconGroup = findGroup(i18n("Lexicons"));
 	
 	for(moduleInfo = m_swordList->first(); moduleInfo; moduleInfo = m_swordList->next()) {
 		bool alreadyCreated = false;
   	QListViewItemIterator it( this );
 		for ( ; it.current(); ++it ) {
 			CGroupManagerItem* item = dynamic_cast<CGroupManagerItem*>(it.current());
-			if (item && item->moduleInfo() == moduleInfo) { //already there
+			if (item && item->type() == CGroupManagerItem::Module && item->moduleInfo() == moduleInfo) { //already there
 				alreadyCreated = true;
 				break;
 			}
 		}
-		if ( moduleInfo && !alreadyCreated) {
+		if ( moduleInfo && !alreadyCreated) { //module was probably newly installed, insert it
 			CGroupManagerItem* itemParent = 0;
 			switch (moduleInfo->type()) {
 				case CSwordModuleInfo::Bible:
@@ -205,8 +183,15 @@ void CGroupManager::setupStandardSwordTree() {
 					break;
 			}
 			if (itemParent)
-				(void)new CGroupManagerItem(itemParent, "",QString::null, moduleInfo,0, CGroupManagerItem::Module);
+				(void)new CGroupManagerItem(itemParent,QString::null,QString::null, moduleInfo,0, CGroupManagerItem::Module);
 		}
+	}
+	if (!initialized) {
+		bibleGroup->sortChildItems(0,true);
+		lexiconGroup->sortChildItems(0,true);
+		commentaryGroup->sortChildItems(0,true);	
+		bookGroup->sortChildItems(0,true);				
+		sort();		
 	}
 	
 	// Now delete the groupes which have no child items
@@ -225,18 +210,7 @@ void CGroupManager::setupStandardSwordTree() {
 	if (!bookGroup->childCount()) {
 		delete bookGroup;
 		bookGroup = 0;
-	}
-
-	if (!initialized) {
-		if (bibleGroup)
-			bibleGroup->sortChildItems(0,true);
-		if (lexiconGroup)
-			lexiconGroup->sortChildItems(0,true);
-		if (commentaryGroup)
-			commentaryGroup->sortChildItems(0,true);	
-		if (bookGroup)
-			bookGroup->sortChildItems(0,true);				
-	}
+	}	
 }
 
 /** Initializes the connections of this class */
@@ -374,7 +348,7 @@ void CGroupManager::slotSearchSelectedModules() {
 
 void CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerItem* item) {	
   qWarning("CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerItem* item)");
-  ASSERT(item);
+//  ASSERT(item);
   if (!item->moduleInfo())
   	return;
 	ListCSwordModuleInfo searchList;
@@ -998,16 +972,16 @@ CGroupManagerItem* CGroupManager::findParent( const int ID, CGroupManagerItem* p
   if (parentItem)
   	it = QListViewItemIterator(parentItem);
   else
-	  it = QListViewItemIterator( this );
+	  it = QListViewItemIterator(this);
 
   //traverse the tree and try to find the group with the id ID index using comparision
   for( ; it.current(); it++ ) {
- 		myItem = (CGroupManagerItem*)it.current();
- 		if (parentItem && !isChild(parentItem, (CGroupManagerItem*)it.current())) {
+ 		myItem = dynamic_cast<CGroupManagerItem*>( it.current() );
+ 		if ( parentItem && !isChild(parentItem, myItem) ) {
  			continue;
  		}		
 		if (myItem && myItem->type() == CGroupManagerItem::Group) {
-			if (index == ID) {
+			if (index == ID) {				
 				return myItem;
 			}
 			else
@@ -1041,12 +1015,11 @@ void CGroupManager::slotUnlockModule(){
 }
 
 /** Reads in bookmarks from m_config and creates them as subitems of group. If group is 0 we create them a toplevel items. */
-const bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
-//	qDebug("CGroupManager::read Sword bookmarks");
-	
+const bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group, const Action){
 	//read and create group entries
-	CGroupManagerItem* 	parentItem = 0;	
-	QStringList				groupList 	= configFile->readListEntry("Groups");
+	CGroupManagerItem* parentItem = 0;	
+	
+	QStringList	groupList = configFile->readListEntry("Groups");
 
 	//read in all bookmarks
 	QStringList	bookmarkList 							= configFile->readListEntry("Bookmarks");
@@ -1083,8 +1056,8 @@ const bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerI
 		}
 		if (myItem && it_descriptions != bookmarkDescriptionsList.end())
 			myItem->setDescription( *it_descriptions );
-		if (myItem && oldItem) {	//if both items exist we can move myItem behind oldItem
-			myItem->moveToJustAfter(oldItem);
+		if (myItem && oldItem) {
+			myItem->moveAfter(oldItem);
 		}
 		oldItem = myItem;
 
@@ -1097,7 +1070,7 @@ const bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerI
 }
 
 /** Save items of group to m_config. If grou is 0 we save all items. The  path to the group-item itself is saved, too. */
-const bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
+const bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group, const Action){
 	int parentID = 0;
 	CGroupManagerItem* myItem = 0;
 	QStringList groupList;
@@ -1176,6 +1149,7 @@ const bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerI
 
 /** Impoorts bookmarks */
 void CGroupManager::slotImportBookmarks(){
+	qWarning("void CGroupManager::slotImportBookmarks()");
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) ) {
 		QString file = KFileDialog::getOpenFileName(QString::null, "*.btb | *.btb", 0, i18n("Import bookmarks ..."));	
 		if (!file.isNull()) {
@@ -1185,7 +1159,7 @@ void CGroupManager::slotImportBookmarks(){
 			
 			//bookmark format of imported file is newer than our version			
 			if (formatVersion > BOOKMARK_FORMAT_VERSION) {
-				int retValue = KMessageBox::warningContinueCancel(this, i18n("<qt>A problem occurred while importing bookmarks!<BR>\
+				const int retValue = KMessageBox::warningContinueCancel(this, i18n("<qt>A problem occurred while importing bookmarks!<BR>\
 The bookmarks format of the imported file is newer<BR>\
 than the bookmarks format version of this version of BibleTime!<BR>\
 <B>Importing the bookmarks may not work correctly!</B><BR>Do you want to continue?</qt>"), i18n("Import of bookmarks"), i18n("Continue") );
@@ -1193,8 +1167,8 @@ than the bookmarks format version of this version of BibleTime!<BR>\
 					return;
 			}
 			
-			readGroups(&simpleConfig, m_pressedItem);			
-			readSwordBookmarks(&simpleConfig, m_pressedItem);
+			readGroups(&simpleConfig, m_pressedItem, Import);			
+			readSwordBookmarks(&simpleConfig, m_pressedItem, Import);
 		}
 	}
 }
@@ -1207,8 +1181,9 @@ void CGroupManager::slotExportBookmarks(){
 			KSimpleConfig simpleConfig(file, false);
 			simpleConfig.setGroup("Bookmarks");			
 			simpleConfig.writeEntry("Bookmark format version", BOOKMARK_FORMAT_VERSION);
-			saveGroups(&simpleConfig, m_pressedItem);			
-			saveSwordBookmarks(&simpleConfig, m_pressedItem);
+			
+			saveGroups(&simpleConfig, m_pressedItem, Export);
+			saveSwordBookmarks(&simpleConfig, m_pressedItem, Export);
 			simpleConfig.sync();
 		}
 	}
@@ -1217,59 +1192,47 @@ void CGroupManager::slotExportBookmarks(){
 
 const bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerItem* group) {
 	if (!m_swordList) {
-		qWarning("no sword modules, return false.");
+		qWarning("CGroupManager::readSwordModules: no sword modules, return and do nothing.");
 		return false;
 	}
-	//read and create group entries
-	CGroupManagerItem* 	parentItem = 0;	
-	
-	QStringList				groupList 	= configFile->readListEntry("Groups");
-	QValueList<int>		parentList 	= configFile->readIntListEntry("Group parents");
+	CGroupManagerItem* parentItem = 0;	
+
+	QStringList	moduleList = configFile->readListEntry("Modules");
+	QValueList<int> parentList = configFile->readIntListEntry("Module parents");		
+	QStringList::Iterator it_modules = moduleList.begin();
 	QValueList<int>::Iterator it_parents = parentList.begin();
 	
-	//read in all bookmarks
-	QStringList	moduleList 	= configFile->readListEntry("Modules");
-	parentList 							= configFile->readIntListEntry("Module parents");
-	
-	QStringList::Iterator it_modules 		= moduleList.begin();
-	it_parents 													= parentList.begin();
-	
 	CSwordModuleInfo* myModuleInfo = 0;
-	CGroupManagerItem *myItem = 0;
-	CGroupManagerItem *oldItem = 0;
+	CGroupManagerItem* myItem = 0;
+	CGroupManagerItem* oldItem = 0;
 	
 	while ( it_modules != moduleList.end() && it_parents != parentList.end() ) {		
-		myModuleInfo = 0;		
-		if ((*it_modules).isEmpty()) {
-			++it_parents;
-			++it_modules;
-			continue;
-		}
-		
-		myModuleInfo = backend()->findModuleByName(*it_modules);
-		if (!myModuleInfo) {	//if the module was removed so we don't show it
+		if ((*it_modules).isEmpty() || !( myModuleInfo = backend()->findModuleByName(*it_modules) )) {	//the module was removed so we don't show it
 			++it_parents;
 			++it_modules;
 			continue;
 		}
 			
-		if ( (*it_parents) == -1) {
-		 	if (group)
-				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module);
-			else
-				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module);
+		if ( (*it_parents) == -1) { //module on top
+			parentItem = group; //instead of group ? group : 0;
 		}
 		else {
-			parentItem = findParent( (*it_parents), group ? group : 0  );
-			if (parentItem)
-				myItem = new CGroupManagerItem(parentItem, QString::null, QString::null, myModuleInfo, 0,CGroupManagerItem::Module);	
-			else if (group)
-				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module);
-			else				
-				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module);
+			parentItem = findParent( (*it_parents), group );
+			if (!parentItem)
+ 				parentItem = group;
 		}
+
+		if (parentItem) {
+//			qWarning("parentItem is called %s", parentItem->text(0).latin1());
+//			qWarning("parentItem should have iD %i", *it_parents);
+			myItem = new CGroupManagerItem(parentItem, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module);
+		}
+		else
+			myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module);		
+		
 		if (myItem && oldItem)
-			myItem->moveToJustAfter(oldItem);
+			myItem->moveAfter(oldItem);
+		
 		oldItem = myItem;
 			
 		++it_parents;
@@ -1290,9 +1253,9 @@ const bool CGroupManager::saveSwordModules(KConfig* configFile, CGroupManagerIte
 	moduleList.clear();
 
 	if (group)
-		it = QListViewItemIterator ( group );
+		it = QListViewItemIterator( group );
 	else
- 		it = QListViewItemIterator (this);
+ 		it = QListViewItemIterator(this);
 
   for( ; it.current(); it++ ) {
 			myItem = (CGroupManagerItem*) it.current();
@@ -1320,56 +1283,71 @@ const bool CGroupManager::saveSwordModules(KConfig* configFile, CGroupManagerIte
 	return true;
 }
 
-const bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* group) {
+const bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* group, const Action action) {
 	//read and create group entries
-	CGroupManagerItem* 	parentItem = 0;
-	CGroupManagerItem*	oldItem = 0;
+	CGroupManagerItem* parentItem = 0;
+	bool groupExists = false;	
+	CGroupManagerItem* oldItem = 0;
 	CGroupManagerItem* newItem = 0;
 	
-	QStringList				groupList 	= configFile->readListEntry("Groups");
-	QValueList<int>		parentList 	= configFile->readIntListEntry("Group parents");
+	QStringList	groupList = configFile->readListEntry("Groups");
+	QValueList<int>	parentList = configFile->readIntListEntry("Group parents");
 	
 	QStringList::Iterator it_groups = groupList.begin();
 	QValueList<int>::Iterator it_parents = parentList.begin();
 	
 	while ( (it_groups != groupList.end()) && (it_parents != parentList.end()) ) {
-		if ( (*it_parents) == -1) {
-			if (group)
-				newItem = new CGroupManagerItem(group, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
+		groupExists = false;
+		if ( (*it_parents) == -1) { //no parent item saved
+			if (action == Import) { //try to find existing group
+				if (CGroupManagerItem* existingGroup = findGroup(*it_groups, group, *it_parents))
+					groupExists = true;
+					qWarning("Import: group %s exists!", (*it_groups).latin1());
+			}
 			else
-				newItem = new CGroupManagerItem(this, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
+				parentItem = group;
 		}
 		else {
-			parentItem = findParent( (*it_parents),group ? group : 0  );			
-			if (parentItem)
-				newItem = new CGroupManagerItem(parentItem, (*it_groups),QString::null,0,0, CGroupManagerItem::Group);
-			else if (group)
-				newItem = new CGroupManagerItem(group, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group);
-			else
-				newItem = new CGroupManagerItem(this, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group);
+			parentItem = findParent( (*it_parents),group );
+		 	if (!parentItem)
+				parentItem = group;
 		}
-		if ( newItem && oldItem ) {
-			if ( isChild(oldItem, newItem ) || (!newItem->parent() && !oldItem->parent()) || (newItem->parent() == oldItem->parent() )) {
-				newItem->moveToJustAfter( oldItem );
+		
+		if (!groupExists) {			
+			if (parentItem) {
+				newItem = new CGroupManagerItem(parentItem, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
+				qWarning("	created subgroup %s of %s", (*it_groups).latin1(), parentItem->text(0).latin1());			
 			}
+			else {
+				newItem = new CGroupManagerItem(this, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
+				qWarning("created toplevel group %s", (*it_groups).latin1());
+			}
+		
+			if (newItem && oldItem ) {			
+				newItem->moveAfter( oldItem );
+				qWarning("		o moved %s after %s", newItem->text(0).latin1(),oldItem->text(0).latin1());
+			}
+			if (newItem) {
+				/* we can't move a topgroup behind a subgroup, so we use multiple
+				 parent calls
+				*/
+				while (parentId(newItem) > *it_parents) {
+					if ( (group && isChild(group, newItem)) || (newItem && newItem->parent()) )
+						newItem = newItem->parent();
+					else
+						break;
+				}
+				oldItem = newItem;
+			}					
 		}
+		
 		++it_parents;
 		++it_groups;
-		
-		if (newItem) {
-			while (parentId(newItem) > *it_parents) {
-				if ( (group && isChild(group, newItem)) || (newItem && newItem->parent()) )
-					newItem = newItem->parent();
-				else
-					break;
-			}
-			oldItem = newItem;
-		}		
 	}	
 	return true;	
 };
 
-const bool CGroupManager::saveGroups(KConfig* configFile, CGroupManagerItem* group) {
+const bool CGroupManager::saveGroups(KConfig* configFile, CGroupManagerItem* group, Action normal) {
 	int parentID = 0;
 	CGroupManagerItem* myItem = 0;
 	QStringList groupList;
@@ -1409,7 +1387,7 @@ const bool CGroupManager::isChild(QListViewItem* parent, QListViewItem* child){
 	QListViewItem *myParent = child;
 	while (myParent && myParent != parent )
 		myParent = myParent->parent();		
-	return myParent == parent && parent!=child;
+	return (myParent == parent) && (parent != child);
 }
 
 /** Reimplementatuiion. */
@@ -1606,4 +1584,51 @@ void CGroupManager::resizeContents( int w, int h ){
 		KListView::resizeContents(w,h+25);
 	else
 		KListView::resizeContents(w,h);
+}
+
+/** Returns the standard group with the given name if it alredy exists. Otherwise the group will be created. */
+CGroupManagerItem* CGroupManager::findGroup(const QString& name, CGroupManagerItem* group, const int id){
+ 	CGroupManagerItem* item = 0; 	
+	QListViewItemIterator it 	;
+ 	if (group)
+ 		it = QListViewItemIterator(group);
+ 	else
+ 		it = QListViewItemIterator(this);
+ 	
+ 	for ( ; it.current(); ++it ) {
+		item = dynamic_cast<CGroupManagerItem*>(it.current());
+		if (item && item->type() == CGroupManagerItem::Group && item->text(0) == name && parentId(item, group) == id) { //found the right group
+			if (group && !isChild(group, item))
+				item = 0;
+			else
+				break;
+		}
+ 		else {
+ 			item = 0;
+ 		}
+ 	}
+	if (!item) {
+		qWarning("couldn't find the item %s with ID %i", name.latin1(), id);
+	};
+	
+ 	if (!item) { 		
+ 		if (group)
+	 		item = new CGroupManagerItem(group, name, QString::null, 0, 0, CGroupManagerItem::Group);
+	 	else
+	 		item = new CGroupManagerItem(this, name, QString::null, 0, 0, CGroupManagerItem::Group);	 	
+ 	}
+  return item;
+}
+
+/** Debugs the tree items */
+void CGroupManager::printTree() {
+	QListViewItemIterator it(this);
+	while (it.current()) {
+		QListViewItem* item = it.current();
+		for (int i = 0; i < item->depth(); ++i) {
+			cout << "\t";
+		}
+		cout << item->text(0).latin1() << endl;
+		++it;
+	};
 }

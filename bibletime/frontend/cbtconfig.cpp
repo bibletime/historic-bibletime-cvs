@@ -83,10 +83,9 @@ const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
 			QFont uniFont;
 			if (!cs->isAvailable(QFont::Unicode)) { //no unicode font installed!
 				qWarning("NO UNICODE FONT INSTALLED!");
-			}
-			
+			}			
 			cs->setQFont(uniFont, QFont::Unicode);
-			qWarning("the unicode font found by KDE is %s", uniFont.family().latin1());
+//			qWarning("the unicode font found by KDE is %s", uniFont.family().latin1());
 			
 //			QStringList families = KGlobal::charsets()->availableFamilies(QFont::Unicode);
 //			for (QStringList::Iterator it = families.begin();it != families.end();++it) {
