@@ -23,6 +23,7 @@
 
 //QT includes
 #include <qfile.h>
+#include <qfiledialog.h>
 #include <qtextstream.h>
 #include <qregexp.h>
 
@@ -32,6 +33,7 @@
 #include <kstddirs.h>
 #include <kmessagebox.h>
 #include <kurl.h>
+#include <kfiledialog.h>
 
 #include "ctoolclass.h"
 
@@ -152,4 +154,26 @@ int CToolClass::makeLogicFontSize( const int s ) {
 	if (s < defSize + 16 )
 		return 6;
 	return 7;
+}
+
+/** No descriptions */
+const QString CToolClass::getSaveFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
+#ifdef STATIC_BUILD
+	const QString file = QFileDialog::getSaveFileName(startDir, filter,parent,"CToolClass::getSaveFileName",caption);
+	return file;
+#else
+	const QString file = KFileDialog::getSaveFileName(startDir, filter, parent, caption);
+	return file;
+#endif
+}
+
+/** No descriptions */
+const QString CToolClass::getOpenFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
+#ifdef STATIC_BUILD
+	const QString file = QFileDialog::getOpenFileName(startDir, filter, parent,"CToolClass::getOpenileName",caption);
+	return file;	
+#else
+	const QString file = KFileDialog::getOpenFileName(startDir, filter, parent, caption);
+	return file;	
+#endif
 }

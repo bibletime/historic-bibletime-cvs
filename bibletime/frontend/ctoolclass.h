@@ -96,6 +96,15 @@ public:
   	* be used for the absolute size s
   	*/
   static int makeLogicFontSize( const int s );
+  /**
+  * No descriptions
+  */
+  static const QString getSaveFileName( const QString& startDir = QString::null, const QString& filter = QString::null, QWidget* parent = 0, const QString& caption = QString::null);
+  /**
+  * No descriptions
+  */
+  static const QString getOpenFileName( const QString& startDir = QString::null, const QString& filter = QString::null, QWidget* parent = 0, const QString& caption = QString::null);
+
 };
 
 #endif

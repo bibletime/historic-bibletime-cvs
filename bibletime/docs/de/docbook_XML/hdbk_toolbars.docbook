@@ -5,7 +5,7 @@
 <section ID="hdbk_bars_toolbar_config"><title>Konfiguration</title>
 <para>
 Die Werkzeugleiste des Hauptfensters ist konfigurierbar. Greifen Sie darauf durch den
-Eintrag &quote;Konfiguriere Werkzeugleiste...&quote; im &quote;Einstellungen&quote; Menü zu.
+Eintrag <quote>Konfiguriere Werkzeugleiste...</quote> im <quote>Einstellungen</quote> Menü zu.
 </para>
 <screenshot><screeninfo>Werkzeugleisten Konfigurationsdialog</screeninfo>
 <graphic fileref="common/hdbk_bars_toolbar_Configtoolbar.png" format="png">

@@ -7,8 +7,8 @@ Sie sollten ein Symbol um BibleTime zu starten auf dem Arbeitsplatz finden.
 <para>
 BibleTime kann aus anderen Fenstermanagern heraus aufgerufen werden (wie z.B. gnome)
 vorrausgesetzt, dass KDE installiert ist.
-Sie müssen ihr eigenes Symbol installieren umd BibleTime zu starten.
-Lesen Sie die Fenstermanager Hilfedateien um zu wissen wie.
+Sie müssen ihr eigenes Symbol installieren um BibleTime zu starten.
+Lesen Sie die Hilfedateien ihres Fenstermanagers um zu wissen wie.
 </para>
 <para>
 BibleTime kann auch von einer Terminal Eingabeaufforderung aufgerufen werden.

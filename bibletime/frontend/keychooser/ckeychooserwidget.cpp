@@ -251,21 +251,21 @@ void CKeyChooserWidget::init( ){
 	  }
 	  else { */
 //	   if (m_useNextPrevSignals) {
-		connect(btn_down, SIGNAL(clicked()), SIGNAL(next_requested()) );	
-		connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );
+//		connect(btn_down, SIGNAL(clicked()), SIGNAL(next_requested()) );	
+//		connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );
 //	   }
 //	   else {
-//		connect(btn_down, SIGNAL(clicked()), SLOT(next()) );	
-//		connect(btn_up, SIGNAL(clicked()), SLOT(previous()) );	
+		connect(btn_up, SIGNAL(clicked()), SLOT(next()) );	
+		connect(btn_down, SIGNAL(clicked()), SLOT(previous()) );	
 //	   }
 	   // }
 	   //commented out until after 1.0  config->setGroup("");
 	connect(btn_fx, SIGNAL(lock()), SLOT(lock()) );
 	connect(btn_fx, SIGNAL(unlock()), SLOT(unlock()) );
 	connect(btn_fx, SIGNAL(change_requested(int)), SLOT(changeCombo(int)) );
-  connect(ComboBox, SIGNAL(activated(int)), SLOT(slotComboChanged(int)));
+	connect(ComboBox, SIGNAL(activated(int)), SLOT(slotComboChanged(int)));
 	connect(ComboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
-  connect(ComboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
+  	connect(ComboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
 		
 	isResetting = false;
 }

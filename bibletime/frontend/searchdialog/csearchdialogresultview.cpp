@@ -224,12 +224,12 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 	QString searchedText;
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
-			CSearchDialog*	dlg = (CSearchDialog*)w;
+			CSearchDialog*	dlg = dynamic_cast<CSearchDialog*>(w);
 			searchedText = dlg->getSearchedText().stripWhiteSpace();
 			break;
 		}		
 	}
-	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
+	const QString file = CToolClass::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
 	if (file.isEmpty())
 		return;
 	
@@ -309,7 +309,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 		}		
 	}
 
-	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));		
+	const QString file = CToolClass::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));		
 	if (file.isEmpty())
 		return;
 	ListKey& searchResult = m_currentModule->getSearchResult();
@@ -546,7 +546,7 @@ void CSearchDialogResultView::slotCopyCurrentWithKeytext(){
 
 /** This slot copies the current active item into the clipboard. */
 void CSearchDialogResultView::slotSaveCurrent(){
- 	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save key ..."));	
+ 	const QString file = CToolClass::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save key ..."));	
 	if (!file.isNull()) {
 		QList<QListBoxItem> list = selectedItems();
 		QString text;
@@ -577,7 +577,7 @@ void CSearchDialogResultView::slotSaveCurrentWithKeytext(){
 		text += QString("%1\n%2\n\n").arg(keyName).arg(keyText);
 	}
 	
- 	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save key ..."));	
+ 	const QString file = CToolClass::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save key ..."));	
 	if (!file.isNull()) {
 		CToolClass::savePlainFile( file, text);
 	}

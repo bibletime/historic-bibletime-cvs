@@ -87,7 +87,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	if (!text.isEmpty()) {
 		const QFont oldFont = font();				
 		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
-		if (m) {
+		if (m && m->hasFont()) {
 			QFont newFont = font();
 			newFont.setCharSet(QFont::AnyCharSet);
 			setFont(newFont);
@@ -1175,7 +1175,7 @@ bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* g
 /** Impoorts bookmarks */
 void CGroupManager::slotImportBookmarks(){
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) ) {
-		QString file = KFileDialog::getOpenFileName(QString::null, "*.btb | *.btb", 0, i18n("Import bookmarks ..."));	
+		QString file = CToolClass::getOpenFileName(QString::null, "*.btb | *.btb", 0, i18n("Import bookmarks ..."));	
 		if (!file.isNull()) {
 			KSimpleConfig simpleConfig(file, false);
 			simpleConfig.setGroup("Bookmarks");
@@ -1200,7 +1200,7 @@ than the bookmarks format version of this version of BibleTime!<BR>\
 /** Exports bookmarks of selected group */
 void CGroupManager::slotExportBookmarks(){
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) ) {
-		QString file = KFileDialog::getSaveFileName (QString::null, "*.btb | *.btb", 0, i18n("Export bookmarks ..."));	
+		QString file = CToolClass::getSaveFileName (QString::null, "*.btb | *.btb", 0, i18n("Export bookmarks ..."));	
 		if (!file.isNull()) {
 			KSimpleConfig simpleConfig(file, false);
 			simpleConfig.setGroup("Bookmarks");			

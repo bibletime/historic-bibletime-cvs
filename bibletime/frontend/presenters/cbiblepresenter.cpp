@@ -300,7 +300,7 @@ void CBiblePresenter::saveVerseAndText(){
 	
 	const QString text = QString::fromLatin1("%1\n%2").arg(key.key()).arg(key.strippedText());
 	
-	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save verse with text as ..."));
+	const QString file = CToolClass::getSaveFileName(QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save verse with text as ..."));
 	if (!file.isNull())
 		CToolClass::savePlainFile( file, text);
 }

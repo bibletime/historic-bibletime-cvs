@@ -96,13 +96,13 @@ int main(int argc, char* argv[]) {
 	aboutData.addAuthor("Benedykt P. Barszcz",I18N_NOOP("Translation into Polish"), "kb2qzv@box43.gnet.pl", "");		
 	aboutData.addAuthor("Birger Langkjer", 		I18N_NOOP("Translation into Danish"), "birger.langkjer@image.dk", "");				
 	aboutData.addAuthor("Espen Trydal", 			I18N_NOOP("Translation into Norwegian"), "etrydal@postkassa.no", "");		
-	aboutData.addAuthor("Jonathan Jones",			I18N_NOOP("Translation into Brazilian Portoguese"), "jones@brfree.com.br", "");					
+//	aboutData.addAuthor("Jonathan Jones",			I18N_NOOP("Translation into Brazilian Portoguese"), "jones@brfree.com.br", "");					
 	aboutData.addAuthor("Kees van Veen", 			I18N_NOOP("Translation into Dutch"), "cvn@interchain.nl", "");	
 	aboutData.addAuthor("Mario Bertrand", 	  I18N_NOOP("Translation into French"), "mbert@tbrq.org", "");		
 	aboutData.addAuthor("Michal Rovnaník",		I18N_NOOP("Translation into Czech"), "Michal.Rovnanik@seznam.cz", "");		
 	aboutData.addAuthor("Nuno Bareto", 				I18N_NOOP("Translation into Portoguese"), "nbarr@clix.pt", "");	
 	aboutData.addAuthor("Silvio Bacchetta",		I18N_NOOP("Translation into Italian"), "sorgilazzaro@tiscalinet.it", "");					
-	aboutData.addAuthor("Walter Rodrigo de Sá Cruz",			I18N_NOOP("Translation into Portoguese"), "keytech@ig.com.br", "");	
+//	aboutData.addAuthor("Walter Rodrigo de Sá Cruz",			I18N_NOOP("Translation into Portoguese"), "keytech@ig.com.br", "");	
 	aboutData.addAuthor("Zdeno Podobny", 		I18N_NOOP("Translation into Slovak"), "zdpo@post.sk", "");
 													
 	//credits
@@ -112,7 +112,7 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Juho Vahakangas", I18N_NOOP("Martin Luther startup logo"), "juhov@freenet.fi", "");
 	aboutData.addCredit("Thomas Hagedorn", I18N_NOOP("Sponsor of www.bibletime.de"), "tom@delix.de", "");		
 	aboutData.addCredit("Torsten Uhlmann", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
-	aboutData.addCredit("Troy A. Griffits", I18N_NOOP("Leader of the SWORD project.\nLots of help with the SWORD API!"), "scribe@crosswire.org", "");		
+	aboutData.addCredit("Troy A. Griffits", I18N_NOOP("Leader of the SWORD project.\nLots of help with the SWORD API!"), "scribe@crosswire.org", "");	
  	
  	KCmdLineArgs::init(argc, argv, &aboutData); 	
  	KCmdLineArgs::addCmdLineOptions ( options );
@@ -130,8 +130,8 @@ int main(int argc, char* argv[]) {
 	
 	QStringList list = KGlobal::dirs()->allTypes();
 	for (int i = 0; i < list.count(); ++i) {
-		KGlobal::dirs()->addResourceType(list.at(i), QString("%1/share/%2/").arg(getenv("BT_PATH")).arg(list.at(i)) );	
-	)
+		KGlobal::dirs()->addResourceType(*list.at(i), QString("%1/share/%2/").arg(getenv("BT_PATH")).arg( *list.at(i) ));
+	}
 //	KGlobal::dirs()->addResourceType("icon", QString("%1/share/icons/").arg(getenv("BT_PATH")));
 //	KGlobal::dirs()->addResourceType("html", QString("%1/share/doc/HTML/").arg(getenv("BT_PATH")));
 #else

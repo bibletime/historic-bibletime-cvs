@@ -46,7 +46,7 @@ der dann angezeigt wird.
 
 <sect1 ID="hdbk_intro_changes"><title>Änderungen</title>
 <para>
-Bitte lesen sie die Datei &quote;Changelog&quote; des Quellcode Paketes falls Sie an detailierteren
+Bitte lesen sie die Datei <filename>Changelog</filename> des Quellcode Paketes falls Sie an detailierteren
 Änderungen interessiert sind.
 </para>
 

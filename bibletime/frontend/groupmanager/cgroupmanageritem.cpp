@@ -248,9 +248,9 @@ const QString CGroupManagerItem::getToolTip(){
 			if (moduleInfo()->isEncrypted())
 				text += i18n("Unlock key:") + QString::fromLatin1(" %1<BR>").arg(!moduleInfo()->getCipherKey().isEmpty() ? moduleInfo()->getCipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
 			if (!moduleInfo()->getVersion().isEmpty())
-				text += i18n("Version:") + QString::fromLatin1("%1<BR>").arg(moduleInfo()->getVersion());
+				text += i18n("Version:") + QString::fromLatin1(" %1<BR>").arg(moduleInfo()->getVersion());
 			if (moduleInfo()->hasFont())
-				text += i18n("Font:")+QString::fromLatin1("%1<BR>").arg(moduleInfo()->getFont().family());
+				text += i18n("Font:")+QString::fromLatin1(" %1<BR>").arg(moduleInfo()->getFont().family());
 			if (text.right(4) == QString::fromLatin1("<BR>"))
 				text = text.left(text.length()-4);
 			return text;

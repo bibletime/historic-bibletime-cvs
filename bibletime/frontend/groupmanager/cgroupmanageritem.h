@@ -130,8 +130,6 @@ public:
   const QString getToolTip();
 
 private:
-	friend class CGroupmanager;
-
   /**
  	* Initializes the item Used by both constructors to share the double used source code
  	* @param caption The caption of the item

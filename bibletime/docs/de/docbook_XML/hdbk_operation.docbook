@@ -1,6 +1,6 @@
 <chapter ID="hdbk_op"><title>Programmbedienung</title>
 <para>
-BibleTime wird hauptsächlich mit dem Modulbaum bedient (diser wird "Hauptgruppe" genannt).
+BibleTime wird hauptsächlich mit dem Modulbaum bedient (dieser wird "Hauptgruppe" genannt).
 Der zweite wichtige Platz zum arbeiten in BibleTime ist der MDI Bereich (MDI = Multiple Document Interface).
 </para>
 
@@ -93,7 +93,7 @@ Als Erweiterung zu diesem können Sie geöffnete Dokumentenfenster kacheln und sta
 Knöpfe in der Werkzeugleiste oder die Menüfunktionen im "Fenster" Untermenü der Menüleiste.</para>
 </section>
 
-<section ID="hdbk_op_MDI_Window_module_navigation"><title>In geöffneten Fenstern navigierens</title>
+<section ID="hdbk_op_MDI_Window_module_navigation"><title>In geöffneten Fenstern navigieren</title>
 <para>
 Die Navigation innerhalb eines Dokumentes ist durch das Schlüssel-Kontrollmenü und durch eine
 Scrollleiste verwirklicht.
@@ -466,7 +466,7 @@ durchgeführt wird, verbleibemn 106 Treffer, die alle den Namen Jesus und die bei
 Sie könne auch Text in das Eintragsfeld einfügen.</para></tip>
 
 <screenshot>
-<screeninfo>Suchbereichs-Dialogbox/screeninfo</screeninfo>
+<screeninfo>Suchbereichs-Dialogbox</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"></graphic>
 </screenshot>
 </section></section>
@@ -479,10 +479,11 @@ Das Klicken auf eine Referenz öffnet diese im Fenster darunter.
 Ziehen Sie die Referenz und lassen Sie diese auf einem Dokument in der Hauptgruppe fallen, um dieses Modul
 an der gewünschten Stelle zu öffnen.</para>
 <tip><para>Hier funktioniert Drag&amp;Drop</para></tip>
-<tip><para>Select verse numbers and drag them to the main index to create bookmarks.</para></tip>
+<tip><para>Wählen Sie eine Versnummer und ziehen Sie diese in die Hauptgruppe um Lesezeichen anzulegen,</para></tip>
 <tip><para>Wählen Sie einen Vers aus und ziehen Sie ihn auf ein ungeöffnetes Modul um diese zu öffnen und
 damit dieses die gewünschte Stelle anzeigt (Nur für Bibeln und Kommentare).</para></tip>
-<tip><para>Wählen Sie einen Vers aus und ziehen Sie diesen auf ein geöffnetes Dokument, um das Anzeigefenster an diese Stelle springen zu lassen.
+<tip><para>Wählen Sie einen Vers aus und ziehen Sie diesen auf ein geöffnetes Dokument,
+um das Anzeigefenster an diese Stelle springen zu lassen.
 </para></tip>
 
 <screenshot>
@@ -519,14 +520,15 @@ Informationen zum Kontextmenü werden hier später hinzugefügt.
 
 <section ID="hdbk_op_print"><title>Drucken</title>
 <para>Das Drucksystem wurde verändert. Dieser Abschnitt befindet sich in der Überarbeitung.</para>
-<para>Drucken innerhalb von BibleTime is ziemlich rudimentär und ist als Hilfe gedacht.
+<para>Drucken innerhalb von BibleTime ist ziemlich rudimentär und ist als Hilfe gedacht.
 Wenn Sie ein Dokument oder eine Präsentation mit Hilfe von Texten in BibleTime zusammenstellen,
 so empfehlen wir ihnen eines der Werkzeuge ihres Systems dafür zu verwenden.
-Lesen Sie auch die Informationen über das exportieren.
+Lesen Sie auch die Informationen über das Exportieren.
 </para>
 <para>
 Um zu drucken, wählen Sie ein geöffnetes Dokument aus und wählen anschließend <guiicon>Drucken</guiicon> aus.
-Der Druckerdialog erscheint. Sie haben die Wahl zwischen dem Drucken auf den Drucker oder der Vorschau mit kghostview.
+Der Druckerdialog erscheint. Sie haben die Wahl zwischen dem Drucken auf den Drucker oder der Vorschau mit einem Programm wie
+kghostview.
 </para>
 
 <para>

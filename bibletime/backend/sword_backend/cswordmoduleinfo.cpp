@@ -153,6 +153,12 @@ const QString CSwordModuleInfo::getPath() const {
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
+	
+	//work around Swords thread insafety
+	SWModule* m = searchModulesMgr.Modules[module()->Name()];
+	VerseKey k;
+	m->SetKey(k);
+	
 	//setup variables required for Sword
 	if (searchOptions & CSwordModuleSearch::caseSensitive)
 		searchFlags = 0;
@@ -192,7 +198,7 @@ void CSwordModuleInfo::clearSearchResult(){
 /** This interupts the search if this module is being searched. */
 void CSwordModuleInfo::interruptSearch(){
 	searchModulesMgr.Modules[module()->Name()]->terminateSearch = true;
-//	module()->terminateSearch = true;
+	module()->terminateSearch = true;
 }
 
 /** Returns true if the given type i supported by this module. */
@@ -214,6 +220,9 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 		case CSwordBackend::headings:
 			text = "Headings";
 			break;			
+		case CSwordBackend::morphTags:
+			text = "Morphological Tags";
+			break;
 	}	
 	
 	for (; start != end; start++) {

@@ -14,7 +14,7 @@ documentation writing, translating, artwork etc.
 For further information, see www.bibletime.de
 and www.sourceforge.net/projects/bibletime.
 
-WE REALLY NEED YOU!
+WE DO REALLY NEED YOU!
 
 Important unimplemented things:
 -------------------------------
@@ -25,12 +25,11 @@ Important unimplemented things:
 
 Things which should be optimized:
 ---------------------------------
--Search for mem leaks (I'm sure there are at least 100 :)
--Optmize memory usage
--Thread safety
- (We should implement and use CModuleInfo's copy constructor)
--Check BibleTime with a profiler and optimize the time consuming functions
--We need a much faster search analysis
+	[partly] Search for mem leaks (I'm sure there are at least 100 :)
+	[partly] Optmize memory usage
+	[done] Thread safety (We should implement and use CModuleInfo's copy constructor)
+	-Check BibleTime with a profiler and optimize the time consuming functions
+	[done] We need a much faster search analysis
 
 Features we are thinking about:
 ------------------------------

@@ -24,6 +24,7 @@
 #include "../whatsthisdef.h"
 #include "../tooltipdef.h"
 #include "../ressource.h"
+#include "../frontend/ctoolclass.h"
 
 #include <values.h>
 #include <ctype.h>
@@ -289,7 +290,7 @@ void CPrinterDialog::slotPrintFileCheck(){
 
 /** Is called when "Browse for file was clicked." */
 void CPrinterDialog::slotFileBrowserClicked(){
-  QString url = KFileDialog::getSaveFileName( 0, i18n("*.ps | Postscript files"), topLevelWidget() );
+  QString url = CToolClass::getSaveFileName( 0, i18n("*.ps | Postscript files"), topLevelWidget() );
   if( url.isEmpty() )
     return;
   m_general.fileInput->setText( url );
