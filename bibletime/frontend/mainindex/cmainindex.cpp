@@ -261,8 +261,13 @@ void CMainIndex::initTree(){
 /** No descriptions */
 void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* after){
 //  qWarning("CMainIndex::dropped");
-////  Q_ASSERT(after);
-////  Q_ASSERT(parent);
+  Q_ASSERT(after);
+  Q_ASSERT(parent);
+
+	if (after)
+		qWarning("DROP AFTER %s", after->text(0).latin1());
+	if (parent)
+		qWarning("DROP parent %s", parent->text(0).latin1());
 
   //the drop was started in this main index widget
   if (m_itemsMovable && e->source() == viewport()) {
@@ -279,10 +284,21 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
   };
 
   //finally do the drop, either with external drop data or with the moved items' data
-  if (CItemBase* i = dynamic_cast<CItemBase*>(parent)) {
-    i->setOpen(true);
-    i->dropped(e);
-  }
+	CItemBase* parentItem = dynamic_cast<CItemBase*>(parent);
+	CItemBase* afterItem = dynamic_cast<CItemBase*>(parent);
+	if (parentItem && afterItem) { //no toplevel drop
+		parentItem->setOpen(true);
+		parentItem->dropped(e);
+	}
+	else if (!parentItem && afterItem) { //drop into the toplevel Bookmarks folder
+		afterItem->setOpen(true);
+		afterItem->dropped(e);
+	}
+	else if (parentItem) { //shouldn't happen I think
+		parentItem->setOpen(true);
+		parentItem->dropped(e);
+	}
+
 }
 
 /** No descriptions */
@@ -412,8 +428,14 @@ void CMainIndex::printBookmarks(){
 }
 
 /** Deletes the selected entries. */
-void CMainIndex::deleteEntries(){
+void CMainIndex::deleteEntries() {
   QPtrList<QListViewItem> items = selectedItems();
+	if (!items.count())
+		return;
+
+	if (KMessageBox::warningYesNo(this, i18n("Do you really want to delete the selected items and child-items?"), i18n("Delete Items")) != KMessageBox::Yes) {
+		return;
+	}
 
 // We have to go backwards because otherwise deleting folders would delete their childs => crash
   for (items.last(); items.current(); items.prev()) {
