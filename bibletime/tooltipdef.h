@@ -136,6 +136,10 @@
 #define TT_OD_GENERAL_RESTORE_WORKSPACE i18n("Restore the windows in the workspace on startup")
 
 #define TT_OD_SWORD_USE_LEXICON_CACHE i18n("Use cache files for the lexicon entries")
+#define TT_OD_SWORD_STANDARD_BIBLE i18n("The standard bible used in the workspace area")
+#define TT_OD_SWORD_STANDARD_COMMENTARY i18n("The standard commentary used in the workspace area")
+#define TT_OD_SWORD_STANDARD_LEXICON i18n("The standard lexicon used in the workspace area")
+
 
 #define TT_OD_KEYS_CHOOSER i18n("Set keyboard accelerators")
 

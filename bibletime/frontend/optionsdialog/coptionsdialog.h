@@ -80,6 +80,11 @@ private:
 		} startup;
 		struct SwordSettings {
 			QCheckBox* lexiconCache;
+			QComboBox* standardBible;
+			QComboBox* standardCommentary;
+			QComboBox* standardLexicon;
+			QComboBox* standardHebrewStrong;
+			QComboBox* standardGreekStrong;
 		} sword;
 		struct KeySettings {
 			KKeyChooser* keyChooser;

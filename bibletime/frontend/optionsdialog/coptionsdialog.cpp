@@ -23,8 +23,9 @@
 #include "../presenters/clexiconpresenter.h"
 #include "../../ressource.h"
 #include "../../whatsthisdef.h"
-#include "../../backend/cswordlexiconmoduleinfo.h"
 #include "../../backend/cswordbackend.h"
+#include "../../backend/cswordmoduleinfo.h"
+#include "../../backend/cswordlexiconmoduleinfo.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -68,14 +69,14 @@ COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *par
 	m_important = importantClasses;
 	m_changedSettings = 0;	
 	m_general.keys.accel = accel;
-	
+
 	setTreeListAutoResize(true);	
-	setShowIconsInTreeList(true);	
-	setInitialSize(QSize(400,400));
-//  resize(sizeHint());
+	setShowIconsInTreeList(true);
+	setInitialSize(sizeHint()/*QSize(400,400)*/);	
+	adjustSize();
 		
 	initGeneral();		
-	initDisplayWindow();
+	initDisplayWindow();	
 }
 
 void COptionsDialog::initGeneral() {
@@ -125,9 +126,8 @@ void COptionsDialog::initGeneral() {
   items << i18n("General") << i18n("SWORD");
 		
 	page = addPage(items, i18n("SWORD options"), OD_ICON_GENERAL);
-	QVBoxLayout* layout2 = new QVBoxLayout(page);
-	
-	{//daily tips
+	QVBoxLayout* layout2 = new QVBoxLayout(page);	
+	{//sword lexicon cache
 		m_general.sword.lexiconCache = new QCheckBox(page);
 		m_general.sword.lexiconCache->setText(i18n("Create and use lexicon key cache"));
 		QToolTip::add(m_general.sword.lexiconCache, TT_OD_SWORD_USE_LEXICON_CACHE);	
@@ -135,11 +135,88 @@ void COptionsDialog::initGeneral() {
 		
 		KConfigGroupSaver groupSaver(m_config, "SWORD");
 		m_general.sword.lexiconCache->setChecked( m_config->readBoolEntry("use lexicon cache", true) );
+
 	}
 	layout2->addWidget(m_general.sword.lexiconCache);	
-  layout->addStretch(4);
 
+	{//sword standard modules
+		QHBoxLayout* hBox = new QHBoxLayout();				
+		m_general.sword.standardBible = new QComboBox(page);
+		QLabel* label = new QLabel(m_general.sword.standardBible, i18n("Default Bible"), page);
+		QToolTip::add(m_general.sword.standardBible, TT_OD_SWORD_STANDARD_BIBLE);	
+		QWhatsThis::add(m_general.sword.standardBible, WT_OD_SWORD_STANDARD_BIBLE);		
+		hBox->addWidget(label);
+		hBox->addWidget(m_general.sword.standardBible);		
+		layout2->addLayout(hBox);
+
+		hBox = new QHBoxLayout();				
+		m_general.sword.standardCommentary = new QComboBox(page);
+		label = new QLabel(m_general.sword.standardCommentary, i18n("Default Commentary"), page);
+		QToolTip::add(m_general.sword.standardCommentary, TT_OD_SWORD_STANDARD_COMMENTARY);	
+		QWhatsThis::add(m_general.sword.standardCommentary, WT_OD_SWORD_STANDARD_COMMENTARY);		
+		hBox->addWidget(label);
+		hBox->addWidget(m_general.sword.standardCommentary);
+		layout2->addLayout(hBox);
+
+		hBox = new QHBoxLayout();				
+		m_general.sword.standardLexicon = new QComboBox(page);
+		label = new QLabel(m_general.sword.standardLexicon, i18n("Default Lexicon"), page);
+		QToolTip::add(m_general.sword.standardCommentary, TT_OD_SWORD_STANDARD_LEXICON);	
+		QWhatsThis::add(m_general.sword.standardCommentary, WT_OD_SWORD_STANDARD_LEXICON);		
+		hBox->addWidget(label);
+		hBox->addWidget(m_general.sword.standardLexicon);
+		layout2->addLayout(hBox);
+						
 		
+		//fill the comboboxes with the right modules
+		ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
+    for ( modules->first();modules->current();modules->next() ) {
+			switch (modules->current()->getType()) {
+				case CSwordModuleInfo::Bible:
+					m_general.sword.standardBible->insertItem(modules->current()->getDescription());
+					break;
+				case CSwordModuleInfo::Commentary:
+					m_general.sword.standardCommentary->insertItem(modules->current()->getDescription());				
+					break;
+				case CSwordModuleInfo::Lexicon:
+					m_general.sword.standardLexicon->insertItem(modules->current()->getDescription());				
+					break;
+				default://unknown type					
+					break;
+			}
+    }
+		
+		KConfigGroupSaver groupSaver(m_config, "SWORD");
+		
+		const QString standardBible = m_config->readEntry("standard bible");
+		int count = m_general.sword.standardBible->count();
+		for (int item=0; item < count; ++item) {
+			if (m_general.sword.standardBible->text(item) == standardBible) {
+				m_general.sword.standardBible->setCurrentItem(item);
+				break;
+			}
+		}
+		
+		const QString standardCommentary = m_config->readEntry("standard commentary");
+		count = m_general.sword.standardCommentary->count();
+		for (int item=0; item < count; ++item) {
+			if (m_general.sword.standardCommentary->text(item) == standardCommentary) {
+				m_general.sword.standardCommentary->setCurrentItem(item);
+				break;
+			}
+		}
+
+		const QString standardLexicon = m_config->readEntry("standard lexicon");
+		count = m_general.sword.standardLexicon->count();
+		for (int item=0; item < count; ++item) {
+			if (m_general.sword.standardLexicon->text(item) == standardLexicon) {
+				m_general.sword.standardLexicon->setCurrentItem(item);
+				break;
+			}
+		}				
+	}
+  layout2->addStretch(4);
+	
 	items.clear();	
 	items << i18n("General") << i18n("Accelerators");	
 	page = addHBoxPage(items, i18n("Configure BibleTime's key bindings"), OD_ICON_KEY_BINDINGS);
@@ -167,7 +244,7 @@ void COptionsDialog::saveGeneral() {
     KConfigGroupSaver groupSaver(m_config, "SWORD");
     bool old_lexiconCache = m_config->readBoolEntry("use lexicon cache", false);
     bool new_lexiconCache = m_general.sword.lexiconCache->isChecked();
-		//Save!
+		
   	m_config->writeEntry( "use lexicon cache", new_lexiconCache );	
 
   	if (old_lexiconCache && !new_lexiconCache){  //delete cache files
@@ -177,6 +254,10 @@ void COptionsDialog::saveGeneral() {
 			for (QStringList::Iterator it = files.begin(); it != files.end(); ++it)
 				dir.remove((*it),false);			
   	}
+  	
+  	m_config->writeEntry("standard bible", m_general.sword.standardBible->currentText());
+  	m_config->writeEntry("standard commentary", m_general.sword.standardCommentary->currentText());
+  	m_config->writeEntry("standard lexicon", m_general.sword.standardLexicon->currentText());  	  	
 	}
 }
 
@@ -267,7 +348,7 @@ void COptionsDialog::initDisplayWindow() {
 			m_displayWindows.fonts.usage->insertItem(it.key());
 		
 		m_displayWindows.fonts.fontChooser = new KFontChooser(vbox_page, "fonts", false, QStringList(), true, 6);
-		m_displayWindows.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumped over the lazy dog"));
+		m_displayWindows.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog"));
 
 	  connect(m_displayWindows.fonts.fontChooser, SIGNAL(fontSelected(const QFont&)), SLOT(newDisplayWindowFontSelected(const QFont&)));
 	  connect(m_displayWindows.fonts.usage, SIGNAL(activated(const QString&)), SLOT(newDisplayWindowFontAreaSelected(const QString&)));

@@ -145,6 +145,9 @@
 #define WT_OD_GENERAL_RESTORE_WORKSPACE WT(TT_OD_GENERAL_RESTORE_WORKSPACE, i18n("Save the windows of the workspace if BibleTime is closed<BR>and restore them on the next startup. "))
 
 #define WT_OD_SWORD_USE_LEXICON_CACHE WT(TT_OD_SWORD_USE_LEXICON_CACHE, i18n("Activate this to let BibleTime create index files for the lexicon entries. This will speed up opening the lexicons a lot, but consume some disk space. Recommended."))
+#define WT_OD_SWORD_STANDARD_BIBLE WT(TT_OD_SWORD_STANDARD_BIBLE, i18n("The default Bible is used as standard for example if a hyperlink into a Bible was clicked"))
+#define WT_OD_SWORD_STANDARD_COMMENTARY WT(TT_OD_SWORD_STANDARD_BIBLE, i18n("The default commentary is used as standard for example if a hyperlink into a commentary was clicked"))
+#define WT_OD_SWORD_STANDARD_LEXICON WT(TT_OD_SWORD_STANDARD_LEXICON, i18n("The default lexicon is used as standard for example if a hyperlink into a lexicon was clicked"))
 
 #define WT_OD_KEYS_CHOOSER WT(TT_OD_KEYS_CHOOSER, i18n("Select a action and change the key binding for the action."))
 #define WT_OD_FONTS_TYPE_CHOOSER WT(TT_OD_FONTS_TYPE_CHOOSER, i18n("Select in this box how the font is used and change the font in the font chooser."))
