@@ -238,6 +238,7 @@ protected: // Protected methods
 	KAction*	m_windowCloseAll_action;
 
 	KActionMenu*	m_windowSaveProfile_action;
+ 	KAction*	m_windowSaveToNewProfile_action;
 	KActionMenu*	m_windowLoadProfile_action;	
 	KAction*	m_windowEditProfiles_action;	
 	KToggleAction*	m_windowFullscreen_action;		
@@ -348,6 +349,10 @@ protected slots:
 	 * Called when select key button pressed
 	 **/
 	void slotSelectKey();
+  /** Saves current settings into a new profile. */
+  void saveToNewProfile();
+  /** Slot to refresh the save profile and load profile menus. */
+  void refreshProfileMenus();
 	
 
 private slots: // Private slots

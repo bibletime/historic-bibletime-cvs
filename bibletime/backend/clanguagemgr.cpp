@@ -48,7 +48,7 @@ const bool CLanguageMgr::Language::isValid(){
 
 const QString& CLanguageMgr::Language::abbrev() const {
   if (m_abbrev.isEmpty() && m_altAbbrevs.count()) { //no standard abbrev but alternative ones
-    qWarning("return alternative abbrev %s for language %s", m_altAbbrevs.first().latin1(), name().latin1());
+//    qWarning("return alternative abbrev %s for language %s", m_altAbbrevs.first().latin1(), name().latin1());
     return m_altAbbrevs.first();
   };
   return m_abbrev;
@@ -98,7 +98,7 @@ const CLanguageMgr::LangMap CLanguageMgr::availableLanguages() {
       abbrevs.append( m->module()->Lang() );
   };
 
-  //no create a ma of available langs
+  //now create a map of available langs
   Language lang;
   char *abbrev;
   for ( abbrev = abbrevs.first(); abbrev; abbrev = abbrevs.next() ) {
@@ -109,28 +109,27 @@ const CLanguageMgr::LangMap CLanguageMgr::availableLanguages() {
   };
 
   //debug the found languages
-  LangMap::Iterator it;
-  for ( it = map.begin(); it != map.end(); ++it ) {
-    qWarning("module with language is installed: %s: %s (%s)", it.data().abbrev().latin1(), it.data().name().latin1(),it.data().translatedName().latin1());
-  };
-
+//  LangMap::Iterator it;
+//  for ( it = map.begin(); it != map.end(); ++it ) {
+//    qWarning("module with language is installed: %s: %s (%s)", it.data().abbrev().latin1(), it.data().name().latin1(),it.data().translatedName().latin1());
+//  };
   
   return map;
 };
 
 const CLanguageMgr::Language CLanguageMgr::languageForAbbrev( const QString& abbrev ) {
-  qWarning("looking for abbrev %s", abbrev.latin1());
+//  qWarning("looking for abbrev %s", abbrev.latin1());
   if (m_langMap.contains(abbrev)) {
-    qWarning("found!!");
+//    qWarning("found!!");
     return m_langMap[abbrev];
   };
 
   //try to search in the alternative abbrevs
-  qWarning("searching for %s in alternative abbrevs", abbrev.latin1());
+//  qWarning("searching for %s in alternative abbrevs", abbrev.latin1());
   LangMap::Iterator it;
   for ( it = m_langMap.begin(); it != m_langMap.end(); ++it ) {
     if (it.data().alternativeAbbrevs().contains(abbrev)) {
-      qWarning("found language!");      
+//      qWarning("found language!");      
       return it.data();
     };
   }  

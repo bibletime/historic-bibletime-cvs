@@ -31,6 +31,7 @@
 #include "frontend/chtmldialog.h"
 #include "frontend/coptionsdialog.h"
 #include "frontend/cbtconfig.h"
+#include "frontend/cinputdialog.h"
 #include "frontend/mainindex/cmainindex.h"
 #include "frontend/mainindex/cindexitem.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
@@ -47,7 +48,8 @@
 #include <qwhatsthis.h>
 #include <qvaluelist.h>
 #include <qclipboard.h>
-#include <qxembed.h>
+//#include <qxembed.h>
+#include <qinputdialog.h>
 
 //KDE includes
 #include <kaction.h>
@@ -98,24 +100,8 @@ void BibleTime::slotSettingsChanged(){
  		}
   }
 
-// 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
-// 		CDisplayWindow* displayWindow = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index));
-// 		if (displayWindow)
-// 			displayWindow->refresh();
-// 	}
   refreshDisplayWindows();
-
- 	//refresh the load profile and save profile menus
-	m_profileMgr.refresh();
- 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();	 	
- 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
- 	savePopup->clear();
- 	loadPopup->clear();
- 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
- 	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
-		savePopup->insertItem(p->name());			
-		loadPopup->insertItem(p->name());
- 	}
+  refreshProfileMenus();
 }
 
 
@@ -157,7 +143,8 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	m_windowMenu->clear();
 			
 	m_windowSaveProfile_action->plug(m_windowMenu);	
-	m_windowLoadProfile_action->plug(m_windowMenu);	
+	m_windowSaveToNewProfile_action->plug(m_windowMenu);	
+  m_windowLoadProfile_action->plug(m_windowMenu);  
 	m_windowEditProfiles_action->plug(m_windowMenu);	
 	m_windowMenu->insertSeparator();	
 	m_windowFullscreen_action->plug(m_windowMenu);				
@@ -442,4 +429,30 @@ void BibleTime::editProfiles(){
 	dlg->exec();
 
 	dlg->delayedDestruct();	
+}
+
+/** Saves current settings into a new profile. */
+void BibleTime::saveToNewProfile(){
+  bool ok = false;
+  const QString name = QInputDialog::getText(i18n("Profile name:"), i18n("Please enter the name for the new profile!"), QLineEdit::Normal, QString::null, &ok, this);
+  if (ok && !name.isEmpty()) {
+    CProfile* profile = m_profileMgr.create(name);
+    saveProfile(profile);
+  };
+  refreshProfileMenus();
+}
+
+/** Slot to refresh the save profile and load profile menus. */
+void BibleTime::refreshProfileMenus(){
+ 	//refresh the load profile and save profile menus
+	m_profileMgr.refresh();
+ 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();
+ 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
+ 	savePopup->clear();
+ 	loadPopup->clear();
+ 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
+ 	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
+		savePopup->insertItem(p->name());
+		loadPopup->insertItem(p->name());
+ 	}
 }

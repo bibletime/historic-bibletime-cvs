@@ -82,7 +82,7 @@ void BibleTime::initView(){
 	m_selectDialog = 0;
 
 
-  CPointers::languageMgr()->availableLanguages();
+//  CPointers::languageMgr()->availableLanguages();
 }
 
 
@@ -217,6 +217,18 @@ void BibleTime::initActions() {
 	m_windowSaveProfile_action->setWhatsThis( CResMgr::mainMenu::window::saveProfile::whatsthis );
 	m_windowSaveProfile_action->plugAccel( m_keyAccel );
 
+
+  m_windowSaveToNewProfile_action = new KAction(i18n("&Save to new profile"),
+    CResMgr::mainMenu::window::saveToNewProfile::icon,
+    CResMgr::mainMenu::window::saveToNewProfile::accel,    
+    this, SLOT(saveToNewProfile()), actionCollection(),
+    CResMgr::mainMenu::window::saveToNewProfile::actionName
+  );
+	m_windowSaveToNewProfile_action->setToolTip( CResMgr::mainMenu::window::saveToNewProfile::tooltip );
+	m_windowSaveToNewProfile_action->setWhatsThis( CResMgr::mainMenu::window::saveToNewProfile::whatsthis );
+	m_windowSaveToNewProfile_action->plugAccel( m_keyAccel );
+  
+  
 	m_windowLoadProfile_action = new KActionMenu(i18n("&Load profile"),
     CResMgr::mainMenu::window::loadProfile::icon,
     actionCollection(),
@@ -311,7 +323,9 @@ void BibleTime::initActions() {
 	action->setToolTip(CResMgr::mainMenu::help::dailyTip::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::dailyTip::whatsthis);
 
-	action = KStdAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());
+	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutApp ) ) )	 //delete About KDE action if KDE created it
+		actionCollection()->remove(actionCollection()->action(KStdAction::stdName( KStdAction::AboutApp )));
+  action = KStdAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::aboutBibleTime::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::aboutBibleTime::whatsthis);
 

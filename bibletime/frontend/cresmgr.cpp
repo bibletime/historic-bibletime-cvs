@@ -78,6 +78,13 @@ namespace CResMgr {
         const QString icon        = "view_sidetree";
         const char* actionName    = "windowSaveProfile_action";
       }
+      namespace saveToNewProfile {
+        const QString tooltip     = makeToolTip(i18n("Save into a new profile"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create a new profile and save the current settings into this new profile."));
+        const QString icon        = "view_sidetree";
+        const KShortcut accel     = KShortcut();        
+        const char* actionName    = "windowSaveToNewProfile_action";
+      }
       namespace setupProfiles {
         const QString tooltip     = makeToolTip(i18n("Edit profiles"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create new and delete or rename existing profiles."));

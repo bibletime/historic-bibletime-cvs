@@ -94,6 +94,13 @@ namespace CResMgr {
         extern const QString icon;
         extern const char* actionName;
       }
+      namespace saveToNewProfile {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+        extern const char* actionName;
+      }
       namespace setupProfiles {
         extern const QString tooltip;
         extern const QString whatsthis;

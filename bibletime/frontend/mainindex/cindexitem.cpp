@@ -353,7 +353,7 @@ const QString CBookmarkItem::toolTip(){
 
 /** Returns the used module. */
 CSwordModuleInfo* const CBookmarkItem::module() {
-  Q_ASSERT(m_module);
+//  Q_ASSERT(m_module);
   return m_module;
 }
 
@@ -435,7 +435,7 @@ void CBookmarkItem::loadFromXML( QDomElement& element ) {
   //find the right module
   if (element.hasAttribute("modulename") && element.hasAttribute("moduledescription")) {
     m_module = backend()->findModuleByName(element.attribute("modulename"));
-    Q_ASSERT(m_module);
+//    Q_ASSERT(m_module);
     if (!m_module/*&& m_module->config(CSwordModuleInfo::Description) != element.attribute("moduledescription")*/) {
       qWarning("Can't find module with name %s and description %s",element.attribute("modulename").latin1(), element.attribute("moduledescription").latin1() );
     }
@@ -986,12 +986,11 @@ CBookmarkFolder::CBookmarkFolder(CFolderBase* parentItem, const Type type) : CTr
 }
 
 CBookmarkFolder::~CBookmarkFolder() {
-//	qWarning("descructor of CBookmarkFolder");
 
 }
 
 void CBookmarkFolder::initTree(){
-//  qWarning("CBookmarkFolder::initTree()");
+  
   addGroup(OldBookmarkFolder, "*");
 
   KStandardDirs stdDirs;
@@ -1014,10 +1013,12 @@ const bool CBookmarkFolder::enableAction(const MenuAction action){
 
 
 void CBookmarkFolder::exportBookmarks(){
+#warning implement!
 }
 
 
 void CBookmarkFolder::importBookmarks(){
+#warning implement!  
 }
 
 bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {

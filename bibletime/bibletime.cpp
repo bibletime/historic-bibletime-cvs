@@ -291,3 +291,4 @@ void BibleTime::processCommandline(){
     m_mdi->tile();//we are sure only one window is open, which should be displayed fullscreen in the working area
   }
 }
+

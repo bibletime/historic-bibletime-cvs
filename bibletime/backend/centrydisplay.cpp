@@ -446,7 +446,13 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const
   return QString::fromLatin1("<TR><TD STYLE=\"padding-left: %1px;\"><SUP>%2</SUP> %3</TD></TR>")
     .arg(level*30)
     .arg(htmlReference(book, keyName, key->getLocalName(), !key->key().isEmpty() ? key->key() : "/" ))
-    .arg(activeKey ? QString::fromLatin1("<SPAN CLASS=\"highlighted\">%1</SPAN>").arg(key->renderedText()) : key->renderedText());
+    .arg(
+      QString::fromLatin1("<SPAN %1 STYLE=\"font-family:%2; font-size:%3pt;\">%4</SPAN>")
+      .arg(activeKey ? "class=\"highlighted\"" : "")
+      .arg(CBTConfig::get(book->language()).family())
+      .arg(CBTConfig::get(book->language()).pointSize())
+      .arg(key->renderedText())
+    );
 }
 
 void CBookDisplay::printTree(CSwordTreeKey treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos){

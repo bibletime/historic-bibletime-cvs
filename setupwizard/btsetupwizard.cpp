@@ -156,7 +156,7 @@ void BTSetupWizard::slot_backtoMainPage(){
 /** No descriptions */
 void BTSetupWizard::slot_exitRequested(){
 	if (m_startBibleTimeBox->isChecked())
-		KApplication::kApplication()->startServiceByDesktopName("konqueror");
+		KApplication::kApplication()->startServiceByDesktopName("bibletime");
 	KApplication::kApplication()->quit();
 }
 
