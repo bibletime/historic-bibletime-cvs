@@ -91,6 +91,21 @@ protected:
 			KAction* chapter;
 		} print;
   } m_actions;
+
+protected slots: // Protected slots
+  void nextBook();
+  void previousBook();
+  void nextChapter();
+  void previousChapter();
+  void nextVerse();
+  void previousVerse();
+
+private:
+  friend class CCommentaryReadWindow;
+  /**
+  * Wrapper around key() to return the right type of key.
+  */
+  CSwordVerseKey* verseKey();
 };
 
 #endif

@@ -120,7 +120,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 }
 
 void CHTMLReadDisplay::setText( const QString& newText ) {
-  qWarning("CHTMLReadDisplay::view()");
+//  qWarning("CHTMLReadDisplay::view()");
   begin();
   write(newText);
   end();
@@ -134,7 +134,7 @@ const bool CHTMLReadDisplay::hasSelection(){
 
 /** Reimplementation. */
 QWidget* CHTMLReadDisplay::view(){
-  qWarning("CHTMLReadDisplay::view()");
+//  qWarning("CHTMLReadDisplay::view()");
   return KHTMLPart::view();
 }
 
@@ -144,12 +144,12 @@ void CHTMLReadDisplay::selectAll() {
 
 /** No descriptions */
 void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
-  qWarning("nove to anchor %s", anchor.latin1());
+//  qWarning("nove to anchor %s", anchor.latin1());
 	gotoAnchor(anchor);
 }
 
 void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args){
-  qWarning("CHTMLReadDisplay::urlSelected");
+//  qWarning("CHTMLReadDisplay::urlSelected");
   KHTMLPart::urlSelected(url, button, state, _target, args);
   if (!url.isEmpty() && CReferenceManager::isHyperlink(url)) {
     QString module;
@@ -254,7 +254,7 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
         for (unsigned int i = 0; i < attributes.length(); i++) {
           if (attributes.item(i).nodeName().string().upper() == "HREF") {
             link = attributes.item(i).nodeValue().string();
-            qWarning("link is %s", link.latin1());
+//            qWarning("link is %s", link.latin1());
             break;
           }
         }
@@ -344,7 +344,7 @@ void CHTMLReadDisplayView::polish(){
 
 /** Reimplementatiob from QScrollView. */
 void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
-  qWarning("CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e )");
+//  qWarning("CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e )");
 //  KHTMLView::contentsDropEvent(e);
   if (QTextDrag::canDecode(e)) {
 //    if (e->provides(REFERENCE) || e->provides(BOOKMARK))
@@ -358,10 +358,10 @@ void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
       QString module;
       QString key;
       CReferenceManager::decodeReference(str, module, key );
-      qWarning("dropped key: %s", key.latin1());
+//      qWarning("dropped key: %s", key.latin1());
 
       e->acceptAction();
-      m_display->connectionsProxy()->emitReferenceDropped(module,key);
+      m_display->connectionsProxy()->emitReferenceDropped(key);
       return;
     }
   }
@@ -371,12 +371,12 @@ void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
 
 /** Reimplementation from QScrollView. */
 void CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e ){
-  qWarning("CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e )");
+//  qWarning("CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e )");
 //  KHTMLView::contentsDragEnterEvent(e);
   if (QTextDrag::canDecode(e)) {
 //    if (e->provides(REFERENCE) || e->provides(BOOKMARK))
     {
-      qWarning("ACCEPT ENTER EVENT!");
+//      qWarning("ACCEPT ENTER EVENT!");
       e->acceptAction();
       return;
     }

@@ -379,6 +379,10 @@ void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
 	KConfig* config = KGlobal::config();	
 	
 	switch (type) {
+		case readWindow : {
+			accel->setConfigGroup("Readwindow shortcuts");		
+			break;
+		};
 		case bookWindow : {
 			accel->setConfigGroup("Book shortcuts");		
 			break;

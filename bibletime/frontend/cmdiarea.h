@@ -18,8 +18,11 @@
 #ifndef CMDIAREA_H
 #define CMDIAREA_H
 
+//BibleTime includes
 #include "cpointers.h"
+#include "backend/cswordmoduleinfo.h"
 
+//Qt includes
 #include <qworkspace.h>
 #include <qlist.h>
 #include <qstrlist.h>
@@ -85,11 +88,15 @@ public slots:
   */
   void syncCommentaries(CSwordKey* syncKey);
   /**
+  * Emits the signal to create a new display window in the MDI area.
+  */
+  void emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName );
+  /**
   * Look up the text in the module. If the module has already a display window
   * of it opne use it, otherwise create a new one.
   */
-  void lookupInLexicon(const QString& text, const QString& module);
-  void lookupInModule(const QString& module, const QString& key);
+//  void lookupInLexicon(const QString& text, const QString& module);
+//  void lookupInModule(const QString& module, const QString& key);
 
 protected: // Protected methods
   /**
@@ -118,7 +125,7 @@ signals: // Signals
   * Is emitted when the last presenter was closed.
   */
   void sigLastPresenterClosed();
-  void createDisplayWindow(CSwordModuleInfo*, const QString&);
+  void createDisplayWindow(ListCSwordModuleInfo modules, const QString& keyName);
 
 private:
 	mdiOption guiOption;

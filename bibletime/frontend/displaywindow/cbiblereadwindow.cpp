@@ -27,6 +27,7 @@
 #include "frontend/ctoolclass.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/display/creaddisplay.h"
+#include "frontend/keychooser/ckeychooser.h"
 
 #include <math.h>
 
@@ -38,8 +39,7 @@
 #include <kpopupmenu.h>
 
 CBibleReadWindow::CBibleReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CLexiconReadWindow(moduleList, parent,name) {
-	CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(moduleList.first());
-	if (bible) {
+	if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(moduleList.first())) {
 		if (bible->hasTestament(CSwordBibleModuleInfo::OldTestament))
 			key()->key("Genesis 1:1");
 		else
@@ -92,6 +92,8 @@ void CBibleReadWindow::insertKeyboardActions( KAccel* const a ){
 
 
 void CBibleReadWindow::initKeyboardActions() {
+  CReadWindow::initKeyboardActions();
+
   CBTConfig::setupAccel( CBTConfig::bibleWindow, accel() );	
   insertKeyboardActions( accel() );
 
@@ -177,4 +179,48 @@ void CBibleReadWindow::updatePopupMenu(){
  	m_actions.save.verseAndText->setEnabled( displayWidget()->hasActiveAnchor() );
  	
   m_actions.print.verseAndText->setEnabled( displayWidget()->hasActiveAnchor() );
+}
+
+/** Moves to the next book. */
+void CBibleReadWindow::nextBook(){
+	if (verseKey()->next(CSwordVerseKey::UseBook))
+		keyChooser()->setKey(key());
+}
+
+/** Moves one book behind. */
+void CBibleReadWindow::previousBook(){
+	if (verseKey()->previous(CSwordVerseKey::UseBook))
+		keyChooser()->setKey(key());
+}
+
+/** Moves to the next book. */
+void CBibleReadWindow::nextChapter(){
+	if (verseKey()->next(CSwordVerseKey::UseChapter))
+		keyChooser()->setKey(key());
+}
+
+/** Moves one book behind. */
+void CBibleReadWindow::previousChapter(){
+	if (verseKey()->previous(CSwordVerseKey::UseChapter))
+		keyChooser()->setKey(key());
+}
+
+/** Moves to the next book. */
+void CBibleReadWindow::nextVerse(){
+	if (verseKey()->next(CSwordVerseKey::UseVerse))
+		keyChooser()->setKey(key());
+}
+
+/** Moves one book behind. */
+void CBibleReadWindow::previousVerse(){
+	if (verseKey()->previous(CSwordVerseKey::UseVerse))
+		keyChooser()->setKey(key());
+}
+
+/** rapper around key() to return the right type of key. */
+CSwordVerseKey* CBibleReadWindow::verseKey(){
+  qWarning("CBibleReadWindow::key()");
+	CSwordVerseKey* k = dynamic_cast<CSwordVerseKey*>(CDisplayWindow::key());
+ 	Q_ASSERT(k);
+	return k;
 }

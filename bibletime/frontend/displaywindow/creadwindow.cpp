@@ -22,6 +22,7 @@
 #include "backend/chtmlentrydisplay.h"
 #include "backend/cswordkey.h"
 
+#include "frontend/cbtconfig.h"
 #include "frontend/cprofilewindow.h"
 #include "frontend/display/creaddisplay.h"
 #include "frontend/displaywindow/cmodulechooserbar.h"
@@ -30,12 +31,14 @@
 
 //KDE includes
 #include <kpopupmenu.h>
+#include <kaccel.h>
+#include <kstdaccel.h>
+#include <klocale.h>
 
 CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name ) : CDisplayWindow(modules,parent,name) {
 	qWarning("constructor of CReadWindow");
-	setReady(true);
-
  	m_popupMenu = 0;
+  m_displayWidget = 0;
 }
 
 CReadWindow::~CReadWindow(){
@@ -51,8 +54,15 @@ CReadDisplay* const CReadWindow::displayWidget(){
 
 /** Sets the display widget of this display window. */
 void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
-	qWarning("CReadWindow::setDisplayWidget()");
+//	qWarning("CReadWindow::setDisplayWidget()"); 	
+ 	if (m_displayWidget) {
+  	disconnect(m_displayWidget->connectionsProxy(), SIGNAL(referenceClicked(const QString&, const QString&)), this, SLOT(lookup(const QString&, const QString&)));
+  	disconnect(m_displayWidget->connectionsProxy(), SIGNAL(referenceDropped(const QString&)), this, SLOT(lookup(const QString&)));
+  }
+
 	m_displayWidget = newDisplay;
+  connect(m_displayWidget->connectionsProxy(), SIGNAL(referenceClicked(const QString&, const QString&)),this, SLOT(lookup(const QString&, const QString&)));
+  connect(m_displayWidget->connectionsProxy(), SIGNAL(referenceDropped(const QString&)), this, SLOT(lookup(const QString&)));
 }
 
 /** Lookup the given entry. */
@@ -104,6 +114,7 @@ const bool CReadWindow::init( const QString& keyName ){
   CDisplayWindow::init(keyName);
  	setupPopupMenu();
   keyChooser()->setKey(key());
+	setReady(true);
 }
 
 /** Store the settings of this window in the given CProfileWindow object. */
@@ -115,7 +126,7 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings){
 	rect.setHeight(height());
 	settings->setGeometry(rect);
 		
-//	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
+//	settings->setScrollbarPositions( m_htmlWidget->view()->horizontalScrollBar()->value(), m_htmlWidget->view()->verticalScrollBar()->value() );
 	settings->setType(modules().first()->type());
 	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
 	
@@ -151,8 +162,21 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings){
 		parentWidget()->move(rect.x(), rect.y());
 		//setGeometry( settings->geometry() );
 	}
-//	m_htmlWidget->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
-//	m_htmlWidget->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
+//	displayWidget()->view()->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
+//	m_htmlWidget->view()->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
 	
 	setUpdatesEnabled(true);	
+}
+
+void CReadWindow::insertKeyboardActions( KAccel* const a ){
+  a->insert("Copy", i18n("Copy selected text"),"", KStdAccel::copy(), 0, "");
+}
+
+
+void CReadWindow::initKeyboardActions() {
+  CBTConfig::setupAccel( CBTConfig::readWindow, accel() );	
+  insertKeyboardActions( accel() );
+
+  accel()->readSettings();
+	accel()->setSlot("Copy", displayWidget()->connectionsProxy(), SLOT(copySelection()));
 }

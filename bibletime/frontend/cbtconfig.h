@@ -95,8 +95,10 @@ public:
 		searchCompletionTexts,
 		searchTexts		
 	};
-	enum keys {
-		bookWindow,
+	enum keys {		
+	  readWindow,		
+//		writeWindow,		
+	  bookWindow,
 		bibleWindow,
 		commentaryWindow,
 		lexiconWindow,

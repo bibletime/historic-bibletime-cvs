@@ -174,10 +174,8 @@ CDisplayWindow* BibleTime::createDisplayWindow(ListCSwordModuleInfo modules, con
 //		}
 //		presenter->lookup(modules.first()->name(),key);		
 //	}
-//			
-	kapp->restoreOverrideCursor();
-//	presenter->setFocus();
-	
+
+	kapp->restoreOverrideCursor();	
 	return displayWindow;
 }
 

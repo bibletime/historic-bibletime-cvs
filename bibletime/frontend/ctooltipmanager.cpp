@@ -42,16 +42,19 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
   if (moduleName.isEmpty()) {
     moduleName = CReferenceManager::preferredModule( type );
   }
+  if (moduleName.isEmpty())
+  	return QString::null;
 
-  return QString::fromLatin1("<B>%1</B><HR>%2").arg(keyText(keyName)).arg(moduleText(moduleName, keyName));
+  CSwordModuleInfo* m = backend()->findModuleByName(moduleName);	
+	return QString::fromLatin1("<B>%1</B><HR>%2").arg(keyText(m ? m->type() : CSwordModuleInfo::Unknown, keyName)).arg(moduleText(moduleName, keyName));
 }
 
 /** Returns the tooltip text for the given hyperlink. */
 const QString CTooltipManager::textForReference( const QString& moduleName, const QString& keyName, const QString& description){
-
+	CSwordModuleInfo* module = backend()->findModuleByName(moduleName);
   return QString::fromLatin1("<B>%1 %2</B>%3<HR>%4")
   	.arg(i18n("Bookmark to"))
-  	.arg(keyText(keyName))
+  	.arg(keyText(module ? module->type() : CSwordModuleInfo::Unknown, keyName))
    	.arg(!description.isEmpty() ? QString::fromLatin1("<FONT color=\"#800000\">(%1)</FONT><BR>").arg(description.stripWhiteSpace()) : QString::null )
     .arg(moduleText(moduleName, keyName));
 }
@@ -60,14 +63,16 @@ const QString CTooltipManager::textForReference( const QString& moduleName, cons
 /** Returns the text for the given moduleName and key name. */
 const QString CTooltipManager::moduleText( const QString& moduleName, const QString& keyName){
   QString text = QString::null;
+	CSwordModuleInfo* module = backend()->findModuleByName(moduleName);
+	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+	key->key( keyName );
 
-  if (CSwordModuleInfo* module = backend()->findModuleByName(moduleName)) {
+  if (module) {
     backend()->setFilterOptions( CBTConfig::getFilterOptionDefaults() );
- 		util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
- 		key->key( keyName );
    	text = key->renderedText();
 
 		if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
+    	qWarning("BIBLE or Commentary!!");
       text = QString::null;
       ListKey verses = VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
 			
@@ -98,16 +103,18 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 }
 
 /** Returns the text for the tooltip beginning. */
-const QString CTooltipManager::keyText( const QString& keyName ){
-	QString text = QString::null;
- 	ListKey keys = VerseKey().ParseVerseList((const char*)keyName.local8Bit(),"Genesis 1:1", true);
-
- 	VerseKey* element = dynamic_cast<VerseKey*>(keys.GetElement(0));
-  if (element) {
-		text = QString::fromLatin1("%1-%2").arg((const char*)element->LowerBound()).arg((const char*)element->UpperBound());
+const QString CTooltipManager::keyText( const CSwordModuleInfo::ModuleType moduleType, const QString& keyName ){
+	if (moduleType == CSwordModuleInfo::Bible || moduleType == CSwordModuleInfo::Commentary) {
+	 QString text = QString::null;
+	 	ListKey keys = VerseKey().ParseVerseList((const char*)keyName.local8Bit(),"Genesis 1:1", true);
+	  if (VerseKey* element = dynamic_cast<VerseKey*>(keys.GetElement(0)))
+			return QString::fromLatin1("%1-%2").arg((const char*)element->LowerBound()).arg((const char*)element->UpperBound());
+	  else
+	  	return QString::fromLatin1("%1").arg((const char*)(*keys.GetElement(0)));
+	  return text;
   }
-  else
-  	text = QString::fromLatin1("%1").arg((const char*)(*keys.GetElement(0)));
-
-  return text;
+  else { //non-versekeys are not localized
+		return keyName;
+  };
+  return QString::null;
 }

@@ -59,14 +59,15 @@ void CLexiconReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
 void CLexiconReadWindow::insertKeyboardActions( KAccel* a ){
 	a->insert("Next entry",     i18n("Next entry"),     "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);
 	a->insert("Previous entry", i18n("Previous entry"), "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);	
-//  CReadWindow::insertKeyboardActions(a);
 }
 
 void CLexiconReadWindow::initKeyboardActions() {
+  CReadWindow::initKeyboardActions();
+
+
   CBTConfig::setupAccel(CBTConfig::lexiconWindow, accel());
   insertKeyboardActions(accel());
   accel()->readSettings();
-//  CReadWindow::initKeyboardActions();	
 
   accel()->setSlot("Next entry", this, SLOT(nextEntry()));
   accel()->setSlot("Previous entry",  this, SLOT(previousEntry()));
@@ -143,3 +144,20 @@ void CLexiconReadWindow::updatePopupMenu(){
 	m_actions.copy.selectedText->setEnabled( displayWidget()->hasSelection() );
 }
 
+/** No descriptions */
+void CLexiconReadWindow::nextEntry(){
+  keyChooser()->setKey(ldKey()->NextEntry());
+}
+
+/** No descriptions */
+void CLexiconReadWindow::previousEntry(){
+  keyChooser()->setKey(ldKey()->PreviousEntry());
+}
+
+/** Reimplementation to return the right key. */
+CSwordLDKey* CLexiconReadWindow::ldKey(){
+  qWarning("CLexiconReadWindow::key()");
+	CSwordLDKey* k = dynamic_cast<CSwordLDKey*>(CDisplayWindow::key());
+ 	Q_ASSERT(k);
+	return k;
+}

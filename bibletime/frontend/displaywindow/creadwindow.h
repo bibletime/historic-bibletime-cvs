@@ -36,7 +36,9 @@ class KPopupMenu;
 class CReadWindow : public CDisplayWindow  {
    Q_OBJECT
 public: 
-	CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
+	static void insertKeyboardActions( KAccel* const a );
+ 	
+  CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
 	virtual ~CReadWindow();
   /**
   * Reimplementation to use the popup menu.
@@ -68,6 +70,7 @@ protected: // Protected methods
   * Setup the entries of the popup menu.
   */
   virtual void setupPopupMenu() = 0;
+	virtual void initKeyboardActions();
 
 protected slots:
   virtual void lookup( CSwordKey* );

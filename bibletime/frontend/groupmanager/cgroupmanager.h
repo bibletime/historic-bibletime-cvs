@@ -30,9 +30,9 @@
 
 //KDE includes
 #include <klistview.h>
+#include <kconfig.h>
 
 class KPopupMenu;
-class KConfig;
 
 class CSearchDialog;
 

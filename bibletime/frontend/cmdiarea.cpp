@@ -221,11 +221,11 @@ void CMDIArea::syncCommentaries(CSwordKey* syncKey){
 }
 
 /** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
-void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
-//	qWarning("CMDIArea::lookupInLexicon(const QString& text, const QString& module)");
-	CSwordModuleInfo* m = backend()->findModuleByName(module);
-	if (!m)
-		return;
+//void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
+////	qWarning("CMDIArea::lookupInLexicon(const QString& text, const QString& module)");
+//	CSwordModuleInfo* m = backend()->findModuleByName(module);
+//	if (!m)
+//		return;
 #warning check!
 //	CLexiconPresenter* p = 0;
 //	
@@ -244,13 +244,13 @@ void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 //		emit createDisplayWindow(m, text);
 //	else
 //		p->lookup(module, text);
-}
+//}
 
 /** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
-void CMDIArea::lookupInModule(const QString& module, const QString& key){
-	CSwordModuleInfo* m = backend()->findModuleByName(module);
-	if (!m)
-		return;
+//void CMDIArea::lookupInModule(const QString& module, const QString& key){
+//	CSwordModuleInfo* m = backend()->findModuleByName(module);
+//	if (!m)
+//		return;
 
 #warning check!
 //	CSwordPresenter* p = 0;
@@ -268,9 +268,14 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 //		emit createDisplayWindow(m, key);
 //	else
 //		p->lookup(module, key);
-}
+//}
 
 /** This works around a problem/limitation in QWorkspace. QWorkspace sets every time the  application caption on its on way. This confuses BibleTime - wrong captions are generated. This function returns the right caption (using the MDI child). */
 const QString CMDIArea::currentApplicationCaption() const {
 	return m_appCaption;
+}
+
+/** Emits the signal to create a new display window in the MDI area. */
+void CMDIArea::emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName ) {
+  	emit createDisplayWindow(modules, keyName);
 }

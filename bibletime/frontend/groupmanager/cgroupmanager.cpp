@@ -104,7 +104,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, const bool useBookmarks, const bool saveSettings, const bool useDnD, const bool useExtendedMode, const bool useRMBMenu, const bool showHelpDialogs)
 	: KListView(parent, name),
 		m_swordList(swordList),		
-		m_config( new KConfig("bt-groupmanager", false/*, false*/ ) ),
+		m_config( new KConfig("bt-groupmanager", false, false ) ),
 	  m_menu(false),
 		m_searchDialog(0),		
 		m_pressedItem(0),		
@@ -127,7 +127,7 @@ CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModule
 
 CGroupManager::~CGroupManager(){	
 	saveSettings();
-//	m_config->sync();
+	m_config->sync();
 	delete m_config;
 	m_config = 0;
 }
@@ -236,14 +236,11 @@ void CGroupManager::saveSettings(){
 	//save column width	
 	m_config->writeEntry("initialized", true);
 	m_config->writeEntry("First column", columnWidth(0));
-//	m_config->sync();	
-	//save the bookmarks and the groups
 	
+  //save the bookmarks and the groups	
 	saveGroups(m_config,0);
 	saveSwordModules(m_config,0);
 	saveSwordBookmarks(m_config, 0);
-
-//	m_config->sync();
 }
 
 /**  */
@@ -1068,7 +1065,7 @@ const bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerI
 	return true;
 }
 
-/** Save items of group to m_config. If grou is 0 we save all items. The  path to the group-item itself is saved, too. */
+/** Save items of group to m_config-> If grou is 0 we save all items. The  path to the group-item itself is saved, too. */
 const bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group, const Action){
 	int parentID = 0;
 	CGroupManagerItem* myItem = 0;

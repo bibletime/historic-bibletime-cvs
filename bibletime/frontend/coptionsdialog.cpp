@@ -22,7 +22,7 @@
 #include "frontend/displaywindow/ccommentaryreadwindow.h"
 #include "frontend/displaywindow/clexiconreadwindow.h"
 #include "frontend/displaywindow/cbookreadwindow.h"
-//#include "displaywindow/creadwindow.h"
+#include "frontend/displaywindow/creadwindow.h"
 //#include "presenters/cswordpresenter.h"
 //#include "presenters/cbiblepresenter.h"
 //#include "presenters/ccommentarypresenter.h"
@@ -363,17 +363,18 @@ void COptionsDialog::initAccelerators(){
 	QWhatsThis::add(m_settings.keys.application.keyChooser, WT_OD_KEYS_CHOOSER);	
 
 // ----- new tab: All display windows ------ //
-//	currentTab = new QVBox(tabCtl);
-//	currentTab->setMargin(3);	
-//	tabCtl->addTab(currentTab, i18n("All display windows"));
-//	
-//	m_settings.keys.general.accel = new KAccel(this); //delete in destructor
-//	CSwordPresenter::insertKeyboardActions( m_settings.keys.general.accel );		
-//	m_settings.keys.general.accel->readSettings();
-// 	m_settings.keys.general.dict = m_settings.keys.general.accel->keyDict();
-// 	m_settings.keys.general.keyChooser = new KKeyChooser( &m_settings.keys.general.dict, currentTab, false );	
-// 	QToolTip::add(m_settings.keys.general.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
-//	QWhatsThis::add(m_settings.keys.general.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
+	currentTab = new QVBox(tabCtl);
+	currentTab->setMargin(3);	
+	tabCtl->addTab(currentTab, i18n("All display windows"));
+	
+	m_settings.keys.general.accel = new KAccel(this); //delete in destructor
+	CBTConfig::setupAccel( CBTConfig::readWindow, m_settings.keys.general.accel  );	
+	CReadWindow::insertKeyboardActions( m_settings.keys.general.accel );
+	m_settings.keys.general.accel->readSettings();
+
+ 	m_settings.keys.general.keyChooser = new KKeyChooser( m_settings.keys.general.accel, currentTab );	
+	QToolTip::add(m_settings.keys.general.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
+	QWhatsThis::add(m_settings.keys.general.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
 
 // ----- new tab: Bible windows ------ //
 	currentTab = new QVBox(tabCtl);

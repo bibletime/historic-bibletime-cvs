@@ -73,16 +73,17 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
 }
 
 CDisplayWindow::~CDisplayWindow(){
-	qWarning("destructor of CDisplayWindow");
+//	qWarning("destructor of CDisplayWindow");
 }
 
 CMDIArea* const CDisplayWindow::mdi() {
+  Q_ASSERT(m_mdi);
 	return m_mdi;
 }
 
 /** Returns the right window caption. */
 const QString CDisplayWindow::windowCaption(){
-	qWarning("CDisplayWindow::windowCaption()");
+//	qWarning("CDisplayWindow::windowCaption()");
  	if (!m_modules.count())
 		return QString::null;
 
@@ -97,8 +98,8 @@ const QString CDisplayWindow::windowCaption(){
 
 /** Returns the used modules as a QPtrList */
 ListCSwordModuleInfo& CDisplayWindow::modules(){
-  qWarning("CDisplayWindow::modules()");
-  qWarning("count is %i", m_modules.count());
+//  qWarning("CDisplayWindow::modules()");
+//  qWarning("count is %i", m_modules.count());
 	return m_modules;
 }
 
@@ -118,13 +119,13 @@ void CDisplayWindow::windowActivated( const bool hasFocus ){
 
 /** Reimplementation from QWidget. Used to initialize things before the widget is shown. */
 void CDisplayWindow::polish(){
-  qWarning("CDisplayWindow::polish()");
+//  qWarning("CDisplayWindow::polish()");
   KMainWindow::polish();
 }
 
 /** Refresh the settings of this window. */
 void CDisplayWindow::refresh() {
-  qWarning("CDisplayWindow::refresh()");
+//  qWarning("CDisplayWindow::refresh()");
  	m_filterOptions = CBTConfig::getFilterOptionDefaults();
 	m_displayOptions = CBTConfig::getDisplayOptionDefaults();
 
@@ -134,13 +135,13 @@ void CDisplayWindow::refresh() {
 
 /** Returns the filter options used by this window. */
 CSwordBackend::FilterOptionsBool& CDisplayWindow::filterOptions() {
-  qWarning("CDisplayWindow::filterOptions()");
+//  qWarning("CDisplayWindow::filterOptions()");
 	return m_filterOptions;
 }
 
 /** Returns the display options used by this display window. */
 CSwordBackend::DisplayOptionsBool& CDisplayWindow::displayOptions() {
-  qWarning("CDisplayWindow::displayOptions()");	
+//  qWarning("CDisplayWindow::displayOptions()");	
 	return m_displayOptions;
 }
 
@@ -204,7 +205,7 @@ void CDisplayWindow::modulesChanged(){
 
 /** Lookup the given key. */
 void CDisplayWindow::lookup( CSwordKey* key ){
-	qWarning("CDisplayWindow::lookup( CSwordKey* key )");
+//	qWarning("CDisplayWindow::lookup( CSwordKey* key )");
 }
 
 /** Returns the module chooser bar. */
@@ -229,6 +230,7 @@ void CDisplayWindow::setModules( const ListCSwordModuleInfo newModules ){
 const bool CDisplayWindow::init( const QString& keyName ){
   initView();
   setMinimumSize( 350,300 );   	
+  setCaption(windowCaption());
   show();
  	initConnections();
   initKeyboardActions();
@@ -264,6 +266,45 @@ void CDisplayWindow::setDisplaySettingsButton( CDisplaySettingsButton* button ){
 
 /** Lookup the current key. Used to refresh the display. */
 void CDisplayWindow::lookup(){
-	qWarning("CDisplayWindow::lookup()");
+//	qWarning("CDisplayWindow::lookup()");
  	lookup( key() );
+}
+
+void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName ) {
+//  qWarning("CDisplayWindow::lookup( const QString&, const QString& )");
+  Q_ASSERT(isReady());
+  if (!isReady())
+  	return;
+
+
+	CSwordModuleInfo* m = backend()->findModuleByName(moduleName);
+	if (m && modules().containsRef(m) && !keyName.isEmpty()) {
+		key()->key(keyName);
+		keyChooser()->setKey(key()); //the key chooser does send an update signal
+	}
+	else {
+		QWidgetList windows = mdi()->windowList();
+  	bool found = false;
+		CDisplayWindow* dw = 0;
+  	for (windows.first(); windows.current(); windows.next()) {
+    	dw = dynamic_cast<CDisplayWindow*>(windows.current());
+     	if (dw && dw->modules().containsRef(m)) {
+				found = true;
+				break;
+			}
+		}
+		if (found) {
+			dw->lookup(moduleName, keyName);
+  	}
+		else {
+    	ListCSwordModuleInfo mList;
+     	mList.append(m);
+			mdi()->emitCreateDisplayWindow(mList, keyName);
+  	}
+	}	
+}
+
+void CDisplayWindow::lookup( const QString& key ) {
+//  qWarning("CDisplayWindow::lookup( const QString& key )");
+	lookup(modules().first()->name(), key);
 }

@@ -46,7 +46,9 @@ public:
   * Store the settings of this window in the given profile window.
   */
   virtual void applyProfileSettings( CProfileWindow* profileWindow );
-  /** Reimplementation. */
+  /**
+  * Reimplementation.
+  */
   static void insertKeyboardActions( KAccel* a );
 
 protected:
@@ -57,6 +59,11 @@ protected:
   virtual void setupPopupMenu();
 
 private:
+  /**
+  * Reimplementation to return the right key.
+  */
+  CSwordLDKey* ldKey();
+
   struct {
     KAction* selectAll;
     KActionMenu* copyMenu;
@@ -78,6 +85,10 @@ private:
 			KAction* entryAndText;
 		} print;
   } m_actions;
+
+protected slots: // Protected slots
+  void previousEntry();
+  void nextEntry();
 };
 
 #endif

@@ -114,15 +114,6 @@ public:
   */
   virtual bool queryClose();
   /**
-  * Lookup the specified key in the given module. If the module is not chosen withing
-  * this display window create a new displaywindow with the right module in it.
-  */
-  virtual void lookup( const QString& module, const QString& key ) {};
-  /**
-  * Lookup the key in the chosen modules.
-  */
-  virtual void lookup( const QString& key ) {};
-  /**
   * Returns the keychooser widget of this display window.
   */
   CKeyChooser* const keyChooser();
@@ -154,6 +145,17 @@ public:
   * Sets the display settings button.
   */
   void setDisplaySettingsButton( CDisplaySettingsButton* button );
+
+public slots:
+  /**
+  * Lookup the specified key in the given module. If the module is not chosen withing
+  * this display window create a new displaywindow with the right module in it.
+  */
+  virtual void lookup( const QString& module, const QString& key );
+  /**
+  * Lookup the key in the chosen modules.
+  */
+  virtual void lookup( const QString& key );
 
 protected:
 	friend class CMDIArea;

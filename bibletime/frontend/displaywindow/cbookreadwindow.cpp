@@ -34,6 +34,10 @@ void CBookReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
 };
 
 void CBookReadWindow::initKeyboardActions() {
+  CReadWindow::initKeyboardActions();
+};
+
+void CBookReadWindow::insertKeyboardActions( KAccel* a ){
 
 };
 

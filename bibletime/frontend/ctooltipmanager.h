@@ -18,7 +18,9 @@
 #ifndef CTOOLTIPMANAGER_H
 #define CTOOLTIPMANAGER_H
 
+//BibleTime includes
 #include "cpointers.h"
+#include "backend/cswordmoduleinfo.h"
 
 //Qt includes
 #include <qstring.h>
@@ -40,7 +42,7 @@ protected: // Protected methods
   /**
   * Returns the text for the tooltip beginning.
   */
-  static const QString keyText(/* const QString& moduleName,*/ const QString& keyName );
+  static const QString keyText(const CSwordModuleInfo::ModuleType moduleType, const QString& keyName );
   /**
   * Returns the text for the given moduleName and key name.
   */

@@ -48,12 +48,14 @@ void CDisplayConnections::saveAsPlain() {
 
 /** Emits the signal. */
 void CDisplayConnections::emitReferenceClicked( const QString& module, const QString& key){
-	emit referenceClicked(module, key);
+	qWarning("CDisplayConnections::emitReferenceClicked( const QString& module, const QString& key)");
+ 	emit referenceClicked(module, key);
 }
 
 /** Emits the signal. */
-void CDisplayConnections::emitReferenceDropped( const QString& module, const QString& key){
-	emit referenceDropped(module, key);
+void CDisplayConnections::emitReferenceDropped( const QString& key){
+	qWarning("CDisplayConnections::emitReferenceDropped( const QString& module, const QString& key)");	
+ 	emit referenceDropped(key);
 }
 
 /** No descriptions */
@@ -160,11 +162,11 @@ void CDisplay::emitReferenceDropped( const QString& reference ){
   QString key;
   CReferenceManager::Type type;
   const bool ok = CReferenceManager::decodeHyperlink(reference, module, key, type);
-  if (module.isEmpty()) {
-    module = CReferenceManager::preferredModule( type );
-  }
+//  if (module.isEmpty()) {
+//    module = CReferenceManager::preferredModule( type );
+//  }
 
-  m_connections->emitReferenceDropped(module, key);
+  m_connections->emitReferenceDropped(key);
 }
 
 /** Returns the connections obect used for signas and slots. */

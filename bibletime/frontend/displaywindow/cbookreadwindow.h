@@ -31,6 +31,8 @@
 class CBookReadWindow : public CLexiconReadWindow  {
   Q_OBJECT
 public:
+	static void insertKeyboardActions( KAccel* a );
+
 	CBookReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
 	virtual ~CBookReadWindow();
   /**
