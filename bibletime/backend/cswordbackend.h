@@ -199,7 +199,7 @@ private:
 	SWFilter *m_gbfFilter;
 	SWFilter *m_plainTextFilter;
 	SWFilter *m_thmlFilter;	
-	SWFilter *m_rwpFilter;
+	//SWFilter *m_rwpFilter;
 	
 	ListCSwordModuleInfo* m_moduleList;
 	errorCode m_errorCode;

@@ -24,6 +24,9 @@
 
 #include "bt_basicfilter.h"
 
+class SWKey;
+class SWModule;
+
 /**
 * This filter converts GBF Text into HTML
 */
@@ -33,7 +36,7 @@ public:
   BT_GBFHTML ();
   virtual bool handleToken(char **buf, const char *token, DualStringMap &userData);
   /** No descriptions */
-  virtual char ProcessText(char * text, int maxlen);
+  virtual char ProcessText(char * text, int maxlen, const SWKey *, const SWModule * = 0);
 };
 
 #endif

@@ -57,8 +57,8 @@ BT_GBFHTML::BT_GBFHTML(){
 }
 
 /** No descriptions */
-char BT_GBFHTML::ProcessText(char * text, int maxlen){
-	BT_BASICFILTER::ProcessText(text, maxlen);
+char BT_GBFHTML::ProcessText(char * text, int maxlen, const SWKey * key, const SWModule * module){
+	BT_BASICFILTER::ProcessText(text, maxlen, key, module);
 	BT_BASICFILTER::ProcessRWPRefs(text, maxlen);
 }
 

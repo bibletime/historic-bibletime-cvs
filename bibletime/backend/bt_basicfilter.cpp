@@ -20,10 +20,9 @@
 #include "creferencemanager.h"
 #include "../frontend/cbtconfig.h"
 
-BT_BASICFILTER::BT_BASICFILTER(){
-}
-
-char BT_BASICFILTER::ProcessText (char *text, int maxlen = -1){
+char BT_BASICFILTER::ProcessText (char *text, int maxlen, const SWKey *key, const SWModule *module){
+	m_key = key;
+	m_module = module;
 	updateSettings();
 	SWBasicFilter::ProcessText(text, maxlen);
 }

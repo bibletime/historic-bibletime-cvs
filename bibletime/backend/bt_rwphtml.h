@@ -19,21 +19,21 @@
 /* $Header$ */
 /* $Revision$ */
 
-#ifndef RWPHTML_H
-#define RWPHTML_H
-
-#include <swfilter.h>
-
-#include <defs.h>
-
-/**
-* This filter converts RWP text to HTML text
-*/
-class BT_RWPHTML: public SWFilter
-{
-public:
-  BT_RWPHTML ();
-  virtual char ProcessText (char *text, int maxlen, const SWKey * key);
-};
-
-#endif
+//#ifndef RWPHTML_H
+//#define RWPHTML_H
+//
+//#include <swfilter.h>
+//
+//#include <defs.h>
+//
+///**
+//* This filter converts RWP text to HTML text
+//*/
+//class BT_RWPHTML: public SWFilter
+//{
+//public:
+//  BT_RWPHTML ();
+//  virtual char ProcessText (char *text, int maxlen, const SWKey * key);
+//};
+//
+//#endif
