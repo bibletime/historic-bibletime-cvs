@@ -224,7 +224,7 @@ void COptionsDialog::initFonts(){
     CToolClass::explanationLabel(
       page,
       i18n("Choose fonts for modules"),
-      i18n("The drop down box lists all languages of the installed modules. First choose a language and decide if the modules of this language need another font as the apllication's default font. Then choose the font for the selected language.")
+      i18n("The drop down box lists all languages of the installed modules. First choose a language and decide if the modules of this language need another font as the application's default font. Then choose the font for the selected language.")
     )
   );
   layout->addSpacing(5);
@@ -245,8 +245,8 @@ void COptionsDialog::initFonts(){
   for ( it = langMap.begin(); it != langMap.end(); ++it ) {
     m_settings.fonts.fontMap.insert(it.data().translatedName(), CBTConfig::get(it.data()) );
   }
- 	for( QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
 
+  for( QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
 		if ( m_settings.fonts.fontMap[it.key()].first ) //show font icon
 	 		m_settings.fonts.usage->insertItem(SmallIcon("fonts"), it.key() );
 		else		//don't show

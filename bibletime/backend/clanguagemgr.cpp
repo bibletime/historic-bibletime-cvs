@@ -90,15 +90,17 @@ const CLanguageMgr::LangMap CLanguageMgr::availableLanguages() {
   //collect the languages abbrevs of all modules
   ListCSwordModuleInfo mods = CPointers::backend()->moduleList();
   QStrList abbrevs;
+  char *abbrev;  
 
   for (CSwordModuleInfo* m = mods.first(); m; m = mods.next()) {
-    if (!abbrevs.contains(m->module()->Lang()))
-      abbrevs.append( m->module()->Lang() );
+    abbrev = m->module()->Lang();
+    if (abbrev && !abbrevs.contains(abbrev)) {
+      abbrevs.append( abbrev );
+    }
   };
 
   //now create a map of available langs
   Language lang;
-  char *abbrev;
   for ( abbrev = abbrevs.first(); abbrev; abbrev = abbrevs.next() ) {
     lang = this->languageForAbbrev(abbrev);
     if (lang.isValid()) {
