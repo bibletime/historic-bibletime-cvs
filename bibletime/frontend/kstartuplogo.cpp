@@ -26,7 +26,7 @@ KStartupLogo::KStartupLogo()
   QPixmap pm;	
   bool success = false;
 
-	success = pm.load(locate("BT_pic","startuplogo.png"));		
+	success = pm.load(locate("BT_pic","startuplogo.jpg"));		
   if ( success )
   	qDebug("Startuplogo sucessfully loaded!");
   else
