@@ -31,7 +31,7 @@ CHTMLEntryDisplay::CHTMLEntryDisplay(){
 //	m_textColor = "black";
 //	m_linkColor = "darkBlue";
 	m_htmlHeader = "<HTML><HEAD></HEAD>";
-	m_htmlBody = "</QT></BODY></HTML>";
+	m_htmlBody = "</BODY></HTML>";
 	m_standardFontName = QFont::defaultFont().family();
 	m_standardFontSize = 4; //we use logical font sizes between 1 and 7
 	m_includeHeader = true;
@@ -55,7 +55,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 			m_htmlHeader + QString::fromLatin1("<BODY>") +
 				QString("<FONT color=\"%1\">\
 <A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
-<HR><FONT face=\"%5\" size=\"%6\">%7</FONT")
+<HR><FONT face=\"%5\" size=\"%6\">%7</FONT>")
 				.arg(m_highlightedVerseColor)
 				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
 				.arg(QString::fromLocal8Bit(module->module()->Description()))	

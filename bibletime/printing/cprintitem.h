@@ -65,7 +65,7 @@ public:
   /**
  	* Returns the moduletext used by this item.
  	*/
-  const QString getModuleText() const;
+  const QString getModuleText();
   /**
  	* Sets the decsription.
  	*/
