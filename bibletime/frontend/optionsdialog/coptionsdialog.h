@@ -177,6 +177,9 @@ protected slots: // Protected slots
    No descriptions
   */
   void deleteProfile();
+signals: // Signals
+  /** No descriptions */
+  void signalSettingsChanged(const int changedSettings);
 };
 
 #endif

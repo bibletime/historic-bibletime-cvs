@@ -350,6 +350,11 @@ protected slots:
   * Toggles between normal and fullscreen mode.
   */
   void toggleFullscreen();
+  /** Is called when settings in
+  the optionsdialog have been
+  changed (ok or apply) */
+  void slotSettingsChanged(const int);
+
 
 
 private slots: // Private slots

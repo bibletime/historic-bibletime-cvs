@@ -60,7 +60,7 @@
 #include <localemgr.h>
 
 COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *parent, const char *name, KAccel* accel )
-	: KDialogBase(TreeList, i18n("Optionsdialog"), Ok | Cancel, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
+	: KDialogBase(TreeList, i18n("Optionsdialog"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
 	m_config = KGlobal::config();	
 	m_important = importantClasses;
@@ -426,6 +426,8 @@ void COptionsDialog::slotOk(){
 	saveDisplayWindow();
 	
 	KDialogBase::slotOk();
+
+  emit signalSettingsChanged( getChangedSettings() );
 }
 
 /*commenting this out until I can figure out why it doesn't work so hot...*/
@@ -434,6 +436,8 @@ void COptionsDialog::slotApply(){
 	saveDisplayWindow();
 	
 	KDialogBase::slotApply();
+
+  emit signalSettingsChanged( getChangedSettings() );
 }
 
 
