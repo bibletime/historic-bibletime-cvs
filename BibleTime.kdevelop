@@ -154,7 +154,6 @@
     <references>
       <pcs>Qt</pcs>
       <pcs>KDElibs</pcs>
-      <pcs>SWORD-CVS</pcs>
     </references>
   </kdevcppsupport>
   <kdevfilecreate>

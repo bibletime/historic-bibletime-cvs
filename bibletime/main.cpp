@@ -168,7 +168,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   ************************************************/
 	//highcolor icons, startlogo for BT <= 1.4
 	aboutData.addCredit("David Blue", I18N_NOOP("High contrast template"), "davidslists@gmx.net");
-	aboutData.addAuthor("Tim Brodie", 	  I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
+	aboutData.addCredit("Tim Brodie", 	  I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
 	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
   //Sponsored many years the www.bibletime.de domain!
   aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founded the Sword project together with many other volunteers."), "scribe@crosswire.org", "http://www.crosswire.org/");   //Started the Sword project
@@ -179,11 +179,14 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   aboutData.addCredit("Nikolay Igotti", I18N_NOOP("Search dialog enhancements"), "olonho@hotmail.com", "");
   // Language codes iso639-1, iso639-2 and SIL language codes
   aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
+	//Smaller frontend enhancements
+	aboutData.addCredit("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
+	//Smaller searchdialog enhancements
+	aboutData.addCredit("Mark Lybarger", 	I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com","");
+	//Smaller frontend enhancements
+	aboutData.addCredit("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
   // handbook documentation
-	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
-	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com","");
-	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
-	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
+	aboutData.addCredit("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
   // comitted search in default bible, opened modules, other smaller things
   aboutData.addCredit("Gary Sims", I18N_NOOP("Search dialog enhancements"), "gary@garysims.co.uk", "");
   //The first lead developer

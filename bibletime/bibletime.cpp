@@ -159,19 +159,22 @@ void BibleTime::readSettings(){
 
  	if ( CBTConfig::get(CBTConfig::autoTileVertical) ) {
  		m_windowAutoTileVertical_action->setChecked( true );
+		m_windowManualMode_action->setChecked(false);
 		slotAutoTileVertical();
  	}
  	else if ( CBTConfig::get(CBTConfig::autoTileHorizontal) ) {
-		slotAutoTileHorizontal();
 		m_windowAutoTileHorizontal_action->setChecked( true );
+		m_windowManualMode_action->setChecked(false);
+		slotAutoTileHorizontal();
  	}
  	else if ( CBTConfig::get(CBTConfig::autoCascade) ) {
  		m_windowAutoCascade_action->setChecked(true);
+		m_windowManualMode_action->setChecked(false);
 		slotAutoCascade();
  	}
  	else {
 		m_windowManualMode_action->setChecked(true);
-		slotManualArrangementMode(); //update items
+		slotManualArrangementMode();
  	}
 }
 

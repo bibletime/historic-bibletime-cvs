@@ -188,46 +188,35 @@ void CMDIArea::myTileHorizontal(){
     return;
   }
 
-	if ((usableWindowList().count() == 1) && usableWindowList().at(0)) {
-		m_appCaption = usableWindowList().at(0)->caption();
-		usableWindowList().at(0)->parentWidget()->showMaximized();
-	}
-	else {
-    QWidget* active = activeWindow();
- 	  tileHorizontal();
-    active->setFocus();
-  }
-}
-
-void CMDIArea::tileHorizontal()
-{
-	// primitive horizontal tiling
 	QPtrList<QWidget> windows = usableWindowList();
 	if ( !windows.count() ) {
 		return;
 	}
 
-	if ((windows.count() == 1) && windows.at(0)) {
-    m_appCaption = windows.at(0)->caption();
+	if ((usableWindowList().count() == 1) && windows.at(0)) {
+		m_appCaption = windows.at(0)->caption();
 		windows.at(0)->parentWidget()->showMaximized();
 	}
 	else {
+    QWidget* active = activeWindow();
+
 		int heightForEach = height() / windows.count();
 		int y = 0;
 		for ( int i = 0; i < int(windows.count()); ++i ) {
 			QWidget *window = windows.at(i);
-			if ( window->testWState( WState_Maximized ) ) {
-					// prevent flicker
-					window->hide();
+			if ( window->isMaximized() ) { // prevent flicker
+// 					window->hide();
 					window->showNormal();
 			}
-			int preferredHeight = window->minimumHeight() + window->parentWidget()->baseSize().height();
-			int actHeight = QMAX(heightForEach, preferredHeight);
+			const int preferredHeight = window->minimumHeight() + window->parentWidget()->baseSize().height();
+			const int actHeight = QMAX(heightForEach, preferredHeight);
 
 			window->parentWidget()->setGeometry( 0, y, width(), actHeight );
 			y += actHeight;
 		}
-	}
+
+    active->setFocus();
+  }
 }
 
 /**  */
@@ -246,30 +235,40 @@ void CMDIArea::myCascade(){
 		windows.at(0)->parentWidget()->showMaximized();
 	}
 	else {
-
 		const int offsetX = 40;
 		const int offsetY = 40;
 		const int windowWidth =  width() - (windows.count()-1)*offsetX;
 		const int windowHeight = height() - (windows.count()-1)*offsetY;
 		
-		int x = 0;
-		int y = 0;
-		
-		for ( int i = 0; i < int(windows.count()); ++i ) {
-			QWidget *window = windows.at(i);
-			if ( window->testWState( WState_Maximized ) ) {
-					// prevent flicker
-					window->hide();
+		int x = width() - windowWidth;
+		int y = height() - windowHeight;
+
+		QWidget* const active = activeWindow();
+
+// 		setUpdatesEnabled(false);
+
+		for ( int i(windows.count()-1); i>=0; --i ) {
+			QWidget* window = windows.at(i);
+			if (window == active) { //leave out the active window which should be the top window
+				continue;
+			}
+			if ( window->isMaximized() ) { // prevent flicker
 					window->showNormal();
 			}
 			window->parentWidget()->setGeometry(x, y, windowWidth, windowHeight);
-			x += offsetX;
-			y += offsetY;
+ 			window->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order
+			window->parentWidget()->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order
+			x -= offsetX;
+			y -= offsetY;
 		}
+		active->parentWidget()->setGeometry(x, y, windowWidth, windowHeight);
+		active->parentWidget()->raise();
+		active->raise();
+		active->setActiveWindow();
+
+// 		setUpdatesEnabled(true);
 	}
 }
-
-
 
 /*!
     \fn CMDIArea::emitWindowCaptionChanged()

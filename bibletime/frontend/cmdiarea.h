@@ -117,10 +117,6 @@ protected: // Protected methods
   void initView();
   QPtrList<QWidget> usableWindowList();
 	bool eventFilter( QObject *o, QEvent *e );
-	/** 
-	* Tiles the windows in a horizontal way.
-	*/
-	void tileHorizontal();
 			
 signals: // Signals
   /**

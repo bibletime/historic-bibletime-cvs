@@ -473,7 +473,7 @@ void BibleTime::loadProfile(CProfile* p){
 
   QWidget* focusWindow = 0;
   
-  for (CProfileWindow* w = windows.first(); w; w = windows.next()) {
+  for (CProfileWindow* w = windows.last(); w; w = windows.prev()) { //from the last one to make sure the order is right in the mdi area
 		const QString key = w->key();
 		QStringList usedModules = w->modules();
 		
