@@ -162,7 +162,6 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			break;
 		case CSwordModuleInfo::GenericBook:			
 			presenter = new CBookPresenter(modules, m_important, m_mdi);
-			qWarning("Generic book support is not working properly! Please wait :)");
 			break;
 		default:
 			presenter = 0;

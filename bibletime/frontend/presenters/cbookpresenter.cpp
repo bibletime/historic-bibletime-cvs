@@ -42,6 +42,8 @@ CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, CImportantClasse
 	initView();
 	show();
 	initConnections();
+	
+	lookup(m_key);
 }
 
 CBookPresenter::~CBookPresenter(){
@@ -65,10 +67,14 @@ void CBookPresenter::initView(){
 
 /** Initializes the Signal / Slot connections */
 void CBookPresenter::initConnections(){
-//	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
-//		this, SLOT(lookup(const QString&))); 	
+	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
+		this, SLOT(lookup(const QString&, const QString&))); 	
+	connect(m_htmlWidget, SIGNAL(referenceDropped(const QString&)),
+		this, SLOT(referenceDropped(const QString&)));
+
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
+		
 //	connect(m_popup, SIGNAL(aboutToShow()),
 //		SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
@@ -104,15 +110,17 @@ void CBookPresenter::lookup(CSwordKey* key) {
 //	m_important->swordBackend->setAllModuleOptions( m_moduleOptions );
 //	m_important->swordBackend->setAllDisplayOptions( m_displayOptions );
 
-	m_moduleList.first()->module()->SetKey(*treeKey);
-	
+	m_moduleList.first()->module()->SetKey(treeKey);//should we pointer or reference?
+  qWarning("have set key!");
+		
 	if (m_moduleList.first()->getDisplay()) {
 		m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
+	  qWarning("Displayed!");
 		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());
 	}	
 	if (m_key != treeKey)
 		m_key->key(treeKey->key());
-		
+  qWarning("finished!");		
 	setUpdatesEnabled(true);
 	setCaption( windowCaption() );
 }

@@ -44,6 +44,7 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordModuleInfo& m ) : CSword
 }	
 
 CSwordBookModuleInfo::~CSwordBookModuleInfo(){
+	qWarning("destructor of CSwordBookModuleInfo");
 }
 
 void CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level ){
@@ -67,10 +68,10 @@ void CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int
 const int CSwordBookModuleInfo::depth() {
 	if (m_depth == -1) {
   	TreeKeyIdx* treeKey = getTree();
-  	ASSERT(treeKey);
+//  	ASSERT(treeKey);
   	if (treeKey) {
     	TreeKeyIdx root = *treeKey;
-    	root.root();		
+    	root.root();
     	int level = 0;
 			computeDepth(root, treeKey, 0);
 		}

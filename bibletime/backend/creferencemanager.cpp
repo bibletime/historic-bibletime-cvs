@@ -33,6 +33,9 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 		case Lexicon:
 			ret = QString::fromLatin1("sword://Lexicon/");
 			break;
+		case GenericBook:
+			ret = QString::fromLatin1("sword://Book/");
+			break;			
 		case MorphHebrew:				
 			ret = QString::fromLatin1("morph://Hebrew/");		
 			break;
@@ -51,14 +54,24 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 
 	if (!module.isEmpty())
 		ret += module + QString::fromLatin1("/");
-	else { //if module is empty uise fallback module
+	else { //if module is empty use fallback module
 		ret += preferredModule(type) + QString::fromLatin1("/");
 	}	
 	
-	if (!key.isEmpty())
-		ret += key;
-	ret += QString::fromLatin1("/");  //necessary?
-	
+	const QString s = (!key.isEmpty() ? key : QString::null);
+	QString newKey = QString::null;
+  //replace all / of the key (e.g. of a CSwordTreeKey) with
+  // the escape sequence \/ so we know it's a link divider!
+#warning "Needs optimization"
+	for(int i = 0; i < s.length(); ++i) {
+		if (s[i] == '/')
+			newKey += "\\/";
+		else
+			newKey += s[i];
+	}
+			
+	ret += newKey;
+	qWarning("hyperlink is %s", ret.latin1());
 	return ret;
 }
 
@@ -85,20 +98,31 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		}
 		else if (ref.left(10) == "Commentary") { // a Commentary hyperlink
 			type = CReferenceManager::Commentary;			
-			ref = ref.mid(11);			//inclusive trailing slash
+			ref = ref.mid(11); //inclusive trailing slash
 		}
 		else if (ref.left(7) == "Lexicon") { // a Lexicon hyperlink
 			type = CReferenceManager::Lexicon;
 			ref = ref.mid(8); //inclusive trailing slash
 		}
+		else if (ref.left(4) == "Book") { // a Book hyperlink
+			type = CReferenceManager::GenericBook;
+			ref = ref.mid(5); //inclusive trailing slash
+		}		
 		// string up to next slash is the modulename
-		const int pos = ref.find("/");
-		if (pos>0) { //found
-			module = ref.mid(0,pos);
-			ref = ref.mid(pos+1);			
+#warning "Newds optimization!"
+		while (true) {
+			const int pos = ref.find("/");
+			if (pos>0 && ref.at(pos-1) != '\\') { //found a slash which is not escaped
+				module = ref.mid(0,pos);
+				ref = ref.mid(pos+1);			
+				break;
+			}
 		}
 		// the rest is the key
-		key = ref;		
+		key = ref;
+		//replace \/ escapes with /
+		key.replace(QRegExp("\\\\/"), "/");
+		qWarning("GBS key is %s", ref.latin1());		
 	}
 	else if (ref.left(8) == "morph://" || ref.left(10) == "strongs://") { //strongs or morph URL have the same format
 		enum PreType {IsMorph, IsStrongs};
@@ -163,9 +187,9 @@ void CReferenceManager::decodeReference(QString &dragreference, QString &module,
 
 /** Returns true if the parameter is a hyperlink. */
 const bool CReferenceManager::isHyperlink( const QString& hyperlink ){
-	return (hyperlink.left(8) == "sword://")
+	return (    hyperlink.left(8)  == "sword://")
 					|| (hyperlink.left(10) == "strongs://")
-					|| (hyperlink.left(8) == "morph://");
+					|| (hyperlink.left(8)  == "morph://");
 }
 
 /** Returns the preferred module name for the given type. */

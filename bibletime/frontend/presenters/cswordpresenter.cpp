@@ -111,15 +111,6 @@ void CSwordPresenter::lookupWord(int moduleID){
 
 /** Look up the key given as parameter. */
 void CSwordPresenter::lookup(const QString& module, const QString& key){
-//	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
-//	if (m && m_moduleList.containsRef(m)) {
-//		if (!key.isEmpty())
-//			m_key->key(key);
-//		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
-//	}
-//	else {
-//		emit lookupInModule(module, key);
-//	}
 }
 
 /** Returns the listof used modules. */

@@ -390,7 +390,9 @@ void CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerIte
 
 /**  */
 void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CSwordModuleInfo* module, const QString& ref){
-	if (!module)
+	qWarning("createNewBookmark: ref is %s", ref.latin1());
+	CSwordModuleInfo* swordModule = dynamic_cast<CSwordModuleInfo*>(module);		
+	if (!swordModule)
 		return;
 	
 	CGroupManagerItem* myItem = 0;	
@@ -407,20 +409,12 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CSwordModuleInf
 	else
 		myItem = new CGroupManagerItem(this,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
 		
-	CSwordModuleInfo* swordModule = dynamic_cast<CSwordModuleInfo*>(module);	
-	ASSERT(swordModule);
-	qDebug("set keys");
-	if (myItem && swordModule) {	//it's a Sword module
-		if (swordModule->getType() == CSwordModuleInfo::Bible || swordModule->getType() == CSwordModuleInfo::Commentary) {	//a bible or commentary
-			CSwordVerseKey* key = new CSwordVerseKey(swordModule);
+	if (myItem) {	//it's a Sword module
+		CSwordKey* key = CSwordKey::createInstance(module);
+		if (key) {
 			key->key(ref);
 			myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
 		}
-		else if (swordModule->getType() == CSwordModuleInfo::Lexicon) {	//a lexicon module
-			CSwordLDKey* key = new CSwordLDKey(swordModule);
-			key->key(ref);
-			myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
-		}			
 	}		
   if (myItem)	//set the description		
 		myItem->setDescription(description);
@@ -1586,21 +1580,23 @@ void CGroupManager::slotReset(){
 }
 
 /** Prints the selected bookmark. */
-void CGroupManager::slotPrintBookmark(){
+void CGroupManager::slotPrintBookmark(){	
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() != CGroupManagerItem::Bookmark) )
 		return;
 	CPrinter*	printer = m_important->printer;	
 	ASSERT(printer);
 	
+	qWarning("CGroupManager::slotPrintBookmark()");
+	
 	CPrintItem*	printItem = new CPrintItem();
 	printItem->setDescription( m_pressedItem->description() );
-	CSwordKey* k = m_pressedItem->getBookmarkKey()->copy();
+	ASSERT(m_pressedItem->getBookmarkKey());	
+	CSwordKey* k = (m_pressedItem->getBookmarkKey() ? m_pressedItem->getBookmarkKey()->copy() : 0);
 	ASSERT(k);
-	qWarning(m_pressedItem->getBookmarkKey()->key().local8Bit());	
-	qWarning("wanna print the key");	
-	qWarning(k->key().local8Bit());
-	printItem->setStartKey( /*m_pressedItem->getBookmarkKey()->copy()*/k );
-	printItem->setStopKey( /*m_pressedItem->getBookmarkKey()->copy()*/k );
+	if (!k)
+		return;
+	printItem->setStartKey( k );
+	printItem->setStopKey( k );
 	printItem->setModule(m_pressedItem->moduleInfo());
 	
 	printer->addItemToQueue( printItem );

@@ -153,35 +153,27 @@ void CGroupManagerItem::update(){
   else if (m_type == Bookmark) {
 		QString title = QString::null;
 		setPixmap(0, BOOKMARK_ICON_SMALL);
-		if ( getBookmarkKey() ) {	//if we have a valid key
-			SWKey* swKey = dynamic_cast<SWKey*>(getBookmarkKey());
-			if (swKey)	// a valid Sword key
-				title = QString::fromLocal8Bit((const char*)*swKey);
+		CSwordKey* bookmarkKey = getBookmarkKey();
+		if ( bookmarkKey ) {	//if we have a valid key
+			title = bookmarkKey->key();
 		}
 		else if (!m_caption.isEmpty()){	//bookmark key is 0, we use now the m_caption member to create a valid key
-			if (m_moduleInfo && ( (m_moduleInfo->getType() == CSwordModuleInfo::Bible) || (m_moduleInfo->getType() == CSwordModuleInfo::Commentary)) ) {	//a Bible or a commentary module
-				CSwordVerseKey* key = new CSwordVerseKey(m_moduleInfo);
+			CSwordKey* key = CSwordKey::createInstance(m_moduleInfo);
+			ASSERT(key);
+			if (key) {
 				m_createdOwnKey = true;
 				key->key(m_caption);
 				setBookmarkKey(key);
-				update();	// this won't lead to a infinite loop because we have now a valid key
-			}
-			else if ( m_moduleInfo && m_moduleInfo->getType() == CSwordModuleInfo::Lexicon ) {	//a lexicon
-				CSwordLDKey* key = new CSwordLDKey(m_moduleInfo);
-				m_createdOwnKey = true;
-				key->key(m_caption);
-				setBookmarkKey(key);
-				update();	// this won't lead to a infinite loop because we have now a valid key
+				update();// this won't lead to a infinite loop because we have now a valid key
 			}
 			else { //no key and now module but a valid caption
 				title = m_caption;
 			}
 		}		
 		if (!title.isEmpty()) {
-			if (m_moduleInfo && m_moduleInfo->module())
-				title = QString::fromLatin1("%1 (%2)").arg(title).arg(m_moduleInfo->name());
-			else
-				title = QString::fromLatin1("%1 (%2)").arg(title).arg(i18n("unknown"));
+				title = QString::fromLatin1("%1 (%2)")
+					.arg(title)
+					.arg(m_moduleInfo ? m_moduleInfo->name() : i18n("unknown"));
 			setText(0,title);
 		}
 	}

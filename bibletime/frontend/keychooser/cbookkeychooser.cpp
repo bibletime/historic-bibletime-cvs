@@ -144,6 +144,7 @@ void CBookKeyChooser::setupKeyChooser(const int number){
  	
  	//restore old settings
 // 	m_key->key( oldKey );
+	qWarning("CBookKeyChooser debug key now!");
  	qWarning(m_key->key().local8Bit());
 }
 
