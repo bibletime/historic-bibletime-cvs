@@ -207,7 +207,7 @@ DIST_COMMON =  Makefile.am Makefile.in
 
 #>- DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 4
-KDE_DIST=initbackend_failed.html first_startup_mod_fs.html no_mods_d.html module_encrypted.html no_modules.html first_startup.html first_time_searchdialog.html 
+KDE_DIST=initbackend_failed.html no_mods_d.html no_modules.html first_startup.html first_time_searchdialog.html first_startup_mod_fs.html module_encrypted.html 
 
 DISTFILES= $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
 

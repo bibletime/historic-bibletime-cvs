@@ -67,7 +67,7 @@ CHTMLWidget::CHTMLWidget(QWidget *parent, const char *name ) : QTextEdit(parent,
 		
 	setTextFormat( Qt::RichText );
 	setReadOnly(true);
-	viewport()->setMouseTracking(true);
+//	viewport()->setMouseTracking(true);
 	
 	initView();	
 	initConnections();
@@ -112,7 +112,11 @@ void CHTMLWidget::initFonts(){
 void CHTMLWidget::initView(){
 	disconnect(dragStartTimer, SIGNAL(timeout()),
 		this, SLOT(startDrag()));
-
+	
+	QStringList paths;	
+	KURL url(CToolClass::locatehtml("bibletime/index.html"));	
+	mimeSourceFactory()->addFilePath(url.directory());
+	
 	setAcceptDrops(true);
 	viewport()->setAcceptDrops(true);
 }
@@ -120,6 +124,8 @@ void CHTMLWidget::initView(){
 
 /** Initializes the connections to SIGNALs */
 void CHTMLWidget::initConnections(){
+	connect( this, SIGNAL( linkClicked( const QString & ) ),
+		this, SLOT( setSource( const QString & ) ) );	
 	if (!isReadOnly()) {
 	 	connect(this, SIGNAL(currentFontChanged(const QFont&)),
 			SLOT(slotCurrentFontChanged(const QFont&)));
@@ -144,52 +150,40 @@ void CHTMLWidget::refresh(){
 	initFonts();
 }
 
-/** A url was called or setSource was called. If the url is a refrence emit rerenceClicked. */
-void CHTMLWidget::slotURLClicked(const QString& url){
-	qDebug("CHTMLWidget::slotURLClicked");
-	if (url.left(8) == "sword://") {
-		// it's reference, emit reference selected
-		emit referenceClicked(url);
-	}
-}
-
 /** Loads a HTML file in the widget. */
 void CHTMLWidget::setHTMLSource(const QString& url){
+	qWarning(url.local8Bit());
 	if (url.left(1) != "/") {	//a filename without path
-		qDebug("CHTMLWidget::setHTMLSource filename without path!");
 		QString myFile = CToolClass::locatehtml( url );
 		if (QFile::exists(myFile)) {
-			qDebug("file exists!");
 			KURL kurl(myFile);
   		mimeSourceFactory()->addFilePath( kurl.directory() );
 			
 			//read in the HTML file and use setText()
-			QString text = QString::null;
 			QFile file(myFile);
 			if ( file.open(IO_ReadOnly) ) {    // file opened successfully
 				QTextStream t( &file );        // use a text stream
-				text = t.read();
+				const QString text = t.read();
 				file.close();
-		
-				setText( text );				
+				qDebug("setText");
+				setText( text/*, kurl.directory()*/ );
 			}
 		}
-		else setText( i18n("<B>HTML page %1 not found!<BR>Please check the follwing points:	permissions of $KDEDIR/share/apps/bibletime and subdirecries, installation of files.").arg(url) );
+		else
+			setText( i18n("Unable to find the page %1!").arg(url) );
 	}
 	else {
 		if (QFile::exists(url)) {
-			qDebug("file exists!");
+			qWarning("file exists!");
 			//read in the HTML file and use setText()
 			KURL kurl(url);
-  		mimeSourceFactory()->addFilePath( kurl.directory() );
-			
-			QString text = QString::null;			
+  		mimeSourceFactory()->addFilePath( kurl.directory() );			
 			QFile file(url);
 			if ( file.open(IO_ReadOnly) ) {    // file opened successfully
 				QTextStream t( &file );        // use a text stream
-				text = t.read();
+				const QString text = t.read();
 				file.close();
-				setText( text );
+				setText( text/*, kurl.directory()*/ );
 			}
 		}
 	}
@@ -601,12 +595,13 @@ bool CHTMLWidget::linksEnabled() const {
 
 /** Reimplementation from QTextView. */
 void CHTMLWidget::emitLinkClicked( const QString& s){
-	if (s.left(8) == "sword://") {
+	if (s.left(8) == "sword://")
 		emit referenceClicked(s.mid(8,s.length()-9)); //the URL has a trailing slash at the end
-	}
 	else {
-		QTextEdit::emitLinkClicked(s);
-		//emit referenceClicked(s);
+		QString url = s;
+		if (s.left(1) == "/")
+			url = s.right(s.length()-1);
+		emit linkClicked(url);
 	}
 }
 
@@ -617,4 +612,47 @@ void CHTMLWidget::copyDocument(){
 		cb->setText(document()->text());
 	}
 	
+}
+
+/** Sets the source of this widget. */
+void CHTMLWidget::setSource(const QString& name){
+	qWarning(name.latin1());	
+	if ( isVisible() )
+		qApp->setOverrideCursor( waitCursor );
+	QString source = name;
+	QString mark;
+	int hash = name.find('#');
+	if ( hash != -1) {
+		source  = name.left( hash );
+		mark = name.mid( hash+1 );
+	}
+	if ( source.left(5) == "file:" )
+		source = source.mid(6);
+
+	QString url = mimeSourceFactory()->makeAbsolute( source, context() );
+	qWarning(url.latin1());
+	QString txt;
+	bool dosettext = false;
+
+	if ( !source.isEmpty()/* && url != d->curmain */) {
+		const QMimeSource* m = mimeSourceFactory()->data( source, context() );
+		if ( !m )
+			qWarning("QTextBrowser: no mimesource for %s", source.latin1() );
+		else if ( !QTextDrag::decode( m, txt ) )
+			qWarning("QTextBrowser: cannot decode %s", source.latin1() );
+		dosettext = true;
+	}	
+	if ( !mark.isEmpty() ) {
+		url += "#";
+		url += mark;
+	}	
+	if ( dosettext )
+		setText( txt, url );
+
+	if ( isVisible() && !mark.isEmpty() )
+		scrollToAnchor( mark );
+	else
+		setContentsPos( 0, 0 );	
+	if ( isVisible() )
+		qApp->restoreOverrideCursor();
 }

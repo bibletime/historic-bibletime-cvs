@@ -49,12 +49,9 @@ CHTMLDialog::CHTMLDialog(const QString url, QWidget* parent, const char *name)
 	html_widget = new CHTMLWidget(this);
 		
 	setMainWidget(html_widget);
-	ASSERT(html_widget);
-	
-	html_widget->setHTMLSource( url );
-	
+	ASSERT(html_widget);	
+	html_widget->setHTMLSource( url );	
 	resize(500,400);
-	qDebug("finished constructor");	
 }
 
 CHTMLDialog::~CHTMLDialog(){

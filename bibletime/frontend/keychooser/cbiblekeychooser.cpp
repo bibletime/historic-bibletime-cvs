@@ -95,7 +95,6 @@ CKey *CBibleKeyChooser::getKey(){
 }
 
 void CBibleKeyChooser::setKey(CKey* key){
-	qWarning("BibleCC::setKey");
 	if (!(m_key = dynamic_cast<CSwordVerseKey*>(key)))
 		return;
 		

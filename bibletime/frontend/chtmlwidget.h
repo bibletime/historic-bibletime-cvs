@@ -101,6 +101,8 @@ public slots: // Public slots
   * Copies the displayed document into the clipboard.
   */
   void copyDocument();
+  /** Sets the source of this widget. */
+  void setSource(const QString& name);
 
 
 protected: // Protected attributes
@@ -150,11 +152,6 @@ protected: // Protected attributes
   virtual void contentsMouseReleaseEvent( QMouseEvent* e);
 
 protected slots: // Protected slots
-  /**
-  * A url was called or setSource was called.
-  * If the url is a refrence emit rerenceClicked.
-  */
-  void slotURLClicked(const QString&);
   /**
   * No descriptions
   */
@@ -256,18 +253,10 @@ private:
 	KColorButton* m_colorChooser;
 			
 signals: // Signals
-  /**
-  * No descriptions
-  */
   void sigDeleteDocument();
-  /**
-  * No descriptions
-  */
   void sigSaveDocument(const QString);
-	/**
-	* This signal is emitted when a reference was clicked
-  */
   void referenceClicked(const QString&);
+  void linkClicked(const QString&);
 };
 
 

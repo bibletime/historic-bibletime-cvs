@@ -112,9 +112,9 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 
 	
  	KApplication app;
-// 	QFont f = app.font();
-// 	f.setCharSet(QFont::AnyCharSet);
-// 	app.setFont(f); 	
+ 	QFont f = app.font();
+ 	f.setCharSet(QFont::AnyCharSet);
+ 	app.setFont(f); 	
  	
  	KGlobal::dirs()->addResourceType("BT_pic", KStandardDirs::kde_default("data") + kapp->name() + "/pics/");
 

@@ -66,16 +66,13 @@ CKey* CLexiconKeyChooser::getKey(){
 }
 
 void CLexiconKeyChooser::setKey(CKey* key){	
-	const QString oldKey = m_key ? m_key->getKey() : QString();
 	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
-		return;
-		
+		return;		
 	m_widget->ComboBox->setCurrentItem(
 		m_widget->ComboBox->listBox()->index(
 			m_widget->ComboBox->listBox()->findItem( m_key->getKey()  )));
 	m_widget->adjustSize();
-	if (m_key->getKey() != oldKey && !oldKey.isEmpty())
-		emit keyChanged( m_key );
+	emit keyChanged( m_key );
 }
 
 void CLexiconKeyChooser::activated(int index){
