@@ -593,7 +593,7 @@ const bool CFolderBase::allowAutoOpen( const QMimeSource* ) const{
 
 /** Reimplementation. Returns false because folders have no use for drops (except for the bookmark folders) */
 bool CFolderBase::acceptDrop(const QMimeSource*){
-  qWarning("CFolderBase::acceptDrop");
+//  qWarning("CFolderBase::acceptDrop");
   return false;
 }
 
@@ -1039,7 +1039,7 @@ bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
 }
 
 void CBookmarkFolder::dropped(QDropEvent *e) {
-  qWarning("CBookmarkFolder::dropped?");  
+  qWarning("CBookmarkFolder::dropped?");
   if (acceptDrop(e)) {
     qWarning("CBookmarkFolder: item drop accepted");
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
@@ -1053,7 +1053,7 @@ void CBookmarkFolder::dropped(QDropEvent *e) {
       qWarning("created new item");
       if (previousItem) {
         i->moveAfter( previousItem );
-        qWarning("moved new item");        
+        qWarning("moved new item");
       }
       i->init();
       previousItem = i;

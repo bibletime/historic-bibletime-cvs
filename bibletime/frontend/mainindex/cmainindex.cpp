@@ -261,13 +261,13 @@ void CMainIndex::initTree(){
 /** No descriptions */
 void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* after){
 //  qWarning("CMainIndex::dropped");
-//   Q_ASSERT(after);
-//   Q_ASSERT(parent);
-// 
-// 	if (after)
-// 		qWarning("DROP AFTER %s", after->text(0).latin1());
-// 	if (parent)
-// 		qWarning("DROP parent %s", parent->text(0).latin1());
+   Q_ASSERT(after);
+   Q_ASSERT(parent);
+
+ 	if (after)
+ 		qWarning("DROP AFTER %s", after->text(0).latin1());
+ 	if (parent)
+ 		qWarning("DROP parent %s", parent->text(0).latin1());
 
   //the drop was started in this main index widget
   if (m_itemsMovable && e->source() == viewport()) {
@@ -285,20 +285,19 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
 
   //finally do the drop, either with external drop data or with the moved items' data
 	CItemBase* parentItem = dynamic_cast<CItemBase*>(parent);
-	CItemBase* afterItem = dynamic_cast<CItemBase*>(parent);
-	if (parentItem && afterItem) { //no toplevel drop
-		parentItem->setOpen(true);
-		parentItem->dropped(e);
+	CItemBase* afterItem = dynamic_cast<CItemBase*>(after);
+	if (afterItem && afterItem->isFolder()) {
+			afterItem->setOpen(true);
+			afterItem->dropped(e);
 	}
-	else if (!parentItem && afterItem) { //drop into the toplevel Bookmarks folder
-		afterItem->setOpen(true);
-		afterItem->dropped(e);
+	else if (afterItem && !afterItem->isFolder() && parentItem) {
+			parentItem->setOpen(true);
+			parentItem->dropped(e);
 	}
-	else if (parentItem) { //shouldn't happen I think
-		parentItem->setOpen(true);
-		parentItem->dropped(e);
+	else if (parentItem) {
+			parentItem->setOpen(true);
+			parentItem->dropped(e);
 	}
-
 }
 
 /** No descriptions */
