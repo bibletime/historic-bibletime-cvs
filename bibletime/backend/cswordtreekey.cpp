@@ -71,12 +71,3 @@ CSwordTreeKey& CSwordTreeKey::operator = (const QString& keyname ){
   key(keyname);
   return *this;
 }
-
-const int CSwordTreeKey::compare(const CSwordKey& k) {
-	const SWKey* swk = dynamic_cast<const SWKey*>(&k);
-	if (swk) {
-		return TreeKeyIdx::compare(*swk);
-	}
-	
-	return -1; //shouldn't happen
-}

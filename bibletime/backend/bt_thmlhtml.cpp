@@ -74,6 +74,9 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 	QStringList list;
 	int lastMatchEnd = 0;
 	int pos = tag.search(t,0);
+	if (pos == -1) { //no strong or morph code found in this text
+		return 1; //WARNING: Return alread here
+	}
 	
 	while (pos != -1) {
 		list.append(t.mid(lastMatchEnd, pos+tag.matchedLength()-lastMatchEnd));
@@ -230,7 +233,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
   				myUserData->suspendTextPassThru = false;
   			}
   			else { // like "<scripRef>John 3:16</scripRef>"
-					buf.append(" <span class=\"crossreference\" crossrefs=\"");
+					buf.append("<span class=\"crossreference\" crossrefs=\"");
  					buf.append(myUserData->lastTextNode.c_str());
 					buf.append("\">");
 					buf.append(myUserData->lastTextNode.c_str());
@@ -241,7 +244,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       }		
       else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
         myUserData->inscriptRef = true;
-				buf.append(" <span class=\"crossreference\" crossrefs=\"");
+				buf.append("<span class=\"crossreference\" crossrefs=\"");
 				buf.append(tag.getAttribute("passage"));
 				buf.append("\">");
       }

@@ -7,8 +7,8 @@ it's possible.
 
 BibleTime @VERSION@ requires:
 	-KDE  >= 3.0 (at least the libraries (kdelibs) and the base package (kdebase))
-	-SWORD 1.5.7
-	-CURL >= 7.10
+	-SWORD 1.5.8
+	-CURL >= 7.9
 
 If you don't have the sources already please browse to www.bibletime.info to see
 a list of required packages with their download URLs.
@@ -19,13 +19,13 @@ and BibleTime.
 
 Complete instructions for the installation of BibleTime, supporting programs,
 and text modules can be found in the project documentation
-at http://www.bibletime.info/documentation.
+at http://www.bibletime.info/.
 
 
 Compile BibleTime @VERSION@:
 ---------------------------
-cd ~/bibletime				#move to your source directory
-kde-config --prefix			#Finds your kde directory (optional)
+cd ~/bibletime				# Move to your source directory
+kde-config --prefix		# Finds your kde directory (optional)
 
 export QTDIR=<QT source directory>
 export KDEDIR=<KDE directory (where KDE is installed)>

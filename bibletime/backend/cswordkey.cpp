@@ -68,7 +68,7 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
 	}
   
 	if (!key().isNull()) { //we have valid text
-    const QString text = QString::fromUtf8(m_module->module()->RenderText());
+    const QString text = QString::fromUtf8( m_module->module()->RenderText() );
     
 		if (mode == HTMLEscaped) {
       //we have to encode all UTF-8 in HTML escapes
@@ -80,10 +80,12 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
       for (unsigned int i = 0; i < length; ++i) {
         c = text.at(i);
         if (c.latin1()) { //normal latin1 character
-          ret += c;
+          ret.append(c);
 				}
         else {//unicode character, needs to be escaped
-          ret += QString::fromLatin1("&#%1;").arg(c.unicode());
+          ret.append("&#")
+						 .append(c.unicode())
+						 .append(";");
 				}
       };
       return ret;

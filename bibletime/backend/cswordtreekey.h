@@ -52,9 +52,6 @@ public:
   * Assignment operator.
   */
   virtual CSwordTreeKey& operator = (const QString& keyname );
-
-protected:
-	virtual const int compare(const CSwordKey& k);
 };
 
 #endif

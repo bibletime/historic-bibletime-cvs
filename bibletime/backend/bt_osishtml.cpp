@@ -80,14 +80,12 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 		// <w> tag
 		if (!strcmp(tag.getName(), "w")) {		
-// 	 		qWarning("processing: %s", token);
 			if ((!tag.isEmpty()) && (!tag.isEndTag())) { //start tag
 				const char *attrib;
 				const char *val;
 				
 				XMLTag outTag("span");
 				SWBuf attrValue;
-// 				outTag = "<span>";
 				
 				if ((attrib = tag.getAttribute("xlit"))) {
 					val = strchr(attrib, ':');
@@ -191,9 +189,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					}
 
 					if (refList.length()) {
-/*						buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\"> ",
-							refList.c_str()
-						);*/
 						buf.append(" <span class=\"crossreference\" crossrefs=\"");
 						buf.append(refList.c_str());
 						buf.append("\"> ");
@@ -216,11 +211,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           myUserData->noteType = BT_UserData::StrongsMarkup;
         }
         else {	
-/*					buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">n</span> ", 
-						myModule->Name(),
-						myUserData->key->getShortText(),
-						tag.getAttribute("swordFootnote")
-					);*/
 					buf.append(" <span class=\"footnote\" note=\"");
 					buf.append(myModule->Name());
 					buf.append('/');
@@ -418,7 +408,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
  		// <milestone> tag
 		else if (!strcmp(tag.getName(), "milestone")) {
 			const SWBuf type = tag.getAttribute("type");
-			if (type == "screen" || type == "line") {//line break
+			if ((type == "screen") || (type == "line")) {//line break
 				buf.append("<br/>");
 				userData->supressAdjacentWhitespace = true;
 			}

@@ -115,9 +115,6 @@ public:
 	* Assignment operator for more ease of use.
 	*/
   virtual CSwordVerseKey& operator = (const QString& keyname);
-
-protected:
-	virtual const int compare(const CSwordKey& k);
 };
 
 #endif

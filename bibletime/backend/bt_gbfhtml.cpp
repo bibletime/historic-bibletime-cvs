@@ -97,7 +97,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 
  	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
 	if (m && !(m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::morphTags) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
-		return 1;
+		return 1; //WARNING: Return alread here
 	}
 
 	//Am Anfang<WH07225> schuf<WH01254><WTH8804> Gott<WH0430> Himmel<WH08064> und Erde<WH0776>.
@@ -109,6 +109,9 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	QStringList list;
 	int lastMatchEnd = 0;
 	int pos = tag.search(t,0);
+	if (pos == -1) { //no strong or morph code found in this text
+		return 1; //WARNING: Return alread here
+	}
 	
 	//split the text into parts which end with the GBF tag marker for strongs/lemmas
 	while (pos != -1) {
