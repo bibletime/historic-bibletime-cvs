@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-06-17 09:52+0200\n"
+"POT-Creation-Date: 2001-07-11 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,6 +181,7 @@ msgstr ""
 
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
 #: bibletime/bibletime_slots.cpp:100 bibletime/bibletime_slots.cpp:109
+#: bibletime/frontend/chtmlwidget.cpp:135
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:297
 msgid "Display window"
@@ -207,7 +208,7 @@ msgstr ""
 #: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
 #: bibletime/printing/cprinterdialog.cpp:617
 #: bibletime/printing/cstyleeditordialog.cpp:182
-#: bibletime/printing/cstylelist.cpp:130
+#: bibletime/printing/cstylelist.cpp:132
 msgid "Standard"
 msgstr ""
 
@@ -264,17 +265,17 @@ msgstr ""
 msgid "Enable this part"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:468
+#: bibletime/frontend/chtmlwidget.cpp:480
 #: bibletime/printing/cstyleeditordialog.cpp:96
 msgid "Left"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:470
+#: bibletime/frontend/chtmlwidget.cpp:482
 #: bibletime/printing/cstyleeditordialog.cpp:97
 msgid "Center"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:472
+#: bibletime/frontend/chtmlwidget.cpp:484
 #: bibletime/printing/cstyleeditordialog.cpp:98
 msgid "Right"
 msgstr ""
@@ -565,14 +566,14 @@ msgstr ""
 msgid "Chapter as HTML"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:225
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
+#: bibletime/frontend/chtmlwidget.cpp:237
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
 msgid ""
 "*.txt | Text file (*.txt)\n"
 "*.* | All files (*.*)"
 msgstr ""
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
 msgid "Save verse with text as ..."
 msgstr ""
 
@@ -782,8 +783,8 @@ msgstr ""
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:232
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:312
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:549
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:580
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:552
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:586
 msgid ""
 "*.txt | Text files\n"
 " *.* | All files (*.*)"
@@ -805,8 +806,8 @@ msgstr ""
 msgid "Key with text"
 msgstr ""
 
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:549
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:580
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:552
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:586
 msgid "Save key ..."
 msgstr ""
 
@@ -898,42 +899,42 @@ msgid ""
 "HREF=\"mailto:info@bibletime.de\">info@bibletime.de</A>!"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:198
+#: bibletime/frontend/chtmlwidget.cpp:210
 #, ycp-format
 msgid "Unable to find the page %1!"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:218
+#: bibletime/frontend/chtmlwidget.cpp:230
 msgid ""
 "*.html *.htm *.shtml *.shtm | HTML files\n"
 " *.* | All files (*.*)"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:218
+#: bibletime/frontend/chtmlwidget.cpp:230
 msgid "Save text as HTML page ..."
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:225
+#: bibletime/frontend/chtmlwidget.cpp:237
 msgid "Save text as plain text ..."
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:453
+#: bibletime/frontend/chtmlwidget.cpp:465
 msgid "Choose a font:"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:457
+#: bibletime/frontend/chtmlwidget.cpp:469
 msgid "Choose font size"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:461
+#: bibletime/frontend/chtmlwidget.cpp:473
 msgid "Bold"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:465
+#: bibletime/frontend/chtmlwidget.cpp:477
 msgid "Underlined"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:474
+#: bibletime/frontend/chtmlwidget.cpp:486
 msgid "Justify"
 msgstr ""
 

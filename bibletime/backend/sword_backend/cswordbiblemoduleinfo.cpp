@@ -54,6 +54,10 @@ QStringList* CSwordBibleModuleInfo::getBooks() {
 	}
 	
 	const QString modulePath = backend()->getModulePath(QString::fromLocal8Bit(module()->Name()));
+	if (modulePath.isEmpty()) {
+		m_hasOT = m_hasNT = true;
+	}
+	
 	if (m_hasOT == -1)
 		m_hasOT = QFile::exists(QString::fromLatin1("%1/ot.vss").arg(modulePath)) || QFile::exists(QString::fromLatin1("%1/ot.bzs").arg(modulePath));
 	if (m_hasNT == -1)

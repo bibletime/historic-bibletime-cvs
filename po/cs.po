@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bibletime-1.0\n"
-"POT-Creation-Date: 2001-06-17 09:52+0200\n"
+"POT-Creation-Date: 2001-07-11 12:48+0200\n"
 "PO-Revision-Date: 2001-06-11 11:02GMT+1\n"
 "Last-Translator: Michal Rovnaník <Michal.Rovnanik@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -188,6 +188,7 @@ msgstr ""
 
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
 #: bibletime/bibletime_slots.cpp:100 bibletime/bibletime_slots.cpp:109
+#: bibletime/frontend/chtmlwidget.cpp:135
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:297
 msgid "Display window"
@@ -214,7 +215,7 @@ msgstr "Jméno:"
 #: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
 #: bibletime/printing/cprinterdialog.cpp:617
 #: bibletime/printing/cstyleeditordialog.cpp:182
-#: bibletime/printing/cstylelist.cpp:130
+#: bibletime/printing/cstylelist.cpp:132
 msgid "Standard"
 msgstr "Standard"
 
@@ -271,17 +272,17 @@ msgstr "Text modulu"
 msgid "Enable this part"
 msgstr "Povolit tuto část"
 
-#: bibletime/frontend/chtmlwidget.cpp:468
+#: bibletime/frontend/chtmlwidget.cpp:480
 #: bibletime/printing/cstyleeditordialog.cpp:96
 msgid "Left"
 msgstr "Zarovnání vlevo"
 
-#: bibletime/frontend/chtmlwidget.cpp:470
+#: bibletime/frontend/chtmlwidget.cpp:482
 #: bibletime/printing/cstyleeditordialog.cpp:97
 msgid "Center"
 msgstr "Zarovnání na střed"
 
-#: bibletime/frontend/chtmlwidget.cpp:472
+#: bibletime/frontend/chtmlwidget.cpp:484
 #: bibletime/printing/cstyleeditordialog.cpp:98
 msgid "Right"
 msgstr "Zarovnání vpravo"
@@ -572,8 +573,8 @@ msgstr "Kapitolu jako obyčejný text"
 msgid "Chapter as HTML"
 msgstr "Kapitolu jako HTML"
 
-#: bibletime/frontend/chtmlwidget.cpp:225
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
+#: bibletime/frontend/chtmlwidget.cpp:237
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
 msgid ""
 "*.txt | Text file (*.txt)\n"
 "*.* | All files (*.*)"
@@ -581,7 +582,7 @@ msgstr ""
 "*.txt | Textové soubory (*.txt)\n"
 "*.* | Všechny soubory (*.*)"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
 msgid "Save verse with text as ..."
 msgstr "Uložit verš s textem jako ..."
 
@@ -791,8 +792,8 @@ msgstr "Výsledek hledání \"%1\" v modulu \"%2\"\n"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:232
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:312
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:549
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:580
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:552
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:586
 msgid ""
 "*.txt | Text files\n"
 " *.* | All files (*.*)"
@@ -816,8 +817,8 @@ msgstr "Odkaz"
 msgid "Key with text"
 msgstr "Odkaz s textem"
 
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:549
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:580
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:552
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:586
 msgid "Save key ..."
 msgstr "Uložit klíč ..."
 
@@ -914,12 +915,12 @@ msgstr ""
 "se Vám nedaří tento problém vyřešit, kontaktujte nás prosím na adrese\t\t<A "
 "HREF=\"mailto:info@bibletime.de\">info@bibletime.de</A>!"
 
-#: bibletime/frontend/chtmlwidget.cpp:198
+#: bibletime/frontend/chtmlwidget.cpp:210
 #, ycp-format
 msgid "Unable to find the page %1!"
 msgstr "Nemohu najít stránku %1!"
 
-#: bibletime/frontend/chtmlwidget.cpp:218
+#: bibletime/frontend/chtmlwidget.cpp:230
 msgid ""
 "*.html *.htm *.shtml *.shtm | HTML files\n"
 " *.* | All files (*.*)"
@@ -927,31 +928,31 @@ msgstr ""
 "*.html *.htm *.shtml *.shtm | HTML soubory\n"
 " *.* | Všechny soubory (*.*)"
 
-#: bibletime/frontend/chtmlwidget.cpp:218
+#: bibletime/frontend/chtmlwidget.cpp:230
 msgid "Save text as HTML page ..."
 msgstr "Uložit text jako HTML stránku ..."
 
-#: bibletime/frontend/chtmlwidget.cpp:225
+#: bibletime/frontend/chtmlwidget.cpp:237
 msgid "Save text as plain text ..."
 msgstr "Uložit stránku jako obyčejný text ..."
 
-#: bibletime/frontend/chtmlwidget.cpp:453
+#: bibletime/frontend/chtmlwidget.cpp:465
 msgid "Choose a font:"
 msgstr "Zvolte písmo:"
 
-#: bibletime/frontend/chtmlwidget.cpp:457
+#: bibletime/frontend/chtmlwidget.cpp:469
 msgid "Choose font size"
 msgstr "Zvolte velikost písma"
 
-#: bibletime/frontend/chtmlwidget.cpp:461
+#: bibletime/frontend/chtmlwidget.cpp:473
 msgid "Bold"
 msgstr "Tučné"
 
-#: bibletime/frontend/chtmlwidget.cpp:465
+#: bibletime/frontend/chtmlwidget.cpp:477
 msgid "Underlined"
 msgstr "Podtržené"
 
-#: bibletime/frontend/chtmlwidget.cpp:474
+#: bibletime/frontend/chtmlwidget.cpp:486
 msgid "Justify"
 msgstr "Zarovnat do bloku"
 

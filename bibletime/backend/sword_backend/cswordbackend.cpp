@@ -341,6 +341,20 @@ const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& modul
 		}
 		closedir(dir);
 	}
+	else { //try to read mods.conf
+		//moduleConfig = SWConfig( configPath + "/mods.conf" );
+		moduleConfig = SWConfig("");//global config		
+		section =	config->Sections.find( (const char*)module.local8Bit() );		
+		foundConfig = ( section != config->Sections.end() );		
+		
+		ConfigEntMap::iterator entry;
+		if (foundConfig) { //copy module section
+			for (entry = (*section).second.begin(); entry != (*section).second.end(); entry++) {
+					moduleConfig.Sections[(*section).first].insert(ConfigEntMap::value_type((*entry).first, (*entry).second));
+			}
+		}			
+	}
+	
 	if (!foundConfig && configType != 2) { //search in $HOME/.sword/
 		QString myPath = QString::fromLatin1("%1/.sword/mods.d").arg(getenv("HOME"));
 		dir = opendir(myPath.latin1());

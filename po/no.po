@@ -1,15 +1,13 @@
 msgid ""
 msgstr ""
-"<<<<<<< no.po"
-"PO-Revision-Date: 2001-06-17 20:56CET\n"
-"======="
-"POT-Creation-Date: 2001-06-17 09:52+0200\n"
+"POT-Creation-Date: 2001-07-11 12:48+0200\n"
 "PO-Revision-Date: 2001-06-17 20:56CET\n"
 "Last-Translator: Espen Knut Trydal <etrydal@postkassa.no>\n"
-">>>>>>> 1.21"
-"Language-Team: Norsk Bokmål <->\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"<<<<<<< no.poPO-Revision-Date: 2001-06-17 20:56CET\n"
+"=======POT-Creation-Date: 2001-06-17 09:52+0200\n"
+">>>>>>> 1.21Language-Team: Norsk Bokmål <->\n"
 "X-Generator: KBabel 0.8\n"
 
 #: bibletime/rc-dummy.cpp:2
@@ -189,6 +187,7 @@ msgstr ""
 
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
 #: bibletime/bibletime_slots.cpp:100 bibletime/bibletime_slots.cpp:109
+#: bibletime/frontend/chtmlwidget.cpp:135
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:297
 msgid "Display window"
@@ -215,7 +214,7 @@ msgstr "Navn:"
 #: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
 #: bibletime/printing/cprinterdialog.cpp:617
 #: bibletime/printing/cstyleeditordialog.cpp:182
-#: bibletime/printing/cstylelist.cpp:130
+#: bibletime/printing/cstylelist.cpp:132
 msgid "Standard"
 msgstr "Standard"
 
@@ -272,17 +271,17 @@ msgstr "Modultekst"
 msgid "Enable this part"
 msgstr "Slå på denne delen"
 
-#: bibletime/frontend/chtmlwidget.cpp:468
+#: bibletime/frontend/chtmlwidget.cpp:480
 #: bibletime/printing/cstyleeditordialog.cpp:96
 msgid "Left"
 msgstr "Venstre"
 
-#: bibletime/frontend/chtmlwidget.cpp:470
+#: bibletime/frontend/chtmlwidget.cpp:482
 #: bibletime/printing/cstyleeditordialog.cpp:97
 msgid "Center"
 msgstr "Sentrert"
 
-#: bibletime/frontend/chtmlwidget.cpp:472
+#: bibletime/frontend/chtmlwidget.cpp:484
 #: bibletime/printing/cstyleeditordialog.cpp:98
 msgid "Right"
 msgstr "Høyre"
@@ -573,8 +572,8 @@ msgstr "Kapittel som ren tekst"
 msgid "Chapter as HTML"
 msgstr "Kapittel som HTML"
 
-#: bibletime/frontend/chtmlwidget.cpp:225
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
+#: bibletime/frontend/chtmlwidget.cpp:237
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
 msgid ""
 "*.txt | Text file (*.txt)\n"
 "*.* | All files (*.*)"
@@ -582,7 +581,7 @@ msgstr ""
 "*.txt | Tekst fil (*.txt)\n"
 "*.* | Alle filer (*.*)"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
 msgid "Save verse with text as ..."
 msgstr "Lagre vers med tekst som ..."
 
@@ -792,8 +791,8 @@ msgstr "Søk i resultat for \"%1\" i modul \"%2\"\n"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:232
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:312
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:549
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:580
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:552
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:586
 msgid ""
 "*.txt | Text files\n"
 " *.* | All files (*.*)"
@@ -817,8 +816,8 @@ msgstr "Nøkkel"
 msgid "Key with text"
 msgstr "Nøkkel med tekst"
 
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:549
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:580
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:552
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:586
 msgid "Save key ..."
 msgstr "Lagre nøkkel ..."
 
@@ -915,12 +914,12 @@ msgstr ""
 "ikke klarer å løse problemet så kan du kontakte BibleTime teamet på\t\t<A "
 "HREF=\"mailto:info@bibletime.de\">info@bibletime.de</A>!"
 
-#: bibletime/frontend/chtmlwidget.cpp:198
+#: bibletime/frontend/chtmlwidget.cpp:210
 #, ycp-format
 msgid "Unable to find the page %1!"
 msgstr "Finner ikke siden %1!"
 
-#: bibletime/frontend/chtmlwidget.cpp:218
+#: bibletime/frontend/chtmlwidget.cpp:230
 msgid ""
 "*.html *.htm *.shtml *.shtm | HTML files\n"
 " *.* | All files (*.*)"
@@ -928,31 +927,31 @@ msgstr ""
 "*.html *.htm *.shtml *.shtm | HTML filer\n"
 " *.* | Alle filer (*.*)"
 
-#: bibletime/frontend/chtmlwidget.cpp:218
+#: bibletime/frontend/chtmlwidget.cpp:230
 msgid "Save text as HTML page ..."
 msgstr "Lagre tekst som HTML ..."
 
-#: bibletime/frontend/chtmlwidget.cpp:225
+#: bibletime/frontend/chtmlwidget.cpp:237
 msgid "Save text as plain text ..."
 msgstr "Lagre tekst som ren tekst ..."
 
-#: bibletime/frontend/chtmlwidget.cpp:453
+#: bibletime/frontend/chtmlwidget.cpp:465
 msgid "Choose a font:"
 msgstr "Velg en skrifttype:"
 
-#: bibletime/frontend/chtmlwidget.cpp:457
+#: bibletime/frontend/chtmlwidget.cpp:469
 msgid "Choose font size"
 msgstr "Velg skriftstørrelse"
 
-#: bibletime/frontend/chtmlwidget.cpp:461
+#: bibletime/frontend/chtmlwidget.cpp:473
 msgid "Bold"
 msgstr "Fet"
 
-#: bibletime/frontend/chtmlwidget.cpp:465
+#: bibletime/frontend/chtmlwidget.cpp:477
 msgid "Underlined"
 msgstr "Understreket"
 
-#: bibletime/frontend/chtmlwidget.cpp:474
+#: bibletime/frontend/chtmlwidget.cpp:486
 msgid "Justify"
 msgstr "Juster"
 
@@ -1162,7 +1161,8 @@ msgid "BibleTime - Reset main index"
 msgstr "BibleTime - Tilbakestill hovedindeks"
 
 #: bibletime/frontend/ctoolclass.cpp:80
-msgid "<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
+msgid ""
+"<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
 msgstr "<qt><B>Filen eksisterer allerede!</B><BR>Vil du overskrive den?</qt>"
 
 #: bibletime/frontend/ctoolclass.cpp:80
@@ -1659,7 +1659,8 @@ msgstr "Vis eller skjul fotnotene avhengig av nåværende tilstand."
 
 # Look at comment :209
 #: bibletime/dummy.h:213 bibletime/whatsthisdef.h:39
-msgid "Show or hide Strong's numbers in the modules depending on current state."
+msgid ""
+"Show or hide Strong's numbers in the modules depending on current state."
 msgstr "Vis eller skjul Strongs nummer avhengig av nåværende tilstand."
 
 #: bibletime/dummy.h:215 bibletime/whatsthisdef.h:41
@@ -1691,8 +1692,10 @@ msgid "Open a dialog where you can edit the toolbar of BibleTime."
 msgstr "�ne en dialog der du kan redigere verktøylinjen til BibleTime."
 
 #: bibletime/dummy.h:222 bibletime/whatsthisdef.h:48
-msgid "Open BibleTime's optionsdialog where you can set most of the preferences."
-msgstr "�ne BibleTImes alternativdialog der du kan sette de fleste innstillingene."
+msgid ""
+"Open BibleTime's optionsdialog where you can set most of the preferences."
+msgstr ""
+"�ne BibleTImes alternativdialog der du kan sette de fleste innstillingene."
 
 #: bibletime/dummy.h:224 bibletime/whatsthisdef.h:50
 msgid "Open KDE's helpbrowser with BibleTime's handbook."
@@ -1758,7 +1761,8 @@ msgid "Import bookmark from a file."
 msgstr "Importer bokmerke fra en fil."
 
 #: bibletime/dummy.h:238 bibletime/whatsthisdef.h:64
-msgid "Export bookmarks to a file so you or other<BR>users can import them later."
+msgid ""
+"Export bookmarks to a file so you or other<BR>users can import them later."
 msgstr ""
 "Eksporter bokmerker til en fil så du eller andre<BR>brukere kan importere "
 "dem senere."
@@ -1858,13 +1862,15 @@ msgid "This list contains the books which are available in this module."
 msgstr "Denne listen inneholder bøkene som er tilgjengelige i denne modulen."
 
 #: bibletime/dummy.h:259 bibletime/whatsthisdef.h:85
-msgid "This list contains the chapters which are available in the current book."
+msgid ""
+"This list contains the chapters which are available in the current book."
 msgstr ""
 "Denne listen inneholder kapittelene som er tilgjengelige i den gjeldende "
 "boken."
 
 #: bibletime/dummy.h:260 bibletime/whatsthisdef.h:86
-msgid "This list contains the verses which are available in the current chapter."
+msgid ""
+"This list contains the verses which are available in the current chapter."
 msgstr ""
 "Denne listen inneholder versene som er tilgjengelige i det gjeldende "
 "kapittelet."
@@ -1900,10 +1906,12 @@ msgstr "Velg mellom fet eller ikke-fet formatering av den valgte teksten."
 
 #: bibletime/dummy.h:267 bibletime/whatsthisdef.h:93
 msgid "Switch between italic and non-italic formatting of the selected text."
-msgstr "Velg mellom kursiv eller ikke-kursiv formatering av den valgte teksten."
+msgstr ""
+"Velg mellom kursiv eller ikke-kursiv formatering av den valgte teksten."
 
 #: bibletime/dummy.h:268 bibletime/whatsthisdef.h:94
-msgid "Switch between underlined and non-undelined formatting of the selected text."
+msgid ""
+"Switch between underlined and non-undelined formatting of the selected text."
 msgstr ""
 "Velg mellom understreket eller ikke-understreket formatering av den valgte "
 "teksten."
@@ -1921,8 +1929,10 @@ msgid "Choose a new fontsize for the selected text."
 msgstr "Velg en ny skriftstørrelse for den valgte teksten."
 
 #: bibletime/dummy.h:273 bibletime/whatsthisdef.h:99
-msgid "Synchronize the displayed verse of this module with the active Bible window."
-msgstr "Synkroniser det viste verset for denne modulen med det aktive Bibel-vinduet."
+msgid ""
+"Synchronize the displayed verse of this module with the active Bible window."
+msgstr ""
+"Synkroniser det viste verset for denne modulen med det aktive Bibel-vinduet."
 
 #: bibletime/dummy.h:276 bibletime/whatsthisdef.h:102
 msgid "Save the displayed chapter as a HTML file."
@@ -1958,7 +1968,8 @@ msgstr "Liste av moduler som skal brukes i søket."
 
 #: bibletime/dummy.h:286 bibletime/whatsthisdef.h:112
 msgid "The text entered in this edit box will be searched in all modules."
-msgstr "Teksten som er skrevet inn i denne boksen vil bli søkt etter i alle moduler."
+msgstr ""
+"Teksten som er skrevet inn i denne boksen vil bli søkt etter i alle moduler."
 
 # In the previous comment you used "edit box".
 # Here it is "edit line". Shouldn't the same be used?
@@ -1972,7 +1983,8 @@ msgstr ""
 
 # edit line or box?
 #: bibletime/dummy.h:288 bibletime/whatsthisdef.h:114
-msgid "Select this to search for exactly the same text you entered in the edit line."
+msgid ""
+"Select this to search for exactly the same text you entered in the edit line."
 msgstr ""
 "Velg dette for å søke etter den eksakt samme teksten som du skrev inn i "
 "søkeboksen."
@@ -2006,7 +2018,8 @@ msgid "Create a new search scope."
 msgstr "Lag et nytt søkeområde."
 
 #: bibletime/dummy.h:295 bibletime/whatsthisdef.h:121
-msgid "Use an own scope for the search.<BR>A standard set of search scopes exists."
+msgid ""
+"Use an own scope for the search.<BR>A standard set of search scopes exists."
 msgstr ""
 "Bruk et eget søkeområde for søket.<BR>Et standard sett av søkeområder "
 "eksisterer."
@@ -2070,12 +2083,14 @@ msgid "Activate this box to see a daily tip on startup."
 msgstr "Aktiver denne boksen for å se dagens tips ved oppstart."
 
 #: bibletime/dummy.h:311 bibletime/whatsthisdef.h:137
-msgid "Contains the languages which can be used for the international booknames."
+msgid ""
+"Contains the languages which can be used for the international booknames."
 msgstr "Inneholder språkene som kan bli brukt som internasjonale boknavn."
 
 #: bibletime/dummy.h:312 bibletime/whatsthisdef.h:138
 msgid "Activate this to see a startup logo on each startup of BibleTime."
-msgstr "Aktiver dette for å se en oppstartslogo ved hver oppstart av BibleTime."
+msgstr ""
+"Aktiver dette for å se en oppstartslogo ved hver oppstart av BibleTime."
 
 #: bibletime/dummy.h:315 bibletime/whatsthisdef.h:141
 msgid "Select a action and change the key binding for the action."
@@ -2118,7 +2133,8 @@ msgstr ""
 "forhåndsvise utskrifts resultatet."
 
 #: bibletime/dummy.h:327 bibletime/whatsthisdef.h:153
-msgid "Closes this dialog without doing anything with the items or the printer."
+msgid ""
+"Closes this dialog without doing anything with the items or the printer."
 msgstr ""
 "Lukker denne dialogen uten å gjøre noenting med verken elementene eller "
 "skriveren."
@@ -2189,10 +2205,12 @@ msgstr "Slett det valgte elementet."
 
 #: bibletime/dummy.h:345 bibletime/whatsthisdef.h:171
 msgid "Inserts a page break into the list.<BR>The printer will start new page."
-msgstr "Sett inn et sideskift i listen.<BR>Skriveren vil begynne på en ny side."
+msgstr ""
+"Sett inn et sideskift i listen.<BR>Skriveren vil begynne på en ny side."
 
 #: bibletime/dummy.h:347 bibletime/whatsthisdef.h:173
-msgid "This group contains the page borders of the page measured in millimeters."
+msgid ""
+"This group contains the page borders of the page measured in millimeters."
 msgstr "Denne gruppen inneholder rammene på siden målt i millimeter."
 
 #: bibletime/dummy.h:348 bibletime/whatsthisdef.h:174
@@ -2228,6 +2246,6 @@ msgid "Change the properties of the selected printing style."
 msgstr "Endre på egenskapene til den valgte utskriftsstilen."
 
 #: bibletime/dummy.h:355 bibletime/whatsthisdef.h:181
-msgid "Create a new printing style.<BR>The new style will be added to the list."
+msgid ""
+"Create a new printing style.<BR>The new style will be added to the list."
 msgstr "Lag en ny utskriftsstil.<BR>Den nye stilen vil bli lagt til i listen."
-
