@@ -136,7 +136,7 @@ done
 cd ../maintenance;
 
 ###########################
-# create Makefile.am in bibletime-i18n/po directories
+# create Makefile.am in bibletime-i18n/po directory
 ###########################
 
 echo generating ../../bibletime-i18n/po/Makefile.am
@@ -219,6 +219,41 @@ merge:
 	done
 EOF
 
+###########################
+# create Makefile.am in bibletime-i18n/po/[handbook howto] directory
+###########################
+for DOC_PO_PART in handbook howto; do
+	echo generating ../../bibletime-i18n/po/$DOC_PO_PART/Makefile.am
+	( # output to Makefile.am
+		echo -e $HEADER
+
+		echo -n "POFILES = "
+
+		for I1 in $FOREIGN_DOC_LANGUAGES; do
+			echo -n "$I1.po "
+		done
+
+		echo
+		echo
+		echo 'merge-'$DOC_PO_PART':'
+		echo '	@catalogs='"'\$(POFILES)'"'; \'
+		echo '	for cat in $$catalogs; do \'
+		echo '	name=../../../bibletime/pot/'$DOC_PO_PART'.pot ; \'
+		echo '		echo $$cat $$name; \'
+		echo '		if test -e $$cat; then\'
+		echo '			msgmerge $$cat $$name > $$cat.new; \'
+		echo '			if diff $$cat $$cat.new; then \'
+		echo '				rm $$cat.new;  \'
+		echo '			else  \'
+		echo '				mv $$cat.new $$cat ; \'
+		echo '			fi;\'
+		echo '		else echo File $$cat does not exist yet and will not be updated.;\'
+		echo '		fi; \'
+		echo '	done;'
+
+	) > ../../bibletime-i18n/po/$DOC_PO_PART/Makefile.am
+
+done
 
 	###########################
 	# create Makefile.am in bibletime-i18n/docs directory
@@ -281,28 +316,11 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 				fi
 
 				echo
-				echo
-				echo 'po-files:'
-				echo '	for f in `ls '$ENGDIR'/'$PART'/pot/*.pot`; do \'
-				echo '		pofile=`echo $$f | sed s/\.pot$$/\.po/`; \'
-				echo '		pofile=`echo $$pofile | sed s/"..\/..\/..\/..\/bibletime\/docs\/'$PART'\/pot\/"//`; \'
-				echo '		if test ! -e po/$$pofile; then touch po/$$pofile; fi; \'
-				echo '		echo "Calling msgmerge -o po/$$pofile.new po/$$pofile $$f"; \'
-				echo '		msgmerge -o po/$$pofile.new po/$$pofile $$f; \'
-				echo '		if diff po/$$pofile po/$$pofile.new > /dev/null; then \'
-				echo '		rm po/$$pofile.new; \'
-				echo '		else \'
-				echo '		mv po/$$pofile.new po/$$pofile; \'
-				echo '		fi; \'
-				echo '	done;'
-				echo
 				echo 'unicode-files:'
 				echo '	for f in `ls '$ENGDIR'/'$PART'/unicode/*.docbook`; do \'
-				echo '		pofile=`echo $$f | sed s/\.docbook$$/\.po/`; \'
-				echo '		pofile=`echo $$pofile | sed s/"..\/..\/..\/..\/bibletime\/docs\/'$PART'\/unicode\/"//`; \'
 				echo '		newfile=`echo $$f | sed s/"..\/..\/..\/..\/bibletime\/docs\/'$PART'\/unicode\/"//`; \'
-				echo '		echo "Calling po2xml $$f po/$$pofile  > unicode/$$newfile"; \'
-				echo '		po2xml $$f po/$$pofile > unicode/$$newfile; \'
+				echo '		echo "Calling po2xml $$f ../../../po/'$I1'.po  > unicode/$$newfile"; \'
+				echo '		po2xml $$f ../../../po/'$I1'.po > unicode/$$newfile; \'
 				echo '	done;'
 				echo
 				echo 'html-files:'
