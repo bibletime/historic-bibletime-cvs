@@ -112,10 +112,10 @@ CSearchDialogModuleChooser::~CSearchDialogModuleChooser(){
 }
 
 /** Sets the chosen modules for this object. */
-void CSearchDialogModuleChooser::setChosenModules(ListCSwordModuleInfo* modules){
-	if (!modules)
-		return;
-	if (getChosenModules() == *modules)
+void CSearchDialogModuleChooser::setChosenModules(ListCSwordModuleInfo& modules){
+//	if (!modules.coun)
+//		return;
+	if (getChosenModules() == modules)
 		return;
 		
 	m_moduleList->clear();
@@ -123,8 +123,8 @@ void CSearchDialogModuleChooser::setChosenModules(ListCSwordModuleInfo* modules)
 	m_moduleIndex->clear();
 	m_moduleIndex->readSettings();	
 
-	for (modules->first(); modules->current(); modules->next()) {
-		const QString module = modules->current()->name();
+	for (modules.first(); modules.current(); modules.next()) {
+		const QString module = modules.current()->name();
 		QListViewItemIterator it( m_moduleIndex );
 		for ( ; it.current(); ++it )
 			if (it.current()->text(0) == module) {

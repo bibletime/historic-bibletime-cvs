@@ -54,7 +54,7 @@
 CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
 	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null),
 	searcher(new CSwordModuleSearch()),
-	moduleList(0), old_currentProgress(0), old_overallProgress(0)			
+	old_currentProgress(0), old_overallProgress(0)			
 {
 	setIcon(MODULE_SEARCH_ICON_SMALL);
 	searcher->connectPercentUpdate(this, SLOT(percentUpdate()));
@@ -65,7 +65,7 @@ CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, co
 		
 	if (modules && modules->count())
 		showPage(pageIndex(searchText_page));	
-	setModuleList( modules );
+	setModuleList( *modules );
 }
 
 CSearchDialog::~CSearchDialog(){
@@ -108,25 +108,24 @@ void CSearchDialog::initView() {
 		this, SLOT(slotSaveSearchAnalysis()));	
 }
 
-ListCSwordModuleInfo* CSearchDialog::getModuleList() {
-	*moduleList = m_moduleChooser->getChosenModules();
-	return moduleList;
+ListCSwordModuleInfo& CSearchDialog::getModuleList() {
+//	ASSERT(moduleList);
+	m_moduleList = m_moduleChooser->getChosenModules();
+	return m_moduleList;
 }
 
-void CSearchDialog::setModuleList(ListCSwordModuleInfo *list) {
-	if (!list)
-		return;	
-	if (!moduleList)
-		moduleList = new ListCSwordModuleInfo;
+void CSearchDialog::setModuleList(ListCSwordModuleInfo& list) {
+//	if (!list)
+//		return;	
 		
-	if (moduleList != list)
-		*moduleList = *list; //copy the items of "list"
+	if (m_moduleList != list)
+		m_moduleList = list; //copy the items of "list"
 	
 	m_moduleChooser->blockSignals(true);
-	m_moduleChooser->setChosenModules(moduleList);
+	m_moduleChooser->setChosenModules(m_moduleList);
 	m_moduleChooser->blockSignals(false);	
 	
-	searchText_page->setEnabled(moduleList->count());	
+	searchText_page->setEnabled(m_moduleList.count());	
 	searchResult->clearResult();
 	searchAnalysis->reset();
 }
@@ -168,9 +167,9 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 
 	  tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
 		tableTotals = "<tr><td align=\"left\">" + i18n("Total Hits") + "</td>";
-		for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
-				tableTitle += QString::fromLatin1("<th align=\"left\">") + moduleList->current()->name() + QString::fromLatin1("</th>");
-				m_searchResult = moduleList->current()->searchResult();
+		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
+				tableTitle += QString::fromLatin1("<th align=\"left\">") + m_moduleList.current()->name() + QString::fromLatin1("</th>");
+				m_searchResult = m_moduleList.current()->searchResult();
 				countStr.setNum(m_searchResult.Count());
 	      tableTotals += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
 		}
@@ -182,7 +181,7 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 		while (ok) {
 			searchAnalysisHTML += QString::fromLatin1("<tr><td>") + key.book() + QString::fromLatin1("</td>");
 			analysisItem = searchAnalysisItems->find( key.book() );
-			for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(), ++moduleIndex) {
+			for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(), ++moduleIndex) {
 				count = analysisItem->getCountForModule(moduleIndex);
 				countStr.setNum(count);
 				searchAnalysisHTML += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");

@@ -20,6 +20,7 @@
 #include "cdisplaysettingsbutton.h"
 
 #include "../ctoolclass.h"
+#include "../cexportmanager.h"
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
@@ -283,8 +284,8 @@ void CCommentaryPresenter::refresh( ){
 void CCommentaryPresenter::printHighlightedVerse(){
 //	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
 //	key->key(m_key->key());	
-	CSwordVerseKey key(*m_key);
-	printKey(key.key(), key.key(), m_moduleList.first());
+//	CSwordVerseKey key(*m_key);
+	CExportManager::printKey(m_moduleList.first(), m_key->key());
 }
 
 /** The sync button was pressed for synchronization. */
@@ -360,7 +361,7 @@ void CCommentaryPresenter::copyEntryAndText(){
 
 //print functions
 /** Copies the highlighted text into clipboard. */
-void CCommentaryPresenter::printEntryAndText(){
+void CCommentaryPresenter::printEntry(){
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
@@ -368,10 +369,8 @@ void CCommentaryPresenter::printEntryAndText(){
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	
 	CSwordModuleInfo* m = backend()->findModuleByName(module);			
-	CSwordVerseKey vKey(m);	//this key is deleted by the printem
-	vKey.key(key);
-		
-	printKey(vKey.key(), vKey.key(), m);
+	CSwordVerseKey vKey(m);
+	CExportManager::printKey(m, vKey.key(key));
 }
 
 /** Checks for changes and saves the text. */

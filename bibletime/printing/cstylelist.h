@@ -18,12 +18,17 @@
 #ifndef CSTYLELIST_H
 #define CSTYLELIST_H
 
+//BibleTime includes
+#include "../frontend/cpointers.h"
+#include "cstyle.h"
+
+
+//Qt includes
 #include <qwidget.h>
 
+//KDE includes
 #include <klistview.h>
 #include <kpopupmenu.h>
-
-#include "cstyle.h"
 
 /** A KListView derived class which handles CStyle items.
   * @author The BibleTime team
@@ -31,10 +36,10 @@
 class KAction;
 class QComboBox;
 
-class CStyleList : public KListView  {
+class CStyleList : public KListView, public CPointers   {
    Q_OBJECT
 public:
-	CStyleList(CPrinter* printer, styleItemList* items, QWidget *parent=0, const char *name=0);
+	CStyleList(CPrinter* printer, StyleItemList* items, QWidget *parent=0, const char *name=0);
 	~CStyleList();
   /**
  	* Initilizes the view.
@@ -43,11 +48,11 @@ public:
   /**
  	* Appends the items of itemList
  	*/
-  void insertItems( styleItemList* itemList );
+  void insertItems( StyleItemList* itemList );
   /**
  	* Sets the content to itemList
  	*/
-  void setItems( styleItemList* itemList );
+  void setItems( StyleItemList* itemList );
   /**
  	*
  	*/
@@ -59,7 +64,7 @@ public:
   /**
  	*
  	*/
-  styleItemList* getStyleList();
+  StyleItemList* styleList();
 
 public slots: // Public slots
   /**
@@ -76,14 +81,10 @@ public slots: // Public slots
   void editCurrentStyle();
 
 private:
-	styleItemList* m_items;
+	StyleItemList* m_items;
 	QGuardedPtr<KAction> editStyle_action;
 	QGuardedPtr<KAction> deleteStyle_action;
-//	QGuardedPtr<QComboBox>	m_styleCombo;	
 	CPrinter* m_printer;
-  /**
- 	* Updates the combo box listing the styles being available.
- 	*/
   void updateStyleCombo();
 };
 

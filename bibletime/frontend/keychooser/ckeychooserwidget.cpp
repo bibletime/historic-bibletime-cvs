@@ -103,19 +103,19 @@ QSize CKCComboBox::sizeHint() const {
 }
 
 
-void CKCComboBox::insertItem ( const QString & text, int index, unsigned long int userData ) {
-	insertItem(text, index);
-	const int newIndex = ((index == -1) ? count()-1 : index);
-	m_userDataMap.insert(newIndex, userData);
-}
+//void CKCComboBox::insertItem ( const QString & text, int index, unsigned long int userData ) {
+//	insertItem(text, index);
+//	const int newIndex = ((index == -1) ? count()-1 : index);
+//	m_userDataMap.insert(newIndex, userData);
+//}
 
 /** Returns the user data for index. */
-const unsigned long int CKCComboBox::userData( const int index ){
-	if (index < (count()-1))
-		return m_userDataMap[index];
-	else
-		return 0;
-}
+//const unsigned long int CKCComboBox::userData( const int index ){
+//	if (index < (count()-1))
+//		return m_userDataMap[index];
+//	else
+//		return 0;
+//}
 
 //**********************************************************************************/
 
@@ -193,11 +193,14 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		return;
 	isResetting = true;	
 	setUpdatesEnabled(false);
-//	comboBox()->setUpdatesEnabled(false);
+	comboBox()->setUpdatesEnabled(false);
 
 	m_mainLayout->setResizeMode(QLayout::FreeResize);
 
 	oldKey = QString::null;
+	ASSERT(comboBox());
+	qWarning("%i", comboBox()->count());
+	ASSERT(list);
 	comboBox()->clear();
 	comboBox()->insertStringList(*list);
 	comboBox()->resize( comboBox()->sizeHint() );
@@ -219,11 +222,11 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		btn_down->setEnabled( list && (list->count()>1) );
 	}
 	
-	if (do_emit)
-		emit changed(comboBox()->currentItem());			
-	
+	comboBox()->setUpdatesEnabled(true);	
 	setUpdatesEnabled(true);
-//	comboBox()->setUpdatesEnabled(true);
+	
+	if (do_emit)
+		emit changed(comboBox()->currentItem());				
 	isResetting = false;	
 }
 

@@ -33,8 +33,8 @@ CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidg
 	else {
 		m_module = 0;
 		m_key = 0;
-		return;
 	}		
+	ASSERT(m_key);
 	
 	//now setup the keychooser widgets
 	if (m_module && m_key) {
@@ -63,8 +63,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 		m_key = dynamic_cast<CSwordTreeKey*>(newKey);
 	ASSERT(m_key);
 	const QString oldKey = m_key->key();
-//	qWarning("setKey: %s", oldKey.latin1());
-//	qWarning(m_key->hasChildren() ? "has childs!!" : "no childs!!");
+	qWarning("setKey: %s", oldKey.latin1());
 	
 	QStringList siblings;
 	if (m_key && !oldKey.isEmpty())
@@ -74,8 +73,11 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 	int depth = 0;
 	int index = 0;
 	
+	qWarning("before setRoot");
 	m_key->root();
 	m_key->firstChild();
+	
+	qWarning("before loop");	
 	do {
 		const QString key = m_key->key();
 		index = 0;
@@ -91,7 +93,8 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 		}	
 		setupCombo(key, depth++, index);		
 	}	while(m_key->firstChild() && (depth-1 < siblings.count()));
-	
+
+	qWarning("after loop");		
 	//clear the combos which were not filled
 	for (; depth < m_module->depth(); ++depth)  {
 		CKeyChooserWidget* chooser = m_chooserWidgets.at(depth);
@@ -103,7 +106,9 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 		m_key->root();
 	else
 		m_key->key(oldKey);
+	qWarning("before emit");		
 	emit keyChanged(m_key);
+	qWarning("after emit");			
 }
 
 /** Returns the key of this kechooser. */
@@ -133,6 +138,8 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 	QStringList items;	
 	items << QString::null;
 	do {
+		ASSERT(m_key);
+		qWarning(m_key->getLocalName());
 		items << QString::fromLocal8Bit(m_key->getLocalName());
 	}
 	while (m_key->nextSibling());

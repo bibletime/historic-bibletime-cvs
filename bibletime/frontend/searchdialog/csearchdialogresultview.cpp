@@ -27,6 +27,7 @@
 #include "../../backend/cswordversekey.h"
 #include "../../backend/cswordldkey.h"
 #include "../../backend/creferencemanager.h"
+#include "../cexportmanager.h"
 #include "../ctoolclass.h"
 #include "../cbtconfig.h"
 #include "../../printing/cprintitem.h"
@@ -67,7 +68,7 @@ CSearchDialogResultModuleView::CSearchDialogResultModuleView(QWidget *parent, co
 }
 
 CSearchDialogResultModuleView::~CSearchDialogResultModuleView() {
-
+	qWarning("CSearchDialogResultModuleView::~CSearchDialogResultModuleView()");
 }
 
 /** Initializes the tree of this ResultView */
@@ -75,10 +76,10 @@ void CSearchDialogResultModuleView::setupTree() {
 	ListKey moduleSearchResult;
 	QListViewItem	*module = 0;
 
-	for (moduleList->first(); moduleList->current(); moduleList->next()) {
-		moduleSearchResult = moduleList->current()->searchResult();
-		module = new QListViewItem(this, QString("%1 [%2]").arg( moduleList->current()->name() ).arg( moduleSearchResult.Count() ));
-		module->setPixmap(0,CToolClass::getIconForModule(moduleList->current()) );
+	for (moduleList.first(); moduleList.current(); moduleList.next()) {
+		moduleSearchResult = moduleList.current()->searchResult();
+		module = new QListViewItem(this, QString("%1 [%2]").arg( moduleList.current()->name() ).arg( moduleSearchResult.Count() ));
+		module->setPixmap(0,CToolClass::getIconForModule(moduleList.current()) );
 	}	
 	setFixedWidth( sizeHint().width() );
 //	resize(sizeHint());
@@ -96,7 +97,7 @@ void CSearchDialogResultModuleView::viewportMousePressEvent(QMouseEvent *e) {
 	}
 	if ((e->state() & ControlButton) || (e->state() & ShiftButton))
 			return;
-	for (moduleList->first();moduleList->current();moduleList->next()){
+	for (moduleList.first();moduleList.current();moduleList.next()){
 		QString modName = m_currentItem->text(0);
 		modName = modName.left( modName.find(" [") );
 		m_currentModule = backend()->findModuleByName(modName);
@@ -149,29 +150,28 @@ void CSearchDialogResultModuleView::resizeEvent( QResizeEvent* e){
 
 /** Adds all items  of the search result of this module to the printing queue of BibleTime. */
 void CSearchDialogResultModuleView::printSearchResult(){
-	ListKey& searchResult = m_currentModule->searchResult();
-		
-	QProgressDialog progress( "Printing search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
-	progress.setProgress(0);
-	progress.setMinimumDuration(0);
-	
-	const int count = searchResult.Count();
-	QString text;
-	const CSwordModuleInfo::ModuleType type = m_currentModule->type();
-	CPrinter* p = printer();
-	SWKey* key = 0;
-	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);						
-	
-	for (int index = 0; index < count && !progress.wasCancelled(); ++index) {
-		progress.setProgress(index);
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!				
-		key = searchResult.GetElement(index);
-		if (!key)
-			break;
-		newKey->key((const char*)*key);
-		p->addItemToQueue( new CPrintItem(m_currentModule, newKey->key(), newKey->key()) );
-	}
-	progress.setProgress(count);		
+	CExportManager::printKeyList( &(m_currentModule->searchResult()), m_currentModule, i18n("Printing ..."), i18n("Appending keys to the printing queue ...") );		
+//	QProgressDialog progress( "Printing search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
+//	progress.setProgress(0);
+//	progress.setMinimumDuration(0);
+//	
+//	const int count = searchResult.Count();
+//	QString text;
+//	const CSwordModuleInfo::ModuleType type = m_currentModule->type();
+//	CPrinter* p = printer();
+//	SWKey* key = 0;
+//	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);						
+//	
+//	for (int index = 0; index < count && !progress.wasCancelled(); ++index) {
+//		progress.setProgress(index);
+//		KApplication::kApplication()->processEvents(10); //do not lock the GUI!				
+//		key = searchResult.GetElement(index);
+//		if (!key)
+//			break;
+//		newKey->key((const char*)*key);
+//		p->addItemToQueue( new CPrintItem(m_currentModule, newKey->key(), newKey->key()) );
+//	}
+//	progress.setProgress(count);		
 }
 
 /** This function copies the search result into the clipboard */
@@ -221,32 +221,34 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 			break;
 		}		
 	}
-	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
-	if (file.isEmpty())
-		return;
-	
 	ListKey& searchResult = m_currentModule->searchResult();
-	QProgressDialog progress( "Saving search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
-	progress.show();
-	progress.setProgress(0);	
-	progress.setMinimumDuration(0);
-	
-	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
-	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
-	
-	const int count = searchResult.Count();
-	for (int index = 0; index < count && !progress.wasCancelled(); index++) {
-		progress.setProgress(index);
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!														
-		SWKey* key = searchResult.GetElement(index);
-		if (!key)
-			break;
-		text += QString::fromLocal8Bit( (const char*)*key ) + "\n";
-	}
-	if (progress.wasCancelled())
-		return;
-	progress.setProgress(count);	
-	CToolClass::savePlainFile(file, text);
+	CExportManager::saveKeyList(&searchResult, m_currentModule, i18n("Saving")+QString::fromLatin1("..."), i18n("Saving the search result"), false, true);	
+//	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
+//	if (file.isEmpty())
+//		return;
+//	
+
+//	QProgressDialog progress( "Saving search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
+//	progress.show();
+//	progress.setProgress(0);	
+//	progress.setMinimumDuration(0);
+//	
+//	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
+//	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
+//	
+//	const int count = searchResult.Count();
+//	for (int index = 0; index < count && !progress.wasCancelled(); index++) {
+//		progress.setProgress(index);
+//		KApplication::kApplication()->processEvents(10); //do not lock the GUI!														
+//		SWKey* key = searchResult.GetElement(index);
+//		if (!key)
+//			break;
+//		text += QString::fromLocal8Bit( (const char*)*key ) + "\n";
+//	}
+//	if (progress.wasCancelled())
+//		return;
+//	progress.setProgress(count);	
+//	CToolClass::savePlainFile(file, text);
 }
 
 
@@ -299,42 +301,43 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 			break;
 		}		
 	}
-
-	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));		
-	if (file.isEmpty())
-		return;
 	ListKey& searchResult = m_currentModule->searchResult();
-	QProgressDialog progress( "Saving...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
-	progress.setProgress(0);		
-	progress.setMinimumDuration(0);
-		
-	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
-	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
-
-	const int count = searchResult.Count();
-	const CSwordModuleInfo::ModuleType type = m_currentModule->type();
-
-	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
-	if (!newKey)
-		return;
-
-	for (int index = 0; index < count && !progress.wasCancelled(); index++) {		
-		SWKey* key = searchResult.GetElement(index);
-		if (!key)
-			break;		
-		progress.setProgress(index);
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!							
-
-		newKey->key( (const char*)*key );
-		text += QString::fromLatin1("%1:\n\t%2\n").arg( newKey->key() ).arg( newKey->strippedText() );
-	}	
-	if (newKey)
-		delete newKey;	
-	if (progress.wasCancelled())
-		return;
-	
-	progress.setProgress(count);	
-	CToolClass::savePlainFile( file, text);
+	CExportManager::saveKeyList(&searchResult, m_currentModule, i18n("Saving ..."), i18n("Saving the search result ..."), true, true);
+//	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));		
+//	if (file.isEmpty())
+//		return;
+//	ListKey& searchResult = m_currentModule->searchResult();
+//	QProgressDialog progress( "Saving...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
+//	progress.setProgress(0);		
+//	progress.setMinimumDuration(0);
+//		
+//	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
+//	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
+//
+//	const int count = searchResult.Count();
+//	const CSwordModuleInfo::ModuleType type = m_currentModule->type();
+//
+//	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
+//	if (!newKey)
+//		return;
+//
+//	for (int index = 0; index < count && !progress.wasCancelled(); index++) {		
+//		SWKey* key = searchResult.GetElement(index);
+//		if (!key)
+//			break;		
+//		progress.setProgress(index);
+//		KApplication::kApplication()->processEvents(10); //do not lock the GUI!							
+//
+//		newKey->key( (const char*)*key );
+//		text += QString::fromLatin1("%1:\n\t%2\n").arg( newKey->key() ).arg( newKey->strippedText() );
+//	}	
+//	if (newKey)
+//		delete newKey;	
+//	if (progress.wasCancelled())
+//		return;
+//	
+//	progress.setProgress(count);	
+//	CToolClass::savePlainFile( file, text);
 }
 
 //------------class CSearchDialofResultView-----------//
@@ -349,6 +352,7 @@ CSearchDialogResultView::CSearchDialogResultView(QWidget *parent, const char *na
 }
 
 CSearchDialogResultView::~CSearchDialogResultView() {
+	qWarning("CSearchDialogResultView::~CSearchDialogResultView()");
 }
 
 /** Initializes the tree of this ResultView */
@@ -438,16 +442,11 @@ void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
 
 /**  */
 void CSearchDialogResultView::printItem() {
-	if (currentText().isEmpty())
+	QList<QListBoxItem> list = selectedItems();	
+	if (!list.count())
 		return;
-	QList<QListBoxItem> list = selectedItems();
-	CSwordKey* key = CSwordKey::createInstance(m_module); //deleted by the CPrintItem	
-	
 	for (list.first(); list.current(); list.next()) {
-		key->key( list.current()->text() );
-		
-		CPrintItem*	printItem = new CPrintItem(m_module,key->key(), key->key());		
-		printer()->addItemToQueue( printItem );
+		CExportManager::printKey(m_module,list.current()->text(),QString::null);
 	}
 }
 
@@ -469,23 +468,19 @@ void CSearchDialogResultView::rightButtonPressed( QListBoxItem* item, const QPoi
 void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 	qDebug("CSearchDialogResultView::mousePressed(QListBoxItem* item)");
 	if (!( m_currentItem = item ))
-		return;
-	
+		return;	
 	QString text = QString::null;
 	
-	//we have to set the standard module view options for the module!!
-	
+	//we have to set the standard module view options for the module!!	
 	CSwordKey* key = CSwordKey::createInstance(m_module);	
 	if (key) {
 		backend()->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );
 				
 		key->key(item->text());
-		text = key->renderedText();		
-		delete key;
-		
-	}
-	if (!text.isEmpty())
-		emit keySelected(text);
+//		text = key->renderedText();		
+		emit keySelected(key->renderedText());
+		delete key;		
+	}		
 }
 
 /** This slot copies the current active item into the clipboard. */

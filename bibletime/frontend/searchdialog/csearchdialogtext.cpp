@@ -136,6 +136,7 @@ CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 }
 
 CSearchDialogText::~CSearchDialogText() {
+	qWarning("CSearchDialogText::~CSearchDialogText()");
 	saveSettings();
 }
 	

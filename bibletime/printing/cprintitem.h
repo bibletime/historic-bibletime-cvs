@@ -31,7 +31,7 @@ class CPrintItemList;
 class CPrinter;
 
 class CPrintItem;
-typedef QList<CPrintItem> printItemList;
+typedef QList<CPrintItem> PrintItemList;
 
 /**
 	* The class which implements the printable items.
@@ -42,8 +42,8 @@ public:
   class ListViewItem : public QListViewItem {
 		public:
 			ListViewItem( QListView* parent, CPrintItem* printItem );
-			~ListViewItem();
 			CPrintItem* printItem() const;		
+			CStyle* style() const;			
 		private:
 			CPrintItem* m_printItem;
   };
@@ -55,13 +55,13 @@ public:
  	*/
 	void setStyle( CStyle* );
   /**
- 	* Returns the moduletext used by this item.
+	* Sets the style for this item.
  	*/
-  const QString& getModuleText();
+	CStyle* style() const;
   /**
  	* Returns the listview item for this printitem.
  	*/
-  QListViewItem* getListViewItem( CPrintItemList* );
+  QListViewItem* listViewItem( CPrintItemList* );
   /**
  	* Updates the item.
  	*/
@@ -69,7 +69,7 @@ public:
   /**
 	* Returns the used ListView item.
 	*/
-  QListViewItem* getListViewItem() const;
+  QListViewItem* listViewItem() const;
   /**
  	* Deletes the list view item.
  	*/
@@ -80,7 +80,8 @@ public:
   void draw(QPainter* p, CPrinter* printer);
 
 private: // Protected attributes
-  const QString& getHeaderText();
+  const QString& headerText();
+  const QString& moduleText();
 
   CStyle* m_style;
   QString m_description;

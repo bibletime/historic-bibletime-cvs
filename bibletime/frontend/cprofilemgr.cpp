@@ -100,11 +100,13 @@ void CProfileMgr::refresh(){
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
 		CProfile p(m_profilePath + *it);
-		if ((p.name() == "_startup_")) { //new startup profile
-			if (!m_startupProfile)
+		qWarning("profile: %s", p.name().latin1());		
+		if (p.name() == "_startup_") { //new startup profile
+			if  (!m_startupProfile) //don't put this in the if clause above,it doesn't work!
 				m_startupProfile = new CProfile(m_profilePath + *it);
 		}
-		else if (!profile(p.name())) { //do we have it already?
+		else if (!profile(p.name())) { //don't have it already
+			qWarning("profile with name %s did not exist", p.name().latin1());
 			m_profiles.append(new CProfile(m_profilePath + *it));
 		}
 	}

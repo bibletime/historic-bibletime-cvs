@@ -142,7 +142,7 @@ void COptionsDialog::renameProfile(){
 	if (!profile)
 		return;
 		
-	const QString newName = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the new name of the profile"),profile->name(), &ok);
+	const QString newName = QInputDialog::getText(i18n("Rename profile"), i18n("Please enter the new name of the profile"),profile->name(), &ok);
 	if (ok && !newName.isEmpty()) {
 		profile->setName(newName);
 		m_settings.profiles.profiles->changeItem(newName, m_settings.profiles.profiles->currentItem());

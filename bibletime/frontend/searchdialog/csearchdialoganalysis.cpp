@@ -88,6 +88,7 @@ CSearchDialogAnalysis::CSearchDialogAnalysis(QObject *parent, const char *name )
 }
 
 CSearchDialogAnalysis::~CSearchDialogAnalysis(){
+  qWarning("CSearchDialogAnalysis::~CSearchDialogAnalysis()");
   reset(); // deletes the legend and the items
 }
 
@@ -148,23 +149,22 @@ void CSearchDialogAnalysis::analyse(){
 }
 
 /** Sets te module list used for the analysis. */
-void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
+void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo& modules){
+//	ASSERT(modules);
 	m_moduleList.clear();
-	for (modules->first(); modules->current(); modules->next())
-		if ( modules->current()->type() == CSwordModuleInfo::Bible || modules->current()->type() == CSwordModuleInfo::Commentary )//a Bible or an commentary
-			m_moduleList.append(modules->current());
+	for (modules.first(); modules.current(); modules.next())
+		if ( modules.current()->type() == CSwordModuleInfo::Bible || modules.current()->type() == CSwordModuleInfo::Commentary )//a Bible or an commentary
+			m_moduleList.append(modules.current());
 
 	m_canvasItemList.clear();
+	CSearchDialogAnalysisItem* analysisItem = 0;	
 	CSwordVerseKey key(0);	
 	key.key("Genesis 1:1");
-	CSearchDialogAnalysisItem* analysisItem = 0;
-	while (true) {
+	do {
    	analysisItem = new CSearchDialogAnalysisItem(this, m_moduleList.count(), key.book(), &m_scaleFactor, &m_moduleList);
    	analysisItem->hide();
 		m_canvasItemList.insert(key.book(), analysisItem);
-		if (!key.NextBook())
-			break;
-	}
+	} while (key.NextBook());
 	update();
 }
 
@@ -178,6 +178,8 @@ void CSearchDialogAnalysis::reset(){
 	}	
 	m_lastPosList.clear();	
 	
+	if (m_legend)
+		m_legend->hide();
 	delete m_legend;
 	m_legend = 0;	
 	update();
@@ -236,7 +238,7 @@ const unsigned int CSearchDialogAnalysis::getCount( const QString book, CSwordMo
 //------------------------------------------------------------------
 
 CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int moduleCount, const QString &bookname, double *scaleFactor, ListCSwordModuleInfo* modules)
-	: QCanvasRectangle(parent), m_moduleList( modules ),m_scaleFactor(scaleFactor),
+	: QCanvasRectangle(parent), m_moduleList( modules ), m_scaleFactor(scaleFactor),
 	m_moduleCount(moduleCount), m_bookName(bookname), m_bufferPixmap(0)
 {	
  	m_resultCountArray.resize(m_moduleCount);
@@ -246,6 +248,7 @@ CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int 
 }
 
 CSearchDialogAnalysisItem::~CSearchDialogAnalysisItem() {
+	qWarning("CSearchDialogAnalysisItem::~CSearchDialogAnalysisItem()");
 	if (m_bufferPixmap)
 		delete m_bufferPixmap;
 }

@@ -25,7 +25,7 @@
 
 //own includes
 #include "structdef.h"
-#include <pthread.h>
+//#include <pthread.h>
 
 //forward class declarations
 class CSwordModuleInfo;
@@ -352,7 +352,7 @@ private slots: // Private slots
 
 private:
 	QProgressDialog* m_progress;
-	pthread_mutex_t progress_mutex;		
+//	pthread_mutex_t progress_mutex;		
 	CProfileMgr m_profileMgr;	
 	CSwordBackend* m_backend;
 	CPrinter* m_printer;

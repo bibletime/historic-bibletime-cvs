@@ -42,7 +42,7 @@ public:
 	/**
 	* Sets the module list and clears the result list.
 	*/
-	void setModuleList(ListCSwordModuleInfo* moduleList);
+	void setModuleList(ListCSwordModuleInfo& moduleList);
 	/**
 	* Removes the listed module items and the current search result from the lists
 	*/
@@ -55,7 +55,7 @@ public slots:
 	void updatePreview(const QString);
 
 private:
-	ListCSwordModuleInfo* moduleList;
+	ListCSwordModuleInfo moduleList;
 	CSearchDialogResultModuleView *resultModuleTree;
 	CSearchDialogResultView	*resultTree;
 	CHTMLWidget	*html_widget;

@@ -48,7 +48,7 @@ public:
   /**
   * Sets the module list used for the analysis.
   */
-  void setModuleList(ListCSwordModuleInfo*);
+  void setModuleList(ListCSwordModuleInfo&);
   /**
   * Starts the analysis of the search result.
 	* This should be called only once because

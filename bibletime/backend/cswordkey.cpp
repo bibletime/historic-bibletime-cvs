@@ -78,7 +78,9 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo *module ){
 		case CSwordModuleInfo::Lexicon:
 			return new CSwordLDKey( (SWKey *)(*module->module()), module);
 		case CSwordModuleInfo::GenericBook:
-			return new CSwordTreeKey( (TreeKeyIdx *)( (SWKey *)(*module->module())), module );
+			CSwordTreeKey* key =  new CSwordTreeKey( (TreeKeyIdx*)((SWKey *)(*module->module())), module );
+			qWarning("Persist? %s", key->Persist() ? "yes" : "no");
+			return key;
 	}
 	return 0;
 }

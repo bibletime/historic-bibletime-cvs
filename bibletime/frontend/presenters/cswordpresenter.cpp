@@ -36,7 +36,8 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	m_printPopup(0), m_features(0), m_accel(0),
 	m_lexiconPopup(new QPopupMenu(this)),
 	m_moduleOptions( CBTConfig::getAllModuleOptionDefaults() ),
-	m_displayOptions( CBTConfig::getAllDisplayOptionDefaults() )
+	m_displayOptions( CBTConfig::getAllDisplayOptionDefaults() ),
+	m_displaySettingsButton(0)
 
 {		
 	for (backend()->moduleList()->first(); backend()->moduleList()->current(); backend()->moduleList()->next()) {
@@ -62,9 +63,10 @@ int CSwordPresenter::getFeatures(){
 //}
 
 /** Prints the key given as parameter. */
-void CSwordPresenter::printKey(const QString& startKey, const QString&  stopKey, CSwordModuleInfo* module) {
-	printer()->addItemToQueue( new CPrintItem(module, startKey, stopKey) );
-}
+//void CSwordPresenter::printKey(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module) {
+////	printer()->addItemToQueue( new CPrintItem(module, startKey, stopKey) );
+//	CExportManager::printKey(module, startKey, stopKey);
+//}
 
 /** Refreshes the supported features. */
 //void CSwordPresenter::refreshFeatures(){
@@ -106,6 +108,7 @@ void CSwordPresenter::lookupWord(int moduleID){
 
 /** Look up the key given as parameter. */
 void CSwordPresenter::lookup(const QString& module, const QString& key){
+
 }
 
 /** Returns the listof used modules. */
@@ -232,10 +235,13 @@ void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
 
 /** Is called when this display window looses the focus. */
 void CSwordPresenter::refresh(){
+	qWarning("CSwordPresenter::refresh()");
 	m_moduleOptions = CBTConfig::getAllModuleOptionDefaults();
 	m_displayOptions = CBTConfig::getAllDisplayOptionDefaults();
 
-	m_displaySettingsButton->reset(m_moduleList);
+	ASSERT(m_displaySettingsButton);
+	if (m_displaySettingsButton)
+		m_displaySettingsButton->reset(m_moduleList);
 }
 
 /** Is called when a reference was dropped on this window. */

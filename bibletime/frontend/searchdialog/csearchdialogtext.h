@@ -39,7 +39,7 @@ public:
   * The constructor of the search dialog search tab page.
   */
 	CSearchDialogText(QWidget *parent = 0, const char *name = 0);
-	~CSearchDialogText();
+	virtual ~CSearchDialogText();
   /**
   * Returns the scopechooser
   */

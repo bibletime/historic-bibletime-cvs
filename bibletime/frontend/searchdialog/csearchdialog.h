@@ -63,12 +63,12 @@ public:
 	/**
 	*
 	*/
-	ListCSwordModuleInfo* getModuleList();
+	ListCSwordModuleInfo& getModuleList();
 	/**
 	* Sets the module list for this dialog.
 	* The module lsit contains the modules where we should search in
 	*/
-	void setModuleList(ListCSwordModuleInfo*);
+	void setModuleList(ListCSwordModuleInfo&);
 	/**
 	* Sets the text we should search in the modules
 	*/
@@ -111,7 +111,7 @@ private:
 	CSearchDialogAnalysis* searchAnalysis;
 	CSearchDialogAnalysisView* 	searchAnalysisView;
 	CSwordModuleSearch *searcher;
-	ListCSwordModuleInfo *moduleList;
+	ListCSwordModuleInfo m_moduleList;
 	int old_overallProgress;
 	int old_currentProgress;
 

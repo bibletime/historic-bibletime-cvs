@@ -125,7 +125,7 @@ private slots:
   void copyEntry();
   void copyEntryText();
   void copyEntryAndText();
-  void printEntryAndText();
+  void printEntry();
   void beforeKeyChange(const QString&);
 };
 

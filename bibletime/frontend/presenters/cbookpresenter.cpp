@@ -26,6 +26,9 @@
 #include "../../backend/chtmlentrydisplay.h"
 #include "../../backend/cswordbackend.h"
 
+//KDE includes
+#include <kaccel.h>
+
 CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules,parent,name)
 {
@@ -36,7 +39,7 @@ CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent,
 	show();
 	initConnections();
 	
-//	*m_key = TOP;
+	m_key->key("/");
 	lookup(m_key);
 }
 
@@ -115,4 +118,36 @@ void CBookPresenter::lookup(CSwordKey* key) {
 	
 	setUpdatesEnabled(true);
 	setCaption( windowCaption() );
+}
+
+/** No descriptions */
+void CBookPresenter::lookup( const QString& module, const QString& key){
+	CSwordModuleInfo* m = backend()->findModuleByName(module);
+	if (m && m_moduleList.containsRef(m)) {
+		if (!key.isEmpty())
+			m_key->key(key);
+		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
+	}
+	else {
+		emit lookupInModule(module, key);
+	}
+}
+
+/** Initializes keyboard accelerators. */
+void CBookPresenter::initAccels(){
+	CSwordPresenter::initAccels();
+	m_accel->setConfigGroup("Book window");	
+//	m_accel->insertItem(i18n("Next entry"), "Next entry", 0);
+//	m_accel->connectItem("Next entry", this, SLOT(nextEntry()));
+//		
+//	m_accel->insertItem(i18n("Previous entry"), "Previous entry", 0);		
+//	m_accel->connectItem("Previous entry", this, SLOT(previousEntry()));
+		
+	m_accel->readSettings();
+}
+
+void CBookPresenter::insertKeyboardActions(KAccel* a){
+	a->setConfigGroup("Book window");	
+//	a->insertItem(i18n("Next entry"), "Next entry", 0);
+//	a->insertItem(i18n("Previous entry"), "Previous entry", 0);	
 }

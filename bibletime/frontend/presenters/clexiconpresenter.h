@@ -63,7 +63,7 @@ private slots:
   void copyEntry();
   void copyEntryText();
   void copyEntryAndText();
-  void printEntryAndText();
+  void printEntry();
   void modulesChanged();
 	void optionsChanged();
   void popupAboutToShow();

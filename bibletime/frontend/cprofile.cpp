@@ -30,7 +30,10 @@
 #define CURRENT_SYNTAX_VERSION 1
 
 CProfile::CProfile( const QString& file, const QString& name )
-	: m_filename(file), m_name(name.isEmpty() ? i18n("unknown") : name), m_fullscreen(false), m_geometry(0,0,800,600) {
+	: m_filename(file),
+		m_name(name.isEmpty() ? i18n("unknown") : name),
+		m_fullscreen(false),
+		m_geometry(0,0,800,600) {
 	
 	m_profileWindows.setAutoDelete(true);
 	if (!m_filename.isEmpty() && name.isEmpty()) {
@@ -40,8 +43,8 @@ CProfile::CProfile( const QString& file, const QString& name )
 		m_filename = name;
 		m_filename.replace(QRegExp("\\s=#."),"_");
 		KStandardDirs stdDirs;
-		const QString profilePath = stdDirs.saveLocation("data", "bibletime/profiles/");
-		m_filename = profilePath + m_filename + ".xml";
+//		const QString profilePath = ;
+		m_filename = stdDirs.saveLocation("data", "bibletime/profiles/") + m_filename + ".xml";
 		init(m_filename);
 	}
 	else
@@ -54,8 +57,6 @@ CProfile::~CProfile(){
 
 /** Loads the profile from the file given in the constructor. */
 QList<CProfileWindow> CProfile::load(){
-//	qDebug("CProfile::load");
-		
 	QFile file(m_filename);	
 	if (!file.exists())
 		return QList<CProfileWindow>();
@@ -63,7 +64,9 @@ QList<CProfileWindow> CProfile::load(){
 	file.open(IO_ReadOnly);
 	
 	QDomDocument doc;
-	doc.setContent(&file);			
+	doc.setContent(&file);
+	file.close();	
+	
   QDomElement document = doc.documentElement();
   if(document.tagName() != "BibleTime") {
 		qWarning("CProfile::load: Missing BibleTime doc");
@@ -124,6 +127,10 @@ QList<CProfileWindow> CProfile::load(){
 		else if (elem.tagName() == "LEXICON") {
 			p = new CProfileWindow(CSwordModuleInfo::Lexicon);
 		}			
+		else if (elem.tagName() == "BOOK") {
+			p = new CProfileWindow(CSwordModuleInfo::GenericBook);
+		}			
+		
 		if (p) {
 			m_profileWindows.append(p);
 			
@@ -181,8 +188,6 @@ QList<CProfileWindow> CProfile::load(){
 		}				
 		elem = elem.nextSibling().toElement();	
 	}
-
-	file.close();	
 	return m_profileWindows;
 }
 
@@ -191,13 +196,12 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 	/** Save the settings using a XML file
 	*	Save the CProfileWindow objects using a XML file which name is in m_filename
 	*/
-//	qDebug("CProfile::save(QList)");
   QDomDocument doc("DOC");
   doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
 
   QDomElement content = doc.createElement("BibleTime");
   content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
-  content.setAttribute("name", name());
+  content.setAttribute("name", m_name);
   doc.appendChild(content);
 
   //save mainwindow settings
@@ -229,6 +233,9 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 			case CSwordModuleInfo::Lexicon:
 				window = doc.createElement("LEXICON");	
 				break;
+			case CSwordModuleInfo::GenericBook:
+				window = doc.createElement("BOOK");	
+				break;				
 		}
 		if (window.isNull())
 			break;
@@ -261,7 +268,7 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 		content.appendChild( window );
 	}		
 	
-	QFile file(filename());
+	QFile file(m_filename);
 	file.open(IO_WriteOnly);
 	QTextStream t( &file );        // use a text stream
 	t << doc.toString();
@@ -270,7 +277,6 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 
 /** Saves the profile to the file given in the constructor. */
 const bool CProfile::save(){
-//	qDebug("CProfile::save()");
 	return save(m_profileWindows);
 }
 
@@ -292,9 +298,10 @@ void CProfile::init(const QString file){
 	m_filename = oldFile;
 }
 
-/** Chnages the name of this profile. */
+/** Changes the name of this profile. */
 void CProfile::setName( const QString& name ){
 	m_name = name;
+	saveBasics();
 }
 
 /** Loads the basic settings requires for proper operation. */
@@ -303,6 +310,7 @@ void CProfile::loadBasics(){
 	if (!file.exists())
 		return;
 
+		
 	file.open(IO_ReadOnly);
 	
 	QDomDocument doc;
@@ -311,6 +319,25 @@ void CProfile::loadBasics(){
 	if (document.hasAttribute("name"))
 		m_name = document.attribute("name");	
 
+	file.close();	
+}
+
+void CProfile::saveBasics(){
+	QFile file(m_filename);	
+	if (!file.exists())
+		return;
+
+	file.open(IO_ReadOnly);	
+	QDomDocument doc;
+	doc.setContent(&file);	
+	file.close();	
+	
+  QDomElement document = doc.documentElement();
+	document.setAttribute("name", m_name);	
+	
+	file.open(IO_WriteOnly);	
+	QTextStream t( &file );
+	t << doc.toString();	
 	file.close();	
 }
 

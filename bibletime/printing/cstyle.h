@@ -34,7 +34,7 @@ class CStyle;
 class QListViewItem;
 class QListView;
 
-typedef QList<CStyle> styleItemList;
+typedef QList<CStyle> StyleItemList;
 
 /** The class containing the properties requiredfor prinitng styles.
   * @author The BibleTime team
@@ -52,7 +52,7 @@ public:
   /**
  	* Returns the proper CStyleFormat for the given type.
  	*/
-  CStyleFormat* getFormatForType( const CStyle::styleType ) const;
+  CStyleFormat* formatForType( const CStyle::styleType ) const;
   /**
  	* Sets the format for the given type.
  	*/
@@ -68,7 +68,7 @@ public:
   /**
  	* Returns a QListViewItem for inserted in list.
  	*/
-  QListViewItem* getListViewItem( CStyleList* list = 0 );
+  QListViewItem* listViewItem( CStyleList* list = 0 );
   /**
  	* Sets the name of the style.
  	*/
@@ -76,7 +76,7 @@ public:
   /**
  	* Returns the style name
  	*/
-  const QString& getStyleName() const;
+  const QString& styleName() const;
   /**
  	* Updates the Listview items
  	*/

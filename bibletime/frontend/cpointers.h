@@ -35,11 +35,11 @@ public: // Public methods
   /**
   * Returns a pointer to the printer object.
   */
-  CPrinter* printer() const;
+  static CPrinter* printer();
   /**
   * Returns a pointer to the backend ...
   */
-  CSwordBackend* backend() const;
+  static CSwordBackend* backend();
 };
 
 #endif

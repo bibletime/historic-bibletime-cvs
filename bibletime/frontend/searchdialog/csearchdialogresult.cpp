@@ -79,7 +79,7 @@ CSearchDialogResult::CSearchDialogResult(QWidget *parent, const char *name) : QW
 	main_layout->addLayout(layout_2);
 }
 
-void CSearchDialogResult::setModuleList(ListCSwordModuleInfo*	modules) {
+void CSearchDialogResult::setModuleList(ListCSwordModuleInfo&	modules) {
 	moduleList = modules;
 	
 	resultModuleTree->setModuleList(moduleList);

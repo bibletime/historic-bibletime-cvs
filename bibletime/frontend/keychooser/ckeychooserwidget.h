@@ -45,9 +45,9 @@ class CKCComboBox : public QComboBox {
 public:
   CKCComboBox(bool rw, QWidget * parent=0, const char * name=0 );
 
-	void insertItem ( const QString & text, int index=-1, unsigned long int userData = 0 );
+//	void insertItem ( const QString & text, int index=-1, unsigned long int userData = 0 );
   /** Returns the user data for index. */
-  const unsigned long int userData( const int index );
+//  const unsigned long int userData( const int index );
   /**
   * Returns the size this widget would like to have.
   */
@@ -69,8 +69,8 @@ signals:
   */
 	void focusOut(int itemIndex);
 
-private:
-	QMap<int, unsigned long int> m_userDataMap;
+//private:
+//	QMap<int, unsigned long int> m_userDataMap;
 };
 
 /**

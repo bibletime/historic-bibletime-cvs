@@ -77,7 +77,7 @@ public:
   /**
   * returns the vertical position of the printer's painter.
   */
-  const int getVerticalPos() const;
+  const int verticalPos() const;
 	/**
 	* Creates a new page and positions the painter at the beginning of it.
 	*/
@@ -85,7 +85,7 @@ public:
   /**
  	* Returns the margins of the pages.
  	*/
-  CPrinter::CPageMargin getPageMargins();
+  CPrinter::CPageMargin pageMargins();
   /**
  	* Sets all the margins at one time.
  	*/
@@ -97,39 +97,39 @@ public:
   /**
  	* Starts printing the items.
  	*/
-  void printQueue();
+  void print();
   /**
  	* Sets the printing queue to queue.
  	*/
-  void setPrintQueue(printItemList* queue);
+  void setPrintQueue(PrintItemList& queue);
   /**
  	* Returns the print queue object.
  	*/
-  printItemList* getPrintQueue() const;
+  PrintItemList& printQueue();
   /**
  	* Appends items to the printing queue.
  	*/
-  void appendItemsToQueue( printItemList* items );
+  void appendItems( PrintItemList& items );
   /**
   * Appends the item o the queue.
   */
-  void addItemToQueue( CPrintItem* newItem);
+  void appendItem( CPrintItem* newItem);
   /**
   * Sets the application wide style list to list.
   */
-  void setStyleList( styleItemList* list);
+  void setStyleList( StyleItemList& list);
   /**
   * Returns the list of styles.
   */
-  styleItemList* getStyleList() const;
+  StyleItemList& styleList();
   /**
   * Reimplementation. cReates a new page.
   */
-  const QRect getPageSize();
+  const QRect contentSize();
   /**
   * Returns the config used for this printer object.
   */
-  KConfig* getConfig();
+  KConfig* config() const;
   /**
   * Returns the standard stlye of the printer
   */
@@ -140,7 +140,9 @@ public slots: // Public slots
   * Clears the printing queue.
   */
   void clearQueue();
-  /** Emits the signal that the styles changed. */
+  /**
+  * Emits the signal that the styles changed.
+  */
   void emitStylesChanged();
 
 protected:
@@ -168,11 +170,10 @@ protected:
 private:
 	CPageMargin	m_pageMargin;
 	CPagePosition	m_pagePosition;
-	CSwordBackend*	m_backend;
-	printItemList* m_queue;
-	styleItemList*	m_styleList;
+	PrintItemList m_queue;
+	StyleItemList	m_styleList;
 	CStyle* m_standardStyle;
-	KConfig* config;
+	KConfig* m_config;
 
 	struct PaperSizeCache {
 		bool initialized;
@@ -184,10 +185,9 @@ private:
 	bool m_addedItem;
 	
 signals: // Signals
-  /**
- 	* Is emitted everytime after an item was printed.
- 	*/
-//  void printedOneItem(/*const QString& key,*/ const int index);
+	/**
+	* Is emitted if percent percent of the printing process are completed.
+	*/
 	void percentCompleted(const int percent);
   /**
  	* Is emitted after all items were printed.

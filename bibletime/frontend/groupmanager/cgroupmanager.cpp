@@ -28,15 +28,13 @@
 #include "../../backend/cswordversekey.h"
 #include "../../backend/cswordldkey.h"
 #include "../../backend/creferencemanager.h"
-
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
-
 #include "../chtmldialog.h"
 #include "../cinputdialog.h"
-//#include "../ctoolclass.h"
 #include "../searchdialog/csearchdialog.h"
 #include "../cbtconfig.h"
+#include "../cexportmanager.h"
 
 #include "../../structdef.h"
 #include "../../whatsthisdef.h"
@@ -382,7 +380,7 @@ void CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerIte
 	
 	if (!m_searchDialog)
 		m_searchDialog = new CSearchDialog( 0,0);
-	m_searchDialog->setModuleList(&searchList);
+	m_searchDialog->setModuleList(searchList);
   m_searchDialog->setSearchText(text);
 	m_searchDialog->show();
 }	
@@ -1549,18 +1547,7 @@ void CGroupManager::slotReset(){
 void CGroupManager::slotPrintBookmark(){	
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() != CGroupManagerItem::Bookmark) )
 		return;
-//	qWarning("CGroupManager::slotPrintBookmark()");
-	
-	CPrintItem*	printItem = new CPrintItem(m_pressedItem->moduleInfo(), m_pressedItem->getBookmarkKey()->key(), m_pressedItem->getBookmarkKey()->key(), m_pressedItem->description());
-//	printItem->setDescription( m_pressedItem->description() );
-//	printItem->setModule(m_pressedItem->moduleInfo());	
-
-//	CSwordKey* key = m_pressedItem->getBookmarkKey()->copy();//deleted by CPrinter
-//	if (key) {
-//   	key->key(m_pressedItem->getBookmarkKey()->key());
-//		printItem->setStartKey( key );
-//  }
-	printer()->addItemToQueue( printItem );
+	CExportManager::printKey( m_pressedItem->moduleInfo(), m_pressedItem->getBookmarkKey()->key(), QString::null, m_pressedItem->description() );
 }
 
 /** Deletes the searchdialog. */

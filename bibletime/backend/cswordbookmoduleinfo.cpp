@@ -26,15 +26,15 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( SWModule* module )
 	: CSwordModuleInfo(module),m_depth(-1)
 {
 	//checking if it works as expected
-	TreeKeyIdx* treeKey = tree();
-	if (treeKey) {
-		TreeKeyIdx root = *treeKey;
-  	root.root();
-		printTree(root, treeKey, 0);
-	}
-	else
-		qWarning("treeKey not valid");
-	qWarning("depth: %i\n\n", depth());
+//	TreeKeyIdx* treeKey = tree();
+//	if (treeKey) {
+//		TreeKeyIdx root = *treeKey;
+//  	root.root();
+//		printTree(root, treeKey, 0);
+//	}
+//	else
+//		qWarning("treeKey not valid");
+//	qWarning("depth: %i\n\n", depth());
 }
 
 CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& module )

@@ -20,6 +20,7 @@
 #include "cdisplaysettingsbutton.h"
 
 #include "../chtmlwidget.h"
+#include "../cexportmanager.h"
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
 #include "../../backend/cswordldkey.h"
@@ -83,7 +84,7 @@ void CLexiconPresenter::initView(){
 	m_copyPopup->insertItem(i18n("Selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);
 	
 	m_printPopup = new KPopupMenu(m_popup);
-	m_printPopup->insertItem(i18n("Entry with text"), this, SLOT(printEntryAndText()),0,ID_PRESENTER_PRINT_KEY);
+	m_printPopup->insertItem(i18n("Entry with text"), this, SLOT(printEntry()),0,ID_PRESENTER_PRINT_KEY);
 
 	m_savePopup = new KPopupMenu(m_popup);	
 	m_savePopup->insertItem(i18n("Entry as plain text"), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_CHAPTER);
@@ -119,7 +120,6 @@ void CLexiconPresenter::initConnections(){
 		SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL(sigChanged()), this,
 		SLOT(modulesChanged()));
-//	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),SLOT(optionsChanged() ));
 }
 
 /** No descriptions */
@@ -240,10 +240,8 @@ void CLexiconPresenter::copyEntryAndText(){
 }
 
 //print functions
-void CLexiconPresenter::printEntryAndText(){
-//	CSwordLDKey* key = dynamic_cast<CSwordLDKey*>(m_key->copy()); // later deleted by the print entry
-	CSwordLDKey key(*m_key);
-	printKey(key.key(), key.key(), m_moduleList.first());
+void CLexiconPresenter::printEntry(){
+	CExportManager::printKey(m_moduleList.first(), m_key->key());
 }
 
 /** Inserts the used keyboard actions into the given KAccel object. */

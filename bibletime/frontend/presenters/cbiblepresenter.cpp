@@ -20,6 +20,7 @@
 #include "cdisplaysettingsbutton.h"
 
 #include "../ctoolclass.h"
+#include "../cexportmanager.h"
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
@@ -283,24 +284,20 @@ void CBiblePresenter::printVerseAndText(){
 	CSwordVerseKey vKey(m);	
 	vKey.key(key);
 
-	printKey(vKey.key(), vKey.key(), m);
+//	printKey(vKey.key(), vKey.key(), m);
+	CExportManager::printKey(m, vKey.key());
 }
 
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::printChapter(){
-//	CSwordVerseKey *startKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
-//	startKey->key(m_key->key());
-//	CSwordVerseKey* startKey = dynamic_cast<CSwordVerseKey*>(m_key->copy());
-//	CSwordKey *stopKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem	
-//	stopKey->key(m_key->key());
-//	CSwordVerseKey* stopKey = dynamic_cast<CSwordVerseKey*>(m_key->copy());
 	CSwordVerseKey startKey(*m_key);
 	CSwordVerseKey stopKey(*m_key);	
 
 	CSwordBibleModuleInfo* b = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
 	if (b)
-		stopKey.Verse( b->verseCount(b->bookNumber(startKey.book()),startKey.Chapter()) );
-	printKey(startKey.key(), stopKey.key(), m_moduleList.first());
+		stopKey.Verse( b->verseCount( b->bookNumber(startKey.book()), startKey.Chapter() ) );
+	
+	CExportManager::printKey(m_moduleList.first(), startKey.key(), stopKey.key());
 }
 
 //save functions

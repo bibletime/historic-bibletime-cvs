@@ -127,7 +127,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	SWModule *m= (d = moduleList->first()) ? d->module() : 0;		
 	if (moduleList->first()->type() == CSwordModuleInfo::Commentary || moduleList->first()->type() == CSwordModuleInfo::Bible) {
 		VerseKey* vk = (VerseKey*)(SWKey*)(*module);
-//		vk->Persist(1);
 		
 		key->key((const char*)*vk);
 		usedKey = key->key();
@@ -142,7 +141,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	}
 	else { //lexicon
 		SWKey* lk = (SWKey*)(*module);
-//		lk->Persist(1);
 		key->key((const char*)*lk);
 		usedKey = key->key();
 				

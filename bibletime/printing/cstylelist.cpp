@@ -26,7 +26,7 @@
 #include <kaction.h>
 #include <kiconloader.h>
 
-CStyleList::CStyleList(CPrinter* printer, styleItemList* items, QWidget *parent, const char *name )
+CStyleList::CStyleList(CPrinter* printer, StyleItemList* items, QWidget *parent, const char *name )
 	: KListView(parent,name), m_items(items), m_printer(printer)
 {
 	initView();	
@@ -47,19 +47,17 @@ void CStyleList::initView(){
 }
 
 /** Sets the content to itemList */
-void CStyleList::insertItems( styleItemList* itemList ){
+void CStyleList::insertItems( StyleItemList* itemList ){
 	for(itemList->first(); itemList->current(); itemList->next() ) {
 		if (itemList != m_items)	//check if we do not insert our own m_items list
 			m_items->append( itemList->current() );
-		QListViewItem* item = itemList->current()->getListViewItem(this);
-//		ASSERT(item);
+		QListViewItem* item = itemList->current()->listViewItem(this);
 	}
 	updateStyleCombo();
 }
 
 /** Appends the items of itemList */
-void CStyleList::setItems( styleItemList* itemList ){
-//	clear();
+void CStyleList::setItems( StyleItemList* itemList ){
 	for (m_items->first(); m_items->current(); m_items->next()) {
 		if (m_items->current())
 			m_items->current()->deleteListViewItem();
@@ -78,7 +76,7 @@ void CStyleList::setItems( styleItemList* itemList ){
 /** Appends the item to the list and m_items. */
 void CStyleList::insertItem( CStyle* item ){
 	m_items->append( item );
-	item->getListViewItem(this);
+	item->listViewItem(this);
 }
 
 /** Opens the style editor dialog for he selected style. */
@@ -90,7 +88,7 @@ void CStyleList::editCurrentStyle(){
 	//go through style items and find the right one
 	CStyle*	currentStyle = 0;
 	for (m_items->first(); m_items->current();m_items->next()) {
-		if (m_items->current()->getListViewItem() == item) {
+		if (m_items->current()->listViewItem() == item) {
 			currentStyle = m_items->current();
 			break;
 		}
@@ -134,7 +132,7 @@ void CStyleList::deleteCurrentStyle(){
 	//go through style items and find the right one
 	CStyle*	currentStyle = 0;
 	for (m_items->first(); m_items->current();m_items->next()) {
-		if (m_items->current()->getListViewItem() == item) {
+		if (m_items->current()->listViewItem() == item) {
 			currentStyle = m_items->current();
 			m_items->remove(currentStyle);
 			currentStyle->deleteListViewItem();			
@@ -155,7 +153,7 @@ void CStyleList::updateStyleCombo(){
 }
 
 /** Returns a pointer to our list */
-styleItemList* CStyleList::getStyleList(){
+StyleItemList* CStyleList::styleList(){
 	return m_items;
 }
 

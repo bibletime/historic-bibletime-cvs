@@ -38,13 +38,13 @@ static CPrinter* m_printer = 0;
 //}
 
 /** Returns a pointer to the backend ... */
-CSwordBackend* CPointers::backend() const{
+CSwordBackend* CPointers::backend(){
 	ASSERT(m_backend);
 	return m_backend;
 }
 
 /** Returns a pointer to the printer object. */
-CPrinter* CPointers::printer() const{
+CPrinter* CPointers::printer(){
 	ASSERT(m_printer);	
 	return m_printer;
 }

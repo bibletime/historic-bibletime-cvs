@@ -83,8 +83,10 @@ BibleTime::~BibleTime() {
 	//delet backend and printer object
 //	if (m_printer)
 //		delete m_printer;
+//	m_printer = 0;
 //	if (m_backend)
 //		delete m_backend;
+//	m_backend = 0;		
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */

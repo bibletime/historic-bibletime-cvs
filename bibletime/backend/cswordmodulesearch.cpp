@@ -50,9 +50,13 @@ CSwordModuleSearch::CSwordModuleSearch() :
 	m_searchedText(QString::null), m_searchOptions(0)
 {
 	searcher = this;
+//	m_moduleList.setAutoDelete(false);
 }
 
 CSwordModuleSearch::~CSwordModuleSearch(){
+	qWarning("CSwordModuleSearch::~CSwordModuleSearch()");
+	searcher = 0;
+//	m_moduleList.clear();
 }
 
 void CSwordModuleSearch::percentUpdate(char percent, void *){	
@@ -75,11 +79,11 @@ void CSwordModuleSearch::percentUpdate(char percent, void *){
 }
 
 /** This function sets the modules which should be searched. */
-void CSwordModuleSearch::setModules( ListCSwordModuleInfo* list ){
-	if (!list)
-		return;		
+void CSwordModuleSearch::setModules( ListCSwordModuleInfo& list ){
+//	if (!list.count())
+//		return;		
 	m_moduleList.clear();
-	m_moduleList = *list;
+	m_moduleList = list;
 }
 
 /** Starts the search for the search text. */

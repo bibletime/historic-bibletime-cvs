@@ -31,16 +31,16 @@
 class CPrintItemList : public KListView  {
    Q_OBJECT
 public: 
-	CPrintItemList(printItemList* items, QWidget *parent=0, const char *name=0);
+	CPrintItemList(PrintItemList* items, QWidget *parent=0, const char *name=0);
 	~CPrintItemList();
   /**
  	* Sets the tree to contain the items of the list. Other items will be removed.
  	*/
-  virtual void setItems( printItemList* itemList);
+  virtual void setItems( PrintItemList* itemList);
   /**
  	* Inserts the items of the list into the tree.
  	*/
-  virtual void insertItems( printItemList* itemList );
+  virtual void insertItems( PrintItemList* itemList );
   /**
  	* Initializes the view.
  	*/
@@ -69,6 +69,6 @@ public slots: // Public slots
   void newPage();
 
 private:
-	printItemList* m_items;		
+	PrintItemList* m_items;		
 };
 #endif

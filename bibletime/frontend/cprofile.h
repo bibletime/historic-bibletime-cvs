@@ -38,7 +38,6 @@ public:
   const bool save( QList<CProfileWindow> windows );
   /**
   * Saves the profile to the file given in the constructor.
-  * @param windows The list of windows available in the profile.
   */
   const bool save();
   /**
@@ -84,6 +83,7 @@ private:
   * Loads the basic settings requires for proper operation.
   */
   void loadBasics();
+  void saveBasics();
 	
 	QList<CProfileWindow> m_profileWindows;
 	QString m_name;

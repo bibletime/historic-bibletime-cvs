@@ -28,14 +28,10 @@
 #include <klocale.h>
 
 CStyle::CStyle() {
-	m_descriptionFormat = m_headerFormat = m_moduleTextFormat = 0;
-	m_listViewItem = 0;
-	
-	clearData();
 	m_headerFormat = new CStyleFormat();
 	m_moduleTextFormat = new CStyleFormat();
 	m_descriptionFormat = new CStyleFormat();
-	
+	m_listViewItem = 0;
 	m_isHeaderFormatEnabled = m_isDescriptionFormatEnabled = m_isModuleTextFormatEnabled = true;
 	
 	setStyleName( i18n("unknown name") );
@@ -51,7 +47,7 @@ CStyle::~CStyle(){
 }
 
 /** Returns the proper CStyleFormat for the given type. */
-CStyleFormat* CStyle::getFormatForType( const CStyle::styleType type) const {
+CStyleFormat* CStyle::formatForType( const CStyle::styleType type) const {
 	switch (type) {
 		case Header:
 			return m_headerFormat;
@@ -113,7 +109,7 @@ void CStyle::setFormatTypeEnabled( const CStyle::styleType type, const bool setE
 }
 
 /** Returns a QListViewItem for inserted in list. */
-QListViewItem* CStyle::getListViewItem( CStyleList* list ){
+QListViewItem* CStyle::listViewItem( CStyleList* list ){
 	if (!list) {
 		if (!m_listViewItem)
 			return 0;
@@ -126,7 +122,7 @@ QListViewItem* CStyle::getListViewItem( CStyleList* list ){
 	return m_listViewItem;
 }
 /** Returns the style name */
-const QString& CStyle::getStyleName() const{
+const QString& CStyle::styleName() const{
 //	qDebug("QString& CStyle::getStyleName() const");
 	return m_styleName;
 }
@@ -147,7 +143,7 @@ void CStyle::clearData(){
 
 /** Updates the Listview items */
 void CStyle::updateListViewItem(){
-	m_listViewItem->setText(0, getStyleName() );
+	m_listViewItem->setText(0, styleName() );
 }
 
 /** Deletes the list view item. */

@@ -30,7 +30,6 @@
 #include <qlistbox.h>
 #include <qlayout.h>
 
-
 //KDE includes
 #include <klocale.h>
 

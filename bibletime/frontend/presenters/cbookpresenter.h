@@ -28,7 +28,7 @@ class CSwordTreeKey;
   *@author The BibleTime team
   */
 
-
+class KAccel;
 
 class CBookPresenter : public CSwordPresenter  {
    Q_OBJECT
@@ -38,7 +38,14 @@ public:
 	*/
 	CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0 );
 	virtual ~CBookPresenter();
+  static void insertKeyboardActions(KAccel* a);
 
+public slots: // Public slots
+  /**
+  * No descriptions
+  */
+  virtual void lookup( const QString&, const QString&);
+    	
 protected: // Protected methods
   /**
   * Initializes the interface of this presenter.
@@ -48,7 +55,8 @@ protected: // Protected methods
   * Init the Signal Slot connections between childs and this widget.
   */
   virtual void initConnections();
-
+	virtual void initAccels();
+	
 protected slots:
 	void modulesChanged();
   /**

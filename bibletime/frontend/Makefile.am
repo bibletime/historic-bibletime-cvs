@@ -14,7 +14,8 @@ coptionsdialog.cpp \
 cprofilemgr.cpp \
 cprofile.cpp \
 cprofilewindow.cpp \
-cpointers.cpp
+cpointers.cpp \
+cexportmanager.cpp
 
 all_headers=cmdiarea.h \
 kstartuplogo.h \
@@ -26,7 +27,8 @@ cinputdialog.h \
 cprofilemgr.h \
 cprofile.h \
 cprofilewindow.h \
-cpointers.h
+cpointers.h \
+cexportmanager.h
 
 EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
 

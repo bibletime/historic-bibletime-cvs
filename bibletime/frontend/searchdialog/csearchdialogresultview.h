@@ -41,11 +41,11 @@ class CSearchDialogResultModuleView : public QListView, public CPointers {
 	Q_OBJECT
 public:
 	CSearchDialogResultModuleView(QWidget *parent=0, const char *name=0);
-	~CSearchDialogResultModuleView();
+	virtual ~CSearchDialogResultModuleView();
 	/**
 	*	Sets te modulelist displayed in this module tree.
 	*/
-	void setModuleList(ListCSwordModuleInfo *moduleList) { this->moduleList = moduleList; };
+	void setModuleList(ListCSwordModuleInfo& modules) { this->moduleList = modules; };
 	/**
 	* Initializes the tree of this CGroupmanager
 	*/
@@ -96,7 +96,7 @@ signals: // Signals
   void moduleSelected(CSwordModuleInfo*);
 
 private:
-  ListCSwordModuleInfo*	moduleList;
+  ListCSwordModuleInfo	moduleList;
   QListViewItem*	m_currentItem;
   CSwordModuleInfo*	m_currentModule;
 

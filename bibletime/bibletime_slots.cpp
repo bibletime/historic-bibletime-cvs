@@ -96,23 +96,23 @@ void BibleTime::slotSettingsOptions(){
 /** Is called when settings in the optionsdialog have been changed (ok or apply) */
 void BibleTime::slotSettingsChanged(){
 
- 		const QString language = CBTConfig::get(CBTConfig::language);
- 		m_backend->booknameLanguage(language);		
- 		//refresh the bookmark items in the groupmanager		
- 		QListViewItemIterator it( m_groupmanager );
- 		CGroupManagerItem* item = 0;
- 		for ( ; it.current(); ++it ) {
- 			if ( (item = dynamic_cast<CGroupManagerItem*>(it.current())) ) {
- 				if (item->type() == CGroupManagerItem::Bookmark) {
-						CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(item->getBookmarkKey());
-						if ( vKey ) {
-							vKey->setLocale( (const char*)m_backend->booknameLanguage().local8Bit());
-							item->update();
-						}
- 				}
+ 	const QString language = CBTConfig::get(CBTConfig::language);
+ 	m_backend->booknameLanguage(language);		
+ 	//refresh the bookmark items in the groupmanager		
+ 	QListViewItemIterator it( m_groupmanager );
+ 	CGroupManagerItem* item = 0;
+ 	for ( ; it.current(); ++it ) {
+ 		if ( (item = dynamic_cast<CGroupManagerItem*>(it.current())) ) {
+ 			if (item->type() == CGroupManagerItem::Bookmark) {
+					CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(item->getBookmarkKey());
+					if ( vKey ) {
+						vKey->setLocale( (const char*)m_backend->booknameLanguage().local8Bit());
+						item->update();
+					}
  			}
- 		}			
-// 	}
+ 		}
+ 	}			
+
  	for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
  		CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));
  		if (myPresenter)
@@ -121,14 +121,14 @@ void BibleTime::slotSettingsChanged(){
 
  	//refresh the load profile and save profile menus
 	m_profileMgr.refresh();
+ 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();	 	
  	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
- 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();	
- 	loadPopup->clear();
  	savePopup->clear();
- 	QList<CProfile> profiles = m_profileMgr.profiles();  	
+ 	loadPopup->clear();
+ 	QList<CProfile> profiles = m_profileMgr.profiles();
  	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
-			savePopup->insertItem(p->name());			
-			loadPopup->insertItem(p->name());
+		savePopup->insertItem(p->name());			
+		loadPopup->insertItem(p->name());
  	}
 }
 
@@ -275,14 +275,13 @@ void BibleTime::slotFilePrint(){
 
 /** Enables the "Clear printer queue" action */
 void BibleTime::slotSetPrintingStatus(){
-	m_filePrint_action->setEnabled( m_printer->getPrintQueue()->count()>0 );
-	m_fileClearQueue_action->setEnabled( m_printer->getPrintQueue()->count()>0 );
+	const bool enable = (m_printer->printQueue().count()>0);
+	m_filePrint_action->setEnabled( enable );
+	m_fileClearQueue_action->setEnabled( enable );
 }
 
 /** Printing was started */
 void BibleTime::slotPrintingStarted(){
-	pthread_mutex_init(&progress_mutex, 0);
-
 	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),/*m_printer->getPrintQueue()->count()*/100,this, "progress", true);
 	connect(m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
 	m_progress->setProgress(0);
@@ -291,26 +290,16 @@ void BibleTime::slotPrintingStarted(){
 
 /** Printing was finished */
 void BibleTime::slotPrintingFinished(){
-	if (pthread_mutex_trylock(&progress_mutex) == EBUSY)
-		return;
-		
 	if (m_progress)
 		delete m_progress;
 	m_progress = 0;	
-	pthread_mutex_unlock(&progress_mutex);	
-	
-	pthread_mutex_destroy(&progress_mutex);
 }
 
 /** No descriptions */
 void BibleTime::slotPrintedPercent( const int percent ){
-	if (pthread_mutex_trylock(&progress_mutex) == EBUSY)
-		return;		
 	if (m_progress) {
 		m_progress->setProgress(percent);
-//		m_progress->setLabelText(i18n("Printing %1").arg(key));
 	}	
-	pthread_mutex_unlock(&progress_mutex);	
 }
 
 /** Aborts the printing */

@@ -50,29 +50,33 @@ CPrintItem::ListViewItem::ListViewItem( QListView* parent, CPrintItem* printItem
 	
 };
 
-CPrintItem::ListViewItem::~ListViewItem() {
-
-};
+//CPrintItem::ListViewItem::~ListViewItem() {
+//
+//};
 
 CPrintItem* CPrintItem::ListViewItem::printItem() const {
 	return m_printItem;
 };
 
+CStyle* CPrintItem::ListViewItem::style() const {
+	return (m_printItem) ? m_printItem->style() : 0;
+};
 
-CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description) : 	
-	m_listViewItem(0), m_module(module),m_style(0),m_startKey(startKey),
-	m_headerText(QString::null),m_description(description),m_moduleText(QString::null)	
+
+CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description) :
+	m_listViewItem(0), m_module(module), m_style(0), m_startKey(startKey),
+	m_headerText(QString::null), m_description(description), m_moduleText(QString::null)	
 {	
 	m_startEmpty = startKey.isEmpty();	
 	m_stopKey = (m_startEmpty && startKey != stopKey) ? stopKey : QString::null;		
 	m_stopEmpty  = m_stopKey.isEmpty();	
 	
-	getHeaderText();
-	getModuleText(); //cache the module text, makes printing faster (at leat the user thinks this :)
+	headerText();
+	moduleText(); //cache the module text, makes printing faster (at leat the user thinks this :)
 }
 
 /** Returns the moduletext used by this item. */
-const QString& CPrintItem::getModuleText() {
+const QString& CPrintItem::moduleText() {
 	/**
 	* If a special text is set use the text.
 	* If the moduleText variable is empty use the CModuleInfo
@@ -109,7 +113,7 @@ const QString& CPrintItem::getModuleText() {
 		}
 	}		
 
-//	m_moduleText.replace(QRegExp("$\n+"), "");
+	m_moduleText.replace(QRegExp("$\n+"), "");
 	m_moduleText.replace(QRegExp("$<BR>+"), "");	
 	return m_moduleText;
 }
@@ -119,8 +123,12 @@ void CPrintItem::setStyle( CStyle* newStyle ) {
 	m_style = newStyle;
 }
 
+CStyle* CPrintItem::style() const {
+	return m_style;
+}
+
 /** Returns the listview item for this printitem. */
-QListViewItem* CPrintItem::getListViewItem( CPrintItemList* list ) {
+QListViewItem* CPrintItem::listViewItem( CPrintItemList* list ) {
 	deleteListViewItem();
 	m_listViewItem = new ListViewItem( list, this );
 	updateListViewItem();
@@ -141,11 +149,11 @@ void CPrintItem::updateListViewItem(){
 		m_listViewItem->setText(2,m_startKey);
 	
 	if (m_style)
-		m_listViewItem->setText(3, m_style->getStyleName() );
+		m_listViewItem->setText(3, m_style->styleName() );
 }
 
 /**  */
-QListViewItem* CPrintItem::getListViewItem() const {
+QListViewItem* CPrintItem::listViewItem() const {
 	return m_listViewItem;
 }
 
@@ -186,26 +194,27 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	const int upperMargin = printer->upperMargin();
 	const int lowerMargin = printer->lowerMargin();				
 	
-	const QRect pageSize =  printer->getPageSize();
+	const QRect pageSize =  printer->contentSize();
 	const int pageHeight 	= pageSize.height();
 	const int pageWidth 	= pageSize.width();
 	
 //moved out of the loop for optimization	
-	int verticalPos = printer->getVerticalPos();		
+	int verticalPos = printer->verticalPos();		
 	int arguments	= 0;
 	QRect boundingRect; //rectangle for the content
 	QRect br;	
 	QRect view;
 	QPen framePen;
 	int movePixs;
-	
+
+	ASSERT(m_style);	
 	for (int i = 0; i < 3; ++i) {		
 		type = static_cast<CStyle::styleType>(i);
 		
 		if (!m_style->hasFormatTypeEnabled(type)) //jump to next part if this is not enabled
 			continue;
 				
-		format 	= m_style->getFormatForType( type );
+		format 	= m_style->formatForType( type );
 		fgColor = format->getFGColor();
 		bgColor = format->getBGColor();	
 		pen.setColor(fgColor);
@@ -219,11 +228,11 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		alignement = format->getAlignement();
 //		identation = format->getIdentation();
 		if (type == CStyle::Header)
-			text = getHeaderText();
+			text = headerText();
 		else if (type == CStyle::Description)
 			text = m_description;
 		else
-			text = getModuleText();
+			text = moduleText();
 
 		p->setFont(font);
 		p->setPen(pen);
@@ -253,7 +262,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			{
 				//this part doesn't fit on the current page
 				printer->newPage();
-				verticalPos = printer->getVerticalPos();
+				verticalPos = printer->verticalPos();
 				boundingRect = p->boundingRect(
 					leftMargin,
 					verticalPos,
@@ -287,7 +296,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 //			arguments |= Qt::AlignVCenter; //WARNING: Right here? Will it change the boundingrect??
 			p->drawText(boundingRect, arguments, text);
 			printer->setVerticalPos(boundingRect.top() + boundingRect.height() + 2*frameThickness + STYLE_PART_SPACE);
- 			verticalPos = printer->getVerticalPos();
+ 			verticalPos = printer->verticalPos();
  			
 			if (frame) {
 				framePen = pen;
@@ -377,16 +386,16 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
     			break;
     		}
     		printer->newPage();
-   			verticalPos = printer->getVerticalPos();    		
+   			verticalPos = printer->verticalPos();    		
     	} while (true);
 			p->restore();
     }
 	}
-	printer->setVerticalPos(printer->getVerticalPos() + PARAGRAPH_SPACE);	
+	printer->setVerticalPos(printer->verticalPos() + PARAGRAPH_SPACE);	
 }
 
 /** Updates and returns the header text. */
-const QString& CPrintItem::getHeaderText() {
+const QString& CPrintItem::headerText() {
 	if (!m_headerText.isEmpty())  // cached?
 		return m_headerText;
   if (m_startEmpty)

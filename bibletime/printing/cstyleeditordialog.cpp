@@ -78,7 +78,7 @@ void CStyleEditorDialog::initView(){
   m_styleTypeChooser->insertItem( i18n("Description") );
   m_styleTypeChooser->insertItem( i18n("Module text") );
   connect(m_styleTypeChooser, SIGNAL(activated(const QString&)), SLOT(styleTypeChanged(const QString&)));
-  m_currentFormat = m_style->getFormatForType( CStyle::Header );
+  m_currentFormat = m_style->formatForType( CStyle::Header );
   hboxLayout->addWidget( m_styleTypeChooser );
 
   m_setEnabledBox = new QCheckBox( mainWidget );
@@ -198,14 +198,14 @@ void CStyleEditorDialog::initView(){
 	
 	
 	
-	m_currentFormat = m_style->getFormatForType( CStyle::Header );	
+	m_currentFormat = m_style->formatForType( CStyle::Header );	
 	setupWithFormat( m_currentFormat );
 	enableBoxClicked();
 }
 
 /** Reads settings from config file */
 void CStyleEditorDialog::readSettings(){
-	m_styleNameEdit->setText( m_style->getStyleName() );
+	m_styleNameEdit->setText( m_style->styleName() );
 	if (m_styleNameEdit->text() == i18n("Standard"))
 		m_styleNameEdit->setEnabled(false);	//you can't change the name of the standard style
 }
@@ -235,11 +235,11 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 		return;	
 
 	CStyle::styleType styleType = CStyle::Unknown;
-	if (m_currentFormat == m_style->getFormatForType(CStyle::Header))
+	if (m_currentFormat == m_style->formatForType(CStyle::Header))
 		styleType = CStyle::Header;
-	else if (m_currentFormat == m_style->getFormatForType(CStyle::Description))
+	else if (m_currentFormat == m_style->formatForType(CStyle::Description))
 		styleType = CStyle::Description;
-	else if (m_currentFormat == m_style->getFormatForType(CStyle::ModuleText))
+	else if (m_currentFormat == m_style->formatForType(CStyle::ModuleText))
 		styleType = CStyle::ModuleText;
 	
 	if (styleType == CStyle::Unknown)
@@ -247,7 +247,7 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	
 	m_formatEnabled = m_style->hasFormatTypeEnabled(styleType);
 	
-  m_styleNameEdit->setText( m_style->getStyleName());	
+  m_styleNameEdit->setText( m_style->styleName());	
 	//setup alignement
 	switch(format->getAlignement()) {
 		case CStyleFormat::Left:
@@ -308,15 +308,15 @@ void CStyleEditorDialog::styleTypeChanged( const QString& name ){
 	applySettingsToFormat( m_currentFormat );
 	
 	if (name == i18n("Header")) {
-		m_currentFormat = m_style->getFormatForType( CStyle::Header );
+		m_currentFormat = m_style->formatForType( CStyle::Header );
 		m_formatEnabled = m_style->hasFormatTypeEnabled( CStyle::Header );
 	}
 	else 	if (name == i18n("Description")) {
-		m_currentFormat = m_style->getFormatForType( CStyle::Description );
+		m_currentFormat = m_style->formatForType( CStyle::Description );
 		m_formatEnabled = m_style->hasFormatTypeEnabled( CStyle::Description );
 	}
 	else 	if (name == i18n("Module text")) {
-		m_currentFormat = m_style->getFormatForType( CStyle::ModuleText );	
+		m_currentFormat = m_style->formatForType( CStyle::ModuleText );	
 		m_formatEnabled = m_style->hasFormatTypeEnabled( CStyle::ModuleText );	
 	}
 	setupWithFormat( m_currentFormat );
@@ -364,14 +364,14 @@ void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 void CStyleEditorDialog::enableBoxClicked() {
 	//find the correct format type
 	CStyle::styleType styleType = CStyle::Unknown;	
-	if (m_currentFormat == m_style->getFormatForType(CStyle::Header))
+	if (m_currentFormat == m_style->formatForType(CStyle::Header))
 		styleType = CStyle::Header;
-	else if (m_currentFormat == m_style->getFormatForType(CStyle::Description))
+	else if (m_currentFormat == m_style->formatForType(CStyle::Description))
 		styleType = CStyle::Description;
-	else if (m_currentFormat == m_style->getFormatForType(CStyle::ModuleText))
+	else if (m_currentFormat == m_style->formatForType(CStyle::ModuleText))
 		styleType = CStyle::ModuleText;
 	
 	m_style->setFormatTypeEnabled(styleType, m_setEnabledBox->isChecked());	
-	applySettingsToFormat(m_style->getFormatForType(styleType));
+	applySettingsToFormat(m_style->formatForType(styleType));
 	setupWithFormat( m_currentFormat );
 }

@@ -69,7 +69,7 @@ public:
 	/**
 	* The destructor of this class. It cleans uop memory before it's deleted.
 	*/
-	~CSwordModuleSearch();
+	virtual ~CSwordModuleSearch();
   /**
  	* Sets the text which should be search in the modules.
  	*/
@@ -81,7 +81,7 @@ public:
   /**
  	* This function sets the modules which should be searched.
  	*/
-  void setModules( ListCSwordModuleInfo* );
+  void setModules( ListCSwordModuleInfo& );
   /**
  	* Sets the search scope.
  	*/
@@ -142,10 +142,6 @@ protected:
 	int cms_module_current;
 
 private:
-//	pthread_mutex_t percentage_mutex;
-//	pthread_mutex_t signal_mutex;
-//	pthread_cond_t	finish_cond;	
-	
 	QSignal m_updateSig;
 	QSignal m_finishedSig;
 };

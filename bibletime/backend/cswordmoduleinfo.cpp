@@ -20,6 +20,7 @@
 #include "cswordbackend.h"
 #include "chtmlentrydisplay.h"
 #include "cswordmodulesearch.h"
+#include "cswordkey.h"
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -181,9 +182,12 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
 	
-	//work around Swords thread insafety
-//	VerseKey k;
-	m_module->SetKey(VerseKey());
+	//work around Swords thread insafety for Bibles and Commentaries
+//	if (type() == CSwordModuleInfo::Bible || type() == CSwordModuleInfo::Commentary )
+	CSwordKey* key = CSwordKey::createInstance(this);
+	SWKey* s = dynamic_cast<SWKey*>(key);
+	m_module->SetKey(s);
+	delete key;
 	
 	//setup variables required for Sword
 	if (searchOptions & CSwordModuleSearch::caseSensitive)

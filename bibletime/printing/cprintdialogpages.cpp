@@ -101,7 +101,7 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
   QVBoxLayout *styleLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   QVBoxLayout *buttonLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   	
-  m_styleList = new CStyleList( m_printer, m_printer->getStyleList(), this, "CStyleList1");
+  m_styleList = new CStyleList( m_printer, &(m_printer->styleList()), this, "CStyleList1");
 	connect(m_styleList, SIGNAL(currentChanged(QListViewItem*)), SLOT(currentStyleChanged(QListViewItem*)));
 	QToolTip::add(m_styleList, TT_PD_LAYOUT_STYLE_LIST);	
 	QWhatsThis::add(m_styleList, WT_PD_LAYOUT_STYLE_LIST);
@@ -217,7 +217,7 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
 
   hboxLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
 
-  m_printItemList = new CPrintItemList( m_printer->getPrintQueue(), this, "CPrintItemList1");
+  m_printItemList = new CPrintItemList( &(m_printer->printQueue()), this, "CPrintItemList1");
 	QToolTip::add(m_printItemList, TT_PD_ENTRIES_PI_LIST);
 	QWhatsThis::add(m_printItemList, WT_PD_ENTRIES_PI_LIST);
 
@@ -286,10 +286,10 @@ bool CPrintItemListPage::isValid (QString& errorMessage) {
 
 /** Applies the given styles to the print item list. */
 void CPrintItemListPage::slotListApplyStyle(const QString& styleName ){
-	styleItemList* styleList = m_printer->getStyleList();	
-	for(styleList->first(); styleList->current(); styleList->next()) {
-		if (styleList->current()->getStyleName() == styleName) {
-		 	m_printItemList->applyStyleToSelected( styleList->current() );
+	StyleItemList& styleList = m_printer->styleList();	
+	for(styleList.first(); styleList.current(); styleList.next()) {
+		if (styleList.current()->styleName() == styleName) {
+		 	m_printItemList->applyStyleToSelected( styleList.current() );
 		 	break;
 		}
 	}
@@ -299,8 +299,8 @@ void CPrintItemListPage::slotListApplyStyle(const QString& styleName ){
 void CPrintItemListPage::stylesChanged(){
 	m_styleComboBox->clear();
 	//refill the combobox
-	styleItemList* styleList = m_printer->getStyleList();	
-	for(styleList->first(); styleList->current(); styleList->next()) {
-		m_styleComboBox->insertItem(styleList->current()->getStyleName());
+	StyleItemList& styleList = m_printer->styleList();	
+	for(styleList.first(); styleList.current(); styleList.next()) {
+		m_styleComboBox->insertItem(styleList.current()->styleName());
 	}	
 }

@@ -108,7 +108,7 @@ protected: // Protected methods
   /**
   * Prints the key given as parameter.
   */
-  void printKey(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module);
+//  void printKey(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module);
   /**
   * Refreshes the supported features.
   */

@@ -39,7 +39,7 @@ public:
   /**
   * Sets the chosen modules for this object.
   */
-  void setChosenModules( ListCSwordModuleInfo* modules );
+  void setChosenModules( ListCSwordModuleInfo& modules );
   /**
   * Returns the modules chosen in this widget.
   */
