@@ -444,10 +444,10 @@ void CHTMLReadDisplay::slotGoToAnchor() {
 
 void CHTMLReadDisplay::zoomIn() {
 // 	qWarning("zooming in");
-	setZoomFactor( (int)((float)zoomFactor()*1.10) );
+ 	setZoomFactor( (int)((float)zoomFactor()*1.1) );
 }
 
 void CHTMLReadDisplay::zoomOut() {
 // 	qWarning("zooming out");
-	setZoomFactor( (int)((float)zoomFactor()*0.9) );
+ 	setZoomFactor( (int)((float)zoomFactor()*(1.0/1.1)) );
 }
