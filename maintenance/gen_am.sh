@@ -161,7 +161,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 		####
 		#This reads in the template of the Makefile.am for the po dirs
 		####
-		cat bibletime-i18n-skel/po/Makefile.am
+		cat bibletime-i18n-skel/po/Makefile.am.2
 
 	) > ../../bibletime-i18n-$I1/po/Makefile.am
 
@@ -176,7 +176,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 	) > ../../bibletime-i18n-$I1/configure.in.in
 
 	cp -v bibletime-i18n-skel/cvsignore ../../bibletime-i18n-$I1/.cvsignore
-	cp -v bibletime-i18n-skel/Makefile.am ../../bibletime-i18n-$I1/Makefile.am
+	cp -v bibletime-i18n-skel/Makefile.am.2 ../../bibletime-i18n-$I1/Makefile.am
 	cp -v ../Makefile.cvs ../../bibletime-i18n-$I1/Makefile.cvs
 	cp -v ../bibletime.m4 ../../bibletime-i18n-$I1/bibletime.m4
 
