@@ -36,7 +36,7 @@
 #include "../cinputdialog.h"
 #include "../ctoolclass.h"
 #include "../searchdialog/csearchdialog.h"
-#include "../optionsdialog/coptionsdialog.h"
+#include "../cbtconfig.h"
 
 #include "../../structdef.h"
 #include "../../whatsthisdef.h"
@@ -93,7 +93,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 
 		//Module is Unicode-based
 		if (m && m->encoding() == QFont::Unicode )
-			setFont(COptionsDialog::getBTFont( COptionsDialog::unicode ));
+			setFont(CBTConfig::get( CBTConfig::unicode ));
 
 		tip(r, text);
 		setFont(oldFont);

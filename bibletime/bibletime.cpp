@@ -35,6 +35,7 @@
 #include "frontend/presenters/ccommentarypresenter.h"
 #include "frontend/presenters/clexiconpresenter.h"
 #include "frontend/keychooser/ckeychooser.h"
+#include "frontend/cbtconfig.h"
 
 //Qt includes
 #include <qsplitter.h>
@@ -54,7 +55,6 @@ BibleTime::BibleTime() : KMainWindow() {
 	m_progress = 0;
 	m_currentProfile = 0;
 
-	m_config = KGlobal::config();
 	connect(kapp, SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
 
 	m_important = new CImportantClasses();
@@ -78,36 +78,32 @@ BibleTime::~BibleTime() {
 
 /** Saves the properties of BibleTime to the application wide configfile  */
 void BibleTime::saveSettings(){
-	saveMainWindowSettings(m_config);
+	saveMainWindowSettings(KGlobal::config());
 	if (m_mdi)
 		m_mdi->saveSettings();	
 	if (m_keyAccel)
 		m_keyAccel->writeSettings();
 
-	KConfigGroupSaver groupSaver(m_config,"General");	
- 	
- 	m_config->writeEntry("show toolbar", m_viewToolbar_action->isChecked());
- 	m_config->writeEntry("show main index", m_viewGroupManager_action->isChecked());
+ 	CBTConfig::set(CBTConfig::toolbar, m_viewToolbar_action->isChecked());
+ 	CBTConfig::set(CBTConfig::mainIndex, m_viewGroupManager_action->isChecked());
 
  	if (m_viewGroupManager_action->isChecked())	//only save changes when the groupmanager is visible
- 		m_config->writeEntry("splitterSizes", m_splitter->sizes());
+ 		CBTConfig::set(CBTConfig::splitterSizes, m_splitter->sizes());
 
-	m_config->setGroup("MDI"); 		
  	if (m_windowAutoTile_action->isChecked())	{
- 		m_config->writeEntry("autoTile", true);
- 		m_config->writeEntry("autoCascade", false);	
+ 		CBTConfig::set(CBTConfig::autoTile, true);
+ 		CBTConfig::set(CBTConfig::autoCascade, false);	
  	}
  	else if ( m_windowAutoTile_action->isChecked() ) {
-			m_config->writeEntry("autoTile", false);
- 		m_config->writeEntry("autoCascade", true);	
+		CBTConfig::set(CBTConfig::autoTile, false);
+ 		CBTConfig::set(CBTConfig::autoCascade, true);	
  	}
  	else {
-			m_config->writeEntry("autoTile", false);
- 		m_config->writeEntry("autoCascade", false);	
+		CBTConfig::set(CBTConfig::autoTile, false);
+ 		CBTConfig::set(CBTConfig::autoCascade, false);	
  	}
 
-	m_config->setGroup("Startup");
-	if (m_config->readBoolEntry("restore workspace", false)) {
+	if ( CBTConfig::get(CBTConfig::restoreWorkspace) ) {
 		CProfile* p = m_profileMgr.startupProfile();
 		if (p)
 			saveProfile(p);
@@ -120,24 +116,22 @@ void BibleTime::readSettings(){
 	
 //	applyMainWindowSettings(m_config);
 	
-	m_keyAccel->readSettings(m_config);
-	KConfigGroupSaver groupsaver(m_config, "General");
-				
- 	m_viewToolbar_action->setChecked(m_config->readBoolEntry("show toolbar", true));
+	m_keyAccel->readSettings(KGlobal::config());
+
+ 	m_viewToolbar_action->setChecked( CBTConfig::get(CBTConfig::toolbar) );
  	slotToggleToolbar();
 		
- 	m_viewGroupManager_action->setChecked( m_config->readBoolEntry("show main index", true) );
+ 	m_viewGroupManager_action->setChecked( CBTConfig::get(CBTConfig::mainIndex) );
  	slotToggleGroupManager();
 		
- 	m_splitter->setSizes( m_config->readIntListEntry("splitterSizes") );		
+ 	m_splitter->setSizes( CBTConfig::get(CBTConfig::splitterSizes) );		
 
- 	m_config->setGroup("MDI");
- 	if (m_config->readBoolEntry("autoTile", true)) {
+ 	if ( CBTConfig::get(CBTConfig::autoTile) ) {
  		m_windowAutoTile_action->setChecked( true );
  		m_windowAutoCascade_action->setChecked( false );
  		m_mdi->setGUIOption( CMDIArea::autoTile );
  	}
- 	else if ( m_config->readBoolEntry("autoCascade", false) ) {
+ 	else if ( CBTConfig::get(CBTConfig::autoCascade) ) {
  		m_windowAutoCascade_action->setChecked(true);
  		m_windowAutoTile_action->setChecked(false);
  		m_mdi->setGUIOption( CMDIArea::autoCascade );

@@ -26,6 +26,7 @@
 #include "../../backend/cswordbackend.h"
 #include "../../backend/cswordmoduleinfo.h"
 #include "../../backend/cswordlexiconmoduleinfo.h"
+#include "../cbtconfig.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,10 +53,9 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kstddirs.h>
-#include <kconfig.h>
+//#include <kconfig.h>
 #include <kkeydialog.h>
 #include <kiconloader.h>
-#include <kconfig.h>
 #include <kapp.h>
 #include <klistbox.h>
 #include <kkeydialog.h>
@@ -63,10 +63,13 @@
 //Sword includes
 #include <localemgr.h>
 
+#define STANDARD_FONT_NAME i18n("Standard")
+#define UNICODE_FONT_NAME i18n("Unicode")
+
 COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *parent, const char *name, KAccel* accel )
 	: KDialogBase(TreeList, i18n("Optionsdialog"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
-	m_config = KGlobal::config();	
+//	m_config = KGlobal::config();	
 	m_important = importantClasses;
 //	m_changedSettings = 0;	
 	m_general.keys.accel = accel;
@@ -94,8 +97,7 @@ void COptionsDialog::initGeneral() {
 		QToolTip::add(m_general.startup.showTips, TT_OD_GENERAL_DAILY_TIP);	
 		QWhatsThis::add(m_general.startup.showTips, WT_OD_GENERAL_DAILY_TIP);
 		
-		KConfigGroupSaver groupSaver(m_config, "Startup");
-		m_general.startup.showTips->setChecked( m_config->readBoolEntry("show tips", true) );
+		m_general.startup.showTips->setChecked( CBTConfig::get(CBTConfig::tips) );
 	}
 	layout->addWidget(m_general.startup.showTips);	
 
@@ -105,19 +107,17 @@ void COptionsDialog::initGeneral() {
 		QWhatsThis::add(m_general.startup.showLogo, WT_OD_GENERAL_SHOW_STARTUPLOGO);
 		QToolTip::add(m_general.startup.showLogo, TT_OD_GENERAL_SHOW_STARTUPLOGO);		
 		
-		KConfigGroupSaver groupSaver(m_config, "General");
-		m_general.startup.showLogo->setChecked(m_config->readBoolEntry("Logo", true));			
+		m_general.startup.showLogo->setChecked(CBTConfig::get(CBTConfig::logo));			
 	}		
 	layout->addWidget(m_general.startup.showLogo);	
 
-	{ //startup logo
+	{ //workspace
 		m_general.startup.restoreWorkspace = new QCheckBox(page);
 		m_general.startup.restoreWorkspace->setText(i18n("Restore windows in workspace area"));
 		QToolTip::add(m_general.startup.restoreWorkspace, TT_OD_GENERAL_RESTORE_WORKSPACE);		
 		QWhatsThis::add(m_general.startup.restoreWorkspace, WT_OD_GENERAL_RESTORE_WORKSPACE);
 		
-		KConfigGroupSaver groupSaver(m_config, "Startup");
-		m_general.startup.restoreWorkspace->setChecked(m_config->readBoolEntry("restore workspace", false));			
+		m_general.startup.restoreWorkspace->setChecked(CBTConfig::get(CBTConfig::restoreWorkspace));			
 	}		
 	layout->addWidget(m_general.startup.restoreWorkspace);	
 		
@@ -134,8 +134,7 @@ void COptionsDialog::initGeneral() {
 		QToolTip::add(m_general.sword.lexiconCache, TT_OD_SWORD_USE_LEXICON_CACHE);	
 		QWhatsThis::add(m_general.sword.lexiconCache, WT_OD_SWORD_USE_LEXICON_CACHE);
 		
-		KConfigGroupSaver groupSaver(m_config, "SWORD");
-		m_general.sword.lexiconCache->setChecked( m_config->readBoolEntry("use lexicon cache", true) );
+		m_general.sword.lexiconCache->setChecked( CBTConfig::get(CBTConfig::lexiconCache) );
   	layout2->addWidget(m_general.sword.lexiconCache);	
 	}
 
@@ -211,9 +210,7 @@ void COptionsDialog::initGeneral() {
 			}
     }
 		
-		KConfigGroupSaver groupSaver(m_config, "SWORD");
-		
-		const QString standardBible = m_config->readEntry("standard bible");
+		const QString standardBible = CBTConfig::get(CBTConfig::standardBible);
 		int count = m_general.sword.standardBible->count();
 		for (int item=0; item < count; ++item) {
 			if (m_general.sword.standardBible->text(item) == standardBible) {
@@ -222,7 +219,7 @@ void COptionsDialog::initGeneral() {
 			}
 		}
 		
-		const QString standardCommentary = m_config->readEntry("standard commentary");
+		const QString standardCommentary = CBTConfig::get(CBTConfig::standardCommentary);
 		count = m_general.sword.standardCommentary->count();
 		for (int item=0; item < count; ++item) {
 			if (m_general.sword.standardCommentary->text(item) == standardCommentary) {
@@ -231,7 +228,7 @@ void COptionsDialog::initGeneral() {
 			}
 		}
 
-		const QString standardLexicon = m_config->readEntry("standard lexicon");
+		const QString standardLexicon = CBTConfig::get(CBTConfig::standardLexicon);
 		count = m_general.sword.standardLexicon->count();
 		for (int item=0; item < count; ++item) {
 			if (m_general.sword.standardLexicon->text(item) == standardLexicon) {
@@ -240,7 +237,7 @@ void COptionsDialog::initGeneral() {
 			}
 		}			
 		
-		const QString standardHebrewStrong =m_config->readEntry("standard hebrew lexicon");
+		const QString standardHebrewStrong = CBTConfig::get(CBTConfig::standardHebrewLexicon);
 		count = m_general.sword.standardHebrewStrong->count();
 		for (int item=0; item < count; ++item) {
 			if (m_general.sword.standardHebrewStrong->text(item) == standardHebrewStrong) {
@@ -249,7 +246,7 @@ void COptionsDialog::initGeneral() {
 			}
 		}		
 		
-		const QString standardGreekStrong = m_config->readEntry("standard greek lexicon");
+		const QString standardGreekStrong = CBTConfig::get(CBTConfig::standardGreekLexicon);
 		count = m_general.sword.standardGreekStrong->count();
 		for(int item=0; item<count; ++item) {
 			if(m_general.sword.standardGreekStrong->text(item) == standardGreekStrong) {
@@ -275,22 +272,19 @@ void COptionsDialog::initGeneral() {
 
 void COptionsDialog::saveGeneral() {
 	{
-  	KConfigGroupSaver groupSaver(m_config, "Startup");
-  	m_config->writeEntry( "Logo", m_general.startup.showLogo->isChecked() );	
-  	m_config->writeEntry( "restore workspace", m_general.startup.restoreWorkspace->isChecked() );	
-  	m_config->writeEntry( "show tips", m_general.startup.showTips->isChecked() );				
+  	CBTConfig::set( CBTConfig::logo, m_general.startup.showLogo->isChecked() );	
+  	CBTConfig::set( CBTConfig::tips, m_general.startup.showTips->isChecked() );				
+  	CBTConfig::set( CBTConfig::restoreWorkspace, m_general.startup.restoreWorkspace->isChecked() );	
 	}
 	{
-		KConfigGroupSaver groupSaver(m_config, "Keys");  	
   	m_general.keys.accel->setKeyDict( m_general.keys.dict );	
-  	m_general.keys.accel->writeSettings( m_config );
+  	m_general.keys.accel->writeSettings( );
 	}
 	{
-    KConfigGroupSaver groupSaver(m_config, "SWORD");
-    bool old_lexiconCache = m_config->readBoolEntry("use lexicon cache", false);
+    bool old_lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
     bool new_lexiconCache = m_general.sword.lexiconCache->isChecked();
 		
-  	m_config->writeEntry( "use lexicon cache", new_lexiconCache );	
+  	CBTConfig::set( CBTConfig::lexiconCache, new_lexiconCache );	
 
   	if (old_lexiconCache && !new_lexiconCache){  //delete cache files
   		QString dirname = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
@@ -300,11 +294,11 @@ void COptionsDialog::saveGeneral() {
 				dir.remove((*it),false);			
   	}
   	
-  	m_config->writeEntry("standard bible", m_general.sword.standardBible->currentText());
-  	m_config->writeEntry("standard commentary", m_general.sword.standardCommentary->currentText());
-  	m_config->writeEntry("standard lexicon", m_general.sword.standardLexicon->currentText());
-  	m_config->writeEntry("standard hebrew lexicon", m_general.sword.standardHebrewStrong->currentText());
-	 	m_config->writeEntry("standard greek lexicon", m_general.sword.standardGreekStrong->currentText() );  	
+  	CBTConfig::set(CBTConfig::standardBible, m_general.sword.standardBible->currentText());
+  	CBTConfig::set(CBTConfig::standardCommentary, m_general.sword.standardCommentary->currentText());
+  	CBTConfig::set(CBTConfig::standardLexicon, m_general.sword.standardLexicon->currentText());
+  	CBTConfig::set(CBTConfig::standardHebrewLexicon, m_general.sword.standardHebrewStrong->currentText());
+	 	CBTConfig::set(CBTConfig::standardGreekLexicon, m_general.sword.standardGreekStrong->currentText() );  	
 	}
 }
 
@@ -318,8 +312,6 @@ void COptionsDialog::initDisplayWindow() {
 	QVBoxLayout* layout = new QVBoxLayout(page);	
 	QHBoxLayout* localeLayout = new QHBoxLayout();
 	{//bookname language		
-		KConfigGroupSaver groupSaver(m_config, "SWORD");
-				
 		m_displayWindows.general.localeCombo = new QComboBox(page);
 		QToolTip::add(m_displayWindows.general.localeCombo, TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);				
 		QWhatsThis::add(m_displayWindows.general.localeCombo, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);		
@@ -337,7 +329,7 @@ void COptionsDialog::initDisplayWindow() {
 
 		int current_item = -1;
 		for(int test_item = 0; test_item < m_displayWindows.general.localeCombo->count(); test_item++) {
-			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)m_config->readEntry("Language", KGlobal::locale()->language()).local8Bit());
+			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale(CBTConfig::get(CBTConfig::language).local8Bit());
 			if (locale && m_displayWindows.general.localeCombo->text(test_item).contains(i18n(locale->getDescription())) )
 				current_item = test_item;
 		}
@@ -347,63 +339,61 @@ void COptionsDialog::initDisplayWindow() {
 	layout->addLayout(localeLayout);
 	
 	{
-		KConfigGroupSaver groupSaver(m_config, "General");		
-
 		m_displayWindows.general.useDownArrow = new QCheckBox(page);
   	m_displayWindows.general.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
-		m_displayWindows.general.useDownArrow->setChecked(m_config->readBoolEntry("Scroll",true));		
+		m_displayWindows.general.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));		
 		QWhatsThis::add(m_displayWindows.general.useDownArrow, WT_OD_GENERAL_SCROLL_PREVIOUS);
 		QToolTip::add(m_displayWindows.general.useDownArrow, TT_OD_GENERAL_SCROLL_PREVIOUS);
 		layout->addWidget(m_displayWindows.general.useDownArrow);
 
 		m_displayWindows.general.lineBreaks = new QCheckBox(page);
   	m_displayWindows.general.lineBreaks->setText(i18n("Show linebreak after each verse"));
-		m_displayWindows.general.lineBreaks->setChecked(m_config->readBoolEntry("lineBreaks",true));		
+		m_displayWindows.general.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));		
 		layout->addWidget(m_displayWindows.general.lineBreaks);
 
 		m_displayWindows.general.verseNumbers = new QCheckBox(page);
   	m_displayWindows.general.verseNumbers->setText(i18n("Show versenumbers"));
-		m_displayWindows.general.verseNumbers->setChecked(m_config->readBoolEntry("verseNumbers",true));		
+		m_displayWindows.general.verseNumbers->setChecked(CBTConfig::get(CBTConfig::verseNumbers));		
 		layout->addWidget(m_displayWindows.general.verseNumbers);
 
 		m_displayWindows.general.footnotes = new QCheckBox(page);
   	m_displayWindows.general.footnotes->setText(i18n("Show footnotes"));
-		m_displayWindows.general.footnotes->setChecked(m_config->readBoolEntry("footnotes",true));		
+		m_displayWindows.general.footnotes->setChecked(CBTConfig::get(CBTConfig::footnotes));		
   	layout->addWidget(m_displayWindows.general.footnotes);
 
 		m_displayWindows.general.strongNumbers = new QCheckBox(page);
   	m_displayWindows.general.strongNumbers->setText(i18n("Show Strong's Numbers"));
-		m_displayWindows.general.strongNumbers->setChecked(m_config->readBoolEntry("strongNumbers",true));		
+		m_displayWindows.general.strongNumbers->setChecked(CBTConfig::get(CBTConfig::strongNumbers));		
   	layout->addWidget(m_displayWindows.general.strongNumbers);
 
 		m_displayWindows.general.headings = new QCheckBox(page);
   	m_displayWindows.general.headings->setText(i18n("Show headings"));
-		m_displayWindows.general.headings->setChecked(m_config->readBoolEntry("headings",true));		
+		m_displayWindows.general.headings->setChecked(CBTConfig::get(CBTConfig::headings));		
   	layout->addWidget(m_displayWindows.general.headings);
 
 		m_displayWindows.general.morphTags = new QCheckBox(page);
   	m_displayWindows.general.morphTags->setText(i18n("Show morphologic tags"));
-		m_displayWindows.general.morphTags->setChecked(m_config->readBoolEntry("morphTags",true));		
+		m_displayWindows.general.morphTags->setChecked(CBTConfig::get(CBTConfig::morphTags));		
   	layout->addWidget(m_displayWindows.general.morphTags);
 
 		m_displayWindows.general.lemmas = new QCheckBox(page);
   	m_displayWindows.general.lemmas->setText(i18n("Show lemmas"));
-		m_displayWindows.general.lemmas->setChecked(m_config->readBoolEntry("lemmas",true));		
+		m_displayWindows.general.lemmas->setChecked(CBTConfig::get(CBTConfig::lemmas));		
   	layout->addWidget(m_displayWindows.general.lemmas);
 		
 		m_displayWindows.general.hebrewPoints = new QCheckBox(page);
   	m_displayWindows.general.hebrewPoints->setText(i18n("Show Hebrew vowel points"));
-		m_displayWindows.general.hebrewPoints->setChecked(m_config->readBoolEntry("hebrewPoints",true));		
+		m_displayWindows.general.hebrewPoints->setChecked(CBTConfig::get(CBTConfig::hebrewPoints));		
   	layout->addWidget(m_displayWindows.general.hebrewPoints);
 
 		m_displayWindows.general.hebrewCantillation = new QCheckBox(page);
   	m_displayWindows.general.hebrewCantillation->setText(i18n("Show Hebrew cantillation marks"));
-		m_displayWindows.general.hebrewCantillation->setChecked(m_config->readBoolEntry("hebrewCantillation",true));		
+		m_displayWindows.general.hebrewCantillation->setChecked(CBTConfig::get(CBTConfig::hebrewCantillation));		
   	layout->addWidget(m_displayWindows.general.hebrewCantillation);
 
 		m_displayWindows.general.greekAccents = new QCheckBox(page);
   	m_displayWindows.general.greekAccents->setText(i18n("Show Greek accents"));
-		m_displayWindows.general.greekAccents->setChecked(m_config->readBoolEntry("greekAccents",true));		
+		m_displayWindows.general.greekAccents->setChecked(CBTConfig::get(CBTConfig::greekAccents));		
   	layout->addWidget(m_displayWindows.general.greekAccents);
 	}
 	layout->addStretch(4);	
@@ -414,42 +404,40 @@ void COptionsDialog::initDisplayWindow() {
   QButtonGroup* group =	new QButtonGroup(2,Qt::Horizontal,"", hbox_page, "colorGroup");
 	group->setLineWidth(0);
 	{
-		KConfigGroupSaver groupSaver(m_config, "Colors");			
-
 		QLabel* label = new QLabel(i18n("Text"), group);		
 //		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 //		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-		m_displayWindows.colors.text = new KColorButton(m_config->readColorEntry("text", &Qt::black), group);		
+		m_displayWindows.colors.text = new KColorButton(CBTConfig::get(CBTConfig::textColor), group);		
 
 		label = new QLabel(i18n("Background"), group);		
 		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-		m_displayWindows.colors.background = new KColorButton(m_config->readColorEntry("Background", &Qt::white), group);		
+		m_displayWindows.colors.background = new KColorButton(CBTConfig::get(CBTConfig::backgroundColor), group);		
 		
 		label = new QLabel(i18n("Highlighted verse"), group);
 		QToolTip::add(label, TT_OD_COLORS_CURRENT_VERSE );	
 		QWhatsThis::add(label, WT_OD_COLORS_CURRENT_VERSE );
-		m_displayWindows.colors.highlightedVerse = new KColorButton(m_config->readColorEntry("Highlighted Verse", &Qt::red ), group);
+		m_displayWindows.colors.highlightedVerse = new KColorButton(CBTConfig::get(CBTConfig::highlightedVerseColor), group);
 
 		label = new QLabel(i18n("Footnotes"), group);		
 //		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 //		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-		m_displayWindows.colors.footnotes = new KColorButton(m_config->readColorEntry("footnote", &Qt::black), group);		
+		m_displayWindows.colors.footnotes = new KColorButton(CBTConfig::get(CBTConfig::footnotesColor), group);		
 
 		label = new QLabel(i18n("Strong's numbers"), group);		
 //		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 //		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-		m_displayWindows.colors.strongs = new KColorButton(m_config->readColorEntry("strongs", &Qt::blue), group);		
+		m_displayWindows.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), group);		
 
 		label = new QLabel(i18n("Morphologic tags"), group);		
 //		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 //		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-		m_displayWindows.colors.morph = new KColorButton(m_config->readColorEntry("morph", &Qt::blue), group);		
+		m_displayWindows.colors.morph = new KColorButton(CBTConfig::get(CBTConfig::morphsColor), group);		
 
 		label = new QLabel(i18n("Words of Jesus"), group);		
 //		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 //		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-		m_displayWindows.colors.jesuswords = new KColorButton(m_config->readColorEntry("jesuswords", &Qt::red), group);		
+		m_displayWindows.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), group);		
 
 	}	
 	
@@ -457,16 +445,14 @@ void COptionsDialog::initDisplayWindow() {
 	items << i18n("Display windows") << i18n("Fonts");		
  	QVBox* vbox_page = addVBoxPage(items, i18n("Choose fonts for BibleTime"), OD_ICON_FONTS); 	
  	{// font settings
-		KConfigGroupSaver groupSaver(m_config, "Fonts");
-		
 		QLabel* label = new QLabel(i18n("Choose the area of application and set the font for it"), vbox_page);	
 		
 		m_displayWindows.fonts.usage = new QComboBox(vbox_page);		
 	 	QToolTip::add(m_displayWindows.fonts.usage, TT_OD_FONTS_TYPE_CHOOSER);	 	
 	 	QWhatsThis::add(m_displayWindows.fonts.usage, WT_OD_FONTS_TYPE_CHOOSER);	
 	 	
-		m_displayWindows.fonts.fontMap.insert(i18n("Display window"), m_config->readFontEntry( i18n("Display window") ));
-		m_displayWindows.fonts.fontMap.insert(i18n("Display window Unicode"), m_config->readFontEntry( i18n("Display window Unicode") ));
+		m_displayWindows.fonts.fontMap.insert(STANDARD_FONT_NAME, CBTConfig::get(CBTConfig::standard));
+		m_displayWindows.fonts.fontMap.insert(UNICODE_FONT_NAME, CBTConfig::get(CBTConfig::unicode));
 
 		for( QMap<QString, QFont>::Iterator it = m_displayWindows.fonts.fontMap.begin(); it != m_displayWindows.fonts.fontMap.end(); ++it )
 			m_displayWindows.fonts.usage->insertItem(it.key());
@@ -552,7 +538,6 @@ void COptionsDialog::initDisplayWindow() {
 
 void COptionsDialog::saveDisplayWindow() {
 	{ //Save localisation settings
-		KConfigGroupSaver groupSaver(m_config, "SWORD");		
 		const QString currentText = m_displayWindows.general.localeCombo->currentText();
 		list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
 		QString localeName = QString::null;
@@ -562,61 +547,43 @@ void COptionsDialog::saveDisplayWindow() {
 				break;
 			}
 		}
-
-//		const QString oldValue = m_config->readEntry("Language", KGlobal::locale()->language());
-//		if (oldValue == QString::null || oldValue != localeName) {	//changed
-//				m_changedSettings |= CSwordPresenter::language;
-//		}				
-		
 		if (!localeName.isEmpty())
-			m_config->writeEntry("Language", localeName);
+			CBTConfig::set(CBTConfig::language, localeName);
 		else
-			m_config->writeEntry("Language", currentText);
+			CBTConfig::set(CBTConfig::language, currentText);
 	}
 	
 	{//save settings for the scroll button
-		KConfigGroupSaver groupSaver(m_config, "General");
-		m_config->writeEntry("Scroll", m_displayWindows.general.useDownArrow->isChecked(), true);
-		m_config->writeEntry("lineBreaks", m_displayWindows.general.lineBreaks->isChecked(), true);
-		m_config->writeEntry("verseNumbers", m_displayWindows.general.verseNumbers->isChecked(), true);
-		m_config->writeEntry("footnotes", m_displayWindows.general.footnotes->isChecked(), true);
-		m_config->writeEntry("strongNumbers", m_displayWindows.general.strongNumbers->isChecked(), true);
-		m_config->writeEntry("headings", m_displayWindows.general.headings->isChecked(), true);
-		m_config->writeEntry("morphTags", m_displayWindows.general.morphTags->isChecked(), true);
-		m_config->writeEntry("lemmas", m_displayWindows.general.lemmas->isChecked(), true);
-		m_config->writeEntry("hebrewPoints", m_displayWindows.general.hebrewPoints->isChecked(), true);
-		m_config->writeEntry("hebrewCantillation", m_displayWindows.general.hebrewCantillation->isChecked(), true);
-		m_config->writeEntry("greekAccents", m_displayWindows.general.greekAccents->isChecked(), true);
+		CBTConfig::set(CBTConfig::scroll, m_displayWindows.general.useDownArrow->isChecked());
+		CBTConfig::set(CBTConfig::lineBreaks, m_displayWindows.general.lineBreaks->isChecked());
+		CBTConfig::set(CBTConfig::verseNumbers, m_displayWindows.general.verseNumbers->isChecked());
+		CBTConfig::set(CBTConfig::footnotes, m_displayWindows.general.footnotes->isChecked());
+		CBTConfig::set(CBTConfig::strongNumbers, m_displayWindows.general.strongNumbers->isChecked());
+		CBTConfig::set(CBTConfig::headings, m_displayWindows.general.headings->isChecked());
+		CBTConfig::set(CBTConfig::morphTags, m_displayWindows.general.morphTags->isChecked());
+		CBTConfig::set(CBTConfig::lemmas, m_displayWindows.general.lemmas->isChecked());
+		CBTConfig::set(CBTConfig::hebrewPoints, m_displayWindows.general.hebrewPoints->isChecked());
+		CBTConfig::set(CBTConfig::hebrewCantillation, m_displayWindows.general.hebrewCantillation->isChecked());
+		CBTConfig::set(CBTConfig::greekAccents, m_displayWindows.general.greekAccents->isChecked());
 	}
 	
 	{
-		KConfigGroupSaver groupSaver(m_config, "Fonts");
-//		if (m_config->readFontEntry(i18n("Display window")) != m_displayWindows.fonts.fontMap[i18n("Display window")]
-//      || m_config->readFontEntry(i18n("Display window Unicode")) != m_displayWindows.fonts.fontMap[i18n("Display window Unicode")] )
-//		m_changedSettings |= CSwordPresenter::font;
-
-		for(QMap<QString, QFont>::Iterator it = m_displayWindows.fonts.fontMap.begin(); it != m_displayWindows.fonts.fontMap.end(); ++it )
-			m_config->writeEntry(it.key(), it.data());
+		for(QMap<QString, QFont>::Iterator it = m_displayWindows.fonts.fontMap.begin(); it != m_displayWindows.fonts.fontMap.end(); ++it ){
+			if (it.key() == STANDARD_FONT_NAME)
+				CBTConfig::set(CBTConfig::standard, it.data());
+			else if (it.key() == UNICODE_FONT_NAME)
+				CBTConfig::set(CBTConfig::unicode, it.data());
+		}
 	}
 	
 	{ //save color options
-		KConfigGroupSaver groupSaver(m_config, "Colors");
-
-		m_config->writeEntry("text", m_displayWindows.colors.text->color().name());	
-
-//		if ( m_config->readColorEntry("Background") != m_displayWindows.colors.background->color() )
-//			m_changedSettings |= CSwordPresenter::backgroundColor;
-		m_config->writeEntry("Background", m_displayWindows.colors.background->color().name());	
-	
-//		if ( m_config->readColorEntry("Highlighted Verse") != m_displayWindows.colors.highlightedVerse->color() )
-//				m_changedSettings |= CSwordPresenter::highlightedVerseColor;
-
-		m_config->writeEntry("Highlighted Verse", m_displayWindows.colors.highlightedVerse->color().name());		
-#warning missing change notice in enum value of CSWordPresenter? Maybe only CSwordPresenter::colorchaged for all color changes?
-		m_config->writeEntry("footnote", m_displayWindows.colors.footnotes->color().name());		
-		m_config->writeEntry("strongs", m_displayWindows.colors.strongs->color().name());		
-		m_config->writeEntry("morph", m_displayWindows.colors.morph->color().name());		
-		m_config->writeEntry("jesuswords", m_displayWindows.colors.jesuswords->color().name());		
+		CBTConfig::set(CBTConfig::textColor, m_displayWindows.colors.text->color().name());	
+		CBTConfig::set(CBTConfig::backgroundColor, m_displayWindows.colors.background->color().name());	
+		CBTConfig::set(CBTConfig::highlightedVerseColor, m_displayWindows.colors.highlightedVerse->color().name());		
+		CBTConfig::set(CBTConfig::footnotesColor, m_displayWindows.colors.footnotes->color().name());		
+		CBTConfig::set(CBTConfig::strongsColor, m_displayWindows.colors.strongs->color().name());		
+		CBTConfig::set(CBTConfig::morphsColor, m_displayWindows.colors.morph->color().name());		
+		CBTConfig::set(CBTConfig::jesuswordsColor, m_displayWindows.colors.jesuswords->color().name());		
 	}
 	
 	{//save accel settings
@@ -700,64 +667,6 @@ void COptionsDialog::renameProfile(){
 		m_displayWindows.profiles.profiles->changeItem(newName, m_displayWindows.profiles.profiles->currentItem());
 	}	
 }
-/** No descriptions */
-QFont COptionsDialog::getBTFont( BTFont which){
-  KConfig* config = KGlobal::config();
-
-  KConfigGroupSaver groupSaver(config,"Fonts");
-
-	switch (which){
-		case COptionsDialog::unicode:
-			return config->readFontEntry( i18n("Display window Unicode") );
-		case COptionsDialog::standard:
-		default:
-			return config->readFontEntry( i18n("Display window") );
-	}
-}
-
-/** No descriptions */
-QColor COptionsDialog::getBTColor( BTColor which){
-  KConfig* config = KGlobal::config();
-  KConfigGroupSaver groupSaver(config,"Colors");
-
-	switch (which){
-		case COptionsDialog::text:
-			return config->readColorEntry( "text", &Qt::black );
-		case COptionsDialog::background:
-			return config->readColorEntry( "Background", &Qt::white );
-		case COptionsDialog::highlighted_verse:
-			return config->readColorEntry( "Highlighted Verse", &Qt::red );
-		case COptionsDialog::footnote:
-			return config->readColorEntry( "footnote", &Qt::black );
-		case COptionsDialog::strongs:
-			return config->readColorEntry( "strongs", &Qt::blue );
-		case COptionsDialog::morph:
-			return config->readColorEntry( "morph", &Qt::blue);
-		case COptionsDialog::jesuswords:
-			return config->readColorEntry( "jesuswords", &Qt::red );
-		default:
-			return QColor( Qt::black );
-	}
-}
-
-/** No descriptions */
-bool COptionsDialog::getBTBool( BTBool which){
-  KConfig* config = KGlobal::config();
-  KConfigGroupSaver groupSaver(config,"General");
-
-	switch (which){
-		case COptionsDialog::downArrow:
-			return config->readBoolEntry( "Scroll", true );
-		case COptionsDialog::lineBreaks:
-			return config->readBoolEntry( "lineBreaks", true );
-		case COptionsDialog::verseNumbers:
-			return config->readBoolEntry( "verseNumbers", true );
-		default:
-			return true;
-	}
-}
-
-
 
 /** Opens the page which contaisn the given part ID. */
 const bool COptionsDialog::showPart(  COptionsDialog::Parts ID ){

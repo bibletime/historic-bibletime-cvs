@@ -32,6 +32,7 @@
 #include "frontend/presenters/cswordpresenter.h"
 #include "frontend/groupmanager/cgroupmanager.h"
 #include "frontend/optionsdialog/coptionsdialog.h"
+#include "frontend/cbtconfig.h"
 #include "config.h"
 
 #include <errno.h>
@@ -57,7 +58,6 @@
 #include <klocale.h>
 #include <kedittoolbar.h>
 #include <kpopupmenu.h>
-#include <kconfig.h>
 #include <khelpmenu.h>
 
 //Sword includes
@@ -85,7 +85,7 @@ void BibleTime::slotFileQuit(){
 /** Opens the optionsdialog of BibleTime. */
 void BibleTime::slotSettingsOptions(){
 	COptionsDialog *dlg = new COptionsDialog(m_important, this, "COptionsDialog", m_keyAccel);
-  connect(dlg, SIGNAL(signalSettingsChanged(const int)), SLOT(slotSettingsChanged(const int)) );
+  connect(dlg, SIGNAL(signalSettingsChanged()), SLOT(slotSettingsChanged()) );
 	
 	dlg->exec();
 	dlg->delayedDestruct();
@@ -94,9 +94,7 @@ void BibleTime::slotSettingsOptions(){
 /** Is called when settings in the optionsdialog have been changed (ok or apply) */
 void BibleTime::slotSettingsChanged(){
 
-// 	if (changedSettings & CSwordPresenter::language) {	//the language changed
- 		KConfigGroupSaver gs(m_config, "SWORD");
- 		const QString language = m_config->readEntry("Language", "");
+ 		const QString language = CBTConfig::get(CBTConfig::language);
  		m_important->swordBackend->setBooknameLanguage(language);		
  		//refresh the bookmark items in the groupmanager		
  		QListViewItemIterator it( m_groupmanager );
@@ -140,33 +138,6 @@ void BibleTime::slotHelpTipOfDay(){
 	delete tipDlg;	
 }
 
-///** Switches footnotes on or off */
-//void BibleTime::slotToggleFootnotes(){
-//	m_important->swordBackend->setOption(CSwordBackend::footnotes, m_viewFootnotes_action->isChecked() );
-//	
-//	refreshPresenters( CSwordPresenter::footnotesChanged );
-//}
-//
-///** Switches displaying of strong number on or off */
-//void BibleTime::slotToggleStrongs(){
-//	m_important->swordBackend->setOption(CSwordBackend::strongNumbers, m_viewStrongs_action->isChecked());
-//	
-//	refreshPresenters( CSwordPresenter::strongNumbersChanged );
-//}
-//
-///** Switches footnotes on or off */
-//void BibleTime::slotToggleHeadings(){
-//	m_important->swordBackend->setOption(CSwordBackend::headings, m_viewHeadings_action->isChecked() );
-//	
-//	refreshPresenters( CSwordPresenter::headingsChanged );
-//}
-//
-///** Switches footnotes on or off */
-//void BibleTime::slotToggleMorphTags(){
-//	m_important->swordBackend->setOption(CSwordBackend::morphTags, m_viewMorphTags_action->isChecked() );
-//	
-//	refreshPresenters( CSwordPresenter::morphTagsChanged );
-//}
 
 /** Is called just before the window menu is ahown. */
 void BibleTime::slotWindowMenuAboutToShow(){
@@ -441,7 +412,7 @@ void BibleTime::toggleFullscreen(){
 
 void BibleTime::editProfiles(){
 	COptionsDialog *dlg = new COptionsDialog(m_important, this, "COptionsDialog", m_keyAccel);
-  connect(dlg, SIGNAL(signalSettingsChanged(const int)), SLOT(slotSettingsChanged(const int)) );
+  connect(dlg, SIGNAL(signalSettingsChanged()), SLOT(slotSettingsChanged()) );
 	dlg->showPart(COptionsDialog::ViewProfiles);	
 	dlg->exec();
 

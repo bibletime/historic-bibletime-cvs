@@ -236,7 +236,6 @@ private:
 
 
   QPopupMenu* m_popup;
-  KConfig* m_config;
   QGuardedPtr<QPopupMenu>	m_anchorMenu;
     		
 	KAction* m_docDeleteAction;	

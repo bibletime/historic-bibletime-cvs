@@ -19,7 +19,9 @@
 #define CBTCONFIG_H
 
 #include <qstring.h>
+#include <qcolor.h>
 #include <qfont.h>
+#include <qvaluelist.h>
 
 #include "../backend/cswordbackend.h"
 /**This class is the interface to the config object of BibleTime
@@ -30,14 +32,39 @@ class CBTConfig {
 public:
 
 	enum strings{
+		language,
+		standardBible,
+		standardCommentary,
+		standardLexicon,
+		standardHebrewLexicon,
+		standardGreekLexicon
+
 	};
 	enum fonts{
+		standard,
+		unicode
 	};
 	enum colors{
+		textColor,
+		backgroundColor,
+		highlightedVerseColor,
+		footnotesColor,
+		strongsColor,
+		morphsColor,
+		jesuswordsColor
 	};
 	enum bools{
+		firstStartUp,
+		firstSearchDialog,
+		isConfigured,
 
-		lexicon_cache,
+		toolbar,
+		mainIndex,
+
+		autoTile,
+		autoCascade,
+
+		lexiconCache,
 
   	footnotes,
   	strongNumbers,
@@ -49,18 +76,29 @@ public:
 		greekAccents,
 
 		lineBreaks,
-		verseNumbers
+		verseNumbers,
+		scroll,
+
+		tips,
+		logo,
+		restoreWorkspace
+	};
+	enum lists{
+		splitterSizes
 	};
 
-  static QString 	get( CBTConfig::strings );
-  static QFont 		get( CBTConfig::fonts );
-  static bool 		get( CBTConfig::bools );
-  static QColor 	get( CBTConfig::colors );
+  static QString 		get( CBTConfig::strings );
+  static QFont 			get( CBTConfig::fonts );
+  static bool 			get( CBTConfig::bools );
+  static QColor 		get( CBTConfig::colors );
+  static QValueList<int>	get( CBTConfig::lists );
+	
 
 	static void set( CBTConfig::strings, 	QString value );
 	static void set( CBTConfig::fonts, 		QFont value );
 	static void set( CBTConfig::bools, 		bool value );
 	static void set( CBTConfig::colors, 	QColor value );
+	static void set( CBTConfig::lists, 		QValueList<int> value );
 
   static CSwordBackend::moduleOptionsBool getAllModuleOptionDefaults( void );
   static CSwordBackend::displayOptionsBool getAllDisplayOptionDefaults( void );
@@ -70,12 +108,13 @@ private:
 	static QString getKey( CBTConfig::fonts );
 	static QString getKey( CBTConfig::bools );
 	static QString getKey( CBTConfig::colors );
+	static QString getKey( CBTConfig::lists );
 
-	static QString getDefault( CBTConfig::strings );
-	static QFont	 getDefault( CBTConfig::fonts );
-	static bool		 getDefault( CBTConfig::bools );
-	static QColor	 getDefault( CBTConfig::colors );
-
+	static QString 				 getDefault( CBTConfig::strings );
+	static QFont	 				 getDefault( CBTConfig::fonts );
+	static bool		 				 getDefault( CBTConfig::bools );
+	static QColor	 				 getDefault( CBTConfig::colors );
+	static QValueList<int> getDefault( CBTConfig::lists );
 };
 
 

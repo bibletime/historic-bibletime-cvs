@@ -17,11 +17,7 @@
 
 #include "creferencemanager.h"
 
-//KDE includes
-#include <kglobal.h>
-#include <kconfig.h>
-#include <kinstance.h>
-
+#include "../frontend/cbtconfig.h"
 
 /** Returns a hyperlink used to be imbedded in the display windows. At the moment the format is sword://module/key */
 const QString CReferenceManager::encodeHyperlink( const QString& module, const QString& key){
@@ -97,14 +93,14 @@ const bool CReferenceManager::isHyperlink( const QString& hyperlink ){
 
 /** Returns the name of the module prefered for the set module type. */
 const QString CReferenceManager::preferedModule(CReferenceManager::Type type){
-	KConfig* config = KGlobal::instance()->config();
-	KConfigGroupSaver gs(config, "SWORD");
-	switch (type) {
+/*	switch (type) {
 		case strongsNumbers:
 			return config->readEntry("strongs module");
 		case morphCode:
 			return config->readEntry("morph code module");		
 		default:
 			return QString::null;
-	}
+	}*/
+#warning rethink this. strongs and morph are different for greek/hebrew.
+#warning use CBTConfig to implement this.
 }

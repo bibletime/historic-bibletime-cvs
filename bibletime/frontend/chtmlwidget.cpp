@@ -28,7 +28,7 @@
 #include "../ressource.h"
 #include "../tooltipdef.h"
 #include "../whatsthisdef.h"
-#include "optionsdialog/coptionsdialog.h"
+#include "cbtconfig.h"
 
 
 #include <stdio.h>
@@ -125,7 +125,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 				}
 			}
 			if (m->encoding() == QFont::Unicode) {
-				setFont( COptionsDialog::getBTFont( COptionsDialog::unicode) );
+				setFont( CBTConfig::get( CBTConfig::unicode) );
 			}
 		}
 //		qWarning("text is %s", text.latin1());
@@ -141,7 +141,6 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,QWidget *parent, const char *name )
 	: QTextEdit(parent, name),m_important( importantClasses ) {	
 	
-	m_config = KGlobal::config();
 	m_popup = 0;
 	m_anchor = QString::null;
 	m_anchorMenu = 0;
@@ -150,13 +149,9 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 	setTextFormat( Qt::RichText );
 	setReadOnly(true);
 
-	{
-		KConfigGroupSaver gs(m_config, "Fonts");	
-		QFont unicodeFont = COptionsDialog::getBTFont(COptionsDialog::unicode);
- 		if (!document()->charsetMap->contains(unicodeFont.family())) {
- 			document()->charsetMap->insert(unicodeFont.family(), QFont::Unicode);
- 		}
-	}
+	QFont unicodeFont = CBTConfig::get(CBTConfig::unicode);
+ 	if (!document()->charsetMap->contains(unicodeFont.family()))
+ 		document()->charsetMap->insert(unicodeFont.family(), QFont::Unicode);
 		
 	initView();	
 	initConnections();
@@ -173,10 +168,9 @@ CHTMLWidget::~CHTMLWidget(){
 /**  */
 void CHTMLWidget::initColors(){
 	qDebug("CHTMLWidget::initColors()");
-	KConfigGroupSaver groupSaver(m_config, "Colors");
 //	setLinkColor( m_config->readColorEntry("Versenumber/URL", &Qt::darkBlue) );		
 //	QColor textColor = m_config->readColorEntry("Normal Text", &Qt::red);	
-	const QColor bgColor = m_config->readColorEntry("Background", &Qt::lightGray);
+	const QColor bgColor = CBTConfig::get(CBTConfig::backgroundColor);
 	setPaper(QBrush(bgColor));
 	
 //using a standard text color doesn't work at the moment!
@@ -193,7 +187,8 @@ void CHTMLWidget::initColors(){
 
 /** Initializes the fonts of the HTML-widget */
 void CHTMLWidget::initFonts(){
-//	KConfigGroupSaver groupSaver(m_config, "Fonts");		
+// ACHTUNG: CBTCONFIG benutzen
+//	ConfigGroupSaver groupSaver(m_config, "Fonts");		
 //	if (document()->charsetMap->contains(font().family())) { //remove old standard font
 //		document()->charsetMap->remove(font().family());
 //	}

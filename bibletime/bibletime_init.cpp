@@ -29,6 +29,8 @@
 #include "ressource.h"
 #include "whatsthisdef.h"
 #include "config.h"
+#include "frontend/cbtconfig.h"
+
 
 #include <stdlib.h>
 
@@ -41,7 +43,6 @@
 //KDE includes
 #include <kaboutdata.h>
 #include <kconfigbase.h>
-#include <kconfig.h>
 #include <ktoolbar.h>
 #include <kiconloader.h>
 #include <kstddirs.h>
@@ -106,26 +107,6 @@ void BibleTime::initActions() {
 	m_GMDeleteItems_action->setToolTip( TT_GM_DELETE_ITEMS );	
 	m_GMDeleteItems_action->setWhatsThis( WT_GM_DELETE_ITEMS );
 
-//	m_viewFootnotes_action = new KToggleAction(i18n("&Show footnotes"),ICON_VIEW_FOOTNOTES, IDK_VIEW_FOOTNOTES,
-//		this, SLOT(slotToggleFootnotes()), actionCollection(), "viewFootnotes_action");
-//	m_viewFootnotes_action->setToolTip( TT_VIEW_FOOTNOTES );	
-//	m_viewFootnotes_action->setWhatsThis( WT_VIEW_FOOTNOTES );
-//	
-//	m_viewStrongs_action = new KToggleAction(i18n("S&how Strong's numbers"),ICON_VIEW_STRONGS, IDK_VIEW_STRONGS,
-//		this, SLOT(slotToggleStrongs()), actionCollection(), "viewStrongs_action");	
-//	m_viewStrongs_action->setToolTip( TT_VIEW_STRONGS );	
-//	m_viewStrongs_action->setWhatsThis( WT_VIEW_STRONGS );
-//
-//	m_viewHeadings_action = new KToggleAction(i18n("S&how headings"),ICON_VIEW_STRONGS, IDK_VIEW_HEADINGS,
-//		this, SLOT(slotToggleHeadings()), actionCollection(), "viewHeadings_action");	
-//	m_viewHeadings_action->setToolTip( TT_VIEW_STRONGS );	
-//	m_viewHeadings_action->setWhatsThis( WT_VIEW_STRONGS );
-//
-//	m_viewMorphTags_action = new KToggleAction(i18n("S&how morpholocic tags"),ICON_VIEW_STRONGS, IDK_VIEW_MORPH_TAGS,
-//		this, SLOT(slotToggleMorphTags()), actionCollection(), "viewMorphTags_action");	
-//	m_viewMorphTags_action->setToolTip( TT_VIEW_STRONGS );	
-//	m_viewMorphTags_action->setWhatsThis( WT_VIEW_STRONGS );
-		 	
 	m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
 	m_viewToolbar_action->setToolTip( TT_VIEW_TOOLBAR );	
 	m_viewToolbar_action->setWhatsThis( WT_VIEW_TOOLBAR );
@@ -295,10 +276,6 @@ void BibleTime::initKeyAccels(){
 	m_GMReset_action->plugAccel( m_keyAccel );
 	m_GMDeleteItems_action->plugAccel( m_keyAccel );
 	
-//	m_viewFootnotes_action->plugAccel( m_keyAccel );
-//	m_viewStrongs_action->plugAccel( m_keyAccel );	
-//	m_viewHeadings_action->plugAccel( m_keyAccel );	
-//	m_viewMorphTags_action->plugAccel( m_keyAccel );	
 	m_viewToolbar_action->plugAccel( m_keyAccel );
 	
 	m_settingsOptions_action->plugAccel( m_keyAccel );
@@ -350,8 +327,7 @@ void BibleTime::initBackends(){
 	}
 
 	//initialize international bookname language
-	KConfigGroupSaver dummy(m_config, "SWORD");
-	const QString language = m_config->readEntry("Language", QString::fromLatin1(getenv("LANG")));
+	const QString language = CBTConfig::get(CBTConfig::language);
 	m_important->swordBackend->setBooknameLanguage(language);
 	ASSERT(m_moduleList);
 }

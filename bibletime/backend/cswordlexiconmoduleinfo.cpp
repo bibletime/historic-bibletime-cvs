@@ -17,6 +17,7 @@
 
 //BibleTime includes
 #include "cswordlexiconmoduleinfo.h"
+#include "../frontend/cbtconfig.h"
 
 //Qt includes
 #include <qfile.h>
@@ -27,7 +28,6 @@
 
 #include <kglobal.h>
 #include <kstddirs.h>
-#include <kconfig.h>
 
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( CSwordBackend* backend, SWModule* module) : CSwordModuleInfo(backend, module) {
@@ -58,9 +58,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 		m_entryList = new QStringList();
 		module()->KeyText(" ");
 
-		KConfig* m_config = KGlobal::config();
-    KConfigGroupSaver groupSaver(m_config, "SWORD");
-    bool lexiconCache = m_config->readBoolEntry("use lexicon cache", false);
+    bool lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
 		bool read = false;
 
 		if (lexiconCache){

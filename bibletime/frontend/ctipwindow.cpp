@@ -53,7 +53,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <kcmdlineargs.h>
 #include <kglobal.h>
 #include <klocale.h>
-#include <kconfig.h>
 #include <kmessagebox.h>
 #include <kiconloader.h>
 #include <kstddirs.h>
@@ -61,6 +60,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //Own include files
 #include "thirdparty/qt3stuff/qtextview.h"
 #include "ctipwindow.h"
+#include "cbtconfig.h"
 #include "chtmlwidget.h"
 #include "ctoolclass.h"
 #include "../ressource.h"
@@ -113,10 +113,7 @@ CTipWindow::CTipWindow() : KDialog(0,0,true) {
 	current = 0;
   if ( loadTips() ) {
 	  current = tips.count() ? kapp->random() % tips.count() : 0;
-
-	  KConfig *config = KGlobal::config();
-	  KConfigGroupSaver gs(config, "Startup");
-	  startup->setChecked(config->readBoolEntry("show tips", true));
+	  startup->setChecked( CBTConfig::get(CBTConfig::tips) );
   }
   else {
 		QString message = QString::fromLatin1("<DIV align=\"center\"><B>%1</B></DIV><BR><BR>%2<BR><BR>%3")
@@ -133,9 +130,7 @@ CTipWindow::CTipWindow() : KDialog(0,0,true) {
 
 
 void CTipWindow::startupClicked() {
-  KConfig *config = KGlobal::config();
-	KConfigGroupSaver(config, "Startup");
-  config->writeEntry("show tips", startup->isChecked());
+  CBTConfig::set( CBTConfig::tips, startup->isChecked() );
 }
 
 

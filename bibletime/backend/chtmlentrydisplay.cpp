@@ -22,7 +22,7 @@
 #include "cswordldkey.h"
 #include "cswordversekey.h"
 #include "../frontend/ctoolclass.h"
-#include "../frontend/optionsdialog/coptionsdialog.h"
+#include "../frontend/cbtconfig.h"
 
 
 //Qt includes
@@ -38,12 +38,14 @@ CHTMLEntryDisplay::CHTMLEntryDisplay(){
 }
 
 void CHTMLEntryDisplay::updateSettings(void){
-  m_highlightedVerseColorName = COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name();
-	m_standardFontColorName = COptionsDialog::getBTColor(COptionsDialog::text).name();
-  m_standardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
-  m_standardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
-	m_unicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
-  m_unicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
+  m_highlightedVerseColorName = CBTConfig::get(CBTConfig::highlightedVerseColor).name();
+	m_standardFontColorName 		= CBTConfig::get(CBTConfig::textColor).name();
+
+  m_standardFontName = CBTConfig::get(CBTConfig::standard).family();
+  m_standardFontSize = CToolClass::makeLogicFontSize(CBTConfig::get(CBTConfig::standard).pointSize() );
+
+	m_unicodeFontName  = CBTConfig::get(CBTConfig::unicode).family();
+  m_unicodeFontSize  = CToolClass::makeLogicFontSize( CBTConfig::get(CBTConfig::unicode).pointSize() );
 }
 
 /** Displays the current entry of the module as HTML */
@@ -71,7 +73,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 			.arg((module->encoding() == QFont::Unicode ) ? m_unicodeFontSize : m_standardFontSize));
 
 		m_htmlText.append(QString("<font color=\"%1\"><a href=\"sword://%2\">%3: <b>%4</b></a></font><hr>%5")
-			.arg(COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name())
+			.arg(m_highlightedVerseColorName)
  			.arg(key->key())
 			.arg(module->getDescription())
 			.arg(key->key())

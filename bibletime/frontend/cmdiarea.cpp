@@ -134,12 +134,10 @@ void CMDIArea::resizeEvent(QResizeEvent* e){
 
 /**  */
 void CMDIArea::saveSettings(){
-//	KConfigGroupSaver groupSaver(config, "MDI");
 }
 
 /**  */
 void CMDIArea::readSettings(){
-//	KConfigGroupSaver groupSaver(config, "MDI");
 }
 
 /** Deletes all the presenters in the MDI area. */

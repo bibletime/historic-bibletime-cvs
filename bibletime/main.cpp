@@ -24,6 +24,7 @@
 #include "bibletime.h"
 #include "frontend/kstartuplogo.h"
 #include "frontend/chtmldialog.h"
+#include "frontend/cbtconfig.h"
 #include "config.h"
 
 #include <signal.h>
@@ -37,7 +38,7 @@
 #include <kglobal.h>
 #include <kapp.h>
 #include <kstddirs.h>
-#include <kconfig.h>
+//#include <kconfig.h>
 #include <kinstance.h>
 #include <kaboutdata.h>
 #include <klocale.h>
@@ -191,11 +192,9 @@ int main(int argc, char* argv[]) {
 		RESTORE(BibleTime)
 	}
   else {
-		KConfig *config = KGlobal::config();
 		bool showIt = false;	
 	  {
-  		KConfigGroupSaver groupSaver(config,"General");
-			showIt = config->readBoolEntry("Logo",true);	
+			showIt = CBTConfig::get(CBTConfig::logo);	
 	
 			if(showIt) {
 				KStartupLogo::createSplash();
@@ -214,28 +213,25 @@ int main(int argc, char* argv[]) {
 	  			
 		//first startup of BibleTime?		
 		{
-			KConfigGroupSaver groupSaver(config, "General");
-			if (config->readBoolEntry(QString::fromLatin1("firstStartup %1").arg(VERSION), true)) {
-				config->writeEntry( QString::fromLatin1("firstStartup %1").arg(VERSION), false);
+#warning implement reaction to new BT version that was installed
+			if (CBTConfig::get(CBTConfig::firstStartUp)) {
+				CBTConfig::set(CBTConfig::firstStartUp, false);
 				HTML_DIALOG(HELPDIALOG_FIRST_START);
 			}			
 		}			
 		{
-			KConfigGroupSaver groupSaver(config, "General");
-			if (!config->readBoolEntry(QString::fromLatin1("isConfigured %1").arg(VERSION), false)) {
-				config->writeEntry( QString::fromLatin1("isConfigured %1").arg(VERSION), true);
+			if (!CBTConfig::get(CBTConfig::isConfigured)) {
+				CBTConfig::set( CBTConfig::isConfigured, true);
 				bibletime->slotSettingsOptions();
 			}
 		}		
 		{ //The tip of the day
-			KConfigGroupSaver groupSaver(config, "Startup");
-			if (config->readBoolEntry("show tips", true))
+			if (CBTConfig::get(CBTConfig::tips))
 				bibletime->slotHelpTipOfDay();
 		}		
 		bibletime->show();							
 		{
-			KConfigGroupSaver saver(config,"Startup");
-		 	if (config->readBoolEntry("restore workspace", false))
+		 	if (CBTConfig::get(CBTConfig::restoreWorkspace))
 		 		bibletime->restoreWorkspace();
 		}
 	  setSignalHandler(signalHandler);		

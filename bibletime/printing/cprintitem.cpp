@@ -25,7 +25,7 @@
 #include "../backend/cswordversekey.h"
 #include "../backend/cswordldkey.h"
 #include "../backend/chtmlentrydisplay.h"
-#include "../frontend/optionsdialog/coptionsdialog.h"
+#include "../frontend/cbtconfig.h"
 
 
 //Qt includes
@@ -322,7 +322,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(m_module);
 
 			if (m && m->encoding() == QFont::Unicode )
-				font = COptionsDialog::getBTFont( COptionsDialog::unicode );
+				font = CBTConfig::get( CBTConfig::unicode );
 
 			if (alignement == CStyleFormat::Center)		
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);

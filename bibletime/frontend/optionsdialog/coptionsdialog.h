@@ -54,30 +54,7 @@ class COptionsDialog : public KDialogBase  {
 
 public:
 	COptionsDialog(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0, KAccel* key_accel=0);
-  /**
-  * Returns an integer with ORed feature enum
-  * entries of the changed settings.
-  */
-//  const int getChangedSettings() const;
 
-  enum BTFont {
-		standard,
-		unicode
-	};
-  enum BTColor {
-		text,
-		background,
-		highlighted_verse,
-		footnote,
-		strongs,
-		morph,
-		jesuswords
-	};
-	enum BTBool {
-		downArrow,
-		lineBreaks,
-		verseNumbers
-	};
   enum Parts {
 		Startup,
 		Sword,
@@ -89,10 +66,6 @@ public:
 		ViewProfiles
   };
 
-
-	static QFont 	getBTFont ( BTFont which );
-	static QColor getBTColor( BTColor which );
-	static bool		getBTBool ( BTBool which );
   /** Opens the page which contaisn the given part ID. */
   const bool showPart( COptionsDialog::Parts ID );
 
@@ -104,9 +77,8 @@ private:
   void saveDisplayWindow();
 
 
-  KConfig* m_config;
+//  KConfig* m_config;
   CImportantClasses* m_important;
-//  int m_changedSettings;
 
 	struct GeneralSettings {
 		struct StartupSettings {

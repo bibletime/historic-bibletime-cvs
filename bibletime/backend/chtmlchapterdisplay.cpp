@@ -21,7 +21,6 @@
 #include "cswordversekey.h"
 #include "../frontend/ctoolclass.h"
 #include "creferencemanager.h"
-#include "../frontend/optionsdialog/coptionsdialog.h"
 
 //Qt includes
 #include <qfont.h>

@@ -37,7 +37,6 @@ class CProfile;
 class CSwordPresenter;
 
 //KDE classes
-class KConfig;
 class KToggleAction;
 class KAccel;
 class KPopupMenu;
@@ -232,10 +231,6 @@ protected: // Protected methods
 	KAction* m_GMDeleteItems_action;		
 
   /** VIEW menu actions */
-//  KToggleAction*	m_viewFootnotes_action;
-//	KToggleAction*	m_viewStrongs_action;		
-//	KToggleAction*	m_viewHeadings_action;
-//	KToggleAction*	m_viewMorphTags_action;				
 	KToggleAction*	m_viewToolbar_action;		
 	KToggleAction*	m_viewGroupManager_action;			
 	
@@ -265,7 +260,6 @@ protected: // Protected methods
 		
 	KHelpMenu* m_helpMenu;
 		
-	KConfig* m_config;
 	KAccel* m_keyAccel;
 	QSplitter* m_splitter;
 	CGroupManager* m_groupmanager;
@@ -292,22 +286,6 @@ protected slots:
   * No descriptions
   */
   CSwordPresenter* createNewSwordPresenter(CSwordModuleInfo*, const QString&);
-//  /**
-// 	* Switches displaying of strong number on or off
-// 	*/
-//  void slotToggleStrongs();
-//  /**
-// 	* Switches footnotes on or off
-// 	*/
-//  void slotToggleFootnotes();
-//   /**
-// 	* Switches headings of modules on or off
-// 	*/
-//  void slotToggleHeadings();
-//	/**
-// 	* Switches morphological tags in modules on or off
-// 	*/
-//  void slotToggleMorphTags();	
   /** 	
  	* Is called when the window menu is about to show ;-)
  	*/

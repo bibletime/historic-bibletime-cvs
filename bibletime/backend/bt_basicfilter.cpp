@@ -17,7 +17,7 @@
 #include <stdlib.h>
 
 #include "bt_basicfilter.h"
-#include "../frontend/optionsdialog/coptionsdialog.h"
+#include "../frontend/cbtconfig.h"
 
 BT_BASICFILTER::BT_BASICFILTER(){
 }
@@ -28,8 +28,8 @@ char BT_BASICFILTER::ProcessText (char *text, int maxlen = -1){
 }
 
 void BT_BASICFILTER::updateSettings(void){
-	strcpy(footnote_color,	COptionsDialog::getBTColor(COptionsDialog::footnote		).name().utf8());
-	strcpy(strongs_color,		COptionsDialog::getBTColor(COptionsDialog::strongs		).name().utf8());
-	strcpy(morph_color,			COptionsDialog::getBTColor(COptionsDialog::morph			).name().utf8());
-	strcpy(jesuswords_color,COptionsDialog::getBTColor(COptionsDialog::jesuswords	).name().utf8());
+	strcpy(footnote_color,	CBTConfig::get(CBTConfig::footnotesColor	).name().utf8());
+	strcpy(strongs_color,		CBTConfig::get(CBTConfig::strongsColor		).name().utf8());
+	strcpy(morph_color,			CBTConfig::get(CBTConfig::morphsColor			).name().utf8());
+	strcpy(jesuswords_color,CBTConfig::get(CBTConfig::jesuswordsColor	).name().utf8());
 }
