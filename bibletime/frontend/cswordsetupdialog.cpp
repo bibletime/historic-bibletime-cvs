@@ -539,6 +539,9 @@ void CSwordSetupDialog::initInstall(){
 	populateInstallCombos();
 
   slot_sourceSelected( m_sourceCombo->currentText() );
+
+	//init the other pointers
+	m_installModuleListPage = 0;
 }
 
 void CSwordSetupDialog::initRemove(){
@@ -572,7 +575,10 @@ void CSwordSetupDialog::initRemove(){
  	m_removeModuleListView->setAllColumnsShowFocus(true);
  	m_removeModuleListView->setFullWidth(true);
 	m_removeModuleListView->setRootIsDecorated(true);
-	connect(m_removeModuleListView, SIGNAL(executed(QListViewItem*)), SLOT(slot_removeModuleItemExecuted(QListViewItem*)));
+	connect(m_removeModuleListView, SIGNAL(pressed(QListViewItem*)),
+		SLOT(slot_removeModuleItemExecuted(QListViewItem*)));
+	connect(m_removeModuleListView, SIGNAL(spacePressed(QListViewItem*)),
+		SLOT(slot_removeModuleItemExecuted(QListViewItem*)));
 
   m_removeRemoveButton = new QPushButton(i18n("Remove selected module(s)"), page);
 	m_removeRemoveButton->setIconSet( DesktopIcon("edittrash", 16) );
@@ -799,8 +805,9 @@ void CSwordSetupDialog::slot_removeModuleItemExecuted(QListViewItem* item) {
 		QCheckListItem* ci = 0;
 		while (it.current()) {
 			ci = dynamic_cast<QCheckListItem*>(it.current());
-			if (ci && ci->isOn())
+			if (ci && ci->isOn()) {
 				break;
+			}
 			it++;
 		}
 		if ( ci && ci->isOn() ) { //a module is checked in the list
@@ -887,13 +894,15 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 		//now we know the category, find the right language group in that category
 		CLanguageMgr::Language lang = list.current()->language();
 		QString langName = lang.translatedName();
-		if (!lang.isValid())
+		if (!lang.isValid()) {
 			langName = QString::fromLatin1(list.current()->module()->Lang());
+		}
 
 		QListViewItem * langFolder = parent->firstChild();
     while( langFolder ) { //try to find language folder if it exsists
-			if (langFolder->text(0) == langName) //found right folder
+			if (langFolder->text(0) == langName) { //found right folder
 				break;
+			}
 			langFolder = langFolder->nextSibling();
 		}
 
@@ -952,9 +961,9 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   categoryGlossaries->setOpen(true);
 
   BTInstallMgr iMgr;
-	qWarning("trying to find source %s!", sourceName.latin1());
+//	qWarning("trying to find source %s!", sourceName.latin1());
 	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
-	qWarning("found source %s with dir %s!", is.caption.c_str(), is.directory.c_str());
+//	qWarning("found source %s with dir %s!", is.caption.c_str(), is.directory.c_str());
 
   if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
     if (!m_refreshedRemoteSources) {
@@ -965,7 +974,6 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
   //kind of a hack to provide a pointer to mgr next line
   util::scoped_ptr<CSwordBackend> backend( BTInstallMgr::Tool::backend(&is) );
-  Q_ASSERT(backend);
   if (!backend)
     return;
 
@@ -979,12 +987,14 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
       const SWVersion installedVersion( installedModule->config(CSwordModuleInfo::ModuleVersion).latin1() );
       const SWVersion newVersion( newModule->config(CSwordModuleInfo::ModuleVersion).latin1() );
       isUpdate = (newVersion > installedVersion);
-      if (!isUpdate)
+
+			if (!isUpdate)
         continue;
     }
 
-    if (newModule->isLocked() || newModule->isEncrypted()) //encrypted modules have no data files on the server
+    if (newModule->isLocked() || newModule->isEncrypted()) { //encrypted modules have no data files on the server
       continue;
+		}
 
     switch (newModule->type()) {
       case CSwordModuleInfo::Bible:
@@ -1033,10 +1043,10 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
 		QListViewItem* newItem = 0;
     if (langFolder) {
-       newItem = new QCheckListItem(langFolder, newModule->name(), QCheckListItem::CheckBox);
+    	newItem = new QCheckListItem(langFolder, newModule->name(), QCheckListItem::CheckBox);
     }
     else { //shouldn't happen
-      newItem = new QCheckListItem(m_installModuleListView, newModule->name(), QCheckListItem::CheckBox);
+    	newItem = new QCheckListItem(m_installModuleListView, newModule->name(), QCheckListItem::CheckBox);
     }
 
     newItem->setPixmap(0, CToolClass::getIconForModule(newModule));
@@ -1062,37 +1072,44 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
 /** Connects to the chosen source. */
 void CSwordSetupDialog::slot_connectToSource(){
-	m_installModuleListPage = new QWidget(0);
+//	qWarning("connectToSource - creating new widgets");
+	if (!m_installModuleListPage) { //the widgets are not yet created
+		m_installModuleListPage = new QWidget(0);
 
-	QGridLayout* layout = new QGridLayout(m_installModuleListPage, 7, 2);
-	layout->setMargin(5);
-	layout->setSpacing(10);
+		QGridLayout* layout = new QGridLayout(m_installModuleListPage, 7, 2);
+		layout->setMargin(5);
+		layout->setSpacing(10);
 
-  QLabel* installLabel = CToolClass::explanationLabel(m_installModuleListPage,
-		i18n("Install/update modules - Step 2"),
-		i18n("Please choose the modules which should be installed / updated and click the install button.")
-  );
-	layout->addMultiCellWidget(installLabel, 0,0,0,1);
-	layout->setRowStretch(0,0);
+		QLabel* installLabel = CToolClass::explanationLabel(m_installModuleListPage,
+			i18n("Install/update modules - Step 2"),
+			i18n("Please choose the modules which should be installed / updated and click the install button.")
+		);
+		layout->addMultiCellWidget(installLabel, 0,0,0,1);
+		layout->setRowStretch(0,0);
 
-  m_installWidgetStack->addWidget(m_installModuleListPage);
-	m_installModuleListPage->setMinimumSize(500,400);
+		m_installWidgetStack->addWidget(m_installModuleListPage);
+		m_installModuleListPage->setMinimumSize(500,400);
 
-  //insert a list box which contains all available remote modules
-	m_installModuleListView = new KListView(m_installModuleListPage, "install modules view");
-	layout->addMultiCellWidget( m_installModuleListView, 1,6,0,1);
-	layout->setColStretch(0,5);
-	layout->setRowStretch(1,5);
+		//insert a list box which contains all available remote modules
+		m_installModuleListView = new KListView(m_installModuleListPage, "install modules view");
+		layout->addMultiCellWidget( m_installModuleListView, 1,6,0,1);
+		layout->setColStretch(0,5);
+		layout->setRowStretch(1,5);
 
-	m_installModuleListView->addColumn(i18n("Name"));
-  m_installModuleListView->addColumn(i18n("Installed version"));
-  m_installModuleListView->addColumn(i18n("Remote version"));
-  m_installModuleListView->addColumn(i18n("Status"));
- 	m_installModuleListView->setAllColumnsShowFocus(true);
- 	m_installModuleListView->setFullWidth(true);
-	m_installModuleListView->setRootIsDecorated(true);
-	connect(m_installModuleListView, SIGNAL(executed(QListViewItem*)), SLOT(slot_installModuleItemExecuted(QListViewItem*)));
+		m_installModuleListView->addColumn(i18n("Name"));
+		m_installModuleListView->addColumn(i18n("Installed version"));
+		m_installModuleListView->addColumn(i18n("Remote version"));
+		m_installModuleListView->addColumn(i18n("Status"));
+		m_installModuleListView->setAllColumnsShowFocus(true);
+		m_installModuleListView->setFullWidth(true);
+		m_installModuleListView->setRootIsDecorated(true);
+		connect(m_installModuleListView, SIGNAL(pressed(QListViewItem*)),
+			SLOT(slot_installModuleItemExecuted(QListViewItem*)));
+		connect(m_installModuleListView, SIGNAL(spacePressed(QListViewItem*)),
+			SLOT(slot_installModuleItemExecuted(QListViewItem*)));
+	}
 
+	//code valid for already existing and newly created widgets
   m_installContinueButton->setEnabled(false);
   disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
   connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
@@ -1132,8 +1149,9 @@ void CSwordSetupDialog::slot_installModuleItemExecuted(QListViewItem* item) {
 		QCheckListItem* ci = 0;
 		while (it.current()) {
 			ci = dynamic_cast<QCheckListItem*>(it.current());
-			if (ci && ci->isOn())
+			if (ci && ci->isOn()) {
 				break;
+			}
 			it++;
 		}
 		if ( ci && ci->isOn() ) { //a module is checked in the list
@@ -1169,7 +1187,7 @@ void CSwordSetupDialog::slot_installModules(){
 		m_currentInstallMgr = &iMgr;
     sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, currentInstallSource());
 
-		qWarning("installung from %s/%s", is.source.c_str(), is.directory.c_str());
+//		qWarning("installung from %s/%s", is.source.c_str(), is.directory.c_str());
     QString target = m_targetCombo->currentText();
 
 		//make sure target/mods.d and target/modules exist

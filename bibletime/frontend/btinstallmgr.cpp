@@ -259,7 +259,7 @@ CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
     ret = new CSwordBackend( QString::fromLatin1(is->localShadow.c_str()) );
 	}
   else {
-		qWarning("constructing a backend in %s", is->directory.c_str());
+//		qWarning("constructing a backend in %s", is->directory.c_str());
     ret = new CSwordBackend( QString::fromLatin1(is->directory.c_str()) );
 	}
 
