@@ -7,24 +7,44 @@ the applications group.
 
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-start-bticon.png" format="PNG"/>
+<imagedata fileref="hi32-app-bibletime.png" format="PNG"/>
 </imageobject>
 <textobject>
-<phrase>A bunch of rectangles</phrase> </textobject>
+<phrase>Icon used to start &bibletime;</phrase> </textobject>
 </mediaobject>
 
 </para>
+
+<para>
+&bibletime; can also be launched from a terminal command prompt.
+To launch &bibletime; open a terminal (any Xterminal inside a &kde;3 session) and type
+<command>&bibletime;</command>.
+
+</para><section id="hdbk-start-otherwm"><title>Other Window Managers (not &kde;)</title>
+
 <para>
 &bibletime; can be launched from inside other window managers
 (like gnome) providing &kde; is installed.  You will need to install
 your own icon to launch the program.  See the window manager help
 files to see how.
 </para>
+
 <para>
-&bibletime; can also be launched from a terminal command prompt.
-To launch &bibletime; open a terminal (any Xterminal) and type
-<command>&bibletime;</command>.
-</para>
+&bibletime; can be used with other window managers such as Gnome, BlackBox, Sawfish, providing
+&kde;3 is already installed on your computer.  If you installed &kde;3 using the
+&Linux-Mandrake; 8.x RPM's from a terminal using the mandrake RPM's KDE3 is installed
+in /opt, so the start up command in a terminal is:</para>
+<screen>
+export KDEDIR=/opt/kde3  
+bibletime
+</screen>
+<para>
+&bibletime; will now open inside of a window of the current window manager.  
+If you do not have &kde;3 installed in your copy of &Linux;, you should have tried the
+<ulink url="http://gnomesword.sourceforge.net/">Gnomesword application.</ulink>, or one 
+of the &kde;2 versions of &bibletime;.
+</para></section>
+
 <section id="hdbk-start-sequence"><title>Startup Sequence</title>
 <para>
 As &bibletime; launches you may see some message screens:</para>

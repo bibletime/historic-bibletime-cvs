@@ -26,7 +26,10 @@ url="http://www.crosswire.org">Crosswire Bible Society</ulink>.   These include:
 <term>Bibles</term>
 <listitem>
 <para>
-The full text, with optional Strong's Numbers and footnotes in the text
+The full Bible text, with optional Strong's Numbers and footnotes in the text.  The Strong
+Numbers hot link to the entry in Strong's Hebrew Bible Dictionary or Strong's Greek Bible Dictionary.
+Bibles are available in many languages, and include not only modern versions, but also 
+Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint (Greek).
 </para>
 </listitem></varlistentry>
 
@@ -34,17 +37,32 @@ The full text, with optional Strong's Numbers and footnotes in the text
 <term>Commentaries</term>
 <listitem>
 <para>
-With a <emphasis>Personal</emphasis> commentary you can record your own personal
+Commentaries available include classics like John Wesley's Notes on the Bible,
+and Luther's Commentary on Galatians.
+
+With the <emphasis>Personal</emphasis> commentary you can record your own personal
 notes to different parts of the Bible.
-</para> </listitem>
+
+</para> 
+</listitem>
 </varlistentry>
 
 <varlistentry>
 <term>Lexicons</term>
 <listitem>
 <para>
-For word definitions and Bible topics. You an choose a key in a list which will
-be displayed. </para>
+Lexicons available include: Robinson's Morphological Analsys Codes, 
+Brown-Driver-Briggs Hebrew Lexicon, International Standard bible Encyclopedia
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Dictionaries</term>
+<listitem>
+<para>
+Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's Greek Bible Dictionary,
+Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Topical Bible.
+</para>
 </listitem>
 </varlistentry>
 
