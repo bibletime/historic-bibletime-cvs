@@ -89,12 +89,10 @@ void CSwordPresenter::refreshFeatures(){
 }
 
 void CSwordPresenter::lookupWord(int moduleID){
-	const QString text = m_lexiconPopup->text(moduleID);	
-
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(text);	
-	if (m_htmlWidget && m && !m_htmlWidget->selectedText().isEmpty()) {
-		emit createSwordPresenter(m,m_htmlWidget->selectedText());
-	}
+	const QString module = m_lexiconPopup->text(moduleID);	
+	const QString text = m_htmlWidget->selectedText();
+	if (!text.isEmpty())
+		emit lookupInLexicon(text,module);
 }
 
 /** Look up the key given as parameter. */

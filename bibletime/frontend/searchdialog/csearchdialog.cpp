@@ -53,16 +53,8 @@ CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, ListCSwordModu
 	old_currentProgress = 0;
 	old_overallProgress = 0;
 	initView();	
-	readSettings();
-	
-//	ASSERT(modules);
-//	if (modules) {
-//		moduleList = new ListCSwordModuleInfo();
-//		*moduleList = *modules;
-//		m_moduleChooser->setChosenModules(modules);	
-//	}
+	readSettings();	
 	setModuleList( modules );
-	qWarning("CSearchDialog constructor finished");
 }
 
 CSearchDialog::~CSearchDialog(){
@@ -119,7 +111,10 @@ void CSearchDialog::setModuleList(ListCSwordModuleInfo *list) {
 	m_moduleChooser->setChosenModules(moduleList);
 	m_moduleChooser->blockSignals(false);	
 	
-	searchText_page->setEnabled(moduleList->count() );	
+	searchText_page->setEnabled(moduleList->count());	
+//	if (moduleList->count())
+//		showPage(pageIndex(searchText_page));		
+	
 	searchResult->clearResult();
 	searchAnalysis->reset();
 }
@@ -146,7 +141,6 @@ void CSearchDialog::startSearch(void) {
 	
 	if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
 		searchFlags |= CSwordModuleSearch::useLastResult;
-#warning bug?
 		searcher->setSearchScope( searchText->scopeChooser->getScope() );		
 	}
 	else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
@@ -200,15 +194,16 @@ void CSearchDialog::timerEvent(QTimerEvent *e){
 
 void CSearchDialog::setSearchText(const QString text){
   searchText->setText(text);
+	if (!text.isEmpty())
+		showPage(pageIndex(searchText_page));
 }
 
 /** Returns the search text. If no text was enetered return QString::null. */
-const QString CSearchDialog::getSearchedText() const{
+const QString CSearchDialog::getSearchedText() const {
 	return searchText->getText();
 }
 
 /** No descriptions */
 void CSearchDialog::chosenModulesChanged(){
-	qWarning("chosenModulesChanged");
 	setModuleList(getModuleList());
 }

@@ -31,6 +31,7 @@ class KConfig;
 class CBackEnd;
 class CImportantClasses;
 class CKey;
+class CSwordModuleInfo;
 
 /** The MDI widget we use in BibleTime.
 	* Enhances QWorkspace.
@@ -81,6 +82,8 @@ public slots:
   * Sync the commentaries to the given key.
   */
   void syncCommentaries(CKey* syncKey);
+  /** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
+  void lookupInLexicon(const QString& text, const QString& module);
 
 protected: // Protected methods
   /**
@@ -109,6 +112,7 @@ signals: // Signals
    * Is emitted when the last presenter was closed.
    */
   void sigLastPresenterClosed();
+  void createNewSwordPresenter(CSwordModuleInfo*, const QString);
 
 private:
 	mdiOption guiOption;

@@ -32,11 +32,10 @@ CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, CImportant
 	: CSwordPresenter(useModules, importantClasses, parent,name) {
 
 	m_key = new CSwordLDKey(m_moduleList.first());
-	m_key->setKey("");
-	
+	m_key->setKey("");	
 	initView();
 	show();
-	initConnections();		
+	initConnections();			
 }
 
 CLexiconPresenter::~CLexiconPresenter(){
@@ -120,15 +119,16 @@ void CLexiconPresenter::moduleChanged(){
 
 /** No descriptions */
 void CLexiconPresenter::popupAboutToShow(){
-	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());
-	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
+//	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());
+//	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
+	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());
+	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
 }
 
 /** No descriptions */
 void CLexiconPresenter::lookup(const QString& key){
 	if (!key.isEmpty())
 		m_key->setKey(key);		
-		
 	m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
 }
 

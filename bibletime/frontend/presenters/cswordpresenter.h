@@ -118,16 +118,10 @@ protected: // Protected methods
  	QString m_highlightedVerse;
  	  	
 protected slots: // Protected slots
-  /**
-  * No descriptions
-  */
   void lookupWord(int ID);
 
 signals: // Signals
-  /**
-  * No descriptions
-  */
-  void createSwordPresenter(CSwordModuleInfo*, const QString);
+  void lookupInLexicon(const QString& text, const QString& lexicon);
 
 private:
 	int m_features;

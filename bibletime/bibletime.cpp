@@ -214,8 +214,8 @@ void BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules, const QStr
 			qWarning("unknown module type");
 	}	
 	if (presenter) {
-		connect(presenter, SIGNAL(createSwordPresenter(CSwordModuleInfo*, const QString)),
-			this, SLOT(createNewSwordPresenter(CSwordModuleInfo*, const QString)));
+		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
+			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
 		if (presenter->isA("CBiblePresenter")) {
 			connect(presenter->getKeyChooser(), SIGNAL(keyChanged(CKey*)),
 				m_mdi, SLOT(syncCommentaries(CKey*)));		

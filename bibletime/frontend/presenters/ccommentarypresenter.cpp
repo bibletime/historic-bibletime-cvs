@@ -35,9 +35,9 @@ CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImp
 	m_key = new CSwordVerseKey(m_moduleList.first());
 	m_key->setKey("Genesis 1:1");
 	
-	initView();
+	initView();	
 	show();		
-	initConnections();	
+	initConnections();		
 }
 
 CCommentaryPresenter::~CCommentaryPresenter(){
@@ -149,8 +149,10 @@ void CCommentaryPresenter::lookup(CKey* key){
 
 /** No descriptions */
 void CCommentaryPresenter::popupAboutToShow(){
-	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());	
-	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
+//	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());	
+//	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
+	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());
+	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
 	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
 }
 

@@ -186,6 +186,9 @@ void BibleTime::initMenubar(){
 void BibleTime::initConnections(){
 	connect(m_mdi, SIGNAL(sigSetToplevelCaption(const QString&)),
 		this, SLOT(setPlainCaption(const QString&)));
+	connect(m_mdi, SIGNAL(createNewSwordPresenter(CSwordModuleInfo*, const QString)),
+		this, SLOT(createNewSwordPresenter(CSwordModuleInfo*, const QString)));
+		
 	if (m_windowMenu) {
 		qDebug("window menu exists!");
 		connect(m_windowMenu, SIGNAL(aboutToShow()),

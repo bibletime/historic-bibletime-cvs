@@ -17,8 +17,10 @@
 
 #include "cmdiarea.h"
 #include "../backend/ckey.h"
+#include "../backend/sword_backend/cswordmoduleinfo.h"
 #include "../backend/sword_backend/cswordversekey.h"
 #include "presenters/cbiblepresenter.h"
+#include "presenters/clexiconpresenter.h"
 #include "presenters/ccommentarypresenter.h"
 #include "keychooser/ckeychooser.h"
 #include "../ressource.h"
@@ -195,12 +197,36 @@ void CMDIArea::cascade(){
 void CMDIArea::syncCommentaries(CKey* syncKey){
 	QWidgetList windows = windowList();	
 	if (!windows.count())
-		return;
-	
+		return;	
 	for (windows.first(); windows.current(); windows.next()) {
-		if (windows.current()->isA("CCommentaryPresenter")) {
-			CCommentaryPresenter* p = (CCommentaryPresenter*)windows.current();
+		CCommentaryPresenter* p = dynamic_cast<CCommentaryPresenter*>(windows.current());
+		if (p)
 			p->synchronize(syncKey);
-		}
 	}	
+}
+
+/** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
+void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
+	qWarning("CMDIArea::lookupInLexicon(const QString& text, const QString& module)");
+	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	if (!m)
+		return;
+	CLexiconPresenter* p = 0;
+	
+	QWidgetList windows = windowList();	
+	if (!windows.count())
+		return;
+	bool found = false;
+	for (windows.first(); windows.current(); windows.next()) {
+		p = dynamic_cast<CLexiconPresenter*>(windows.current());
+		if (p && (m == p->getModuleList().first())) {
+			qWarning("found");
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+		emit createNewSwordPresenter(m, text);
+	else
+		p->lookup(text);
 }

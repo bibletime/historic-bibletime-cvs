@@ -244,7 +244,7 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
    	ensureCursorVisible();
 		emit cursorPositionChanged(cursor);
 		
-    if (!doc->hasSelection(Qt3::QTextDocument::Standard)) {
+    if (!selectedText().isEmpty()) {
     	Qt3::QTextCursor c1 = *cursor;
 	    Qt3::QTextCursor c2 = *cursor;
 	    c1.gotoWordLeft();

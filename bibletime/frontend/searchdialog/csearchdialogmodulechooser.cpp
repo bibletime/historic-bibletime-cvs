@@ -88,6 +88,8 @@ CSearchDialogModuleChooser::~CSearchDialogModuleChooser(){
 void CSearchDialogModuleChooser::setChosenModules(ListCSwordModuleInfo* modules){
 	if (!modules)
 		return;
+	if (getChosenModules() == *modules)
+		return;
 		
 	m_moduleList->clear();
 	m_itemsDict.clear();	
@@ -119,7 +121,6 @@ ListCSwordModuleInfo CSearchDialogModuleChooser::getChosenModules(){
 
 /** Adds the selected item to the list */
 void CSearchDialogModuleChooser::addCurrentItem(){
-	qWarning("CSearchDialogModuleChooser::addCurrentItem()");
 	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(m_moduleIndex->selectedItem());
 	if ( i && (i->type() == CGroupManagerItem::Module) && i->moduleInfo() ) {
 		m_moduleList->insertItem( CToolClass::getIconForModule(i->moduleInfo()), QString::fromLocal8Bit(i->moduleInfo()->module()->Name()),-1 );
@@ -127,14 +128,12 @@ void CSearchDialogModuleChooser::addCurrentItem(){
 		m_itemsDict.insert(i, parentItem ? (const char*)parentItem->text(0).latin1() : "");//I don't know why .local8Bit() doesn't work
 		parentItem ? parentItem->takeItem(i) : m_moduleIndex->takeItem(i);			
 	}
-	if (m_initialized)	
-		emit chosenModulesChanged();	
+	if (m_initialized)
+		emit chosenModulesChanged();
 }
 
 /** Removes the selected item from the module list */
 void CSearchDialogModuleChooser::removeCurrentItem(){
-	qWarning("CSearchDialogModuleChooser::removeCurrentItem()");
-	ASSERT(m_itemsDict.count());
 	if (!m_itemsDict.count())
 		return;		
 	QString text = QString::null;

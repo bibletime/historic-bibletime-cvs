@@ -135,8 +135,8 @@ void CBiblePresenter::initConnections(){
 
 /** No descriptions */
 void CBiblePresenter::popupAboutToShow(){
-	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());
-	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
+	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());
+	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
 	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());
 	m_popup->setItemEnabled(ID_PRESENTER_COPY_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
 }

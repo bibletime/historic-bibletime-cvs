@@ -187,7 +187,6 @@ void CGroupManager::setupStandardSwordTree() {
 		
 	#undef CGROUPMANAGER_GROUP
 
-	qDebug("create new modules");	
 	ASSERT(m_swordList);
 	for(moduleInfo = m_swordList->first(); moduleInfo !=0; moduleInfo = m_swordList->next()) {
 		bool alreadyCreated = false;  	
@@ -341,7 +340,6 @@ void CGroupManager::slotDeleteSelectedItems(){
 
 /** call the search dialog */
 void CGroupManager::slotSearchSelectedModules() {
-	qWarning("void CGroupManager::slotSearchSelectedModules()");	
 	ListCSwordModuleInfo searchList;	
 	CGroupManagerItem *item = 0;	
 	QListViewItemIterator it( this );
@@ -362,7 +360,6 @@ void CGroupManager::slotSearchSelectedModules() {
 }	
 
 void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item) {	
-	qDebug("CGroupManager::searchBookmarkedModule");
   if (!item->moduleInfo())
   	return;
 	ListCSwordModuleInfo searchList;
@@ -377,7 +374,6 @@ void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item
 
 /**  */
 void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* module, const QString ref){
-	qDebug("CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* module)");
 	if (!module) {
 		qDebug("module is invalid. Return.");
 		return;
@@ -521,9 +517,6 @@ void CGroupManager::slotPopupAboutToShow(){
 
 /**  */
 void CGroupManager::slotShowAbout(){
-	ASSERT(m_pressedItem);
-	qDebug("create about dialog");
-		
 	if (!m_pressedItem || !m_pressedItem->moduleInfo())
 		return;
 	
@@ -547,28 +540,21 @@ void CGroupManager::slotShowAbout(){
 	else
 		isWritable = i18n("No");			
 
-	QString hasFootnotes;
-//#warning: ToDo: Implementation
+	QString hasFootnotes = i18n("No");			
 	if (module->supportsFeature(CSwordBackend::footnotes))
 		hasFootnotes = i18n("Yes");
-	else
-		hasFootnotes = i18n("No");			
 		
-	QString hasStrongNumbers;
-//#warning: ToDo: Implementation	
+	QString hasStrongNumbers = i18n("No");
 	if (module->supportsFeature(CSwordBackend::strongNumbers))
 		hasStrongNumbers = i18n("Yes");
-	else
-		hasStrongNumbers = i18n("No");			
 		
-	QString unlockKey;
-	if ( !module->isEncrypted() )
-		unlockKey = i18n("<I>Not necessary!</I>");
-	else
+	QString unlockKey = i18n("<I>Not necessary!</I>");
+	if ( module->isEncrypted() )
 		unlockKey = module->getCipherKey();	
 				
-	text = QString("<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\">\
-<TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" VALIGN=\"CENTER\" COLSPAN=\"2\"><H2>%1</H2></TD></TR>\
+	text = QString("<HTML><HEAD></HEAD><BODY>\
+<TABLE border=\"0\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">\
+<TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"center\" COLSPAN=\"2\"><H2>%1</H2></TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%2:</B></TD><TD BGCOLOR=\"#FFE9C8\">%3</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%4:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%6:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR>\
@@ -577,7 +563,8 @@ void CGroupManager::slotShowAbout(){
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%12:</B></TD><TD BGCOLOR=\"#FFE9C8\">%13</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%14:</B></TD><TD BGCOLOR=\"#FFE9C8\">%15</TD></TR>\
 <TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%16:</B></TD><TD BGCOLOR=\"#FFE9C8\">%17</TD></TR>\
-</TABLE></BODY></HTML>")
+</TABLE>\
+</BODY></HTML>")
 		.arg(module->module()->Name())
 		.arg(i18n("Datapath"))
 		.arg(module->getPath())
@@ -590,13 +577,12 @@ void CGroupManager::slotShowAbout(){
 		.arg(i18n("Footnotes"))	
 		.arg(hasFootnotes)
 		.arg(i18n("Strong's numbers"))	
-		.arg(hasStrongNumbers )
+		.arg(hasStrongNumbers)
 		.arg(i18n("Description"))	
 		.arg(module->getDescription())
 		.arg(i18n("About"))
 		.arg(module->getAboutInformation());	
-	
-	dlg->setText(text);	
+	dlg->setText(text);
 	dlg->exec();
 	delete dlg;	
 }
@@ -698,7 +684,6 @@ void CGroupManager::contentsDragLeaveEvent( QDragLeaveEvent* e){
 
 /**  */
 void CGroupManager::contentsDropEvent( QDropEvent* e){
-  qDebug("CGroupMAnager::contentsDropEvent");
   CGroupManagerItem* target = (CGroupManagerItem *)itemAt(contentsToViewport(e->pos()));
 
   QString str;
@@ -707,11 +692,9 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     //a bookmark was dragged
     qDebug("bookmark decoded");
     if ( e->source() != this->viewport() ){
-      qDebug("erroneous drag");
       return;
     }
     if ( !(m_itemList) ){
-      qDebug("no item(s) to be dragged");
       return;
     }
     CGroupManagerItem* item = 0;
@@ -744,11 +727,9 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
   if (QTextDrag::decode(e,str,submime=MODULE)){
     //a group was dragged
     if ( e->source() != this->viewport() ){
-      qDebug("erroneous drag");
       return;
     }
     if ( !(m_itemList) ){
-      qDebug("no item(s) to be dragged");
       return;
     }
     CGroupManagerItem* item = 0;
@@ -1121,8 +1102,6 @@ bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* g
 
 /** Save items of group to config. If grou is 0 we save all items. The  path to the group-item itself is saved, too. */
 bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
-	qDebug("CGroupManager::saveBookmarks");
-		
 	int parentID = 0;
 	CGroupManagerItem* myItem = 0;
 	QStringList groupList;
@@ -1234,9 +1213,6 @@ void CGroupManager::slotExportBookmarks(){
 
 
 bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerItem* group) {
-	qDebug("CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerItem* group)");
-
-	ASSERT(m_swordList);
 	if (!m_swordList) {
 		qWarning("no sword modules, return false.");
 		return false;
@@ -1577,7 +1553,7 @@ void CGroupManager::cleanDropVisualizer(){
 void CGroupManager::slotReset(){
 	int result = 0;
 	if (m_showHelpDialogs)
-		result = KMessageBox:: warningContinueCancel( this, i18n("<qt>This function will reset the groupmanager!<BR>This will recreate the original groups and delete all other items!<BR>Be sure not to delete important bookmarks etc!<BR>Do you want to continue?</qt>"), i18n("BibleTime - Reset groupmanager"), i18n("Continue"));
+		result = KMessageBox:: warningContinueCancel( this, i18n("<qt>This function will reset the main index!<BR>This will recreate the original groups and delete all other items!<BR>Be sure no important bookmarks will be deleted!<BR>Do you want to continue?</qt>"), i18n("BibleTime - Reset main index"), i18n("Continue"));
 	else
 		result = KMessageBox::Continue;
 		
@@ -1589,7 +1565,6 @@ void CGroupManager::slotReset(){
 
 /** Prints the selected bookmark. */
 void CGroupManager::slotPrintBookmark(){
-	qDebug("CGroupManager::slotPrintBookmark()");
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() != CGroupManagerItem::Bookmark) )
 		return;
 	CPrinter*	printer = m_important->printer;	
