@@ -120,7 +120,10 @@ void CBookKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refres
 		for (int i = 0; i < m_modules.first()->depth(); ++i) {			
 			CKeyChooserWidget* w = new CKeyChooserWidget(0, false, this); //empty keychooser
 			m_chooserWidgets.append( w );
-			connect(w, SIGNAL(changed(int)), SLOT(keyChooserChanged(int)));			
+			connect(w, SIGNAL(changed(int)), SLOT(keyChooserChanged(int)));
+
+			// make sure the boxes don't become too broad.
+			w->comboBox()->setMaximumWidth(200);
 			m_layout->addWidget(w);
 
       boxes[w] = i;
