@@ -179,7 +179,8 @@ const bool COptionsDialog::showPart( COptionsDialog::Parts ID ){
 void COptionsDialog::initStartup(){
 	QFrame* page = addPage(i18n("Startup"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
-	{//daily tips
+
+  {//daily tips
 		m_settings.startup.showTips = new QCheckBox(page);
 		m_settings.startup.showTips->setText(i18n("Show tip of the day"));
 		QToolTip::add(m_settings.startup.showTips, CResMgr::settings::startup::dailyTip::tooltip );	
@@ -198,7 +199,8 @@ void COptionsDialog::initStartup(){
 		m_settings.startup.showLogo->setChecked(CBTConfig::get(CBTConfig::logo));			
 	}		
 	layout->addWidget(m_settings.startup.showLogo);
-	{ //workspace
+
+  { //workspace
 		m_settings.startup.restoreWorkspace = new QCheckBox(page);
 		m_settings.startup.restoreWorkspace->setText(i18n("Restore windows from the last BibleTime session"));
 		QToolTip::add(m_settings.startup.restoreWorkspace, CResMgr::settings::startup::restoreWorkingArea::tooltip);		
@@ -241,15 +243,17 @@ to be displayed correctly.")
   CLanguageMgr::LangMap::Iterator it;
 
   for ( it = langMap.begin(); it != langMap.end(); ++it ) {
-    m_settings.fonts.fontMap.insert(it.data().translatedName(), CBTConfig::get(it.data()) );
+    const QString name = it.data().translatedName().isEmpty() ? it.data().abbrev() : it.data().translatedName();
+    m_settings.fonts.fontMap.insert(name, CBTConfig::get(it.data()) );
   }
 
   for( QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
-		if ( m_settings.fonts.fontMap[it.key()].first ) //show font icon
+		if ( m_settings.fonts.fontMap[it.key()].first ) { //show font icon
 	 		m_settings.fonts.usage->insertItem(SmallIcon("fonts"), it.key() );
-		else		//don't show
+    }
+		else {	//don't show icon for font
 	 		m_settings.fonts.usage->insertItem(it.key());
-
+    }
   }
 
 
@@ -902,9 +906,10 @@ void COptionsDialog::saveColors(){
 void COptionsDialog::saveFonts(){
 	for(QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
     CLanguageMgr::Language lang = languageMgr()->languageForTranslatedName(it.key());
-//    if (it.data().first) {//true == use own font settings
-      CBTConfig::set(lang, it.data());
-//    }
+    if (!lang.isValid()) { //we probably use a language, for which we have only the abbrev
+      lang = languageMgr()->languageForAbbrev( it.key() );
+    }
+    CBTConfig::set(lang, it.data());
  	}
 }
 
@@ -973,12 +978,13 @@ void COptionsDialog::saveSword(){
 
 /** This slot is called when the "Use own font for language" bo was clicked. */
 void COptionsDialog::useOwnFontClicked( bool isOn){
-
   m_settings.fonts.fontChooser->setEnabled(isOn);
   m_settings.fonts.fontMap[ m_settings.fonts.usage->currentText() ].first = isOn;
 
-  if (isOn) //show font icon
-	 		m_settings.fonts.usage->changeItem(SmallIcon("fonts"), m_settings.fonts.usage->currentText(), m_settings.fonts.usage->currentItem() );
-		else    //don't show
-	 		m_settings.fonts.usage->changeItem(m_settings.fonts.usage->currentText(), m_settings.fonts.usage->currentItem() );
+  if (isOn) { //show font icon
+    m_settings.fonts.usage->changeItem(SmallIcon("fonts"), m_settings.fonts.usage->currentText(), m_settings.fonts.usage->currentItem() );
+  }
+  else {    //don't show
+    m_settings.fonts.usage->changeItem(m_settings.fonts.usage->currentText(), m_settings.fonts.usage->currentItem() );
+  }
 }

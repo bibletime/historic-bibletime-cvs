@@ -115,7 +115,7 @@ void BibleTime::initActions() {
   );
   action->setToolTip( CResMgr::mainMenu::mainIndex::search::tooltip );
   action->setWhatsThis( CResMgr::mainMenu::mainIndex::search::whatsthis );
-	action->plugAccel( m_keyAccel );
+  action->plugAccel( m_keyAccel );
   
   action = new KAction(i18n("Search in default bible"),
     CResMgr::mainMenu::mainIndex::searchdefaultbible::icon,
@@ -140,7 +140,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::view::showMainIndex::actionName);
 	m_viewMainIndex_action->setToolTip( CResMgr::mainMenu::view::showMainIndex::tooltip );
 	m_viewMainIndex_action->setWhatsThis( CResMgr::mainMenu::view::showMainIndex::whatsthis );
-	m_viewMainIndex_action->plugAccel( m_keyAccel );
+  m_viewMainIndex_action->plugAccel( m_keyAccel );
 
   action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::settings::optionsDialog::tooltip );
@@ -151,7 +151,7 @@ void BibleTime::initActions() {
   action = KStdAction::configureToolbars(this, SLOT( slotSettingsToolbar() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::settings::editToolBar::tooltip );
 	action->setWhatsThis( CResMgr::mainMenu::settings::editToolBar::whatsthis );
-	action->plugAccel( m_keyAccel );
+  action->plugAccel( m_keyAccel );
 
 
   m_windowCascade_action = new KAction(i18n("&Cascade"),
@@ -316,15 +316,17 @@ void BibleTime::initActions() {
 	action->setWhatsThis(CResMgr::mainMenu::help::dailyTip::whatsthis);
 	action->plugAccel( m_keyAccel );  
 
-	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutApp ) ) )	 //delete About KDE action if KDE created it
+	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutApp ) ) ) {	 //delete About KDE action if KDE created it
 		actionCollection()->remove(actionCollection()->action(KStdAction::stdName( KStdAction::AboutApp )));
+  }
   action = KStdAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::aboutBibleTime::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::aboutBibleTime::whatsthis);
 
 	//delete About KDE action if KDE created it already
-	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutKDE ) ) )	 //delete About KDE action if KDE created it
+	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutKDE ) ) ) {	 //delete About KDE action if KDE created it
 		actionCollection()->remove(actionCollection()->action(KStdAction::stdName( KStdAction::AboutKDE )));
+  }
 	action = KStdAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::aboutKDE::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::aboutKDE::whatsthis);
