@@ -339,30 +339,15 @@ void BibleTime::slotSelectKey() {
 
 
 void BibleTime::openOnlineHelp_Handbook() {
-//#ifdef STATIC_BUILD
-//	CHTMLDialog dlg("bibletime/handbook/index.html");
-//	dlg.exec();
-//#else
 	if (m_helpMenu)
-//		m_helpMenu->appHelpActivated();
 		kapp->invokeHTMLHelp("bibletime/handbook/index.html");
-//#endif
 }
+
 void BibleTime::openOnlineHelp_Install() {
-//#ifdef STATIC_BUILD
-//	CHTMLDialog dlg("bibletime/install/index.html");
-//	dlg.exec();
-//#else
 	kapp->invokeHTMLHelp("bibletime/install/index.html");
-//#endif
 }
 void BibleTime::openOnlineHelp_Howto() {
-//#ifdef STATIC_BUILD
-//	CHTMLDialog dlg("bibletime/howto/index.html");
-//	dlg.exec();
-//#else
 	kapp->invokeHTMLHelp("bibletime/howto/index.html");
-//#endif
 }
 
 /** Saves the current settings into the currently activatred profile. */

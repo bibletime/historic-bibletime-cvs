@@ -104,12 +104,13 @@ int main(int argc, char* argv[]) {
 	static KCmdLineOptions options[] =
 	{
 		{"debug", I18N_NOOP("Enable debug messages"),0},
+		{"start-bibletime", I18N_NOOP("Start BibleTime after SetupWizard exits"),0},
 		{0,0,0}
 	};	
 		
 	KAboutData aboutData(
 		"setupwizard",
-		"BTSetupWizard",
+		"BibleTime SetupWizard",
 		VERSION,
 		I18N_NOOP("Setup wizard for BibleTime and Sword"),
 		KAboutData::License_GPL_V2,
@@ -123,6 +124,7 @@ int main(int argc, char* argv[]) {
 	//coders
 	// active developers (sorted by name)                                                                                     	
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "jansorg@gmx.de",					"");
+	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Developer"), "mg.pub@gmx.net",					"");
 
 	KCmdLineArgs::init(argc, argv, &aboutData); 	
 	KCmdLineArgs::addCmdLineOptions ( options );	
@@ -142,19 +144,19 @@ int main(int argc, char* argv[]) {
 			(new BTSetupWizard)->restore(n);
  	}
 	else {
-//		const bool showIt = CBTConfig::get(CBTConfig::logo);	
-//		if(showIt) {
-//			KStartupLogo::createSplash();
-//			KStartupLogo::showSplash();				
-//			KStartupLogo::setStatusMessage( i18n("Starting BibleTime Setup Wizard") + QString::fromLatin1("...") );
-//		}
+		const bool showIt = CBTConfig::get(CBTConfig::logo);	
+		if(showIt) {
+			KStartupLogo::createSplash();
+			KStartupLogo::showSplash();				
+			KStartupLogo::setStatusMessage( i18n("Starting BibleTime Setup Wizard") + QString::fromLatin1("...") );
+		}
 		
 		wizard = new BTSetupWizard();
 		app.setMainWidget(wizard);
-//		if (showIt) {
-//			KStartupLogo::hideSplash();
-//			KStartupLogo::deleteSplash();	  		  	
-//		}
+		if (showIt) {
+			KStartupLogo::hideSplash();
+			KStartupLogo::deleteSplash();	  		  	
+		}
 		wizard->show();
 		
 		setSignalHandler(signalHandler);		

@@ -4,8 +4,8 @@ btsetupwizard.cpp \
 main.cpp
 
 btsetupwizard_LDADD   = \
-../bibletime/backend/libbackend.a \
 ../bibletime/frontend/libfrontend.a \
+../bibletime/backend/libbackend.a \
 -lXext \
 $(LIB_QT) \
 $(LIB_KDECORE) \

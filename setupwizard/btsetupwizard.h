@@ -21,6 +21,10 @@
 #include <qwidget.h>
 #include <kmainwindow.h>
 
+class KJanusWidget;
+class QLabel;
+class QCheckBox;
+
 /** The main window of the application. Provides the possibilities to install/remove and download modules.
   * @author The BibleTime team
   */
@@ -29,6 +33,21 @@ class BTSetupWizard : public KMainWindow  {
 public: 
 	BTSetupWizard(QWidget *parent=0, const char *name=0);
 	~BTSetupWizard();
+
+  QLabel* explanationLabel(QWidget* parent, const QString& heading, const QString& text );
+
+
+private: // Private methods
+  /** No descriptions */
+  void addMainPage(void);
+
+	KJanusWidget* m_mainWidget;
+	QCheckBox* m_startBibleTimeBox;
+
+
+private slots: // Private slots
+  /** No descriptions */
+  void slot_exitRequested();
 };
 
 #endif

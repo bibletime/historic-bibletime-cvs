@@ -1,26 +1,27 @@
 [Config for BinMakefileAm]
 addcxxflags=
-bin_program=bibleinstaller
+bin_program=btsetupwizard
 cflags=
 cppflags=
 cxxflags=\s-O0 -g3 -Wall
 ldadd=
-ldflags=\s  \s
+ldflags=\s    \s
 libtool_dir=
-path_to_bin_program=./bibleinstaller
+path_to_bin_program=./setupwizard
 
 [General]
 AMChanged=false
 author=The BibleTime team
 configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux\s
-dir_where_make_will_be_called=./bibleinstaller/
+dir_where_make_will_be_called=./
 email=info@bibletime.de
+execute_args=--start-bibletime
 kdevprj_version=1.3
 lfv_open_groups=
 make_options=\s-j1
-makefiles=Makefile.am,bibleinstaller/Makefile.am,bibleinstaller/docs/Makefile.am,bibleinstaller/docs/en/Makefile.am
+makefiles=Makefile.am,bibleinstaller/Makefile.am,bibleinstaller/docs/Makefile.am,bibleinstaller/docs/en/Makefile.am,setupwizard/Makefile.am
 modifyMakefiles=false
-project_name=BibleInstaller
+project_name=SetupWizard
 project_type=normal_empty
 short_info=
 sub_dir=bibleinstaller/
@@ -37,7 +38,7 @@ groups=Header,Quellen,Benutzerschnittstelle,Andere
 
 [Makefile.am]
 files=bibleinstaller.kdevprj
-sub_dirs=bibleinstaller
+sub_dirs=bibleinstaller,setupwizard
 type=normal
 
 [bibleinstaller.kdevprj]
@@ -57,3 +58,28 @@ type=normal
 [bibleinstaller/docs/en/Makefile.am]
 sub_dirs=
 type=normal
+
+[setupwizard/Makefile.am]
+files=setupwizard/btsetupwizard.cpp,setupwizard/btsetupwizard.h,setupwizard/main.cpp
+sharedlib_LDFLAGS=-version-info 0:0:0
+sharedlib_rootname=setupwizard
+sub_dirs=
+type=static_library
+
+[setupwizard/btsetupwizard.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[setupwizard/btsetupwizard.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[setupwizard/main.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
