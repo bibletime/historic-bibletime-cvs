@@ -35,10 +35,22 @@
 #include <qcolor.h>
 #include <qptrlist.h>
 
+
+class CTextRendering {
+public:
+  const QString renderKeyList( ListCSwordModuleInfo const* modules, QPtrList<CSwordKey*> keyList );
+  const QString renderKeyRange( ListCSwordModuleInfo const* modules, const QString& start, const QString& stop );
+  const QString renderSingleKey( ListCSwordModuleInfo const* modules, CSwordKey* );
+
+protected:
+  virtual const QString renderEntry( ListCSwordModuleInfo const * modules, CSwordKey* key) = 0;
+  virtual void finishText( const QString& ) = 0;
+};
+
+
 /**The reimplementation of SWDisplay to fir our needs.
   *@author The BibleTime team
   */
-
 class CEntryDisplay : public sword::SWDisplay, public CPointers  {
 public: // Public methods
   enum StyleType {
@@ -91,12 +103,12 @@ public: // Public methods
   * Returns the rendered text using the modules in the list and using the key parameter.
   *  The displayoptions and filter options are used, too.
   */
-  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions, const QString& displayTemplateName = CBTConfig::get(CBTConfig::displayStyle));
   /**
   * Returns a preview for the given module and key.
   * This is useful for the seatchdialog and perhaps the tooltips.
   */
-  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key, const QString& headerText = QString::null,  CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults());
+//  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key, const QString& headerText = QString::null,  CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults());
   void setDisplayOptions(const CSwordBackend::DisplayOptions options);
 
   /**
@@ -105,6 +117,7 @@ public: // Public methods
 //  const QFont font( const CLanguageMgr::Language& lang );
 
 protected:
+	friend class CExportManager;
   /**
   * Renders one entry using the given modules and the key.
   * This makes chapter rendering more easy.
@@ -118,20 +131,21 @@ protected:
   CSwordBackend::DisplayOptions m_displayOptions;
 };
 
-class CChapterDisplay : public CEntryDisplay  {
+class CChapterDisplay : public CEntryDisplay, public CTextRendering  {
 public: // Public methods
   /**
   * Returns the rendered text using the modules in the list and using the key parameter.
   *  The displayoptions and filter options are used, too.
   */
-  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions, const QString& displayTemplateName = CBTConfig::get(CBTConfig::displayStyle));
 
 protected:
   /**
   * Renders one entry using the given modules and the key.
   * This makes chapter rendering more easy.
   */
-  virtual const QString entryText( QPtrList<CSwordModuleInfo> modules, const QString& key, const QString& chosenKey);
+  //virtual const QString entryText( QPtrList<CSwordModuleInfo> modules, const QString& key, const QString& chosenKey);
+	virtual const QString renderEntry(ListCSwordModuleInfo const* list, CSwordKey* key);
 };
 
 class CBookDisplay : public CEntryDisplay  {
@@ -140,7 +154,7 @@ public: // Public methods
   * Returns the rendered text using the modules in the list and using the key parameter.
   *  The displayoptions and filter options are used, too.
   */
-  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions, const QString& displayTemplateName = CBTConfig::get(CBTConfig::displayStyle));
 
 protected:
   /**

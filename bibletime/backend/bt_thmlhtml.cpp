@@ -41,13 +41,13 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenCaseSensitive(true);
   
 	replaceTokenSubstitute("/foreign", "</span>");
+	
+	replaceTokenSubstitute("/note", ")</span>");
 
   if (tokenSubMap.find("note") != tokenSubMap.end()) { //remove note tag
 	  tokenSubMap.erase( tokenSubMap.find("note") );
   }
-  if (tokenSubMap.find("/note") != tokenSubMap.end()) { //remove note tag
-	  tokenSubMap.erase( tokenSubMap.find("/note") );
-  }
+	
 }
 
 bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {  
@@ -121,9 +121,11 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				//SWBuf footnoteNumber = tag.getAttribute("swordFootnote");
 				buf += "<span class=\"footnote\">(";
 			}
-			else if (tag.isEndTag() && !tag.isEmpty()) { //end tag
-				buf += ")</span>";
-			}
+			//end tag replaced by the susbtituteToken part
+			
+//			else if (tag.isEndTag() && !tag.isEmpty()) { //end tag
+//				buf += ")</span>";
+//			}
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef
       if (tag.isEndTag()) {

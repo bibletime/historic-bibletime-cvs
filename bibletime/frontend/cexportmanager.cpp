@@ -56,14 +56,46 @@ CExportManager::CExportManager(const QString& caption, const bool showProgress, 
 };
 
 const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bool addText) {
-  if (!key)
+  if (!key) {
     return false;
-
+	}
   const QString filename = getSaveFileName(format);
-  if (filename.isEmpty())
+  if (filename.isEmpty()) {
     return false;
+	}
+  
+	CSwordModuleInfo* const module = key->module();
+	CSwordVerseKey* const vk = dynamic_cast<CSwordVerseKey*>(key);
+	
+	QString text;
+	if (format == HTML) { //create HTML code
+		if (vk && vk->isBoundSet()) {//we have a valid boundary!
+			//hasBounds = true;
+			
+			CSwordVerseKey currentKey(module);
+			CSwordVerseKey stopKey(module);
 
-  QString text = QString::null;
+			currentKey.key(vk->LowerBound());
+			stopKey.key(vk->UpperBound());
+
+			//add the heading
+			if (currentKey < stopKey) { //we have a boundary
+				ListCSwordModuleInfo mList;
+				mList.append(module);
+				
+				while ( (currentKey < stopKey) || (currentKey == stopKey) ) {
+        	text += module->getDisplay()->entryText(mList, currentKey.key());
+
+        	currentKey.next(CSwordVerseKey::UseVerse);
+				}
+			}
+			
+			CDisplayTemplateMgr tMgr;
+			text = tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, text );
+		}
+	}
+
+/*  QString text = QString::null;
   bool hasBounds = false;
   if (addText) { //add the text of the key to the content of the file we save
     CPointers::backend()->setFilterOptions(m_filterOptions);
@@ -83,17 +115,21 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 
 				//add the heading
         if (startKey < stopKey) { //we have a boundary
-          QString bound = QString::fromLatin1("%1 - %2").arg(startKey.key()).arg(stopKey.key());
-          text +=
-            (format == HTML)
-            ? QString::fromLatin1("<h3>%1</h3>").arg(bound)
-            : QString::fromLatin1("%1\n\n").arg(bound);
+          const QString bound = QString::fromLatin1("%1 - %2").arg(startKey.key()).arg(stopKey.key());
+          text += 
+						(format == HTML)
+            	? QString::fromLatin1("<h3 class=\"title\">%1</h3>").arg(bound)
+            	: QString::fromLatin1("%1\n\n").arg(bound);
 
          	while ( (startKey < stopKey) || (startKey == stopKey) ) {
-            entryText = (format == HTML) ? startKey.renderedText(CSwordKey::HTMLEscaped) : startKey.strippedText();
+            entryText = (format == HTML) 
+							? startKey.renderedText(CSwordKey::HTMLEscaped) 
+							: startKey.strippedText();
 
-         		text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
-+ entryText + lineBreak(format);
+         		text +=  ((bool)m_displayOptions.verseNumbers 
+								? QString::fromLatin1("%1 ").arg(startKey.Verse()) 
+								: QString::null)
+						text += entryText + lineBreak(format);
 
             startKey.next(CSwordVerseKey::UseVerse);
           }
@@ -127,7 +163,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
   else { //don't add the text of the key
     text = key ? key->key() : QString::null;
   	return true;
-  }
+  }*/
 
 	CToolClass::savePlainFile(filename, text, false, (format==HTML) ? QTextStream::UnicodeUTF8 : QTextStream::Locale);
 	return true;

@@ -37,7 +37,7 @@ CEntryDisplay::~CEntryDisplay(){
 }
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions )
+const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions, const QString& displayTemplateName )
 {
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
@@ -59,11 +59,11 @@ const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QSt
 		: "unknown";
 	
 	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text, langAbbrev);
+	return tMgr.fillTemplate(displayTemplateName, "title", text, langAbbrev);
 }
 
 /** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, const QString& headerText, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
+/*const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, const QString& headerText, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
 {
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
@@ -73,7 +73,7 @@ const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QStri
 
 	CDisplayTemplateMgr tMgr;
 	return tMgr.fillTemplate( CBTConfig::get(CBTConfig::displayStyle), QString::null, key->renderedText() );
-}
+}*/
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName){
@@ -140,10 +140,7 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 	}
   return renderedText;
 }
-/** Returns the font of the given type. */
-//const QFont CEntryDisplay::font( const CLanguageMgr::Language& lang ) {
- // return CBTConfig::get(lang).second;
-//}
+
 
 void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptions options) {
   m_displayOptions = options;
@@ -165,7 +162,7 @@ const QString CEntryDisplay::htmlReference( CSwordModuleInfo* module, const QStr
 /* ----------------------- new class: CChapterDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
+const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions, const QString& displayTemplateName ) {
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
   QString text = QString::null;
@@ -180,11 +177,12 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
   CSwordModuleInfo* module = modules.first();
   bool ok = true;
 
+	QPtrList<CSwordKey*> keyList;
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse) && !key.Error() ) {
-    text += entryText(modules, key.key(), keyName);
+		keyList.append( key.copy() );		
 	}
 
-	if (modules.count() > 1) {
+/*	if (modules.count() > 1) {
 //		text = QString::fromLatin1("<table>%1</table>").arg(text);
 		QString header;
 
@@ -199,11 +197,14 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 	QString langAbbrev = ((modules.count() == 1) && modules.first()->language().isValid()) ? modules.first()->language().abbrev() : "unknown";
 	
 	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text, langAbbrev);
+	return tMgr.fillTemplate(displayTemplateName, "title", text, langAbbrev);
+	*/
+	
+	return renderList( modules, keyList );
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
-const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const QString& chosenKey ) {
+/*const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const QString& chosenKey ) {
 
   CSwordVerseKey key(modules.first());
   QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
@@ -285,13 +286,16 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 		renderedText += QString::fromLatin1("</tr>");
 	}
   return renderedText;
-}
+}*/
 
+const QString CChapterDisplay::renderEntry(ListCSwordModuleInfo const* list, CSwordKey* key) {
+	return QString::null;
+}
 
 /* ----------------------- new class: CBookDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
+const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions, const QString& displayTemplateName ) {
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
@@ -357,7 +361,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   printTree(key, modules, hasToplevelText); //if the top level entry has text ident the other text
 
 	key->key(keyName); //restore key
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, m_text);
+	return tMgr.fillTemplate(displayTemplateName, QString::null, m_text);
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
@@ -406,3 +410,50 @@ void CBookDisplay::printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModule
     treeKey->key(fullKeyName); //return to the value we had at the beginning of this block!
   }
 }
+
+
+
+
+/*!
+    \fn CTextRendering::renderKeyList( ListCSwordModuleInfo* modules, QList<CSwordKey*>keyList )
+ */
+const QString CTextRendering::renderKeyList( ListCSwordModuleInfo const* modules, QPtrList<CSwordKey*> keyList ) {
+
+	QString text;
+	for ( key = keyList.first(); key; key = keyList.next() ) {
+		text += renderEntry( modules, key );
+	}
+	
+	return finishText( text );
+}
+
+
+/*!
+    \fn CTextRendering::renderKeyRange( ListCSwordModuleInfo, const QString& start, const QString& stop )
+ */
+const QString CTextRendering::renderKeyRange( ListCSwordModuleInfo const* modules, const QString& start, const QString& stop ) {
+
+	//make the range to a list of keys and call renderKeyList
+	
+	return QString::null;
+}
+
+
+/*!
+    \fn CTextRendering::renderSingleKey( ListCSwordModuleInfo const*, CSwordKey* )
+ */
+const QString CTextRendering::renderSingleKey( ListCSwordModuleInfo const* modules, CSwordKey* key )
+{
+	m_text = renderEntry( modules, key );
+	return finishText( m_text );
+    /// @todo implement me
+}
+
+
+/*!
+    \fn CTextRendering::finishText()
+ */
+//void CTextRendering::finishText( const QString& text ) {
+//	return CDisplayTemplateMgr::fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, text);
+    /// @todo implement me
+//}
