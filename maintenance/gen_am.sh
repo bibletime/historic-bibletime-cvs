@@ -224,14 +224,23 @@ EOF
 # create Makefile.am in bibletime-i18n/po/[handbook howto] directory
 ###########################
 for DOC_PO_PART in handbook howto; do
+
 	echo generating ../../bibletime-i18n/po/$DOC_PO_PART/Makefile.am
 	( # output to Makefile.am
 		echo -e $HEADER
 		echo
 		echo 'merge:'
 		echo '	for cat in *.po; do \'
-		echo '	name=../../../bibletime/pot/'$DOC_PO_PART'.pot ; \'
-		echo '		echo $$cat $$name; \'
+		echo '		name=../../../bibletime/pot/'$DOC_PO_PART'.pot ; \'
+		echo '		lang=`echo $$cat | sed s/\.po//`; \'
+		echo '		echo $$cat $$lang $$name; \'
+		echo '		if test -d ../../../bibletime-website/$$lang; then \'
+		echo '			echo Trying to merge from the website po files; \'
+		echo '			msgcat --force-po -o $$cat.temp ../../../bibletime-website/$$lang/po/full.po $$cat; \'
+		echo '			mv $$cat.temp $$cat; \'
+		echo '		else \'
+		echo '			echo No merging from the website files possible.; \'
+		echo '		fi; \'
 		echo '		msgmerge $$cat $$name > $$cat.new; \'
 		echo '		mv $$cat.new $$cat ; \'
 		echo '	done;'
