@@ -110,9 +110,9 @@ void CHTMLWidget::initColors(){
 
 /** Initializes the fonts of the HTML-widget */
 void CHTMLWidget::initFonts(){
-  QFont f = QApplication::font();
+  QFont f = font();
   f.setCharSet( QFont::AnyCharSet );
-  QApplication::setFont( f );
+  setFont( f );
 //this doesn't work at the moment
 //	KConfigGroupSaver groupSaver(m_config, "Fonts");		
 //	document()->setDefaultFont(m_config->readFontEntry("Presenter"));
