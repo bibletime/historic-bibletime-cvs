@@ -43,11 +43,13 @@
 #include <qwhatsthis.h>
 #include <qstringlist.h>
 #include <qinputdialog.h>
+#include <qdir.h>
 
 //KDE includes
 #include <kapp.h>
 #include <klocale.h>
 #include <kglobal.h>
+#include <kstddirs.h>
 #include <kconfig.h>
 #include <kkeydialog.h>
 #include <kiconloader.h>
@@ -74,13 +76,6 @@ COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *par
 		
 	initGeneral();		
 	initDisplayWindow();
-}
-
-COptionsDialog::~COptionsDialog(){
-//	delete m_displayWindows.keys.general.accel;
-//	delete m_displayWindows.keys.bible.accel;	
-//	delete m_displayWindows.keys.commentary.accel;
-//	delete m_displayWindows.keys.lexicon.accel;
 }
 
 void COptionsDialog::initGeneral() {
@@ -125,6 +120,25 @@ void COptionsDialog::initGeneral() {
 	layout->addWidget(m_general.startup.restoreWorkspace);	
 		
 	layout->addStretch(4);
+
+  items.clear();
+  items << i18n("General") << i18n("SWORD");
+		
+	page = addPage(items, i18n("SWORD options"), OD_ICON_GENERAL);
+	QVBoxLayout* layout2 = new QVBoxLayout(page);
+	
+	{//daily tips
+		m_general.sword.lexiconCache = new QCheckBox(page);
+		m_general.sword.lexiconCache->setText(i18n("Create and use lexicon key cache"));
+//		QToolTip::add(m_general.sword.lexiconCache, TT_OD_SWORD_USE_LEXICON_CACHE);	
+//		QWhatsThis::add(m_general.sword.lexiconCache, WT_OD_SWORD_USE_LEXICON_CACHE);
+		
+		KConfigGroupSaver groupSaver(m_config, "SWORD");
+		m_general.sword.lexiconCache->setChecked( m_config->readBoolEntry("use lexicon cache", true) );
+	}
+	layout2->addWidget(m_general.sword.lexiconCache);	
+  layout->addStretch(4);
+
 		
 	items.clear();	
 	items << i18n("General") << i18n("Accelerators");	
@@ -138,14 +152,32 @@ void COptionsDialog::initGeneral() {
 }
 
 void COptionsDialog::saveGeneral() {
-	KConfigGroupSaver groupSaver(m_config, "Startup");
-	m_config->writeEntry( "Logo", m_general.startup.showLogo->isChecked() );	
-	m_config->writeEntry( "restore workspace", m_general.startup.restoreWorkspace->isChecked() );	
-	m_config->writeEntry( "show tips", m_general.startup.showTips->isChecked() );				
-	
-	m_config->setGroup("Keys");	
-	m_general.keys.accel->setKeyDict( m_general.keys.dict );	
-	m_general.keys.accel->writeSettings( m_config );
+	{
+  	KConfigGroupSaver groupSaver(m_config, "Startup");
+  	m_config->writeEntry( "Logo", m_general.startup.showLogo->isChecked() );	
+  	m_config->writeEntry( "restore workspace", m_general.startup.restoreWorkspace->isChecked() );	
+  	m_config->writeEntry( "show tips", m_general.startup.showTips->isChecked() );				
+	}
+	{
+		KConfigGroupSaver groupSaver(m_config, "Keys");  	
+  	m_general.keys.accel->setKeyDict( m_general.keys.dict );	
+  	m_general.keys.accel->writeSettings( m_config );
+	}
+	{
+    KConfigGroupSaver groupSaver(m_config, "SWORD");
+    bool old_lexiconCache = m_config->readBoolEntry("use lexicon cache", false);
+    bool new_lexiconCache = m_general.sword.lexiconCache->isChecked();
+		//Save!
+  	m_config->writeEntry( "use lexicon cache", new_lexiconCache );	
+
+  	if (old_lexiconCache && !new_lexiconCache){  //delete cache files
+  		QString dirname = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
+  		QDir dir = QDir(dirname);
+  		QStringList files = QStringList( dir.entryList() );
+			for (QStringList::Iterator it = files.begin(); it != files.end(); ++it)
+				dir.remove((*it),false);			
+  	}
+	}
 }
 
 

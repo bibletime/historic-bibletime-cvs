@@ -54,7 +54,6 @@ class COptionsDialog : public KDialogBase  {
 
 public:
 	COptionsDialog(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0, KAccel* key_accel=0);
-	~COptionsDialog();
   /**
   * Returns an integer with ORed feature enum
   * entries of the changed settings.
@@ -78,41 +77,33 @@ private:
 			QCheckBox* showTips;
 			QCheckBox* showLogo;
 			QCheckBox* restoreWorkspace;
-		};
-		StartupSettings startup;
-		
+		}startup;
+		struct SwordSettings {
+			QCheckBox* lexiconCache;
+		}sword;
 		struct KeySettings {
 			KKeyChooser* keyChooser;
 			KKeyEntryMap dict;			
 			KAccel* accel;
-		};	
-		KeySettings keys;
-	};	
+		}keys;
+	}m_general;	
+
 	struct DisplayWindowSettings {
 		struct GeneralSettings {
 			QCheckBox* useDownArrow;
 			QComboBox* localeCombo;
-		};
-		GeneralSettings general;
+		}general;
 		
 		struct ColorSettings {
 			KColorButton* background;
 			KColorButton* highlightedVerse;			
-		};
-		ColorSettings colors;
+		}colors;
 		
 		struct FontSettings {		
 			KFontChooser* fontChooser;
 			QComboBox* usage;
 			QMap<QString,QFont> fontMap;			
-		};
-		FontSettings fonts;
-		
-//		struct ModuleFontSettings {
-//			KListBox* modules;
-//			KFontChooser* fonts;
-//		};
-//		ModuleFontSettings module_fonts;
+		}fonts;
 		
 		struct ViewProfileSettings {
 			QListBox* profiles;
@@ -120,8 +111,7 @@ private:
 			QPushButton* deleteProfile;
 			QPushButton* renameProfile;
 			CProfileMgr mgr;
-		};
-		ViewProfileSettings profiles;
+		}profiles;
 		
 		struct KeySettings {
 			struct WindowType{
@@ -129,16 +119,12 @@ private:
 				KKeyEntryMap dict;			
 				KAccel* accel;		
 			};
-			WindowType general;
-			WindowType bible;
-			WindowType commentary;
-			WindowType lexicon;
-		};	
-		KeySettings keys;		
-	};
-
-	GeneralSettings m_general;
-	DisplayWindowSettings m_displayWindows;
+		WindowType general;
+		WindowType bible;
+		WindowType commentary;
+		WindowType lexicon;
+		}keys;		
+	}m_displayWindows;
 
 protected slots: // Protected slots
   /**

@@ -25,6 +25,10 @@
 //Sword includes
 #include <swmodule.h>
 
+#include <kglobal.h>
+#include <kstddirs.h>
+#include <kconfig.h>
+
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( CSwordBackend* backend, SWModule* module) : CSwordModuleInfo(backend, module) {
 	m_entryList = 0;
@@ -53,19 +57,27 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 		if (!module()) return 0;
 		module()->KeyText(" ");
 
-		QFile f1( QString("/tmp/bt-cache-%1").arg( name() ) );
+		KConfig* m_config = KGlobal::config();
+    KConfigGroupSaver groupSaver(m_config, "SWORD");
+    bool lexiconCache = m_config->readBoolEntry("use lexicon cache", false);
 		bool read = false;
-    if ( f1.open( IO_ReadOnly ) ){
-      QDataStream s( &f1 );
-			QString version;
-      s >> version;
-			if (version == (getVersion()==QString::null?QString("0"):getVersion())){
-				qDebug("chache used");
-				s >> *m_entryList;
-				read = true;
-			}
-			f1.close();
-    }
+
+		if (lexiconCache){
+  		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
+  		QFile f1( QString("%1/%2").arg(dir).arg( name() ) );
+  		
+      if ( f1.open( IO_ReadOnly ) ){
+        QDataStream s( &f1 );
+  			QString version;
+        s >> version;
+  			if (version == (getVersion()==QString::null?QString("0"):getVersion())){
+  				qDebug("chache used");
+  				s >> *m_entryList;
+  				read = true;
+  			}
+  			f1.close();
+      }
+		}
 
 
 		if (!read){
@@ -79,15 +91,18 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
   		if (m_entryList->first().stripWhiteSpace().isEmpty())
 	  		m_entryList->remove( m_entryList->begin() );			
 
-			// Open the file.
-      QFile f2( QString("/tmp/bt-cache-%1").arg( name() ) );
-      if (f2.open( IO_WriteOnly )){
-        QDataStream s( &f2 );
-				qDebug("cache created");
-				s << (getVersion()==QString::null?QString("0"):getVersion());
-				s << *m_entryList;
-			  f2.close();
-      }
+			if (lexiconCache){
+  			// create cache
+		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
+        QFile f2( QString("%1/%2").arg(dir).arg( name() ) );
+        if (f2.open( IO_WriteOnly )){
+          QDataStream s( &f2 );
+  				qDebug("cache created");
+  				s << (getVersion()==QString::null?QString("0"):getVersion());
+  				s << *m_entryList;
+  			  f2.close();
+        }
+			}
 		}
 
 		module()->KeyText(" ");
