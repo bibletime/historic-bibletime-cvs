@@ -1031,7 +1031,9 @@ bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
 }
 
 void CBookmarkFolder::dropped(QDropEvent *e) {
+  qWarning("CBookmarkFolder::dropped accept?");  
   if (acceptDrop(e)) {
+    qWarning("CBookmarkFolder: item dropped");
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
 
     CDragDropMgr::ItemList::Iterator it;
@@ -1039,8 +1041,10 @@ void CBookmarkFolder::dropped(QDropEvent *e) {
     for( it = dndItems.begin(); it != dndItems.end(); ++it) {
       CSwordModuleInfo* module = backend()->findModuleByName( (*it).bookmarkModule() );
       CBookmarkItem* i = new CBookmarkItem(this, module, (*it).bookmarkKey(), (*it).bookmarkDescription());
+      qWarning("created new item");
       if (previousItem) {
         i->moveAfter( previousItem );
+        qWarning("moved new item");        
       }
       i->init();
       previousItem = i;
