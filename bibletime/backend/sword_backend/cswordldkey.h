@@ -84,6 +84,8 @@ public:
   void setModule( CSwordModuleInfo* module );
   /** Returns the current key as a QString */
   const QString getKey() const;
+  /** Reimplementation of the cast operator to const char* */
+  virtual  operator const char*();
   /**
   	* This is out data member, which contains the data for this key.
   	*/

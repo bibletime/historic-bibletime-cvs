@@ -575,15 +575,15 @@ void CGroupManager::slotShowAbout(){
 		unlockKey = module->getCipherKey();	
 				
 	text = QString("<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\">\
-<TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" COLSPAN=\"2\"><H2>%1</H2></TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" VALIGN=\"CENTER\" COLSPAN=\"2\"><H2>%1</H2></TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%2:</B></TD><TD BGCOLOR=\"#FFE9C8\">%3</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%4:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%6:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%8:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%10:</B></TD><TD BGCOLOR=\"#FFE9C8\">%11</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%12:</B></TD><TD BGCOLOR=\"#FFE9C8\">%13</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%15:</B></TD><TD BGCOLOR=\"#FFE9C8\">%16/TD></TR>\
-<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%15:</B></TD><TD BGCOLOR=\"#FFE9C8\">%17</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%14:</B></TD><TD BGCOLOR=\"#FFE9C8\">%15/TD></TR>\
+<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%16:</B></TD><TD BGCOLOR=\"#FFE9C8\">%17</TD></TR>\
 </TABLE></BODY></HTML>")
 	.arg( module->module()->Name() )		
 	.arg( i18n("Datapath") )

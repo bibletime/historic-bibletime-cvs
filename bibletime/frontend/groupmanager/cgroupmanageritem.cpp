@@ -261,13 +261,12 @@ const QString CGroupManagerItem::getToolTip(){
 			}
 			else
 				text.append(bookmarkText);
-			break;
+
+      return text;				
 		}
 		case Module:
-			break;
 		case Group:
-			break;			
 		default:
-			break;
+			return QString::null;
 	}
 }

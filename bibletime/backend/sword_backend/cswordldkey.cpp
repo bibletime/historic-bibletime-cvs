@@ -86,3 +86,8 @@ const QString CSwordLDKey::getKey() const{
 	return QString::fromLocal8Bit( m_module->module()->KeyText() );
 	//return QString::fromLocal8Bit((const char*)*this);
 }
+
+/** Reimplementation of the cast operator to const char* */
+CSwordLDKey::operator const char*(){
+	return getKey().local8Bit();
+}
