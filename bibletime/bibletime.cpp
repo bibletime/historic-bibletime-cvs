@@ -175,8 +175,8 @@ void BibleTime::readSettings(){
 //			m_important->swordBackend->m_entryDisplay->m_textColor = tempColor.name();
 			
 			m_config->setGroup("Fonts");
-			QFont dummy =  m_config->readFontEntry("Presenter");
-			m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
+			QFont dummy =  m_config->readFontEntry("Display window");
+			m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );
 		}
 		if (m_important->swordBackend->m_chapterDisplay) {
 			KConfigGroupSaver groupSaver(m_config, "Colors");
@@ -190,8 +190,8 @@ void BibleTime::readSettings(){
 //			m_important->swordBackend->m_chapterDisplay->m_textColor = tempColor.name();
 			
 			m_config->setGroup("Fonts");
-			QFont dummy =  m_config->readFontEntry("Presenter");
-			m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ));			
+			QFont dummy =  m_config->readFontEntry("Display window");
+			m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ));
 		}	
 }
 

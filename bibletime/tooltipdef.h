@@ -128,7 +128,7 @@
 
 #define TT_OD_KEYS_CHOOSER i18n("Set keyboard accelerators")
 
-#define TT_OD_FONTS_PRESENTER i18n("Font of presenter")
+#define TT_OD_FONTS_TYPE_CHOOSER i18n("Choose the area of application")
 #define TT_OD_FONTS_CHOOSER i18n("Choose a font")
 
 #define TT_OD_FFM_FONTS_LIST i18n("List of modules")

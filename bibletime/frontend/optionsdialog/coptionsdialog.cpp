@@ -25,18 +25,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//KDE includes
-#include <kapp.h>
-#include <klocale.h>
-#include <kglobal.h>
-#include <kconfig.h>
-#include <kkeydialog.h>
-#include <kiconloader.h>
-#include <kconfig.h>
-#include <kapp.h>
-#include <klistbox.h>
-#include <kkeydialog.h>
-
 //QT includes
 #include <qhbox.h>
 #include <qlayout.h>
@@ -48,6 +36,18 @@
 #include <qcolor.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+
+//KDE includes
+#include <kapp.h>
+#include <klocale.h>
+#include <kglobal.h>
+#include <kconfig.h>
+#include <kkeydialog.h>
+#include <kiconloader.h>
+#include <kconfig.h>
+#include <kapp.h>
+#include <klistbox.h>
+#include <kkeydialog.h>
 
 //Sword includes
 #include <localemgr.h>
@@ -83,40 +83,28 @@ void COptionsDialog::initKeyPage(KAccel* accel){
 }
 
 void COptionsDialog::initFontPage(){
- 	font_page = addVBoxPage(i18n("Fonts"), i18n("Select BibleTime fonts"), OD_ICON_FONTS); 	
+ 	font_page = addVBoxPage(i18n("Fonts"), i18n("Choose fonts for BibleTime"), OD_ICON_FONTS); 	
+	QLabel* l = new QLabel(font_page);
+	l->setText(i18n("Choose the area of application and set the font for it"));
+	
+	m_fontUsageChooser = new QComboBox(font_page);		
+ 	QToolTip::add(m_fontUsageChooser, TT_OD_FONTS_TYPE_CHOOSER);	 	
+ 	QWhatsThis::add(m_fontUsageChooser, WT_OD_FONTS_TYPE_CHOOSER);	
 	KConfigGroupSaver groupSaver(config, "Fonts");
+	m_fontMap.insert("Display window", config->readFontEntry("Display window"));
 
-//  QFont dummy = QFont::defaultFont();
-	QFont dummy;
-  currentFonts[0] = config->readFontEntry("Presenter");
-//  currentFonts[2] = config->readFontEntry("Presenter Fixed");
-//  currentFonts[3] = config->readFontEntry("Printer");
-//  currentFonts[4] = config->readFontEntry("Printer Fixed");
-
- 	presenterFont = currentFonts[0];
-	fontButtonGroup	=	new QButtonGroup(2,Qt::Horizontal,i18n("Usage"), font_page, "fontGroup");
-	
-	font1vButton = new QRadioButton(i18n("Presenter"), fontButtonGroup);
-	QWhatsThis::add(font1vButton, WT_OD_FONTS_PRESENTER );
-
+	QMap<QString, QFont>::Iterator it;
+	for( it = m_fontMap.begin(); it != m_fontMap.end(); ++it )
+		m_fontUsageChooser->insertItem(it.key());
 		
-	fontButtonGroup->insert( font1vButton, 1);
-	fontButtonGroup->setButton(1);
-	
 	fonts = new KFontChooser(font_page, "fonts", false, QStringList(), true, 6);
 	fonts->setSampleText(i18n("The quick brown fox jumped over the lazy dog"));
-	fonts->setFont(currentFonts[0], false);
- 	QWhatsThis::add(fonts, WT_OD_FONTS_CHOOSER);
- 		
-	currentFont = 0;
-  connect(fontButtonGroup, SIGNAL(clicked(int)), SLOT(fontButtonClicked(int)));
   connect(fonts, SIGNAL(fontSelected(const QFont &)), SLOT(newFontSelected(const QFont &)));
-
-	newFontSelected(presenterFont);
+ 	QWhatsThis::add(fonts, WT_OD_FONTS_CHOOSER);
 }
 
 void COptionsDialog::initFontManagerPage(){
-	foreign_font_page = this->addVBoxPage(i18n("Font Manager"), i18n("Configure BibleTime's foreign fonts"), OD_ICON_FONTMANAGER);	
+	foreign_font_page = this->addVBoxPage(i18n("Module fonts"), i18n("Configure the fonts used for modules"), OD_ICON_FONTMANAGER);	
 	
 	fontModuleList = new KListBox(foreign_font_page);
  	QWhatsThis::add(fontModuleList, WT_OD_FFM_FONTS_LIST );		
@@ -231,19 +219,8 @@ void COptionsDialog::initGeneralPage(){
 
 /**  */
 void COptionsDialog::newFontSelected(const QFont &newFont){
-	currentFonts[currentFont] = newFont;
-}
-
-/**  */
-void COptionsDialog::fontButtonClicked(int fontChosen){
-//	if ((fontChosen == 2) || (fontChosen == 4)) {
-//	   fixedFonts = true;
-//	} else {
-//	   fixedFonts = false;
-//	}
-	currentFonts[currentFont] = fonts->font();
-	fonts->setFont(currentFonts[fontChosen-1], false);
-	currentFont = fontChosen-1;
+	const QString currentType = m_fontUsageChooser->currentText();
+	m_fontMap.replace(currentType, newFont);		
 }
 
 
@@ -300,15 +277,19 @@ void COptionsDialog::saveGeneralOptions(){
 /** Used by optionsdialog to save font settings for presenters and printing */
 void COptionsDialog::saveFontOptions(){
 	KConfigGroupSaver groupSaver(config, "Fonts");
-	if (config->readFontEntry("Presenter").family() != currentFonts[0].family() || config->readFontEntry("Presenter").pointSize() != currentFonts[0].pointSize() )
-	{
-		if (m_changedSettings)
-			m_changedSettings |= CSwordPresenter::font;
-		else
-			m_changedSettings = CSwordPresenter::font;
-	}
-	config->writeEntry("Presenter", currentFonts[0]);
+//	if (config->readFontEntry("Presenter").family() != currentFonts[0].family() || config->readFontEntry("Presenter").pointSize() != currentFonts[0].pointSize() )
+//	{
+//		if (m_changedSettings)
+//			m_changedSettings |= CSwordPresenter::font;
+//		else
+//			m_changedSettings = CSwordPresenter::font;
+//	}
+//	config->writeEntry("Presenter", currentFonts[0]);
+	QMap<QString, QFont>::Iterator it;
+	for( it = m_fontMap.begin(); it != m_fontMap.end(); ++it )
+		config->writeEntry(it.key(), it.data());
 }
+
 /**  */
 void COptionsDialog::saveKeyOptions(){
 	KConfigGroupSaver groupSaver(config, "Keys");	

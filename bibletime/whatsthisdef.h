@@ -136,7 +136,7 @@
 #define WT_OD_GENERAL_SHOW_STARTUPLOGO WT(TT_OD_GENERAL_SHOW_STARTUPLOGO, i18n("Activate this to see a startup logo on each startup of BibleTime."))
 
 #define WT_OD_KEYS_CHOOSER WT(TT_OD_KEYS_CHOOSER, i18n("Select a action and change the key binding for the action."))
-#define WT_OD_FONTS_PRESENTER WT(TT_OD_FONTS_PRESENTER, i18n("This font will be used as general font in all display windows."))
+#define WT_OD_FONTS_TYPE_CHOOSER WT(TT_OD_FONTS_TYPE_CHOOSER, i18n("Select in this box how the font is used and change the font in the font chooser."))
 #define WT_OD_FONTS_CHOOSER WT(TT_OD_FONTS_CHOOSER, i18n("Choose a font"))
 
 #define WT_OD_FFM_FONTS_LIST WT(TT_OD_FFM_FONTS_LIST, i18n("This list contains the modules using foreign fonts."))

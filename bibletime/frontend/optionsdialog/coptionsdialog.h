@@ -28,6 +28,7 @@
 #include <qmap.h>
 #include <qcombobox.h>
 #include <qdict.h>
+#include <qmap.h>
 
 //KDE includes
 #include <kdialogbase.h>
@@ -59,17 +60,37 @@ public:
   int getChangedSettings();
 
 protected: // Protected methods
-  virtual void initGeneralPage();
-  virtual void initKeyPage(KAccel* key_accel);
-  virtual void initFontPage();
-  virtual void initFontManagerPage();
-  virtual void initColorsPage();
-  virtual void saveGeneralOptions();
-  virtual void saveFontOptions();
+  void initGeneralPage();
+  void initKeyPage(KAccel* key_accel);
+  void initFontPage();
+  void initFontManagerPage();
+  void initColorsPage();
+  void saveGeneralOptions();
+  void saveFontOptions();
+  void saveKeyOptions();
+  void saveColorsOptions();
 
-  virtual void saveKeyOptions();
-  virtual void saveColorsOptions();
+protected slots: // Protected slots
+  void newFontSelected(const QFont &);
+  /**
+ 	* Is called when a new font was selected in the
+	* foreign font manager dialog.
+	*/
+  void newForeignFontSelected( const QFont& );
+	/**
+	* Called if the OK button was clicked
+	*/
+  void slotOk();
+  /**
+ 	* Called if the Apply button was clicked
+ 	*/
+  void slotApply();
+  /**
+ 	* Is called when the user select a new module in te foreign font management dialog.
+ 	*/
+  void foreignFontModuleChanged( QListBoxItem* );
 
+private:
 	QHBox* keyaccel_page;
 	QWidget* general_page;	
 	QHBox* font_page;
@@ -77,7 +98,10 @@ protected: // Protected methods
 	QHBox* colors_page;
 
   KConfig* config;
-	  	
+  CImportantClasses* m_important;
+	int m_changedSettings;
+  CBackEnd* backend;
+  	
 	//items of general configuration page
 	QCheckBox*	tipCheckBox;	
 	QCheckBox*	logoCheckBox;
@@ -85,12 +109,9 @@ protected: // Protected methods
 	QComboBox*	localeComboBox;
 
 	// Font dialog definitions
+	QComboBox* m_fontUsageChooser;	
 	KFontChooser* fonts;
-	QFont presenterFont;
-	QButtonGroup* fontButtonGroup;
-	QRadioButton* font1vButton;
-	int currentFont;
-  CImportantClasses* m_important;
+	QMap<QString,QFont> m_fontMap;
 	
 	//Key binding definitions
 #if KDE_VERSION >= 193
@@ -110,37 +131,8 @@ protected: // Protected methods
 	KColorButton* backgroundButton;
 	KColorButton* normalTextButton;
 	KColorButton* URLLinkButton;
-	KColorButton* highlightedVerseButton;
-	
+	KColorButton* highlightedVerseButton;	
 	QString* hexString;
-  /**
-  	*
-  	*/
-  CBackEnd* backend;
-
-protected slots: // Protected slots
-  void fontButtonClicked(int);
-  void newFontSelected(const QFont &);
-  /**
-  	* Is called when a new font was selected in the
-		* foreign font manager dialog.
-		*/
-  void newForeignFontSelected( const QFont& );
-	/**
-		* Called if the OK button was clicked
-		*/
-  void slotOk();
-  /**
-  	* Called if the Apply button was clicked
-  	*/
-  void slotApply();
-  /**
-  	* Is called when the user select a new module in te foreign font management dialog.
-  	*/
-  void foreignFontModuleChanged( QListBoxItem* );
-
-private:
-	int m_changedSettings;
 };
 
 #endif
