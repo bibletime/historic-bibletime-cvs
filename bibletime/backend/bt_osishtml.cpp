@@ -49,11 +49,13 @@ BT_OSISHTML::BT_OSISHTML() {
 	setTokenCaseSensitive(true);
 }
 
-bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
+bool BT_OSISHTML::handleToken(SWBuf &buf, const char *token, SWBasicFilter::UserData *userData) {
   // manually process if it wasn't a simple substitution
 	if (!substituteToken(buf, token)) {
+    BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
+
     XMLTag tag(token);
-  	const	bool osisQToTick = ((!module->getConfigEntry("OSISqToTick")) || (strcmp(module->getConfigEntry("OSISqToTick"), "false")));
+  	const	bool osisQToTick = ((!userData->module->getConfigEntry("OSISqToTick")) || (strcmp(userData->module->getConfigEntry("OSISqToTick"), "false")));
 
     if (!tag.getName()) {
       return false;
@@ -64,7 +66,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 
 			// start <w> tag
 			if ((!tag.isEmpty()) && (!tag.isEndTag())) {
-				userData["w"] = token;
+				myUserData->w = token;
 			}
 			// end or empty <w> tag
 			else {
@@ -73,8 +75,8 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 				bool show = true;	// to handle unplaced article in kjv2003-- temporary till combined
 
 				if (endTag) {
-					tag = userData["w"].c_str();
-					lastText = userData["lastTextNode"].c_str();
+					tag = myUserData->w.c_str();
+					lastText = myUserData->lastTextNode.c_str();
 				}
 				else lastText = "stuff";
 
@@ -141,7 +143,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 		// <note> tag
 		else if (!strcmp(tag.getName(), "note")) {
 			if (/*!tag.isEmpty() &&*/ !tag.isEndTag()) {
-//				SWBuf footnoteNum = userData["fn"];
+//				SWBuf footnoteNum = myUserData["fn"];
 				SWBuf type = tag.getAttribute("type");
 
 				if (type != "strongsMarkup") {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
@@ -152,13 +154,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 						    //buf.appendFormatted(" ", vkey->getText(), ch, footnoteNumber, ch);
 //						SWBuf tmp;
 //						tmp.appendFormatted("%i", ++footnoteNumber);
-//						userData["fn"] = tmp.c_str();
+//						myUserData["fn"] = tmp.c_str();
 //					}
 				}
-				userData["suspendTextPassThru"] = "true";
+				myUserData->suspendTextPassThru = true;
 			}
 			if (tag.isEndTag()) {
-				userData["suspendTextPassThru"] = "false";
+				myUserData->suspendTextPassThru = false;
 			}
 		}
 		// <p> paragraph tag is handled by OSISHTMLHref

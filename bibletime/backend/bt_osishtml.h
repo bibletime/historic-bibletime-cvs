@@ -27,10 +27,19 @@
 * This filter converts ThML text to HTML text
 */
 class BT_OSISHTML : public sword::OSISHTMLHref, protected CFilterTool {
+protected:
+  class BT_UserData : public sword::OSISHTMLHref::MyUserData {
+  public:
+    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::OSISHTMLHref::MyUserData(module, key) {}
+  };
+
+  virtual sword::SWBasicFilter::UserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {
+    return new BT_UserData(module, key);
+  }
 
 public:
   BT_OSISHTML();
-  virtual bool handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData);
+  virtual bool handleToken(sword::SWBuf &buf, const char *token, sword::SWBasicFilter::UserData *userData);
 };
 
 #endif

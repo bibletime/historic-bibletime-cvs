@@ -21,16 +21,31 @@
 
 #include "cfiltertool.h"
 
+#include <swbuf.h>
 #include <thmlhtml.h>
+
+using sword::SWBuf;
+//using sword::
 
 /**
 * This filter converts ThML text to HTML text
 */
 class BT_ThMLHTML : public sword::ThMLHTML, protected CFilterTool {
+protected:
+  class BT_UserData : public sword::ThMLHTML::MyUserData {
+  public:
+    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::ThMLHTML::MyUserData(module, key) {}
+    
+    bool inscriptRef;
+  };
+  
+  virtual sword::SWBasicFilter::UserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {
+    return new BT_UserData(module, key);
+  }
 
 public:
   BT_ThMLHTML ();
-  virtual bool handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData);
+  virtual bool handleToken(sword::SWBuf &buf, const char *token, sword::SWBasicFilter::UserData *userData);
 //  virtual char ProcessText (char *text, int maxlen = -1);
 };
 

@@ -101,12 +101,12 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
   return 1;
 }
 
-
-bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
+bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::SWBasicFilter::UserData *userData) {
 	if (!substituteToken(buf, token)) {  //more than a simple replace
   	const unsigned int tokenLength = strlen(token);
 		unsigned long i;
     sword::SWBuf value;
+    BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
 
     if (!strncmp(token, "WG", 2)){ // strong's numbers greek
 			for (i = 2; i < tokenLength; i++) {
@@ -152,12 +152,12 @@ bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap
 
 		else if (!strncmp(token, "RB", 2)) {
 			buf += "<span class=\"footnotepre\">";
-			userData["hasFootnotePreTag"] = "true";
+			myUserData->hasFootnotePreTag = true;
 		}
 
 		else if (!strncmp(token, "RF", 2)) {
-			if(userData["hasFootnotePreTag"] == "true") {
-				userData["hasFootnotePreTag"] = "false";
+			if (myUserData->hasFootnotePreTag) {
+				myUserData->hasFootnotePreTag = false;
 				buf += "</span> ";
 			}
 			buf += "<span class=\"footnote\"> (";

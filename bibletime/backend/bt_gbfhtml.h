@@ -33,9 +33,19 @@
 * This filter converts GBF Text into HTML
 */
 class BT_GBFHTML : public sword::GBFHTML, protected CFilterTool {
+protected:
+  class BT_UserData : public sword::GBFHTML::MyUserData {
+  public:
+    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::GBFHTML::MyUserData(module, key) {}
+    bool hasFootnotePreTag;
+  };
+  virtual sword::SWBasicFilter::UserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {
+    return new BT_UserData(module, key);
+  }
+
 public:
   BT_GBFHTML ();
-  virtual bool handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData);
+  virtual bool handleToken(sword::SWBuf &buf, const char *token, sword::SWBasicFilter::UserData *userData);
   virtual char processText(sword::SWBuf& buf, const sword::SWKey*, const sword::SWModule * = 0);
 };
 

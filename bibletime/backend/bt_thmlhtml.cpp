@@ -45,12 +45,11 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	replaceTokenSubstitute("/foreign", "</span>");
 }
 
-bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
-  sword::SWModule* myModule = const_cast<sword::SWModule*>(module); //hack to be able to call stuff like Lang()
-  Q_ASSERT(module);
-  
+bool BT_ThMLHTML::handleToken(SWBuf &buf, const char *token, UserData *userData) {  
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
     sword::XMLTag tag(token);
+    BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
+    sword::SWModule* myModule = const_cast<sword::SWModule*>(myUserData->module); //hack to be able to call stuff like Lang()
 
     if ( tag.getName() && !strcasecmp(tag.getName(), "foreign") ) { // a text part in another language, we have to set the right font
       if (tag.getAttribute("lang")) {
@@ -113,23 +112,23 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef
       if (tag.isEndTag()) {
-       	if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
-  				userData["inscriptRef"] = "false";
+       	if (myUserData->inscriptRef) { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
+  				myUserData->inscriptRef = false;
   				buf += thmlRefEnd().c_str();
   			}
   			else { // like "<scripRef>John 3:16</scripRef>"
-   			  buf += parseSimpleRef( userData["lastTextNode"], myModule ? myModule->Lang() : "en" ).c_str();
-  				userData["suspendTextPassThru"] = "false";
+   			  buf += parseSimpleRef( myUserData->lastTextNode, myModule ? myModule->Lang() : "en" ).c_str();
+  				myUserData->suspendTextPassThru = false;
   			}
       }
       else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
-        userData["inscriptRef"] = "true";
+        myUserData->inscriptRef = true;
         buf += parseThMLRef(tag.getAttribute("passage"), tag.getAttribute("version")).c_str();
       }
       else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
-	  		userData["inscriptRef"] = "false";
+	  		myUserData->inscriptRef = false;
   			// let's stop text from going to output
-		  	userData["suspendTextPassThru"] = "true";
+		  	userData->suspendTextPassThru = true;
       }
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "div")) {                                      
@@ -150,7 +149,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
       }
       
       buf.appendFormatted("<img src=\"file:%s/%s\" />",
-        module->getConfigEntry("AbsoluteDataPath"),
+        myUserData->module->getConfigEntry("AbsoluteDataPath"),
         value
       );
  		}
