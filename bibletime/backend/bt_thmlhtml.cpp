@@ -156,14 +156,11 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">John 3:16</scripRef>"
 				userData["inscriptRef"] = "false";
 				pushString(buf, thmlRefEnd());
-//				userData["suspendTextPassThru"] = "false"; 							
 			}			
 			else { // like "<scripRef>John 3:16</scripRef>"
 				const char* ref = parseSimpleRef(userData["lastTextNode"].c_str());
-//				cerr << ref << endl;				
  			  pushString(buf, ref);
  			  delete [] ref;//delete now because it's unused
-				// let's let text resume to output again
 				userData["suspendTextPassThru"] = "false";
 			}
 		}			

@@ -38,7 +38,7 @@ char BT_BASICFILTER::ProcessText (char *text, int maxlen, const SWKey *key, cons
 	return 0;
 }
 
-void BT_BASICFILTER::updateSettings(void){
+void BT_BASICFILTER::updateSettings(){
 	strcpy(footnote_color,	CBTConfig::get(CBTConfig::footnotesColor	).name().utf8());
 	strcpy(strongs_color,		CBTConfig::get(CBTConfig::strongsColor		).name().utf8());
 	strcpy(morph_color,			CBTConfig::get(CBTConfig::morphsColor			).name().utf8());
@@ -46,6 +46,8 @@ void BT_BASICFILTER::updateSettings(void){
 	strcpy(swordref_color,	CBTConfig::get(CBTConfig::swordRefColor		).name().utf8());
 	strcpy(text_color, 			CBTConfig::get(CBTConfig::textColor				).name().utf8());	
 	strcpy(standard_bible,	CReferenceManager::preferredModule(CReferenceManager::Bible).utf8());
+	
+	updateTokens();
 }
 
 
@@ -180,4 +182,22 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
 	*to++ = 0;
 	*to = 0;
 	return 0;
+}
+
+/** Replaces the token in the substitute map. */
+void BT_BASICFILTER::replaceTokenSubstitute(const char* findString, const char* replaceString){
+	char *buf = 0;
+	tokenSubMap.erase( tokenSubMap.find(findString) ); //erase entry
+//        if (!tokenCaseSensitive) {
+//                stdstr(&buf, findString);
+//                toupperstr(buf);
+//                tokenSubMap.insert(DualStringMap::value_type(buf, replaceString));
+//                delete [] buf;
+//        }
+//        else
+	tokenSubMap.insert(DualStringMap::value_type(findString, replaceString));	
+}
+
+/** Updates the token for this filter if settings changed. */
+void BT_BASICFILTER::updateTokens(){
 }

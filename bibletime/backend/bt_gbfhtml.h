@@ -37,6 +37,12 @@ public:
   virtual bool handleToken(char **buf, const char *token, DualStringMap &userData);
   /** No descriptions */
   virtual char ProcessText(char * text, int maxlen, const SWKey *, const SWModule * = 0);
+
+protected: // Protected methods
+  /**
+  * Update the tokens which use changeable setttings.
+  */
+  virtual void updateTokens();
 };
 
 #endif

@@ -15,6 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
+//BibleTime includes
+#include <qstring.h>
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -31,6 +34,8 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("Fi", "</i>");
 	addTokenSubstitute("FB", "<b>"); // bold begin
 	addTokenSubstitute("Fb", "</b>");
+	
+	addTokenSubstitute("FR", QString::fromLatin1("<font color=\"%1\">").arg(jesuswords_color).latin1());		
 	addTokenSubstitute("Fr", "</font>");
 	addTokenSubstitute("FU", "<u>"); // underline begin
 	addTokenSubstitute("Fu", "</u>");
@@ -41,9 +46,12 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("FV", "<sub>"); // Subscript begin
 	addTokenSubstitute("Fv", "</sub>");
 
+	addTokenSubstitute("TT", QString::fromLatin1(" <h1><font color=\"%1\">").arg(text_color).local8Bit());
 	addTokenSubstitute("Tt", "</font></h1>");
+	
 	addTokenSubstitute("Ts", "</font></h2>");
-		
+	addTokenSubstitute("TS", QString::fromLatin1(" <H2><font color=\"%1\">").arg(text_color).local8Bit());	
+			
 	addTokenSubstitute("PP", "<cite>"); //  poetry  begin
 	addTokenSubstitute("Pp", "</cite>");
 	addTokenSubstitute("Fn", "</font>"); //  font  end
@@ -68,16 +76,8 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
   	const int tokenLength = strlen(token);
 		unsigned long i;
 		unsigned long len = strlen(token);
-		
-		if (!strncmp(token, "TT", 2)){ // heading title start
-			pushString(buf," <h1><font color=\"%s\">",text_color);
-		}
-		if (!strncmp(token, "TS", 2)){ // section title start
-			pushString(buf," <H2><font color=\"%s\">",text_color);
-		}
 
 		if (!strncmp(token, "WG", 2)){ // strong's numbers greek
-
 			char num[6];
 			for (i = 2; i < tokenLength; i++)
 					num[i-2] = token[i];
@@ -88,7 +88,6 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 		}
 
 		if (!strncmp(token, "WH", 2)){ // strong's numbers hebrew
-
 			char num[6];
 			for (i = 2; i < tokenLength; i++)
 					num[i-2] = token[i];
@@ -99,7 +98,6 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 		}
 
 		else if (!strncmp(token, "WTG", 3)) { // strong's numbers tense greek
-
 			char num[16];
 			for (i = 3; i < tokenLength; i++)
 					num[i-3] = token[i];
@@ -140,17 +138,19 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					*(*buf)++ = token[i];
 			pushString(buf,"\">");
 		}
-
-		else if (!strncmp(token, "FR", 2))
-			pushString(buf, "<font color=\"%s%s",jesuswords_color,"\">");
-
 		else if (!strncmp(token, "CA", 2)) {	// ASCII value
 			*(*buf)++ = (char)atoi(&token[2]);
-		}
-		
+		}		
 		else {
 			return false;
 		}
 	}
 	return true;
+}
+
+/** Update the tokens which use changeable settings. */
+void BT_GBFHTML::updateTokens(){
+	replaceTokenSubstitute("TT", QString::fromLatin1(" <h1><font color=\"%1\">").arg(text_color).local8Bit());
+	replaceTokenSubstitute("TS", QString::fromLatin1(" <H2><font color=\"%1\">").arg(text_color).local8Bit());
+	replaceTokenSubstitute("FR", QString::fromLatin1("<font color=\"%1\">").arg(jesuswords_color).latin1());	
 }

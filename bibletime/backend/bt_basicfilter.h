@@ -37,7 +37,7 @@ protected:
 	* the variables are used in the inherited filters
 	* in HandleToken()
 	*/
-	void updateSettings(void);
+	void updateSettings();
   /**
 	* This filter converts the RWP #Gen 1:1|
 	* style bible references to HTML
@@ -52,6 +52,14 @@ protected:
   */
   const char* parseThMLRef(const char* ref, const char* mod = 0);
 	const char* thmlRefEnd();
+  /**
+  * Replaces the token in the substitute map.
+  */
+  void replaceTokenSubstitute(const char* findString, const char* replaceString);
+  /**
+  * Updates the token for this filter if settings changed.
+  */
+  virtual void updateTokens();
 	
 	char footnote_color[8];
 	char strongs_color[8];
