@@ -6,7 +6,7 @@ MAINTAINERCLEANFILES = $(GMOFILES)
 GMSGFMT = @GMSGFMT@
 MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
-EXTRA_DIST = messages.pot $(POFILES) $(GMOFILES)
+EXTRA_DIST = bibletime.pot $(POFILES) $(GMOFILES)
 
 all: all-yes
 install-data-local: install-yes
@@ -51,7 +51,7 @@ uninstall-local:
 merge:
 	@catalogs='$(POFILES)'; \
 	for cat in $$catalogs; do \
-	name=../../bibletime/pot/messages.pot ; \
+	name=../../bibletime/pot/bibletime.pot ; \
 	echo $$cat $$name; \
 	msgmerge $$cat $$name > $$cat.new ; \
 	if diff $$cat $$cat.new; then \
