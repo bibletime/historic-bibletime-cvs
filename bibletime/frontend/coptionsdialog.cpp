@@ -400,8 +400,8 @@ void COptionsDialog::initSword(){
 
   layout->addWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Scrolling behaviour"),
-			i18n("The down arrow moves to the <i>previous</i> verse by default. Check this box \
-						if you want it to move to the <i>next</i> verse."))
+			i18n("The down arrow moves to the <i>next</i> verse by default. Uncheck this box \
+						if you want it to move to the <i>previous</i> verse."))
   );
  		
  	m_settings.sword.useDownArrow = new QCheckBox(currentTab);

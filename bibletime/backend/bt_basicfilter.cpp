@@ -72,7 +72,7 @@ const char* BT_BASICFILTER::parseRef(const char* ref) {
 		// das muss in unseren Filtern noch gefixt werden, ist mir erst heute aufgefallen ;)
 		// ein Zeichen kann man mit
 		// to++='a' schnell zufügen. =)
-		// pushString geht wie printf(char*, ...), nur ein Argument mehr
+		// pushString geht wie printf(char*, ...), nur ein Argument mehr --> langsam!
 												
  		if (vk) {
  			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
