@@ -423,7 +423,7 @@ const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults(){
 //   options.footnotes =						get(CBTConfig::footnotes);
 	options.footnotes =						true; //required for the info display
 
-  options.strongNumbers = 			get(CBTConfig::strongNumbers);
+  options.strongNumbers = 			true; //get(CBTConfig::strongNumbers);
   options.headings = 						get(CBTConfig::headings);
 	
 //   options.morphTags = 					get(CBTConfig::morphTags);
