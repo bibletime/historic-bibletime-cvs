@@ -26,7 +26,7 @@
 //KDE includes
 #include <klocale.h>
 
-//#include <iostream>
+#include <iostream>
 
 CDisplayTemplateMgr::CDisplayTemplateMgr() {
 	init();

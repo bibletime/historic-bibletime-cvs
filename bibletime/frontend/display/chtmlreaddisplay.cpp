@@ -276,35 +276,46 @@ CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : CToolTip(vi
 
 /** Decides whether a tooltip should be shown. */
 void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& /*p*/ ){
-//  qWarning("CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p )");
   DOM::Node node = m_view->part()->nodeUnderMouse();
-  if (node.isNull())
+  if (node.isNull()) { //WARNING: Return already here
   	return;
+	}
 
-  DOM::Node linkNode = node;
+	QString tooltipText;
+  DOM::Node currentNode = node;
   do {
-    if (!linkNode.isNull() && linkNode.nodeName().string().upper() == "A" ) { //found right node
-      if (linkNode.hasAttributes()) {
-        QString link = QString::null;
-        DOM::NamedNodeMap attributes = linkNode.attributes();
-        for (unsigned int i = 0; i < attributes.length(); i++) {
-          if (attributes.item(i).nodeName().string().upper() == "HREF") {
-            link = attributes.item(i).nodeValue().string();
-            break;
-          }
-        }
-
-        const QString tooltipText = CTooltipManager::textForHyperlink( link );
-        if (!tooltipText.isEmpty()) {
-          QRect rect = linkNode.getRect();
-          rect.setX( m_view->mapFromGlobal(QCursor::pos()).x() );
-          rect.setY( m_view->mapFromGlobal(QCursor::pos()).y() );
-	        tip( m_view->mapFromGlobal(QCursor::pos()), rect, tooltipText );
-        }
-        break;
-      }
-    }
-  } while ( !(linkNode = linkNode.parentNode()).isNull() );
+    if (!currentNode.isNull() && currentNode.nodeName().string().upper() == "A" && currentNode.hasAttributes()) { //found right node
+			DOM::Node hrefAttr = currentNode.attributes().getNamedItem("href");
+			if (!hrefAttr.isNull()) {
+				tooltipText = CTooltipManager::textForHyperlink(
+					hrefAttr.nodeValue().string() 
+				);
+				break;
+			}
+		}
+	} while ( !(currentNode = currentNode.parentNode()).isNull() );
+  
+	//if no link was under the mouse try to find a title attrivute
+	if (tooltipText.isEmpty()) {
+		currentNode = node;
+		do {
+			if (!currentNode.isNull() && currentNode.hasAttributes()) { //found right node
+				DOM::Node titleAttr = currentNode.attributes().getNamedItem("title");
+				if (!titleAttr.isNull()) {
+					tooltipText = titleAttr.nodeValue().string();
+					break;
+				}
+			}
+		} while ( !(currentNode = currentNode.parentNode()).isNull() );
+	}
+	
+	//display tooltip if the text is not empty
+	if (!tooltipText.isEmpty()) {
+		QRect rect = currentNode.getRect();
+		rect.setX( m_view->mapFromGlobal(QCursor::pos()).x() );
+		rect.setY( m_view->mapFromGlobal(QCursor::pos()).y() );
+		tip( m_view->mapFromGlobal(QCursor::pos()), rect, tooltipText );
+	}
 }
 
 // ---------------------

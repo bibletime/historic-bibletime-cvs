@@ -8,6 +8,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<style type="text/css">
 	/* <![CDATA[ */
+* { /* To work around a KDE 3.2 bug/problem */
+	background-color:inherit; 
+}
+
 body {
 	margin:15px;
 }
@@ -59,7 +63,7 @@ td.verse + td.verse, td.entry + td.entry {
 	margin-left: 2px;
 }
 span.currentverse, span.currententry {
-	background-color: #F6FFF7;
+	background-color: #C0F6C8;
 	vertical-align: middle;
 	padding: 2px;
 }
@@ -106,6 +110,10 @@ span.currentverse, span.currententry {
 	font-weight: bold;
 	font-size: 120%;
 }
+* + .sectiontitle {
+	margin-top:15px;
+}
+
 .booktitle {
 	font-weight: bold;
 	font-size: 140%;
@@ -169,25 +177,19 @@ span.currentverse, span.currententry {
 
 .transchange { 
 	font-style:italic; 
-	background-color:green;
 }
 .transchange > .added {
 	background-color:inherit;
 }
-.transchange > .amplified {
-	
+.transchange > .amplified {	
 }
-.transchange > .changed {
-	
+.transchange > .changed {	
 }
 .transchange > .deleted {
-	
 }
 .transchange > .moved {
-	
 }
 .transchange > .tenseChange {
-	
 }
 
 #LANG_CSS#

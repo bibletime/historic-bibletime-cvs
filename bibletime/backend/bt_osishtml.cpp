@@ -303,7 +303,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
 				if (type == "added") {
-					buf.appendFormatted("<span class=\"transchange\" title=\"%s\"><span class=\"added\">", "Added text");
+					buf.appendFormatted("<span class=\"transchange\" title=\"%s\"><span class=\"added\">", (const char*)i18n("Added text").utf8());
 				}
 				if (type == "amplified") {
 					buf += "<span class=\"transchange\"><span class=\"amplified\">";

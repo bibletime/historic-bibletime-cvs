@@ -231,7 +231,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
 			QString preverseHeading = QString::fromUtf8(
 m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeading++).latin1()].c_str());
 			if (!preverseHeading.isEmpty()) {
-				entry += QString::fromLatin1("<div lang=\"%1\" class=\"sectiontitle\">%1</div>")
+				entry += QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
 					.arg(m->language().isValid() 
 						? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
 						: QString::null

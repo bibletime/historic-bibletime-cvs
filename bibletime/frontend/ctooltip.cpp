@@ -47,8 +47,8 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, name, WStyle
 
   //set the size for the tooltip now only one time, and not everytime in tip()
   screenSize = KApplication::desktop()->geometry();
-  setMaximumHeight( int(screenSize.height()*0.6) );
-  setFixedWidth( int(screenSize.width()*0.25) );  
+  setMaximumHeight( int(screenSize.height()*0.65) );
+  setFixedWidth( int(screenSize.width()*0.3) );  
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff); //never show a horizontal bar, only the vertcal one
 
   setPalette( QToolTip::palette() );
