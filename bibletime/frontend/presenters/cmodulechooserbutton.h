@@ -18,10 +18,10 @@
 #ifndef CMODULECHOOSERBUTTON_H
 #define CMODULECHOOSERBUTTON_H
 
-#include "../../backend/cswordmoduleinfo.h"
-#include "../cpointers.h"
+#include "backend/cswordmoduleinfo.h"
+#include "frontend/cpointers.h"
 
-#include <qtoolbutton.h>
+#include <ktoolbarbutton.h>
 
 class KPopupMenu;
 
@@ -29,7 +29,7 @@ class KPopupMenu;
   *@author The BibleTime team
   */
 
-class CModuleChooserButton : public QToolButton, public CPointers  {
+class CModuleChooserButton : public KToolBarButton, public CPointers  {
    Q_OBJECT
 public: 
 	CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent = 0, const char *name = 0 );
@@ -38,12 +38,13 @@ public:
   * Returns the id used for this button.
   */
   int getId() const;
+	
+private:
   /**
   * Returns the icon used for the current status.
   */
-  QPixmap icon();		
+  const QString iconName();		
 	
-private:
 	bool m_hasModule;
 	CSwordModuleInfo::ModuleType m_moduleType;
 	CSwordModuleInfo* m_module;

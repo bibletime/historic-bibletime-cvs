@@ -18,21 +18,22 @@
 #ifndef CDISPLAYSETTINGSBUTTON_H
 #define CDISPLAYSETTINGSBUTTON_H
 
-#include "../../backend/cswordbackend.h"
-#include "../../backend/cswordmoduleinfo.h"
+#include "backend/cswordbackend.h"
+#include "backend/cswordmoduleinfo.h"
 
-
-#include <qtoolbutton.h>
+//QT includes
 #include <qdict.h>
 
-/**
-  *@author The BibleTime team
-  */
+//KDE includes
+#include <ktoolbarbutton.h>
 
+/**
+  * @author The BibleTime team
+  */
 class CSwordModuleInfo;
 class KPopupMenu;
 
-class CDisplaySettingsButton : public QToolButton  {
+class CDisplaySettingsButton : public KToolBarButton  {
    Q_OBJECT
 public: 
 	CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool *displaySettings, CSwordBackend::FilterOptionsBool *settings, const ListCSwordModuleInfo& useModules, QWidget *parent=0, const char *name=0);
@@ -70,7 +71,7 @@ protected:
 
 	KPopupMenu* m_popup;
 
-  int populateMenu(void);
+  int populateMenu();
 	bool isOptionAvailable( const CSwordBackend::FilterOptions option);
   int addMenuEntry( const QString name, const bool* option, const bool available);
 };

@@ -28,7 +28,7 @@
 #include <klocale.h>
 
 CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent, const char *name )
-	: QToolButton(parent,name) {
+	: KToolBarButton("", id, parent,name) {
 	qDebug("CModuleChooserButton::CModuleCHooserButton");
 
 	m_id = id;
@@ -39,17 +39,18 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
   else
     m_hasModule = true;
 	
-	setPixmap( icon() );
+	setIcon( iconName() );
 	setPopupDelay(0);
 	
 	//create popup
 	m_popup = new KPopupMenu(this);	
-	setPopup(m_popup);
-	m_popup->insertTitle(i18n("Select additional modules"));
+	m_popup->insertTitle(i18n("Select additional modules"));	
 	m_popup->setCheckable(true);
 	m_popup->insertItem(i18n("NONE"));
 	m_popup->insertSeparator();	
-	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));
+	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));		
+	setPopup(m_popup);
+	
 	ListCSwordModuleInfo& modules = backend()->moduleList();
 	for (modules.first(); modules.current(); modules.next()) {
 		if (modules.current()->type() == m_moduleType) {
@@ -76,30 +77,30 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
 }	
 
 /** Returns the icon used for the current status. */
-QPixmap CModuleChooserButton::icon(){
+const QString CModuleChooserButton::iconName(){
 	switch (m_moduleType) {
 		case CSwordModuleInfo::Bible:
 			if (m_hasModule)
-				return BIBLE_ICON_MC;				
+				return QString::fromLatin1("bt_bible");
 			else
-				return BIBLE_ADD_ICON_MC;
+				return QString::fromLatin1("bt_bible_add");
 		case CSwordModuleInfo::Commentary:
 			if (m_hasModule)
-				return COMMENTARY_ICON_MC;
+				return QString::fromLatin1("bt_commentary");
 			else
-				return COMMENTARY_ADD_ICON_MC;
+				return QString::fromLatin1("bt_commentary_add");
 		case CSwordModuleInfo::Lexicon:
 			if (m_hasModule)
-				return LEXICON_ICON_MC;				
+				return QString::fromLatin1("bt_lexicon");
 			else
-				return LEXICON_ADD_ICON_MC;
+				return QString::fromLatin1("bt_lexicon_add");
 		case CSwordModuleInfo::GenericBook:
 			if (m_hasModule)
-				return BOOK_ICON_MC;				
+				return QString::fromLatin1("bt_book");
 			else
-				return BOOK_ADD_ICON_MC;				
+				return QString::fromLatin1("bt_book_add");
 		default:
-			return PARALLEL_ICON_MC;
+			return QString::fromLatin1("bt_bible");;
 	}
 }
 
@@ -133,8 +134,8 @@ void CModuleChooserButton::moduleChosen( int ID ){
 	    emit sigAddButton();
 		m_hasModule = true;  	
 		m_module = module();
-		setPixmap(icon());
-		repaint();  	  	
+		setIcon(iconName());
+//		repaint();  	  	
   	emit sigChanged();
   	
   	QToolTip::remove(this);

@@ -24,14 +24,14 @@
 #include <kpopupmenu.h>
 #include <klocale.h>
 
-CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool *displaySettings, CSwordBackend::FilterOptionsBool *moduleSettings,
-	const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name ) : QToolButton(parent,name)
+CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool *displaySettings, CSwordBackend::FilterOptionsBool *moduleSettings, const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name )
+	: KToolBarButton("bt_bible",0 ,parent,name)
 {
 	m_displaySettings = displaySettings;
 	m_moduleSettings = moduleSettings;
 	m_modules = useModules;
 
-	setPixmap( BIBLE_ICON_MC );
+//	setPixmap( BIBLE_ICON_MC );
 
  	m_popup = new KPopupMenu(this);	
 	setPopup(m_popup);
@@ -62,7 +62,7 @@ void CDisplaySettingsButton::optionToggled(int ID){
 }
 
 /** No descriptions */
-int CDisplaySettingsButton::populateMenu(void){
+int CDisplaySettingsButton::populateMenu(){
 
 	int ret = 0;
 
