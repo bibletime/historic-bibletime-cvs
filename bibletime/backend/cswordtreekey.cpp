@@ -28,11 +28,11 @@ CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKe
 	m_module = k.m_module;
 }
 
-CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k) {
+CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k), CSwordKey() {
 	m_module = module;
 }
 
-CSwordTreeKey* CSwordTreeKey::clone() const{
+CSwordTreeKey* CSwordTreeKey::clone() const {
 	qWarning("CSwordTreeKey* CSwordTreeKey::clone() const");
 	return new CSwordTreeKey(*this);
 }

@@ -34,10 +34,10 @@ class CSwordModuleInfo;
 class CSwordKey {
 public:
 	virtual ~CSwordKey() {};
-	virtual const QString key(const QString& = QString::null) {return QString::null;};
-	virtual void key(const char*) {};
 	
-	//pure virtual functions	
+	//pure virtual functions		
+	virtual const QString key(const QString& = QString::null) = 0;
+	virtual void key(const char*) = 0;
 	virtual const CSwordKey* clone() const = 0;	
 	
 	//implemented functions
@@ -45,14 +45,15 @@ public:
 	virtual const QString renderedText();
 	virtual const QString strippedText();
   /**
-  * This will create a proper key object from a given module
+  * This returns a new object of the right CSwordKey* implementation (e.g. CSwordVerseKey or CSwordLDKey)
+  * The type is determined by the type of the module.
+  * @see CSwordModuleInfo, CSwordBibleModuleInfo, CSwordCommentaryModuleInfo, CSwordLexiconModukleInfo
   */
-  static CSwordKey * createInstance( CSwordModuleInfo *module);
+  static CSwordKey* createInstance(CSwordModuleInfo *module);
 
 protected:
-	CSwordModuleInfo* m_module;
-	CSwordKey();
-	QString m_oldKey;
+	CSwordModuleInfo* m_module; //module pointer used by all keys
+	CSwordKey(); //protected constructor, because CSwordKey shouldn't be used (it's an abstract base class).
 };
 
 #endif

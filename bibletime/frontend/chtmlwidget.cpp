@@ -112,23 +112,19 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		}		
 		m = m_important->swordBackend->findModuleByName(module);
 		if (m){
-			CSwordKey* key = CSwordKey::createInstance( m );
 			if (m->getType() == CSwordModuleInfo::Bible || m->getType() == CSwordModuleInfo::Commentary) {
 				CSwordModuleInfo* module = htmlWidget->modules().first();
-				ASSERT(module);
 				if (module) {
-					ref = CReferenceManager::parseVerseReference(ref, module->module()->Lang(), m_important->swordBackend->getCurrentBooknameLanguage() );			
+					ref = CReferenceManager::parseVerseReference(ref, module->module()->Lang(), m_important->swordBackend->getCurrentBooknameLanguage() );
 				}
 			}
+			CSwordKey* key = CSwordKey::createInstance( m );			
 			if (key) {
-				CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
-				m_important->swordBackend->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );
+				m_important->swordBackend->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );				
 				
 				key->key(ref);
 				text = key->renderedText();
-				delete key;				
-				
-				m_important->swordBackend->setAllModuleOptions( oldOptions );								
+				delete key;
 			}
 			if (m->isUnicode()) {
 				setFont( CBTConfig::get( CBTConfig::unicode) );

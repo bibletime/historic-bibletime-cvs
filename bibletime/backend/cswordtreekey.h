@@ -30,12 +30,10 @@
   */
 class CSwordTreeKey : public TreeKeyIdx, public CSwordKey  {
 public:
-//	CSwordTreeKey( CSwordModuleInfo* module );
-
 	CSwordTreeKey( const CSwordTreeKey& k );
 	CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module );
+	virtual ~CSwordTreeKey();	
 	virtual CSwordTreeKey *clone() const;
-
   /**
   * Set/get the key. If the parameter is not set (means equal to QString::null)
   * the used key is returned. Otherwise the key is set and the new on ei returned.
@@ -46,9 +44,6 @@ public:
   * the used key is returned. Otherwise the key is set and the new on ei returned.
   */
 	virtual void key( const char* key );
-
-
-	virtual ~CSwordTreeKey();
 };
 
 #endif

@@ -303,7 +303,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			//check if the new text fits into the current page page
 			//WARNING: use 2* or 1* frameThickness here??
 			if ( 		( boundingRect.height() + 2*BORDER_SPACE + 2*frameThickness + STYLE_PART_SPACE )
-						> ( printer->getPageSize().height()-printer->getVerticalPos() /*+ printer->upperMargin()*/ ) )
+						> ( printer->getPageSize().height()-printer->getVerticalPos() + printer->upperMargin() ) )
 			{
 				//this part doesn't fit on the current page
 				printer->newPage();
@@ -363,12 +363,17 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);
 			else if (alignement == CStyleFormat::Right)		
 				text = QString::fromLatin1("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
-    	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(),
+    	QSimpleRichText richText(
+    		text,
+    		font,
+    		QString::null,
+    		QStyleSheet::defaultSheet(),
+    		QMimeSourceFactory::defaultFactory(),
 				printer->getPageSize().height()-printer->getVerticalPos()-2*frameThickness+printer->upperMargin()
 			);
 
     	richText.setWidth( p, printer->getPageSize().width()-2*frameThickness-2*BORDER_SPACE );
-    	QRect view(
+    	QRect view( //add BORDER_SPACE
     		printer->getPageSize().left()+frameThickness,
     		printer->getPageSize().top()+frameThickness,
 	    	printer->getPageSize().width()-2*frameThickness,

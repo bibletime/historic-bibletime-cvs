@@ -43,14 +43,15 @@ CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
 }
 
 const QString CSwordKey::renderedText() {
-//	qWarning("const QString CSwordKey::renderedText()");	
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);
 	if (k)
 		m_module->module()->SetKey(k);	
-//	qWarning("almost finished const QString CSwordKey::renderedText()");		
-	return QString::fromUtf8( (const char*)*(m_module->module()) /*m_module->module()->RenderText()*/ );	
+	return QString::fromUtf8((const char*)*(m_module->module()));
+//	return m_module->isUnicode()
+//		? QString::fromUtf8((const char*)*(m_module->module()))
+//		: QString::fromLocal8Bit((const char*)*(m_module->module()));
 }
 
 const QString CSwordKey::strippedText() {
@@ -59,12 +60,16 @@ const QString CSwordKey::strippedText() {
 	SWKey* k = dynamic_cast<SWKey*>(this);
 	if (k)
 		m_module->module()->SetKey(k);
-		
-	return QString::fromUtf8( m_module->module()->StripText() );
+	return QString::fromUtf8(m_module->module()->StripText());	
+//	return m_module->isUnicode()
+//		? QString::fromUtf8(m_module->module()->StripText())
+//		: QString::fromLocal8Bit(m_module->module()->StripText());		
 }
+
 /** This will create a proper key object from a given module */
 CSwordKey* CSwordKey::createInstance( CSwordModuleInfo *module ){
-	ASSERT(module);
+	if (!module)
+		return 0;
 	switch( module->getType() ){
 		case CSwordModuleInfo::Bible:
 		case CSwordModuleInfo::Commentary:

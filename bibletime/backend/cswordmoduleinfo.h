@@ -165,7 +165,9 @@ public:
   * Returns the name of the module.
   */
   const QString name() const;
-  /** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
+  /**
+  * Returns true if this module is Unicode encoded. False if the charset is iso8859-1.
+  */
   const bool isUnicode();
 	
 private:

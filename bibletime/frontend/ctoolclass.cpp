@@ -80,7 +80,7 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 	QFile saveFile(filename);
 	bool ret;
 		
-	if (saveFile.exists())
+	if (saveFile.exists()) {
 		if (KMessageBox::warningYesNo(0,
 				QString::fromLatin1("<qt><B>%1</B><BR>%2</qt>")
 					.arg( i18n("The file does already exist!!") )
@@ -88,6 +88,7 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 			return false;
 		else
 			saveFile.remove();
+	}
 	
 	if ( saveFile.open(IO_ReadWrite) ) {
 		QTextStream textstream( &saveFile );

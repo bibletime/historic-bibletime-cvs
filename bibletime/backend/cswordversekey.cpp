@@ -36,12 +36,12 @@ CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKe
 }
 
 /** No descriptions */
-CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(k),CSwordKey() {
+CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(*k),CSwordKey() {
 	m_module = module;	
 }
 
 CSwordVerseKey::~CSwordVerseKey(){
-	qDebug("CSwordVerseKey::~CSwordVerseKey()");
+//	qDebug("CSwordVerseKey::~CSwordVerseKey()");
 }
 
 /** Clones this object. */
@@ -136,7 +136,7 @@ const QString CSwordVerseKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {
 		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
-	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8
+	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8 here!
 }
 
 void CSwordVerseKey::key( const char* newKey ){

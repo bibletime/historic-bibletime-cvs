@@ -48,7 +48,7 @@ public:
 	};
 	
 	CStyle();
-	~CStyle();
+	virtual ~CStyle();
   /**
  	* Returns the proper CStyleFormat for the given type.
  	*/

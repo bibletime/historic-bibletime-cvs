@@ -18,13 +18,20 @@
 
 #include "bt_basicfilter.h"
 #include "creferencemanager.h"
+#include "cswordversekey.h"
 #include "../frontend/cbtconfig.h"
 
 char BT_BASICFILTER::ProcessText (char *text, int maxlen, const SWKey *key, const SWModule *module){
-	m_key = key;
 	m_module = module;
+	ASSERT(m_module);
+	
+	m_key = key;
+	ASSERT(key);	
+	
 	updateSettings();
 	SWBasicFilter::ProcessText(text, maxlen);
+	
+	return 0;
 }
 
 void BT_BASICFILTER::updateSettings(void){
@@ -34,12 +41,12 @@ void BT_BASICFILTER::updateSettings(void){
 	strcpy(jesuswords_color,CBTConfig::get(CBTConfig::jesuswordsColor	).name().utf8());
 	strcpy(swordref_color,	CBTConfig::get(CBTConfig::swordRefColor		).name().utf8());
 	strcpy(text_color, 			CBTConfig::get(CBTConfig::textColor				).name().utf8());	
-	strcpy(standard_bible,	/*CBTConfig::get(CBTConfig::standardBible		).utf8()*/CReferenceManager::preferredModule(CReferenceManager::Bible).utf8());
+	strcpy(standard_bible,	CReferenceManager::preferredModule(CReferenceManager::Bible).utf8());
 }
 
 
 /** This filter converts the RWP #Gen 1:1| style bible references to HTML */
-char BT_BASICFILTER::ProcessRWPRefs(char * text, int maxlen){
+char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
 	char *to, *from, verse_str[500];
 	int len;
 
@@ -65,50 +72,61 @@ char BT_BASICFILTER::ProcessRWPRefs(char * text, int maxlen){
 					break; // can't be a verseref
 				}
 			}
-
 			if ( i==500 || !is_verse ){
 				*to++ = *from;
 				continue;
-			}
-				
+			}				
 			++from;
+			
 			i = 0;
 			verse_str[0] = '\0';
-
 			while (*from != '|' && i<500) { /* get the bible reference */
 				verse_str[i++] = *from;
 				verse_str[i + 1] = '\0';
 				from++;
+			}			
+			//now parse the reference, should be optimized
+			VerseKey vkey = (m_key ? (const char*)*m_key : "Genesis 1:1");
+			ListKey list = vkey.ParseVerseList(verse_str, vkey, true);			
+			for(int i = 0; i < list.Count(); i++) {
+				SWKey* key = list.GetElement(i);
+				VerseKey* vk =  dynamic_cast<VerseKey*>(key);
+
+				pushString(&to,"<font color=\"");
+				pushString(&to, swordref_color);
+				pushString(&to, "\">");								
+				pushString(&to, "<a href=\"sword://Bible/");
+				pushString(&to, standard_bible);
+				pushString(&to, "/");			
+												
+				if (vk) {
+					pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
+					pushString(&to, "-");					
+					pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
+					pushString(&to, "\">");
+					pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
+					pushString(&to, "-");
+					pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
+					pushString(&to, "</a>");
+				}
+				else {
+					pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
+					pushString(&to, "\">");
+					pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
+					pushString(&to, "</a>");
+				}
+				pushString(&to, "</font>");
+				pushString(&to, ", ");
 			}
-			strcpy(to, "<font color=\"");
-			to += strlen(to);
-			strcpy(to, swordref_color);
-			to += strlen(to);
-			strcpy(to,"\"><a href=\"sword://Bible/");
-			to += strlen(to);
-
-			strcpy(to, standard_bible);
-			to += strlen(to);
-
-			*to++ = '/';
-
-			strcpy(to, verse_str);
-			to += strlen(to);
-			*to++ = '\"';			
-			*to++ = '>';
-
-			strcpy(to, verse_str);
-			to += strlen(to);
-
-			strcpy(to,"</a></font>");
-			to += strlen(to);
-
+			pushString(&to, " ");			
 			continue;
 		}
-
 		*to++ = *from;
 	}
 	*to++ = 0;
+	
+//	cout << text << endl;	
+	
 	*to = 0;
 	return 0;
 }
