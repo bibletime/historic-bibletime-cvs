@@ -89,7 +89,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 		list.append(t.right(t.length() - lastMatchEnd));
 	}
 
-	tag = QRegExp("<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>");
+	tag = QRegExp("<sync[^>]+(type|value|class)=\"([^\"]+)\"[^>]+(type|value|class)=\"([^\"]+)\"[^>]+((type|value|class)=\"([^\"]+)\")*([^<]*)>");
 
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		QString e = *it;
@@ -106,12 +106,29 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 		int pos = tag.search(e, 0);
 		bool insertedTag = false;
 		while (pos != -1) {
-			const bool isMorph = 
-				((tag.cap(1) == "type") ? tag.cap(2) : tag.cap(4)) == "morph";
-			const bool isStrongs = 
-				((tag.cap(1) == "type") ? tag.cap(2) : tag.cap(4)) == "Strongs";
-			const QString value = 
-				(tag.cap(1) == "value") ? tag.cap(2) : tag.cap(4);
+			bool isMorph = false;
+			bool isStrongs = false;
+			QString value = "";
+			QString valueClass = "";
+
+			// check 3 attribute/value pairs
+			for (int i = 1; i < 6; i += 2) {
+				if (i > 4) i++;
+				if (tag.cap(i) == "type") {
+					isMorph   = (tag.cap(i+1) == "morph");
+					isStrongs = (tag.cap(i+1) == "Strongs");
+				}
+				else if (tag.cap(i) == "value") {
+					value = tag.cap(i+1);
+				}
+				else if (tag.cap(i) == "class") {
+					valueClass = tag.cap(i+1);
+				}
+			}
+
+			// prepend the class qualifier to the value
+			if (!valueClass.isEmpty())
+				value = valueClass + ":" + value;
 			
 			if (value.isEmpty()) {
 				break;

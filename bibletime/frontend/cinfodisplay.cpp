@@ -241,19 +241,40 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 	for (QStringList::iterator it = morphs.begin(); it != morphs.end(); ++it) {
 		CSwordModuleInfo* module = 0;
 		bool skipFirstChar = false;
-		switch ((*it).at(0).latin1()) {
-			case 'G':
-				CBTConfig::get(CBTConfig::standardGreekMorphLexicon);
-				skipFirstChar = true;
-				break;
-			case 'H':
-				CBTConfig::get(CBTConfig::standardHebrewMorphLexicon);
-				skipFirstChar = true;
-				break;
-			default:
-				skipFirstChar = false;
-				module = 0;
-				break;
+		QString value = "";
+		QString valueClass = "";
+
+		int valStart = (*it).find(':');
+		if (valStart > -1) {
+			valueClass = (*it).mid(0, valStart);
+		}
+		value = (*it).mid(valStart+1);
+		module = CPointers::backend()->findModuleByName( valueClass ); 
+
+
+		// if we don't have a class assigned or desired one isn't installed...
+		if (!module) {
+			// Morphs usually don't have [GH] prepended, but some old OLB
+			// codes do.  We should check if we're digit after first char
+			// to better guess this.
+			// No need to check len, if at(1) is > len QChar::null is
+			// returned which is ok to .isDigit()
+			if (value.at(1).isDigit()) {
+				switch (value.at(0).latin1()) {
+					case 'G':
+						module = CBTConfig::get(CBTConfig::standardGreekMorphLexicon);
+						skipFirstChar = true;
+						break;
+					case 'H':
+						module = CBTConfig::get(CBTConfig::standardHebrewMorphLexicon);
+						skipFirstChar = true;
+						break;
+					default:
+						skipFirstChar = false;
+						module = 0;
+						break;
+				}
+			}
 		}
 		
 		QString text;
@@ -261,7 +282,7 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
  			
 			//skip H or G (language sign) if we have to skip it			
-			key->key( skipFirstChar ? (*it).mid(1) : (*it) );
+			key->key( skipFirstChar ? value.mid(1) : value );
 			
 			text = key->renderedText();
 		}
@@ -269,7 +290,7 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 		//if the module wasn't found just display an empty morph info
 		ret.append( QString::fromLatin1("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
 			.arg(i18n("Morphology"))
-			.arg(*it)
+			.arg(value)
 			.arg(text)
 		);
 	}
