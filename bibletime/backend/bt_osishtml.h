@@ -33,7 +33,12 @@ protected:
   public:
     BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::OSISHTMLHREF::MyUserData(module, key) {
       noteType = Unknown;
+			swordFootnote = 1;
+
     }
+		
+		unsigned short int swordFootnote;
+
 
     enum NoteTpe {
       Unknown,

@@ -222,7 +222,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					buf.append('/');
 					buf.append(myUserData->key->getShortText());
 					buf.append('/');
-					buf.append(tag.getAttribute("swordFootnote"));
+					buf.append( QString::number(myUserData->swordFootnote++).latin1() );
 					buf.append("\">*n</span> ");
 					
           myUserData->noteType = BT_UserData::Footnote;

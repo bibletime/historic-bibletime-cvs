@@ -186,7 +186,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				buf.append('/');
 				buf.append( QString::number(myUserData->swordFootnote++).latin1() );
 				buf.append("\">*n</span> ");
-
+				
 				userData->suspendTextPassThru = true;
 			}
 			else if (tag.isEndTag() && !tag.isEmpty()) { //end tag
