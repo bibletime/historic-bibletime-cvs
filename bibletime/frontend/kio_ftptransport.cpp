@@ -116,18 +116,18 @@ std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
 //  	qWarning("dirlist %s", dirURL);
 	std::vector< struct ftpparse > ret;
 	
-	if (term)	
+	if (term)	{
+// 		qWarning("returning");
 		return ret;
+	}
 
 	m_listingCancelled = false;
-	KDirLister lister;
+ 	KDirLister lister;
 	connect(&lister, SIGNAL(canceled()), SLOT(slotDirListingCanceled()));
 	lister.openURL(KURL(dirURL));
 	
 	while (!lister.isFinished() && !m_listingCancelled) {
-//  		qWarning("waiting");
 		if (term) {
-// 			qWarning("stkopping");
 			lister.stop();
 			break;
 		}
@@ -137,29 +137,29 @@ std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
 	
 	
 	if (term) {
-// 		qWarning("returning empty list");
 		return ret;
 	}
 		
 	KFileItemList items = lister.itemsForDir(KURL(dirURL));
 	KFileItem* i = 0;
 	for ( i = items.first(); i; i = items.next() ) {
-		struct ftpparse s;
-// 		qWarning("%s", i->name().latin1());
-		
 		int length = i->name().length();
 		const char* t = i->name().latin1();
 		
-		s.name = new char[length];//i->name().latin1();
+		struct ftpparse s;
+		s.name = new char[length+1];//i->name().latin1();
+		bzero(s.name, length+1);
 		strcpy(s.name, t);
+		s.namelen = length+1;
 		
 		s.size = i->size();
 		s.flagtrycwd = i->isDir(); //== 1 means a dir
 		
-		ret.push_back(s);	
+		s.id = 0;
+		s.idlen = 0;
+		
+		ret.push_back(s);
 	}
-	
-// 	qWarning("dirlist finished");
 	
 	return ret;
 }

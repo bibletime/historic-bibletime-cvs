@@ -178,6 +178,8 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				const SWBuf type = tag.getAttribute("type");
 
 				if (type == "crossReference") { //note containing cross references
+					myUserData->inCrossrefNote = true;
+					
 					//get the refList value of the right entry attribute
 					AttributeList notes = myModule->getEntryAttributes()["Footnote"];
 					bool foundNote = false;
@@ -240,9 +242,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
         if (myUserData->noteType == BT_UserData::CrossReference) {
           buf.append("</span> ");
 					myUserData->suspendTextPassThru = false;
+					myUserData->inCrossrefNote = false;
         }
 				else if (myUserData->noteType == BT_UserData::Alternative) {
-// 				qWarning("found end of alternative");
 					buf.append(" <span class=\"alternative\" alternative=\"");
 					buf.append(myUserData->lastTextNode);
 					buf.append("\" ");
@@ -256,37 +258,19 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		}
 		// <p> paragraph tag is handled by OSISHTMLHref
 		else if (!strcmp(tag.getName(), "reference")) { // <reference> tag
-/*			if (!tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
+			if (!myUserData->inCrossrefNote && !tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
         const char* ref = tag.getAttribute("osisRef");
-
-        SWBuf typeName = "Bible";
         CSwordModuleInfo::ModuleType type = CSwordModuleInfo::Bible;
-        if (!strncmp(ref, "Bible:", 6)) {
-          type = CSwordModuleInfo::Bible;
-          typeName = "Bible";
-          ref += 6;
-        }
-        else if (!strncmp(ref, "Commentary:", 11)) { //need to check with OSIS tags
-          type = CSwordModuleInfo::Commentary;
-          typeName = "Commentary";
-          ref += 11;
-        }
-
-				buf.appendFormatted("<a class=\"reference\" href=\"sword://%s/%s/%s\">",
-          typeName.c_str(),
-          CReferenceManager::preferredModule( CReferenceManager::typeFromModule(type) ).latin1(),
-          ref
+				buf.appendFormatted("<span class=\"crossreference\" crossrefs=\"%s\">",
+					ref
         );
-				
-				myUserData->suspendTextPassThru = true;
 			}
-			else if (tag.isEndTag()) {
- 			//	buf.append("</a>");
-// 				myUserData->suspendTextPassThru = false;
+			else if (!myUserData->inCrossrefNote && tag.isEndTag()) {
+ 				buf.append("</span>");
 			}
 			else {	// empty reference marker
 				// -- what should we do?  nothing for now.
-			}*/
+			}
 		}
     // <l> is handled by OSISHTMLHref
 		// <title>

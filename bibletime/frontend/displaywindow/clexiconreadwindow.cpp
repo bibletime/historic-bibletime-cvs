@@ -109,8 +109,8 @@ void CLexiconReadWindow::initView(){
 
 	action->plug(mainToolBar());
 	
-//  setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
-//	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
+  setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
+	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
   setIcon(CToolClass::getIconForModule(modules().first()));
 }

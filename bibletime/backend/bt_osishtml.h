@@ -36,11 +36,11 @@ protected:
     BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::OSISHTMLHREF::MyUserData(module, key) {
       noteType = Unknown;
 			swordFootnote = 1;
-
+			inCrossrefNote = false;
     }
 		
 		unsigned short int swordFootnote;
-
+		bool inCrossrefNote;
 
     enum NoteType {
       Unknown,
