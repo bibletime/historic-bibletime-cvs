@@ -34,7 +34,7 @@
 
 #include "../chtmldialog.h"
 #include "../cinputdialog.h"
-#include "../ctoolclass.h"
+//#include "../ctoolclass.h"
 #include "../searchdialog/csearchdialog.h"
 #include "../cbtconfig.h"
 
@@ -1206,7 +1206,7 @@ const bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerI
 /** Impoorts bookmarks */
 void CGroupManager::slotImportBookmarks(){
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) ) {
-		QString file = CToolClass::getOpenFileName(QString::null, "*.btb | *.btb", 0, i18n("Import bookmarks ..."));	
+		QString file = KFileDialog::getOpenFileName(QString::null, "*.btb | *.btb", 0, i18n("Import bookmarks ..."));	
 		if (!file.isNull()) {
 			KSimpleConfig simpleConfig(file, false);
 			simpleConfig.setGroup("Bookmarks");
@@ -1231,7 +1231,7 @@ than the bookmarks format version of this version of BibleTime!<BR>\
 /** Exports bookmarks of selected group */
 void CGroupManager::slotExportBookmarks(){
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) ) {
-		QString file = CToolClass::getSaveFileName (QString::null, "*.btb | *.btb", 0, i18n("Export bookmarks ..."));	
+		QString file = KFileDialog::getSaveFileName (QString::null, "*.btb | *.btb", 0, i18n("Export bookmarks ..."));	
 		if (!file.isNull()) {
 			KSimpleConfig simpleConfig(file, false);
 			simpleConfig.setGroup("Bookmarks");			

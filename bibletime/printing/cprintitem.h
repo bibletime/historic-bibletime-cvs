@@ -20,7 +20,7 @@
 
 #include <qobject.h>
 #include <qguardedptr.h>
-#include "../ressource.h"
+#include <qlist.h>
 
 class CSwordKey;
 class CSwordModuleInfo;

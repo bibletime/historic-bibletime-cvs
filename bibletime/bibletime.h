@@ -150,12 +150,16 @@ public slots:
   */
   void lastWindowClosed();
   /**
-  * Opens the online help.
-	* If STATIC_BUILD is defined it opens an own dialog,
-	* otherwise the standard KDE helpsystem will be opened.
+  * Opens the handbook.
 	*/
   void openOnlineHelp_Handbook();
+  /**
+  * Opens the installation instructions.
+	*/
   void openOnlineHelp_Install();
+  /**
+  * Opens the bible study howto.
+	*/
   void openOnlineHelp_Howto();
   /**
   * Sets the plain caption of the main window

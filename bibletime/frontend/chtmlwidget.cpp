@@ -285,14 +285,14 @@ void CHTMLWidget::setHTMLSource(const QString& url){
 
 /** Saves the HTML page */
 void CHTMLWidget::slotSaveAsHTML(){
-	QString file = CToolClass::getSaveFileName (QString::null, i18n("*.html *.htm *.shtml *.shtm | HTML files\n *.* | All files (*.*)"), 0, i18n("Save text as HTML page ..."));	
+	QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.html *.htm *.shtml *.shtm | HTML files\n *.* | All files (*.*)"), 0, i18n("Save text as HTML page ..."));	
 	if (!file.isNull())
 		CToolClass::savePlainFile( file, text().utf8());
 }
 
 /** Saves the HTML page */
 void CHTMLWidget::slotSaveAsText(){
-	const QString file = CToolClass::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save text as plain text ..."));
+	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save text as plain text ..."));
 
 	if (!file.isNull()) {
 		QString html = document()->plainText();

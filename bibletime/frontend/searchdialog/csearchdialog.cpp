@@ -35,6 +35,7 @@
 #include <klocale.h>
 #include <kkeydialog.h>
 #include <kfontdialog.h>
+#include <kfiledialog.h>
 #include <kapp.h>
 
 //QT includes
@@ -145,7 +146,7 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 	QDict<CSearchDialogAnalysisItem> searchAnalysisItems = *searchAnalysis->getSearchAnalysisItemList();
 	CSearchDialogAnalysisItem analysisItem = *searchAnalysisItems[key.book()];
 
- 	const QString file = CToolClass::getSaveFileName (QString::null, i18n("*.html"), 0, i18n("Save Search Analysis"));	
+ 	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.html"), 0, i18n("Save Search Analysis"));	
 	if (!file.isNull()) {
     QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n<h2>" + i18n("Search Text : ") + searchText->getText() + "</h2>\n";
 		text += "<h2>" + i18n("Search Type: ") + searchText->getSearchTypeString() + "</h2>\n";

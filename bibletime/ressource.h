@@ -182,31 +182,36 @@
 #define ICON_EDIT_JUST "text_block"
 
 #define ICON_MAININDEX_RESET "start"
-#define ICON_MAININDEX_SEARCH "bt_search"
+#define ICON_MAININDEX_SEARCH "find"
 #define ICON_MAININDEX_DELETE_ITEMS ICON_FILE_DELETE
 
-#define ICON_VIEW_MAININDEX "bt_mainindex"
+//#define ICON_VIEW_MAININDEX "bt_mainindex"
+#define ICON_VIEW_MAININDEX "view_sidetree"
 
 #define ICON_WINDOW_TILE "bt_tile"
 #define ICON_WINDOW_CASCADE "bt_cascade"
 #define ICON_WINDOW_TILE_AUTO "bt_tile_auto"
 #define ICON_WINDOW_CASCADE_AUTO "bt_cascade_auto"
+
 #define ICON_WINDOW_CLOSE_ALL "fileclose"
-#define ICON_WINDOW_SAVE_PROFILE "bt_save_profile"
-#define ICON_WINDOW_LOAD_PROFILE "bt_load_profile"
-#define ICON_WINDOW_EDIT_PROFILES "bt_edit_profiles"
+//#define ICON_WINDOW_SAVE_PROFILE "bt_save_profile"
+//#define ICON_WINDOW_LOAD_PROFILE "bt_load_profile"
+//#define ICON_WINDOW_EDIT_PROFILES "bt_edit_profiles"
+#define ICON_WINDOW_SAVE_PROFILE "view_sidetree"
+#define ICON_WINDOW_LOAD_PROFILE "view_sidetree"
+#define ICON_WINDOW_EDIT_PROFILES "view_sidetree"
 #define ICON_WINDOW_FULLSCREEN "window_fullscreen"
 
-#define ICON_HELP_DAILY_TIP "bt_daily_tip"
+#define ICON_HELP_DAILY_TIP "idea"
 #define ICON_HELP_CONTENTS "contents"
 
 #define ICON_SYNC	"bt_sync"
 
 //CGroupManager icons
-#define GROUP_ICON_SMALL	LOAD_SMALL_ICON("bt_folder")
-#define GROUP_OPEN_ICON_SMALL	LOAD_SMALL_ICON("bt_folder_open")
-#define GROUP_NEW_ICON_SMALL	LOAD_SMALL_ICON("bt_folder_new")
-#define GROUP_CHANGE_ICON_SMALL	LOAD_SMALL_ICON("bt_folder_change")
+#define GROUP_ICON_SMALL	LOAD_SMALL_ICON("folder")
+#define GROUP_OPEN_ICON_SMALL	LOAD_SMALL_ICON("folder_open")
+#define GROUP_NEW_ICON_SMALL	LOAD_SMALL_ICON("folder_new")
+#define GROUP_CHANGE_ICON_SMALL	LOAD_SMALL_ICON("folder") // maybe find a better one
 
 #define BIBLE_ICON_SMALL	LOAD_SMALL_ICON("bt_bible")
 #define BIBLE_ICON_MC	LOAD_MC_ICON("bt_bible")
@@ -227,22 +232,28 @@
 #define SYNC_ICON_SMALL	LOAD_SMALL_ICON(ICON_SYNC)
 #define ITEMS_DELETE_ICON_SMALL	LOAD_SMALL_ICON(ICON_MAININDEX_DELETE_ITEMS)
 
-#define BOOKMARK_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark")
-#define BOOKMARK_CHANGE_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_change")
-#define BOOKMARK_NEW_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_new")
-#define BOOKMARK_IMPORT_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_import")
-#define BOOKMARK_EXPORT_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_export")
+//#define BOOKMARK_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark")
+//#define BOOKMARK_CHANGE_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_change")
+//#define BOOKMARK_NEW_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_new")
+//#define BOOKMARK_IMPORT_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_import")
+//#define BOOKMARK_EXPORT_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_export")
+#define BOOKMARK_ICON_SMALL	LOAD_SMALL_ICON("bookmark")
+#define BOOKMARK_CHANGE_ICON_SMALL	LOAD_SMALL_ICON("bookmark")
+#define BOOKMARK_NEW_ICON_SMALL	LOAD_SMALL_ICON("bookmark_new")
+#define BOOKMARK_IMPORT_ICON_SMALL	LOAD_SMALL_ICON("bookmark")
+#define BOOKMARK_EXPORT_ICON_SMALL	LOAD_SMALL_ICON("bookmark")
 #define BOOKMARK_PRINT_ICON_SMALL	LOAD_SMALL_ICON(ICON_FILE_PRINT)
 
 #define SHOW_GM_ICON_SMALL	LOAD_SMALL_ICON( ICON_MAININDEX )
 #define RESET_GM_ICON_SMALL	LOAD_SMALL_ICON( ICON_MAININDEX_RESET )
 
 #define MODULE_SEARCH_ICON_SMALL	LOAD_SMALL_ICON( ICON_MAININDEX_SEARCH )
-#define MODULE_UNLOCK_ICON_SMALL	LOAD_SMALL_ICON("bt_module_unlock")
+#define MODULE_UNLOCK_ICON_SMALL	LOAD_SMALL_ICON("unlock")
 #define MODULE_ABOUT_ICON_SMALL	LOAD_SMALL_ICON("info")
 
 //used for Drag&Drop
-#define REFERENCE_ICON_SMALL	LOAD_SMALL_ICON("bt_verseref")
+//#define REFERENCE_ICON_SMALL	LOAD_SMALL_ICON("bt_verseref")
+#define REFERENCE_ICON_SMALL	LOAD_SMALL_ICON("bookmark")
 
 //Icons for the optionsdialog; OD == OptionsDialog
 #define OD_ICON_GENERAL	LOAD_OD_ICON("go")

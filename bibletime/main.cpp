@@ -163,23 +163,23 @@ int main(int argc, char* argv[]) {
  	KCmdLineArgs::init(argc, argv, &aboutData); 	
  	KCmdLineArgs::addCmdLineOptions ( options );
  		
-#ifdef STATIC_BUILD
- 	KApplication app(false); //disable styles
-//	qWarning("path == %s", argv[0]);
-//	qWarning("$PWD == %s", getenv("PWD"));
-//	qWarning("$BT_PATH == %s", getenv("BT_PATH"));
-	//get the path
-	KGlobal::dirs()->addPrefix(".");
-	KGlobal::dirs()->addPrefix(getenv("PWD"));
-	KGlobal::dirs()->addPrefix(getenv("BT_PATH"));
-	
-	QStringList list = KGlobal::dirs()->allTypes();
-	for (unsigned int i = 0; i < list.count(); ++i) {
-		KGlobal::dirs()->addResourceType((*list.at(i)).latin1(), QString("%1/share/%2/").arg(getenv("BT_PATH")).arg( *list.at(i) ));
-	}
-#else
+//#ifdef STATIC_BUILD
+// 	KApplication app(false); //disable styles
+////	qWarning("path == %s", argv[0]);
+////	qWarning("$PWD == %s", getenv("PWD"));
+////	qWarning("$BT_PATH == %s", getenv("BT_PATH"));
+//	//get the path
+//	KGlobal::dirs()->addPrefix(".");
+//	KGlobal::dirs()->addPrefix(getenv("PWD"));
+//	KGlobal::dirs()->addPrefix(getenv("BT_PATH"));
+//	
+//	QStringList list = KGlobal::dirs()->allTypes();
+//	for (unsigned int i = 0; i < list.count(); ++i) {
+//		KGlobal::dirs()->addResourceType((*list.at(i)).latin1(), QString("%1/share/%2/").arg(getenv("BT_PATH")).arg( *list.at(i) ));
+//	}
+//#else
  	KApplication app;
-#endif
+//#endif
 	
  	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
 

@@ -17,6 +17,8 @@
  ***************************************************************************/
 
 //own includes
+#include "ctoolclass.h"
+
 #include "../ressource.h"
 #include "../backend/cswordmoduleinfo.h"
 
@@ -34,8 +36,8 @@
 #include <kmessagebox.h>
 #include <kurl.h>
 #include <kfiledialog.h>
+#include <kapp.h>
 
-#include "ctoolclass.h"
 
 QString CToolClass::locatehtml(const QString &filename) {
     QString path = locate("html", KGlobal::locale()->language() + '/' + filename);
@@ -153,23 +155,23 @@ int CToolClass::makeLogicFontSize( const int s ) {
 	return 7;
 }
 
-/** No descriptions */
-const QString CToolClass::getSaveFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
-#ifdef STATIC_BUILD
-	return QFileDialog::getSaveFileName(startDir, filter,parent,"CToolClass::getSaveFileName",caption);
-#else
-	return KFileDialog::getSaveFileName(startDir, filter, parent, caption);
-#endif
-}
-
-/** No descriptions */
-const QString CToolClass::getOpenFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
-#ifdef STATIC_BUILD
-	return QFileDialog::getOpenFileName(startDir, filter, parent,"CToolClass::getOpenFileName",caption);
-#else
-	return KFileDialog::getOpenFileName(startDir, filter, parent, caption);
-#endif
-}
+///** No descriptions */
+//const QString CToolClass::getSaveFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
+//#ifdef STATIC_BUILD
+//	return QFileDialog::getSaveFileName(startDir, filter,parent,"CToolClass::getSaveFileName",caption);
+//#else
+//	return KFileDialog::getSaveFileName(startDir, filter, parent, caption);
+//#endif
+//}
+//
+///** No descriptions */
+//const QString CToolClass::getOpenFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
+//#ifdef STATIC_BUILD
+//	return QFileDialog::getOpenFileName(startDir, filter, parent,"CToolClass::getOpenFileName",caption);
+//#else
+//	return KFileDialog::getOpenFileName(startDir, filter, parent, caption);
+//#endif
+//}
 
 QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, const QString& text ){
   QLabel* label = new QLabel( QString::fromLatin1("<B>%1</B><BR>%2").arg(heading).arg(text),parent );
