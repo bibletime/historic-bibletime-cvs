@@ -54,9 +54,10 @@ QPoint cfx_btn::get_lock_Point(void){
 void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
 	if (isLocked) {
 		int vchange = QCursor::pos().y() - lock_Point.y();
-		vchange = ( abs(vchange)<10 ? -vchange : vchange*vchange*(vchange>0?-1:1) );
-    //please only change it if you have an alternative that is working better
-		//vchange = (vchange ? -1 : 1)*ceil(pow(vchange, 1.5));  //does not work for me
+		/**
+		* This works for me. Changing the exponent (0.3) changes the speed of the scrolling
+		*/
+		vchange = (vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3);
 		emit change_requested( vchange );
 		QCursor::setPos( lock_Point );
 	}
