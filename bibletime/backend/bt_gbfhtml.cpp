@@ -161,7 +161,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 		}
 		while (pos >= 0);
 	 	
-		qWarning("replaced: %s", t.latin1());
+// 		qWarning("replaced: %s", t.latin1());
 	}	
 
 	buf = (const char*)t.utf8();

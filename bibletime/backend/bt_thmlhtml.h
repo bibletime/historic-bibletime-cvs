@@ -50,6 +50,8 @@ protected:
 public:
   BT_ThMLHTML ();
   virtual bool handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData);
+  virtual char processText(sword::SWBuf& buf, const sword::SWKey*, const sword::SWModule * = 0);
+
 //  virtual char ProcessText (char *text, int maxlen = -1);
 };
 

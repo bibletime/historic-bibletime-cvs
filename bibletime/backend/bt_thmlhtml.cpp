@@ -14,13 +14,14 @@
  *                                                                         *
  ***************************************************************************/
 
-//BibleTime includes
-#include <stdlib.h>
-#include "bt_thmlhtml.h"
-#include "versekey.h"
 
-#include "clanguagemgr.h"
+//BibleTime includes
+#include "backend/bt_thmlhtml.h"
+#include "backend/clanguagemgr.h"
+#include "backend/cswordmoduleinfo.h"
+
 #include "frontend/cbtconfig.h"
+
 #include "util/cpointers.h"
 
 #include <iostream>
@@ -28,9 +29,15 @@
 //Sword includes
 #include <swmodule.h>
 #include <utilxml.h>
+#include "versekey.h"
 
 //Qt includes
 #include <qstring.h>
+#include <qregexp.h>
+
+//System includes
+#include <stdlib.h>
+
 
 BT_ThMLHTML::BT_ThMLHTML() {
 	setEscapeStringCaseSensitive(true);
@@ -49,6 +56,88 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	  tokenSubMap.erase( tokenSubMap.find("/note") );
   }
 }
+
+char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const sword::SWModule* module) {
+	ThMLHTML::processText(buf, key, module);
+	
+	//process the sync tags and create the right morph/lemma span tags around the right text parts
+	int pos = -1;
+	int lastPos = -1;
+	int posRev = 0;
+	QString t = QString::fromUtf8(buf.c_str());
+	QRegExp startRE("<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>");
+	QRegExp endRE("(^)|>");
+	
+	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
+	if (m && (m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
+		do {
+			pos = startRE.search(t, pos+1);
+			posRev = endRE.searchRev(t,pos);
+			if (pos == posRev+2) { //two morph/strongs which belong together
+ 				posRev = endRE.searchRev(t,posRev-1);
+			}
+			
+// 			qWarning("pos=%i, posRev=%i, lastpos=%i", pos, posRev, lastPos);
+			
+			if ((pos >= 0) && (posRev>= 0) && (posRev < pos) && (posRev > lastPos)) {//we found a valid text span
+				const bool isMorph = 
+					((startRE.cap(1) == "type") ? startRE.cap(2) : startRE.cap(4)) == "morph";
+				const bool isStrongs = 
+					((startRE.cap(1) == "type") ? startRE.cap(2) : startRE.cap(4)) == "Strongs";				
+				const QString value = 
+					(startRE.cap(1) == "value") ? startRE.cap(2) : startRE.cap(4);
+
+// 	 			qWarning("found %s", value.latin1());
+				
+				posRev = !posRev ? 0 : posRev+1;
+				
+				QString part = t.mid(posRev, pos-posRev);
+				int end = t.find(">", pos+1);
+				
+				if (end > pos) {
+					if (!part.isEmpty()) {
+						QString rep;
+						if (isStrongs) {
+							rep = QString::fromLatin1("<span lemma=\"%1\">%2</span>").arg(value).arg(part);
+						}
+						else if (isMorph) {
+							rep = QString::fromLatin1("<span morph=\"%1\">%2</span>").arg(value).arg(part);
+						}
+						
+						t.replace(posRev, end-posRev+1, rep);
+						pos = posRev + part.length() + (end-pos) - rep.length()+1;
+						
+// 						qWarning("after: pos=%i", pos);
+					}
+					else {//found text is empty, this morph/lemma belongs to the one before (i.e. two following belonging to the same text)
+						//TODO: remove the ThML tag
+						
+						int attrPos = t.findRev(QRegExp("morph=|lemma="),posRev);
+						if ((attrPos > 0) && (attrPos < posRev)) { //insert the new attribute here
+							QString attr = 
+								QString::fromLatin1("%1=\"%2\" ")
+									.arg(isMorph ? "morph" : "lemma")
+									.arg(value);
+									
+							t.insert(attrPos, attr);
+							
+							pos += attr.length();
+						}	
+					}
+				}
+			}
+			
+			lastPos = pos;
+		}
+		while (pos >= 0);
+	 	
+// 		qWarning("replaced: %s", t.latin1());
+	}
+	
+	buf = (const char*)t.utf8();
+	return 1;
+}
+
 
 bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {  
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
@@ -79,16 +168,22 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
         };
       }
       else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "morph")) { // Morph
-        const char* value = tag.getAttribute("value");
+				buf.append("<");
+				buf.append(token);
+				buf.append(">");
+/*        const char* value = tag.getAttribute("value");
         if ( value ) {
           buf.appendFormatted(" <span morph=\"G%s\">%s</span> ",
             value,
             value
           );
-        };
+        };*/
   		}
 		  else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "Strongs")) { // Strongs
-        const char* value = tag.getAttribute("value");
+				buf.append("<");
+				buf.append(token);
+				buf.append(">");
+/*        const char* value = tag.getAttribute("value");
         if ( value && value[0] == 'H' ) { //hewbrew strong number
           buf.appendFormatted(" <span strong=\"H%s\">%s</span> ",
      				value+1, //skip the H
@@ -100,7 +195,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       			value+1, //skip the G
             value+1 //skip the G
           );
-        };
+        };*/
       };
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "note")) { // <note> tag
