@@ -3,13 +3,6 @@
 
 
 SUBDIRS = html unicode 
-pot-files:
-	for f in `ls unicode/*.docbook`; do \
-		potfile=`echo $$f | sed s/\.docbook$$/\.pot/`; \
-		potfile=`echo $$potfile | sed s/unicode//`; \
-		echo "Calling xml2pot $$f > pot/$$potfile"; \
-		xml2pot $$f > pot/$$potfile; \
-		done;
 html-files:
 	if test -e unicode/index.docbook; then \
 		olddir=$$PWD; \

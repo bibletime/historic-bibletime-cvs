@@ -67,13 +67,6 @@ for PART in $DOC_PARTS; do
 		echo -e $HEADER
 		echo -n "SUBDIRS = html unicode "
 		echo
-		echo 'pot-files:'
-		echo '	for f in `ls unicode/*.docbook`; do \'
-		echo '		potfile=`echo $$f | sed s/\.docbook$$/\.pot/`; \'
-		echo '		potfile=`echo $$potfile | sed s/unicode//`; \'
-		echo '		echo "Calling xml2pot $$f > pot/$$potfile"; \'
-		echo '		xml2pot $$f > pot/$$potfile; \'
-		echo '		done;'
 		echo 'html-files:'
 		echo '	if test -e unicode/index.docbook; then \'
 		echo '		olddir=$$PWD; \'
@@ -146,29 +139,91 @@ cd ../maintenance;
 # create Makefile.am in bibletime-i18n/po directories
 ###########################
 
-echo generating ../../bibletime-i18n-$I1/po/Makefile.am
+echo generating ../../bibletime-i18n/po/Makefile.am
 ( # output to Makefile.am
 	echo -e $HEADER
 
 	echo -n "POFILES = "
-	
+
 	for I1 in $FOREIGN_PO_LANGUAGES; do
 		echo -n "$I1.po "
 	done
-	
+
 	echo
-	####
-	#This reads in the template of the Makefile.am for the po dir
-	####
-	cat bibletime-i18n-skel/po/Makefile.am.2
 
 ) > ../../bibletime-i18n/po/Makefile.am
 
-	
+cat >> ../../bibletime-i18n/po/Makefile.am <<'EOF'
+
+GMOFILES = $(POFILES:.po=.gmo)
+
+localedir = $(DESTDIR)$(kde_locale)
+MAINTAINERCLEANFILES = $(GMOFILES)
+
+GMSGFMT = @GMSGFMT@
+MSGFMT = @MSGFMT@
+XGETTEXT = @XGETTEXT@
+EXTRA_DIST = $(POFILES) $(GMOFILES)
+
+all: all-yes
+install-data-local: install-yes
+
+SUFFIXES = .po .gmo
+
+.po.mo:
+	$(MSGFMT) -o $@ $<
+
+.po.gmo:
+	file=$(srcdir)/`echo $* | sed 's,.*/,,'`.gmo \
+	&& rm -f $$file && $(GMSGFMT) -o $$file $<
+
+all-yes: $(GMOFILES)
+all-no:
+
+install-yes: all
+	@catalogs='$(GMOFILES)'; \
+	for cat in $$catalogs; do \
+	destdir=$(localedir); \
+	lang=`echo $$cat | sed 's/\.gmo//'`; \
+	name=bibletime.mo \
+	dir=$$destdir/$$lang/LC_MESSAGES; \
+	$(mkinstalldirs) $$dir; \
+	$(INSTALL_DATA) $$cat $$dir/$$name; \
+	  echo "installing $$cat as $$dir/$$name"; \
+	done
+
+install-no:
+
+uninstall-local:
+	@catalogs='$(GMOFILES)'; \
+	for cat in $$catalogs; do \
+	destdir=$(localedir); \
+	lang=`echo $$cat | sed 's/\.gmo//'`; \
+	name=bibletime.mo; \
+	dir=$$destdir/$$lang/LC_MESSAGES; \
+	rm -f $$cat $$dir/$$name; \
+	echo "removing $$dir/$$name" ; \
+	done
+
+merge:
+	@catalogs='$(POFILES)'; \
+	for cat in $$catalogs; do \
+	name=../../bibletime/pot/messages.pot ; \
+	echo $$cat $$name; \
+	msgmerge $$cat $$name > $$cat.new ; \
+	if diff $$cat $$cat.new; then \
+		rm $$cat.new;  \
+	else  \
+		mv $$cat.new $$cat ; \
+	fi; \
+	done
+EOF
+
+
 	###########################
 	# create Makefile.am in bibletime-i18n/docs directory
 	###########################
-	
+
 	echo generating ../../bibletime-i18n/docs/Makefile.am
 	( # output to Makefile.am
 		echo -e $HEADER
