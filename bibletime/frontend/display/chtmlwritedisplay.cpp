@@ -41,36 +41,18 @@ CHTMLWriteDisplay::CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent
   
   m_actions.selectAll = 0;
   
-//  qWarning("constructor of CHTMLWriteDisplay");
   setTextFormat(Qt::RichText);
+  setAcceptDrops(true);
+  viewport()->setAcceptDrops(true);
+
 }
 
 CHTMLWriteDisplay::~CHTMLWriteDisplay(){
 }
 
-//void CHTMLWriteDisplay::print( const CDisplay::TextPart ) {
-//
-//};
-//
-//const bool CHTMLWriteDisplay::isModified() const {
-//  return QTextEdit::isModified();
-//};
-//
-//void CHTMLWriteDisplay::setModified( const bool modified ) {
-//  QTextEdit::setModified(modified);
-//};
-
 const QString CHTMLWriteDisplay::plainText() {
   return QTextEdit::text();
 };
-
-//QPopupMenu* CHTMLWriteDisplay::createPopupMenu( const QPoint& pos ) {
-//
-//};
-//
-//QPopupMenu* CHTMLWriteDisplay::createPopupMenu() {
-//
-//}
 
 void CHTMLWriteDisplay::toggleBold() {
   setBold( m_actions.bold->isChecked() );
@@ -96,11 +78,6 @@ void CHTMLWriteDisplay::alignCenter() {
 void CHTMLWriteDisplay::alignRight() {
   setAlignment(Qt::AlignRight);
 };
-
-//void CHTMLWriteDisplay::alignJustify() {
-//  setAlignment(Qt::AlignJustify);
-//};
-
 
 
 /** The text's alignment changed. Enable the right buttons. */

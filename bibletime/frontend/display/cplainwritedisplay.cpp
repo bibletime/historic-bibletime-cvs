@@ -21,6 +21,8 @@
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/displaywindow/cwritewindow.h"
 
+#include "util/scoped_resource.h"
+
 //Qt includes
 
 //KDE includes
@@ -99,9 +101,7 @@ void CPlainWriteDisplay::setupToolbar(KToolBar* /*bar*/, KActionCollection* /*ac
 
 /** Reimplementation to insert the text of a dragged reference into the edit view. */
 void CPlainWriteDisplay::contentsDragEnterEvent( QDragEnterEvent* e ){
-  qWarning("drag enter event");
   if (CDragDropMgr::canDecode(e)) {
-    qWarning("accept drag");
     e->accept(true);
   }
   else {
@@ -134,7 +134,13 @@ void CPlainWriteDisplay::contentsDropEvent( QDropEvent* e ){
       switch ((*it).type()) {
         case CDragDropMgr::Item::Bookmark:
         {
-          QString text = QString::fromLatin1("<BR>(%1, %2)<BR>").arg((*it).bookmarkKey()).arg((*it).bookmarkModule());
+          CSwordModuleInfo* module = backend()->findModuleByName((*it).bookmarkModule());
+          util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+          key->key( (*it).bookmarkKey() );
+
+          QString moduleText = key->strippedText();
+          
+          const QString text = QString::fromLatin1("%1\n(%2, %3)\n").arg(moduleText).arg((*it).bookmarkKey()).arg((*it).bookmarkModule());
           
           placeCursor( e->pos() );
           insert( text );

@@ -42,32 +42,6 @@ class CHTMLWriteDisplay : public CPlainWriteDisplay  {
    Q_OBJECT
 public: 
   /**
-  * Reimplementation.
-  */
-//  virtual void selectAll();
-  /**
-  * Sets the new text for this display widget.
-  */
-//  virtual void setText( const QString& newText );
-  /**
-  * Returns true if the display widget has a selection. Otherwise false.
-  */
-//  virtual const bool hasSelection();
-  /**
-  * Returns the view of this display widget.
-  */
-//  virtual QWidget* view();
-//  virtual const QString text( const CDisplay::TextType format = CDisplay::HTMLText, const CDisplay::TextPart part = CDisplay::Document );
-//  virtual void print( const CDisplay::TextPart );
-  /**
-  * Reimplementation.
-  */
-//  virtual const bool isModified() const;
-  /**
-  * Sets the current status of the edit widget.
-  */
-//  virtual void setModified( const bool modified );
-  /**
   * Returns the text of this edit widget.
   */
   virtual const QString plainText();
@@ -81,16 +55,10 @@ protected:
 	friend class CDisplay;
 	CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent);
 	~CHTMLWriteDisplay();  
-  /** Reimplementation to show a popup menu if the right mouse butoon was clicked. */
+  /**
+  * Reimplementation to show a popup menu if the right mouse butoon was clicked.
+  */
   virtual QPopupMenu* createPopupMenu( const QPoint& pos );
-//  /**
-//  * Reimplementation from QTextEdit. Provides an popup menu for the given position.
-//  */
-//  virtual QPopupMenu* createPopupMenu( const QPoint& pos );
-//  /**
-//  * Reimplementation from QTextEdit. Provides an popup menu.
-//  */
-//  virtual QPopupMenu* createPopupMenu();
 
 protected slots:
   void toggleBold();
@@ -100,7 +68,6 @@ protected slots:
   void alignLeft();  
   void alignCenter();
   void alignRight();
-//  void alignJustify();
         
   void slotFontChanged( const QFont& );  
   /**
@@ -131,7 +98,6 @@ private:
 
     //popup menu
     KAction* selectAll;
-//    KAction* selectAll;
   } m_actions;
   KColorButton* m_colorButton;
 };
