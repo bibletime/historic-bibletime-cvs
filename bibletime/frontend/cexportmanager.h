@@ -23,7 +23,7 @@
 
 //Qt includes
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 class ListKey;
 class CSwordKey;
@@ -38,7 +38,7 @@ public: // Public methods
   //save functions
   static const bool saveKey( CSwordKey* key, const bool withText = true );
   static const bool saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
-  static const bool saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
+  static const bool saveKeyList( QPtrList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
 
   //clipboard functions
   static const bool copyKey( CSwordKey* key, const bool withText = true );

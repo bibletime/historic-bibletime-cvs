@@ -40,7 +40,7 @@ public:
   /**
   * @return a list of available profiles
   */
-  const QList<CProfile>& profiles();
+  const QPtrList<CProfile>& profiles();
   /**
   * Removes the profile from the list and from the directory containg the profile files.
   */
@@ -63,7 +63,7 @@ public:
   void refresh();
 
 protected:	
-	QList<CProfile> m_profiles;	
+	QPtrList<CProfile> m_profiles;	
 	QString m_profilePath;
 	CProfile* m_startupProfile;
 };

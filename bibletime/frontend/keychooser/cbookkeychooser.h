@@ -92,7 +92,7 @@ protected slots:
 //  void previousEntry();
 
 private:
-	QList<CKeyChooserWidget> m_chooserWidgets;	
+	QPtrList<CKeyChooserWidget> m_chooserWidgets;	
 	CSwordBookModuleInfo	*m_module;
 	CSwordTreeKey *m_key;
 	QHBoxLayout* m_layout;

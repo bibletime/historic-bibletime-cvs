@@ -34,7 +34,7 @@
 class KAction;
 class QComboBox;
 
-typedef QList<CStyle> styleList;
+typedef QPtrList<CStyle> styleList;
 
   /** A KListView derived class which handles CStyle items.
   * @author The BibleTime team

@@ -36,7 +36,7 @@
 
 //class ListKey;
 class CSwordModuleInfo;
-typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
+typedef QPtrList<CSwordModuleInfo> ListCSwordModuleInfo;
 
 /**
 	* CSwordModuleSearch manages the search on Sword modules. It manages the thread(s)

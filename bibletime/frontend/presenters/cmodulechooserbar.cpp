@@ -35,7 +35,7 @@ CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModu
 			
 		CModuleChooserButton* b = new CModuleChooserButton(useModules.current(),m_moduleType,++m_idCounter,this);
 		m_buttonList.append(b);
-		insertWidget(m_idCounter, b->sizeHint().width(),b);
+		insertWidget(m_idCounter, b->size().width(),b);
 		connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );
 		connect( b, SIGNAL(sigRemoveButton(const int)), this, SLOT(removeButton(const int)) );
 		connect( b, SIGNAL(sigChanged()), SIGNAL(sigChanged()) );
@@ -49,7 +49,7 @@ CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModu
 void CModuleChooserBar::addButton(){
 	CModuleChooserButton* b = new CModuleChooserButton(0, m_moduleType, ++m_idCounter, this);
 	m_buttonList.append(b);	
-	insertWidget(m_idCounter, b->sizeHint().width(),b);			
+	insertWidget(m_idCounter, b->size().width(),b);			
 	
  	connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );
  	connect( b, SIGNAL(sigRemoveButton(const int)), this, SLOT(removeButton(const int)) );
@@ -118,7 +118,7 @@ void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
 			
 		CModuleChooserButton* b = new CModuleChooserButton(useModules.current(),m_moduleType,++m_idCounter,this);
 		m_buttonList.append(b);
-		insertWidget(m_idCounter, b->sizeHint().width(),b);
+		insertWidget(m_idCounter, b->size().width(),b);
 		connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );
 		connect( b, SIGNAL(sigRemoveButton(const int)), this, SLOT(removeButton(const int)) );
 		connect( b, SIGNAL(sigChanged()), SIGNAL(sigChanged()) );

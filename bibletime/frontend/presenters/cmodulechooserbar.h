@@ -63,7 +63,7 @@ protected slots: // Protected slots
   void deleteButton();
 
 private:
-	QList<CModuleChooserButton> m_buttonList;
+	QPtrList<CModuleChooserButton> m_buttonList;
 	CSwordModuleInfo::ModuleType m_moduleType;
 	int m_idCounter;
 	int m_deleteID;

@@ -19,7 +19,7 @@
 
 //KDE includes
 #include <kapp.h>
-#include <ktmainwindow.h>
+#include <kmainwindow.h>
 
 //Frontend includes
 #include "frontend/cprofilemgr.h"

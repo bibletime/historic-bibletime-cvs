@@ -186,7 +186,7 @@ void BibleTime::initActions() {
 	m_windowFullscreen_action->setWhatsThis( WT_WINDOW_FULLSCREEN );
 	m_windowFullscreen_action->plugAccel( m_keyAccel );			
 		
-	QList<CProfile> profiles = m_profileMgr.profiles();		
+	QPtrList<CProfile> profiles = m_profileMgr.profiles();		
 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();	
 	connect(loadPopup, SIGNAL(activated(int)), SLOT(loadProfile(int)));

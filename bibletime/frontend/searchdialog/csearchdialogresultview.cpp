@@ -310,7 +310,7 @@ void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
 
 /**  */
 void CSearchDialogResultView::printItem() {
-	QList<QListBoxItem> list = selectedItems();	
+	QPtrList<QListBoxItem> list = selectedItems();	
 	if (!list.count())
 		return;
 	for (list.first(); list.current(); list.next()) {
@@ -351,7 +351,7 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 /** This slot copies the current active item into the clipboard. */
 void CSearchDialogResultView::slotCopyCurrent(){
 	QString text;
-	QList<QListBoxItem> list = selectedItems();
+	QPtrList<QListBoxItem> list = selectedItems();
 	for (list.first(); list.current(); list.next()) {
 		text += list.current()->text()+"\n";
 	}
@@ -360,7 +360,7 @@ void CSearchDialogResultView::slotCopyCurrent(){
 
 /** This slot copies the current active item into the clipboard. */
 void CSearchDialogResultView::slotCopyCurrentWithKeytext(){
-	QList<QListBoxItem> list = selectedItems();
+	QPtrList<QListBoxItem> list = selectedItems();
 	QString text;
 	QString keyText, keyName;
 	for (list.first(); list.current(); list.next()) {
@@ -384,7 +384,7 @@ void CSearchDialogResultView::slotCopyCurrentWithKeytext(){
 void CSearchDialogResultView::slotSaveCurrent(){
  	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save key ..."));	
 	if (!file.isNull()) {
-		QList<QListBoxItem> list = selectedItems();
+		QPtrList<QListBoxItem> list = selectedItems();
 		QString text;
 		for (list.first(); list.current(); list.next())
 			text += list.current()->text()+"\n";
@@ -394,7 +394,7 @@ void CSearchDialogResultView::slotSaveCurrent(){
 
 /** This slot copies the current active item into the clipboard. */
 void CSearchDialogResultView::slotSaveCurrentWithKeytext(){
-	QList<QListBoxItem> list = selectedItems();
+	QPtrList<QListBoxItem> list = selectedItems();
 	QString text;
 	QString keyText, keyName;
 	for (list.first(); list.current(); list.next()) {
@@ -418,11 +418,11 @@ void CSearchDialogResultView::slotSaveCurrentWithKeytext(){
 }
 
 /** Returns the selected items of this listbox. */
-QList<QListBoxItem> CSearchDialogResultView::selectedItems(){
-	QList<QListBoxItem> list;
+QPtrList<QListBoxItem> CSearchDialogResultView::selectedItems(){
+	QPtrList<QListBoxItem> list;
 	QListBoxItem* item = firstItem();
 	while (item) {
-		if (item->selected())
+		if (item->isSelected())
 			list.append(item);
 		item = item->next();
 	}

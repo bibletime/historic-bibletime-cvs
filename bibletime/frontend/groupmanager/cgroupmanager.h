@@ -255,7 +255,7 @@ private:
 	CSearchDialog* m_searchDialog;
 	ToolTip* m_toolTip;	
 	CGroupManagerItem*	m_pressedItem;
-  QList<CGroupManagerItem>*	m_itemList;	
+  QPtrList<CGroupManagerItem>*	m_itemList;	
 	bool m_singleClick;	
 	bool m_useBookmarks;
 	bool m_saveSettings;

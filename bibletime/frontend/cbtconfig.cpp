@@ -78,66 +78,67 @@ const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
 		case standard: 	return QApplication::font();
 		case unicode: //find an Unicode font
 		{	
-			KCharsets* cs = KGlobal::charsets();
-			QFontDatabase db;
-			QFont uniFont;
-			if (!cs->isAvailable(QFont::Unicode)) { //no unicode font installed!
-				qWarning("NO UNICODE FONT INSTALLED!");
-			}			
-			cs->setQFont(uniFont, QFont::Unicode);
-//			qWarning("the unicode font found by KDE is %s", uniFont.family().latin1());
-			
-//			QStringList families = KGlobal::charsets()->availableFamilies(QFont::Unicode);
-//			for (QStringList::Iterator it = families.begin();it != families.end();++it) {
-//				qWarning((*it).latin1());
-//				if (!cs->hasUnicode(*it))
-//					qWarning("font %s DOESN'T have UNICODE!", (*it).latin1());				
+//			KCharsets* cs = KGlobal::charsets();
+//			QFontDatabase db;
+//			QFont uniFont;
+//			if (!cs->isAvailable(QFont::Unicode)) { //no unicode font installed!
+//				qWarning("NO UNICODE FONT INSTALLED!");
 //			}			
-//
-//			QMap<QString, int> uniFontMap;
-//			for (QStringList::Iterator it = families.begin();it != families.end();++it) {
-//				const QString font = *it;
-//				if (db.isScalable(font)) {
-//					if (db.isSmoothlyScalable(font)) {
-//						qWarning("font %s is SMOOTHLY scalable!", font.latin1());								
-//					}
-//					else if (db.isBitmapScalable(font)) {
-//						qWarning("font %s is BITMAP scalable!", font.latin1());								
-//					}
-//					else {
-//						qWarning("font %s is SMOOTHLY scalable!", font.latin1());								
-//					}					
-//				}
-//				
-//				//find how many charsets are supported!
-//				QList<QFont::CharSet> fonts = cs->availableCharsets(font);//db.charSets(font).count()				
-//				uniFontMap.insert(font, fonts.count());
-//				
-//				fonts.setAutoDelete(true);
-//				fonts.clear();
-//			}
+//			cs->setQFont(uniFont, QFont::Unicode);
+////			qWarning("the unicode font found by KDE is %s", uniFont.family().latin1());
 //			
-//			//now find the unicode font with the most charsets
-//			QString bestFont = uniFont.family();
-//			int oldCount = 0;
-//			for (QMap<QString, int>::Iterator it = uniFontMap.begin(); it != uniFontMap.end(); ++it) {			
-//				if (it.data() > oldCount) {
-//					oldCount = it.data();
-//					bestFont = it.key();
-//				}
-//			}
-//			qWarning("the best font is %s and supports %i charsets", bestFont.latin1(), oldCount);
-			
-//			qWarning("--------");			
-//			QStringList fonts = db.families(false);
-//			for (QStringList::Iterator it = fonts.begin();it != fonts.end();++it) {
-//				QStringList charsets = db.charSets(*it);
-//				for (QStringList::Iterator cs = charsets.begin(); cs != charsets.end(); ++cs) {
-//					qWarning("Font %s has charset %s", (*it).latin1(), (*cs).latin1());
-//				}
-//			}
-//			qWarning("--------");						
-			return uniFont;
+////			QStringList families = KGlobal::charsets()->availableFamilies(QFont::Unicode);
+////			for (QStringList::Iterator it = families.begin();it != families.end();++it) {
+////				qWarning((*it).latin1());
+////				if (!cs->hasUnicode(*it))
+////					qWarning("font %s DOESN'T have UNICODE!", (*it).latin1());				
+////			}			
+////
+////			QMap<QString, int> uniFontMap;
+////			for (QStringList::Iterator it = families.begin();it != families.end();++it) {
+////				const QString font = *it;
+////				if (db.isScalable(font)) {
+////					if (db.isSmoothlyScalable(font)) {
+////						qWarning("font %s is SMOOTHLY scalable!", font.latin1());								
+////					}
+////					else if (db.isBitmapScalable(font)) {
+////						qWarning("font %s is BITMAP scalable!", font.latin1());								
+////					}
+////					else {
+////						qWarning("font %s is SMOOTHLY scalable!", font.latin1());								
+////					}					
+////				}
+////				
+////				//find how many charsets are supported!
+////				QList<QFont::CharSet> fonts = cs->availableCharsets(font);//db.charSets(font).count()				
+////				uniFontMap.insert(font, fonts.count());
+////				
+////				fonts.setAutoDelete(true);
+////				fonts.clear();
+////			}
+////			
+////			//now find the unicode font with the most charsets
+////			QString bestFont = uniFont.family();
+////			int oldCount = 0;
+////			for (QMap<QString, int>::Iterator it = uniFontMap.begin(); it != uniFontMap.end(); ++it) {			
+////				if (it.data() > oldCount) {
+////					oldCount = it.data();
+////					bestFont = it.key();
+////				}
+////			}
+////			qWarning("the best font is %s and supports %i charsets", bestFont.latin1(), oldCount);
+//			
+////			qWarning("--------");			
+////			QStringList fonts = db.families(false);
+////			for (QStringList::Iterator it = fonts.begin();it != fonts.end();++it) {
+////				QStringList charsets = db.charSets(*it);
+////				for (QStringList::Iterator cs = charsets.begin(); cs != charsets.end(); ++cs) {
+////					qWarning("Font %s has charset %s", (*it).latin1(), (*cs).latin1());
+////				}
+////			}
+////			qWarning("--------");		
+#warning check				
+			return QApplication::font();
 		}
 		
 	}

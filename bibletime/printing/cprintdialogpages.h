@@ -20,6 +20,7 @@
 
 //Qt includes
 #include <qwidget.h>
+#include <qtoolbutton.h>
 
 //KDE includes
 #include <kdeprint/kprintdialogpage.h>

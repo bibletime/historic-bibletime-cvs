@@ -103,7 +103,8 @@ void CKCComboBox::wheelEvent( QWheelEvent* e ) {
 QSize CKCComboBox::sizeHint() const {
 	// IMHO Qt has a bug: The sizehint is not updated if the list is refreshed with other items
 	const QSize oldSize = QComboBox::sizeHint();
-	QRect contentsRect = style().comboButtonRect(0,0, oldSize.width(), oldSize.height());
+	QRect contentsRect = style().querySubControlMetrics( QStyle::CC_ComboBox , this, QStyle::SC_ComboBoxArrow);
+//(0,0, oldSize.width(), oldSize.height());
 	const int buttonWidth = (oldSize.width() - contentsRect.width());
 
 	if (listBox())	{
@@ -351,7 +352,9 @@ QIconSet CKeyChooserWidget::getUpIconSet(){
   QPixmap pix(WIDTH,ARROW_HEIGHT);
 	QPainter p(&pix);
 	p.fillRect(0,0, WIDTH-1, ARROW_HEIGHT-1, colorGroup().background());
-	style().drawArrow(&p, Qt::UpArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_up ? btn_up->colorGroup() : colorGroup(), btn_up ? btn_up->isEnabled() : true);
+
+//	style().drawArrow(&p, Qt::UpArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_up ? btn_up->colorGroup() : colorGroup(), btn_up ? btn_up->isEnabled() : true);
+//	style().drawArrow(&p, Qt::UpArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_up ? btn_up->colorGroup() : colorGroup(), btn_up ? btn_up->isEnabled() : true);
 	
 	return QIconSet(pix);
 }
@@ -361,7 +364,7 @@ QIconSet CKeyChooserWidget::getDownIconSet(){
   QPixmap pix(WIDTH,ARROW_HEIGHT);
 	QPainter p(&pix);
 	p.fillRect(0,0, WIDTH-1, ARROW_HEIGHT-1, colorGroup().background());
-	style().drawArrow(&p, Qt::DownArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_down ? btn_down->colorGroup() : colorGroup(), btn_down ? btn_down->isEnabled() : true);
+//	style().drawArrow(&p, Qt::DownArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_down ? btn_down->colorGroup() : colorGroup(), btn_down ? btn_down->isEnabled() : true);
 	
 	return QIconSet(pix);
 }

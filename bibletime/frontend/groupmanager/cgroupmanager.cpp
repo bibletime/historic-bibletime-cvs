@@ -51,6 +51,7 @@
 #include <qvaluelist.h>
 #include <qwhatsthis.h>
 #include <qinputdialog.h>
+#include <qstyle.h>
 
 //KDE includes
 #include <klocale.h>
@@ -60,7 +61,7 @@
 #include <kapp.h>
 #include <kpopupmenu.h>
 #include <kglobalsettings.h>
-#include <kdestyle.h>
+//#include <kdestyle.h>
 #include <kpassdlg.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
@@ -323,7 +324,7 @@ void CGroupManager::slotSearchSelectedModules() {
 	ListCSwordModuleInfo searchList;
 	CGroupManagerItem *item = 0;
 	
-	QList<QListViewItem> items = selectedItems();
+	QPtrList<QListViewItem> items = selectedItems();
 	for (items.first(); items.current(); items.next()) {
  		item = dynamic_cast<CGroupManagerItem*>(items.current());
  		if (item && item->type() == CGroupManagerItem::Module)
@@ -402,7 +403,7 @@ void CGroupManager::slotChangeBookmark(){
 	if (!m_pressedItem)
 		return;		
 	bool isOk;
-	QString description = CInputDialog::getText(i18n("Change bookmark description - BibleTime"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk, 0);
+	QString description = CInputDialog::getText(i18n("Change bookmark description - BibleTime"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk);
 	if (isOk)
 		m_pressedItem->setDescription(description);
 }
@@ -413,7 +414,9 @@ void CGroupManager::slotChangeGroup(){
 		return;		
 	
 	bool isOk;
-	QString description = QInputDialog::getText(i18n("Change folder - BibleTime"),i18n("Please change the name of the group!"), m_pressedItem->text(0), &isOk, 0);	
+#warning check
+//	QString description = QInputDialog::getText(i18n("Change folder - BibleTime"), i18n("Please change the name of the group!"), m_pressedItem->text(0), QLineEdit::Normal, QString::null,  &isOk);	
+	QString description("test");
 	if (isOk)
 		m_pressedItem->setText( 0, description );
 }
@@ -814,7 +817,7 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	if (m_pressedItem && (e->button() == LeftButton)) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module && m_pressedItem->moduleInfo()) {
 	  	//check if module is encrypted and show dialog if it wasn't opened before	  	
-			QList<QListViewItem> items = selectedItems();			
+			QPtrList<QListViewItem> items = selectedItems();			
 			if (items.count() > 1) {
 				ListCSwordModuleInfo modules;
 				for (items.first(); items.current(); items.next()) {
@@ -858,8 +861,8 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
    	if (abs(e->pos().x() - m_pressedPos.x()) > KGlobalSettings::dndEventDelay() ||
 				abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay() )	{
 		// Collect all selected items
-     	ASSERT(m_itemList);
-     	m_itemList = new QList<CGroupManagerItem>;
+//     	ASSERT(m_itemList);
+     	m_itemList = new QPtrList<CGroupManagerItem>;
      	QListViewItemIterator it( this );
      	for( ; it.current(); it++ )
        	if ( it.current()->isSelected() )
@@ -902,8 +905,10 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 /** Creates a new group */
 void CGroupManager::slotCreateNewGroup(){
 	bool isOk;
-	QString groupname = QInputDialog::getText(i18n("Enter name of folder - BibleTime"),i18n("Please enter the name of the folder!"),"", &isOk, 0);
-	
+#warning check
+//	QString groupname = QInputDialog::getText(i18n("Enter name of folder - BibleTime"),i18n("Please enter the name of the folder!"), QString::null, QLineEdit::Normal,QString::null, &isOk);
+
+	QString groupname("test");	
 	if (isOk) {
 		if (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) {
 			(void)new CGroupManagerItem(m_pressedItem, groupname, QString::null, 0,0, CGroupManagerItem::Group);
@@ -986,7 +991,9 @@ CGroupManagerItem* CGroupManager::findParent( const int ID, CGroupManagerItem* p
 /** Opens a dialog to enter the key to unlock an encrypted module. */
 void CGroupManager::slotUnlockModule(){	
 	bool ok;
-	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"), m_pressedItem->moduleInfo()->config(CSwordModuleInfo::CipherKey), &ok, 0 );
+#warning check
+//	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"), m_pressedItem->moduleInfo()->config(CSwordModuleInfo::CipherKey),QLineEdit::Normal, QString::null, &ok);
+	QString unlockKey("test");
 	if (ok) {
 		CSwordModuleInfo::UnlockErrorCode ret = m_pressedItem->moduleInfo()->unlock( unlockKey );
 		if ( ret != CSwordModuleInfo::noError) {
@@ -1488,7 +1495,8 @@ const QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */
   		insertmarker.setLeft( treeStepSize()*(after->parent()->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin()- contentsX());
   	else
   		insertmarker.setLeft( treeStepSize()*(after->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin() - contentsX());
-  	style().drawFocusRect( p, insertmarker, colorGroup(), after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent );
+#warning check
+  	style().drawPrimitive( QStyle::PE_FocusRect, p, insertmarker, colorGroup()/*, after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent */);
   }
   else if (!insertmarker.isValid()) {
   	cleanDropVisualizer();

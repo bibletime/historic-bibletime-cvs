@@ -182,7 +182,7 @@ private:
 	} m_dataCache;	
 };
 
-typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
+typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
 
 inline const CSwordModuleInfo::ModuleType CSwordModuleInfo::type() const {
 	return CSwordModuleInfo::Unknown;
@@ -192,6 +192,6 @@ inline SWModule*const CSwordModuleInfo::module() const {
 	return m_module;
 }
 
-typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
+typedef QPtrList<CSwordModuleInfo> ListCSwordModuleInfo;
 
 #endif

@@ -70,7 +70,7 @@ void CPrintItemList::setItems( ListCPrintItem* itemList ){
 
 /** Deletes the current item. */
 void CPrintItemList::deleteSelectedItems(){
-	QList<QListViewItem> items = selectedItems();	
+	QPtrList<QListViewItem> items = selectedItems();	
 	if (!items.count())
 		return;
 	const bool autoDelete = items.autoDelete();
@@ -90,7 +90,7 @@ void CPrintItemList::deleteSelectedItems(){
 
 /** Moves the item one item up. */
 void CPrintItemList::moveUp(){
-	QList<QListViewItem> items = selectedItems();
+	QPtrList<QListViewItem> items = selectedItems();
 	for (items.first(); items.current(); items.next()) {
 		QListViewItem* current = items.current();
 		if (current && current->itemAbove() &&  current->itemAbove()->itemAbove()) {
@@ -101,7 +101,7 @@ void CPrintItemList::moveUp(){
 
 /** Moves the selected entry one entry down. */
 void CPrintItemList::moveDown(){
-	QList<QListViewItem> items = selectedItems();
+	QPtrList<QListViewItem> items = selectedItems();
 	for (items.last(); items.current(); items.prev()) {
 		QListViewItem* current = items.current();
 		if (current && current->itemBelow()) {
@@ -114,7 +114,7 @@ void CPrintItemList::moveDown(){
 void CPrintItemList::applyStyleToSelected( CStyle* style){
 	CPrintItem* printItem;
 	CPrintItem::ListViewItem* item;
-	QList<QListViewItem> list = selectedItems();
+	QPtrList<QListViewItem> list = selectedItems();
 	for ( QListViewItem* i = list.first(); i; i = list.next()) {
 		if ((item = dynamic_cast<CPrintItem::ListViewItem*>(i))) {
 			printItem = item->printItem();

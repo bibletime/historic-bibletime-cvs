@@ -23,8 +23,6 @@
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
 #include "presenters/cswordpresenter.h"
-#include "thirdparty/qt3stuff/qt3stuff.h"
-#include "thirdparty/qt3stuff/qrichtext_p.h"
 #include "resource.h"
 #include "tooltipdef.h"
 #include "whatsthisdef.h"
@@ -77,7 +75,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		return;
 
 	CHTMLWidget* htmlWidget = dynamic_cast<CHTMLWidget*>(parentWidget());	
-	ASSERT(htmlWidget);
+//	ASSERT(htmlWidget);
 	QPoint p1 = htmlWidget->viewportToContents(p);
 	QString link = QString::null;
 	QString text = QString::null;
@@ -87,9 +85,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		return;
 	else {
 //		qWarning("link is valid");
-	  Qt3::QTextCursor c( htmlWidget->getDocument() );
-	  htmlWidget->placeCursor( p1, &c );
-		QRect rect = c.parag()->rect();
+		QRect rect = htmlWidget->paragraphRect( htmlWidget->paragraphAt(p1) );
 		
 		//map rect coordinates to widget's ones
     rect.setX( htmlWidget->contentsToViewport(rect.topLeft()).x() );
@@ -138,19 +134,19 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 }
 
 CHTMLWidget::CHTMLWidget(const bool useColorsAndFonts,QWidget *parent, const char *name )
-	: Qt3::QTextEdit(parent, name),m_moduleList( new ListCSwordModuleInfo ) {
+	: QTextEdit(parent, name),m_moduleList( new ListCSwordModuleInfo ) {
 	
 	m_popup = 0;
 	m_anchor = QString::null;
 	m_anchorMenu = 0;
 	m_selectedWord = false;
-	mousePressed = inDoubleClick = false;		
+//	mousePressed = inDoubleClick = false;		
 	setTextFormat( Qt::RichText );
 	setReadOnly(true);
 
-	QFont unicodeFont = CBTConfig::get(CBTConfig::unicode);
- 	if (!document()->charsetMap->contains(unicodeFont.family()))
- 		document()->charsetMap->insert(unicodeFont.family(), QFont::Unicode);
+//	QFont unicodeFont = CBTConfig::get(CBTConfig::unicode);
+// 	if (!document()->charsetMap->contains(unicodeFont.family()))
+// 		document()->charsetMap->insert(unicodeFont.family(), QFont::Unicode);
 		
 	initView();	
 	initConnections();
@@ -203,8 +199,8 @@ void CHTMLWidget::initFonts(){
 /**  */
 void CHTMLWidget::initView(){
 	m_toolTip = new ToolTip(this);
-	disconnect(dragStartTimer, SIGNAL(timeout()),
-		this, SLOT(startDrag()));
+//	disconnect(dragStartTimer, SIGNAL(timeout()),
+//		this, SLOT(startDrag()));
 	
 //	QStringList paths;	
 	
@@ -289,21 +285,22 @@ void CHTMLWidget::slotSaveAsHTML(){
 void CHTMLWidget::slotSaveAsText(){
 	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save text as plain text ..."));
 
-	if (!file.isNull()) {
-		QString html = document()->plainText();
-		CToolClass::savePlainFile( file, html);
-	}
+#warning check
+//	if (!file.isNull()) {
+//		QString html = document()->plainText();
+//		CToolClass::savePlainFile( file, html);
+//	}
 }
 
 //**  */
 void CHTMLWidget::contentsDragEnterEvent(QDragEnterEvent* e){
-	Qt3::QTextEdit::contentsDragEnterEvent(e);
+	QTextEdit::contentsDragEnterEvent(e);
   e->accept(QTextDrag::canDecode(e));
 }
 
 /**  */
 void CHTMLWidget::contentsDragMoveEvent(QDragMoveEvent* e){
-	Qt3::QTextEdit::contentsDragMoveEvent(e);
+	QTextEdit::contentsDragMoveEvent(e);
   e->accept(QTextDrag::canDecode(e));
 }
 
@@ -353,104 +350,106 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
   m_pressedPos = e->pos();
   m_anchor = anchorAt(e->pos());
 	viewport()->setCursor(anchorAt(e->pos()).isEmpty() ? arrowCursor : KCursor::handCursor() );
-	Qt3::QTextEdit::contentsMousePressEvent(e);
+	QTextEdit::contentsMousePressEvent(e);
 		
- 	if (!onLink.isEmpty() && (e->button() == RightButton) && m_anchorMenu) {	//popup installed menu 	
+#warning check
+ 	if (m_anchor.isEmpty() && (e->button() == RightButton) && m_anchorMenu) {	//popup installed menu 	
 		m_anchorMenu->exec( e->globalPos() );
   }
-  else if (m_popup && e->button() == RightButton){ //popup normal menu
-    m_selectedWord = false;
-    QString selectedWord = QString::null;
-
-   	drawCursor(false);
-   	placeCursor(e->pos());    	
-   	ensureCursorVisible();
-		emit cursorPositionChanged(cursor);
-		
-    if (selectedText().isEmpty()) {
-    	Qt3::QTextCursor c1 = *cursor;
-	    Qt3::QTextCursor c2 = *cursor;
-	    c1.gotoWordLeft();
-	    c2.gotoWordRight();
-	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
-	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
-	    *cursor = c2;
-	    selectedWord = selectedText();
-			emit cursorPositionChanged(cursor);		    	
-	   	ensureCursorVisible();			
-	    repaintChanged();
-	    m_selectedWord = true;
-	  }
-		m_popup->exec( e->globalPos() );		
-		if (m_selectedWord && (selectedWord == selectedText()) ) {
-			m_selectedWord = false;
-			selectAll(false);
-		}		
-  }	
+//  else if (m_popup && e->button() == RightButton){ //popup normal menu
+//    m_selectedWord = false;
+//    QString selectedWord = QString::null;
+//
+//   	drawCursor(false);
+//   	placeCursor(e->pos());    	
+//   	ensureCursorVisible();
+//		emit cursorPositionChanged(cursor);
+//		
+//    if (selectedText().isEmpty()) {
+//    	Qt3::QTextCursor c1 = *cursor;
+//	    Qt3::QTextCursor c2 = *cursor;
+//	    c1.gotoWordLeft();
+//	    c2.gotoWordRight();
+//	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
+//	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
+//	    *cursor = c2;
+//	    selectedWord = selectedText();
+//			emit cursorPositionChanged(cursor);		    	
+//	   	ensureCursorVisible();			
+//	    repaintChanged();
+//	    m_selectedWord = true;
+//	  }
+//		m_popup->exec( e->globalPos() );		
+//		if (m_selectedWord && (selectedWord == selectedText()) ) {
+//			m_selectedWord = false;
+//			selectAll(false);
+//		}		
+//  }	
 }
 
 /** Reimplementation.*/
 void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
-  if ( mousePressed ) {
-		if ( mightStartDrag ) { //we might start a drag
-	    dragStartTimer->stop();
-	    if ( ( e->pos() - dragStartPos ).manhattanLength() > KApplication::startDragDistance() )
-				startDrag();
-	    if ( !isReadOnly() )
-				viewport()->setCursor( ibeamCursor );
-	    return;
-		}
-		else if (!m_anchor.isEmpty()/*!anchorAt(e->pos()).isEmpty() && !hasSelectedText()*/) {
-			QString module = QString::null;
-			QString key = QString::null;
-			CReferenceManager::Type type;			
-			const bool ok = CReferenceManager::decodeHyperlink(m_anchor, module, key, type);
-			if (!ok)
-				return;
-			
-			mousePressed = false;
-			inDoubleClick = false;				 				
-			mightStartDrag = false;
-					
-			QTextDrag *d = new QTextDrag(CReferenceManager::encodeReference(module,key),viewport());
-	    d->setSubtype(REFERENCE);
-	    d->setPixmap(REFERENCE_ICON_SMALL);
-	    d->drag();
-			return;
-		}		
-		mousePos = e->pos();
-		doAutoScroll();
-		oldMousePos = mousePos;
-	}
-
-	if ( !isReadOnly() && !mousePressed ) {
-		if ( doc->hasSelection( Qt3::QTextDocument::Standard ) && doc->inSelection( Qt3::QTextDocument::Standard, e->pos() ) )
-	    viewport()->setCursor( arrowCursor );
-		else
-	    viewport()->setCursor( ibeamCursor );
-	}
-	if ( isReadOnly() && linksEnabled() ) {
-		Qt3::QTextCursor c = *cursor;
-		placeCursor( e->pos(), &c );
-		if ( c.parag() && c.parag()->at( c.index() ) &&
-	     !anchorAt(e->pos()).isEmpty() ) {
-			viewport()->setCursor( pointingHandCursor );
-	    onLink = c.parag()->at( c.index() )->format()->anchorHref();
-	    QUrl u( doc->context(), onLink, true );
-			m_hoverPos = e->pos();
-	    emitHighlighted( u.toString( false, false ) );			
-		} else {
-	    viewport()->setCursor( isReadOnly() ? arrowCursor : ibeamCursor );
-	    onLink = QString::null;
-	    emitHighlighted( QString::null );
-		}
-	}
+#warning check!
+//  if ( mousePressed ) {
+//		if ( mightStartDrag ) { //we might start a drag
+//	    dragStartTimer->stop();
+//	    if ( ( e->pos() - dragStartPos ).manhattanLength() > KApplication::startDragDistance() )
+//				startDrag();
+//	    if ( !isReadOnly() )
+//				viewport()->setCursor( ibeamCursor );
+//	    return;
+//		}
+//		else if (!m_anchor.isEmpty()/*!anchorAt(e->pos()).isEmpty() && !hasSelectedText()*/) {
+//			QString module = QString::null;
+//			QString key = QString::null;
+//			CReferenceManager::Type type;			
+//			const bool ok = CReferenceManager::decodeHyperlink(m_anchor, module, key, type);
+//			if (!ok)
+//				return;
+//			
+//			mousePressed = false;
+//			inDoubleClick = false;				 				
+//			mightStartDrag = false;
+//					
+//			QTextDrag *d = new QTextDrag(CReferenceManager::encodeReference(module,key),viewport());
+//	    d->setSubtype(REFERENCE);
+//	    d->setPixmap(REFERENCE_ICON_SMALL);
+//	    d->drag();
+//			return;
+//		}		
+//		mousePos = e->pos();
+//		doAutoScroll();
+//		oldMousePos = mousePos;
+//	}
+//
+//	if ( !isReadOnly() && !mousePressed ) {
+//		if ( doc->hasSelection( Qt3::QTextDocument::Standard ) && doc->inSelection( Qt3::QTextDocument::Standard, e->pos() ) )
+//	    viewport()->setCursor( arrowCursor );
+//		else
+//	    viewport()->setCursor( ibeamCursor );
+//	}
+//	if ( isReadOnly() && linksEnabled() ) {
+//		Qt3::QTextCursor c = *cursor;
+//		placeCursor( e->pos(), &c );
+//		if ( c.parag() && c.parag()->at( c.index() ) &&
+//	     !anchorAt(e->pos()).isEmpty() ) {
+//			viewport()->setCursor( pointingHandCursor );
+//	    onLink = c.parag()->at( c.index() )->format()->anchorHref();
+//	    QUrl u( doc->context(), onLink, true );
+//			m_hoverPos = e->pos();
+//	    emitHighlighted( u.toString( false, false ) );			
+//		} else {
+//	    viewport()->setCursor( isReadOnly() ? arrowCursor : ibeamCursor );
+//	    onLink = QString::null;
+//	    emitHighlighted( QString::null );
+//		}
+//	}
 }
 
 /** Installes a menu which will popup if the right mouse button was pressed on an anchor. */
 void CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu ){
 //	qDebug("CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu )");
-	ASSERT( anchorMenu );
+//	ASSERT( anchorMenu );
 	m_anchorMenu = anchorMenu;
 }
 
@@ -461,7 +460,7 @@ QString CHTMLWidget::getCurrentAnchor(){
 
 /** No descriptions */
 void CHTMLWidget::installPopup( QPopupMenu* popup ){
-	ASSERT(popup);
+//	ASSERT(popup);
 	m_popup = popup;
 }
 
@@ -481,7 +480,7 @@ bool CHTMLWidget::isReadOnly() const {
 
 /** This function returns the edit toolbar used for the HTML widget. The items of the toolbar are already connected to the correct slots. */
 void CHTMLWidget::createEditToolbar( KToolBar* bar ){
-	ASSERT(bar);
+//	ASSERT(bar);
 	if (!bar)
 		return;
 
@@ -529,19 +528,19 @@ void CHTMLWidget::slotSaveDocument(){
 
 /** No descriptions */
 void CHTMLWidget::slotToggleBold(){
-	Qt3::QTextEdit::setBold( !bold() );
+	QTextEdit::setBold( !bold() );
 	m_boldAction->setChecked(bold());	
 }
 
 /** No descriptions */
 void CHTMLWidget::slotToggleItalic(){
-	Qt3::QTextEdit::setItalic(!italic() );
+	QTextEdit::setItalic(!italic() );
 	m_italicAction->setChecked(italic());	
 }
 
 /** No descriptions */
 void CHTMLWidget::slotToggleUnderline(){
-	Qt3::QTextEdit::setUnderline( !underline() );
+	QTextEdit::setUnderline( !underline() );
 	m_underlineAction->setChecked(underline());		
 }
 
@@ -582,10 +581,10 @@ void CHTMLWidget::slotCurrentColorChanged( const QColor& c){
 
 /** No descriptions */
 void CHTMLWidget::slotCurrentAlignementChanged(int a){
-	m_alignLeftAction->setChecked( (a == AlignLeft) || (a == Qt3::AlignAuto) );
+	m_alignLeftAction->setChecked( (a == AlignLeft) || (a == AlignAuto) );
 	m_alignCenterAction->setChecked( a == AlignHCenter );
 	m_alignRightAction->setChecked( a == AlignRight );
-	m_alignJustifyAction->setChecked( a == Qt3::AlignJustify );	
+	m_alignJustifyAction->setChecked( a == AlignJustify );	
 }
 
 /** No descriptions */
@@ -625,7 +624,7 @@ void CHTMLWidget::slotAlignJustify(){
 	m_alignRightAction->setChecked(false);	
 	m_alignJustifyAction->setChecked(true);		
 		
-	setAlignment(Qt3::AlignJustify);
+	setAlignment(AlignJustify);
 }
 
 /** No descriptions */
@@ -669,9 +668,9 @@ void CHTMLWidget::emitLinkClicked( const QString& link){
 
 /** Copies the displayed document into the clipboard. */
 void CHTMLWidget::copyDocument(){
-	if (!document()->text().isEmpty()) {
+	if (!text().isEmpty()) {
 		QClipboard* cb = KApplication::clipboard();			
-		cb->setText(document()->plainText());
+		cb->setText(text());
 	}	
 }
 
@@ -721,14 +720,14 @@ void CHTMLWidget::emitHighlighted( const QString& s ){
 }
 
 /** Returns the document used by this widget */
-Qt3::QTextDocument* CHTMLWidget::getDocument() const{
-	return Qt3::QTextEdit::document();
-}
+//QTextDocument* CHTMLWidget::getDocument() const{
+//	return Qt3::QTextEdit::document();
+//}
 
 /** Places the cursor at position pos */
-void CHTMLWidget::placeCursor( const QPoint &pos, Qt3::QTextCursor *c ){
-	Qt3::QTextEdit::placeCursor(pos, c);
-}
+//void CHTMLWidget::placeCursor( const QPoint &pos, QTextCursor *c ){
+//	QTextEdit::placeCursor(pos, c);
+//}
 
 /** Returns a list of modules which are used by the display window which uses this HTML widget. */
 ListCSwordModuleInfo& CHTMLWidget::modules() const {

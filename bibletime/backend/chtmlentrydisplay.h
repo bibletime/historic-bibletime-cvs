@@ -58,7 +58,7 @@ public:
   /**
   * Generates code to display the given modules side by side.
   */
-  virtual char Display( QList<CSwordModuleInfo>* moduleList);
+  virtual char Display( QPtrList<CSwordModuleInfo>* moduleList);
   /**
   * This function returns the last looked up HTML text.
   */

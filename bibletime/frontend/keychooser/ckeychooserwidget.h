@@ -22,6 +22,7 @@
 #include <qmap.h>
 
 #include <qcombobox.h>
+#include <qstringlist.h>
 
 class cfx_btn;
 class CLexiconKeyChooser;

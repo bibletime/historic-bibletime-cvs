@@ -153,7 +153,8 @@ void CSearchDialogResult::updatePreview(const QString newText) {
  		regExp.setCaseSensitive( textPart->isCaseSensitive() );
  		int matchLength = 0;
 		for (int pos = 0; pos != -1;){
- 			pos = regExp.match(text,pos,&matchLength);
+ 			pos = regExp.search(text, pos);
+			matchLength = regExp.matchedLength();
  			if (pos!=-1 && matchLength > 0 && !CToolClass::inHTMLTag(pos, text)) {
  					text.insert(pos + matchLength, part2);
  					text.insert(pos, part1);

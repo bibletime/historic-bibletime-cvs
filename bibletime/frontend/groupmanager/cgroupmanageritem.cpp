@@ -161,7 +161,7 @@ void CGroupManagerItem::update(){
 		}
 		else if (!m_caption.isEmpty()){	//bookmark key is 0, we use now the m_caption member to create a valid key
 			CSwordKey* key = CSwordKey::createInstance(m_moduleInfo);
-			ASSERT(key);
+//			ASSERT(key);
 			if (key) {
 				m_createdOwnKey = true;
 				key->key(m_caption);

@@ -129,7 +129,7 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 	if (depth == 0 && chooserWidget && chooserWidget->comboBox()->count()) { //has already items
 		//set now the right item		
 		CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);
-		ASSERT(chooserWidget);
+//		ASSERT(chooserWidget);
 		if (chooserWidget) {
 			chooserWidget->setItem( chooserWidget->comboBox()->text(currentItem) );
 		}

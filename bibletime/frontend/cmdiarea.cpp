@@ -210,7 +210,7 @@ void CMDIArea::syncCommentaries(CSwordKey* syncKey){
 void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 //	qWarning("CMDIArea::lookupInLexicon(const QString& text, const QString& module)");
 	CSwordModuleInfo* m = backend()->findModuleByName(module);
-	ASSERT(m);
+//	ASSERT(m);
 	if (!m)
 		return;
 	CLexiconPresenter* p = 0;

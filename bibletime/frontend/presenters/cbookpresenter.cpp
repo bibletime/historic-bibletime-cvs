@@ -40,6 +40,7 @@
 #include <kaccel.h>
 #include <klocale.h>
 #include <kaction.h>
+#include <kpopupmenu.h>
 
 CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules,parent,name)

@@ -376,14 +376,15 @@ const bool CStyle::load(const QString& filename){
 			unsigned int size = object.hasAttribute("pointsize") ? object.attribute("pointsize").toInt() : QApplication::font().pointSize();
 			const int weight = object.hasAttribute("weight") ? object.attribute("weight").toInt() : QFont::Normal;
 			const bool italic = object.hasAttribute("italic") ? static_cast<bool>(object.attribute("italic").toInt()) : false;
-			const QFont::CharSet charset = object.hasAttribute("charset") ? static_cast<QFont::CharSet>(object.attribute("charset").toInt()) : QApplication::font().charSet();
+#warning check
+//			const QFont::CharSet charset = object.hasAttribute("charset") ? static_cast<QFont::CharSet>(object.attribute("charset").toInt()) : QApplication::font().charSet();
 			
 			if (family.isEmpty())
 				family = QApplication::font().family();
 			if (!size)
 				size = QApplication::font().pointSize();
 			
-			p->setFont( QFont(family, size, weight, italic, charset) );			
+			p->setFont( QFont(family, size, weight, italic) );			
 		}	
 
 		object = elem.namedItem("FRAME").toElement();
@@ -467,7 +468,8 @@ const bool CStyle::save( const QString& filename ){
 		object.setAttribute("pointsize", font.pointSize());		
 		object.setAttribute("weight", font.weight());
 		object.setAttribute("italic", font.italic());
-		object.setAttribute("charset", static_cast<int>(font.charSet()));		
+#warning check
+//		object.setAttribute("charset", static_cast<int>(font.charSet()));		
 		elem.appendChild(object);
 						
 		object = doc.createElement("FRAME");		

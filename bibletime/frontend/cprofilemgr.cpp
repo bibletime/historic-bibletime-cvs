@@ -46,7 +46,7 @@ CProfileMgr::~CProfileMgr(){
 }
 
 /** Returns a list of available profiles. */
-const QList<CProfile>& CProfileMgr::profiles(){	
+const QPtrList<CProfile>& CProfileMgr::profiles(){	
 	return m_profiles;
 }
 

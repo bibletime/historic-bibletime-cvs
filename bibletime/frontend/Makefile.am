@@ -36,8 +36,7 @@ SUBDIRS = \
 groupmanager \
 keychooser \
 presenters \
-searchdialog \
-thirdparty
+searchdialog
 
 
 

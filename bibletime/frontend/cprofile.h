@@ -35,7 +35,7 @@ public:
   * Saves the profile to the file given in the constructor.
   * @param windows The list of windows available in the profile.
   */
-  const bool save( QList<CProfileWindow> windows );
+  const bool save( QPtrList<CProfileWindow> windows );
   /**
   * Saves the profile to the file given in the constructor.
   */
@@ -44,7 +44,7 @@ public:
   * Loads the profile from the file given in the constructor.
   * @return The list of profiled window which exist in the profile.
   */
- 	QList<CProfileWindow> load();
+ 	QPtrList<CProfileWindow> load();
   /**
   * Returns the name of this profile.
   */
@@ -85,7 +85,7 @@ private:
   void loadBasics();
   void saveBasics();
 	
-	QList<CProfileWindow> m_profileWindows;
+	QPtrList<CProfileWindow> m_profileWindows;
 	QString m_name;
 	QString m_filename;
 	bool m_fullscreen;

@@ -61,16 +61,16 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(QWidget *parent, const ch
 	QVBoxLayout* buttonLayout = new QVBoxLayout();
 	
 	QToolButton* addButton = new QToolButton(this);
-	addButton->setOnIconSet(SmallIcon("forward"));
-	addButton->setOffIconSet(SmallIcon("forward"));	
+	addButton->setIconSet(SmallIcon("forward"));
+//	addButton->setOffIconSet(SmallIcon("forward"));	
 	addButton->setFixedSize( addButton->sizeHint() );	
 	QWhatsThis::add(addButton, WT_SD_MC_ADD_MODULE);
 	QToolTip::add(addButton, TT_SD_MC_ADD_MODULE);
 	connect( addButton, SIGNAL(clicked()), SLOT(addCurrentItem()));
 
 	QToolButton* removeButton = new QToolButton(this);
-	removeButton->setOnIconSet(SmallIcon("back"));
-	removeButton->setOffIconSet(SmallIcon("back"));	
+	removeButton->setIconSet(SmallIcon("back"));
+//	removeButton->setOffIconSet(SmallIcon("back"));	
 	removeButton->setFixedSize( removeButton->sizeHint() );
 	QToolTip::add(removeButton, TT_SD_MC_REMOVE_MODULE);
 	QWhatsThis::add(removeButton, WT_SD_MC_REMOVE_MODULE);	

@@ -130,7 +130,7 @@ private:
 	double *m_scaleFactor;
 	QString m_bookName;
  	int m_moduleCount;
- 	QArray<int> m_resultCountArray;
+ 	QMemArray<int> m_resultCountArray;
  	QPixmap* m_bufferPixmap;
 };
 

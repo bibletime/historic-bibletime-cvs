@@ -34,7 +34,7 @@ class CPrinter;
 class CPrintItem;
 class CPrintItemList;
 
-typedef QList<CPrintItem> ListCPrintItem;
+typedef QPtrList<CPrintItem> ListCPrintItem;
 
 /**
 	* The class which implements the printable items.

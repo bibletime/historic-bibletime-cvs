@@ -106,7 +106,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 }
 
 /** Generates code to display the given modules side by side. */
-char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
+char CHTMLEntryDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList) {
 //	qDebug("CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		m_htmlText = QString::null;

@@ -43,6 +43,7 @@
 #include <kfiledialog.h>
 #include <kaccel.h>
 #include <kapp.h>
+#include <kpopupmenu.h>
 
 CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, parent,name),
@@ -89,7 +90,7 @@ void CCommentaryPresenter::initView(){
 	presenterEdit_action->plug(m_mainToolBar);
 	
 	m_htmlWidget = new CHTMLWidget(true, this);
-	ASSERT(m_htmlWidget);
+//	ASSERT(m_htmlWidget);
 	
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
@@ -406,7 +407,7 @@ void CCommentaryPresenter::beforeKeyChange(const QString& oldKey){
 
 /** Inserts the actions used by this window class into the given KAccel object. */
 void CCommentaryPresenter::insertKeyboardActions(KAccel* a){	
-	ASSERT(a);
+//	ASSERT(a);
 	a->setConfigGroup("Commentary window");
 		
 	a->insertItem(i18n("Next book"), "Next book", 0);

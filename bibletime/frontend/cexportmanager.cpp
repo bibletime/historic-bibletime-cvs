@@ -26,6 +26,7 @@
 //Qt includes
 #include <qprogressdialog.h>
 #include <qclipboard.h>
+#include <qlist.h>
 
 //KDE includes
 #include <kfiledialog.h>
@@ -88,7 +89,7 @@ const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module,
 	return ret;
 }
 
-const bool CExportManager::saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
+const bool CExportManager::saveKeyList( QPtrList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
 	bool ret = false;
 	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
 	if (!file.isEmpty()){
@@ -176,7 +177,7 @@ const bool CExportManager::printKeyList( ListKey* list, CSwordModuleInfo* module
 	progress.show();
 	
 	int index = 0;	
-	QList<CPrintItem> itemList;
+	QPtrList<CPrintItem> itemList;
 	QString startKey, stopKey;
 	
 	*list = TOP;

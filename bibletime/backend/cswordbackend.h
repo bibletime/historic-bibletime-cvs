@@ -19,6 +19,7 @@
 #define CSWORDBACKEND_H
 
 //BibleTime includes
+//#include "cswordmoduleinfo.h"
 
 //Qt includes
 #include <qlist.h>
@@ -37,7 +38,7 @@ class CHTMLChapterDisplay;
 class CHTMLBookDisplay;
 
 class CSwordModuleInfo;
-typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
+typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
 
 /**
 	* This is the implementation of CBackend for Sword. It's additionally derived from SWMgr

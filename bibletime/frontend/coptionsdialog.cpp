@@ -119,7 +119,9 @@ void COptionsDialog::slotApply(){
 /** Adds a new view profile to the list. */
 void COptionsDialog::addNewProfile(){
 	bool ok = false;
-	QString name = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the name of the new profile"), QString::null, &ok);
+#warning check
+//	QString name = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the name of the new profile"), QString::null, QLineEdit::Normal, QString::null, &ok);
+	QString name("test");
 	if (ok && !name.isEmpty()) {
 		m_settings.profiles.mgr.create(name);
 		m_settings.profiles.profiles->insertItem(name);				
@@ -138,12 +140,16 @@ void COptionsDialog::deleteProfile(){
 /** Renames the currently selected profile. */
 void COptionsDialog::renameProfile(){
 	bool ok = false;
-	const QString currentProfile = m_settings.profiles.profiles->currentText();	
+#warning check
+//	const QString currentProfile = m_settings.profiles.profiles->currentText();	
+	QString currentProfile("test");
 	CProfile* profile = m_settings.profiles.mgr.profile(currentProfile);
 	if (!profile)
 		return;
 		
-	const QString newName = QInputDialog::getText(i18n("Rename profile"), i18n("Please enter the new name of the profile"),profile->name(), &ok);
+#warning check
+//	const QString newName = QInputDialog::getText(i18n("Rename profile"), i18n("Please enter the new name of the profile"),profile->name(), QLineEdit::Normal, QString::null, &ok);
+	QString newName("test");
 	if (ok && !newName.isEmpty()) {
 		profile->setName(newName);
 		m_settings.profiles.profiles->changeItem(newName, m_settings.profiles.profiles->currentItem());
@@ -324,7 +330,7 @@ Don't forget that new profiles only work after you've saved something in them.")
   gridLayout->addWidget(m_settings.profiles.renameProfile,2,2);	
 
   //fill the profile list box
-	QList<CProfile> profiles = m_settings.profiles.mgr.profiles();
+	QPtrList<CProfile> profiles = m_settings.profiles.mgr.profiles();
 	if (profiles.count()) {
 		for (CProfile* p = profiles.first(); p; p = profiles.next()) {
 			m_settings.profiles.profiles->insertItem(p->name());
@@ -344,8 +350,9 @@ void COptionsDialog::initAccelerators(){
 	currentTab->setMargin(3);	
   tabCtl->addTab(currentTab, i18n("Application wide"));
 
-	m_settings.keys.application.dict = m_settings.keys.application.accel->keyDict();
- 	m_settings.keys.application.keyChooser = new KKeyChooser( &m_settings.keys.application.dict, currentTab, false );	
+#warning check
+//	m_settings.keys.application.dict = m_settings.keys.application.accel->keyDict();
+// 	m_settings.keys.application.keyChooser = new KKeyChooser( &m_settings.keys.application.dict, currentTab, false );	
  	QToolTip::add(m_settings.keys.application.keyChooser, TT_OD_KEYS_CHOOSER);
 	QWhatsThis::add(m_settings.keys.application.keyChooser, WT_OD_KEYS_CHOOSER);	
 
@@ -370,8 +377,10 @@ void COptionsDialog::initAccelerators(){
 	m_settings.keys.bible.accel = new KAccel(this); //delete in destructor
 	CBiblePresenter::insertKeyboardActions( m_settings.keys.bible.accel );
 	m_settings.keys.bible.accel->readSettings();		
- 	m_settings.keys.bible.dict = m_settings.keys.bible.accel->keyDict();
- 	m_settings.keys.bible.keyChooser = new KKeyChooser( &m_settings.keys.bible.dict, currentTab, false );	
+#warning check
+// 	m_settings.keys.bible.dict = m_settings.keys.bible.accel->keyDict();
+#warning check
+// 	m_settings.keys.bible.keyChooser = new KKeyChooser( &m_settings.keys.bible.dict, currentTab, false );	
 	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
 	QWhatsThis::add(m_settings.keys.bible.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
 
@@ -383,8 +392,10 @@ void COptionsDialog::initAccelerators(){
 	m_settings.keys.commentary.accel = new KAccel(this); //delete in destructor
 	CCommentaryPresenter::insertKeyboardActions( m_settings.keys.commentary.accel );		
 	m_settings.keys.commentary.accel->readSettings();	
- 	m_settings.keys.commentary.dict = m_settings.keys.commentary.accel->keyDict();
- 	m_settings.keys.commentary.keyChooser = new KKeyChooser( &m_settings.keys.commentary.dict, currentTab, false );	
+#warning check
+//m_settings.keys.commentary.dict = m_settings.keys.commentary.accel->keyDict();
+#warning check
+// 	m_settings.keys.commentary.keyChooser = new KKeyChooser( &m_settings.keys.commentary.dict, currentTab, false );	
  	QToolTip::add(m_settings.keys.commentary.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
 	QWhatsThis::add(m_settings.keys.commentary.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
 
@@ -396,8 +407,10 @@ void COptionsDialog::initAccelerators(){
 	m_settings.keys.lexicon.accel = new KAccel(this); //delete in destructor
 	CLexiconPresenter::insertKeyboardActions( m_settings.keys.lexicon.accel );		
 	m_settings.keys.lexicon.accel->readSettings();	 	
- 	m_settings.keys.lexicon.dict = m_settings.keys.lexicon.accel->keyDict(); 	
- 	m_settings.keys.lexicon.keyChooser = new KKeyChooser( &m_settings.keys.lexicon.dict, currentTab, false );	
+#warning check
+// 	m_settings.keys.lexicon.dict = m_settings.keys.lexicon.accel->keyDict(); 	
+#warning check
+// 	m_settings.keys.lexicon.keyChooser = new KKeyChooser( &m_settings.keys.lexicon.dict, currentTab, false );	
  	QToolTip::add(m_settings.keys.lexicon.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 	QWhatsThis::add(m_settings.keys.lexicon.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 
@@ -410,8 +423,10 @@ void COptionsDialog::initAccelerators(){
 	m_settings.keys.book.accel = new KAccel(this); //delete in destructor
 	CBookPresenter::insertKeyboardActions( m_settings.keys.book.accel );		
 	m_settings.keys.book.accel->readSettings();	 	
- 	m_settings.keys.book.dict = m_settings.keys.book.accel->keyDict(); 	
- 	m_settings.keys.book.keyChooser = new KKeyChooser( &m_settings.keys.book.dict, currentTab, false );	
+ #warning check
+//	m_settings.keys.book.dict = m_settings.keys.book.accel->keyDict(); 	
+ #warning check
+//	m_settings.keys.book.keyChooser = new KKeyChooser( &m_settings.keys.book.dict, currentTab, false );	
 // 	QToolTip::add(m_settings.keys.book.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 //	QWhatsThis::add(m_settings.keys.book.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 						
@@ -594,7 +609,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
   }
 
 //using two lists and one loop is better than six loops with almost the same code :)
- 	QList<QComboBox> comboList;
+ 	QPtrList<QComboBox> comboList;
  	comboList.setAutoDelete(false);//don't delete the combos accidentally
  	comboList.append(m_settings.sword.standardBible);
  	comboList.append(m_settings.sword.standardCommentary);
@@ -698,23 +713,24 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 }
 
 void COptionsDialog::saveAccelerators(){
-	m_settings.keys.application.accel->setKeyDict( m_settings.keys.application.dict );	
- 	m_settings.keys.application.accel->writeSettings(); 	
- 	
-// 	m_settings.keys.general.accel->setKeyDict( m_settings.keys.general.dict );			
-// 	m_settings.keys.general.accel->writeSettings();
-		
- 	m_settings.keys.bible.accel->setKeyDict( m_settings.keys.bible.dict );					
- 	m_settings.keys.bible.accel->writeSettings();		
-		
- 	m_settings.keys.commentary.accel->setKeyDict( m_settings.keys.commentary.dict );					
- 	m_settings.keys.commentary.accel->writeSettings();
-		
- 	m_settings.keys.lexicon.accel->setKeyDict( m_settings.keys.lexicon.dict );					
- 	m_settings.keys.lexicon.accel->writeSettings();
-
- 	m_settings.keys.book.accel->setKeyDict( m_settings.keys.book.dict );					
- 	m_settings.keys.book.accel->writeSettings(); 	 	
+#warning check
+//	m_settings.keys.application.accel->setKeyDict( m_settings.keys.application.dict );	
+// 	m_settings.keys.application.accel->writeSettings(); 	
+// 	
+//// 	m_settings.keys.general.accel->setKeyDict( m_settings.keys.general.dict );			
+//// 	m_settings.keys.general.accel->writeSettings();
+//		
+// 	m_settings.keys.bible.accel->setKeyDict( m_settings.keys.bible.dict );					
+// 	m_settings.keys.bible.accel->writeSettings();		
+//		
+// 	m_settings.keys.commentary.accel->setKeyDict( m_settings.keys.commentary.dict );					
+// 	m_settings.keys.commentary.accel->writeSettings();
+//		
+// 	m_settings.keys.lexicon.accel->setKeyDict( m_settings.keys.lexicon.dict );					
+// 	m_settings.keys.lexicon.accel->writeSettings();
+//
+// 	m_settings.keys.book.accel->setKeyDict( m_settings.keys.book.dict );					
+// 	m_settings.keys.book.accel->writeSettings(); 	 	
 }
 
 /** No descriptions */
@@ -737,7 +753,7 @@ void COptionsDialog::saveFonts(){
  		}
  		else if (it.key() == i18n("Unicode")) {
  			QFont font = it.data();
- 			font.setCharSet(QFont::Unicode); //try to set the unicode charset
+// 			font.setCharSet(QFont::Unicode); //try to set the unicode charset
  			CBTConfig::set(CBTConfig::unicode, font);
  		}
  	}

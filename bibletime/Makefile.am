@@ -11,8 +11,6 @@ bibletime_LDADD   = \
 ./frontend/groupmanager/libgroupmanager.a \
 ./frontend/searchdialog/libsearchdialog.a \
 ./frontend/libfrontend.a \
-./frontend/thirdparty/qt3stuff/libqt3stuff.a \
-./frontend/thirdparty/libthirdparty.a \
 ./backend/libbackend.a \
 -lXext \
 $(LIB_QT) \

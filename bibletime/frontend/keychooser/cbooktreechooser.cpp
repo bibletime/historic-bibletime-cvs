@@ -167,7 +167,7 @@ void CBookTreeChooser::setupTree( QListViewItem* parent, QListViewItem* after, C
 /** No descriptions */
 void CBookTreeChooser::itemClicked( QListViewItem* item ){
 	TreeItem* i = dynamic_cast<TreeItem*>(item);
-	ASSERT(i);
+//	ASSERT(i);
 	if (!i)
 		return;
 

@@ -22,14 +22,15 @@
 #include "cpointers.h"
 #include "backend/cswordbackend.h"
 
-#define private public // It's a really bad hack, but I don't know how to do it in another way
-#include "thirdparty/qt3stuff/qtextedit.h"
-#undef private
+//#define private public // It's a really bad hack, but I don't know how to do it in another way
+//#include "thirdparty/qt3stuff/qtextedit.h"
+//#undef private
 
 //Qt includes
 #include <qwidget.h>
 #include <qguardedptr.h>
 #include <qtooltip.h>
+#include <qtextedit.h>
 
 class CHTMLDialog;
 class CBiblePresenter;
@@ -48,7 +49,7 @@ class KColorButton;
 	* management and to support verse references and the like.
   * @author The BibleTime Team
   */
-class CHTMLWidget : public Qt3::QTextEdit, public CPointers {
+class CHTMLWidget : public QTextEdit, public CPointers {
    Q_OBJECT
    friend class CHTMLDialog;
 
@@ -95,11 +96,11 @@ public:
   /**
   * Returns the document used by this widget
   */
-  virtual Qt3::QTextDocument* getDocument() const;
+//  virtual QTextDocument* getDocument() const;
   /**
   * Places the cursor at position pos
   */
-  virtual void placeCursor( const QPoint &pos, Qt3::QTextCursor *c = 0);
+//  virtual void placeCursor( const QPoint &pos, QTextCursor *c = 0);
   /**
   * Sets the list of modules used by the display window which uses this widget.
   */

@@ -33,16 +33,17 @@
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kapp.h>
+#include <kurl.h>
 
 
 CHTMLDialog::CHTMLDialog(QWidget* parent, const char *name )
-	: QDialog ( parent, name, true, WStyle_MinMax | WStyle_DialogBorder | WStyle_Dialog )
+	: QDialog ( parent, name, true, WStyle_MinMax | WStyle_DialogBorder /*| WStyle_Dialog */)
 {
 	init(false);
 }
 
 CHTMLDialog::CHTMLDialog(const QString& url, QWidget* parent, const char *name)
-	: QDialog ( parent, name, true, WStyle_MinMax | WStyle_DialogBorder | WStyle_Dialog )
+	: QDialog ( parent, name, true, WStyle_MinMax | WStyle_DialogBorder /*| WStyle_Dialog */)
 {
 	init();
 	QString file = CToolClass::locatehtml(url);

@@ -33,7 +33,7 @@ class CStyle;
 class QListViewItem;
 class QListView;
 
-typedef QList<CStyle> StyleItemList;
+typedef QPtrList<CStyle> StyleItemList;
 
 /** The class containing the properties requiredfor prinitng styles.
   * @author The BibleTime team

@@ -34,6 +34,8 @@
 #include <qtooltip.h>
 #include <qspinbox.h>
 #include <qlistview.h>
+#include <qiconset.h>
+
 
 //KDE includes
 #include <klocale.h>
@@ -106,22 +108,22 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
 	styleLayout->addWidget( m_styleList, 3);
 	
 	m_newStyleButton = new QToolButton( this, "newStyle Button");
-	m_newStyleButton->setOnIconSet( SmallIcon(ICON_FILE_NEW));
-	m_newStyleButton->setOffIconSet( SmallIcon(ICON_FILE_NEW));	
+	m_newStyleButton->setIconSet( SmallIcon(ICON_FILE_NEW));
+//	m_newStyleButton->setOffIconSet( SmallIcon(ICON_FILE_NEW));	
 	QToolTip::add(m_newStyleButton, TT_PD_LAYOUT_STYLE_NEW);	
 	QWhatsThis::add(m_newStyleButton, WT_PD_LAYOUT_STYLE_NEW);	
 	connect( m_newStyleButton, SIGNAL(clicked()), m_styleList, SLOT(createNewStyle()));
 		
 	m_deleteStyleButton = new QToolButton( this, "deleteStyle Button");	
-	m_deleteStyleButton->setOnIconSet( SmallIcon(ICON_FILE_DELETE));
-	m_deleteStyleButton->setOffIconSet( SmallIcon(ICON_FILE_DELETE));	
+	m_deleteStyleButton->setIconSet( SmallIcon(ICON_FILE_DELETE));
+//	m_deleteStyleButton->setOffIconSet( SmallIcon(ICON_FILE_DELETE));	
 	QToolTip::add(m_deleteStyleButton, TT_PD_LAYOUT_STYLE_DELETE);	
 	QWhatsThis::add(m_deleteStyleButton, WT_PD_LAYOUT_STYLE_DELETE);		
 	connect( m_deleteStyleButton, SIGNAL(clicked()), m_styleList, SLOT(deleteCurrentStyle()));
 
 	m_editStyleButton = new QToolButton( this, "editStyle");
-	m_editStyleButton->setOnIconSet( SmallIcon(ICON_EDIT));
-	m_editStyleButton->setOffIconSet( SmallIcon(ICON_EDIT));	
+	m_editStyleButton->setIconSet( SmallIcon(ICON_EDIT));
+//	m_editStyleButton->setOffIconSet( SmallIcon(ICON_EDIT));	
 	QToolTip::add(m_editStyleButton, TT_PD_LAYOUT_STYLE_EDIT);	
 	QWhatsThis::add(m_editStyleButton, WT_PD_LAYOUT_STYLE_EDIT);		
 	connect( m_editStyleButton, SIGNAL(clicked()), m_styleList, SLOT(editCurrentStyle()));
@@ -219,22 +221,22 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
 
   QVBoxLayout *buttonLayout = new QVBoxLayout( 0, 5, 5 );
   m_moveUpButton = new QToolButton(this);
- 	m_moveUpButton->setOnIconSet( SmallIcon("up"));
-	m_moveUpButton->setOffIconSet( SmallIcon("up"));	
+ 	m_moveUpButton->setIconSet( SmallIcon("up"));
+//	m_moveUpButton->setOffIconSet( SmallIcon("up"));	
 	QToolTip::add(m_moveUpButton, TT_PD_ENTRIES_PI_MOVE_UP);
 	QWhatsThis::add(m_moveUpButton, WT_PD_ENTRIES_PI_MOVE_UP);	
 	connect(m_moveUpButton, SIGNAL(clicked()),m_printItemList, SLOT(moveUp()));
 	
   m_moveDownButton = new QToolButton(this);
- 	m_moveDownButton->setOnIconSet( SmallIcon("down"));
-	m_moveDownButton->setOffIconSet( SmallIcon("down"));	
+ 	m_moveDownButton->setIconSet( SmallIcon("down"));
+//	m_moveDownButton->setOffIconSet( SmallIcon("down"));	
 	QToolTip::add(m_moveDownButton, TT_PD_ENTRIES_PI_MOVE_DOWN);
 	QWhatsThis::add(m_moveDownButton, WT_PD_ENTRIES_PI_MOVE_DOWN);
 	connect( m_moveDownButton, SIGNAL(clicked()),m_printItemList, SLOT(moveDown()));
 	
   m_deleteButton = new QToolButton(this);
-	m_deleteButton->setOnIconSet( SmallIcon("edittrash"));
-	m_deleteButton->setOffIconSet( SmallIcon("edittrash"));	
+	m_deleteButton->setIconSet( SmallIcon("edittrash"));
+//	m_deleteButton->setOffIconSet( SmallIcon("edittrash"));	
 	QToolTip::add(m_deleteButton, TT_PD_ENTRIES_PI_DELETE);
 	QWhatsThis::add(m_deleteButton, WT_PD_ENTRIES_PI_DELETE);		
 	connect( m_deleteButton, SIGNAL(clicked()),m_printItemList, SLOT(deleteSelectedItems()));

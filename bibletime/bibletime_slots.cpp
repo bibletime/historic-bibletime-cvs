@@ -125,7 +125,7 @@ void BibleTime::slotSettingsChanged(){
  	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
  	savePopup->clear();
  	loadPopup->clear();
- 	QList<CProfile> profiles = m_profileMgr.profiles();
+ 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
  	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
 		savePopup->insertItem(p->name());			
 		loadPopup->insertItem(p->name());
@@ -354,7 +354,7 @@ void BibleTime::saveProfile(CProfile* profile){
 	storeProfileSettings(profile);
 			
 	QWidgetList windows = m_mdi->windowList();
-	QList<CProfileWindow> profileWindows;
+	QPtrList<CProfileWindow> profileWindows;
 	for (QWidget* w = windows.first(); w; w = windows.next()) {
 		CSwordPresenter* displayWindow = dynamic_cast<CSwordPresenter*>(w);
 		if (!displayWindow)
@@ -387,7 +387,7 @@ void BibleTime::loadProfile(int ID){
 void BibleTime::loadProfile(CProfile* p){
 	if (!p)
 		return;		
-	QList<CProfileWindow> windows = p->load();
+	QPtrList<CProfileWindow> windows = p->load();
 
 	//load mainwindow setttings
 	applyProfileSettings(p);

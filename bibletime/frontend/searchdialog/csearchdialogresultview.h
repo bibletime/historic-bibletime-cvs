@@ -130,7 +130,7 @@ protected:
   /**
   * Returns the selected items of this listbox.
   */
-  QList<QListBoxItem> selectedItems();
+  QPtrList<QListBoxItem> selectedItems();
   /**
    Reimplementation to make Drag&Drop work.
   */

@@ -70,7 +70,7 @@ CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 	m_radioMultipleWords = new QRadioButton( radioBox,"RadioButton_1");
 	m_radioMultipleWords->setFocusPolicy(QWidget::TabFocus);
 	m_radioMultipleWords->setText( i18n( "Multiple Words" ) );
-	m_radioMultipleWords->setAutoResize( true );
+//	m_radioMultipleWords->setAutoResize( true );
 	m_radioMultipleWords->setChecked( true );
 	QToolTip::add(m_radioMultipleWords, TT_SD_SEARCH_MULTIPLE_WORDS);
 	QWhatsThis::add(m_radioMultipleWords, WT_SD_SEARCH_MULTIPLE_WORDS);	
@@ -78,14 +78,14 @@ CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 	m_radioExactSearch = new QRadioButton(radioBox, "RadioButton_2");
 	m_radioExactSearch->setFocusPolicy(QWidget::TabFocus);
 	m_radioExactSearch->setText( i18n( "Exact Search" ) );
-	m_radioExactSearch->setAutoResize( true );
+//	m_radioExactSearch->setAutoResize( true );
 	QToolTip::add(m_radioExactSearch, TT_SD_SEARCH_EXACT_MATCH);
 	QWhatsThis::add(m_radioExactSearch, WT_SD_SEARCH_EXACT_MATCH);	
 
 	m_radioRegularExpression = new QRadioButton(radioBox, "RadioButton_3");
 	m_radioRegularExpression->setFocusPolicy(QWidget::TabFocus);
 	m_radioRegularExpression->setText( i18n( "Regular Expression" ) );
-	m_radioRegularExpression->setAutoResize( true );
+//	m_radioRegularExpression->setAutoResize( true );
 	QToolTip::add(m_radioRegularExpression, TT_SD_SEARCH_REGEXP );
 	QWhatsThis::add(m_radioRegularExpression, WT_SD_SEARCH_REGEXP );
 	
@@ -115,8 +115,10 @@ CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 
 	/* manages the 2 bars (vertically) */
 	QVBox *barBox = new QVBox(progressBox,"overallBox");
-	m_currentProgressBar = new KProgress(0,100,0,Horizontal,barBox, "m_currentProgressBar");
-	m_overallProgressBar = new KProgress(0,100,0,Horizontal,barBox, "m_overallProgressBar");
+	m_currentProgressBar = new KProgress(barBox, "m_currentProgressBar",0);
+	m_overallProgressBar = new KProgress(barBox, "m_overallProgressBar",0);
+//	m_currentProgressBar = new KProgress(0,100,0,Horizontal,barBox, "m_currentProgressBar");
+//	m_overallProgressBar = new KProgress(0,100,0,Horizontal,barBox, "m_overallProgressBar");
 
 	/* the main layout for the 3 groupboxes (vertical)*/
 	QVBoxLayout* layout_1 = new QVBoxLayout( this );

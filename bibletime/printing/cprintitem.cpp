@@ -207,9 +207,10 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		bgColor = format->color( CStyle::Format::Background );
 		pen.setColor(fgColor);
 		font = format->font();
-		if (isUnicode) { //enable unicode
-			font.setCharSet( QFont::Unicode );
-		}
+#warning check
+//		if (isUnicode) { //enable unicode
+//			font.setCharSet( QFont::Unicode );
+//		}
 		
 		frame = format->frame();
 		frameThickness = frame ? frame->thickness() : 0;		

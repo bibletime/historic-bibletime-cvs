@@ -44,6 +44,7 @@
 #include <klocale.h>
 #include <kfiledialog.h>
 #include <kaccel.h>
+#include <kpopupmenu.h>
 
 CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules,parent,name)
@@ -77,7 +78,7 @@ void CBiblePresenter::initView(){
 	m_mainToolBar->setItemAutoSized(0);
 
 	m_displaySettingsButton = new CDisplaySettingsButton( &m_displayOptions, &m_moduleOptions, m_moduleList, m_mainToolBar);
-	m_mainToolBar->insertWidget(1,m_displaySettingsButton->sizeHint().width(),m_displaySettingsButton);
+	m_mainToolBar->insertWidget(1,m_displaySettingsButton->size().width(),m_displaySettingsButton);
 
 	addToolBar(m_mainToolBar);			
 		
@@ -335,7 +336,7 @@ void CBiblePresenter::insertKeyboardActions(KAccel* a){
 
 /** Initializes the accelerator object. */
 void CBiblePresenter::initAccels(){
-	ASSERT(m_accel);
+//	ASSERT(m_accel);
 	m_accel->setConfigGroup("Bible window");
 	
 	m_accel->insertItem(i18n("Next book"), "Next book", 0);
