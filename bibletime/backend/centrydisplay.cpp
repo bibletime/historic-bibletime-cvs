@@ -66,9 +66,13 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
 				&& (key.Book() == currentBook)
 				&& (key.Chapter() == currentChapter)
 				&& ok 
-				&& !module->module()->Error(); 
-			  ok = key.next(CSwordVerseKey::UseVerse)/*, !key.Error())*/ ) 
+				&& !module->module()->Error();
+				
+			  ok = (key.next(CSwordVerseKey::UseVerse) && !key.Error()) )  //error 1 means not sucessful
 	{
+/*		qWarning("adding %s", key.key().latin1());
+		qWarning("error: %d", key.Error());*/
+		
 		settings.highlight = (key.key() == keyName);
 		tree +=  CTextRendering::KeyTreeItem( key.key(), modules, settings );
 	}

@@ -194,7 +194,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 							if ((val_it->first == "osisID") && (val_it->second == id)) {
 								foundNote = true;
 								refList = list_it->second["refList"];
-								//qWarning("found %s", refList.c_str());
+// 								qWarning("found %s", refList.c_str());
 							}							
 						}
 					}

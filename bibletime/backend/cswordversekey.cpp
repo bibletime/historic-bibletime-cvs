@@ -142,6 +142,7 @@ void CSwordVerseKey::key( const char* newKey ){
 const bool CSwordVerseKey::next( const JumpType type ) {
 	//clear Error status
 	Error();
+	bool ret = true;
 
 	switch (type) {
 		case UseBook: {
@@ -169,8 +170,9 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 					key( QString::fromUtf8(m_module->module()->KeyText()) );//don't use fromUtf8
         }
     		else {
-					qWarning("VerseKey::next: module error");
+// 					qWarning("VerseKey::next: module error");
 	    	  Verse(Verse()+1);
+					ret = false;
 	    	  break;
 	    	}
     	}
@@ -184,17 +186,16 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 	};
 
   if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
-    bool ret = true;
-    if (Error()) {
+    //bool ret = true;
+    if (Error() || m_module->module()->Error()) {
       ret = false;
 		}
-		//check if the key if out of the modules bounds
-    else if (_compare(bible->lowerBound()) < 0) {
+    else if (_compare(bible->lowerBound()) < 0) { //check if the key if out of the modules bounds
       key( bible->lowerBound() );
       ret = false;
     }
     if (_compare(bible->upperBound()) > 0) {
-      key( bible->upperBound() );
+			key( bible->upperBound() );
       ret = false;
     }
     return ret;
@@ -203,10 +204,12 @@ const bool CSwordVerseKey::next( const JumpType type ) {
     return false;
 	}
 
-  return true;
+  return ret;
 };
 
 const bool CSwordVerseKey::previous( const JumpType type ) {
+  bool ret = true;
+	
 	switch (type) {
 		case UseBook: {
 			if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
@@ -231,6 +234,7 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 					key( QString::fromUtf8(m_module->module()->KeyText()) );//don't use fromUtf8					
 				}
     		else {
+					ret = false;
 	    	  Verse(Verse()-1);
 				}
     	}
@@ -244,7 +248,7 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 	};
 
   if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
-    bool ret = true;
+//     bool ret = true;
     if (_compare(bible->lowerBound()) < 0 ) {
       key( bible->lowerBound() );
       ret = false;
@@ -255,9 +259,11 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
     }
     return ret;
   }
-  else if (Error())
+  else if (Error()) {
     return false;
-  return true;
+	}
+  
+	return ret;
 };
 
 /** Assignment operator for more ease of use. */

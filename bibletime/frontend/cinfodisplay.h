@@ -9,12 +9,18 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+
 #ifndef CINFODISPLAY_H
 #define CINFODISPLAY_H
 
+//Backend
+#include  "backend/ctextrendering.h"
+
+//Qt includes
 #include <qwidget.h>
 #include <qvaluelist.h>
 #include <qpair.h>
+
 
 class KHTMLPart;
 /**
@@ -52,6 +58,14 @@ protected:
  
 private:
 	KHTMLPart* m_htmlPart;
+	
+	class CrossRefRendering : public CHTMLExportRendering {
+	public:
+		CrossRefRendering( CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults() );
+	protected:	
+		
+		virtual const QString finishText( const QString&, KeyTree& tree );
+	};
 };
 
 #endif

@@ -15,6 +15,7 @@
 
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordkey.h"
+#include "backend/cswordversekey.h"
 #include "backend/cdisplaytemplatemgr.h"
 
 #include "frontend/cbtconfig.h"
@@ -98,7 +99,33 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 
 
 const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
-	return data;
+	CSwordBackend::DisplayOptions dispOpts;
+	dispOpts.lineBreaks = true;
+	dispOpts.verseNumbers = true;
+		
+	CrossRefRendering renderer(dispOpts);
+	CTextRendering::KeyTree tree;
+		
+	VerseKey vk;
+	ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
+	for (int i = 0; i < refs.Count(); ++i) {
+	//TODO: check and render key ranges
+	
+		SWKey* key = refs.getElement(i);
+		Q_ASSERT(key);
+		
+		CTextRendering::KeyTreeItem i(
+			QString::fromUtf8(key->getText()),
+			CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible)), 
+			CTextRendering::KeyTreeItem::Settings()
+		);
+		
+		tree.append( i );
+	}	
+	
+	return QString::fromLatin1("<div class=\"crossrefinfo\"><h3>%1</h3>%2</div>")
+		.arg(i18n("Cross references"))
+		.arg(renderer.renderKeyTree(tree));
 }
 
 /*!
@@ -108,7 +135,7 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	QStringList list = QStringList::split("/", data);
 	Q_ASSERT(list.count() >= 3);
 	if (!list.count()) {
-		return "List invalid";
+		return QString::null;
 	}
 		
 	const QString modulename = list[0];
@@ -122,7 +149,7 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 //	qWarning("data: %s, %s, %s", modulename.latin1(), keyname.latin1(), swordFootnote.latin1());
 	
 	CSwordModuleInfo* module = CPointers::backend()->findModuleByName(modulename);
-	Q_ASSERT(module);
+// 	Q_ASSERT(module);
 	if (!module) {
 		return QString::null;
 	}
@@ -235,4 +262,20 @@ void CInfoDisplay::clearInfo() {
 	m_htmlPart->begin();
 	m_htmlPart->write( tmgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, settings) );
 	m_htmlPart->end();
+}
+
+
+/**
+ * New class: CInfoDisplay::refRendering
+ */
+CInfoDisplay::CrossRefRendering::CrossRefRendering( CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) 
+	: CHTMLExportRendering(Settings(), displayOptions, filterOptions)
+{
+
+}
+ 
+const QString CInfoDisplay::CrossRefRendering::finishText( const QString& text, KeyTree& ) {
+
+	qWarning(text.latin1());
+	return text;
 }
