@@ -59,10 +59,16 @@ CStyle* const CPrintItem::ListViewItem::style() const {
 };
 
 
-CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description,const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions) :
-  m_style(0), m_headerText(QString::null), m_description(description),  m_moduleText(QString::null),
-  m_startKey(startKey),  m_module(module), m_listViewItem(0),
-  m_displayOptions(displayOptions), m_filterOptions(filterOptions)
+CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description,const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions)
+  : m_style(0),
+  m_headerText(QString::null),
+  m_description(description),
+  m_moduleText(QString::null),
+  m_startKey(startKey),
+  m_module(module),
+  m_listViewItem(0),
+  m_displayOptions(displayOptions),
+  m_filterOptions(filterOptions)
 {	
 	m_startEmpty = startKey.isEmpty();	
 	m_stopKey = (!m_startEmpty && (startKey != stopKey) ) ? stopKey : QString::null;

@@ -331,7 +331,7 @@ void CKeyChooserWidget::slotComboChanged(int index){
 
 /** Sets the tooltips for the given entries using the parameters as text. */
 void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
-  qWarning("add tooltip heklps: %s, %s, %s, %s", comboTip.latin1(), nextEntryTip.latin1(), scrollButtonTip.latin1(), previousEntryTip.latin1());
+//  qWarning("add tooltip heklps: %s, %s, %s, %s", comboTip.latin1(), nextEntryTip.latin1(), scrollButtonTip.latin1(), previousEntryTip.latin1());
 
   QToolTip::add(comboBox(),comboTip);
 	QToolTip::add(btn_fx,  scrollButtonTip);
@@ -348,7 +348,7 @@ void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextE
 
 /** No descriptions */
 void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
-  qWarning("add whatsthis heklps: %s, %s, %s, %s", comboTip.latin1(), nextEntryTip.latin1(), scrollButtonTip.latin1(), previousEntryTip.latin1());
+//  qWarning("add whatsthis heklps: %s, %s, %s, %s", comboTip.latin1(), nextEntryTip.latin1(), scrollButtonTip.latin1(), previousEntryTip.latin1());
   QWhatsThis::add(comboBox(),comboTip);
 	QWhatsThis::add(btn_fx,  scrollButtonTip);
 

@@ -21,9 +21,24 @@
 #include "backend/cswordbackend.h"
 
 //KDE includes
+#include <kglobal.h>
 #include <klocale.h>
 
+//static KLocale* locale = KGlobal::locale();
+const QString makeToolTip( const QString& text ) {
+//  qWarning("translation of %s is %s", text.latin1(), i18n(text.latin1()).latin1());
+
+  return text;
+};
+const QString makeWhatsThis( const QString& title, const QString& description )  {
+  return QString::fromLatin1("<center><B>%1</B></center><HR>%2").arg(title).arg(description);
+};
+
+
+
 namespace CResMgr {
+//  CResMgr : modules::bible::('"bt_bible"),
+  
   namespace modules {
     namespace bible {
       const QString icon_unlocked  = "bt_bible";
@@ -222,7 +237,7 @@ namespace CResMgr {
 
   namespace searchdialog {
     const QString icon = "find";
-    
+
     namespace searchButton {
       const QString tooltip     = makeToolTip(i18n("Start the search"));
       const QString whatsthis   = makeWhatsThis(tooltip, i18n("Start to search the text in each of the chosen modules."));
@@ -356,7 +371,7 @@ namespace CResMgr {
       namespace bookList {
         const QString tooltip = makeToolTip( i18n("List of books") );
         const QString whatsthis = makeWhatsThis(tooltip, i18n("This list contains the books which are available in this module."));
-      };      
+      };
       namespace nextBook {
         const QString tooltip = makeToolTip( i18n("Show the next book") );
         const QString whatsthis = makeWhatsThis(tooltip, i18n("Show the next book of this module."));
@@ -398,7 +413,7 @@ namespace CResMgr {
         const QString whatsthis = makeWhatsThis(tooltip, i18n("In Bible texts, the previous verse will be highlighted. In commentaries, the previous entry will be shown."));
         const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_V;
       }
-      
+
       namespace copyMenu {
         const QString icon = "editcopy";//CResMgr::displaywindows::lexiconWindow::copyMenu::icon;
       };
@@ -413,10 +428,10 @@ namespace CResMgr {
       namespace syncWindow {
          const QString tooltip = makeToolTip(i18n("Synchronize with Bible windows"));
          const QString whatsthis = makeWhatsThis(tooltip, i18n("Synchronize the displayed entry of this module with the active Bible window."));
-         const QString icon = "bt_sync";         
+         const QString icon = "bt_sync";
          const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::nextBook::accel;
        }
-       
+
     };
     namespace lexiconWindow {
       namespace entryList {
@@ -450,7 +465,7 @@ namespace CResMgr {
         const KShortcut accel = KShortcut();
       };
     };
-    
+
     namespace writeWindow {
       namespace saveText {
         const QString tooltip   = makeToolTip( i18n("Save the current text") );
@@ -489,7 +504,7 @@ namespace CResMgr {
         const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggle underlined formatting of the selected text.") );
         const QString icon      = "text_under";
         const KShortcut accel   = KShortcut();
-      };      
+      };
 
       namespace alignLeft {
         const QString tooltip   = makeToolTip( i18n("Align left") );
@@ -537,7 +552,7 @@ namespace CResMgr {
       namespace styleChooser {
         const QString tooltip = makeToolTip(i18n("Styles"));
         const QString whatsthis = makeWhatsThis(tooltip,i18n("This list contains the available print styles."));
-      };     
+      };
       namespace itemList {
         const QString tooltip = makeToolTip(i18n("List of print items"));
         const QString whatsthis = makeWhatsThis(tooltip,i18n("This is the list which contains the items to be printed."));
@@ -558,7 +573,7 @@ namespace CResMgr {
         const QString whatsthis = makeWhatsThis(tooltip,i18n("Delete the selected items."));
       };
     };
-    
+
     namespace styleList {
       namespace newStyle {
         const QString tooltip = makeToolTip( i18n("New printing style") );
@@ -597,7 +612,7 @@ namespace CResMgr {
           const QString whatsthis = makeWhatsThis( tooltip, i18n("The size of the border on the right side of the paper.") );
         };
       };
-    };    
+    };
   };
   namespace settings {
     namespace startup {
@@ -617,7 +632,7 @@ namespace CResMgr {
     };
     namespace fonts {
       const QString icon = "fonts";
-            
+
       namespace typeChooser {
         const QString tooltip   = makeToolTip( i18n("Choose a language") );
         const QString whatsthis = makeWhatsThis( tooltip, i18n("The font selection below will apply to all texts in this language."));
@@ -625,7 +640,7 @@ namespace CResMgr {
     };
     namespace colors {
       const QString icon = "bt_displayconfig";
-            
+
       namespace text {
         const QString tooltip = makeToolTip( i18n("Text color") );
         const QString whatsthis = makeWhatsThis( tooltip, i18n("The color used for normal text in the display windows."));
@@ -661,7 +676,7 @@ namespace CResMgr {
     };
     namespace profiles {
       const QString icon = "view_sidetree";
-            
+
       namespace list {
         const QString tooltip   = makeToolTip( i18n("List of sessions") );
         const QString whatsthis = makeWhatsThis( tooltip, i18n("The list of available sessions."));
@@ -681,7 +696,7 @@ namespace CResMgr {
     };
     namespace sword {
       const QString icon = "bt_swordconfig";
-            
+
       namespace general {
         namespace cacheKeys {
           const QString tooltip   = makeToolTip( i18n("Use cache files for the lexicon entries") );
@@ -840,7 +855,6 @@ namespace CResMgr {
       }
     };
   
-  
   namespace helpDialog {
     const QString moduleLocked = "bibletime/helpdialog/help-module-encrypted.html";
     const QString firstStart = "bibletime/helpdialog/help-first-startup.html";
@@ -851,4 +865,3 @@ namespace CResMgr {
   };
   
 };
-

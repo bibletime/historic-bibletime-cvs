@@ -99,38 +99,35 @@ CMainIndex::~CMainIndex(){
 
 /** Reimplementation. Adds the given group to the tree. */
 void CMainIndex::addGroup(const CItemBase::Type type, const QString language){
-//  qWarning("addGroup");
   CTreeFolder *i = 0;
-  if (type == CItemBase::BookmarkFolder) {
-    i = new CBookmarkFolder(this);
+  switch (type) {
+    case CItemBase::BookmarkFolder:
+      i = new CBookmarkFolder(this);
+      break;
+    case CItemBase::GlossaryModuleFolder:
+      i = new CGlossaryFolder(this, type, language, QString::null); //we have no second language
+      break;
+    default:
+      i = new CTreeFolder(this, type, language);
+      break;     
   }
-  else if (type == CItemBase::GlossaryModuleFolder) {
-    i = new CGlossaryFolder(this, type, language, QString::null); //we have no second language
+  if (i) {
+    i->init();
+    if (i->childCount() == 0 && type != CItemBase::BookmarkFolder) {
+      delete i;
+    }
   }
-  else {
-    i = new CTreeFolder(this, type, language);
-  }
-  i->init();
-
-  if (i->childCount() == 0 && type != CItemBase::BookmarkFolder)
-    delete i;
 }
 
 
 /** Initializes the view. */
 void CMainIndex::initView(){
-//  setRootIsDecorated(true);
-// 	addColumn(i18n("Caption"));
  	addColumn(QString::null);
-//  header()->setMinimumWidth(0);
  	header()->hide();
-//  setColumnWidthMode(0, KListView::Manual);
-//  viewport()->setMinimumWidth(0);
 
  	m_toolTip = new ToolTip(this);
   setTooltipColumn(-1);
-  setShowToolTips(false);//to disable Qt's tooltips   	
-// 	QWhatsThis::add(this, WT_GM_WIDGET );
+  setShowToolTips(false);//to disable Qt's tooltips
  	 		
 	setBackgroundMode(PaletteBase);
 //	setSorting(-1);
@@ -594,4 +591,3 @@ void CMainIndex::editModuleHTML(){
     emit createWriteDisplayWindow(modules.first(), QString::null, CDisplayWindow::HTMLWindow);
   };
 }
-

@@ -305,7 +305,7 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 			stopKey = QString::null;
 		//add all items to the queue
 	  }
-    itemList.append( new CPrintItem(module, startKey, stopKey) );
+    itemList.append( new CPrintItem(module, startKey, stopKey, QString::null, m_displayOptions, m_filterOptions) );
     incProgress();    
 		(*list)++;
 	}

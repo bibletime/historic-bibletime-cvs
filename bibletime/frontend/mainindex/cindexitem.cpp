@@ -55,12 +55,20 @@
 
 using std::string;
 
-CItemBase::CItemBase(CMainIndex* mainIndex, const Type type) : KListViewItem(mainIndex), m_type(type) {
-  m_type = type;
+CItemBase::CItemBase(CMainIndex* mainIndex, const Type type)
+  : KListViewItem(mainIndex),
+    m_type(type),
+    m_sortingEnabled(true)
+{
+  
 }
 
-CItemBase::CItemBase(CItemBase* parentItem, const Type type) : KListViewItem(parentItem), m_type(type) {
-  m_type = type;
+CItemBase::CItemBase(CItemBase* parentItem, const Type type)
+  : KListViewItem(parentItem),
+    m_type(type),
+    m_sortingEnabled(true)
+{
+
 }
 
 CItemBase::~CItemBase() {
@@ -121,6 +129,36 @@ const bool CItemBase::isMovable(){
 const bool CItemBase::allowAutoOpen( const QMimeSource* ) const {
   return false;
 };
+
+/** This function engables or disables sorting depending on the parameter. */
+void CItemBase::setSortingEnabled( const bool& enableSort ){
+  m_sortingEnabled = enableSort;
+}
+
+/** Returns true whether the sorting is enabled or not. */
+const bool CItemBase::isSortingEnabled(){
+  return m_sortingEnabled;
+}
+
+/** Reimplementation which takes care of the our sortingEnabled setting. */
+void CItemBase::sortChildItems( int col, bool asc ){
+  if (!isSortingEnabled()) {
+    return;
+  }
+  else {
+    KListViewItem::sortChildItems( col, asc );
+  }
+}
+
+/** Reimplementation which takes care of the our sortingEnabled setting. */
+void CItemBase::sort(){
+  if (!isSortingEnabled()) {
+    return;
+  }
+  else {
+    KListViewItem::sort();
+  }
+}
 
 /* ---------------------------------------------- */
 /* ---------- new class: CModuleItem ------------ */
@@ -491,6 +529,11 @@ const QString& CBookmarkItem::englishKey(){
 bool CBookmarkItem::acceptDrop(const QMimeSource* /*src*/){
   return false;
 }
+
+/** Compares this item to another one. Used for sorting. */
+//int CBookmarkItem::compare( QListViewItem*, int col, bool) const{
+//
+//}
 
 /****************************************/
 /*****  class: CItemFolder  *************/
@@ -874,23 +917,10 @@ namespace Bookmarks {
    setRenameEnabled(0,true);
  }
 
- /** Is called when an item was dropped on this subfolder. */
- void SubFolder::dropped(QDropEvent * e) {
-   if (acceptDrop(e)) {
-     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
-     //until we implemented the rest in CDragDropMgr we copy the items!
-     CDragDropMgr::ItemList::Iterator it;
-     for( it = dndItems.begin(); it != dndItems.end(); ++it) {
-       CSwordModuleInfo* module = backend()->findModuleByName( (*it).bookmarkModule() );
-       CBookmarkItem* i = new CBookmarkItem(this, module, (*it).bookmarkKey(), (*it).bookmarkDescription());
-       i->init();
-     };
-   };
- }
-
- bool SubFolder::acceptDrop(const QMimeSource * src) const {
-   return CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
- }
+// /** Is called when an item was dropped on this subfolder. */
+// bool SubFolder::acceptDrop(const QMimeSource * src) const {
+//   return CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
+// }
 
  /** Reimplementation from  CItemBase. */
  const bool SubFolder::enableAction(const MenuAction action){
@@ -959,9 +989,11 @@ namespace Bookmarks {
 /* --------------------------------------------------*/
 
 CBookmarkFolder::CBookmarkFolder(CMainIndex* mainIndex, const Type type) : CTreeFolder(mainIndex, type, "*") {
+  setSortingEnabled(false);
 }
 
 CBookmarkFolder::CBookmarkFolder(CFolderBase* parentItem, const Type type) : CTreeFolder(parentItem, type, "*") {
+  setSortingEnabled(false);
 }
 
 CBookmarkFolder::~CBookmarkFolder() {
@@ -1016,10 +1048,15 @@ void CBookmarkFolder::dropped(QDropEvent *e) {
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
 
     CDragDropMgr::ItemList::Iterator it;
+    CItemBase* previousItem = 0;
     for( it = dndItems.begin(); it != dndItems.end(); ++it) {
       CSwordModuleInfo* module = backend()->findModuleByName( (*it).bookmarkModule() );
       CBookmarkItem* i = new CBookmarkItem(this, module, (*it).bookmarkKey(), (*it).bookmarkDescription());
+      if (previousItem) {
+        i->moveAfter( previousItem );
+      }
       i->init();
+      previousItem = i;
     };
   };
 }
@@ -1213,3 +1250,4 @@ void CGlossaryFolder::addGroup(const Type type, const QString& fromLanguage, con
   if (!i->childCount())
     delete i;
 }
+

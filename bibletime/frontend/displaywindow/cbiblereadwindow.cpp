@@ -45,10 +45,6 @@
 
 CBibleReadWindow::CBibleReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CLexiconReadWindow(moduleList, parent,name) {
   m_transliterationButton = 0;	
-//  if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(moduleList.first())) {
-//#warning Fix this hack!		
-////    key()->key(bible->LowerBound().key());	
-//  }
 }
 
 CBibleReadWindow::~CBibleReadWindow(){
@@ -59,15 +55,12 @@ void CBibleReadWindow::applyProfileSettings( CProfileWindow* const settings ) {
 
 	const int count = displaySettingsButton()->menuItemCount();
 	int result = settings->windowSettings();
-// 	qWarning("count == %i", count);
 	for (int i = count-1; i>=1; i--) {
 		if (result-(int)pow((double)2,i-1)>= 0) { //2^i was added before, so item with index i is set
 			result -= (int)pow((double)2,i-1);
-//   		qWarning("set item %i to true", i);
 			displaySettingsButton()->setItemStatus(i,true);
 		}
 		else {
-//   		qWarning("set item %i to false", i);
 			displaySettingsButton()->setItemStatus(i,false);			
   	}
 	}		

@@ -128,14 +128,12 @@ CDisplay::CDisplay(CDisplayWindow* parent) :
   m_connections( new CDisplayConnections( this ) ),
   m_popup(0)
 {
-//  qWarning("constructor of CDisplay");
 }
 
 CDisplay::~CDisplay(){
 }
 
 const bool CDisplay::copy( const CDisplay::TextType format, const CDisplay::TextPart part  ) {
-//  qWarning("CDisplay::copy( const CDisplay::TextType format, const CDisplay::TextPart part  )");
   const QString content = text(format, part);
 
   QClipboard* cb = KApplication::clipboard();
@@ -195,19 +193,16 @@ CDisplayConnections* const CDisplay::connectionsProxy() const{
 }
 
 CDisplayWindow* const CDisplay::parentWindow() const {
-//	qWarning("CDisplay::parentWindow()");
  	return m_parentWindow;
 }
 
 /** Installs the popup which should be opened when the right mouse button was pressed. */
 void CDisplay::installPopup( QPopupMenu* popup ){
-//  qWarning("CDisplay::installPopup( QPopupMenu* popup )");
   m_popup = popup;
 }
 
 /** Returns the popup menu which was set by installPopupMenu() */
 QPopupMenu* const CDisplay::installedPopup(){
-//  qWarning("CDisplay::installedPopup()");
   Q_ASSERT(m_popup);
 	return m_popup;
 }

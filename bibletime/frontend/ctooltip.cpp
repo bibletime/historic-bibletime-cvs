@@ -170,7 +170,7 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
       const bool validMousePos = //true when the mouse is at a valid position, false if not. In this case hide the tooltip.
                  widgetContainsPoint(this, me->globalPos())
               || m_tipRect.contains( me->globalPos() )
-              || (m_display->view()->verticalScrollBar()->draggingSlider()); //if the user's scrolling and moved the mouse out of the area
+              || m_display->view()->verticalScrollBar()->draggingSlider(); //if the user's scrolling and moved the mouse out of the area
 
       if (isVisible() && !validMousePos) { //mouse moved outside the visible tooltip area!
         hide();

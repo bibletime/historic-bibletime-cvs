@@ -100,6 +100,22 @@ public:
   * Loads the content of this folder from the XML code passed as argument to this function.
   */
   virtual void loadFromXML( QDomElement& /*element*/ ) {};
+  /**
+  * Returns true whether the sorting is enabled or not.
+  */
+  const bool isSortingEnabled();
+  /**
+  * This function engables or disables sorting depending on the parameter.
+  */
+  void setSortingEnabled( const bool& enableSorting );
+  /**
+  * Reimplementation which takes care of the our isSortingEnabled() setting.
+  */
+  virtual void sortChildItems( int col, bool asc );
+  /**
+  * Reimplementation which takes care of the our isSortingEnabled() setting.
+  */
+  virtual void sort();
 
 protected:
   friend class CMainIndex;
@@ -109,9 +125,10 @@ protected:
   * The default return value is "false"
   */
   virtual const bool allowAutoOpen( const QMimeSource* src ) const;
-
+  
 private:
   Type m_type;
+  bool m_sortingEnabled;
 };
 
 class CModuleItem : public CItemBase {
@@ -192,9 +209,16 @@ private: // Private methods
   */
   const QString& englishKey();
 protected: // Protected methods
-  /** Reimplementation. Returns false everytime because a bookmarks 
-has not possible drops. */
+  /**
+  * Reimplementation. Returns false everytime
+  * because a bookmarks 
+  * has not possible drops.
+  */
   virtual bool acceptDrop(const QMimeSource * src);
+  /**
+  * Compares this item to another one. Used for sorting.
+  */
+//  virtual int compare( QListViewItem*, int col, bool ascending) const;
 };
 
 
@@ -334,15 +358,6 @@ namespace Bookmarks {
     SubFolder(CFolderBase* parentItem, QDomElement& xml);
     virtual ~SubFolder();
     virtual void init();
-    /**
-    * Reimplementation to handle bookmark drops on this bookmark sub folder.
-    * In this case open the searchdialog. In the case of a referebnce open the module at the given position.
-    */
-    virtual bool acceptDrop(const QMimeSource * src) const;
-    /**
-    * Is called when an item was dropped on this subfolder.
-    */
-    virtual void dropped(QDropEvent * e);
     /**
     * Reimplementation from  CItemBase.
     */

@@ -36,8 +36,6 @@
 #include <klocale.h>
 
 CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name ) : CDisplayWindow(modules,parent,name) {
-//	qWarning("constructor of CReadWindow");
-// 	m_popupMenu = 0;
   m_displayWidget = 0;
 }
 
@@ -47,15 +45,12 @@ CReadWindow::~CReadWindow(){
 
 /** Returns the display widget of this window. */
 CReadDisplay* const CReadWindow::displayWidget(){
-//  qWarning("CReadWindow::displayWidget()");
-//	Q_ASSERT(m_displayWidget);
 	return m_displayWidget;
 }
 
 /** Sets the display widget of this display window. */
 void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
   CDisplayWindow::setDisplayWidget(newDisplay);
-//	qWarning("CReadWindow::setDisplayWidget()"); 	
  	if (m_displayWidget) {
   	disconnect(m_displayWidget->connectionsProxy(), SIGNAL(referenceClicked(const QString&, const QString&)), this, SLOT(lookup(const QString&, const QString&)));
   	disconnect(m_displayWidget->connectionsProxy(), SIGNAL(referenceDropped(const QString&)), this, SLOT(lookup(const QString&)));
@@ -68,7 +63,6 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ){
-//	qWarning("CReadWindow::lookup");	
 	if (!newKey)
 		return;
 

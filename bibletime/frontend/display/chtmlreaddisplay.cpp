@@ -48,9 +48,6 @@
 #include <dom/dom2_traversal.h>
 
 CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget), CReadDisplay(readWindow) {
-//	qWarning("constructor of CHTMLReadDisplay");
-//  Q_ASSERT(readWindow);
-//  Q_ASSERT(parentWidget);
   setDNDEnabled(false);
   m_view->setDragAutoScroll(false);
 }
@@ -59,13 +56,11 @@ CHTMLReadDisplay::~CHTMLReadDisplay(){
 }
 
 const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part) {
-//  qWarning("CHTMLReadDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part)");
   switch (part) {
     case Document: {
       if (format == HTMLText)
         return document().toHTML();
       else {
-//        qWarning(htmlDocument().body().innerText().string().latin1());
         return htmlDocument().body().innerText().string().latin1();
       }
 		}
@@ -220,7 +215,6 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
 
 /** Reimplementation for our drag&drop system. */
 void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
-//  qWarning("CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e )");
   if( !(e->qmouseEvent()->state() && LeftButton)) { //left mouse button not pressed
     KHTMLPart::khtmlMouseMoveEvent(e);
     return;
@@ -312,8 +306,7 @@ CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWid
 
 
 /** Opens the popupmenu at the given position. */
-void CHTMLReadDisplayView::popupMenu( const QString& url, const QPoint& pos){	
-//	qWarning("CHTMLReadDisplayView::popupMenu");
+void CHTMLReadDisplayView::popupMenu( const QString& url, const QPoint& pos){
  	if (!url.isEmpty()) {
     qWarning(url.latin1());
   	m_display->setActiveAnchor(url);

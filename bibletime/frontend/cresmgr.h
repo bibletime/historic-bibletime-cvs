@@ -23,21 +23,13 @@
 #include <qkeysequence.h>
 
 //KDE includes
-#include <klocale.h>
 #include <kshortcut.h>
 
 /** Provides static functions to easily access the Tooltip and WhatsThis texts for all the frontend parts.
   * @author The BibleTime team
   */  
 namespace CResMgr {
-  inline const QString makeToolTip( const QString& text ) {
-    return text;
-  };
-  inline const QString makeWhatsThis( const QString& title, const QString& description )  {
-    return QString::fromLatin1("<center><B>%1</B></center><HR>%2").arg(title).arg(description);
-  };
-
-
+//public:
   namespace modules {
     namespace bible {
       extern const QString icon_unlocked;

@@ -41,7 +41,6 @@
 #include <klocale.h>
 
 CReadDisplay::CReadDisplay(CReadWindow* readWindow) : CDisplay(readWindow), m_activeAnchor(QString::null) {
-//	qWarning("constructor of CReadDisplay");
 }
 
 CReadDisplay::~CReadDisplay(){
@@ -68,7 +67,9 @@ void CReadDisplay::print(const CDisplay::TextPart type){
   CDisplayWindow* window = parentWindow();
   CSwordKey* const key = window->key();
   CSwordModuleInfo* module = key->module();
-  CExportManager mgr(i18n("Print keys"),false);
+
+  
+  CExportManager mgr(i18n("Print keys"),false, QString::null, parentWindow()->filterOptions(), parentWindow()->displayOptions());
         
   switch (type) {
 		case Document: {
