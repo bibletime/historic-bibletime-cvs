@@ -100,6 +100,7 @@ QStringList* CSwordBibleModuleInfo::books() {
 		for (int i = min; i <= max; ++i) {
 			for ( int j = 0; j < staticKey.BMAX[i]; ++j) {
 				m_bookList->append( QString::fromLocal8Bit(staticKey.books[i][j].name) );
+//				m_bookList->append( QString::fromUtf8(staticKey.books[i][j].name) );
 			}
 		}
 		m_cachedLocale = backend()->booknameLanguage();		
@@ -175,6 +176,7 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 		for ( int j = 0; j < staticKey.BMAX[i] && !found; ++j) {
 			++bookNumber;
 			if (book == QString::fromLocal8Bit( staticKey.books[i][j].name) )
+//			if (book == QString::fromUtf8( staticKey.books[i][j].name) )
 				found = true;
 		}
 	}		
