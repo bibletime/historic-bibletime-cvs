@@ -70,30 +70,21 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
 			}
 		}
 	}	
-
+	//Check the appropriate entry
 	for (modules.first(); modules.current(); modules.next()) {
 		if (modules.current()->type() == m_moduleType) {
 			QString lang = QString(modules.current()->module()->Lang());
 			if (lang.isEmpty())
 				lang = QString("xx");
-			int id = langdict[lang]->insertItem(
-				modules.current()->name() );
+			QString name = QString(modules.current()->name()) + QString(" ")+
+				(modules.current()->isLocked() ? i18n("[locked]") : QString::null); 			
+			int id = langdict[lang]->insertItem( name );
 			if ( m_module && modules.current()->name() == m_module->name()) {
 				langdict[lang]->setItemChecked(id,true);
 			}
 		}
 	}	
-	//Check the appropriate entry
-	if (m_module) {
-//		for (unsigned int i = 0; i < m_popup->count(); i++) {
-//			if (m_popup->text(m_popup->idAt(i)) == m_module->name()) {
-//				m_popup->setItemChecked(m_popup->idAt(i),true);
-//	  		QToolTip::add(this, m_module->name() );				
-//	  		break;
-//			}
-//		}
-	}
- 	else {
+	if ( !m_module ) {
 		for (unsigned int i = 0; i < m_popup->count(); i++) {
 			if (m_popup->text(m_popup->idAt(i)) == i18n("NONE") )
 				m_popup->setItemChecked(m_popup->idAt(i),true);
@@ -106,14 +97,6 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
   for ( QStringList::Iterator it = languages.begin(); it != languages.end(); ++it ) {
 		m_popup->insertItem( *it, langdict[*it]);
 	}
-
-
-//	KPopupMenu* npopup = new KPopupMenu(this);	
-//	npopup->insertTitle(i18n("Select additional modules"));	
-//	npopup->setCheckable(true);
-//	npopup->insertItem(i18n("TESTTTTTTTTt"));
-//	m_popup->insertItem("npopup",npopup);
-
 }	
 
 /** Returns the icon used for the current status. */
@@ -148,8 +131,10 @@ CSwordModuleInfo* CModuleChooserButton::module() {
 	for ( KPopupMenu* popup = m_submenus.first(); popup; popup = m_submenus.next() ) {
 
   	for (unsigned int i = 0; i < popup->count(); i++) {
-  		if ( m_popup->isItemChecked(popup->idAt(i)) )
-  			return backend()->findModuleByName( popup->text(popup->idAt(i)) );
+  		if ( m_popup->isItemChecked(popup->idAt(i)) ){
+				QString mod = popup->text(popup->idAt(i));
+  			return backend()->findModuleByName( mod.left(mod.find(" ")) );
+			}
   	}	
 
 	}
@@ -167,7 +152,6 @@ void CModuleChooserButton::moduleChosen( int ID ){
 
    	for (unsigned int i = 0; i < popup->count(); i++){
    		popup->setItemChecked(popup->idAt(i),false);	
-   //		qWarning("ID %d, TEXT %s",m_popup->idAt(i), (const char *)m_popup->text(m_popup->idAt(i)).local8Bit() );
    	}	
    	popup->setItemChecked(ID, true);
 	}
@@ -184,37 +168,10 @@ void CModuleChooserButton::moduleChosen( int ID ){
  		m_hasModule = true;  	
  		m_module = module();
  		setIcon(iconName());
- //		repaint();  	  	
    	emit sigChanged();
      	
    	QToolTip::remove(this);
    	if (module())
    		QToolTip::add(this, module()->name());
  	}
-
-//	for (unsigned int i = 0; i < m_popup->count(); i++){
-//		m_popup->setItemChecked(m_popup->idAt(i),false);	
-////		qWarning("ID %d, TEXT %s",m_popup->idAt(i), (const char *)m_popup->text(m_popup->idAt(i)).local8Bit() );
-//	}	
-//	m_popup->setItemChecked(ID, true);
-//	
-//	if (m_popup->text(ID) == i18n("NONE")) {
-//		if (m_hasModule) {
-//  		emit sigRemoveButton(m_id);
-//  		return;
-//		}
-//	}
-//	else {
-//	  if (!m_hasModule)
-//	    emit sigAddButton();
-//		m_hasModule = true;  	
-//		m_module = module();
-//		setIcon(iconName());
-////		repaint();  	  	
-//  	emit sigChanged();
-//  	
-//  	QToolTip::remove(this);
-//  	if (module())
-//  		QToolTip::add(this, module()->name());
-//	}
 }
