@@ -6561,6 +6561,9 @@ bibletime/docs/de/docbook_XML/Makefile \
 bibletime/docs/en/Makefile \
 bibletime/docs/en/HTML/Makefile \
 bibletime/docs/en/docbook_XML/Makefile \
+bibletime/docs/sk/Makefile \
+bibletime/docs/sk/HTML/Makefile \
+bibletime/docs/sk/docbook_XML/Makefile \
 bibletime/frontend/Makefile \
 bibletime/frontend/groupmanager/Makefile \
 bibletime/frontend/keychooser/Makefile \
@@ -6784,6 +6787,9 @@ bibletime/docs/de/docbook_XML/Makefile \
 bibletime/docs/en/Makefile \
 bibletime/docs/en/HTML/Makefile \
 bibletime/docs/en/docbook_XML/Makefile \
+bibletime/docs/sk/Makefile \
+bibletime/docs/sk/HTML/Makefile \
+bibletime/docs/sk/docbook_XML/Makefile \
 bibletime/frontend/Makefile \
 bibletime/frontend/groupmanager/Makefile \
 bibletime/frontend/keychooser/Makefile \
