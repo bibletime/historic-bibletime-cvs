@@ -23,19 +23,19 @@
 static CSwordBackend* m_backend = 0;
 static CPrinter* m_printer = 0;
 
-CPointers::CPointers(CSwordBackend* backend, CPrinter* printer) {
-	m_backend = backend;
-	m_printer = printer;
-}
+//CPointers::CPointers(CSwordBackend* backend, CPrinter* printer) {
+//	m_backend = backend;
+//	m_printer = printer;
+//}
+//
+//CPointers::~CPointers(){
+//
+//}
 
-CPointers::~CPointers(){
-
-}
-
-CPointers::CPointers(){
-	ASSERT(m_backend);
-	ASSERT(m_printer);
-}
+//CPointers::CPointers(){
+//	ASSERT(m_backend);
+//	ASSERT(m_printer);
+//}
 
 /** Returns a pointer to the backend ... */
 CSwordBackend* CPointers::backend() const{
@@ -47,4 +47,14 @@ CSwordBackend* CPointers::backend() const{
 CPrinter* CPointers::printer() const{
 	ASSERT(m_printer);	
 	return m_printer;
+}
+
+void CPointers::setPrinter(CPrinter* printer) {
+	ASSERT(printer);	
+	m_printer = printer;
+}
+
+void CPointers::setBackend(CSwordBackend* backend) {
+	ASSERT(backend);	
+	m_backend = backend;
 }

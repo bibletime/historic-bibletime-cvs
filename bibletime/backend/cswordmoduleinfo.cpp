@@ -40,22 +40,25 @@
 //static class wide objects
 //static CSwordBackend searchModulesMgr;
 	
-CSwordModuleInfo::CSwordModuleInfo( SWModule* module ) : m_clonedModule(false) {
+CSwordModuleInfo::CSwordModuleInfo( SWModule* module ) {
 	m_module = module;
+	m_clonedModule = false;	
 //	if (module)
 //		m_module = module->clone();
 	m_searchResult.ClearList();
-	
-//	if (backend) {
-//		if (requiredSwordVersion() != -1 && requiredSwordVersion() > backend->Version()) {
-//		 	qWarning("THIS MODULE IS NOT USABLE WITH THIS SWORD VERSION: UPDATE TO SWORD version %f", backend->Version());
-//		}
-//	}
+
+//	qWarning((const char*)SWVersion::currentVersion);
+//	ASSERT(backend());	
+	if (backend()) {
+		if (hasVersion() && (requiredSwordVersion() > SWVersion::currentVersion)) {
+		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)requiredSwordVersion());
+		}
+	}
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
-	m_module = m.m_module/*->clone()*/; //clone Sword module, don't forget to delete it later
-//	m_clonedModule = true;
+	m_module = m.m_module; //clone Sword module, don't forget to delete it later
+	m_clonedModule = false;
 	m_searchResult = m.m_searchResult;
 }
 
@@ -205,8 +208,6 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 	}
   else
   	m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
-
-//  qWarning("found for %s? %i", (const char*)searchedText.local8Bit(), m_searchResult.Count());
 	return (m_searchResult.Count()>0);
 }
 
@@ -225,7 +226,7 @@ void CSwordModuleInfo::clearSearchResult(){
 /** This interupts the search if this module is being searched. */
 void CSwordModuleInfo::interruptSearch(){
 //	searchModulesMgr.Modules[name()]->terminateSearch = true;
-	module()->terminateSearch = true;
+	m_module->terminateSearch = true;
 }
 
 /** Returns true if the given type i supported by this module. */
@@ -244,12 +245,13 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 }
 
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
-const float CSwordModuleInfo::requiredSwordVersion(){
-	const string version = (*backend()->getConfig())[name().latin1()]["MinimumVersion"];
+const SWVersion CSwordModuleInfo::requiredSwordVersion(){
+	const string version = (*backend()->getConfig())[name().latin1()]["MinimumVersion"];	
 	if (!version.length())	//no special version required
-		return -1;
-	const float swordVersion = QString::fromLatin1( version.c_str() ).toFloat();	
-	return swordVersion;
+		return SWVersion("0.0"); //version not set
+	return SWVersion(version.c_str());
+//	const float swordVersion = QString::fromLatin1( version.c_str() ).toFloat();	
+//	return swordVersion;
 }
 
 /** Returns the name of the module. */

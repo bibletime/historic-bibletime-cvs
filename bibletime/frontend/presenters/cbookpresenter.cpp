@@ -20,20 +20,13 @@
 #include "cbookpresenter.h"
 #include "../keychooser/ckeychooser.h"
 #include "cmodulechooserbar.h"
-//#include "cdisplaysettingsbutton.h"
 #include "../ctoolclass.h"
 #include "../chtmlwidget.h"
-//#include "../keychooser/ckeychooser.h"
-//#include "../../ressource.h"
-//#include "../../backend/cswordbiblemoduleinfo.h"
 #include "../../backend/cswordtreekey.h"
 #include "../../backend/chtmlentrydisplay.h"
 #include "../../backend/cswordbackend.h"
-//#include "../../backend/creferencemanager.h"
-//#include "../cprofile.h"
-//#include "../cprofilewindow.h"
 
-CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0 )
+CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules,parent,name)
 {
 	m_key = dynamic_cast<CSwordTreeKey*>(CSwordKey::createInstance( useModules.first() ));
@@ -43,6 +36,7 @@ CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent=
 	show();
 	initConnections();
 	
+//	*m_key = TOP;
 	lookup(m_key);
 }
 
@@ -55,7 +49,7 @@ CBookPresenter::~CBookPresenter(){
 /** Initializes the interface of this presenter. */
 void CBookPresenter::initView(){
 	m_mainToolBar = new KToolBar(this);
-	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), 0, m_mainToolBar);
+	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);
 	m_mainToolBar->setItemAutoSized(0);
 
@@ -77,8 +71,8 @@ void CBookPresenter::initConnections(){
 		
 //	connect(m_popup, SIGNAL(aboutToShow()),
 //		SLOT(popupAboutToShow()));
-	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
-		SLOT(modulesChanged() ));
+//	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
+//		SLOT(modulesChanged() ));
 //	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),	
 //		SLOT(optionsChanged() ));
 }
@@ -103,14 +97,11 @@ void CBookPresenter::lookup(CSwordKey* key) {
 	qWarning("CBookPresenter::lookup(CSwordKey*)");
 	CSwordTreeKey* treeKey = dynamic_cast<CSwordTreeKey*>(key);
 	ASSERT(treeKey);
-  qWarning(treeKey->getFullName());
+  qWarning(treeKey->key().latin1());
 
 	setUpdatesEnabled(false);	
-	
-//	backend()->setAllModuleOptions( m_moduleOptions );
-//	backend()->setAllDisplayOptions( m_displayOptions );
 
-	m_moduleList.first()->module()->SetKey(treeKey);//should we pointer or reference?
+	m_moduleList.first()->module()->SetKey(*treeKey);
   qWarning("have set key!");
 		
 	if (m_moduleList.first()->getDisplay()) {
@@ -121,6 +112,7 @@ void CBookPresenter::lookup(CSwordKey* key) {
 	if (m_key != treeKey)
 		m_key->key(treeKey->key());
   qWarning("finished!");		
+	
 	setUpdatesEnabled(true);
 	setCaption( windowCaption() );
 }

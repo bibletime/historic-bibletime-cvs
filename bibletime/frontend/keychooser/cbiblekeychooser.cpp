@@ -88,7 +88,7 @@ CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 		setKey(key);
 }
 
-CSwordKey *CBibleKeyChooser::getKey(){
+CSwordKey *CBibleKeyChooser::key(){
 	m_key->book(w_book->comboBox()->currentText());	
 	m_key->Chapter(w_chapter->comboBox()->currentText().toInt());			
 	m_key->Verse(w_verse->comboBox()->currentText().toInt());			

@@ -27,9 +27,6 @@ CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : 
 
 CSwordKey* CSwordTreeKey::copy() const {
 	qWarning("CSwordTreeKey* CSwordTreeKey::copy() const");
-//	CSwordTreeKey* k = new CSwordTreeKey(*this);
-//	ASSERT(k);
-//	qWarning(k->key().latin1());
 	return new CSwordTreeKey(*this);
 }
 

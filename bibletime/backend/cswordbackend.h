@@ -29,6 +29,7 @@
 //Sword includes
 #include <swmgr.h>
 #include <swmodule.h>
+#include <swversion.h>
 #include <localemgr.h>
 
 class CHTMLEntryDisplay;
@@ -188,6 +189,8 @@ public:
 	* Returns the translated name of the option given as parameter.
 	*/
   static const QString translatedOptionName(const CSwordBackend :: moduleOptions option);
+  /** Returns the version of the Sword library. */
+  virtual const SWVersion Version();
 	
 
 	CHTMLChapterDisplay* 	m_chapterDisplay;	

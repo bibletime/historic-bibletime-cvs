@@ -142,7 +142,7 @@ protected:
 	int cms_module_current;
 
 private:
-	pthread_mutex_t percentage_mutex;
+//	pthread_mutex_t percentage_mutex;
 //	pthread_mutex_t signal_mutex;
 //	pthread_cond_t	finish_cond;	
 	

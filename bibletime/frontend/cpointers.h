@@ -27,15 +27,18 @@ class CPrinter;
 
 class CPointers {
 protected:
-	friend class BibleTime; //BibleTime may initialize this object
-	CPointers(CSwordBackend* backend, CPrinter* printer);
-	~CPointers();
+	friend class BibleTime; //BibleTime may initialize this object	
+	static void setBackend(CSwordBackend*);
+	static void setPrinter(CPrinter*);
 
 public: // Public methods
-	CPointers(); //default constructor
-  /** Returns a pointer to the printer object. */
+  /**
+  * Returns a pointer to the printer object.
+  */
   CPrinter* printer() const;
-  /** Returns a pointer to the backend ... */
+  /**
+  * Returns a pointer to the backend ...
+  */
   CSwordBackend* backend() const;
 };
 

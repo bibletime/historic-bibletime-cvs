@@ -38,8 +38,9 @@
 #include "frontend/presenters/cbookpresenter.h"
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/cbtconfig.h"
-
 #include "frontend/cpointers.h"
+
+#include "printing/cprinter.h"
 
 //Qt includes
 #include <qsplitter.h>
@@ -57,14 +58,13 @@ BibleTime::BibleTime() : KMainWindow() {
 	m_moduleList  = 0;
 	m_progress = 0;
 	m_currentProfile = 0;
-
+	
 	m_keyAccel = new KAccel(this);
 
 	connect(kapp, SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
 
 	initBackends();
 	initPrinter();
-	CPointers* pointers = new CPointers(m_backend, m_printer);
 	
 	initView();
 	initActions();
@@ -79,6 +79,12 @@ BibleTime::BibleTime() : KMainWindow() {
 
 BibleTime::~BibleTime() {
 	saveSettings();
+	
+	//delet backend and printer object
+//	if (m_printer)
+//		delete m_printer;
+//	if (m_backend)
+//		delete m_backend;
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */

@@ -300,6 +300,7 @@ void BibleTime::initBackends(){
 	KStartupLogo::setStatusMessage(i18n("Initializing Sword")+QString::fromLatin1("..."));
 	
 	m_backend = new CSwordBackend();	
+	CPointers::setBackend(m_backend);
 	m_backend->Load();
 	CSwordBackend::errorCode errorCode = m_backend->initModules();
 
@@ -339,6 +340,7 @@ void BibleTime::initBackends(){
 void BibleTime::initPrinter() {
 	KStartupLogo::setStatusMessage(i18n("Initializing printing system") + QString::fromLatin1("..."));
 	m_printer = new CPrinter(this);
+	CPointers::setPrinter(m_printer);
 }
 
 /** Apply the settings given by the profile p*/

@@ -22,6 +22,7 @@
 #include "cswordbackend.h"
 #include "../frontend/cpointers.h"
 
+
 //Qt includes
 #include <qstring.h>
 #include <qfont.h>
@@ -30,6 +31,7 @@
 
 //Sword includes
 #include <listkey.h>
+#include <swversion.h>
 
 class SWModule;
 class CSwordBackend;
@@ -158,7 +160,7 @@ public:
   * Returns the required Sword version for this module.
 	* Returns -1 if no special Sword version is required.
 	*/
-  const float requiredSwordVersion();
+  const SWVersion requiredSwordVersion();
   /**
   * Returns the name of the module.
   */

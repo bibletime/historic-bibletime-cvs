@@ -74,7 +74,7 @@ void CMDIArea::slotClientActivated(QWidget* client){
 	
 	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
 	if (p)
-		syncCommentaries( p->keyChooser()->getKey() );
+		syncCommentaries( p->keyChooser()->key() );
 }
 
 /** Reimplementation. Used to make use of the fixedGUIOption part. */

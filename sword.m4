@@ -105,11 +105,10 @@ export LIBRARY_PATH
 
 cat > conftest.$ac_ext <<EOF
 #include <stdio.h>
-#include <swmgr.h>
+#include <swversion.h>
 
 int main() {
-	SWMgr mgr(0,0,false);	
-	cout << mgr.Version();	
+	cout << SWVersion::currentVersion << endl;
 	return 0;
 }
 EOF

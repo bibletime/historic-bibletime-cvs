@@ -26,20 +26,21 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( SWModule* module )
 	: CSwordModuleInfo(module),m_depth(-1)
 {
 	//checking if it works as expected
-//	qWarning("CSwordBookModuleInfo: checking if it's valid");
-//	TreeKeyIdx* treeKey = getTree();
-//	if (treeKey) {
-//		TreeKeyIdx root = *treeKey;
-//  	root.root();
-//		printTree(root, treeKey, 0);
-//	}
-//	else
-//		qWarning("treeKey not valid");
-//	qWarning("depth: %i", depth());
+	TreeKeyIdx* treeKey = tree();
+	if (treeKey) {
+		TreeKeyIdx root = *treeKey;
+  	root.root();
+		printTree(root, treeKey, 0);
+	}
+	else
+		qWarning("treeKey not valid");
+	qWarning("depth: %i\n\n", depth());
 }
 
-CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& m ) : CSwordModuleInfo(m){
-	m_depth = m.m_depth;
+CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& module )
+	: CSwordModuleInfo(module)
+{
+	m_depth = module.m_depth;
 }	
 
 CSwordBookModuleInfo::~CSwordBookModuleInfo(){
@@ -47,10 +48,10 @@ CSwordBookModuleInfo::~CSwordBookModuleInfo(){
 }
 
 void CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level ){
-	qWarning("CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level )");
+//	qWarning("CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level )");
 	if (!target)
 		target = &treeKey;
-	ASSERT(target);
+//	ASSERT(target);
 
   unsigned long currentOffset = target->getOffset();
   for (int i = 0; i < level; i++)
@@ -78,7 +79,7 @@ const int CSwordBookModuleInfo::depth() {
 }
 
 void CSwordBookModuleInfo::computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int level ){
-	qWarning("CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level )");
+//	qWarning("CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level )");
 	if (!target)
 		target = &treeKey;
 

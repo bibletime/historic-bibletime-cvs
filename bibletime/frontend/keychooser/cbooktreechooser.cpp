@@ -50,7 +50,7 @@ void CBookTreeChooser::setModule(CSwordModuleInfo* module){
 //	}
 }
 
-CSwordKey*	CBookTreeChooser::getKey() {
+CSwordKey*	CBookTreeChooser::key() {
 
 }
 

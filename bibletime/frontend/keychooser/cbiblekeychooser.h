@@ -50,11 +50,11 @@ public slots:
 	/**
 	* see @ref CKeyChooser::getKey
 	*/
-	CSwordKey*	getKey();
+	CSwordKey* key();
 	/**
 	* see @ref CKeyChooser::setKey
 	*/
-	void setKey(CSwordKey *key);
+	virtual void setKey(CSwordKey *key);
   /**
  	* Reimplementation
  	*/

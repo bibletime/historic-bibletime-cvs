@@ -68,7 +68,7 @@ public slots:
 	*
 	* @return the current @ref CKey
 	*/
-  virtual CSwordKey*	getKey() = 0;	
+  virtual CSwordKey* key() = 0;	
   /**
   * Sets the module of this keychooser and refreshes the comboboxes
   */
@@ -80,7 +80,7 @@ public slots:
 
 protected:
 	/**
-	* the constructor - DO NOT USE! -- use @ref #createInstance
+	* the constructor - DO NOT USE! -- use @ref #createInstance instead!
 	*/
 	CKeyChooser(CSwordModuleInfo *info=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 };

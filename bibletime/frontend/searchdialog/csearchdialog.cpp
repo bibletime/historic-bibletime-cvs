@@ -231,7 +231,9 @@ void CSearchDialog::startSearch(void) {
 	searcher->setSearchOptions(searchFlags);
 	enableButton(User1,false);
 	enableButton(User2,true);
-	
+ 	searchAnalysis->reset();
+ 	searchResult->clearResult();
+ 		
 	searcher->startSearchThread();
 }
 
@@ -266,7 +268,7 @@ void CSearchDialog::searchFinished(){
 //	qWarning("CSearchDialog::searchFinished()");
  	searchText->updateCurrentProgress(100);
  	searchText->updateOverallProgress(100);
- 	searchAnalysis->reset(); 	
+ 	searchAnalysis->reset();
  	if ( searcher->foundItems() ){
  		searchResult->setModuleList(getModuleList());			
  		searchAnalysis->setModuleList(getModuleList());
@@ -277,10 +279,9 @@ void CSearchDialog::searchFinished(){
 						
  		searchAnalysis->analyse();			
  	}
- 	else {
+ 	else
  		searchResult->clearResult();
- 	}
- 	
+
  	enableButton(User2,false);
  	enableButton(User1,true); 	
 }

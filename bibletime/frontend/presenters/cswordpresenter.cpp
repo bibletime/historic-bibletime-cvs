@@ -63,12 +63,7 @@ int CSwordPresenter::getFeatures(){
 
 /** Prints the key given as parameter. */
 void CSwordPresenter::printKey(const QString& startKey, const QString&  stopKey, CSwordModuleInfo* module) {
-	CPrintItem* printItem = new CPrintItem(module, startKey, stopKey);
-//	printItem->setModule(module);
-//	printItem->setStartKey(start);
-//	if (stop &&start != stop)
-//		printItem->setStopKey(stop);
-	printer()->addItemToQueue(printItem);
+	printer()->addItemToQueue( new CPrintItem(module, startKey, stopKey) );
 }
 
 /** Refreshes the supported features. */
@@ -176,7 +171,7 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
 	settings->setType(m_moduleList.first()->type());
 	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
-	CSwordKey* key = keyChooser()->getKey();
+	CSwordKey* key = keyChooser()->key();
 	if (key)
 		settings->setKey( key->key() );
 		

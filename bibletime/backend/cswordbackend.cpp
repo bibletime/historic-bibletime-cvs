@@ -496,3 +496,9 @@ const QString CSwordBackend::booknameLanguage( const QString& language ) {
 	}
 	return QString::fromLatin1(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 }
+
+/** Returns the version of the Sword library. */
+const SWVersion CSwordBackend::Version() {
+	qWarning("Current version: %s", SWVersion::currentVersion);
+	return	SWVersion::currentVersion;
+}

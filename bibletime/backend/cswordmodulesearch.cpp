@@ -85,9 +85,9 @@ void CSwordModuleSearch::setModules( ListCSwordModuleInfo* list ){
 /** Starts the search for the search text. */
 const bool CSwordModuleSearch::startSearch() {
 	backend()->setAllModuleOptions ( CBTConfig::getAllModuleOptionDefaults() );	
-	m_foundItems	= false;
+	m_foundItems			= false;
 	m_terminateSearch = false;
-	m_isSearching = true;		
+	m_isSearching 		= true;		
 		
 //	pthread_mutex_lock(&percentage_mutex);
 	cms_currentProgress = 0;
@@ -99,23 +99,25 @@ const bool CSwordModuleSearch::startSearch() {
 	bool foundItems = false;
 	
 	CSwordModuleInfo* m = 0;
-	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+	for (m_moduleList.first(); m_moduleList.current() && !m_terminateSearch; m_moduleList.next()) {
 		cms_module_current++;
-		m = m_moduleList.first()->clone();
-		if ( m->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) ) {
-			m_moduleList.current()->searchResult( &(m->searchResult()) );
-			foundItems = true;			
-		}
-		delete m;
+		if ( m_moduleList.current()->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) )
+			foundItems = true;
+//		m = m_moduleList.current()->clone();
+//		if ( m->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) ) {
+//			m_moduleList.current()->searchResult( &(m->searchResult()) );
+//			foundItems = true;			
+//		}
+//		delete m;
 	}
-	m_foundItems = foundItems;		
-	m_isSearching = false;
-	m_terminateSearch = false;
-		
 //	pthread_mutex_lock(&percentage_mutex);
 	cms_currentProgress = 100;
 	cms_overallProgress = 100;
 //	pthread_mutex_unlock(&percentage_mutex);
+	
+	m_foundItems = foundItems;		
+	m_isSearching = false;
+	m_terminateSearch = false;
 
 	m_finishedSig.activate();		
 	return true;
