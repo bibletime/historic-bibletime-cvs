@@ -129,11 +129,9 @@ int main(int argc, char* argv[]) {
 	KGlobal::dirs()->addPrefix(getenv("BT_PATH"));
 	
 	QStringList list = KGlobal::dirs()->allTypes();
-	for (int i = 0; i < list.count(); ++i) {
-		KGlobal::dirs()->addResourceType(*list.at(i), QString("%1/share/%2/").arg(getenv("BT_PATH")).arg( *list.at(i) ));
+	for (unsigned int i = 0; i < list.count(); ++i) {
+		KGlobal::dirs()->addResourceType((*list.at(i)).latin1(), QString("%1/share/%2/").arg(getenv("BT_PATH")).arg( *list.at(i) ));
 	}
-//	KGlobal::dirs()->addResourceType("icon", QString("%1/share/icons/").arg(getenv("BT_PATH")));
-//	KGlobal::dirs()->addResourceType("html", QString("%1/share/doc/HTML/").arg(getenv("BT_PATH")));
 #else
  	KApplication app;
 #endif

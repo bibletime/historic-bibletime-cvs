@@ -88,26 +88,25 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 
 /**  */
 const bool CSwordVerseKey::NextVerse(){	
-	if (m_module->getType() == CSwordModuleInfo::Commentary) {
+//	if (m_module->getType() == CSwordModuleInfo::Commentary) {
 		m_module->module()->SetKey(this);	//use this key as base for the next one!
 		( *( m_module->module() ) )++;
 		key(m_module->module()->KeyText());		
-	}
-	else
-		Verse(Verse()+1);
+//	}
+//	else
+//		Verse(Verse()+1);
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::PreviousVerse(){
-	if (m_module->getType() == CSwordModuleInfo::Commentary) {
-		
+//	if (m_module->getType() == CSwordModuleInfo::Commentary) {		
 		m_module->module()->SetKey(this);	//use this key as base for the next one!		
 		( *( m_module->module() ) )--;
 		key(m_module->module()->KeyText());		
-	}
-	else
-		Verse(Verse()-1);
+//	}
+//	else
+//		Verse(Verse()-1);
 	return true;
 }
 
