@@ -144,7 +144,6 @@ protected: // Protected methods
   */
   virtual void initAccels();
 
-	KConfig* m_config;
 	KToolBar* m_mainToolBar;
 	
 	KPopupMenu* m_popup;

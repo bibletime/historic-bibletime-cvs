@@ -38,7 +38,6 @@
 #include <kglobal.h>
 #include <kapp.h>
 #include <kstddirs.h>
-//#include <kconfig.h>
 #include <kinstance.h>
 #include <kaboutdata.h>
 #include <klocale.h>

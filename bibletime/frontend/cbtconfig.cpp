@@ -150,14 +150,24 @@ QColor CBTConfig::getDefault( CBTConfig::colors ID){
 		case jesuswordsColor: 				return QColor(Qt::red);
 	}
 }
-QString CBTConfig::getKey( CBTConfig::lists ID){
+QString CBTConfig::getKey( CBTConfig::intLists ID){
 	switch ( ID ){
 		case splitterSizes: return "splitterSizes";
 	}
 }
-QValueList<int> CBTConfig::getDefault( CBTConfig::lists ID){
+QValueList<int> CBTConfig::getDefault( CBTConfig::intLists ID){
 	switch ( ID ){
 		case splitterSizes: return QValueList<int>();
+	}
+}
+QString CBTConfig::getKey( CBTConfig::stringLists ID){
+	switch ( ID ){
+		case searchTexts: return "searchTexts";
+	}
+}
+QStringList CBTConfig::getDefault( CBTConfig::stringLists ID){
+	switch ( ID ){
+		case searchTexts: return QStringList();
 	}
 }
 QString CBTConfig::get( CBTConfig::strings ID){
@@ -182,10 +192,15 @@ QColor CBTConfig::get( CBTConfig::colors ID){
 	QColor defaultColor = getDefault(ID);
 	return config->readColorEntry(getKey(ID),&defaultColor);
 }
-QValueList<int>	CBTConfig::get( CBTConfig::lists ID ){
+QValueList<int>	CBTConfig::get( CBTConfig::intLists ID ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "lists");
 	return config->readIntListEntry(getKey(ID));
+}
+QStringList	CBTConfig::get( CBTConfig::stringLists ID ){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver groupSaver(config, "lists");
+	return config->readListEntry(getKey(ID));
 }
 void CBTConfig::set( CBTConfig::strings ID, QString value ){
 	KConfig* config = KGlobal::config();
@@ -207,7 +222,12 @@ void CBTConfig::set( CBTConfig::colors ID, QColor value ){
 	KConfigGroupSaver groupSaver(config, "colors");
 	config->writeEntry(getKey(ID), value);
 }
-void CBTConfig::set( CBTConfig::lists ID, QValueList<int> value ){
+void CBTConfig::set( CBTConfig::intLists ID, QValueList<int> value ){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver groupSaver(config, "lists");
+	config->writeEntry(getKey(ID), value);
+}
+void CBTConfig::set( CBTConfig::stringLists ID, QStringList value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "lists");
 	config->writeEntry(getKey(ID), value);
@@ -240,5 +260,3 @@ CSwordBackend::moduleOptionsBool CBTConfig::getAllModuleOptionDefaults( void ){
 
 	return options;
 }
-// KConfigGroupSaver
-

@@ -31,7 +31,6 @@
 #include <kpopupmenu.h>
 #include <kapp.h>
 #include <klocale.h>
-#include <kconfig.h>
 
 //QT includes
 #include <qobjectlist.h>
@@ -43,7 +42,6 @@ CMDIArea::CMDIArea(CImportantClasses* importantClasses, QWidget *parent, const c
 	: QWorkspace(parent, name) {			
 	m_important = importantClasses;
 	m_childEvent = false;
-	config = KGlobal::config();
 	m_currentPresenter = 0;
 	guiOption = Nothing;
 	m_appCaption = QString::null;

@@ -31,7 +31,6 @@
 
 class CHTMLDialog;
 class CBiblePresenter;
-class KConfig;
 class KPopupMenu;
 class KAction;
 class KToggleAction;

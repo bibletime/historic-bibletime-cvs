@@ -17,6 +17,7 @@
 //BibleTime includes
 #include "ckeychooserwidget.h"
 #include "cfx_btn.h"
+#include "../cbtconfig.h"
 
 //Qt includes
 #include <qlineedit.h>
@@ -33,10 +34,6 @@
 #include <qwhatsthis.h>
 //#include <qwheelevent.h>
 #include <qtooltip.h>
-
-//KDE includes
-#include <kglobal.h>
-#include <kconfig.h>
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
   : QComboBox(rw,parent,name){
@@ -189,7 +186,6 @@ void CKeyChooserWidget::unlock(void){
 
 /** Initializes this widget. We need this function because we have more than one constructor. */
 void CKeyChooserWidget::init( ){
-	config = KGlobal::config();
 	oldKey = QString::null;
 	btn_up = btn_down = btn_fx = 0;
 
@@ -235,8 +231,7 @@ void CKeyChooserWidget::init( ){
 	setTabOrder(ComboBox, 0);
 		
 // signals and slots connections
-	KConfigGroupSaver gs(config, "General");
- 	if (config->readBoolEntry("Scroll")) {
+ 	if ( CBTConfig::get(CBTConfig::scroll) ) {
 		if (m_useNextPrevSignals) {
 			connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );	
 			connect(btn_down, SIGNAL(clicked()), SIGNAL(next_requested()) );
@@ -345,8 +340,7 @@ void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextE
 	QToolTip::add(ComboBox,comboTip);
 	QToolTip::add(btn_fx,  scrollButtonTip);
 
-	KConfigGroupSaver gs(config, "General");
- 	if (config->readBoolEntry("Scroll")) {
+ 	if ( CBTConfig::get(CBTConfig::scroll) ){
 		QToolTip::add(btn_down, nextEntryTip);
 		QToolTip::add(btn_up,	previousEntryTip);
 	}
@@ -354,7 +348,6 @@ void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextE
 		QToolTip::add(btn_up,   nextEntryTip);
 		QToolTip::add(btn_down, previousEntryTip);
 	}
-	config->setGroup("");
 }
 
 /** No descriptions */
@@ -362,8 +355,7 @@ void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextE
 	QWhatsThis::add(ComboBox,comboTip);
 	QWhatsThis::add(btn_fx,  scrollButtonTip);
 
-	KConfigGroupSaver gs(config, "General");
- 	if (config->readBoolEntry("Scroll")) {
+ 	if ( CBTConfig::get(CBTConfig::scroll) ) {
 		QWhatsThis::add(btn_down, nextEntryTip);
 		QWhatsThis::add(btn_up,   previousEntryTip);
 	}
@@ -371,7 +363,6 @@ void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextE
 		QWhatsThis::add(btn_up,   nextEntryTip);
 		QWhatsThis::add(btn_down, previousEntryTip);
 	}
-	config->setGroup("");
 }
 
 /** Sets the current item to the one with the given text */

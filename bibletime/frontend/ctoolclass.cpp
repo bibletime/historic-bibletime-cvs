@@ -29,7 +29,6 @@
 //KDE includes
 #include <klocale.h>
 #include <kglobal.h>
-#include <kconfig.h>
 #include <kstddirs.h>
 #include <kmessagebox.h>
 #include <kurl.h>

@@ -48,7 +48,6 @@
 #include <klocale.h>
 #include <kstddirs.h>
 #include <kiconloader.h>
-#include <kconfig.h>
 #include <kapp.h>
 #include <kpopupmenu.h>
 #include <kglobalsettings.h>

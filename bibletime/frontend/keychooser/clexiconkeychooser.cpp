@@ -21,6 +21,7 @@
 #include "../../tooltipdef.h"
 #include "../../whatsthisdef.h"
 #include "../../backend/cswordlexiconmoduleinfo.h"
+#include "../cbtconfig.h"
 
 //Qt includes
 #include <qcombobox.h>
@@ -29,7 +30,6 @@
 
 //KDE includes
 #include <klocale.h>
-#include <kglobal.h>
 
 CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name), m_key(0){
@@ -44,9 +44,8 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 	
   if (info && info->encoding() == QFont::Unicode){
 #warning implement reaction to font change in the optionsdialog here
-    KConfig* config = KGlobal::config();
-    KConfigGroupSaver groupSaver(config,"Fonts");
-    /*m_widget->ComboBox->*/setFont( config->readFontEntry( i18n("Display window Unicode") ) );
+
+    /*m_widget->ComboBox->*/setFont( CBTConfig::get(CBTConfig::unicode) );
   }
 
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,TT_PRESENTER_NEXT_ENTRY, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_ENTRY);

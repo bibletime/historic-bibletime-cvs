@@ -23,6 +23,7 @@
 #include "../../whatsthisdef.h"
 #include "../../tooltipdef.h"
 #include "../../backend/cswordmodulesearch.h"
+#include "../cbtconfig.h"
 
 //QT includes
 #include <qpixmap.h>
@@ -40,8 +41,6 @@
 #include <qwhatsthis.h>
 
 //KDE includes
-#include <kconfigbase.h>
-#include <kconfig.h>
 #include <kiconloader.h>
 #include <kprogress.h>
 #include <klocale.h>
@@ -192,22 +191,17 @@ void CSearchDialogText::reset(){
 
 /** Reads settings to restore the last used state. */
 void CSearchDialogText::readSettings(){
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver gs(config, "searchdialog");	
-	QStringList items = config->readListEntry("searched text");	
+	QStringList items = CBTConfig::get(CBTConfig::searchTexts);	
 	editSearchText->clear();
 	editSearchText->insertItem("");	
 	editSearchText->insertStringList(items);
 }
 
 void CSearchDialogText::saveSettings(){
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver gs(config, "searchdialog");	
-	
 	QStringList items;
 	for (int i = 0; i < editSearchText->count(); ++i) {
 		if (!editSearchText->text(i).isEmpty())
 			items.append(editSearchText->text(i));
 	}		
-	config->writeEntry("searched text", items);
+	CBTConfig::set(CBTConfig::searchTexts, items);
 }

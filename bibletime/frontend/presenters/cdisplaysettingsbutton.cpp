@@ -37,15 +37,15 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::displayOptionsBool
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
 
 	if (!populateMenu())
-		hide();
+		setEnabled(false);
 }
 
 void CDisplaySettingsButton::reset(ListCSwordModuleInfo useModules){
 	m_modules = useModules;
 	if (!populateMenu())
-		hide();
+		setEnabled(false);
 	else
-		show();
+		setEnabled(true);
 }
 
 

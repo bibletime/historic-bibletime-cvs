@@ -43,7 +43,6 @@
 //KDE includes
 #include <kaction.h>
 #include <klocale.h>
-#include <kconfig.h>
 #include <kaccel.h>
 #include <kmenubar.h>
 #include <ktoolbar.h>

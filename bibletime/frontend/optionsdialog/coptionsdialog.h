@@ -76,8 +76,6 @@ private:
   void initDisplayWindow();
   void saveDisplayWindow();
 
-
-//  KConfig* m_config;
   CImportantClasses* m_important;
 
 	struct GeneralSettings {

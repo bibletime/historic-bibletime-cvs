@@ -83,22 +83,28 @@ public:
 		logo,
 		restoreWorkspace
 	};
-	enum lists{
+	enum intLists{
 		splitterSizes
+	};
+	enum stringLists{
+		searchTexts
 	};
 
   static QString 		get( CBTConfig::strings );
   static QFont 			get( CBTConfig::fonts );
   static bool 			get( CBTConfig::bools );
   static QColor 		get( CBTConfig::colors );
-  static QValueList<int>	get( CBTConfig::lists );
+  static QValueList<int>	get( CBTConfig::intLists );
+  static QStringList			get( CBTConfig::stringLists );
 	
 
 	static void set( CBTConfig::strings, 	QString value );
 	static void set( CBTConfig::fonts, 		QFont value );
 	static void set( CBTConfig::bools, 		bool value );
 	static void set( CBTConfig::colors, 	QColor value );
-	static void set( CBTConfig::lists, 		QValueList<int> value );
+	static void set( CBTConfig::intLists,	QValueList<int> value );
+  static void set( CBTConfig::stringLists, QStringList value);
+
 
   static CSwordBackend::moduleOptionsBool getAllModuleOptionDefaults( void );
   static CSwordBackend::displayOptionsBool getAllDisplayOptionDefaults( void );
@@ -108,13 +114,15 @@ private:
 	static QString getKey( CBTConfig::fonts );
 	static QString getKey( CBTConfig::bools );
 	static QString getKey( CBTConfig::colors );
-	static QString getKey( CBTConfig::lists );
+	static QString getKey( CBTConfig::intLists );
+	static QString getKey( CBTConfig::stringLists );
 
 	static QString 				 getDefault( CBTConfig::strings );
 	static QFont	 				 getDefault( CBTConfig::fonts );
 	static bool		 				 getDefault( CBTConfig::bools );
 	static QColor	 				 getDefault( CBTConfig::colors );
-	static QValueList<int> getDefault( CBTConfig::lists );
+	static QValueList<int> getDefault( CBTConfig::intLists );
+	static QStringList		 getDefault( CBTConfig::stringLists );
 };
 
 

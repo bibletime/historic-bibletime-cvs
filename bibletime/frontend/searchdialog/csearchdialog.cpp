@@ -28,13 +28,13 @@
 #include "../../backend/cswordversekey.h"
 #include "../../backend/cswordmoduleinfo.h"
 #include "../ctoolclass.h"
+#include "../cbtconfig.h"
 
 //KDE includes
 #include <kapp.h>
 #include <klocale.h>
 #include <kkeydialog.h>
 #include <kfontdialog.h>
-#include <kconfig.h>
 #include <kapp.h>
 
 //QT includes
@@ -103,7 +103,6 @@ void CSearchDialog::initView() {
 	searchAnalysis_page->setEnabled(false);
 
 	m_searchAnalysisSaveButton = new QPushButton("Save Analysis to Disk", searchAnalysis_page);
-//	m_searchAnalysisSaveButton->show();
 
 	connect(m_searchAnalysisSaveButton, SIGNAL(clicked()), this, SLOT(slotSaveSearchAnalysis()));
 	
@@ -273,11 +272,8 @@ void CSearchDialog::chosenModulesChanged(){
 void CSearchDialog::show(){
 	KDialogBase::show();
 
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver gs(config, "searchdialog");	
-	if (config->readBoolEntry("first time", true)) {
+	if ( CBTConfig::get(CBTConfig::firstSearchDialog) ){
 		HTML_DIALOG(HELPDIALOG_FIRSTTIME_SEARCH)
-		config->writeEntry("first time", false);
-		config->sync();
+		CBTConfig::set(CBTConfig::firstSearchDialog, false);
 	}			
 }

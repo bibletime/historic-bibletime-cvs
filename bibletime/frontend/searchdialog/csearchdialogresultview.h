@@ -29,7 +29,6 @@
 #include <qlistview.h>
 
 class KPopupMenu;
-class KConfig;
 class CSearchDialogResultItem;
 class CSearchDialog;
 class KAction;

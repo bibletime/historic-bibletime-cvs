@@ -27,7 +27,6 @@
 #include <qevent.h>
 
 class KPopupMenu;
-class KConfig;
 class CImportantClasses;
 class CSwordModuleInfo;
 class CSwordPresenter;
@@ -129,7 +128,6 @@ signals: // Signals
 
 private:
 	mdiOption guiOption;
-	KConfig* config;
 	CImportantClasses*	m_important;
 	bool m_childEvent;
 	CSwordPresenter* m_currentPresenter;

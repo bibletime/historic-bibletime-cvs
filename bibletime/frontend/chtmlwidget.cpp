@@ -52,7 +52,6 @@
 #include <kstdaction.h>
 #include <klocale.h>
 #include <kurl.h>
-#include <kconfig.h>
 #include <kfiledialog.h>
 #include <kcmenumngr.h>
 #include <kglobal.h>

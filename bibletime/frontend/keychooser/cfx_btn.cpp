@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "cfx_btn.h"
+#include "../cbtconfig.h"
 
 #include <stdlib.h>
 #include <math.h>
@@ -24,10 +25,6 @@
 #include <qevent.h>
 #include <qapplication.h>
 #include <qcursor.h>
-
-//KDE includes
-#include <kconfig.h>
-#include <kglobal.h>
 
 cfx_btn::cfx_btn(QWidget *parent, const char *name ) : QToolButton(parent,name) {
 	setFocusPolicy(QWidget::WheelFocus);
@@ -58,9 +55,7 @@ QPoint cfx_btn::get_lock_Point(void){
 }
 
 void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver gs(config, "General");
- 	const short signed int scrollDirection = config->readBoolEntry("Scroll") ? -1 : 1;
+ 	const short signed int scrollDirection = CBTConfig::get(CBTConfig::scroll) ? -1 : 1;
 	
 	if (isLocked) {
 		int vchange = (QCursor::pos().y() - lock_Point.y()) * scrollDirection;
@@ -88,9 +83,7 @@ void cfx_btn::wheelEvent( QWheelEvent* e ){
 	/**
 	* The problem is, that wheel events do everytime have the delta value 120
 	*/
-	KConfig* config = KGlobal::config();	
-	KConfigGroupSaver gs(config, "General"); 	
- 	const short signed int scrollDirection = config->readBoolEntry("Scroll") ? -1 : 1;	
+ 	const short signed int scrollDirection = CBTConfig::get(CBTConfig::scroll) ? -1 : 1;	
  	
 	const int vchange = scrollDirection * ((e->delta() > 0) ? (1) : (-1));
 	if (vchange!=0) {//do not emit a change with value 0	

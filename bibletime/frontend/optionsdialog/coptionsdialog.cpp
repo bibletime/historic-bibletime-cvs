@@ -53,7 +53,6 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kstddirs.h>
-//#include <kconfig.h>
 #include <kkeydialog.h>
 #include <kiconloader.h>
 #include <kapp.h>
