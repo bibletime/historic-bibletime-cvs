@@ -130,6 +130,8 @@ int main(int argc, char* argv[]) {
 	// active developers (sorted by name)                                                                                     	
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "jansorg@gmx.de",					"");
 	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), 	"mg.pub@gmx.net", 				"");
+	 aboutData.addAuthor("Nikolay Igotti",    I18N_NOOP("Frontend"),
+			         "olonho@hotmail.com",                               "");
 //	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), 				"mlybarge@insight.rr.com","");
 //	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
 //	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
