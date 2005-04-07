@@ -57,6 +57,7 @@ class COptionsDialog : public KDialogBase, public CPointers  {
 
 public:
 	COptionsDialog(QWidget *parent, const char *name, KActionCollection* actionCollection);
+	virtual ~COptionsDialog();
 
   enum Parts {
 		Startup,

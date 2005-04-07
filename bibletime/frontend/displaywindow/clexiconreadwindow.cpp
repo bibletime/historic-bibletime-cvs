@@ -43,19 +43,10 @@
 
 CLexiconReadWindow::CLexiconReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name) : CReadWindow(moduleList, parent,name) {
 	setKey( CSwordKey::createInstance(moduleList.first()) );
-// 	key()->key("");
 }
 
 CLexiconReadWindow::~CLexiconReadWindow(){
 }
-
-// void CLexiconReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
-// 	CReadWindow::applyProfileSettings(profileWindow);
-// };
-// 
-// void CLexiconReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
-// 	CReadWindow::storeProfileSettings(profileWindow);
-// };
 
 void CLexiconReadWindow::insertKeyboardActions( KActionCollection* const a ){
 	new KAction(
@@ -77,6 +68,8 @@ void CLexiconReadWindow::insertKeyboardActions( KActionCollection* const a ){
 }
 
 void CLexiconReadWindow::initKeyboardActions() {
+	CReadWindow::initKeyboardActions();
+
 	new KAction(
 		i18n("Next entry"), CResMgr::displaywindows::lexiconWindow::nextEntry::accel,
 		this, SLOT( nextEntry() ),
@@ -96,14 +89,14 @@ void CLexiconReadWindow::initKeyboardActions() {
 
 	m_actions.save.entryAsPlain = new KAction(i18n("Entry as plain text"), KShortcut(0), this, SLOT(saveAsPlain()),actionCollection(), "saveEntryAsPlain");
 
- 	m_actions.save.entryAsHTML = new KAction(i18n("Entry as HTML"), KShortcut(0), this, SLOT(saveAsHTML()),actionCollection(), "saveEntryAsHTML");
+ 	m_actions.save.entryAsHTML = new KAction(i18n("Entry as HTML"), KShortcut(0), this, SLOT(saveAsHTML()), actionCollection(), "saveEntryAsHTML");
 
  	m_actions.print.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection(), "printReferenceOnly");
 
   m_actions.print.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()), actionCollection(), "printEntryWithText");
 
 	// init with the user defined settings
-	CBTConfig::setupAccelSettings(CBTConfig::bibleWindow, actionCollection());
+	CBTConfig::setupAccelSettings(CBTConfig::lexiconWindow, actionCollection());
 };
 
 /** No descriptions */

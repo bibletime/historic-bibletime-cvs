@@ -29,18 +29,19 @@
 #include "frontend/displaywindow/cmodulechooserbar.h"
 #include "frontend/keychooser/ckeychooser.h"
 
+#include "util/cresmgr.h"
 
 //KDE includes
 #include <kpopupmenu.h>
+#include <kaction.h>
 #include <kaccel.h>
 #include <kstdaccel.h>
 #include <klocale.h>
 
 CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
 	: CDisplayWindow(modules,parent,name),
-		m_displayWidget(0) 
+		m_displayWidget(0)
 {
-
 }
 
 CReadWindow::~CReadWindow() {
@@ -164,9 +165,38 @@ void CReadWindow::insertKeyboardActions( KActionCollection* const a ){
 		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
 		a, "nextBook"
 	);*/
+
+	new KAction(
+		i18n("Zoom in"), KStdAccel::zoomIn(), a, "zoomIn"
+	);
+	new KAction(
+		i18n("Zoom out"), KStdAccel::zoomOut(), a, "zoomOut"
+	);
+/*	new KAction(
+		i18n("Copy"), KStdAccel::copy(), a, "copyText"
+	);*/
 }
 
 void CReadWindow::initKeyboardActions() {
+  new KAction(i18n("Search"),
+    CResMgr::displaywindows::general::search::icon,
+    CResMgr::displaywindows::general::search::accel,
+    this, SLOT(slotSearchInModules()),
+    actionCollection(), CResMgr::displaywindows::general::search::actionName
+  );
+
+ 	new KAction(
+		i18n("Zoom in"), KStdAccel::zoomIn(),
+		displayWidget()->connectionsProxy(), SLOT(zoomIn()),
+		actionCollection(), "zoomIn"
+	);
+	new KAction(
+		i18n("Zoom out"), KStdAccel::zoomOut(),
+		displayWidget()->connectionsProxy(), SLOT(zoomOut()),
+		actionCollection(), "zoomOut"
+	);
+
+	CBTConfig::setupAccelSettings(CBTConfig::readWindow, actionCollection());
 /*	CBTConfig::setupAccel( CBTConfig::readWindow, accel() );
 	CReadWindow::insertKeyboardActions( accel() );
 

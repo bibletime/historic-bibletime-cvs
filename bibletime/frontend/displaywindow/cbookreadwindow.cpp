@@ -59,10 +59,24 @@ void CBookReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
 };
 
 void CBookReadWindow::initKeyboardActions() {
-  CReadWindow::initKeyboardActions();
+  CLexiconReadWindow::initKeyboardActions();
+  
+  m_treeAction = new KToggleAction(
+  	i18n("Toggle tree view"),
+  	CResMgr::displaywindows::bookWindow::toggleTree::icon,
+  	CResMgr::displaywindows::bookWindow::toggleTree::accel,
+  	this, SLOT(treeToggled()),
+  	actionCollection(), "toggleTree");
 };
 
 void CBookReadWindow::insertKeyboardActions( KActionCollection* const a ) {
+	CLexiconReadWindow::insertKeyboardActions(a);
+
+  new KToggleAction(
+  	i18n("Toggle tree view"),
+  	CResMgr::displaywindows::bookWindow::toggleTree::icon,
+  	CResMgr::displaywindows::bookWindow::toggleTree::accel,
+  	a, "toggleTree");
 }
 
 /** No descriptions */
@@ -96,7 +110,7 @@ void CBookReadWindow::initView(){
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
   
-  m_treeAction = new KToggleAction(i18n("Toggle tree..."), CResMgr::displaywindows::bookWindow::toggleTree::icon, CResMgr::displaywindows::bookWindow::toggleTree::accel, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");
+/*  m_treeAction = new KToggleAction(i18n("Toggle tree..."), CResMgr::displaywindows::bookWindow::toggleTree::icon, CResMgr::displaywindows::bookWindow::toggleTree::accel, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");*/
 	m_treeAction->plug(mainToolBar());
 
 	m_treeChooser = new CBookTreeChooser(modules(), key(), splitter);
@@ -109,14 +123,20 @@ void CBookReadWindow::initView(){
   setCentralWidget( splitter );
 	setIcon(CToolClass::getIconForModule(modules().first()));
 	
-  KAction* action = new KAction(i18n("Search"),
+/*  KAction* action = new KAction(i18n("Search"),
     CResMgr::displaywindows::general::search::icon,
     CResMgr::displaywindows::general::search::accel,
     this, SLOT(slotSearchInModules()), actionCollection(),
     CResMgr::displaywindows::general::search::actionName
-  );
-  action->setToolTip( CResMgr::displaywindows::general::search::tooltip );
-	action->plug(mainToolBar());
+  );*/
+//   action->setToolTip( CResMgr::displaywindows::general::search::tooltip );
+// 	m_searchModulesAction->plug(mainToolBar());
+	KAction* a = actionCollection()->action(
+		CResMgr::displaywindows::general::search::actionName
+	);
+	if (a)
+		a->plug(mainToolBar());
+	
 #if KDE_VERSION_MINOR < 1
 	action->plugAccel( accel() );
 #endif
