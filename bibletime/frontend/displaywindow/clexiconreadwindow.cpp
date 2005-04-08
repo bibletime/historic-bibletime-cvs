@@ -67,8 +67,8 @@ void CLexiconReadWindow::insertKeyboardActions( KActionCollection* const a ){
   new KAction(i18n("Print entry with text"), KShortcut(0), a, "printEntryWithText");
 }
 
-void CLexiconReadWindow::initKeyboardActions() {
-	CReadWindow::initKeyboardActions();
+void CLexiconReadWindow::initActions() {
+	CReadWindow::initActions();
 
 	new KAction(
 		i18n("Next entry"), CResMgr::displaywindows::lexiconWindow::nextEntry::accel,
@@ -120,23 +120,24 @@ void CLexiconReadWindow::initView(){
 	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
 
-  KAction* action = new KAction(i18n("Search"),
-    CResMgr::displaywindows::general::search::icon,
-    CResMgr::displaywindows::general::search::accel,
-    this, SLOT(slotSearchInModules()), actionCollection(),
-    CResMgr::displaywindows::general::search::actionName
-  );
-  action->setToolTip( CResMgr::displaywindows::general::search::tooltip );
-#if KDE_VERSION_MINOR < 1
-	action->plugAccel( accel() );
-#endif
+  setIcon(CToolClass::getIconForModule(modules().first()));
+}
 
-	action->plug(mainToolBar());
+void CLexiconReadWindow::initToolbars(){
+	KAction* action = actionCollection()->action(
+		CResMgr::displaywindows::general::search::actionName
+	);
+	Q_ASSERT( action );
+	if (action) {
+		action->plug(mainToolBar());
+	}
+ #if KDE_VERSION_MINOR < 1
+ 	action->plugAccel( accel() );
+ #endif
 	
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
-	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
+	mainToolBar()->insertWidget(2, displaySettingsButton()->size().width(),displaySettingsButton());
 
-  setIcon(CToolClass::getIconForModule(modules().first()));
 }
 
 void CLexiconReadWindow::setupPopupMenu(){

@@ -56,7 +56,8 @@ public:
 	static void insertKeyboardActions( KActionCollection* const a );
 
 protected:
-	virtual void initKeyboardActions();
+	virtual void initActions();
+	virtual void initToolbars();
   virtual void initConnections();
   virtual void initView();
   /**

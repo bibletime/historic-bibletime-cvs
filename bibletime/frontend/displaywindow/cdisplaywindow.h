@@ -142,6 +142,7 @@ public:
   * Returns the main toolbar.
   */
   KToolBar* const mainToolBar() const;
+  virtual void initToolbars() = 0;
   /**
   * Returns the display settings button
   */
@@ -191,7 +192,7 @@ protected:
   /**
   * Initializes the intern keyboard actions.
   */
-  virtual void initKeyboardActions() = 0;
+  virtual void initActions() = 0;
   /**
    Is called when this window gets the focus or looses the focus.
   */

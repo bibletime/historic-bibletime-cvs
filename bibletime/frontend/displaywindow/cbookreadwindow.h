@@ -48,7 +48,8 @@ public:
   virtual void applyProfileSettings( CProfileWindow* profileWindow );
 
 protected:
-	virtual void initKeyboardActions();
+	virtual void initActions();
+	virtual void initToolbars();
   virtual void initConnections();
   virtual void initView();
 

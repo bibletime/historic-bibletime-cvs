@@ -129,8 +129,8 @@ void CBibleReadWindow::insertKeyboardActions( KActionCollection* const a ){
   new KAction(i18n("Print chapter"), KStdAccel::print(), a, "printChapter");
 }
 
-void CBibleReadWindow::initKeyboardActions() {
-	CReadWindow::initKeyboardActions(); //make sure the predefined actions are available
+void CBibleReadWindow::initActions() {
+	CLexiconReadWindow::initActions(); //make sure the predefined actions are available
 	
 	new KAction(
 		i18n("Next book"),
@@ -203,10 +203,14 @@ void CBibleReadWindow::initConnections(){
   }*/
 }
 
+void CBibleReadWindow::initToolbars(){
+	CLexiconReadWindow::initToolbars();
+}
+
 void CBibleReadWindow::initView(){
  	CLexiconReadWindow::initView();
 
-  parentWidget()->installEventFilter( this );  
+  parentWidget()->installEventFilter( this );
 }
 
 /** Reimplementation. */

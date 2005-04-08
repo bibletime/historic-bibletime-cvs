@@ -58,6 +58,7 @@ protected: // Protected methods
   */
   virtual void initView();
   virtual void initConnections();
+  virtual void initToolbars();
   virtual const CDisplayWindow::WriteWindowType writeWindowType() {
     return CDisplayWindow::PlainTextWindow;
   };
@@ -65,13 +66,11 @@ protected: // Protected methods
 	/**
   * Initializes the intern keyboard actions.
   */
-  virtual void initKeyboardActions();
+  virtual void initActions();
   /**
   * Insert the keyboard accelerators of this window into the given KAccel object.
   */
-//   static void insertKeyboardActions( KAccel* const accel );
 	static void insertKeyboardActions( KActionCollection* const a );
-//  virtual void setupPopupMenu();
 
 private:
   struct {

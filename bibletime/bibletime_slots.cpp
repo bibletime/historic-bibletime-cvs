@@ -174,14 +174,18 @@ void BibleTime::slotWindowMenuAboutToShow(){
 
 	QPtrList<KAction>::iterator end = m_windowOpenWindowsList.end();
 	for (QPtrList<KAction>::iterator it = m_windowOpenWindowsList.begin(); it != end; ++it ) {
-		(*it)->unplug(m_windowMenu);
+		(*it)->unplugAll();
 	}
 	m_windowOpenWindowsList.setAutoDelete(true);
 	m_windowOpenWindowsList.clear();
 
+	if (!m_windowActionCollection) {
+		m_windowActionCollection = new KActionCollection(this);
+	}
+	
 	QWidgetList windows = m_mdi->windowList();
 	for ( int i = 0; i < int(windows.count()); ++i ) {
-		KUserDataAction* action = new KUserDataAction(windows.at(i)->caption(), KShortcut(), this, SLOT(slotWindowMenuActivated()), actionCollection());
+		KUserDataAction* action = new KUserDataAction(windows.at(i)->caption(), KShortcut(), this, SLOT(slotWindowMenuActivated()), m_windowActionCollection);
 		action->setUserData(windows.at(i));
 
 		m_windowOpenWindowsList.append(action);

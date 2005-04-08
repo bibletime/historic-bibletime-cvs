@@ -67,7 +67,7 @@ protected: // Protected methods
   /**
   * Setup the entries of the popup menu.
   */
-	virtual void initKeyboardActions();
+	virtual void initActions();
 
 protected slots:
   virtual void lookup( CSwordKey* );

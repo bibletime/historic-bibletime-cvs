@@ -58,8 +58,8 @@ void CBookReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
 	profileWindow->setWindowSettings( static_cast<int>( m_treeAction->isChecked() ) );
 };
 
-void CBookReadWindow::initKeyboardActions() {
-  CLexiconReadWindow::initKeyboardActions();
+void CBookReadWindow::initActions() {
+  CLexiconReadWindow::initActions();
   
   m_treeAction = new KToggleAction(
   	i18n("Toggle tree view"),
@@ -82,8 +82,6 @@ void CBookReadWindow::insertKeyboardActions( KActionCollection* const a ) {
 /** No descriptions */
 void CBookReadWindow::initConnections(){
 	CLexiconReadWindow::initConnections();
-//  	disconnect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
-//  		this, SLOT(lookup(CSwordKey*)));
 
  	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
@@ -99,43 +97,43 @@ void CBookReadWindow::initView(){
   setMainToolBar( new KToolBar(this) );
 	addDockWindow(mainToolBar());
 
-  setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
-	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
- 	mainToolBar()->setFullSize(false);
-  
-  setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
-	moduleChooserBar()->setButtonLimit(1);
-	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
-
-  setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
-	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
-  
-/*  m_treeAction = new KToggleAction(i18n("Toggle tree..."), CResMgr::displaywindows::bookWindow::toggleTree::icon, CResMgr::displaywindows::bookWindow::toggleTree::accel, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");*/
-	m_treeAction->plug(mainToolBar());
-
 	m_treeChooser = new CBookTreeChooser(modules(), key(), splitter);
   setDisplayWidget( CDisplay::createReadInstance(this, splitter) ); 	 	
 
-  m_treeAction->setChecked(false);
+  setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
+	
+	Q_ASSERT( mainToolBar() );
+  setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
+	moduleChooserBar()->setButtonLimit(1);
+
+  setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
+  
+  
 	m_treeChooser->hide();
   	
   splitter->setResizeMode(m_treeChooser, QSplitter::FollowSizeHint);
   setCentralWidget( splitter );
 	setIcon(CToolClass::getIconForModule(modules().first()));
+}
+
+void CBookReadWindow::initToolbars(){
+	Q_ASSERT(m_treeAction);
 	
-/*  KAction* action = new KAction(i18n("Search"),
-    CResMgr::displaywindows::general::search::icon,
-    CResMgr::displaywindows::general::search::accel,
-    this, SLOT(slotSearchInModules()), actionCollection(),
-    CResMgr::displaywindows::general::search::actionName
-  );*/
-//   action->setToolTip( CResMgr::displaywindows::general::search::tooltip );
-// 	m_searchModulesAction->plug(mainToolBar());
-	KAction* a = actionCollection()->action(
+	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
+	m_treeAction->plug(mainToolBar());
+  m_treeAction->setChecked(false);
+	
+	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
+	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
+
+ 	mainToolBar()->setFullSize(false);
+	
+	KAction* action = actionCollection()->action(
 		CResMgr::displaywindows::general::search::actionName
 	);
-	if (a)
-		a->plug(mainToolBar());
+	if (action) {
+		action->plug(mainToolBar());
+	}
 	
 #if KDE_VERSION_MINOR < 1
 	action->plugAccel( accel() );
@@ -157,51 +155,3 @@ void CBookReadWindow::modulesChanged(){
 	CLexiconReadWindow::modulesChanged();
 	m_treeChooser->setModules(modules());
 }
-
-
-//void CBookReadWindow::setupPopupMenu(){
-//	popup()->insertTitle(CToolClass::getIconForModule(modules().first()), i18n("Lexicon window"));
-//
-// 	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
-//  m_actions.selectAll->plug(popup());
-//
-//  (new KActionSeparator())->plug( popup() );
-//
-// 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), ICON_EDIT_COPY);
-//
-//  m_actions.copy.reference = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
-// 	m_actions.copyMenu->insert(m_actions.copy.reference);
-//
-//  m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), this, SLOT(copyDisplayedText()), actionCollection());
-// 	m_actions.copyMenu->insert(m_actions.copy.entry);
-//  m_actions.copyMenu->insert(new KActionSeparator());
-//	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection());
-// 	m_actions.copyMenu->insert(m_actions.copy.selectedText);
-// 	m_actions.copyMenu->plug(popup());
-//
-// 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),ICON_FILE_SAVE);
-//	m_actions.save.entryAsPlain = new KAction(i18n("Entry as plain text"), KShortcut(0), this, SLOT(saveAsPlain()),actionCollection());
-// 	m_actions.saveMenu->insert(m_actions.save.entryAsPlain);
-// 	m_actions.save.entryAsHTML = new KAction(i18n("Entry as HTML"), KShortcut(0), this, SLOT(saveAsHTML()),actionCollection());
-// 	m_actions.saveMenu->insert(m_actions.save.entryAsHTML);
-// 	m_actions.saveMenu->plug(popup());
-//
-// 	m_actions.printMenu = new KActionMenu(i18n("Print..."),ICON_FILE_PRINT);
-// 	m_actions.print.reference = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection());
-// 	m_actions.printMenu->insert(m_actions.print.reference);
-//  m_actions.print.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()), actionCollection());
-// 	m_actions.printMenu->insert(m_actions.print.entry);
-// 	m_actions.printMenu->plug(popup());
-//}
-//
-
-///** Saves the displayed page as plain text. */
-//void CBookReadWindow::saveAsPlain(){
-//
-//}
-//
-
-///** Saves the current text as as HTML page. */
-//void CBookReadWindow::saveAsHTML(){
-//
-//}

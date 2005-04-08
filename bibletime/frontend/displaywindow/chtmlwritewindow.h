@@ -52,6 +52,7 @@ protected: // Protected methods
   */
   virtual void initView();
   virtual void initConnections();
+  virtual void initToolbars();
   virtual const CDisplayWindow::WriteWindowType writeWindowType() {
     return CDisplayWindow::HTMLWindow;
   };

@@ -54,7 +54,7 @@ public:
   */
   CWriteDisplay* const displayWidget();
   virtual void initConnections();
-  virtual void initKeyboardActions();
+  virtual void initActions();
 
 public slots:
   /**

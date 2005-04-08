@@ -44,6 +44,7 @@ class KAccel;
 class KPopupMenu;
 class KAction;
 class KActionMenu;
+class KActionCollection;
 
 //QT classes
 class QPopupMenu;
@@ -342,6 +343,8 @@ private:
 	KToggleAction*	m_windowAutoTileHorizontal_action;
 	KAction*	m_windowCloseAll_action;
 
+	KActionCollection* m_windowActionCollection;
+	
 	KActionMenu*	m_windowSaveProfile_action;
  	KAction*	m_windowSaveToNewProfile_action;
 	KActionMenu*	m_windowLoadProfile_action;

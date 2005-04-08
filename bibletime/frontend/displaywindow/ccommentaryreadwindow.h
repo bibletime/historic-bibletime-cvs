@@ -2,8 +2,8 @@
                           ccommentaryreadwindow.h  -  description
                              -------------------
     begin                : Don Mai 9 2002
-    copyright            : (C) 2002 by The BibleTime team
-    email                : info@bibletime.de
+    copyright            : (C) 2002-2005 by The BibleTime team
+    email                : info@bibletime.info
  ***************************************************************************/
 
 /***************************************************************************
@@ -34,7 +34,6 @@ public:
   /**
   * Reimplementation.
   */
-//   static void insertKeyboardActions( KAccel* const a );
 	static void insertKeyboardActions( KActionCollection* const a );
 
   CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
@@ -61,8 +60,8 @@ public slots: // Public slots
   virtual void reload();
 
 protected:
-	virtual void initKeyboardActions();
-  virtual void initView();
+	virtual void initActions();
+  virtual void initToolbars();
 
 private:
   KToggleAction* m_syncButton;

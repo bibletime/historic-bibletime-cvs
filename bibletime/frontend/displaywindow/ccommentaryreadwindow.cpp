@@ -2,8 +2,8 @@
                           ccommentaryreadwindow.cpp  -  description
                              -------------------
     begin                : Don Mai 9 2002
-    copyright            : (C) 2002 by The BibleTime team
-    email                : info@bibletime.de
+    copyright            : (C) 2002-2005 by The BibleTime team
+    email                : info@bibletime.info
  ***************************************************************************/
 
 /***************************************************************************
@@ -39,18 +39,30 @@ CCommentaryReadWindow::CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIA
 }
 
 void CCommentaryReadWindow::insertKeyboardActions( KActionCollection* const a ){
-// 	new KAction(
-// 		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
-// 		a, "nextBook"
-// 	);
-
-//   a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel, 0, "");
-// 	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel, 0, "");
-// 	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel, 0, "");
-// 	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
-// 	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel, 0, "");
-// 	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel, 0, "");
-
+	new KAction(
+		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
+		a, "nextBook"
+	);
+	new KAction(
+		i18n("Previous book"), CResMgr::displaywindows::bibleWindow::previousBook::accel,
+		a, "previousBook"
+	);
+	new KAction(
+		i18n("Next chapter"), CResMgr::displaywindows::bibleWindow::nextChapter::accel,
+		a, "nextChapter"
+	);
+	new KAction(
+		i18n("Previous chapter"), CResMgr::displaywindows::bibleWindow::previousChapter::accel,
+		a, "previousChapter"
+	);
+	new KAction(
+		i18n("Next verse"), CResMgr::displaywindows::bibleWindow::nextVerse::accel,
+		a, "nextVerse"
+	);
+	new KAction(
+		i18n("Previous verse"), CResMgr::displaywindows::bibleWindow::previousVerse::accel,
+		a, "previousVerse"
+	);
 }
 
 void CCommentaryReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
@@ -64,8 +76,7 @@ void CCommentaryReadWindow::storeProfileSettings( CProfileWindow* profileWindow 
   profileWindow->setWindowSettings( m_syncButton->isChecked() );
 };
 
-void CCommentaryReadWindow::initView(){
-	CLexiconReadWindow::initView();
+void CCommentaryReadWindow::initToolbars(){
 	m_syncButton = new KToggleAction(i18n("Sync with active Bible"),
 		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
 		CResMgr::displaywindows::commentaryWindow::syncWindow::accel,
@@ -87,37 +98,52 @@ void CCommentaryReadWindow::reload(){
 
 /** rapper around key() to return the right type of key. */
 CSwordVerseKey* CCommentaryReadWindow::verseKey(){
-//  qWarning("CCommentaryReadWindow::key()");
 	CSwordVerseKey* k = dynamic_cast<CSwordVerseKey*>(CDisplayWindow::key());
-// 	Q_ASSERT(k);
+ 	Q_ASSERT(k);
 	return k;
 }
 
+void CCommentaryReadWindow::initActions() {
+	CLexiconReadWindow::initActions(); //make sure the predefined actions are available
+	
+	new KAction(
+		i18n("Next book"),
+		CResMgr::displaywindows::bibleWindow::nextBook::accel,
+		this, SLOT(nextBook()),
+		actionCollection(), "nextBook"
+	);
+	new KAction(
+		i18n("Previous book"),
+		CResMgr::displaywindows::bibleWindow::previousBook::accel,
+		this, SLOT(previousBook()),
+		actionCollection(), "previousBook"
+	);
+	new KAction(
+		i18n("Next chapter"),
+		CResMgr::displaywindows::bibleWindow::nextChapter::accel,
+		this, SLOT(nextChapter()),
+		actionCollection(), "nextChapter"
+	);
+	new KAction(
+		i18n("Previous chapter"),
+		CResMgr::displaywindows::bibleWindow::previousChapter::accel,
+		this, SLOT(previousChapter()),
+		actionCollection(), "previousChapter"
+	);
+	new KAction(
+		i18n("Next verse"),
+		CResMgr::displaywindows::bibleWindow::nextVerse::accel,
+		this, SLOT(nextVerse()),
+		actionCollection(), "nextVerse"
+	);
+	new KAction(
+		i18n("Previous verse"),
+		CResMgr::displaywindows::bibleWindow::previousVerse::accel,
+		this, SLOT(previousVerse()),
+		actionCollection(), "previousVerse"
+	);
 
-/** Reimplementation. */
-// void CCommentaryReadWindow::insertKeyboardActions( KAccel* const a ){
-//   a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel, 0, "");
-// 	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel, 0, "");
-// 	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel, 0, "");
-// 	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
-// 	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel, 0, "");
-// 	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel, 0, "");
-// }
-
-void CCommentaryReadWindow::initKeyboardActions() {
-//   CBTConfig::setupAccel( CBTConfig::commentaryWindow, accel() );
-// //   insertKeyboardActions( accel() );
-// 
-//   accel()->readSettings();
-// 
-// 	accel()->setSlot("Next book", this, SLOT(nextBook()));
-//   accel()->setSlot("Previous book", this, SLOT(previousBook()));
-//   accel()->setSlot("Next chapter", this, SLOT(nextChapter()));
-//   accel()->setSlot("Previous chapter", this, SLOT(previousChapter()));
-//   accel()->setSlot("Next verse", this, SLOT(nextVerse()));
-//   accel()->setSlot("Previous verse", this, SLOT(previousVerse()));
-// 
-//   CReadWindow::initKeyboardActions();
+	CBTConfig::setupAccelSettings(CBTConfig::commentaryWindow, actionCollection());
 }
 
 /** Moves to the next book. */

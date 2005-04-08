@@ -37,14 +37,14 @@ CWriteWindow::~CWriteWindow(){
 // void CWriteWindow::insertKeyboardActions( KAccel* const /*a*/ ) {
 // 
 // };
-void CWriteWindow::insertKeyboardActions( KActionCollection* const a ){
+void CWriteWindow::insertKeyboardActions( KActionCollection* const ){
 /*	new KAction(
 		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
 		a, "nextBook"
 	);*/
 }
 const bool CWriteWindow::init( const QString& keyName ) {
-  qWarning("CWriteWindow::init( const QString& keyName )");
+//   qWarning("CWriteWindow::init( const QString& keyName )");
   CDisplayWindow::init(keyName);
 // 	setupPopupMenu();
   keyChooser()->setKey(key());
@@ -54,7 +54,7 @@ const bool CWriteWindow::init( const QString& keyName ) {
 
 
 void CWriteWindow::initConnections() {
-	qWarning("CWriteWindow::initConnections()");
+// 	qWarning("CWriteWindow::initConnections()");
 	Q_ASSERT(keyChooser());
 
 	connect(keyChooser(), SIGNAL(beforeKeyChange(const QString&)),
@@ -62,7 +62,7 @@ void CWriteWindow::initConnections() {
 	);
 };
 
-void CWriteWindow::initKeyboardActions() {
+void CWriteWindow::initActions() {
 };
 
 void CWriteWindow::storeProfileSettings(CProfileWindow * const settings) {

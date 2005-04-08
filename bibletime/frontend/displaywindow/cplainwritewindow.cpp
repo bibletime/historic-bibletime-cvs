@@ -54,6 +54,9 @@ void CPlainWriteWindow::initView(){
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
  	mainToolBar()->setFullSize(false);
 
+}
+
+void CPlainWriteWindow::initToolbars(){
 	m_actions.syncWindow = new KToggleAction(i18n("Sync with active Bible"),
 		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
 		CResMgr::displaywindows::commentaryWindow::syncWindow::accel,
@@ -163,7 +166,7 @@ const bool CPlainWriteWindow::syncAllowed() const {
 	return m_actions.syncWindow->isChecked();
 }
 
-void CPlainWriteWindow::initKeyboardActions() {
+void CPlainWriteWindow::initActions() {
 /*  CWriteWindow::initKeyboardActions();
 
 	CBTConfig::setupAccel( CBTConfig::writeWindow, accel() );
@@ -192,7 +195,7 @@ void CPlainWriteWindow::initKeyboardActions() {
 // 
 // 	a->insert("Save text",   i18n("Save text"),   "", CResMgr::displaywindows::writeWindow::saveText::accel,   0, "");
 // }
-void CPlainWriteWindow::insertKeyboardActions( KActionCollection* const a ){
+void CPlainWriteWindow::insertKeyboardActions( KActionCollection* const ){
 /* 	new KAction(
 		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
 		a, "nextBook"

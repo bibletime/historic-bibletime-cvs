@@ -300,8 +300,9 @@ const bool CDisplayWindow::init( const QString& keyName ){
 
 	//Why do we need the show call here? It's done in BibleTime::createReadWindow after the init() call
 //   show();
+  initActions();
+  initToolbars();
  	initConnections();
-  initKeyboardActions();
  	setupPopupMenu();
   
   m_filterOptions = CBTConfig::getFilterOptionDefaults();
@@ -419,6 +420,7 @@ KPopupMenu* const CDisplayWindow::popup(){
 
 /** Returns the display widget used by this implementation of CDisplayWindow. */
 CDisplay* const CDisplayWindow::displayWidget() const {
+  Q_ASSERT(m_displayWidget);
   return m_displayWidget;
 }
 

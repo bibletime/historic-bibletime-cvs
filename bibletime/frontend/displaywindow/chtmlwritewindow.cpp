@@ -37,12 +37,7 @@ CHTMLWriteWindow::CHTMLWriteWindow(ListCSwordModuleInfo modules, CMDIArea* paren
 }
 
 CHTMLWriteWindow::~CHTMLWriteWindow(){
-
 }
-
-//void CHTMLWriteWindow::setupPopupMenu() {
-//
-//};
 
 void CHTMLWriteWindow::initView() {
   CWriteDisplay* writeDisplay = CDisplay::createWriteInstance(this, CDisplay::HTMLDisplay);
@@ -57,8 +52,19 @@ void CHTMLWriteWindow::initView() {
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
  	mainToolBar()->setFullSize(false);
+};
 
-  //setip the toolbar
+void CHTMLWriteWindow::initConnections() {
+	CWriteWindow::initConnections();
+	
+ 	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
+		this, SLOT(lookup(CSwordKey*)));
+  connect(displayWidget()->connectionsProxy(), SIGNAL(textChanged()),
+    this, SLOT(textChanged()) );
+};
+
+void CHTMLWriteWindow::initToolbars() {
+  //setup the toolbar
 	m_actions.syncWindow = new KToggleAction(i18n("Sync with active Bible"),
 		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
 		CResMgr::displaywindows::commentaryWindow::syncWindow::accel,
@@ -102,17 +108,8 @@ void CHTMLWriteWindow::initView() {
   bar->setFullSize(true);
 	addDockWindow(bar);
 
-	writeDisplay->setupToolbar( bar, actionCollection() );
-};
-
-void CHTMLWriteWindow::initConnections() {
-	CWriteWindow::initConnections();
-	
- 	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
-		this, SLOT(lookup(CSwordKey*)));
-  connect(displayWidget()->connectionsProxy(), SIGNAL(textChanged()),
-    this, SLOT(textChanged()) );
-};
+	displayWidget()->setupToolbar( bar, actionCollection() );
+}
 
 void CHTMLWriteWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
   CWriteWindow::storeProfileSettings(profileWindow);
