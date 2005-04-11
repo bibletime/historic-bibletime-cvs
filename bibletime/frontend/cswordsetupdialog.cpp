@@ -136,12 +136,13 @@ void CSwordSetupDialog::initInstall(){
 	m_installSourcePage = new QWidget(0);
   m_installWidgetStack->addWidget(m_installSourcePage);
 
-	m_installSourcePage->setMinimumSize(500,400);
+// 	m_installSourcePage->setMinimumSize(500,400);
 
 	QGridLayout* layout = new QGridLayout(m_installSourcePage, 7, 3);
 	layout->setMargin(5);
 	layout->setSpacing(10);
 	layout->setRowStretch(6,5);
+	layout->setColStretch(0,5);
 
 	QLabel* installLabel = CToolClass::explanationLabel(m_installSourcePage,
 		i18n("Install/update works - Step 1"),
@@ -150,7 +151,7 @@ void CSwordSetupDialog::initInstall(){
 		<b>WARNING: If you live in a persecuted country and do not wish to risk detection you should NOT use \
 		the module remote installation feature!</b>")
   );
-	layout->addMultiCellWidget(installLabel, 0,0,0,1);
+	layout->addMultiCellWidget(installLabel, 0,0,0,2);
 
 	QLabel* sourceHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select library")), m_installSourcePage);
 	layout->addMultiCellWidget(sourceHeadingLabel, 1,1,0,1);
@@ -256,6 +257,7 @@ void CSwordSetupDialog::writeSwordConfig(){
       }
       ++it;
     }
+    
     BTInstallMgr::Tool::LocalConfig::setTargetList(targets); //creates new Sword config
   }
 }
@@ -370,10 +372,10 @@ void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
   sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, source) ;
 
   if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
-    url = QString::fromLatin1("ftp://%1%2").arg(is.source.c_str()).arg(is.directory.c_str());
+    url = QString("ftp://%1%2").arg(is.source.c_str()).arg(is.directory.c_str());
   }
   else {
-    url = QString::fromLatin1("%1").arg(is.directory.c_str());
+    url = QString("%1").arg(is.directory.c_str());
   }
   m_sourceLabel->setText( url );
 
@@ -819,8 +821,10 @@ void CSwordSetupDialog::slot_swordAddClicked(){
 }
 
 void CSwordSetupDialog::slot_swordRemoveClicked(){
-  if (QListViewItem* i = m_swordPathListBox->currentItem()) {
+	QListViewItem* i = m_swordPathListBox->currentItem();
+  if (i) {
     delete i;
+    
 		m_swordSetupChanged = true;
 		writeSwordConfig(); //to make sure other parts work with the new setting
 		populateInstallCombos(); //update target list bof on install page

@@ -6,28 +6,16 @@
     <projectmanagement>KDevAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <ignoreparts>
-      <part>Unterstützung für ClearCase (KDevelop)</part>
-      <part>KDevcopyto</part>
-      <part>Dateibaum (KDevelop)</part>
-      <part>Dateigruppen-Komponente (KDevelop)</part>
-      <part>Debugger (KDevelop)</part>
-      <part>KDevCTags2</part>
-      <part>Unterstützung für Perforce (KDevelop)</part>
-      <part>Schnellöffner-Komponente (KDevelop)</part>
-      <part>Unterstützung für Subversion (KDevelop)</part>
-      <part>Unterstützung für CVSService (KDevelop)</part>
-      <part>Unterstützung für Doxygen (KDevelop)</part>
-      <part>Lesezeichen-Unterstützung (KDevelop)</part>
-      <part>Unterstützung für Paketerstellung (KDevelop)</part>
-      <part>VisualBoy Advance (KDevelop)</part>
+      <part>kdevrbdebugger</part>
     </ignoreparts>
     <version>1.5pre</version>
-    <description/>
+    <description></description>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
       <language>Perl</language>
     </secondaryLanguages>
+    <versioncontrol></versioncontrol>
   </general>
   <kdevautoproject>
     <general>
@@ -67,15 +55,15 @@
   <kdevdebugger>
     <general>
       <dbgshell>libtool</dbgshell>
-      <programargs/>
-      <gdbpath/>
+      <programargs></programargs>
+      <gdbpath></gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -155,6 +143,14 @@
       <pcs>Qt</pcs>
       <pcs>KDElibs</pcs>
     </references>
+    <creategettersetter>
+      <prefixGet></prefixGet>
+      <prefixSet>set</prefixSet>
+      <prefixVariable>m_,_</prefixVariable>
+      <parameterName>theValue</parameterName>
+      <inlineGet>true</inlineGet>
+      <inlineSet>true</inlineSet>
+    </creategettersetter>
   </kdevcppsupport>
   <kdevfilecreate>
     <filetypes/>
@@ -162,9 +158,9 @@
   </kdevfilecreate>
   <kdevdocumentation>
     <projectdoc>
-      <docsystem/>
-      <docurl/>
-      <usermanualurl/>
+      <docsystem></docsystem>
+      <docurl></docurl>
+      <usermanualurl></usermanualurl>
     </projectdoc>
   </kdevdocumentation>
   <kdevcvsservice>
@@ -174,4 +170,13 @@
     <recursivewhencommitremove>true</recursivewhencommitremove>
     <revertoptions>-C</revertoptions>
   </kdevcvsservice>
+  <kdevvisualadvance>
+    <emulator>VisualBoyAdvance</emulator>
+    <binary></binary>
+    <addOptions></addOptions>
+    <terminal>false</terminal>
+    <fullscreen>false</fullscreen>
+    <graphicFilter>-f0</graphicFilter>
+    <scaling>-1</scaling>
+  </kdevvisualadvance>
 </kdevelop>

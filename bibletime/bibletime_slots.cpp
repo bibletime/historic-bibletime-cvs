@@ -71,7 +71,7 @@
 class KUserDataAction : public KToggleAction {
 public:
 	KUserDataAction( QString caption, const KShortcut& shortcut, const QObject* receiver, const char* slot, KActionCollection* actionCollection)
-		: KToggleAction(caption, shortcut, receiver, slot, actionCollection)
+		: KToggleAction(caption, shortcut, receiver, slot, actionCollection), m_userData(0)
 	{};
 
 	void setUserData(QWidget* const data) {
@@ -184,12 +184,18 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	}
 	
 	QWidgetList windows = m_mdi->windowList();
-	for ( int i = 0; i < int(windows.count()); ++i ) {
-		KUserDataAction* action = new KUserDataAction(windows.at(i)->caption(), KShortcut(), this, SLOT(slotWindowMenuActivated()), m_windowActionCollection);
-		action->setUserData(windows.at(i));
+	const int count = windows.count();
+	for ( int i = 0; i < count; ++i ) {
+		QWidget* w = windows.at(i);
+		Q_ASSERT(w);
+		qWarning("%s",w->caption().latin1());
+		
+		KUserDataAction* action = new KUserDataAction(w->caption(), KShortcut(), this, SLOT(slotWindowMenuActivated()), m_windowActionCollection);
+		Q_ASSERT(action);
+		action->setUserData(w);
 
 		m_windowOpenWindowsList.append(action);
-		action->setChecked( windows.at(i) == m_mdi->activeWindow() );
+ 		action->setChecked( w == m_mdi->activeWindow() );
 		action->plug(m_windowMenu);
 	}
 }

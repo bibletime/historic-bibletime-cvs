@@ -68,7 +68,8 @@ BibleTime::BibleTime()
     m_profileMgr(),
     m_backend(0),
     m_printer(0),
-    m_mainIndex(0)
+    m_mainIndex(0),
+    m_windowActionCollection(0)
 {
 	setHelpMenuEnabled(false);
 
