@@ -25,7 +25,7 @@ $(LIB_X11) \
 $(LIB_SWORD) \
 $(LIBSOCKET)
 
-SUBDIRS = display-templates backend frontend xml pics util tests
+SUBDIRS = display-templates backend frontend xml pics util
 
 all_headers = bibletime.h bibletimeapp.h
 
