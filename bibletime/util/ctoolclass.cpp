@@ -1,20 +1,4 @@
-/***************************************************************************
-                 ctoolclass.cpp - some methods,that would be normal global,but
-                 									I hate global function :-)
-
-    begin                : 20 Jan 1999                        
-    copyright            : (C) 1999 by Sandy Meier                         
-    email                : smeier@rz.uni-potsdam.de                         
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   * 
- *                                                                         *
- ***************************************************************************/
+/********* Read the file LICENSE for license details. *********/
 
 //own includes
 #include "ctoolclass.h"
