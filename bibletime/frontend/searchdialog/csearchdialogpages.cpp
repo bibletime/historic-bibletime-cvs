@@ -753,7 +753,9 @@ void CSearchOptionsPage::initView(){
 		m_textTypeCombo->insertItem(i18n("Footnotes"));
 		m_textTypeCombo->insertItem(i18n("Headings"));
 		m_textTypeCombo->insertItem(i18n("Strong's numbers"));
-		m_textTypeCombo->insertItem(i18n("Morph codes"));
+// TODO: temporarily disabled, as this will not work correctly with 1.5.8
+// Reenable whenever it will work with a sword release.
+// 		m_textTypeCombo->insertItem(i18n("Morph codes"));
 		
 		connect(m_textTypeCombo, SIGNAL( activated(int) ), this, SLOT( textTypeSelected() ) );
 		
