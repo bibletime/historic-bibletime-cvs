@@ -42,6 +42,9 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 	if (!module()) {
 		return 0;
 	}
+	
+	sword::SWModule* my_module = module();
+	bool is_unicode = isUnicode();
 
   if (!m_entryList) {
 		m_entryList = new QStringList();
@@ -67,33 +70,41 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 		}
 
     if (!read || !m_entryList->count()){
-      module()->setSkipConsecutiveLinks(true);
-			(*module()) = sword::TOP;
+      my_module->setSkipConsecutiveLinks(true);
+			(*my_module) = sword::TOP;
       snap(); //snap to top entry
+			
+			qWarning("Reading in module" );
+			int i = 0;
   		
 			do {
-        if (isUnicode()) {
-     			m_entryList->append(QString::fromUtf8(module()->KeyText()));
+        if ( is_unicode ) {
+     			m_entryList->append(QString::fromUtf8(my_module->KeyText()));
+// 					qWarning("Entry: %s", my_module->KeyText() );
 				}
         else { //for latin1 modules use fromLatin1 because of speed
-//           m_entryList->append(QString::fromLatin1(module()->KeyText()));
-					m_entryList->append(QString(module()->KeyText()));
+//           m_entryList->append(QString::fromLatin1(my_module->KeyText()));
+					m_entryList->append(QString(my_module->KeyText()));
 				}  			
-				(*module())++;
-  		} while ( !module()->Error() );
+				(*my_module)++;
+				i++;
+  		} while ( !my_module->Error() );
 			
-			(*module()) = sword::TOP; //back to the first entry
-      module()->setSkipConsecutiveLinks(false);
+			qWarning("Reading finished. Module has %d entries.", i );
+			
+			(*my_module) = sword::TOP; //back to the first entry
+      my_module->setSkipConsecutiveLinks(false);
 
       if (m_entryList->count()) {
         m_entryList->first().simplifyWhiteSpace();
     		if (m_entryList->first().stripWhiteSpace().isEmpty()) {
   	  		m_entryList->remove( m_entryList->begin() );
-				}
-				
+				}	
 // 				m_entryList->sort(); //make sure the module is sorted by utf-8
       }
 
+			qWarning("Writing cache file." );
+			
 			if (m_entryList->count()){
   			//create cache
 		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
@@ -109,6 +120,8 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   			  f2.close();
         }
 			}
+			qWarning("Writing finished." );
+
 		}
 	}
 	
