@@ -1,14 +1,6 @@
-//
-// C++ Interface: autoptrvector
-//
-// Description: 
-//
-//
-// Author: The BibleTime team <info@bibletime.info>, (C) 2004
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+
+/********* Read the file LICENSE for license details. *********/
+
 #ifndef UTILAUTOPTRVECTOR_H
 #define UTILAUTOPTRVECTOR_H
 

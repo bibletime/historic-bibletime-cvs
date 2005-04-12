@@ -1,3 +1,5 @@
+/********* Read the file LICENSE for license details. *********/
+
 #ifndef SCOPED_RESOURCE_H_INCLUDED
 #define SCOPED_RESOURCE_H_INCLUDED
 

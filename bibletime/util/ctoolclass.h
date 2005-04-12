@@ -1,8 +1,5 @@
 /********* Read the file LICENSE for license details. *********/
 
-//BibleTime includes
-
-
 //Qt includes
 #include <qstring.h>
 #include <qpixmap.h>

@@ -169,13 +169,15 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 	//Smaller searchdialog enhancements
 	aboutData.addCredit("Mark Lybarger", 	I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com","");
 	//Smaller frontend enhancements
-	aboutData.addCredit("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
+	aboutData.addCredit("Luke Mauldin", 	I18N_NOOP("Frontend"), "lukeskyfly@txk.net", "");
   // handbook documentation
 	aboutData.addCredit("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
   // comitted search in default bible, opened modules, other smaller things
   aboutData.addCredit("Gary Sims", I18N_NOOP("Search dialog enhancements"), "gary@garysims.co.uk", "");
   //The first lead developer
   aboutData.addCredit("Torsten Uhlmann",   I18N_NOOP("The first lead developer"), "", "");
+  //scoped_ptr and related classes
+  aboutData.addCredit("David White",   I18N_NOOP("Helpful source code additions"), "", "http://www.wesnoth.org/");
 
 //special message so the translator get his credits in the about box, don't remove this!
   QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name

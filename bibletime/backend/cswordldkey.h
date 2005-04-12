@@ -1,4 +1,6 @@
-/********* Read the file LICENSE for license details. *********/#ifndef CSWORDLDKEY_H
+/********* Read the file LICENSE for license details. *********/
+
+#ifndef CSWORDLDKEY_H
 #define CSWORDLDKEY_H
 
 

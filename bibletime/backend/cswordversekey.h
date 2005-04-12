@@ -1,4 +1,6 @@
-/********* Read the file LICENSE for license details. *********/#ifndef CSWORDVERSEKEY_H
+/********* Read the file LICENSE for license details. *********/
+
+#ifndef CSWORDVERSEKEY_H
 #define CSWORDVERSEKEY_H
 
 //own includes
@@ -32,7 +34,7 @@
 	*	@version $Id$
   *	@author The BibleTime team
   */
-class CSwordVerseKey : public CSwordKey,  public sword::VerseKey  {
+class CSwordVerseKey : public CSwordKey, public sword::VerseKey {
 public:
 	enum JumpType {
 		UseBook,
