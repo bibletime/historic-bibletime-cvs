@@ -360,7 +360,7 @@ QString CSwordModuleInfo::aboutText(){
 
 	QString text;	
 	
-	text += ("<table>");
+	text += ("<font size=\"-1\"><table>");
 	
 	if ( hasVersion() )
     text += QString( "<tr><td><b>%1</b></td><td>%2</td><tr>" )
@@ -420,7 +420,7 @@ QString CSwordModuleInfo::aboutText(){
     text += QString( "<BR><B>%1</B><BR><BR>" )
               .arg( i18n("Take care, this work contains cult / questionable material!") );
 
-	text += QString( "<b>%1:</b><br> <font size=\"-1\">%2</font>" )
+	text += QString( "<b>%1:</b><br> <font size=\"-2\">%2</font>" )
 						.arg( i18n("About") )
 						.arg( config(CSwordModuleInfo::AboutInformation) );
 						
@@ -446,10 +446,14 @@ QString CSwordModuleInfo::aboutText(){
 			.arg( i18n("Distribution notes") )
 			.arg( m_module->getConfigEntry("DistributionNotes") );
 	
-	if ( !QString( m_module->getConfigEntry("CopyrightNotes") ).isEmpty() )
+	if ( !QString( m_module->getConfigEntry("CopyrightNotes") ).isEmpty() ){
+		sword::SWBuf RTF_Buffer = SWBuf(m_module->getConfigEntry("CopyrightNotes"));
+		sword::RTFHTML RTF_Filter;
+		RTF_Filter.processText(RTF_Buffer, 0, 0);
 		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
 			.arg( i18n("Copyright notes") )
-			.arg( m_module->getConfigEntry("CopyrightNotes") );
+			.arg( RTF_Buffer.c_str() );
+	}
 
 	if ( !QString( m_module->getConfigEntry("CopyrightHolder") ).isEmpty() )
 		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
@@ -480,7 +484,7 @@ QString CSwordModuleInfo::aboutText(){
 			.arg( i18n("Copyright contact email") )
 			.arg( m_module->getConfigEntry("CopyrightContactEmail") );
 
-	text += "</table>";
+	text += "</table></font>";
 	
   return text;
 }
