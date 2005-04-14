@@ -1,7 +1,7 @@
 //
 // C++ Implementation: btstringmgr
 //
-// Description: 
+// Description:
 //
 //
 // Author: The BibleTime team <info@bibletime.info>, (C) 2004
@@ -24,7 +24,7 @@ char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
 		return text;
 	}
 	else {
-		char* ret = text;	
+		char* ret = text;
 		while (*text) {
 			*text = toupper(*text);
 			text++;

@@ -1,3 +1,5 @@
+/********* Read the file LICENSE for license details. *********/
+
 #include "cswordsetupmodulelistview.h"
 
 #include "backend/cswordbackend.h"
@@ -16,28 +18,33 @@ using namespace sword;
 
 namespace InstallationManager {
 
-CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_remote) :
-		QListView(parent) {
+CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_remote)
+	: KListView(parent), m_is_remote( is_remote )
+{
 	
-	m_is_remote = is_remote;
-		
 	addColumn(i18n("Name"));
-	setColumnWidthMode( 0, QListView::Manual );
-	setColumnWidth( 0, 150 ); //don`t get too broad
+	setColumnWidthMode( 0, QListView::Maximum );
+	setColumnWidth( 0, 200 ); //don`t get too broad
+
 	addColumn(i18n("Status"));
+	setColumnAlignment(1, Qt::AlignRight);
 	addColumn(i18n("Installed")); //version
+	setColumnAlignment(2, Qt::AlignHCenter);
+		
 	if (m_is_remote){
 		addColumn(i18n("Remote")); //version
 	}
 	else{
 		addColumn(i18n("Location"));
 	}
-	setAllColumnsShowFocus(true);
-//  	setFullWidth(true);
-	setRootIsDecorated(true);
+	setColumnAlignment(3, Qt::AlignLeft);
 	
+	setAllColumnsShowFocus(true);
+	setFullWidth(true);
+	setRootIsDecorated(true);
+	setResizeMode(QListView::LastColumn);
+		
 	init();
-
 }
 
 void CSwordSetupModuleListView::init(){
@@ -71,6 +78,8 @@ void CSwordSetupModuleListView::init(){
   m_categoryBook->setOpen(true);
   m_categoryDevotionals->setOpen(true);
   m_categoryGlossaries->setOpen(true);
+
+  
 }
 
 void CSwordSetupModuleListView::finish(){

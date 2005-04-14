@@ -90,6 +90,9 @@ CSwordVerseKey* CCommentaryReadWindow::verseKey(){
 
 void CCommentaryReadWindow::initActions() {
 	CLexiconReadWindow::initActions(); //make sure the predefined actions are available
+	//cleanup, not a clean oo-solution
+	actionCollection()->action("nextEntry")->setEnabled(false);
+	actionCollection()->action("previousEntry")->setEnabled(false);
 	
 	new KAction(
 		i18n("Next book"),

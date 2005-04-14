@@ -504,42 +504,46 @@ const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults(){
 	return options;
 }
 
-void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
-	switch (type) {
-		case writeWindow : {
-			accel->setConfigGroup("Writewindow shortcuts");
-			break;
-		};
-		case readWindow : {
-			accel->setConfigGroup("Readwindow shortcuts");
-			break;
-		};
-		case bookWindow : {
-			accel->setConfigGroup("Book shortcuts");
-			break;
-		};
-		case bibleWindow : {
-			accel->setConfigGroup("Bible shortcuts");
-			break;
-		};
-		case commentaryWindow : {
-			accel->setConfigGroup("Commentary shortcuts");
-			break;
-		};
-		case lexiconWindow : {
-			accel->setConfigGroup("Lexicon shortcuts");
-			break;
-		};
-		case application : {
-			accel->setConfigGroup("Application shortcuts");
-			break;
-		};
-	};
-}
+// void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
+// 	switch (type) {
+// 		case writeWindow : {
+// 			accel->setConfigGroup("Writewindow shortcuts");
+// 			break;
+// 		};
+// 		case readWindow : {
+// 			accel->setConfigGroup("Readwindow shortcuts");
+// 			break;
+// 		};
+// 		case bookWindow : {
+// 			accel->setConfigGroup("Book shortcuts");
+// 			break;
+// 		};
+// 		case bibleWindow : {
+// 			accel->setConfigGroup("Bible shortcuts");
+// 			break;
+// 		};
+// 		case commentaryWindow : {
+// 			accel->setConfigGroup("Commentary shortcuts");
+// 			break;
+// 		};
+// 		case lexiconWindow : {
+// 			accel->setConfigGroup("Lexicon shortcuts");
+// 			break;
+// 		};
+// 		case application : {
+// 			accel->setConfigGroup("Application shortcuts");
+// 			break;
+// 		};
+// 	};
+// }
 
 void CBTConfig::setupAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection) {
 	QString groupName;
 	switch (type) {
+		case allWindows : {
+			groupName = "Displaywindow shortcuts";
+			break;
+		};
 		case writeWindow : {
 			groupName = "Writewindow shortcuts";
 			break;
@@ -577,6 +581,10 @@ void CBTConfig::setupAccelSettings(const CBTConfig::keys type, KActionCollection
 void CBTConfig::saveAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection) {
 	QString groupName;
 	switch (type) {
+		case allWindows : {
+			groupName = "Displaywindow shortcuts";
+			break;
+		};
 		case writeWindow : {
 			groupName = "Writewindow shortcuts";
 			break;

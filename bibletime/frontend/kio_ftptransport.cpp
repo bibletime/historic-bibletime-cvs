@@ -1,14 +1,4 @@
-//
-// C++ Implementation: %{MODULE}
-//
-// Description:
-//
-//
-// Author: The BibleTime developers info@bibletime.info, (C) 2005
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/********* Read the file LICENSE for license details. *********/
 
 //BibleTime includes
 #include "kio_ftptransport.h"
@@ -24,7 +14,7 @@ namespace InstallationManager {
 bool finishedDownload = false;
 
 KIO_FTPTransport::KIO_FTPTransport(const char *host, sword::StatusReporter *statusReporter )
-	: QObject(), 
+	: QObject(),
 		sword::FTPTransport(host, statusReporter),
 		m_totalSize(-1)
 {

@@ -138,34 +138,34 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings) {
 }
 
 void CReadWindow::insertKeyboardActions( KActionCollection* const a ){
-	new KAction(
-		i18n("Zoom in"), KStdAccel::zoomIn(), a, "zoomIn"
-	);
-	new KAction(
-		i18n("Zoom out"), KStdAccel::zoomOut(), a, "zoomOut"
-	);
+/*	KStdAction::zoomIn(0, 0, a, "zoomIn"); //no slot
+	KStdAction::zoomOut(0, 0, a, "zoomOut"); //no slot
+	KStdAction::close(0, 0, a, "closeWindow"); //no slot*/
 }
 
 void CReadWindow::initActions() {
-  new KAction(i18n("Search"),
+	CDisplayWindow::initActions();
+/*  new KAction(i18n("Search"),
     CResMgr::displaywindows::general::search::icon,
     CResMgr::displaywindows::general::search::accel,
     this, SLOT(slotSearchInModules()),
     actionCollection(), CResMgr::displaywindows::general::search::actionName
   );
 
- 	new KAction(
-		i18n("Zoom in"), KStdAccel::zoomIn(),
+ 	KStdAction::zoomIn(
 		displayWidget()->connectionsProxy(), SLOT(zoomIn()),
 		actionCollection(), "zoomIn"
 	);
-	new KAction(
-		i18n("Zoom out"), KStdAccel::zoomOut(),
+	KStdAction::zoomOut(
 		displayWidget()->connectionsProxy(), SLOT(zoomOut()),
 		actionCollection(), "zoomOut"
 	);
+	KStdAction::close(
+		this, SLOT(close()),
+		actionCollection(), "closeWindow"
+	);
 
-	CBTConfig::setupAccelSettings(CBTConfig::readWindow, actionCollection());
+	CBTConfig::setupAccelSettings(CBTConfig::readWindow, actionCollection());*/
 }
 
 /** No descriptions */

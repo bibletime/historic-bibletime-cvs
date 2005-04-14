@@ -35,13 +35,15 @@ using std::string;
 
 CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const usedBackend) {
 	m_module = module;
+	Q_ASSERT(module);
+	
 	m_searchResult.ClearList();
   m_backend = usedBackend;
 	m_dataCache.name = module ? QString(module->Name()) : QString::null;
 	m_dataCache.isUnicode = module ? module->isUnicode() : false;
 	m_dataCache.category = UnknownCategory;
 	m_dataCache.language = 0;
-	m_dataCache.hasVersion = !QString( (*m_backend->getConfig())[name().latin1()]["Version"] ).isEmpty();
+	m_dataCache.hasVersion = !QString( (*m_backend->getConfig())[module->Name()]["Version"] ).isEmpty();
 
 	if (backend()) {
 		if (hasVersion() && (minimumSwordVersion() > sword::SWVersion::currentVersion)) {
@@ -359,8 +361,7 @@ Rendering::CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
 QString CSwordModuleInfo::aboutText(){
 
 	QString text;	
-	
-	text += ("<font size=\"-1\"><table>");
+	text += "<font size=\"-1\"><table>";
 	
 	if ( hasVersion() )
     text += QString( "<tr><td><b>%1</b></td><td>%2</td><tr>" )
@@ -471,7 +472,7 @@ QString CSwordModuleInfo::aboutText(){
 			.arg( m_module->getConfigEntry("CopyrightContactName") );
 	
 	if ( !QString( m_module->getConfigEntry("CopyrightContactAddress") ).isEmpty() ){
-		sword::SWBuf RTF_Buffer = SWBuf(m_module->getConfigEntry("CopyrightContactAddress"));
+		SWBuf RTF_Buffer(m_module->getConfigEntry("CopyrightContactAddress"));
 		sword::RTFHTML RTF_Filter;
 		RTF_Filter.processText(RTF_Buffer, 0, 0);
 		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )

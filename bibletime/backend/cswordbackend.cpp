@@ -61,7 +61,7 @@ CSwordBackend::CSwordBackend()
 }
 
 CSwordBackend::CSwordBackend(const QString& path)
-	: sword::SWMgr((!path.isEmpty() ? (const char*)path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), true)
+	: sword::SWMgr((!path.isEmpty() ? (const char*)path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), false /*true*/) // don't allow module renaming, because we load from a path
 {	
 	m_displays.entry = 0;
 	m_displays.chapter = 0;

@@ -81,7 +81,8 @@ public:
 		searchTexts
 	};
 	enum keys {		
-	  readWindow,		
+		allWindows,
+		readWindow,
 		writeWindow,		
 	  bookWindow,
 		bibleWindow,
@@ -127,7 +128,7 @@ public:
   static const CSwordBackend::FilterOptions getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
 
-  static void setupAccel(const CBTConfig::keys type, KAccel* const accel);
+//   static void setupAccel(const CBTConfig::keys type, KAccel* const accel);
   static void setupAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection);
   static void saveAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection);
 

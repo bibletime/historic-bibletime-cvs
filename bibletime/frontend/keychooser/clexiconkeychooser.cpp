@@ -50,10 +50,11 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
 	connect(m_widget,SIGNAL(focusOut(int)),SLOT(activated(int)));
 
   setModules(modules, true);
-	adjustFont();
+// 	adjustFont();
 }
 
 CSwordKey* const CLexiconKeyChooser::key(){
+	qWarning("key");
 	return m_key;
 }
 
@@ -61,14 +62,17 @@ void CLexiconKeyChooser::setKey(CSwordKey* key){
  	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
 		return;		
 
+	qWarning("setKey start");
   QString newKey = m_key->key();
 	const int index =	m_widget->comboBox()->listBox()->index(m_widget->comboBox()->listBox()->findItem( newKey ));
   m_widget->comboBox()->setCurrentItem(index);	
 
+  qWarning("setKey end");
   emit keyChanged( m_key );
 }
 
 void CLexiconKeyChooser::activated(int index){
+	qWarning("activated");
 	const QString text = m_widget->comboBox()->text(index);	
 
   // To prevent from eternal loop, because activated() is emitted again
@@ -76,6 +80,7 @@ void CLexiconKeyChooser::activated(int index){
 		m_key->key(text); 	
 	 	setKey(m_key);
 	}
+	qWarning("activated end");
 }
 
 inline const bool my_cmpEntries(const QString& a, const QString& b) {
@@ -84,8 +89,9 @@ inline const bool my_cmpEntries(const QString& a, const QString& b) {
 
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
-  if (m_modules.count() == 1) {                                                                              
-    m_widget->reset(m_modules.first()->entries(), 0, true);	
+  if (m_modules.count() == 1) {
+    m_widget->reset(m_modules.first()->entries(), 0, true);
+    qWarning("resetted");
   }
   else {
     typedef std::multimap<unsigned int, QStringList*> EntryMap;
@@ -125,8 +131,8 @@ void CLexiconKeyChooser::refreshContent(){
 
 /** No descriptions */
 void CLexiconKeyChooser::adjustFont(){
-	//Make sure the entries are displayed correctly.
-		m_widget->comboBox()->setFont( CBTConfig::get( m_modules.first()->language() ).second );
+// 	//Make sure the entries are displayed correctly.
+// 		m_widget->comboBox()->setFont( CBTConfig::get( m_modules.first()->language() ).second );
 }
 
 /** Sets the module and refreshes the combo boxes */
@@ -142,7 +148,7 @@ void CLexiconKeyChooser::setModules( const ListCSwordModuleInfo& modules, const 
 	
   if (refresh){
     refreshContent();
-		adjustFont();
+// 		adjustFont();
 	}
 }
 

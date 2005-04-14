@@ -27,11 +27,14 @@
 
 #include "frontend/searchdialog/csearchdialog.h"
 
+#include "util/cresmgr.h"
+
 
 //Qt includes
 
 //KDE includes
 #include <kaccel.h>
+#include <klocale.h>
 
 CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
   switch (modules.first()->type()) {
@@ -128,9 +131,46 @@ void CDisplayWindow::setCaption( const QString&  ){
 	m_mdi->emitWindowCaptionChanged();
 }
 
-// void CDisplayWindow::insertKeyboardActions( KAccel* const /*accel*/ ) {
-// }
-void CDisplayWindow::insertKeyboardActions( KActionCollection* const ){
+void CDisplayWindow::insertKeyboardActions( KActionCollection* const a ){
+	KStdAction::zoomIn(0, 0, a, "zoomIn"); //no slot
+	KStdAction::zoomOut(0, 0, a, "zoomOut"); //no slot
+	KStdAction::close(0, 0, a, "closeWindow"); //no slot
+	KStdAction::selectAll(0,0, a, "selectAll");
+ 	KStdAction::copy(0,0, a, "copySelectedText");
+}
+
+void CDisplayWindow::initActions(){
+  new KAction(i18n("Search"),
+    CResMgr::displaywindows::general::search::icon,
+    CResMgr::displaywindows::general::search::accel,
+    this, SLOT(slotSearchInModules()),
+    actionCollection(), CResMgr::displaywindows::general::search::actionName
+  );
+
+ 	KStdAction::zoomIn(
+		displayWidget()->connectionsProxy(), SLOT(zoomIn()),
+		actionCollection(), "zoomIn"
+	);
+	KStdAction::zoomOut(
+		displayWidget()->connectionsProxy(), SLOT(zoomOut()),
+		actionCollection(), "zoomOut"
+	);
+	KStdAction::close(
+		this, SLOT(close()),
+		actionCollection(), "closeWindow"
+	);
+
+ 	KStdAction::selectAll(
+ 		displayWidget()->connectionsProxy(), SLOT(selectAll()),
+ 		actionCollection(), "selectAll"
+ 	);
+
+ 	KStdAction::copy(
+ 		displayWidget()->connectionsProxy(), SLOT(copySelection()),
+ 		actionCollection(), "copySelectedText"
+ 	);
+ 	
+	CBTConfig::setupAccelSettings(CBTConfig::allWindows, actionCollection());
 }
 
 /** Is called when this window gets the focus or looses the focus. */

@@ -45,7 +45,7 @@ void CLexiconReadWindow::insertKeyboardActions( KActionCollection* const a ){
 
 // 	new KAction(i18n("Copy reference only"), KShortcut(0), a, "copyReferenceOnly");
   new KAction(i18n("Copy entry with text"), KShortcut(0), a, "copyEntryWithText");
-	new KAction(i18n("Copy selected text"), KShortcut(0), a, "copySelectedText");
+// 	new KAction(i18n("Copy selected text"), KShortcut(0), a, "copySelectedText");
 	new KAction(i18n("Save entry as plain text"), KShortcut(0), a, "saveEntryAsPlainText");
  	new KAction(i18n("Save entry as HTML"), KShortcut(0), a, "saveEntryAsHTML");
 //  	new KAction(i18n("Print reference only"), KShortcut(0), a, "printReferenceOnly");
@@ -66,11 +66,16 @@ void CLexiconReadWindow::initActions() {
 		actionCollection(), "previousEntry"
 	);
 
+	m_actions.selectAll = actionCollection()->action("selectAll");
+	Q_ASSERT(m_actions.selectAll);
+  
   m_actions.copy.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
   
   m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection(), "copyEntryWithText");
 	
-	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection(), "copySelectedText");
+// 	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection(), "copySelectedText");
+ m_actions.copy.selectedText = actionCollection()->action("copySelectedText");
+ Q_ASSERT(m_actions.copy.selectedText);
 
 	m_actions.save.entryAsPlain = new KAction(i18n("Entry as plain text"), KShortcut(0), this, SLOT(saveAsPlain()),actionCollection(), "saveEntryAsPlain");
 
@@ -99,8 +104,9 @@ void CLexiconReadWindow::initView(){
 	addDockWindow(mainToolBar());
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
-	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
+	mainToolBar()->insertWidget(0, keyChooser()->sizeHint().width(), keyChooser());
  	mainToolBar()->setFullSize(false);
+ 	qWarning("set keychooser");
 
 	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
@@ -128,34 +134,28 @@ void CLexiconReadWindow::initToolbars(){
 void CLexiconReadWindow::setupPopupMenu(){
 	popup()->insertTitle(CToolClass::getIconForModule(modules().first()), i18n("Lexicon window"));
 
- 	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
-  m_actions.selectAll->plug(popup());
+
+//  	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
+   m_actions.selectAll->plug(popup());
 
   (new KActionSeparator(this))->plug( popup() );
 
  	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::lexiconWindow::copyMenu::icon, popup());
 
-  m_actions.copy.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.reference);
-  m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.entry);
   m_actions.copyMenu->insert(new KActionSeparator(this));
-	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.selectedText);
  	m_actions.copyMenu->plug(popup());
 
  	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::displaywindows::lexiconWindow::saveMenu::icon, popup());	
-	m_actions.save.entryAsPlain = new KAction(i18n("Entry as plain text"), KShortcut(0), this, SLOT(saveAsPlain()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.entryAsPlain);
- 	m_actions.save.entryAsHTML = new KAction(i18n("Entry as HTML"), KShortcut(0), this, SLOT(saveAsHTML()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.entryAsHTML);
  	m_actions.saveMenu->plug(popup());
 
  	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::displaywindows::lexiconWindow::printMenu::icon, popup());	
- 	m_actions.print.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection());
- 	m_actions.printMenu->insert(m_actions.print.reference); 	 	
-  m_actions.print.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()), actionCollection());
- 	m_actions.printMenu->insert(m_actions.print.entry); 	
+ 	m_actions.printMenu->insert(m_actions.print.reference);
+ 	m_actions.printMenu->insert(m_actions.print.entry);
  	m_actions.printMenu->plug(popup());
 }
 

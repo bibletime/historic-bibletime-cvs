@@ -95,14 +95,14 @@ void CBibleReadWindow::insertKeyboardActions( KActionCollection* const a ){
 	);
 
 	//popup menu items
-	new KAction(i18n("Select all"), KStdAccel::selectAll(), a, "selectAll");
+// 	new KAction(i18n("Select all"), KStdAccel::selectAll(), a, "selectAll");
 
 	//copy menu items
 // 	new KAction(i18n("Copy reference only"), KShortcut(0), a, "copyReferenceOnly");
 // 	new KAction(i18n("Text of reference"), KShortcut(0), a, "copyTextOfReference");
 //   new KAction(i18n("Reference with text"), KShortcut(0), a, "copyReferenceWithText");
   new KAction(i18n("Copy chapter"), KShortcut(0), a, "copyChapter");
-  new KAction(i18n("Copy selected text"), KStdAccel::copy(), a, "copySelectedText");
+//   new KAction(i18n("Copy selected text"), KStdAccel::copy(), a, "copySelectedText");
 
 	//save menu
 //  	new KAction(i18n("Reference with text"), KShortcut(0), a, "saveReferenceWithText");
@@ -116,6 +116,9 @@ void CBibleReadWindow::insertKeyboardActions( KActionCollection* const a ){
 
 void CBibleReadWindow::initActions() {
 	CLexiconReadWindow::initActions(); //make sure the predefined actions are available
+	//cleanup, not a clean oo-solution
+ 	actionCollection()->action("nextEntry")->setEnabled(false);
+ 	actionCollection()->action("previousEntry")->setEnabled(false);
 	
 	new KAction(
 		i18n("Next book"),
@@ -154,7 +157,9 @@ void CBibleReadWindow::initActions() {
 		actionCollection(), "previousVerse"
 	);
 
- 	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection(), "selectAll");
+//  	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection(), "selectAll");
+	m_actions.selectAll = actionCollection()->action("selectAll");
+	Q_ASSERT(m_actions.selectAll);
 
  	m_actions.copy.referenceOnly = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
 
@@ -164,7 +169,9 @@ void CBibleReadWindow::initActions() {
 
   m_actions.copy.chapter = new KAction(i18n("Chapter"), KShortcut(0), this, SLOT(copyDisplayedText()), actionCollection(), "copyChapter");
 
-  m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection(), "copySelectedText");
+//   m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection(), "copySelectedText");
+ m_actions.copy.selectedText = actionCollection()->action("copySelectedText");
+ Q_ASSERT(m_actions.copy.selectedText);
 
  	m_actions.save.referenceAndText = new KAction(i18n("Reference with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(saveAnchorWithText()), actionCollection(), "saveReferenceWithText");
 

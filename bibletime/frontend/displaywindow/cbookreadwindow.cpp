@@ -45,6 +45,9 @@ void CBookReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
 
 void CBookReadWindow::initActions() {
   CLexiconReadWindow::initActions();
+	//cleanup, not a clean oo-solution
+ 	actionCollection()->action("nextEntry")->setEnabled(false);
+ 	actionCollection()->action("previousEntry")->setEnabled(false);
   
   m_treeAction = new KToggleAction(
   	i18n("Toggle tree view"),

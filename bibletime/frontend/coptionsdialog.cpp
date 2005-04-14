@@ -332,13 +332,6 @@ void COptionsDialog::initFonts(){
 void COptionsDialog::initAccelerators(){
   QVBox* page = addVBoxPage(i18n("HotKeys"),QString::null, DesktopIcon(CResMgr::settings::keys::icon,32));
 
-//   KTabCtl* tabCtl = new KTabCtl(page);
-// 
-// // ----- new tab: All display windows ------ //
-//   QFrame* currentTab = new QVBox(tabCtl);
-// 	currentTab->setMargin(3);
-//   tabCtl->addTab(currentTab, i18n("Application-wide"));
-
 	CBTConfig::setupAccelSettings(
 		CBTConfig::application,
 		m_settings.keys.application.actionCollection
@@ -352,9 +345,9 @@ void COptionsDialog::initAccelerators(){
 
 	// ----- All display windows ------ //
  	m_settings.keys.general.actionCollection = new KActionCollection(this, "displayActions", 0);
- 	CReadWindow::insertKeyboardActions( m_settings.keys.general.actionCollection);
+ 	CDisplayWindow::insertKeyboardActions( m_settings.keys.general.actionCollection);
  	CBTConfig::setupAccelSettings(
- 		CBTConfig::readWindow,
+ 		CBTConfig::allWindows,
  		m_settings.keys.general.actionCollection
  	);
  	m_settings.keys.keyChooser->insert(
@@ -671,7 +664,7 @@ void COptionsDialog::saveAccelerators(){
 		m_settings.keys.application.actionCollection
 	);
 	CBTConfig::saveAccelSettings( //read display windows
-		CBTConfig::readWindow,
+		CBTConfig::allWindows,
 		m_settings.keys.general.actionCollection
 	);
 	CBTConfig::saveAccelSettings( //bible

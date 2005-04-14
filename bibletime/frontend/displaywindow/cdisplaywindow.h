@@ -177,7 +177,7 @@ protected:
   /**
   * Initializes the intern keyboard actions.
   */
-  virtual void initActions() = 0;
+  virtual void initActions();
   /**
    Is called when this window gets the focus or looses the focus.
   */

@@ -6,15 +6,15 @@
 //QT includes
 #include <qstring.h>
 #include <qmap.h>
-#include <qlistview.h>
 
 //KDE includes
+#include <klistview.h>
 
 class CSwordModuleInfo;
 
 namespace InstallationManager {
 
-class CSwordSetupModuleListView : public QListView {
+class CSwordSetupModuleListView : public KListView {
 	Q_OBJECT
 
 public:

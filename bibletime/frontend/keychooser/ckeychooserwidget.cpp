@@ -171,6 +171,8 @@ void CKeyChooserWidget::reset(QStringList& list, int index, bool do_emit){
 void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	if (isResetting || !isUpdatesEnabled())
 		return;
+
+	qWarning("starting insert");
 	isResetting = true;	
 	
 	oldKey = QString::null;
@@ -211,7 +213,8 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 //  m_comboBox->setFont( m_comboBox->font() );
 //  m_comboBox->setUpdatesEnabled(true);
 
-	isResetting = false;	
+	isResetting = false;
+	qWarning("inserted");
 }
 
 void CKeyChooserWidget::lock(void){
@@ -300,7 +303,7 @@ void CKeyChooserWidget::slotReturnPressed( const QString& text){
 
 /** Is called when the current item of the combo box was changed. */
 void CKeyChooserWidget::slotComboChanged(int index){
-//	qWarning("CKeyChooserWidget::slotComboChanged(int index)");
+	qWarning("CKeyChooserWidget::slotComboChanged(int index)");
 	if (!isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);	
