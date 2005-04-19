@@ -50,7 +50,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 		m_entryList = new QStringList();
 		bool read = false;
 
-		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
+		QString dir( KGlobal::dirs()->saveLocation("data", "bibletime/cache/") );
 		QFile f1(
 			QString(dir)
 				.append("/")
@@ -68,7 +68,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 			}
 			
 			f1.close();
-			qWarning("read entries %d",m_entryList->count());
+// 			qWarning("read entries %d",m_entryList->count());
 		}
 
 		Q_ASSERT(read);
@@ -78,7 +78,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 			(*my_module) = sword::TOP;
       snap(); //snap to top entry
 			
-			qWarning("Reading in module" );
+// 			qWarning("Reading in module" );
 			int i = 0;
   		
 			do {
@@ -94,7 +94,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 				i++;
   		} while ( !my_module->Error() );
 			
-			qWarning("Reading finished. Module has %d entries.", i );
+// 			qWarning("Reading finished. Module has %d entries.", i );
 			
 			(*my_module) = sword::TOP; //back to the first entry
       my_module->setSkipConsecutiveLinks(false);
@@ -107,7 +107,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 // 				m_entryList->sort(); //make sure the module is sorted by utf-8
       }
 
-			qWarning("Writing cache file." );
+// 			qWarning("Writing cache file." );
 			
 			if (m_entryList->count()){
   			//create cache
@@ -124,7 +124,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   			  f2.close();
         }
 			}
-			qWarning("Writing finished." );
+// 			qWarning("Writing finished." );
 
 		}
 	}

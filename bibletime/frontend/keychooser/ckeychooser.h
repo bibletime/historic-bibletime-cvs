@@ -69,17 +69,25 @@ public slots:
   * Freshes the content of the different key chooser parts.
   */
   virtual void refreshContent() = 0;
-
+  void backInHistory();
+  void forwardInHistory();
+	void addToHistory(CSwordKey*);
+  
 protected:
 	/**
 	* the constructor - DO NOT USE! -- use @ref #createInstance instead!
 	*/
 	CKeyChooser(ListCSwordModuleInfo info, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
+	virtual ~CKeyChooser();
   /**
   * Set the appropriate font do display the modules
   */
   virtual void adjustFont() = 0;
 
+private:
+	QStringList* m_keyHistoryList;
+	unsigned int m_currentHistoryPosition;
+	bool m_inHistoryFunction;
 };
 
 #endif

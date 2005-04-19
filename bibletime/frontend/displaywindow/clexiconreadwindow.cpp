@@ -104,10 +104,28 @@ void CLexiconReadWindow::initView(){
 	addDockWindow(mainToolBar());
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
+
+	m_actions.backInHistory = new KAction(
+		i18n("Back in history"), CResMgr::displaywindows::general::backInHistory::icon, CResMgr::displaywindows::general::backInHistory::accel,
+		keyChooser(), SLOT( backInHistory() ),
+		actionCollection(), CResMgr::displaywindows::general::backInHistory::actionName
+	);
+	m_actions.forwardInHistory = new KAction(
+		i18n("Forward in history"), CResMgr::displaywindows::general::forwardInHistory::icon, CResMgr::displaywindows::general::forwardInHistory::accel,
+		keyChooser(), SLOT( forwardInHistory() ),
+		actionCollection(), CResMgr::displaywindows::general::forwardInHistory::actionName
+	);
+	
+	Q_ASSERT(m_actions.backInHistory);
+	m_actions.backInHistory->plug( mainToolBar() );
+	m_actions.forwardInHistory->plug( mainToolBar() );
+	
 	mainToolBar()->insertWidget(0, keyChooser()->sizeHint().width(), keyChooser());
  	mainToolBar()->setFullSize(false);
- 	qWarning("set keychooser");
+	
+	
 
+ 	
 	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
 
@@ -127,8 +145,7 @@ void CLexiconReadWindow::initToolbars(){
  #endif
 	
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
-	mainToolBar()->insertWidget(2, displaySettingsButton()->size().width(),displaySettingsButton());
-
+	mainToolBar()->insertWidget(2, displaySettingsButton()->size().width(), displaySettingsButton());
 }
 
 void CLexiconReadWindow::setupPopupMenu(){
@@ -140,7 +157,7 @@ void CLexiconReadWindow::setupPopupMenu(){
 
   (new KActionSeparator(this))->plug( popup() );
 
- 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::lexiconWindow::copyMenu::icon, popup());
+ 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::lexiconWindow::copyMenu::icon, actionCollection());
 
  	m_actions.copyMenu->insert(m_actions.copy.reference);
  	m_actions.copyMenu->insert(m_actions.copy.entry);
@@ -148,12 +165,12 @@ void CLexiconReadWindow::setupPopupMenu(){
  	m_actions.copyMenu->insert(m_actions.copy.selectedText);
  	m_actions.copyMenu->plug(popup());
 
- 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::displaywindows::lexiconWindow::saveMenu::icon, popup());	
+ 	m_actions.saveMenu = new KActionMenu(i18n("Save..."), CResMgr::displaywindows::lexiconWindow::saveMenu::icon, actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.entryAsPlain);
  	m_actions.saveMenu->insert(m_actions.save.entryAsHTML);
  	m_actions.saveMenu->plug(popup());
 
- 	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::displaywindows::lexiconWindow::printMenu::icon, popup());	
+ 	m_actions.printMenu = new KActionMenu(i18n("Print..."), CResMgr::displaywindows::lexiconWindow::printMenu::icon, actionCollection());
  	m_actions.printMenu->insert(m_actions.print.reference);
  	m_actions.printMenu->insert(m_actions.print.entry);
  	m_actions.printMenu->plug(popup());

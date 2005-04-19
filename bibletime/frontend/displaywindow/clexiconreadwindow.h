@@ -52,6 +52,9 @@ private:
   CSwordLDKey* ldKey();
 
   struct {
+  	KAction* backInHistory;
+  	KAction* forwardInHistory;
+  	
     KAction* selectAll;
     KActionMenu* copyMenu;
   	struct {

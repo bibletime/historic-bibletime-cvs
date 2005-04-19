@@ -77,7 +77,7 @@ const bool CSwordModuleInfo::unlock( const QString& unlockKey ){
 
   CBTConfig::setModuleEncryptionKey( name(), unlockKey );
   backend()->setCipherKey(m_module->Name(), unlockKey.latin1());
-      
+
   return true;
 }
 
@@ -415,7 +415,7 @@ QString CSwordModuleInfo::aboutText(){
 			.arg(i18n( "Features") )
 			.arg( options );
 	
-	text += ("</table><hr>");
+	text += "</table><hr>";
 
   if ( category() == CSwordModuleInfo::Cult ) //clearly say the module contains cult/questionable materials
     text += QString( "<BR><B>%1</B><BR><BR>" )

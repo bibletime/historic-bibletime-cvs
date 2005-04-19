@@ -377,6 +377,21 @@ namespace CResMgr {
         const KShortcut accel     = Qt::CTRL + Qt::Key_L;
         const char* actionName    = "window_search_action";
       }
+			
+			namespace backInHistory {
+        QString tooltip;
+
+        const QString icon        = "previous";
+        const KShortcut accel     = KShortcut();
+        const char* actionName    = "window_history_back";
+      }
+			namespace forwardInHistory {
+        QString tooltip;
+
+        const QString icon        = "next";
+        const KShortcut accel     = KShortcut();
+        const char* actionName    = "window_history_forward";
+      }
     };
     namespace bibleWindow {
       namespace bookList {
@@ -995,6 +1010,15 @@ namespace CResMgr {
 					{
 	          using namespace search;
 						tooltip = i18n ("This button opens the search dialog with the work(s) of this window.") ;
+						
+					}
+					{
+	          using namespace backInHistory;
+						tooltip = i18n ("Go back one item in the display history.") ;
+					}
+					{
+	          using namespace forwardInHistory;
+						tooltip = i18n ("Go forward one item in the display history.") ;
 						
 					}
         };

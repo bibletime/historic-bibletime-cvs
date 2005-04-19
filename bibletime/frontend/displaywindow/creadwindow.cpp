@@ -30,7 +30,7 @@ CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const c
 }
 
 CReadWindow::~CReadWindow() {
-	//	qWarning("destructor of CReadWindow");
+	qWarning("destructor of CReadWindow");
 }
 
 /** Returns the display widget of this window. */
@@ -137,35 +137,11 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings) {
 	setUpdatesEnabled(true);
 }
 
-void CReadWindow::insertKeyboardActions( KActionCollection* const a ){
-/*	KStdAction::zoomIn(0, 0, a, "zoomIn"); //no slot
-	KStdAction::zoomOut(0, 0, a, "zoomOut"); //no slot
-	KStdAction::close(0, 0, a, "closeWindow"); //no slot*/
+void CReadWindow::insertKeyboardActions( KActionCollection* const ){
 }
 
 void CReadWindow::initActions() {
 	CDisplayWindow::initActions();
-/*  new KAction(i18n("Search"),
-    CResMgr::displaywindows::general::search::icon,
-    CResMgr::displaywindows::general::search::accel,
-    this, SLOT(slotSearchInModules()),
-    actionCollection(), CResMgr::displaywindows::general::search::actionName
-  );
-
- 	KStdAction::zoomIn(
-		displayWidget()->connectionsProxy(), SLOT(zoomIn()),
-		actionCollection(), "zoomIn"
-	);
-	KStdAction::zoomOut(
-		displayWidget()->connectionsProxy(), SLOT(zoomOut()),
-		actionCollection(), "zoomOut"
-	);
-	KStdAction::close(
-		this, SLOT(close()),
-		actionCollection(), "closeWindow"
-	);
-
-	CBTConfig::setupAccelSettings(CBTConfig::readWindow, actionCollection());*/
 }
 
 /** No descriptions */

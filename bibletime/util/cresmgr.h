@@ -376,7 +376,6 @@ namespace CResMgr {
     namespace general {
       namespace scrollButton{
         extern QString tooltip;
-
       };
 			namespace search {
 				extern QString tooltip;
@@ -384,7 +383,23 @@ namespace CResMgr {
 				extern const QString icon;
 				extern const KShortcut accel;
 				extern const char* actionName;
+			}
+			
+			namespace backInHistory {
+				extern QString tooltip;
+
+				extern const QString icon;
+				extern const KShortcut accel;
+				extern const char* actionName;
 			}			
+			namespace forwardInHistory {
+				extern QString tooltip;
+
+				extern const QString icon;
+				extern const KShortcut accel;
+				extern const char* actionName;
+			}
+
     };
 
     namespace bibleWindow {
