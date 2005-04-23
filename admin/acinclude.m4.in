@@ -1195,11 +1195,11 @@ fi
 if test -z "$3"; then
    if test $kde_qtver = 3; then
      if test $kde_qtsubver -gt 0; then
-       kde_qt_verstring="QT_VERSION >= 0x03@VER@00"
+       kde_qt_verstring="QT_VERSION >= 0x03@VER@00 && QT_VERSION < 0x040000"
        qtsubver=`echo "00$kde_qtsubver" | sed -e 's,.*\(..\)$,\1,'`
        kde_qt_verstring=`echo $kde_qt_verstring | sed -e "s,@VER@,$qtsubver,"`
      else
-       kde_qt_verstring="QT_VERSION >= 300"
+       kde_qt_verstring="QT_VERSION >= 300 && QT_VERSION < 0x040000"
      fi
    fi
    if test $kde_qtver = 2; then
@@ -1644,7 +1644,15 @@ rm -f actest.ui actest.cpp
 
 AC_MSG_RESULT([$kde_cv_uic_plugins])
 if test "$kde_cv_uic_plugins" != yes; then
-	AC_MSG_ERROR([you need to install kdelibs first.])
+	AC_MSG_ERROR([
+you need to install kdelibs first.
+
+If you did install kdelibs, then the Qt version that is picked up by
+this configure is not the same version you used to compile kdelibs. 
+The Qt Plugin installed by kdelibs is *ONLY* loadable if its the 
+same Qt version, compiled with the same compiler and the same Qt
+configuration settings.
+])
 fi
 fi
 ])
@@ -3051,7 +3059,7 @@ AC_DEFUN([AC_CHECK_COMPILERS],
         CXXFLAGS="-Wall -W -Wpointer-arith -Wwrite-strings $CXXFLAGS"
         case $host in
           *-*-linux-gnu)	
-            CFLAGS="-ansi -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE $CFLAGS"
+            CFLAGS="-std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE $CFLAGS"
             CXXFLAGS="-ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts $CXXFLAGS"
             KDE_CHECK_COMPILER_FLAG(Wmissing-format-attribute, [CXXFLAGS="$CXXFLAGS -Wformat-security -Wmissing-format-attribute"])
             KDE_CHECK_C_COMPILER_FLAG(Wmissing-format-attribute, [CFLAGS="$CFLAGS -Wformat-security -Wmissing-format-attribute"])
@@ -3104,8 +3112,8 @@ AC_DEFUN([AC_CHECK_COMPILERS],
         fi
         rm -f conftest.h conftest.h.gch
     fi
-    AM_CONDITIONAL(unsermake_enable_pch, test "$kde_use_pch" = "yes" && test "$kde_gcc_supports_pch" = "yes")
   fi
+  AM_CONDITIONAL(unsermake_enable_pch, test "$kde_use_pch" = "yes" && test "$kde_gcc_supports_pch" = "yes")
   if test "$CXX" = "KCC"; then
     dnl unfortunately we currently cannot disable exception support in KCC
     dnl because doing so is binary incompatible and Qt by default links with exceptions :-(
@@ -3194,15 +3202,51 @@ AC_DEFUN([AC_CHECK_COMPILERS],
   ifdef([AM_DEPENDENCIES], AC_REQUIRE([KDE_ADD_DEPENDENCIES]), [])
 ])
 
+AC_DEFUN([KDE_CHECK_VISIBILITY_GCC_BUG],
+  [
+    AC_CACHE_CHECK([for gcc -fvisibility-inlines-hidden bug], kde_cv_val_gcc_visibility_bug,
+      [
+        AC_LANG_SAVE
+        AC_LANG_CPLUSPLUS
+
+        safe_CXXFLAGS=$CXXFLAGS
+        safe_LDFLAGS=$LDFLAGS
+        CXXFLAGS="$CXXFLAGS -fPIC -fvisibility-inlines-hidden -O0"
+        LDFLAGS="$LDFLAGS -shared -fPIC"
+
+        AC_TRY_LINK(
+        [
+          /* http://gcc.gnu.org/bugzilla/show_bug.cgi?id=19664 */
+	  #include <string>
+          int some_function( void ) __attribute__ ((visibility("default")));
+          int some_function( void )
+          {
+	    std::string s("blafasel");
+            return 0;
+          }
+        ], [/* elvis is alive */],
+        kde_cv_val_gcc_visibility_bug=no, kde_cv_val_gcc_visibility_bug=yes)
+
+        CXXFLAGS=$safe_CXXFLAGS
+        LDFLAGS=$safe_LDFLAGS
+        AC_LANG_RESTORE
+      ]
+    )
+
+    if test x$kde_cv_val_gcc_visibility_bug = xno; then
+      CXXFLAGS="$CXXFLAGS -fvisibility-inlines-hidden"
+    fi
+  ]
+)
+
 AC_DEFUN([KDE_CHECK_AND_ADD_HIDDEN_VISIBILITY],
 [
   if test "$GXX" = "yes"; then
-    KDE_CHECK_COMPILER_FLAG(fno-exceptions,[CXXFLAGS="$CXXFLAGS -fno-exceptions"])
-    KDE_CHECK_COMPILER_FLAG(fno-check-new, [CXXFLAGS="$CXXFLAGS -fno-check-new"])
-    KDE_CHECK_COMPILER_FLAG(fno-common, [CXXFLAGS="$CXXFLAGS -fno-common"])
     KDE_CHECK_COMPILER_FLAG(fvisibility=hidden, 
     [
-        CXXFLAGS="$CXXFLAGS -fvisibility=hidden -fvisibility-inlines-hidden"
+        CXXFLAGS="$CXXFLAGS -fvisibility=hidden"
+        KDE_CHECK_VISIBILITY_GCC_BUG
+
         HAVE_GCC_VISIBILITY=1
         AC_DEFINE_UNQUOTED(__KDE_HAVE_GCC_VISIBILITY, "$HAVE_GCC_VISIBILITY", [define to 1 if -fvisibility is supported])
     ])
@@ -3765,31 +3809,23 @@ AC_DEFUN([AC_HAVE_GL],
    [
     AC_LANG_SAVE
     AC_LANG_CPLUSPLUS
-    ac_save_ldflags="$LDFLAGS"
-    ac_save_cxxflags="$CXXFLAGS"
-    LDFLAGS="$LDFLAGS $GL_LDFLAGS $X_LDFLAGS $all_libraries -lMesaGL -lMesaGLU"
-    test "x$kde_use_qt_mac" != xyes && test "x$kde_use_qt_emb" != xyes && LDFLAGS="$LDFLAGS -lX11"
-    LDFLAGS="$LDFLAGS $LIB_XEXT -lm $LIBSOCKET"
+    ac_save_ldflags=$LDFLAGS
+    ac_save_cxxflags=$CXXFLAGS
+    ac_save_libs=$LIBS
+    LDFLAGS="$LDFLAGS $GL_LDFLAGS $X_LDFLAGS $all_libraries"
+    LIBS="$LIBS -lGL -lGLU"
+    test "x$kde_use_qt_mac" != xyes && test "x$kde_use_qt_emb" != xyes && LIBS="$LIBS -lX11"
+    LIBS="$LIBS $LIB_XEXT -lm $LIBSOCKET"
     CXXFLAGS="$CFLAGS $X_INCLUDES"
     test -n "$GL_INCLUDE" && CFLAGS="-I$GL_INCLUDE $CFLAGS"
     AC_TRY_LINK([#include <GL/gl.h>
 #include <GL/glu.h>
 ], [],
-	ac_cv_have_gl="mesa", ac_cv_have_gl="no")
-    if test "x$ac_cv_have_gl" = "xno"; then
-      LDFLAGS="$ac_save_ldflags $X_LDFLAGS $GL_LDFLAGS $all_libraries -lGLU -lGL"
-      test "x$kde_use_qt_mac" != xyes && test "x$kde_use_qt_emb" != xyes && LDFLAGS="$LDFLAGS -lX11"
-      LDFLAGS="$LDFLAGS $LIB_XEXT -lm $LIBSOCKET"
-      CXXFLAGS="$ac_save_cflags $X_INCLUDES"
-      test -n "$GL_INCLUDE" && CFLAGS="-I$GL_INCLUDE $CFLAGS"
-      AC_TRY_LINK([#include <GL/gl.h>
-#include <GL/glu.h>
-], [],
-	  ac_cv_have_gl="yes", ac_cv_have_gl="no")
-    fi
+	ac_cv_have_gl="yes", ac_cv_have_gl="no")
     AC_LANG_RESTORE
-    LDFLAGS="$ac_save_ldflags"
-    CXXFLAGS="$ac_save_cxxflags"
+    LDFLAGS=$ac_save_ldflags
+    CXXFLAGS=$ac_save_cxxflags
+    LIBS=$ac_save_libs
    ])dnl
 
   if test "$ac_cv_have_gl" = "no"; then
@@ -3800,17 +3836,9 @@ AC_DEFUN([AC_HAVE_GL],
   else
     AC_DEFINE(HAVE_GL, 1, [Defines if you have GL (Mesa, OpenGL, ...)])
     if test "$GL_LDFLAGS" = ""; then
-       if test "$ac_cv_have_gl" = "mesa"; then
-          GLLIB='-lMesaGLU -lMesaGL $(LIB_X11)'
-       else
-          GLLIB='-lGLU -lGL $(LIB_X11)'
-       fi
+       GLLIB='-lGLU -lGL $(LIB_X11)'
     else
-       if test "$ac_cv_have_gl" = "mesa"; then
-          GLLIB="$GL_LDFLAGS -lMesaGLU -lMesaGL "'$(LIB_X11)'
-       else
-          GLLIB="$GL_LDFLAGS -lGLU -lGL "'$(LIB_X11)'
-       fi
+       GLLIB="$GL_LDFLAGS -lGLU -lGL "'$(LIB_X11)'
     fi
     if test "$GL_INCLUDE" = ""; then
        GLINC=""
@@ -4657,13 +4685,13 @@ AC_DEFINE_UNQUOTED(KDEMAXPATHLEN,$ac_cv_maxpathlen, [Define a safe value for MAX
 
 AC_DEFUN([KDE_CHECK_HEADER],
 [
-   AC_LANG_SAVE
    kde_safe_cppflags=$CPPFLAGS
    CPPFLAGS="$CPPFLAGS $all_includes"
+   AC_LANG_SAVE
    AC_LANG_CPLUSPLUS
    AC_CHECK_HEADER([$1], [$2], [$3], [$4])
-   CPPFLAGS=$kde_safe_cppflags
    AC_LANG_RESTORE
+   CPPFLAGS=$kde_safe_cppflags
 ])
 
 AC_DEFUN([KDE_CHECK_HEADERS],
