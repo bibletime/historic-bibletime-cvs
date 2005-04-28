@@ -14,6 +14,9 @@
 
 class CSwordKey;
 class CSwordLDKey;
+//KDE
+class KToolBarPopupAction;
+
 /**
   *@author The BibleTime team
   */
@@ -51,9 +54,9 @@ private:
   */
   CSwordLDKey* ldKey();
 
-  struct {
-  	KAction* backInHistory;
-  	KAction* forwardInHistory;
+  struct ActionsStruct {
+  	KToolBarPopupAction* backInHistory;
+  	KToolBarPopupAction* forwardInHistory;
   	
     KAction* selectAll;
     KActionMenu* copyMenu;
@@ -88,6 +91,10 @@ protected slots: // Protected slots
   * This function saves the entry as plain text using the CExportMgr class.
   */
   void saveAsPlain();
+	void slotFillBackHistory();
+	void slotFillForwardHistory();
+
+	void slotUpdateHistoryButtons();
 };
 
 #endif

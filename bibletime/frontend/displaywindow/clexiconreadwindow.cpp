@@ -25,12 +25,14 @@
 #include <klocale.h>
 #include <kpopupmenu.h>
 #include <kdeversion.h>
+#include <kactionclasses.h>
 
 CLexiconReadWindow::CLexiconReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name) : CReadWindow(moduleList, parent,name) {
 	setKey( CSwordKey::createInstance(moduleList.first()) );
 }
 
 CLexiconReadWindow::~CLexiconReadWindow(){
+
 }
 
 void CLexiconReadWindow::insertKeyboardActions( KActionCollection* const a ){
@@ -93,6 +95,8 @@ void CLexiconReadWindow::initActions() {
 void CLexiconReadWindow::initConnections(){
  	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 		this, SLOT(lookup(CSwordKey*)));
+ 	connect(keyChooser(), SIGNAL(historyChanged()),
+		this, SLOT(slotUpdateHistoryButtons()));
 }
 
 void CLexiconReadWindow::initView(){
@@ -105,15 +109,30 @@ void CLexiconReadWindow::initView(){
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
 
-	m_actions.backInHistory = new KAction(
+	m_actions.backInHistory = new KToolBarPopupAction(
 		i18n("Back in history"), CResMgr::displaywindows::general::backInHistory::icon, CResMgr::displaywindows::general::backInHistory::accel,
 		keyChooser(), SLOT( backInHistory() ),
 		actionCollection(), CResMgr::displaywindows::general::backInHistory::actionName
 	);
-	m_actions.forwardInHistory = new KAction(
+// 	m_actions.backInHistory->setDelayed(false);
+	
+	connect(m_actions.backInHistory->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(slotFillBackHistory()));
+	connect(
+		m_actions.backInHistory->popupMenu(), SIGNAL(activated(int)),
+		keyChooser(), SLOT(backInHistory(int))
+	);
+
+	m_actions.forwardInHistory = new KToolBarPopupAction(
 		i18n("Forward in history"), CResMgr::displaywindows::general::forwardInHistory::icon, CResMgr::displaywindows::general::forwardInHistory::accel,
 		keyChooser(), SLOT( forwardInHistory() ),
 		actionCollection(), CResMgr::displaywindows::general::forwardInHistory::actionName
+	);
+// 	m_actions.forwardInHistory->setDelayed(false);
+	
+	connect(m_actions.forwardInHistory->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(slotFillForwardHistory()));
+	connect(
+		m_actions.forwardInHistory->popupMenu(), SIGNAL(activated(int)),
+		keyChooser(), SLOT(forwardInHistory(int))
 	);
 	
 	Q_ASSERT(m_actions.backInHistory);
@@ -209,4 +228,39 @@ void CLexiconReadWindow::saveAsHTML(){
 void CLexiconReadWindow::saveAsPlain(){
   CExportManager mgr(i18n("Saving entry ..."), true, i18n("Saving"), filterOptions(), displayOptions());
   mgr.saveKey(key(), CExportManager::Text, true);
+}
+
+void CLexiconReadWindow::slotFillBackHistory() {
+	qWarning("fill back history");
+	QStringList keyList = keyChooser()->getPreviousKeys();
+	QPopupMenu* menu = m_actions.backInHistory->popupMenu();
+	menu->clear();
+	
+	QStringList::iterator it;
+	int index = 1;
+	for (it = keyList.begin(); it != keyList.end(); ++it) {
+		menu->insertItem(*it,index, index);
+		++index;
+	}
+}
+
+void CLexiconReadWindow::slotFillForwardHistory() {
+	qWarning("fill forward history");
+	QStringList keyList = keyChooser()->getNextKeys();
+	QPopupMenu* menu = m_actions.forwardInHistory->popupMenu();
+	menu->clear();
+	
+	QStringList::iterator it;
+	int index = 1;
+	for (it = keyList.begin(); it != keyList.end(); ++it) {
+		menu->insertItem(*it,index, index);
+		++index;
+	}
+}
+
+
+void CLexiconReadWindow::slotUpdateHistoryButtons() {
+	qWarning("updating history buttons");
+	m_actions.backInHistory->setEnabled( keyChooser()->getPreviousKeys().size() > 0 );
+	m_actions.forwardInHistory->setEnabled( keyChooser()->getNextKeys().size() > 0 );
 }

@@ -56,8 +56,6 @@ public slots:
   virtual void setModules( const ListCSwordModuleInfo& modules, const bool refresh = true );
 
 protected:	
-	class CLexiconPresenter;	
-	friend class CLexiconPresenter;	
 	CKeyChooserWidget *m_widget;
 	CSwordLDKey* m_key;
 	QPtrList<CSwordLexiconModuleInfo> m_modules;

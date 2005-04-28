@@ -34,16 +34,9 @@ public:
 	*/
   static CKeyChooser* createInstance(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent);
 
-signals:
-	/**
-	* is emitted if the @ref CKey was changed by the user
-	*/
-	void keyChanged(CSwordKey* key);
-	/**
-	* Is emitted before the key is changed!
-	*/
-	void beforeKeyChange(const QString& key);
-	
+  const QStringList getPreviousKeys() const;
+  const QStringList getNextKeys() const;
+
 public slots:
 	/**
 	* sets the @ref CKey
@@ -69,10 +62,26 @@ public slots:
   * Freshes the content of the different key chooser parts.
   */
   virtual void refreshContent() = 0;
-  void backInHistory();
-  void forwardInHistory();
+
 	void addToHistory(CSwordKey*);
   
+  void backInHistory();
+  void backInHistory(int);
+
+  void forwardInHistory();
+  void forwardInHistory(int);
+  
+signals:
+	/**
+	* is emitted if the @ref CKey was changed by the user
+	*/
+	void keyChanged(CSwordKey* key);
+	/**
+	* Is emitted before the key is changed!
+	*/
+	void beforeKeyChange(const QString& key);
+	void historyChanged();
+	
 protected:
 	/**
 	* the constructor - DO NOT USE! -- use @ref #createInstance instead!
@@ -85,8 +94,9 @@ protected:
   virtual void adjustFont() = 0;
 
 private:
-	QStringList* m_keyHistoryList;
-	unsigned int m_currentHistoryPosition;
+	QStringList m_prevKeyHistoryList;
+	QStringList m_nextKeyHistoryList;
+	int m_currentKeyHistoryPos;
 	bool m_inHistoryFunction;
 };
 

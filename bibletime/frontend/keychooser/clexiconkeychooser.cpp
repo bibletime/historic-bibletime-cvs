@@ -23,12 +23,14 @@
 #include <klocale.h>
 
 CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name )
-	: CKeyChooser(modules, key, parent, name), m_key(dynamic_cast<CSwordLDKey*>(key)){
+	: CKeyChooser(modules, key, parent, name),
+		m_key(dynamic_cast<CSwordLDKey*>(key))
+{
 
   setModules(modules, false);
 	
  //we use a layout because the key chooser should be resized to full size
- 	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
+ 	m_layout = new QHBoxLayout(this, QBoxLayout::LeftToRight);
   m_layout->setResizeMode(QLayout::FreeResize);
 
 	m_widget = new CKeyChooserWidget(0, false, this);
@@ -54,25 +56,26 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
 }
 
 CSwordKey* const CLexiconKeyChooser::key(){
-	qWarning("key");
+// 	qWarning("key");
 	return m_key;
 }
 
 void CLexiconKeyChooser::setKey(CSwordKey* key){	
- 	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
-		return;		
+ 	if (!(m_key = dynamic_cast<CSwordLDKey*>(key))) {
+		return;
+	}
 
-	qWarning("setKey start");
+// 	qWarning("setKey start");
   QString newKey = m_key->key();
 	const int index =	m_widget->comboBox()->listBox()->index(m_widget->comboBox()->listBox()->findItem( newKey ));
   m_widget->comboBox()->setCurrentItem(index);	
 
-  qWarning("setKey end");
+//   qWarning("setKey end");
   emit keyChanged( m_key );
 }
 
 void CLexiconKeyChooser::activated(int index){
-	qWarning("activated");
+// 	qWarning("activated");
 	const QString text = m_widget->comboBox()->text(index);	
 
   // To prevent from eternal loop, because activated() is emitted again
@@ -80,7 +83,7 @@ void CLexiconKeyChooser::activated(int index){
 		m_key->key(text); 	
 	 	setKey(m_key);
 	}
-	qWarning("activated end");
+// 	qWarning("activated end");
 }
 
 inline const bool my_cmpEntries(const QString& a, const QString& b) {
@@ -91,7 +94,7 @@ inline const bool my_cmpEntries(const QString& a, const QString& b) {
 void CLexiconKeyChooser::refreshContent(){
   if (m_modules.count() == 1) {
     m_widget->reset(m_modules.first()->entries(), 0, true);
-    qWarning("resetted");
+//     qWarning("resetted");
   }
   else {
     typedef std::multimap<unsigned int, QStringList*> EntryMap;
@@ -138,6 +141,7 @@ void CLexiconKeyChooser::adjustFont(){
 /** Sets the module and refreshes the combo boxes */
 void CLexiconKeyChooser::setModules( const ListCSwordModuleInfo& modules, const bool refresh ) {
   m_modules.clear();
+  Q_ASSERT(!m_modules.autoDelete());
 //   for (modules.first(); modules.current(); modules.next()) {
 	ListCSwordModuleInfo::const_iterator end_it = modules.end();
 	for (ListCSwordModuleInfo::const_iterator it(modules.begin()); it != end_it; ++it) {
