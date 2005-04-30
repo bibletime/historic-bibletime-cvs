@@ -36,7 +36,7 @@ CMDIArea::CMDIArea(QWidget *parent, const char *name )
 
 /** Initializes the view of the MDI area */
 void CMDIArea::initView(){
-	setPaletteBackgroundColor( parentWidget()->paletteBackgroundColor() );	//work around a KDE bug (IMHO was in KDE 2.x)
+ 	setPaletteBackgroundColor( parentWidget()->paletteBackgroundColor() );	//work around a KDE bug (IMHO was in KDE 2.x)
 }
 
 /** Initilizes the connectiosn to SIGNALS */
@@ -89,7 +89,7 @@ void CMDIArea::childEvent( QChildEvent * e ){
 
   if (!m_deleting && isUpdatesEnabled() && (e->inserted() || e->removed()) ) {
 		if (e->inserted() && e->child()) {
-// 			e->child()->installEventFilter(this); //make sure we catch the events of th new window
+ 			e->child()->installEventFilter(this); //make sure we catch the events of the new window
 // 			qWarning("installed event filter on %s", e->child()->className());
 		}
 		
@@ -153,7 +153,7 @@ void CMDIArea::setGUIOption( const MDIOption& newOption ){
 
 /**  */
 void CMDIArea::myTileVertical(){
-	if (m_deleting || !isUpdatesEnabled() || !windowList().count() )	{
+	if (m_deleting || !isUpdatesEnabled() || !usableWindowList().count() )	{
     return;
   }
 
@@ -169,7 +169,7 @@ void CMDIArea::myTileVertical(){
 }
 
 void CMDIArea::myTileHorizontal(){
-	if (m_deleting || !isUpdatesEnabled() || !windowList().count() )	{
+	if (m_deleting || !isUpdatesEnabled() || !usableWindowList().count() )	{
     return;
   }
 
@@ -205,7 +205,7 @@ void CMDIArea::myTileHorizontal(){
 
 /**  */
 void CMDIArea::myCascade(){
-	if (m_deleting || !isUpdatesEnabled() || !windowList().count() ) {
+	if (m_deleting || !isUpdatesEnabled() || !usableWindowList().count() ) {
 		return;
   }
 	
@@ -285,18 +285,19 @@ QPtrList<QWidget> CMDIArea::usableWindowList()  {
 }
 
 bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
-// 	QWidget* w = dynamic_cast<QWidget*>( o );
+ 	QWidget* w = dynamic_cast<QWidget*>( o );
 	bool ret = QWorkspace::eventFilter(o,e);
 	
-/*		if ( w && (e->type() == QEvent::WindowStateChange) ) {
-		qWarning("eventFilter");
+	if ( w && (e->type() == QEvent::WindowStateChange) ) {
+// 		qWarning("eventFilter");
 
 		if ((w->windowState() & Qt::WindowMinimized) || w->isHidden()) { //window was minimized, trigger a tile/cascade update if necessary
 			//resizeEvent(0); //initiate the code to call myTile / myCascade if it's enabled
-			qWarning("minimize catched");
-// 			return true;
+			triggerWindowUpdate();
+// 			qWarning("minimize catched");
+ 			ret = false;
 		}
-	}*/
+	}
 	
 	return ret; // standard event processing
 }
@@ -306,7 +307,7 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
     \fn CMDIArea::triggerWindowUpdate()
  */
 void CMDIArea::triggerWindowUpdate() {
-	if (m_deleting || !isUpdatesEnabled() || !windowList().count() )	{
+	if (m_deleting || !isUpdatesEnabled() || !usableWindowList().count() )	{
     return;
   }
 	
