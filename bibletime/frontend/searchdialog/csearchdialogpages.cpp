@@ -67,7 +67,6 @@ void CSearchResultView::initView(){
 
   //setup the popup menu
   m_popup = new KPopupMenu(this);
-//	m_popup->insertTitle(i18n("Bible window"));
 
  	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::searchdialog::result::foundItems::copyMenu::icon, m_popup);
  	m_actions.copy.result = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(copyItems()), this);
@@ -106,6 +105,7 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m){
   if (!m) {
     return;
 	}
+	
 	m_module = m;
 
   sword::ListKey& result = m->searchResult();
@@ -208,7 +208,6 @@ void CSearchResultView::copyItems(){
 
   keys.setAutoDelete(true);
   keys.clear(); //delete all the keys we created
-
 }
 
 /** No descriptions */

@@ -236,11 +236,6 @@ const bool CExportManager::copyKeyList(sword::ListKey* list, CSwordModuleInfo* m
   if (!list->Count())
     return false;
 
-	const QString filename = getSaveFileName(format);
-  if (filename.isEmpty()) {
-    return false;
-	}
-
 	CSwordBackend::FilterOptions filterOptions = m_filterOptions;
 	filterOptions.footnotes = false;
 	filterOptions.strongNumbers = false;
@@ -295,8 +290,7 @@ const bool CExportManager::copyKeyList(QPtrList<CSwordKey>& list, const Format f
 	CTextRendering::KeyTree tree;
 	
 	CTextRendering::KeyTreeItem::Settings itemSettings;
-	itemSettings.highlight = false;
-	
+	itemSettings.highlight = false;	
   for (CSwordKey* k = list.first(); k && !progressWasCancelled(); k = list.next()) {
  		tree.append( new CTextRendering::KeyTreeItem(k->key(), k->module(), itemSettings) );
     incProgress();

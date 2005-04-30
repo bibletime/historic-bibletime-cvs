@@ -90,7 +90,6 @@ void CMDIArea::childEvent( QChildEvent * e ){
   if (!m_deleting && isUpdatesEnabled() && (e->inserted() || e->removed()) ) {
 		if (e->inserted() && e->child()) {
  			e->child()->installEventFilter(this); //make sure we catch the events of the new window
-// 			qWarning("installed event filter on %s", e->child()->className());
 		}
 		
 		triggerWindowUpdate();
@@ -224,14 +223,14 @@ void CMDIArea::myCascade(){
 		const int windowWidth =  width() - (windows.count()-1)*offsetX;
 		const int windowHeight = height() - (windows.count()-1)*offsetY;
 		
-		int x = width() - windowWidth;
-		int y = height() - windowHeight;
+		int x = 0;
+		int y = 0;
 
 		QWidget* const active = activeWindow();
 
 // 		setUpdatesEnabled(false);
 
-		for ( int i(windows.count()-1); i>=0; --i ) {
+		for ( int i(windows.count()-1); i >= 0; --i ) {
 			QWidget* window = windows.at(i);
 			if (window == active) { //leave out the active window which should be the top window
 				continue;
@@ -242,9 +241,10 @@ void CMDIArea::myCascade(){
 			window->parentWidget()->setGeometry(x, y, windowWidth, windowHeight);
  			window->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order
 			window->parentWidget()->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order
-			x -= offsetX;
-			y -= offsetY;
+			x += offsetX;
+			y += offsetY;
 		}
+		
 		active->parentWidget()->setGeometry(x, y, windowWidth, windowHeight);
 		active->parentWidget()->raise();
 		active->raise();
@@ -289,12 +289,8 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
 	bool ret = QWorkspace::eventFilter(o,e);
 	
 	if ( w && (e->type() == QEvent::WindowStateChange) ) {
-// 		qWarning("eventFilter");
-
 		if ((w->windowState() & Qt::WindowMinimized) || w->isHidden()) { //window was minimized, trigger a tile/cascade update if necessary
-			//resizeEvent(0); //initiate the code to call myTile / myCascade if it's enabled
 			triggerWindowUpdate();
-// 			qWarning("minimize catched");
  			ret = false;
 		}
 	}
