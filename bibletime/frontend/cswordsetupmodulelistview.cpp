@@ -79,7 +79,7 @@ void CSwordSetupModuleListView::init(){
   m_categoryDevotionals->setOpen(true);
   m_categoryGlossaries->setOpen(true);
 
-  
+  connect(this, SIGNAL(clicked(QListViewItem* )), SLOT(slotItemClicked(QListViewItem*)));
 }
 
 void CSwordSetupModuleListView::finish(){
@@ -205,4 +205,9 @@ QStringList CSwordSetupModuleListView::selectedModules(){
 	return moduleList;
 }
 
+void CSwordSetupModuleListView::slotItemClicked(QListViewItem*) {
+	emit selectedModulesChanged();
+}
+
 } //NAMESPACE
+

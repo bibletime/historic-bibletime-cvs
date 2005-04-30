@@ -138,7 +138,7 @@ void CSwordSetupDialog::initInstall(){
   );
 	layout->addMultiCellWidget(installLabel, 0,0,0,2);
 
-	QLabel* sourceHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select library")), m_installSourcePage);
+	QLabel* sourceHeadingLabel = new QLabel(QString("<b>%1</b>").arg(i18n("Select library")), m_installSourcePage);
 	layout->addMultiCellWidget(sourceHeadingLabel, 1,1,0,1);
 
 	m_sourceCombo = new QComboBox(m_installSourcePage);
@@ -157,7 +157,7 @@ void CSwordSetupDialog::initInstall(){
 	m_sourceLabel = new QLabel(m_installSourcePage);
 	layout->addMultiCellWidget(m_sourceLabel, 3,3,0,1);
 
-	QLabel* targetHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select bookshelf path")), m_installSourcePage);
+	QLabel* targetHeadingLabel = new QLabel(QString("<b>%1</b>").arg(i18n("Select bookshelf path")), m_installSourcePage);
 	layout->addMultiCellWidget(targetHeadingLabel, 4,4,0,1);
 
 	m_targetCombo = new QComboBox(m_installSourcePage);
@@ -571,16 +571,16 @@ void CSwordSetupDialog::slot_connectToSource(){
 		layout->setColStretch(0,5);
 		layout->setRowStretch(1,5);
 
+		connect(m_installModuleListView, SIGNAL(selectedModulesChanged()), SLOT(slot_installModulesChanged()));
 	}
 
 	//code valid for already existing and newly created widgets
-//   m_installContinueButton->setEnabled(false);
   disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
   connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
 
   populateInstallModuleListView( currentInstallSource() );
   m_installContinueButton->setText(i18n("Install works"));
-//   m_installContinueButton->setEnabled(false);
+  m_installContinueButton->setEnabled(false);
 
   m_installWidgetStack->raiseWidget(m_installModuleListPage);
 
@@ -608,58 +608,28 @@ void CSwordSetupDialog::slot_installDeleteSource() {
 	populateInstallCombos();
 }
 
-void CSwordSetupDialog::slot_installModuleItemExecuted(QListViewItem* item) {
+void CSwordSetupDialog::slot_installModulesChanged() {
 	// This function enabled the Install modules button if modules are chosen
 	// If an item was clicked to be not chosen look if there are other selected items
 	// If the item was clicked to be chosen enable the button without looking at the other items
 
-	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>(item);
-	if (item && !checkItem) //no valid item for us
-		return;
-
-	if (checkItem && checkItem->isOn() && (checkItem->type() == QCheckListItem::CheckBox)) {
-		m_installContinueButton->setEnabled(true);
-	}
-	else {
-		QListViewItemIterator it( m_installModuleListView );
-		QCheckListItem* ci = 0;
-		while (it.current()) {
-			ci = dynamic_cast<QCheckListItem*>(it.current());
-			if (ci && ci->isOn()) {
-				break;
-			}
-			it++;
-		}
-		if ( ci && ci->isOn() ) { //a module is checked in the list
-			m_installContinueButton->setEnabled(true);
-    }
-		else {
-			m_installContinueButton->setEnabled(false);
-		}
-	}
+	const int moduleCount = m_installModuleListView->selectedModules().count();
+	m_installContinueButton->setEnabled(moduleCount > 0);
 }
 
 void CSwordSetupDialog::slot_installModules(){
-// 	m_installContinueButton->setEnabled(false);
-// 	m_installBackButton->setEnabled(false);
+	qWarning("CSwordSetupDialog::slot_installModules()");
+//  	m_installContinueButton->setEnabled(false);
+//  	m_installBackButton->setEnabled(false);
 
 	//first get all chosen modules
-	QStringList moduleList;
-
-	QListViewItemIterator list_it( m_installModuleListView );
-	while ( list_it.current() ) {
-		QCheckListItem* i = dynamic_cast<QCheckListItem*>( list_it.current() );
-		if (i && i->isOn() && (i->type() == QCheckListItem::CheckBox)) {
-			moduleList << list_it.current()->text(0);
-		}
-		++list_it;
-	}
-	
-	if (moduleList.count() == 0){ // no modules selected
+	QStringList moduleList = m_installModuleListView->selectedModules();
+	Q_ASSERT(moduleList.count() != 0);
+	if (moduleList.count() == 0) { // no modules selected
 		return;
 	}
 
-	const QString& message = i18n("You selected the following works: %1.\n\n\
+	const QString message = i18n("You selected the following works: %1.\n\n\
 		Do you really want to install them on your system?").arg(moduleList.join(", "));
 
 	if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
@@ -667,7 +637,7 @@ void CSwordSetupDialog::slot_installModules(){
 		m_currentInstallMgr = &iMgr;
     sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, currentInstallSource());
 
-//		qWarning("installung from %s/%s", is.source.c_str(), is.directory.c_str());
+		qWarning("installing from %s/%s", is.source.c_str(), is.directory.c_str());
     QString target = m_targetCombo->currentText();
 
 		//make sure target/mods.d and target/modules exist
@@ -742,7 +712,7 @@ void CSwordSetupDialog::slot_installModules(){
 
 	m_currentInstallMgr = 0;
 	m_installBackButton->setEnabled(true);
-	slot_installModuleItemExecuted(0);
+	slot_installModulesChanged();
 }
 
 void CSwordSetupDialog::installCompleted( const int total, const int /* file */){

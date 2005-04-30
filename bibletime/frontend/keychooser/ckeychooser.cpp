@@ -11,9 +11,8 @@
 #include "cbookkeychooser.h"
 
 CKeyChooser::CKeyChooser(ListCSwordModuleInfo, CSwordKey *, QWidget *parent, const char *name )
-	: QWidget(parent, name)
-//  		,m_currentKeyHistoryPos(0),
-// 		m_inHistoryFunction(false)
+	: QWidget(parent, name),
+ 		m_inHistoryFunction(false)
 {
  	connect(this, SIGNAL(keyChanged(CSwordKey*)), SLOT(addToHistory(CSwordKey*)));
 }
@@ -110,8 +109,8 @@ void CKeyChooser::forwardInHistory(int count) {
 
 void CKeyChooser::addToHistory(CSwordKey* k) {
 	qWarning("addToHistory");
-// 	return;
 
+	Q_ASSERT(!m_inHistoryFunction);
  	if (k && !m_inHistoryFunction) {
  		Q_ASSERT(k->key() != key()->key());
 		m_prevKeyHistoryList.prepend(k->key());

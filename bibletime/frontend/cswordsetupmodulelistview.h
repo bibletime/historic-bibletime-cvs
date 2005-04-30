@@ -23,11 +23,13 @@ public:
 	void finish();
 	QStringList selectedModules();
 	void clear();
+
+protected slots:
+	void slotItemClicked(QListViewItem*);
 	
 private:
 	void init();
-
-private:
+	
 	bool m_is_remote;
 	QListViewItem* m_categoryBible;
 	QListViewItem* m_categoryCommentary;
@@ -36,6 +38,8 @@ private:
 	QListViewItem* m_categoryDevotionals;
 	QListViewItem* m_categoryGlossaries;
 
+signals:
+	void selectedModulesChanged();
 };
 
 } //NAMESPACE

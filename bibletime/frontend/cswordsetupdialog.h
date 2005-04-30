@@ -120,7 +120,7 @@ private slots:
 	void slot_installAddSource();
 	void slot_installDeleteSource();
   void slot_installModules();
-	void slot_installModuleItemExecuted(QListViewItem*);
+	void slot_installModulesChanged();
 	void slot_installProgressCancelClicked();
   void slot_showInstallSourcePage();
 
