@@ -147,10 +147,16 @@ td.entry + td.entry {
 .crossreference {
 	font-size: 80%;
 	color: blue;
-	cursor: help;
+/* 	cursor: help; */
 }
-#bible .crossreference:before  { content:"["; }
+#bible .crossreference:before  { content:" ["; }
 #bible .crossreference:after  { content:"]"; }
+.crossreference a {
+	color: blue;
+}
+.crossreference a:hover {
+	color: blue;
+}
 
 .alternative {}
 .alternative:before { content:"'"attr(alternative); }

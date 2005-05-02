@@ -141,14 +141,15 @@ const bool CDisplay::save( const CDisplay::TextType format, const CDisplay::Text
 
   switch (format) {
     case HTMLText:
-      filter = QString::fromLatin1("*.html *.htm | ") + i18n("HTML files") + QString::fromLatin1("\n *.* | All files (*.*)");
+      filter = QString("*.html *.htm | ") + i18n("HTML files") + QString("\n *.* | All files (*.*)");
       break;
     case PlainText:
-      filter = QString::fromLatin1("*.txt | ") + i18n("Text files") + QString::fromLatin1("\n *.* | All files (*.*)");
+      filter = QString("*.txt | ") + i18n("Text files") + QString("\n *.* | All files (*.*)");
       break;
   };
 
   const QString filename = KFileDialog::getSaveFileName(QString::null, filter, 0, i18n("Save document ..."));
+  
   if (!filename.isEmpty()) {
     CToolClass::savePlainFile(filename, content);
   }

@@ -5,6 +5,7 @@
 #include "backend/bt_thmlhtml.h"
 #include "backend/clanguagemgr.h"
 #include "backend/cswordmoduleinfo.h"
+#include "backend/creferencemanager.h"
 
 #include "frontend/cbtconfig.h"
 
@@ -237,17 +238,24 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			if (!myUserData->inFootnoteTag) {
 				if (tag.isEndTag()) {
 					if (myUserData->inscriptRef) { // like "<scripRef passage="John 3:16">See John 3:16</scripRef>"
-						buf.append("</span>");
+						buf.append("</a></span>");
 						
 						myUserData->inscriptRef = false;
 						myUserData->suspendTextPassThru = false;
 					}
 					else { // like "<scripRef>John 3:16</scripRef>"
-						buf.append("<span class=\"crossreference\" crossrefs=\"");
+						CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
+						Q_ASSERT(mod);
+						
+						buf.append("<span class=\"crossreference\"><a href=\"");
+						buf.append(
+							CReferenceManager::encodeHyperlink(mod->name(), QString(myUserData->lastTextNode), CReferenceManager::typeFromModule(mod->type())).utf8()
+						);
+						buf.append("\" crossrefs=\"");
 						buf.append(myUserData->lastTextNode.c_str());
 						buf.append("\">");
 						buf.append(myUserData->lastTextNode.c_str());
-						buf.append("</span>");
+						buf.append("</a></span>");
 						
 						myUserData->suspendTextPassThru = false;
 					}
@@ -255,9 +263,24 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
 					myUserData->inscriptRef = true;
 					myUserData->suspendTextPassThru = false;
-					buf.append("<span class=\"crossreference\" crossrefs=\"");
-					buf.append(tag.getAttribute("passage"));
+					
+					const char* ref = tag.getAttribute("passage");
+					Q_ASSERT(ref);
+					
+					CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
+					/*CPointers::backend()->findSwordModuleByPointer(myModule)*/
+					Q_ASSERT(mod);
+					
+					buf.append("<span class=\"crossreference\">");
+					buf.append("<a href=\"");
+					buf.append(
+						CReferenceManager::encodeHyperlink(mod->name(), QString(ref), CReferenceManager::typeFromModule(mod->type())).utf8()
+					);
+					buf.append("\" crossrefs=\"");
+					buf.append(ref);
 					buf.append("\">");
+					
+					qWarning("inserted passage ref in %s", buf.c_str());
 				}
 				else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 					myUserData->inscriptRef = false;
@@ -267,7 +290,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}
 			}
 		}
-		else if (tag.getName() && !strcasecmp(tag.getName(), "div")) {                                      
+		else if (tag.getName() && !strcasecmp(tag.getName(), "div")) {
       if (tag.isEndTag()) {
         buf.append("</div>");
       }

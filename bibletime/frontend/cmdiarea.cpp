@@ -52,8 +52,9 @@ void CMDIArea::slotClientActivated(QWidget* client){
   }
 
 	CDisplayWindow* sp = dynamic_cast<CDisplayWindow*>(client);	
-	if (!sp || !sp->isReady())
+	if (!sp || !sp->isReady()) {
 		return;
+	}
 
   QWidgetList windows = windowList();
   for ( QWidget* w = windows.first(); w; w = windows.next() ) {

@@ -165,7 +165,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				if (type == "crossReference") { //note containing cross references
 					myUserData->inCrossrefNote = true;
 					
-					//get the refList value of the right entry attribute
+/*					//get the refList value of the right entry attribute
 					AttributeList notes = myModule->getEntryAttributes()["Footnote"];
 					bool foundNote = false;
 					
@@ -190,10 +190,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					}
 					else {
 						myUserData->noteType = BT_UserData::Unknown;
-					}
+					}*/
+
+					buf.append("<span class=\"crossreference\">");
         }
-/*        else if (type == "explanation") {
-        }*/
+			/* else if (type == "explanation") {
+        }
+        */
         else if (type == "strongsMarkup") { 
 					/**
 					* leave strong's markup notes out, in the future we'll probably have 
@@ -225,7 +228,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			}
 			else { //if (tag.isEndTag()) {
         if (myUserData->noteType == BT_UserData::CrossReference) {
-          buf.append("</span> ");
+					buf.append("</span> ");
 					myUserData->suspendTextPassThru = false;
 					myUserData->inCrossrefNote = false;
         }
@@ -243,7 +246,32 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		}
 		// <p> paragraph tag is handled by OSISHTMLHref
 		else if (!strcmp(tag.getName(), "reference")) { // <reference> tag
-			if (!myUserData->inCrossrefNote && !tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
+			if (!tag.isEndTag() && !tag.isEmpty()) {
+        const char* ref = tag.getAttribute("osisRef");
+        Q_ASSERT(ref);
+        if (ref) {
+					CSwordModuleInfo* mod = CPointers::backend()->findSwordModuleByPointer(myModule);
+					Q_ASSERT(mod);
+	
+					buf.append("<a href=\"");
+					buf.append(
+						CReferenceManager::encodeHyperlink(
+							mod->name(), ref, CReferenceManager::typeFromModule(mod->type())
+						).utf8()
+					);
+					
+					buf.append("\" crossrefs=\"");
+					buf.append(ref);
+					buf.append("\">");
+				}
+			}
+			else if (tag.isEndTag()) {
+ 				buf.append("</a>");
+			}
+			else {	// empty reference marker
+				// -- what should we do?  nothing for now.
+			}
+/*			if (!myUserData->inCrossrefNote && !tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
         const char* ref = tag.getAttribute("osisRef");
 				
 				buf.append("<span class=\"crossreference\" crossrefs=\"");
@@ -255,7 +283,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			}
 			else {	// empty reference marker
 				// -- what should we do?  nothing for now.
-			}
+			}*/
 		}
     // <l> is handled by OSISHTMLHref
 		// <title>
@@ -426,5 +454,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       return sword::OSISHTMLHREF::handleToken(buf, token, userData);
     }
 	}
+	
   return false;
 }

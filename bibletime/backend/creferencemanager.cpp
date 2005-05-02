@@ -9,7 +9,7 @@
 #include <qregexp.h>
 
 /** Returns a hyperlink used to be imbedded in the display windows. At the moment the format is sword://module/key */
-const QString CReferenceManager::encodeHyperlink( const QString& moduleName, const QString& key, const CReferenceManager::Type& type){
+const QString CReferenceManager::encodeHyperlink( const QString moduleName, const QString key, const CReferenceManager::Type type){
 	QString ret = QString::null;
 	switch (type) {
 		case Bible:				

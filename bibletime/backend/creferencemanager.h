@@ -32,7 +32,7 @@ public:
 	* Returns a hyperlink used to be imbedded in the display windows.
 	* At the moment the format is sword://module/key
  	*/
-  static const QString encodeHyperlink( const QString& module, const QString& key, const Type& type);
+  static const QString encodeHyperlink( const QString module, const QString key, const Type type);
   /**
 	* Puts a module Name and a Reference together in the 'draggable' form
 	* (module)reference
