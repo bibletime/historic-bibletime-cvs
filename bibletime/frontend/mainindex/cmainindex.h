@@ -29,7 +29,6 @@ class CSearchDialog;
 class CMainIndex : public KListView {
   Q_OBJECT
 	
-//  class ToolTip : public CToolTip {
   class ToolTip : public QToolTip {
 	public:
 		ToolTip(CMainIndex* parent);

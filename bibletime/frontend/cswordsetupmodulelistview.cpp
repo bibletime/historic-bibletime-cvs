@@ -9,6 +9,7 @@
 #include "util/ctoolclass.h"
 
 //QT includes
+#include <qtooltip.h>
 
 //KDE includes
 #include <klocale.h>
@@ -18,9 +19,33 @@ using namespace sword;
 
 namespace InstallationManager {
 
+class ToolTip : public QToolTip {
+public:
+	ToolTip(CSwordSetupModuleListView* listview)
+		: QToolTip( listview->viewport() ),
+			m_parent( listview )
+	{
+	}
+
+	virtual void maybeTip(const QPoint& pos) {
+		QListViewItem* i = m_parent->itemAt(pos);
+		Q_ASSERT(i);
+
+		const QRect rect = m_parent->itemRect(i);
+		if (m_parent->showTooltip(i, pos, 0)) {
+			const QString tipText = m_parent->tooltip(i, 0);
+			tip(rect, tipText);
+		}
+	}
+	
+protected:
+	CSwordSetupModuleListView* m_parent;
+};
+
 CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_remote)
 	: KListView(parent), m_is_remote( is_remote )
 {
+	new InstallationManager::ToolTip(this);
 	
 	addColumn(i18n("Name"));
 	setColumnWidthMode( 0, QListView::Maximum );
@@ -28,11 +53,11 @@ CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_re
 
 	addColumn(i18n("Status"));
 	setColumnAlignment(1, Qt::AlignRight);
-	addColumn(i18n("Installed")); //version
+	addColumn(i18n("Installed version")); //version
 	setColumnAlignment(2, Qt::AlignHCenter);
-		
+	
 	if (m_is_remote){
-		addColumn(i18n("Remote")); //version
+		addColumn(i18n("Remote version")); //version
 	}
 	else{
 		addColumn(i18n("Location"));
@@ -43,6 +68,7 @@ CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_re
 	setFullWidth(true);
 	setRootIsDecorated(true);
 	setResizeMode(QListView::LastColumn);
+	setTooltipColumn(0);
 		
 	init();
 }
@@ -139,13 +165,14 @@ void CSwordSetupModuleListView::addModule(CSwordModuleInfo* module, QString loca
 	}
 
 	QListViewItem * langFolder = 0;
-	
 	if (parent){
 		langFolder = parent->firstChild();
+		
 		while( langFolder ) { //try to find language folder if it exsists
 			if (langFolder->text(0) == langName) { //found right folder
 				break;
 			}
+			
 			langFolder = langFolder->nextSibling();
 		}
 	}
@@ -160,34 +187,31 @@ void CSwordSetupModuleListView::addModule(CSwordModuleInfo* module, QString loca
 		langFolder->setOpen(false);
 	}
 
+	Q_ASSERT(langFolder);
+	
 	QListViewItem* newItem = 0;
 	if (langFolder) {
-#if QT_VERSION >= 320
-		newItem = new QCheckListItem(langFolder, module->name(), QCheckListItem::CheckBoxController);
-#else
 		newItem = new QCheckListItem(langFolder, module->name(), QCheckListItem::CheckBox);
-#endif
 	}
 	else { //shouldn't happen
-#if QT_VERSION >= 320
-		newItem = new QCheckListItem(this, module->name(), QCheckListItem::CheckBoxController);
-#else
 		newItem = new QCheckListItem(this, module->name(), QCheckListItem::CheckBox);
-#endif
 	}
 
 	newItem->setPixmap(0, CToolClass::getIconForModule(module));
 	if (m_is_remote){
 		newItem->setText(1, localVersion.isEmpty() ? i18n("New") : i18n("Updated"));
 	}
-	else{
+	else {
 		newItem->setText(1, i18n("Installed") );
 	}
+
 	newItem->setText(2, localVersion);
-	if (m_is_remote)
+	if (m_is_remote) {
 		newItem->setText(3, module->config(CSwordModuleInfo::ModuleVersion));
-	else
+	}
+	else {
 		newItem->setText(3, module->config(CSwordModuleInfo::AbsoluteDataPath));
+	}
 }
 
 QStringList CSwordSetupModuleListView::selectedModules(){
@@ -196,7 +220,7 @@ QStringList CSwordSetupModuleListView::selectedModules(){
 	QListViewItemIterator list_it( this );
 	while ( list_it.current() ) {
 		QCheckListItem* i = dynamic_cast<QCheckListItem*>( list_it.current() );
-		if (i && i->isOn() && !(i->text(1).isEmpty()) ) {
+		if (i && i->isOn() && i->type() == QCheckListItem::CheckBox ) {
 			moduleList << i->text(0);
 		}
 		++list_it;
@@ -207,6 +231,36 @@ QStringList CSwordSetupModuleListView::selectedModules(){
 
 void CSwordSetupModuleListView::slotItemClicked(QListViewItem*) {
 	emit selectedModulesChanged();
+}
+
+bool CSwordSetupModuleListView::showTooltip(QListViewItem* i, const QPoint&, int) const
+{
+// 	qWarning("showTooltip");
+	
+	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>( i );
+ 	Q_ASSERT(checkItem);
+// 	Q_ASSERT(checkItem->type() == QCheckListItem::CheckBox);
+
+	return (checkItem && (checkItem->type() == QCheckListItem::CheckBox));
+}
+
+QString CSwordSetupModuleListView::tooltip(QListViewItem* i, int column) const {
+// 	qWarning("tooltip()");
+	QString ret;
+	
+	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>( i );
+	Q_ASSERT(checkItem);
+	
+	if (checkItem && (checkItem->type() == QCheckListItem::CheckBox)) {
+		const QString moduleName = checkItem->text(0);
+		CSwordModuleInfo* module = CPointers::backend()->findModuleByName(moduleName);
+
+		Q_ASSERT(module);
+
+		ret = CToolClass::moduleToolTip(module);
+	}
+
+	return ret;
 }
 
 } //NAMESPACE

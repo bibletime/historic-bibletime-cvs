@@ -24,6 +24,9 @@ public:
 	QStringList selectedModules();
 	void clear();
 
+	virtual QString tooltip(QListViewItem* i, int column) const;
+	virtual bool showTooltip(QListViewItem* i, const QPoint& pos, int column) const;
+
 protected slots:
 	void slotItemClicked(QListViewItem*);
 	

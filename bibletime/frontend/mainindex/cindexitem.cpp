@@ -230,35 +230,7 @@ void CModuleItem::dropped( QDropEvent* e, QListViewItem* /*after */){
 
 /** Reimplementation. */
 const QString CModuleItem::toolTip(){
-    QString text;
-		text = QString::fromLatin1("<b>%1</b> ").arg( module()->name() )
-      + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<small><b>%1</b></small><br>").arg(i18n("Take care, this work contains cult / questionable material!")) : QString::null);
-		
-		text += QString::fromLatin1("<small>(") + module()->config(CSwordModuleInfo::Description) + QString::fromLatin1(")</small><hr>");
-		
-		text += i18n("Language")+ QString::fromLatin1(": %1<br>").arg(module()->language()->translatedName());
-		
-		if (module()->isEncrypted())
-			text += i18n("Unlock key") + QString::fromLatin1(": %1<br>")
-				.arg(!module()->config(CSwordModuleInfo::CipherKey).isEmpty() ? module()->config(CSwordModuleInfo::CipherKey) : QString("<font COLOR=\"red\">%1</font>").arg(i18n("not set")));
-		if (module()->hasVersion())
-			text += i18n("Version") + QString::fromLatin1(": %1<br>").arg(module()->config(CSwordModuleInfo::ModuleVersion));
-     	     	
-   	QString options;
-   	unsigned int opts;
-   	for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts){
-   		if (module()->has( static_cast<CSwordModuleInfo::FilterTypes>(opts) )) {
-     		if (!options.isEmpty())
-     			options += QString::fromLatin1(", ");
-     		options += CSwordBackend::translatedOptionName( static_cast<CSwordModuleInfo::FilterTypes>(opts) );
-   		}
-   	}
-   	if (!options.isEmpty())
-   		text += i18n("Options") + QString::fromLatin1(": <small>") + options + QString::fromLatin1("</small>");
-     		
-		if (text.right(4) == QString::fromLatin1("<br>"))
-			text = text.left(text.length()-4);
-		return text;
+	return CToolClass::moduleToolTip(module());
 }
 
 /** Returns the used module. */

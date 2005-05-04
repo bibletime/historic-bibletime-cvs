@@ -4,6 +4,7 @@
 #include "ctoolclass.h"
 
 #include "util/cresmgr.h"
+#include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
 
 //QT includes
@@ -177,4 +178,53 @@ bool CToolClass::inHTMLTag(int pos, QString & text){
     return true; //yes, we're in a tag
 
   return false;
+}
+
+QString CToolClass::moduleToolTip(CSwordModuleInfo* module) {
+	Q_ASSERT(module);
+	if (!module) {
+		return QString::null;
+	}
+
+	QString text;
+	
+	text = QString("<b>%1</b> ").arg( module->name() )
+		+ ((module->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<small><b>%1</b></small><br>").arg(i18n("Take care, this work contains cult / questionable material!")) : QString::null);
+
+	text += QString("<small>(") + module->config(CSwordModuleInfo::Description) + QString(")</small><hr>");
+
+	text += i18n("Language")+ QString(": %1<br>").arg( module->language()->translatedName() );
+
+	if (module->isEncrypted()) {
+		text += i18n("Unlock key") + QString(": %1<br>")
+			.arg(!module->config(CSwordModuleInfo::CipherKey).isEmpty() ? module->config(CSwordModuleInfo::CipherKey) : QString("<font COLOR=\"red\">%1</font>").arg(i18n("not set")));
+	}
+
+	if (module->hasVersion()) {
+		text += i18n("Version") + QString(": %1<br>").arg( module->config(CSwordModuleInfo::ModuleVersion) );
+	}
+	
+	QString options;
+	unsigned int opts;
+	for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts){
+		if (module->has( static_cast<CSwordModuleInfo::FilterTypes>(opts) )) {
+			if (!options.isEmpty()) {
+				options += QString::fromLatin1(", ");
+			}
+
+			options += CSwordBackend::translatedOptionName(
+				static_cast<CSwordModuleInfo::FilterTypes>(opts)
+			);
+		}
+	}
+
+	if (!options.isEmpty()) {
+		text += i18n("Options") + QString::fromLatin1(": <small>") + options + QString("</small>");
+	}
+	
+	if (text.right(4) == QString::fromLatin1("<br>")) {
+		text = text.left(text.length()-4);
+	}
+	
+	return text;
 }

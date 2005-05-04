@@ -62,6 +62,8 @@ public:
   * Returns true if the character at position "pos" of text is inside an HTML tag. Returns false if it's not inside an HTML tag.
   */
   static bool inHTMLTag(int pos, QString & text);
+
+	static QString moduleToolTip(CSwordModuleInfo* module);
 };
 
 #endif
