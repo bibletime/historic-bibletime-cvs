@@ -72,7 +72,7 @@ public:
 	* filters for the module format.
 	*/
 	CSwordBackend();
-	CSwordBackend( const QString& path );
+	CSwordBackend( const QString& path, const bool augmentHome = true );
   
 	/**
 	* The destrctor of this backend. This function shuts the modules down using @ref shutdownModules.
@@ -127,7 +127,7 @@ public:
   * @param description The description of the desired module
   * @return pointer to the desired module; null if no module has the specified description
   */
-  static const QString findModuleNameByDescription(const QString& description);
+  /*static*/ const QString findModuleNameByDescription(const QString& description);
   /**
   * This function searches for a module with the specified name
   * @param description The name of the desired module
@@ -199,13 +199,15 @@ private:
 		sword::SWFilter *thml;
  		sword::SWFilter *osis;
 	} m_filters;
-	ListCSwordModuleInfo m_moduleList;
 
 	struct Displays {
 		Rendering::CChapterDisplay* 	chapter;
 		Rendering::CEntryDisplay* 		entry;
 		Rendering::CBookDisplay* 		book;
 	} m_displays;
+
+	ListCSwordModuleInfo m_moduleList;
+	QMap<QString, QString> m_moduleDescriptionMap;
 };
 
 /**Returns The list of modules managed by this backend*/

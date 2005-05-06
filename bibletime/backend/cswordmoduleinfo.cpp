@@ -229,12 +229,13 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 		case Description:
 			return QString(m_module->Description());
 		case ModuleVersion: {
-			QString version(m_module->getConfigEntry("Version"));
+ 			QString version(m_module->getConfigEntry("Version"));
+//			QString version( (*m_backend->getConfig())[module()->Name()]["Version"] );
       if (version.isEmpty()) {
         version = "1.0";
 			}
       return version;
-    }        
+    }
 		case MinimumSwordVersion: {
 			const QString minimumVersion(m_module->getConfigEntry("MinimumVersion"));
 			return !minimumVersion.isEmpty() ? minimumVersion : QString("0.0");

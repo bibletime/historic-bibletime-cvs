@@ -1,6 +1,7 @@
 /********* Read the file LICENSE for license details. *********/
 
 #include "cswordsetupmodulelistview.h"
+#include "btinstallmgr.h"
 
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
@@ -42,10 +43,11 @@ protected:
 	CSwordSetupModuleListView* m_parent;
 };
 
-CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_remote)
+CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_remote, sword::InstallSource* installSource)
 	: KListView(parent), m_is_remote( is_remote )
 {
 	new InstallationManager::ToolTip(this);
+	m_backend = installSource ? BTInstallMgr::Tool::backend(installSource) : CPointers::backend();
 	
 	addColumn(i18n("Name"));
 	setColumnWidthMode( 0, QListView::Maximum );
@@ -71,6 +73,12 @@ CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_re
 	setTooltipColumn(0);
 		
 	init();
+}
+
+CSwordSetupModuleListView::~CSwordSetupModuleListView() {
+	if (m_is_remote) {
+		delete m_backend;
+	}
 }
 
 void CSwordSetupModuleListView::init(){
@@ -161,7 +169,7 @@ void CSwordSetupModuleListView::addModule(CSwordModuleInfo* module, QString loca
 	const CLanguageMgr::Language* const lang = module->language();
 	QString langName = lang->translatedName();
 	if (!lang->isValid()) {
-		langName = QString::fromLatin1(module->module()->Lang());
+		langName = QString(module->module()->Lang());
 	}
 
 	QListViewItem * langFolder = 0;
@@ -253,7 +261,7 @@ QString CSwordSetupModuleListView::tooltip(QListViewItem* i, int column) const {
 	
 	if (checkItem && (checkItem->type() == QCheckListItem::CheckBox)) {
 		const QString moduleName = checkItem->text(0);
-		CSwordModuleInfo* module = CPointers::backend()->findModuleByName(moduleName);
+		CSwordModuleInfo* module = m_backend->findModuleByName(moduleName);
 
 		Q_ASSERT(module);
 

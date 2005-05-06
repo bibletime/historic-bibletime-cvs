@@ -45,7 +45,7 @@ using namespace Rendering;
 
 
 //static class-wide members
-static QMap<QString, QString> moduleDescriptionMap;
+// static QMap<QString, QString> moduleDescriptionMap;
 
 CSwordBackend::CSwordBackend()
 	: sword::SWMgr(0, 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), true)
@@ -60,8 +60,8 @@ CSwordBackend::CSwordBackend()
 	m_filters.plain = 0;
 }
 
-CSwordBackend::CSwordBackend(const QString& path)
-	: sword::SWMgr((!path.isEmpty() ? (const char*)path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), false /*true*/) // don't allow module renaming, because we load from a path
+CSwordBackend::CSwordBackend(const QString& path, const bool augmentHome)
+	: sword::SWMgr((!path.isEmpty() ? (const char*)path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), false, augmentHome) // don't allow module renaming, because we load from a path
 {	
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
@@ -138,7 +138,7 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 //	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-		moduleDescriptionMap.insert( (*it)->config(CSwordModuleInfo::Description), (*it)->name() );
+		m_moduleDescriptionMap.insert( (*it)->config(CSwordModuleInfo::Description), (*it)->name() );
 	}
 
 	//unlock modules if keys are present
@@ -318,8 +318,8 @@ CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& de
 
 /** This function searches for a module with the specified description */
 const QString CSwordBackend::findModuleNameByDescription(const QString& description){
-	if (moduleDescriptionMap.contains(description)) {
-		return moduleDescriptionMap[description];
+	if (m_moduleDescriptionMap.contains(description)) {
+		return m_moduleDescriptionMap[description];
   }
 	
   return QString::null;
@@ -328,17 +328,14 @@ const QString CSwordBackend::findModuleNameByDescription(const QString& descript
 /** This function searches for a module with the specified name */
 CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name){
 	CSwordModuleInfo* ret = 0;
-//   if (m_moduleList.count()) {
-/*    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {*/
-		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
-		for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
-      if ( (*it)->name() == name ) {
-        ret = *it;
-				break;
-// 				return m_moduleList.current();
-      }
-    }
-//   }
+	
+	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
+		if ( (*it)->name() == name ) {
+			ret = *it;
+			break;
+		}
+	}
 	
   return ret;
 }

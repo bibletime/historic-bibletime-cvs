@@ -93,7 +93,7 @@ void BTInstallMgr::Tool::LocalConfig::setTargetList( const QStringList& targets 
 
   for (QStringList::const_iterator it = targets.begin(); it != targets.end(); ++it) {
     QString t = *it;
-    if (t.contains( QString::fromLatin1("%1/.sword").arg(getenv("HOME")) )) {
+    if (t.contains( QString("%1/.sword").arg(getenv("HOME")) )) {
       //we don't want HOME/.sword in the config
       continue;
     }
@@ -184,14 +184,14 @@ void BTInstallMgr::Tool::RemoteConfig::initConfig() {
 
 const QString BTInstallMgr::Tool::RemoteConfig::configPath() {
 	const char *envhomedir  = getenv("HOME");
-	QString confPath = QString::fromLatin1((envhomedir) ? envhomedir : ".");
-	confPath += QString::fromLatin1("/.sword/InstallMgr");
+	QString confPath = QString(envhomedir ? envhomedir : ".");
+	confPath.append("/.sword/InstallMgr");
 
   return confPath;
 }
 
 const QString BTInstallMgr::Tool::RemoteConfig::configFilename() {
-  return (configPath() + "/InstallMgr.conf").latin1();
+  return (configPath() + "/InstallMgr.conf");
 }
 
 void BTInstallMgr::Tool::RemoteConfig::removeSource( sword::InstallMgr* mgr, sword::InstallSource* is) {
@@ -239,15 +239,17 @@ void BTInstallMgr::Tool::RemoteConfig::resetLocalSources() {
 }
 
 CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
-  if (!is)
+  if (!is) {
     return 0;
+   }
 
   CSwordBackend* ret = 0;
   if (RemoteConfig::isRemoteSource(is)) {
-    ret = new CSwordBackend( QString::fromLatin1(is->localShadow.c_str()) );
+    ret = new CSwordBackend( QString(is->localShadow.c_str()), false );
+//     qWarning("## remote backend for %s", is->localShadow.c_str());
 	}
   else {
-    ret = new CSwordBackend( QString::fromLatin1(is->directory.c_str()) );
+    ret = new CSwordBackend( QString(is->directory.c_str()) );
 	}
 
 	if (ret) {
@@ -290,7 +292,7 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
 }
 
 void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* /*message*/) {
- 	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
+//  	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
 	emit downloadStarted( "unknown filename" );
 
 	m_completedBytes = completedBytes;

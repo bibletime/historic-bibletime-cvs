@@ -209,7 +209,7 @@ void CSwordSetupDialog::initRemove(){
   );
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
-	QLabel* headingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select works to be uninstalled")), page);
+	QLabel* headingLabel = new QLabel(QString("<b>%1</b>").arg(i18n("Select works to be uninstalled")), page);
 	layout->addMultiCellWidget(headingLabel, 1, 1, 0, 3);
 
 	m_removeModuleListView = new CSwordSetupModuleListView(page, false);
@@ -440,8 +440,10 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 	ListCSwordModuleInfo::iterator end_it = list.end();
 	
 	for (ListCSwordModuleInfo::iterator it(list.begin()); it != end_it; ++it, ++mod) {
-		m_removeModuleListView->addModule( (*it), 
-			(*it)->config(CSwordModuleInfo::ModuleVersion) );
+		m_removeModuleListView->addModule(
+			(*it),
+			(*it)->config(CSwordModuleInfo::ModuleVersion)
+		);
   }
 	
 	m_removeModuleListView->finish();
@@ -513,6 +515,7 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
   //kind of a hack to provide a pointer to mgr next line
   util::scoped_ptr<CSwordBackend> remote_backend( BTInstallMgr::Tool::backend(&is) );
+  Q_ASSERT( BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is) );
   if (!remote_backend) {
 		m_installModuleListView->finish();
     return;
@@ -526,23 +529,40 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 	ListCSwordModuleInfo::iterator end_it = mods.end();
 	for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
     bool isUpdate = false;
+
     CSwordModuleInfo* const installedModule = local_backend.findModuleByName((*it)->name());
     if (installedModule) { //module already installed?
       //check whether it's an uodated module or just the same
-      const SWVersion installedVersion( installedModule->config(CSwordModuleInfo::ModuleVersion).latin1() );
-			const SWVersion newVersion( (*it)->config(CSwordModuleInfo::ModuleVersion).latin1() );
+      const SWVersion installedVersion(
+      	installedModule->config(CSwordModuleInfo::ModuleVersion).latin1()
+      );
+      
+			const SWVersion newVersion(
+				(*it)->config(CSwordModuleInfo::ModuleVersion).latin1()
+			);
+
+			Q_ASSERT(installedModule != *it);
+// 			Q_ASSERT(installedModule->backend() != (*it)->backend());
       isUpdate = (newVersion > installedVersion);
-			
+      
+// 			Q_ASSERT(isUpdate);
+// 			QStringList::iterator
+// 			qWarning("remote: %s", );
+			qWarning("checked for module %s, %s == %s", (*it)->name().latin1(), installedVersion.getText(), newVersion.getText() );
 			if (!isUpdate) {
-        continue;
+         continue;
 			}
     }
 //TODO: is this still true?
     if ((*it)->isLocked() || (*it)->isEncrypted()) { //encrypted modules have no data files on the server
       continue;
 		}
-		m_installModuleListView->addModule( (*it), 
-		installedModule ? installedModule->config(CSwordModuleInfo::ModuleVersion) : "" );
+
+		Q_ASSERT(installedModule);
+		m_installModuleListView->addModule(
+			(*it), 
+			installedModule ? installedModule->config(CSwordModuleInfo::ModuleVersion) : QString::null
+		);
 	}
 	m_installModuleListView->finish();
 }
@@ -566,7 +586,10 @@ void CSwordSetupDialog::slot_connectToSource(){
 		m_installModuleListPage->setMinimumSize(500,400);
 
 		//insert a list box which contains all available remote modules
-		m_installModuleListView = new CSwordSetupModuleListView(m_installModuleListPage, true);
+	  BTInstallMgr iMgr;
+		sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, currentInstallSource());
+
+		m_installModuleListView = new CSwordSetupModuleListView(m_installModuleListPage, true, &is);
 		layout->addMultiCellWidget( m_installModuleListView, 1,6,0,1);
 		layout->setColStretch(0,5);
 		layout->setRowStretch(1,5);
@@ -637,7 +660,7 @@ void CSwordSetupDialog::slot_installModules(){
 		m_currentInstallMgr = &iMgr;
     sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, currentInstallSource());
 
-		qWarning("installing from %s/%s", is.source.c_str(), is.directory.c_str());
+// 		qWarning("installing from %s/%s", is.source.c_str(), is.directory.c_str());
     QString target = m_targetCombo->currentText();
 
 		//make sure target/mods.d and target/modules exist
