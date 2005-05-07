@@ -113,7 +113,8 @@ void CSwordSetupModuleListView::init(){
   m_categoryDevotionals->setOpen(true);
   m_categoryGlossaries->setOpen(true);
 
-  connect(this, SIGNAL(clicked(QListViewItem* )), SLOT(slotItemClicked(QListViewItem*)));
+  connect(this, SIGNAL(executed(QListViewItem*)), SLOT(slotItemClicked(QListViewItem*)));
+  connect(this, SIGNAL(spacePressed(QListViewItem*)), SLOT(slotItemClicked(QListViewItem*)));
 }
 
 void CSwordSetupModuleListView::finish(){
@@ -257,13 +258,13 @@ QString CSwordSetupModuleListView::tooltip(QListViewItem* i, int column) const {
 	QString ret;
 	
 	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>( i );
-	Q_ASSERT(checkItem);
+// 	Q_ASSERT(checkItem);
 	
 	if (checkItem && (checkItem->type() == QCheckListItem::CheckBox)) {
 		const QString moduleName = checkItem->text(0);
 		CSwordModuleInfo* module = m_backend->findModuleByName(moduleName);
 
-		Q_ASSERT(module);
+// 		Q_ASSERT(module);
 
 		ret = CToolClass::moduleToolTip(module);
 	}

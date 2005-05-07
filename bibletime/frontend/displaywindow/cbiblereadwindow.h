@@ -97,7 +97,6 @@ public slots:
   virtual void reload();
 
 protected slots: // Protected slots 
-  void keyChanged(CSwordKey* key);
   /**
   * Copies the current chapter into the clipboard.
   */

@@ -30,7 +30,7 @@ CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const c
 }
 
 CReadWindow::~CReadWindow() {
-	qWarning("destructor of CReadWindow");
+// 	qWarning("destructor of CReadWindow");
 }
 
 /** Returns the display widget of this window. */
@@ -57,11 +57,12 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 
 	using namespace Rendering;
 
- 	Q_ASSERT(isReady());
+ 	Q_ASSERT(isReady() && newKey && modules().first());
 	if (!isReady() || !newKey || !modules().first()) {
 		return;
 	}
 
+	Q_ASSERT(modules().first()->getDisplay());
 	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
 		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
 	}
@@ -102,7 +103,7 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings) {
 		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key());
 		QString oldLang;
 		if (vk) {
-			oldLang = QString::fromLatin1(vk->getLocale());
+			oldLang = QString(vk->getLocale());
 			vk->setLocale("en"); //save english locale names as default!
 		}
 		settings->setKey( key()->key() );

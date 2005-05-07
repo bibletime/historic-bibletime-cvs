@@ -58,7 +58,7 @@ void CKeyChooser::backInHistory(int count) {
 	//pop_front count items, the top item is then the new current key
 	int index = count;
 	while ((index > 0) && (it != m_prevKeyHistoryList.end())) {
- 		qWarning("pop_front");
+//  		qWarning("pop_front");
 
  		m_nextKeyHistoryList.prepend(*it);
  		it = m_prevKeyHistoryList.remove(it);
@@ -81,7 +81,7 @@ void CKeyChooser::forwardInHistory() {
 
 void CKeyChooser::forwardInHistory(int count) {
 	m_inHistoryFunction = true;
-	qWarning("go back %d items in history", count);
+	qWarning("go forward %d items in history", count);
 
 	Q_ASSERT(m_nextKeyHistoryList.size());
 
@@ -89,7 +89,7 @@ void CKeyChooser::forwardInHistory(int count) {
 	//pop_front count-1 items, the top item is then the new current key
 	int index = count;
 	while (index > 0 && it != m_nextKeyHistoryList.end()) {
- 		qWarning("pop_front");
+//  		qWarning("pop_front");
 
  		m_prevKeyHistoryList.prepend(*it);
  		it = m_nextKeyHistoryList.remove(it);
@@ -112,7 +112,7 @@ void CKeyChooser::addToHistory(CSwordKey* k) {
 
 	Q_ASSERT(!m_inHistoryFunction);
  	if (k && !m_inHistoryFunction) {
- 		Q_ASSERT(k->key() != key()->key());
+ 		Q_ASSERT(k->key() == key()->key());
 		m_prevKeyHistoryList.prepend(k->key());
  	}
 

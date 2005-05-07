@@ -48,11 +48,6 @@ protected:
   virtual void updatePopupMenu();
   virtual void setupPopupMenu();
 
-private:
-  /**
-  * Reimplementation to return the right key.
-  */
-  CSwordLDKey* ldKey();
 
   struct ActionsStruct {
   	KToolBarPopupAction* backInHistory;
@@ -79,6 +74,12 @@ private:
 			KAction* entry;
 		} print;
   } m_actions;
+
+private:
+  /**
+  * Reimplementation to return the right key.
+  */
+  CSwordLDKey* ldKey();
 
 protected slots: // Protected slots
   void previousEntry();

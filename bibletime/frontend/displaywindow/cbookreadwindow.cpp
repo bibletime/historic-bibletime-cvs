@@ -46,6 +46,8 @@ void CBookReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
 void CBookReadWindow::initActions() {
   CLexiconReadWindow::initActions();
 	//cleanup, not a clean oo-solution
+	Q_ASSERT(actionCollection()->action("nextEntry"));
+	Q_ASSERT(actionCollection()->action("previousEntry"));
  	actionCollection()->action("nextEntry")->setEnabled(false);
  	actionCollection()->action("previousEntry")->setEnabled(false);
   
@@ -73,10 +75,10 @@ void CBookReadWindow::initConnections(){
 
  	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
- 	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
+/* 	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
  		keyChooser(), SLOT(updateKey(CSwordKey*)));
  	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
- 		m_treeChooser, SLOT(updateKey(CSwordKey*)));
+ 		m_treeChooser, SLOT(updateKey(CSwordKey*)));*/
 }
 
 /** Init the view */
@@ -106,6 +108,10 @@ void CBookReadWindow::initView(){
 
 void CBookReadWindow::initToolbars(){
 	Q_ASSERT(m_treeAction);
+	
+	Q_ASSERT(m_actions.backInHistory);
+	m_actions.backInHistory->plug( mainToolBar(), 0 );
+	m_actions.forwardInHistory->plug( mainToolBar(), 1 );
 	
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
 	m_treeAction->plug(mainToolBar());

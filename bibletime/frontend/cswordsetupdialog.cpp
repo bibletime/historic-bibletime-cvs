@@ -541,27 +541,23 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 				(*it)->config(CSwordModuleInfo::ModuleVersion).latin1()
 			);
 
-			Q_ASSERT(installedModule != *it);
-// 			Q_ASSERT(installedModule->backend() != (*it)->backend());
       isUpdate = (newVersion > installedVersion);
-      
-// 			Q_ASSERT(isUpdate);
-// 			QStringList::iterator
-// 			qWarning("remote: %s", );
-			qWarning("checked for module %s, %s == %s", (*it)->name().latin1(), installedVersion.getText(), newVersion.getText() );
 			if (!isUpdate) {
          continue;
 			}
     }
+
 //TODO: is this still true?
     if ((*it)->isLocked() || (*it)->isEncrypted()) { //encrypted modules have no data files on the server
       continue;
 		}
 
-		Q_ASSERT(installedModule);
+// 		Q_ASSERT(installedModule);
 		m_installModuleListView->addModule(
 			(*it), 
-			installedModule ? installedModule->config(CSwordModuleInfo::ModuleVersion) : QString::null
+			installedModule
+				? installedModule->config(CSwordModuleInfo::ModuleVersion)
+				: QString::null
 		);
 	}
 	m_installModuleListView->finish();

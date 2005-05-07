@@ -157,7 +157,6 @@ void CBibleReadWindow::initActions() {
 		actionCollection(), "previousVerse"
 	);
 
-//  	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection(), "selectAll");
 	m_actions.selectAll = actionCollection()->action("selectAll");
 	Q_ASSERT(m_actions.selectAll);
 
@@ -169,7 +168,6 @@ void CBibleReadWindow::initActions() {
 
   m_actions.copy.chapter = new KAction(i18n("Chapter"), KShortcut(0), this, SLOT(copyDisplayedText()), actionCollection(), "copyChapter");
 
-//   m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection(), "copySelectedText");
  m_actions.copy.selectedText = actionCollection()->action("copySelectedText");
  Q_ASSERT(m_actions.copy.selectedText);
 
@@ -187,7 +185,6 @@ void CBibleReadWindow::initActions() {
 }
 
 void CBibleReadWindow::initConnections(){
-//  connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)), SLOT(keyChanged(CSwordKey*)));
   CLexiconReadWindow::initConnections();
 
 /*  if (m_transliterationButton) { // Transliteration is not always available
@@ -292,21 +289,6 @@ CSwordVerseKey* CBibleReadWindow::verseKey(){
 	return k;
 }
 
-/** Is called when the key of the keychooser changed. */
-void CBibleReadWindow::keyChanged(CSwordKey* /*key*/){
-/*	QWidgetList windows = mdi()->windowList();
-	if (!windows.count()) {
-		return;
-	}
-
-	for (windows.first(); windows.current(); windows.next()) {
-		CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.current());
-		if (w && w->syncAllowed()) {
-			w->lookup( key->key() );
-		}
-	}*/
-}
-
 /** Copies the current chapter into the clipboard. */
 void CBibleReadWindow::copyDisplayedText(){
 	CSwordVerseKey dummy(*verseKey());
@@ -393,6 +375,7 @@ bool CBibleReadWindow::eventFilter( QObject* o, QEvent* e) {
 }
 
 void CBibleReadWindow::lookup( CSwordKey* newKey ) {
+	qWarning("lookup");
 	CLexiconReadWindow::lookup(newKey);
 
 	syncWindows();
