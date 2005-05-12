@@ -49,7 +49,7 @@ void CKeyChooser::backInHistory() {
 
 void CKeyChooser::backInHistory(int count) {
 	m_inHistoryFunction = true;
-	qWarning("go back %d items in history", count);
+// 	qWarning("go back %d items in history", count);
 
 	Q_ASSERT(m_prevKeyHistoryList.size());
 
@@ -81,7 +81,7 @@ void CKeyChooser::forwardInHistory() {
 
 void CKeyChooser::forwardInHistory(int count) {
 	m_inHistoryFunction = true;
-	qWarning("go forward %d items in history", count);
+// 	qWarning("go forward %d items in history", count);
 
 	Q_ASSERT(m_nextKeyHistoryList.size());
 
@@ -108,7 +108,7 @@ void CKeyChooser::forwardInHistory(int count) {
 }
 
 void CKeyChooser::addToHistory(CSwordKey* k) {
-	qWarning("addToHistory");
+// 	qWarning("addToHistory");
 
 	Q_ASSERT(!m_inHistoryFunction);
  	if (k && !m_inHistoryFunction) {

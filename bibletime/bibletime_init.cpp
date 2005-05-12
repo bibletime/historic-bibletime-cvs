@@ -402,20 +402,17 @@ void BibleTime::initActions() {
 		KAction* action = actionCollection()->action(KStdAction::stdName( KStdAction::WhatsThis ));
 		actionCollection()->remove( action );
   }
-// 	action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
-// 	action->setToolTip(CResMgr::mainMenu::help::whatsThis::tooltip);
 
-  #if KDE_VERSION_MINOR < 1
-	action->plugAccel( accel() );
-  #endif
 
+	if ( actionCollection()->action( KStdAction::stdName( KStdAction::ReportBug ) ) ) { //delete Report Bug action if KDE created it
+		actionCollection()->remove(actionCollection()->action(KStdAction::stdName( KStdAction::ReportBug )));
+  }
 	action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::bugreport::tooltip);
 
   #if KDE_VERSION_MINOR < 1
 	  action->plugAccel( accel() );
   #endif
-//	action->setIcon(ICON_BUG_REPORT);
 
 	action = new KAction(i18n("&Daily tip"),
     CResMgr::mainMenu::help::dailyTip::icon,

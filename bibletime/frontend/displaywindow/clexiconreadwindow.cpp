@@ -224,7 +224,7 @@ void CLexiconReadWindow::saveAsPlain(){
 }
 
 void CLexiconReadWindow::slotFillBackHistory() {
-	qWarning("fill back history");
+// 	qWarning("fill back history");
 	QStringList keyList = keyChooser()->getPreviousKeys();
 	QPopupMenu* menu = m_actions.backInHistory->popupMenu();
 	menu->clear();
@@ -238,7 +238,7 @@ void CLexiconReadWindow::slotFillBackHistory() {
 }
 
 void CLexiconReadWindow::slotFillForwardHistory() {
-	qWarning("fill forward history");
+// 	qWarning("fill forward history");
 	QStringList keyList = keyChooser()->getNextKeys();
 	QPopupMenu* menu = m_actions.forwardInHistory->popupMenu();
 	menu->clear();
@@ -253,7 +253,7 @@ void CLexiconReadWindow::slotFillForwardHistory() {
 
 
 void CLexiconReadWindow::slotUpdateHistoryButtons() {
-	qWarning("updating history buttons");
+// 	qWarning("updating history buttons");
 	Q_ASSERT(m_actions.backInHistory);
 	Q_ASSERT(keyChooser());
 	
