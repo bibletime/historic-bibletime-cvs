@@ -20,7 +20,7 @@ class QLabel;
  * (the function locateHTML is from Sandy Meier (KDevelop))
  *
  * @short A class which contains static members to do small things.
- * @author Joachim Ansorg <jansorg@gmx.de>
+ * @author Joachim Ansorg <info@bibletime.info>
  */
 class CToolClass {
 

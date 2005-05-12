@@ -1,6 +1,5 @@
 /********* Read the file LICENSE for license details. *********/
 
-	
 /* $Header$ */
 /* $Revision$ */
 
@@ -174,6 +173,8 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 	aboutData.addCredit("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
   // comitted search in default bible, opened modules, other smaller things
   aboutData.addCredit("Gary Sims", I18N_NOOP("Search dialog enhancements"), "gary@garysims.co.uk", "");
+  // Very helpful testing
+	aboutData.addCredit("Wolfgang Stradner", I18N_NOOP("Very helpful testing"), "wolfgang_stradner@wycliffe.org", "");
   //The first lead developer
   aboutData.addCredit("Torsten Uhlmann",   I18N_NOOP("The first lead developer"), "", "");
   //scoped_ptr and related classes

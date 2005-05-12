@@ -52,12 +52,14 @@
 //Sword includes
 #include <versekey.h>
 
-
+/* An action which stores a user defined pointer to a widget.
+ * @author Joachim Ansorg
+ */
 class KUserDataAction : public KToggleAction {
 public:
 	KUserDataAction( QString caption, const KShortcut& shortcut, const QObject* receiver, const char* slot, KActionCollection* actionCollection)
 		: KToggleAction(caption, shortcut, receiver, slot, actionCollection), m_userData(0)
-	{};
+	{ /* no impl */ };
 
 	void setUserData(QWidget* const data) {
 		m_userData = data;
@@ -173,7 +175,7 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	for ( int i = 0; i < count; ++i ) {
 		QWidget* w = windows.at(i);
 		Q_ASSERT(w);
-		qWarning("%s",w->caption().latin1());
+// 		qWarning("%s",w->caption().latin1());
 		
 		KUserDataAction* action = new KUserDataAction(w->caption(), KShortcut(), this, SLOT(slotWindowMenuActivated()), m_windowActionCollection);
 		Q_ASSERT(action);
