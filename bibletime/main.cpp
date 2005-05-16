@@ -155,7 +155,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 	aboutData.addCredit("Tim Brodie", 	  I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
 	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
   //Sponsored many years the www.bibletime.de domain!
-  aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founded the Sword project together with many other volunteers."), "scribe@crosswire.org", "http://www.crosswire.org/");   //Started the Sword project
+  aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founder of the Sword project"), "scribe@crosswire.org", "http://www.crosswire.org/");   //Started the Sword project
   aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Sponsored our internet domain for many years"), "tom@theta-consulting.de", "");
   //He provided us with the Bible Study HowTo
   aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible Study HowTo"), "ncc@ncchampton.org", "");
@@ -174,7 +174,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   // comitted search in default bible, opened modules, other smaller things
   aboutData.addCredit("Gary Sims", I18N_NOOP("Search dialog enhancements"), "gary@garysims.co.uk", "");
   // Very helpful testing
-	aboutData.addCredit("Wolfgang Stradner", I18N_NOOP("Very helpful testing"), "wolfgang_stradner@wycliffe.org", "");
+	aboutData.addCredit("Wolfgang Stradner", I18N_NOOP("Very helpful and detailed testing"), "wolfgang_stradner@wycliffe.org", "");
   //The first lead developer
   aboutData.addCredit("Torsten Uhlmann",   I18N_NOOP("The first lead developer"), "", "");
   //scoped_ptr and related classes

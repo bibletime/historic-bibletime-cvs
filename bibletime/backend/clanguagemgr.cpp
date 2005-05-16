@@ -378,7 +378,7 @@ xx-???, including the AleWiesler module.
   m_langList.append( new Language("x-E-BAR"  , "Bavarian"     , i18n("Bavarian")) );
   m_langList.append( new Language("x-E-GSW"  , "Alemannisch"  , i18n("Alemannisch")) );
   m_langList.append( new Language("x-E-HAT"  , "Haitian Creole French" , i18n("Haitian Creole French")) );
-  m_langList.append( new Language("x-E-ITZ"  , QString::fromUtf8("Itzá")         , i18n("Itzá")) );  
+  m_langList.append( new Language("x-E-ITZ"  , QString::fromUtf8("Itzá")         , i18n("Itzá")) );
   m_langList.append( new Language("x-E-JIV"  , "Shuar"        , i18n("Shuar")) );
   m_langList.append( new Language("x-E-KEK"  , QString::fromUtf8("Kekchí")       , i18n("Kekchí")) );
   m_langList.append( new Language("x-E-LMO"  , "Lombard"      , i18n("Lombard")) );  

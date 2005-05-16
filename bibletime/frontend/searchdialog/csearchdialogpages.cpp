@@ -624,7 +624,7 @@ const QString CSearchOptionsPage::searchText() {
 			return QString("Heading///") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
 		
 		if (textType == i18n("Strong's numbers"))
-			return QString("Word//Strongs/") + m_searchTextCombo->currentText() + QString("/"); // e.g. Word//Strongs/G1234/
+			return QString("Word//Lemma/") + m_searchTextCombo->currentText() + QString("/"); // e.g. Word//Strongs/G1234/
 		
 		if (textType == i18n("Morph codes"))
 			return QString("Word//Morph/") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
@@ -739,7 +739,7 @@ void CSearchOptionsPage::initView(){
 		m_textTypeCombo->insertItem(i18n("Strong's numbers"));
 // TODO: temporarily disabled, as this will not work correctly with 1.5.8
 // Reenable whenever it will work with a sword release.
-// 		m_textTypeCombo->insertItem(i18n("Morph codes"));
+ 		m_textTypeCombo->insertItem(i18n("Morph codes"));
 		
 		connect(m_textTypeCombo, SIGNAL( activated(int) ), this, SLOT( textTypeSelected() ) );
 		
