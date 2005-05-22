@@ -24,6 +24,8 @@ KIO_FTPTransport::KIO_FTPTransport(const char *host, sword::StatusReporter *stat
 KIO_FTPTransport::~KIO_FTPTransport() {}
 
 char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
+	qWarning("FTP: Copy %s -> %s", sourceURL, destPath);
+	
 	KIO::file_delete(
 		KURL(QString::fromLocal8Bit(destPath)),
 		false
@@ -53,6 +55,7 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 	
 	while (!finishedDownload) {
 		KApplication::kApplication()->processEvents(1);
+// 		qWarning("FTP: Copy not yet finished");
 		if (term) {
 			if (job) {
 				job->kill(false); //kill emits the result signal
@@ -99,7 +102,16 @@ void KIO_FTPTransport::slotDirListingCanceled() {
 
 std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
 	std::vector< struct ftpparse > ret;
-	
+
+//  	char* dirURL = const_cast<char*>(myDir);
+// 	if (dirURL[strlen(dirURL)-1] == '/') {
+// 		qWarning("setting end to 0");
+// 		dirURL[strlen(dirURL)-1] = 0;
+// 	}
+
+	qWarning("listing %s", dirURL);
+
+	Q_ASSERT(!term);
 	if (term)	{
 		return ret;
 	}
@@ -140,7 +152,8 @@ std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
 		
 		s.id = 0;
 		s.idlen = 0;
-		
+
+// 		qWarning("push_back item");
 		ret.push_back(s);
 	}
 	

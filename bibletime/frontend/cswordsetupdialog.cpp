@@ -656,7 +656,7 @@ void CSwordSetupDialog::slot_installModules(){
 		m_currentInstallMgr = &iMgr;
     sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, currentInstallSource());
 
-// 		qWarning("installing from %s/%s", is.source.c_str(), is.directory.c_str());
+ 		qWarning("installing from %s/%s", is.source.c_str(), is.directory.c_str());
     QString target = m_targetCombo->currentText();
 
 		//make sure target/mods.d and target/modules exist
@@ -692,10 +692,13 @@ void CSwordSetupDialog::slot_installModules(){
 		
 		for ( QStringList::Iterator it = moduleList.begin(); (it != moduleList.end()) && !m_progressDialog->wasCancelled(); ++it, ++m_installedModuleCount ) {
 
+			qWarning("installing %s", (*it).latin1());
 			m_installingModule = *it;
 
-      //check whether it's an update. If yes, remove exuisting module first
-      if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) { //module found?
+      //check whether it's an update. If yes, remove existing module first
+      CSwordModuleInfo* m = backend()->findModuleByName(*it);
+      Q_ASSERT(!m);
+      if (m) { //module found?
         QString prefixPath = m->config(CSwordModuleInfo::AbsoluteDataPath) + "/";
         QString dataPath = m->config(CSwordModuleInfo::DataPath);
         if (dataPath.left(2) == "./") {
@@ -709,17 +712,24 @@ void CSwordSetupDialog::slot_installModules(){
         else {
           prefixPath = QString::fromLatin1(backend()->prefixPath);
         }
+        
         sword::SWMgr mgr(prefixPath.latin1());
         iMgr.removeModule(&mgr, m->name().latin1());
       }
 
-      if (!m_progressDialog->wasCancelled() && BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
-        iMgr.installModule(&lMgr, 0, (*it).latin1(), &is);
+      if (!m_progressDialog->wasCancelled()
+      	   && BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is))
+      {
+//       	qWarning("calling install");
+        int status = iMgr.installModule(&lMgr, 0, (*it).latin1(), &is);
+//         qWarning("status: %d", status);
+        Q_ASSERT(status != -1);
       }
       else if (!m_progressDialog->wasCancelled()) { //local source
         iMgr.installModule(&lMgr, is.directory.c_str(), (*it).latin1());
       }
     }
+    
 		delete m_progressDialog;
 		m_progressDialog = 0;
 

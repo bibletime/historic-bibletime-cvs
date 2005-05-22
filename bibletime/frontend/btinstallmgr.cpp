@@ -292,7 +292,7 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
 }
 
 void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* /*message*/) {
-//  	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
+	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
 	emit downloadStarted( "unknown filename" );
 
 	m_completedBytes = completedBytes;

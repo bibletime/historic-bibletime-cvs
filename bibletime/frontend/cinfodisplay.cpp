@@ -115,6 +115,8 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	CDisplayTemplateMgr::Settings settings;
 	settings.pageCSS_ID = "infodisplay";
 	QString content = mgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
+
+// 	qWarning("setting text:\n%s", content.latin1());
 	
 	m_htmlPart->setText(content);
 }

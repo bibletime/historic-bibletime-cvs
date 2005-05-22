@@ -26,6 +26,7 @@ protected:
   public:
     BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::GBFHTML::MyUserData(module, key) {
 			swordFootnote = 1;
+			hasFootnotePreTag = false;
 		}
 		
 		short unsigned int swordFootnote;

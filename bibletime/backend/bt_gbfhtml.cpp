@@ -26,7 +26,7 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
   
 	removeTokenSubstitute("Rf");
-	addTokenSubstitute("RB", "<span>"); //start of a footnote with embedded text
+// 	addTokenSubstitute("RB", "<span>"); //start of a footnote with embedded text
 	
 	addTokenSubstitute("FI", "<span class=\"italic\">"); // italics begin
 	addTokenSubstitute("Fi", "</span>");
@@ -44,7 +44,7 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 	addTokenSubstitute("Fo", "</span>");
 
 
-  addTokenSubstitute("FS", "<span class-\"sup\">"); // Superscript begin// Subscript begin
+  addTokenSubstitute("FS", "<span class=\"sup\">"); // Superscript begin// Subscript begin
 	addTokenSubstitute("Fs", "</span>");
 
   addTokenSubstitute("FV", "<span class=\"sub\">"); // Subscript begin
@@ -231,9 +231,16 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 		}
 		else if (!strncmp(token, "RB", 2)) {
 			myUserData->hasFootnotePreTag = true;
+			buf.append("<span class=\"footnotepre\">");
 		}
 		else if (!strncmp(token, "RF", 2)) {			
 			//we use several append calls because appendFormatted slows down filtering, which should be fast
+			if (myUserData->hasFootnotePreTag) {
+				qWarning("inserted footnotepre end");
+				buf.append("</span>");
+				myUserData->hasFootnotePreTag = false;
+			}
+			
 			buf.append(" <span class=\"footnote\" note=\"");
 			buf.append(myModule->Name());
 			buf.append('/');

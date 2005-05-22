@@ -52,32 +52,35 @@ a:hover {
 	padding: 4px;
 	vertical-align: middle;
 	text-align: justify;
+/* 	line-height: 1.5em; */
 }
 #printer .entry {
-	font-size:90%;
-	text-align:left;
+	font-size: 90%;
+	text-align: left;
 }
 .entry[dir=rtl] {
-	text-align:right;
+	text-align: right;
 }
 #printer .entry[dir=rtl] {
 	text-align:right;
 }
-div.entry, td.entry {
-	vertical-align:top;	
-}
+/*div.entry, td.entry {
+ 	vertical-align: middle;
+}*/
 
 /* Keep the values the same as in .entry (take the border into account!) */
 .currententry {
-	padding:4px;
-	vertical-align:middle;
-	text-align:justify;
+	padding: 4px;
+	vertical-align: middle;
+	text-align: justify;
 	background-color: #E6E4FF;
+/* 	line-height: 1.5em; */
 }
 .currententry[dir=rtl] {
 	text-align:right;
 }
 div.currententry {
+	vertical-align:middle;
 }
 span.currententry {
 	background-color: #EDEFFF;
@@ -91,11 +94,9 @@ td.entry + td.entry {
 
 /* Several additional settings for display of modules*/
 #bible div.currententry, #bible td.currententry {
-	border:1px solid #B7B7B7;
+	border: 1px solid #B7B7B7;
 	padding: 3px;
-}
-#bible td.currententry {
-	vertical-align:top;
+	vertical-align:middle;
 }
 
 
@@ -143,6 +144,12 @@ td.entry + td.entry {
 }
 .footnote:before { content:"("; font-size:60%; cursor:help;}
 .footnote:after { content:")"; font-size:60%; cursor:help;}
+
+.footnotepre {
+ 	vertical-align: middle;
+ 	font-style: italic;
+}
+
 
 .crossreference {
 	font-size: 80%;

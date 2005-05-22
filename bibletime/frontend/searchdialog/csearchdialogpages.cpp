@@ -722,7 +722,7 @@ void CSearchOptionsPage::initView(){
 	}
 
   {
-		QGroupBox* group2 = new QGroupBox(2, Qt::Vertical,i18n("Search options"), this);
+		QGroupBox* group2 = new QGroupBox(2, Qt::Vertical, i18n("Search options"), this);
 		
 		m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive"), group2);
 		QToolTip::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::tooltip);

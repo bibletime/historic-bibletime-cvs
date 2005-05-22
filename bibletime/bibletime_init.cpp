@@ -477,10 +477,11 @@ void BibleTime::initConnections(){
 
 /** Initializes the backend */
 void BibleTime::initBackends(){
+// 	SWLog::getSystemLog()->setLogLevel(0);
 	KStartupLogo::setStatusMessage(i18n("Initializing Sword") + QString("..."));
 
 	StringMgr::setSystemStringMgr( new BTStringMgr() );
-	SWLog::getSystemLog()->setLogLevel(0);
+ 	SWLog::getSystemLog()->setLogLevel(1);
 	
 	m_backend = new CSwordBackend();
 	m_backend->booknameLanguage( CBTConfig::get(CBTConfig::language) );
