@@ -15,6 +15,7 @@
 #include <qmap.h>
 #include <qdict.h>
 #include <qmap.h>
+#include <qwidgetstack.h>
 
 //KDE includes
 #include <kdialogbase.h>
@@ -22,6 +23,7 @@
 #include <kaccel.h>
 #include <kcolorbutton.h>
 #include <kapp.h>
+#include <klocale.h>
 
 class QHBox;
 class QCheckBox;
@@ -56,7 +58,7 @@ public:
   const bool showPart( COptionsDialog::Parts ID );
 
 private:
-  struct settings {
+  struct Settings {
 	 	struct StartupSettings {
 	 		QCheckBox* showTips;
 	 		QCheckBox* showLogo;
@@ -82,14 +84,26 @@ private:
 		} swords; // not: sword instead of sword -> namespace error
 
 		struct KeySettings {
-/*			struct MainWindowType {
-				KKeyChooser* keyChooser;
-				KActionCollection* accelCollection;
-			};*/
-			KKeyChooser* keyChooser;
+			QComboBox* typeChooser;
+			QWidgetStack* keyChooserStack;
+			
 			struct WindowType {
+				KKeyChooser* keyChooser;
 				KActionCollection* actionCollection;
+				QString title;
+
+				WindowType() {
+					keyChooser = 0;
+					actionCollection = 0;
+				};
+				WindowType(const QString& newTitle) {
+					title = newTitle;
+
+					keyChooser = 0;
+					actionCollection = 0;
+				}
 			};
+
 			WindowType application;
 			WindowType general;
 			WindowType bible;
@@ -139,6 +153,10 @@ protected slots: // Protected slots
   * Update the style preview widget
   */
   void updateStylePreview();
+  /**
+  * The type of the keyaccel area changed
+  */
+	void slotKeyChooserTypeChanged(const QString&);
 
 protected: // Protected methods
   /**

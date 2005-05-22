@@ -32,6 +32,7 @@
 #include <qradiobutton.h>
 #include <qcolor.h>
 #include <qtooltip.h>
+#include <qwidgetstack.h>
 
 #include <qstringlist.h>
 #include <qinputdialog.h>
@@ -330,65 +331,73 @@ void COptionsDialog::initFonts(){
 
 /** Init accel key section. */
 void COptionsDialog::initAccelerators(){
-  QVBox* page = addVBoxPage(i18n("HotKeys"),QString::null, DesktopIcon(CResMgr::settings::keys::icon,32));
+  QVBox* page = addVBoxPage(i18n("HotKeys"), QString::null, DesktopIcon(CResMgr::settings::keys::icon,32));
 
 	CBTConfig::setupAccelSettings(
 		CBTConfig::application,
 		m_settings.keys.application.actionCollection
 	);
 
- 	m_settings.keys.keyChooser = new KKeyChooser(
-		m_settings.keys.application.actionCollection,
-		page,
-		false
+	new QLabel(i18n("Choose type:"), page);
+	m_settings.keys.typeChooser = new QComboBox(page);
+	connect(
+		m_settings.keys.typeChooser, SIGNAL(activated(const QString&)),
+		SLOT(slotKeyChooserTypeChanged(const QString&))
+	);
+	m_settings.keys.keyChooserStack = new QWidgetStack(page);
+	Q_ASSERT(m_settings.keys.keyChooserStack);
+
+	m_settings.keys.application.title = i18n("BibleTime"); //don't set the app action collection to NULL
+	m_settings.keys.general = Settings::KeySettings::WindowType(i18n("All text windows"));
+	m_settings.keys.bible = Settings::KeySettings::WindowType(i18n("Bible windows"));
+	m_settings.keys.commentary = Settings::KeySettings::WindowType(i18n("Commentary windows"));
+	m_settings.keys.lexicon = Settings::KeySettings::WindowType(i18n("Lexicon windows"));
+	m_settings.keys.book = Settings::KeySettings::WindowType(i18n("Book windows"));
+
+	m_settings.keys.typeChooser->insertItem(m_settings.keys.application.title);
+	m_settings.keys.typeChooser->insertItem(m_settings.keys.general.title);
+	m_settings.keys.typeChooser->insertItem(m_settings.keys.bible.title);
+	m_settings.keys.typeChooser->insertItem(m_settings.keys.commentary.title);
+	m_settings.keys.typeChooser->insertItem(m_settings.keys.lexicon.title);
+	m_settings.keys.typeChooser->insertItem(m_settings.keys.book.title);
+
+
+	Q_ASSERT(m_settings.keys.application.actionCollection);
+	m_settings.keys.application.keyChooser = new KKeyChooser(
+ 		m_settings.keys.application.actionCollection,
+		m_settings.keys.keyChooserStack
 	);
 
-	// ----- All display windows ------ //
+ 	// ----- All display windows ------ //
  	m_settings.keys.general.actionCollection = new KActionCollection(this, "displayActions", 0);
  	CDisplayWindow::insertKeyboardActions( m_settings.keys.general.actionCollection);
  	CBTConfig::setupAccelSettings(
  		CBTConfig::allWindows,
  		m_settings.keys.general.actionCollection
  	);
- 	m_settings.keys.keyChooser->insert(
- 		m_settings.keys.general.actionCollection,
- 		i18n("All windows")
- 	);
 
- // ----- Bible windows ------ //
+  // ----- Bible windows ------ //
  	m_settings.keys.bible.actionCollection = new KActionCollection(this, "bibleActions", 0);
  	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.actionCollection);
- 	CBTConfig::setupAccelSettings(
+	CBTConfig::setupAccelSettings(
  		CBTConfig::bibleWindow,
  		m_settings.keys.bible.actionCollection
  	);
- 	m_settings.keys.keyChooser->insert(
- 		m_settings.keys.bible.actionCollection,
- 		i18n("Bible windows")
- 	);
 
- // ----- Commentary windows ------ //
- 	m_settings.keys.commentary.actionCollection= new KActionCollection(this, "commentaryActions", 0);
- 	CCommentaryReadWindow::insertKeyboardActions( m_settings.keys.commentary.actionCollection);
- 	CBTConfig::setupAccelSettings(
- 		CBTConfig::commentaryWindow,
- 		m_settings.keys.commentary.actionCollection
- 	);
- 	m_settings.keys.keyChooser->insert(
- 		m_settings.keys.commentary.actionCollection,
- 		i18n("Commentary windows")
- 	);
- 
- // ----- Lexicon windows ------ //
+//  // ----- Commentary windows ------ //
+	m_settings.keys.commentary.actionCollection= new KActionCollection(this, "commentaryActions", 0);
+	CCommentaryReadWindow::insertKeyboardActions( m_settings.keys.commentary.actionCollection);
+	CBTConfig::setupAccelSettings(
+		CBTConfig::commentaryWindow,
+		m_settings.keys.commentary.actionCollection
+	);
+
+  // ----- Lexicon windows ------ //
  	m_settings.keys.lexicon.actionCollection = new KActionCollection(this, "lexiconActions", 0);
  	CLexiconReadWindow::insertKeyboardActions(  m_settings.keys.lexicon.actionCollection );
  	CBTConfig::setupAccelSettings(
  		CBTConfig::lexiconWindow,
  		m_settings.keys.lexicon.actionCollection
- 	);
- 	m_settings.keys.keyChooser->insert(
- 		m_settings.keys.lexicon.actionCollection,
- 		i18n("Lexicon windows")
  	);
 
  // ----- Book windows ------ //
@@ -398,10 +407,8 @@ void COptionsDialog::initAccelerators(){
  		CBTConfig::bookWindow,
  		m_settings.keys.book.actionCollection
  	);
- 	m_settings.keys.keyChooser->insert(
- 		m_settings.keys.book.actionCollection,
- 		i18n("Book windows")
- 	);
+
+	slotKeyChooserTypeChanged(m_settings.keys.application.title);
 }
 
 /** Init Sword section. */
@@ -657,7 +664,25 @@ void COptionsDialog::initSword(){
 }
 
 void COptionsDialog::saveAccelerators(){
- 	m_settings.keys.keyChooser->commitChanges();
+ 	if (m_settings.keys.general.keyChooser) {
+ 		m_settings.keys.general.keyChooser->commitChanges();
+ 	}
+	
+ 	if (m_settings.keys.bible.keyChooser) {
+	 	m_settings.keys.bible.keyChooser->commitChanges();
+	}
+	
+ 	if (m_settings.keys.commentary.keyChooser) {
+		m_settings.keys.commentary.keyChooser->commitChanges();
+	}
+	
+ 	if (m_settings.keys.lexicon.keyChooser) {
+	 m_settings.keys.lexicon.keyChooser->commitChanges();
+	}
+ 	
+ 	if (m_settings.keys.book.keyChooser) {
+		m_settings.keys.book.keyChooser->commitChanges();
+	}
 
 	CBTConfig::saveAccelSettings( //application
 		CBTConfig::application,
@@ -683,35 +708,6 @@ void COptionsDialog::saveAccelerators(){
 		CBTConfig::bookWindow,
 		m_settings.keys.book.actionCollection
 	);
-
-// 	m_settings.keys.general.accel->writeSettings();
-//		
-// 	m_settings.keys.bible.accel->writeSettings();		
-// 	m_settings.keys.bible.keyChooser->save();
-//  	m_settings.keys.bible.keyChooser->commitChanges();
-// 	m_settings.keys.bible.accel->writeSettings();
-/*	CBTConfig::saveAccelSettings(
-		CBTConfig::bibleWindow,
-		m_settings.keys.bible.actionCollection
-	);*/
-// 	m_settings.keys.bible.actionCollection->
-
-//		
-// 	m_settings.keys.commentary.accel->writeSettings();
-// 	m_settings.keys.commentary.keyChooser->save();
-//  	m_settings.keys.commentary.keyChooser->commitChanges();
-// 	m_settings.keys.commentary.accel->writeSettings(); 	
-
-		
-// 	m_settings.keys.lexicon.accel->writeSettings();
-// 	m_settings.keys.lexicon.keyChooser->save();
-//  	m_settings.keys.lexicon.keyChooser->commitChanges();
-// 	m_settings.keys.lexicon.accel->writeSettings(); 	
-
-// 	m_settings.keys.book.accel->writeSettings(); 	 	
-// 	m_settings.keys.book.keyChooser->save();
-/* 	m_settings.keys.book.keyChooser->commitChanges();
-	m_settings.keys.book.accel->writeSettings();*/
 }
 
 /** No descriptions */
@@ -874,4 +870,102 @@ void COptionsDialog::updateStylePreview() {
 	m_settings.displayStyle.stylePreview->end();
 
 	CBTConfig::set(CBTConfig::displayStyle, oldStyleName);
+}
+
+void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
+ 	if (m_settings.keys.general.keyChooser) {
+ 		m_settings.keys.general.keyChooser->commitChanges();
+ 	}
+	delete m_settings.keys.general.keyChooser;
+	m_settings.keys.general.keyChooser = 0;
+	
+ 	if (m_settings.keys.bible.keyChooser) {
+	 	m_settings.keys.bible.keyChooser->commitChanges();
+	}
+	delete m_settings.keys.bible.keyChooser;
+	m_settings.keys.bible.keyChooser = 0;
+	
+ 	if (m_settings.keys.commentary.keyChooser) {
+		m_settings.keys.commentary.keyChooser->commitChanges();
+	}
+	delete m_settings.keys.commentary.keyChooser;
+	m_settings.keys.commentary.keyChooser = 0;
+	
+ 	if (m_settings.keys.lexicon.keyChooser) {
+	 m_settings.keys.lexicon.keyChooser->commitChanges();
+	}
+	delete m_settings.keys.lexicon.keyChooser;
+	m_settings.keys.lexicon.keyChooser = 0;
+	
+ 	if (m_settings.keys.book.keyChooser) {
+		m_settings.keys.book.keyChooser->commitChanges();
+	}
+	delete m_settings.keys.book.keyChooser;
+	m_settings.keys.book.keyChooser = 0;
+	
+	Settings::KeySettings::WindowType* t = 0;
+	
+	if (title == m_settings.keys.application.title) {
+		t = &m_settings.keys.application;
+	}
+	else if (title == m_settings.keys.general.title) { // ----- All display windows ------ //
+		m_settings.keys.general.keyChooser = new KKeyChooser(
+			m_settings.keys.keyChooserStack
+		);
+		m_settings.keys.general.keyChooser->insert(
+			m_settings.keys.general.actionCollection,
+			m_settings.keys.general.title
+		);
+
+		t = &m_settings.keys.general;
+	}
+	else if (title == m_settings.keys.bible.title) {
+		m_settings.keys.bible.keyChooser = new KKeyChooser(
+			m_settings.keys.keyChooserStack
+		);
+	 	m_settings.keys.bible.keyChooser->insert(
+	 		m_settings.keys.bible.actionCollection,
+	 		m_settings.keys.bible.title
+	 	);
+		
+		t = &m_settings.keys.bible;
+	}
+	else if (title == m_settings.keys.commentary.title) {
+		m_settings.keys.commentary.keyChooser = new KKeyChooser(
+			m_settings.keys.keyChooserStack
+		);
+		m_settings.keys.commentary.keyChooser->insert(
+			m_settings.keys.commentary.actionCollection,
+			m_settings.keys.commentary.title
+		);
+	
+
+		t = &m_settings.keys.commentary;
+	}
+	else if (title == m_settings.keys.lexicon.title) {
+		m_settings.keys.lexicon.keyChooser = new KKeyChooser(
+			m_settings.keys.keyChooserStack
+		);
+	 	m_settings.keys.lexicon.keyChooser->insert(
+	 		m_settings.keys.lexicon.actionCollection,
+	 		m_settings.keys.lexicon.title
+	 	);
+
+
+		t = &m_settings.keys.lexicon;
+	}
+	else if (title == m_settings.keys.book.title) {
+		m_settings.keys.book.keyChooser = new KKeyChooser(
+			m_settings.keys.keyChooserStack
+		);
+	 	m_settings.keys.book.keyChooser->insert(
+	 		m_settings.keys.book.actionCollection,
+	 		m_settings.keys.book.title
+	 	);
+
+		t = &m_settings.keys.book;
+	}
+
+	Q_ASSERT(t);
+	m_settings.keys.keyChooserStack->raiseWidget(t->keyChooser);
 }

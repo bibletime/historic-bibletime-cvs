@@ -238,7 +238,7 @@ void BibleTime::initActions() {
 		CResMgr::mainMenu::window::arrangementMode::autoCascade::tooltip 
 	);
   #if KDE_VERSION_MINOR < 1
-		qWarning("Plug accel");
+// 		qWarning("Plug accel");
   	m_windowAutoCascade_action->plugAccel( accel() );
   #endif
 	m_windowArrangementMode_action->insert( m_windowAutoCascade_action );

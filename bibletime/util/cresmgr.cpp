@@ -401,12 +401,12 @@ namespace CResMgr {
       namespace nextBook {
         QString tooltip;
 
-        const KShortcut accel = Qt::CTRL + Qt::Key_B;
+        const KShortcut accel = Qt::CTRL + Qt::Key_Y;
        }
       namespace previousBook {
         QString tooltip;
 
-        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_B;
+        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_Y;
       }
 
 
@@ -417,27 +417,26 @@ namespace CResMgr {
       namespace nextChapter {
         QString tooltip;
 
-        const KShortcut accel = Qt::CTRL + Qt::Key_H;
+        const KShortcut accel = Qt::CTRL + Qt::Key_X;
       }
       namespace previousChapter {
         QString tooltip;
 
-        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_H;
+        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_X;
       }
 
       namespace verseList {
         QString tooltip;
-
       };
       namespace nextVerse {
         QString tooltip;
 
-        const KShortcut accel = Qt::CTRL + Qt::Key_V;
+        const KShortcut accel = Qt::CTRL + Qt::Key_D;
       }
       namespace previousVerse {
         QString tooltip;
 
-        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_V;
+        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_D;
       }
 
       namespace copyMenu {
