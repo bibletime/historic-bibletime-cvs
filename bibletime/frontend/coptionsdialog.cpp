@@ -338,14 +338,22 @@ void COptionsDialog::initAccelerators(){
 		m_settings.keys.application.actionCollection
 	);
 
-	new QLabel(i18n("Choose type:"), page);
-	m_settings.keys.typeChooser = new QComboBox(page);
+	QHBox* hbox = new QHBox(page);
+	QLabel* label = new QLabel(i18n("Choose type:"), hbox);
+	m_settings.keys.typeChooser = new QComboBox(hbox);
 	connect(
 		m_settings.keys.typeChooser, SIGNAL(activated(const QString&)),
 		SLOT(slotKeyChooserTypeChanged(const QString&))
 	);
+	hbox->setStretchFactor(label, 0);
+	hbox->setStretchFactor(m_settings.keys.typeChooser, 5);
+
+	page->setStretchFactor(hbox, 0);
+
 	m_settings.keys.keyChooserStack = new QWidgetStack(page);
 	Q_ASSERT(m_settings.keys.keyChooserStack);
+
+	page->setStretchFactor(m_settings.keys.keyChooserStack, 5);
 
 	m_settings.keys.application.title = i18n("BibleTime"); //don't set the app action collection to NULL
 	m_settings.keys.general = Settings::KeySettings::WindowType(i18n("All text windows"));

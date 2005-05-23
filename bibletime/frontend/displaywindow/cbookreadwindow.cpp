@@ -9,6 +9,7 @@
 #include "frontend/display/cdisplay.h"
 #include "frontend/keychooser/cbooktreechooser.h"
 #include "frontend/cprofilewindow.h"
+#include "frontend/cbtconfig.h"
 
 #include "util/ctoolclass.h"
 #include "util/cresmgr.h"
@@ -57,6 +58,8 @@ void CBookReadWindow::initActions() {
   	CResMgr::displaywindows::bookWindow::toggleTree::accel,
   	this, SLOT(treeToggled()),
   	actionCollection(), "toggleTree");
+
+	CBTConfig::setupAccelSettings(CBTConfig::bookWindow, actionCollection());
 };
 
 void CBookReadWindow::insertKeyboardActions( KActionCollection* const a ) {

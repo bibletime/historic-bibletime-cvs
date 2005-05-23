@@ -14,7 +14,7 @@ QMap<QObject*, int> boxes;
 CBookKeyChooser::CBookKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name)
 	: CKeyChooser(modules, key, parent,name), m_layout(0) {
 
-   setModules(modules, false);
+  setModules(modules, false);
 	m_key = dynamic_cast<CSwordTreeKey*>(key);
   if (!m_modules.count()) {
 		m_key = 0;
@@ -148,7 +148,24 @@ void CBookKeyChooser::setModules(const ListCSwordModuleInfo& modules, const bool
 			
 			w->show();
 		}
+
+		//set the tab order of the key chooser widgets
 		
+		CKeyChooserWidget* chooser = 0;
+		CKeyChooserWidget* chooser_prev = 0;
+		const int count = m_chooserWidgets.count();
+		for (int i = 0; i < count; ++i) {
+			chooser = m_chooserWidgets.at(i);
+			Q_ASSERT(chooser);
+
+			if (chooser && chooser_prev) {
+				QWidget::setTabOrder(chooser_prev, chooser);
+			}
+
+			chooser_prev = chooser;
+		}
+		QWidget::setTabOrder(chooser, 0);
+
 		updateKey(m_key);
 		adjustFont(); // only when refresh is set.		
 	}
@@ -156,6 +173,7 @@ void CBookKeyChooser::setModules(const ListCSwordModuleInfo& modules, const bool
 
 /** No descriptions */
 void CBookKeyChooser::adjustFont(){
+ 	
  	//Make sure the entries are displayed correctly.
 	for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() ) {
 		idx->comboBox()->setFont( CBTConfig::get( m_modules.first()->language() ).second );

@@ -62,6 +62,8 @@ void CCommentaryReadWindow::storeProfileSettings( CProfileWindow* profileWindow 
 };
 
 void CCommentaryReadWindow::initToolbars(){
+	CLexiconReadWindow::initToolbars();
+	
 	m_syncButton = new KToggleAction(i18n("Sync with active Bible"),
 		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
 		CResMgr::displaywindows::commentaryWindow::syncWindow::accel,

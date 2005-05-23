@@ -375,7 +375,6 @@ bool CBibleReadWindow::eventFilter( QObject* o, QEvent* e) {
 }
 
 void CBibleReadWindow::lookup( CSwordKey* newKey ) {
-// 	qWarning("lookup");
 	CLexiconReadWindow::lookup(newKey);
 
 	syncWindows();
