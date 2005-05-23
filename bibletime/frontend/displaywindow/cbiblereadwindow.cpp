@@ -358,6 +358,9 @@ void CBibleReadWindow::reload(){
 /** No descriptions */
 bool CBibleReadWindow::eventFilter( QObject* o, QEvent* e) {
   const bool ret = CLexiconReadWindow::eventFilter(o,e);
+
+//   Q_ASSERT(o->inherits("CDisplayWindow"));
+//   qWarning("class: %s", o->className());
   if (e && (e->type() == QEvent::FocusIn)) { //sync other windows to this active
 
 		/* This is a hack to work around a KHTML problem (similair to the Drag&Drop problem we had):

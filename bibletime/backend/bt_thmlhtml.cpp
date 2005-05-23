@@ -10,6 +10,7 @@
 #include "frontend/cbtconfig.h"
 
 #include "util/cpointers.h"
+#include "util/scoped_resource.h"
 
 #include <iostream>
 
@@ -233,7 +234,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				myUserData->inFootnoteTag = false;
 			}
 		}
-		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef
+		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a scripRef
 			//scrip refs which are embeded in footnotes may not be displayed!
 			if (!myUserData->inFootnoteTag) {
 				if (tag.isEndTag()) {
@@ -247,9 +248,45 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
 						Q_ASSERT(mod);
 						
+// 						buf.append("<span class=\"crossreference\">$$");
+// 
+// 						SWBuf refs(myUserData->lastTextNode);
+// 						ListKey keys = VerseKey().ParseVerseList(refs, "Gen 1:1", true);
+// 
+// // 						const util::scoped_array<char> osisRef(new char[512]);
+// 						
+// 						for (int i = 0; i < keys.Count(); ++i) {
+// 							SWKey* key = keys.GetElement(i);
+// 							Q_ASSERT(key);
+// 
+// 							qWarning("osisRef: %s", VerseKey(key).getOSISRef());
+// 
+// 							buf.append("<a href=\"");
+// 							buf.append(
+// 								CReferenceManager::encodeHyperlink(
+// 									mod->name(),
+// 									key->getRangeText(),
+// 									CReferenceManager::typeFromModule(mod->type())
+// 								).utf8()
+// 							);
+// 							
+// 							buf.append("\" crossrefs=\"");
+//  							buf.append(VerseKey(key).getOSISRef());
+// 							buf.append("\">");
+// 							buf.append(myUserData->lastTextNode.c_str());
+// 							buf.append("</a>");
+// 						}
+// 
+// 						buf.append("$$</span>");
+// 
+
 						buf.append("<span class=\"crossreference\"><a href=\"");
 						buf.append(
-							CReferenceManager::encodeHyperlink(mod->name(), QString(myUserData->lastTextNode), CReferenceManager::typeFromModule(mod->type())).utf8()
+							CReferenceManager::encodeHyperlink(
+								mod->name(),
+								QString(myUserData->lastTextNode),
+								CReferenceManager::typeFromModule(mod->type())
+							).utf8()
 						);
 						buf.append("\" crossrefs=\"");
 						buf.append(myUserData->lastTextNode.c_str());

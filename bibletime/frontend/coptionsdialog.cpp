@@ -74,11 +74,7 @@ COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KActionCollect
 }
 
 COptionsDialog::~COptionsDialog() {
-/*	delete m_settings.keys.application.actionCollection;
-	delete m_settings.keys.application.;
-	delete m_settings.keys.application.actionCollection;
-	delete m_settings.keys.application.actionCollection;
-	delete m_settings.keys.application.actionCollection;*/
+//the actionCollections objects are deleted by their QWidget parent
 }
 
 /**  */

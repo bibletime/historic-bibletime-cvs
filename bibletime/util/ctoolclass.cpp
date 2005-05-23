@@ -194,7 +194,6 @@ QString CToolClass::moduleToolTip(CSwordModuleInfo* module) {
 	text += QString("<small>(") + module->config(CSwordModuleInfo::Description) + QString(")</small><hr>");
 
 	text += i18n("Language") + QString(": %1<br>").arg( module->language()->translatedName() );
-	text += i18n("Data path") + QString(": %1<br>").arg( module->config(CSwordModuleInfo::AbsoluteDataPath) );
 
 	if (module->isEncrypted()) {
 		text += i18n("Unlock key") + QString(": %1<br>")

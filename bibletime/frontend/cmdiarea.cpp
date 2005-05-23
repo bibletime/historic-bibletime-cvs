@@ -300,6 +300,11 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
 			triggerWindowUpdate();
  			ret = false;
 		}
+		else if (!o->inherits("CDisplayWindow")) {
+			qWarning("classname: %s", o->className());
+			o->dumpObjectInfo();
+			o->dumpObjectTree();
+		}
 	}
 	
 	return ret; // standard event processing
