@@ -128,8 +128,8 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 //	connect( m_treeView, SIGNAL(executed(QListViewItem*)), SLOT(itemClicked(QListViewItem*)));
 	connect( m_treeView, SIGNAL(selectionChanged(QListViewItem*)), SLOT(itemActivated(QListViewItem*)));  
 	m_treeView->addColumn("Tree");	
-	m_treeView->header()->resizeSection( 0,m_treeView->sizeHint().width());
-	m_treeView->header()->setResizeEnabled(-1);
+// 	m_treeView->header()->resizeSection( 0,m_treeView->sizeHint().width());
+// 	m_treeView->header()->setResizeEnabled(-1);
 	m_treeView->header()->hide();
 	m_treeView->setSorting(-1);
 	m_treeView->setRootIsDecorated(true);

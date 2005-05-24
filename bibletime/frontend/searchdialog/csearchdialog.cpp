@@ -182,11 +182,11 @@ void CSearchDialog::initView(){
 
   setButtonTip(User2, CResMgr::searchdialog::cancelSearchButton::tooltip);
 
-  QHBox* box = addHBoxPage(i18n("Search options"));
+  QHBox* box = addHBoxPage(i18n("Search &options"));
   m_index.optionsPage = pageIndex(box);
   m_searchOptionsPage = new CSearchOptionsPage(box);
   
-  box = addHBoxPage(i18n("Search result"));
+  box = addHBoxPage(i18n("Search &result"));
   m_index.resultPage = pageIndex(box);
   m_searchResultPage = new CSearchResultPage(box);
 	

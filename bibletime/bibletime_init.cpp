@@ -62,12 +62,12 @@ using namespace InfoDisplay;
 void BibleTime::initView(){
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString("..."));	
 
-	m_splitter = new QSplitter(this, "mainsplitter");
-	setCentralWidget(m_splitter);	
+	m_mainSplitter = new QSplitter(this, "mainsplitter");
+	setCentralWidget(m_mainSplitter);
 
-	QSplitter* mainIndexSplitter = new QSplitter(Qt::Vertical, m_splitter);
+	m_leftPaneSplitter = new QSplitter(Qt::Vertical, m_mainSplitter);
 
-	QVBox* vBox = new QVBox(mainIndexSplitter);
+	QVBox* vBox = new QVBox(m_leftPaneSplitter);
 	QLabel* bookshelfLabel = new QLabel( i18n("Bookshelf"), vBox );
 	bookshelfLabel->setMargin(5);
 	
@@ -75,10 +75,10 @@ void BibleTime::initView(){
 	m_mainIndex->initTree();
 	m_mainIndex->setFocusPolicy(WheelFocus);
 
-	m_infoDisplay = new CInfoDisplay(mainIndexSplitter);
+	m_infoDisplay = new CInfoDisplay(m_leftPaneSplitter);
 	CPointers::setInfoDisplay(m_infoDisplay);
 	
-	m_mdi = new CMDIArea(m_splitter, "mdiarea" );
+	m_mdi = new CMDIArea(m_mainSplitter, "mdiarea" );
 	m_mdi->setFocusPolicy(ClickFocus);
 
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());

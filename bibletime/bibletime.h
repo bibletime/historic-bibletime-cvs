@@ -350,8 +350,8 @@ private:
 	QProgressDialog* m_progress;
 
   CProfile* m_currentProfile;
-	//KAccel* m_keyAccel;
-	QSplitter* m_splitter;
+	QSplitter* m_mainSplitter;
+	QSplitter* m_leftPaneSplitter;
 	CMDIArea* m_mdi;
 
 	CProfileMgr m_profileMgr;

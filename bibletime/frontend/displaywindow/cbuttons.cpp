@@ -96,10 +96,15 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptions *di
 void CDisplaySettingsButton::reset(const ListCSwordModuleInfo& useModules){
 	m_modules = useModules;
 	populateMenu();
-//	if (!populateMenu())
-//		setEnabled(false);
-//	else
-//		setEnabled(true);
+	//disable the settings button if no options are available
+	if (!populateMenu()) { 
+		setEnabled(false);
+		QToolTip::add(this, i18n("Display settings: No options available"));
+	}
+	else {
+		setEnabled(true);
+		QToolTip::add(this, i18n("Display settings"));
+	}
 }
 
 
@@ -112,7 +117,6 @@ void CDisplaySettingsButton::optionToggled(int ID){
 
 /** No descriptions */
 int CDisplaySettingsButton::populateMenu(){
-//  qWarning("CDisplaySettingsButton::populateMenu");
 	int ret = 0;
 
 	m_popup->clear();
@@ -149,19 +153,20 @@ int CDisplaySettingsButton::populateMenu(){
   ret += addMenuEntry(i18n("Show scripture cross-references"), &m_moduleSettings->scriptureReferences,
 		isOptionAvailable(CSwordModuleInfo::scriptureReferences ));
 
-	QToolTip::add(this, i18n("Display settings"));
-
 	return ret;
 }
 
 /** No descriptions */
 int CDisplaySettingsButton::addMenuEntry( const QString name, const int* option, const bool available){
+	int ret = 0;
+	
 	if (available){
-		m_dict.insert( name, option);
+		m_dict.insert( name, option );
 		m_popup->setItemChecked(m_popup->insertItem( name ), *option );
-		return 1;
+		ret = 1;
 	}
-	return 0;
+	
+	return ret;
 }
 
 bool CDisplaySettingsButton::isOptionAvailable( const CSwordModuleInfo::FilterTypes option ){

@@ -44,17 +44,19 @@
 
 BibleTime::BibleTime()
   : KMainWindow(0,0, WType_TopLevel),
+		m_windowActionCollection(0),
 	  m_initialized(false),
 	  m_moduleList(0),
 	  m_progress(0),
 	  m_currentProfile(0),
-    m_splitter(0),
+    m_mainSplitter(0),
+    m_leftPaneSplitter(0),
     m_mdi(0),
     m_profileMgr(),
     m_backend(0),
     m_printer(0),
-    m_mainIndex(0),
-    m_windowActionCollection(0)
+    m_mainIndex(0)
+    
 {
 	setHelpMenuEnabled(false);
 
@@ -91,9 +93,8 @@ void BibleTime::saveSettings(){
  	CBTConfig::set(CBTConfig::mainIndex, m_viewMainIndex_action->isChecked());
  	CBTConfig::set(CBTConfig::infoDisplay, m_viewInfoDisplay_action->isChecked());
 
- 	if (m_viewMainIndex_action->isChecked()) {	//only save changes when the groupmanager is visible
- 		CBTConfig::set(CBTConfig::splitterSizes, m_splitter->sizes());
-  }
+	CBTConfig::set(CBTConfig::mainSplitterSizes, m_mainSplitter->sizes());
+	CBTConfig::set(CBTConfig::leftPaneSplitterSizes, m_leftPaneSplitter->sizes());
 
  	if (m_windowManualMode_action->isChecked())	{
 		CBTConfig::set(CBTConfig::autoTileVertical, false);
@@ -140,7 +141,12 @@ void BibleTime::readSettings(){
  	m_viewInfoDisplay_action->setChecked( CBTConfig::get(CBTConfig::infoDisplay) );
  	slotToggleInfoDisplay();
  	
-	m_splitter->setSizes( CBTConfig::get(CBTConfig::splitterSizes) );		
+  m_mainSplitter->setSizes(
+  	CBTConfig::get(CBTConfig::mainSplitterSizes)
+  );
+  m_leftPaneSplitter->setSizes(
+  	CBTConfig::get(CBTConfig::leftPaneSplitterSizes)
+  );
 
  	if ( CBTConfig::get(CBTConfig::autoTileVertical) ) {
  		m_windowAutoTileVertical_action->setChecked( true );

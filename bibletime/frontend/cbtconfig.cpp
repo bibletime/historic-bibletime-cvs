@@ -169,15 +169,21 @@ const int CBTConfig::getDefault( const CBTConfig::ints ID){
 
 const QString CBTConfig::getKey( const CBTConfig::intLists ID){
 	switch ( ID ){
-		case splitterSizes: return "splitterSizes";
+		case leftPaneSplitterSizes: return "leftPaneSplitterSizes";
+		case mainSplitterSizes: 		return "mainSplitterSizes";
 	}
+	
 	return QString::null;
 }
 
 const QValueList<int> CBTConfig::getDefault( const CBTConfig::intLists ID){
 	switch ( ID ){
-		case splitterSizes: return QValueList<int>();
+		case leftPaneSplitterSizes: //fall through
+		case mainSplitterSizes: {
+			return QValueList<int>();
+		}
 	}
+	
 	return QValueList<int>();
 }
 
@@ -306,7 +312,7 @@ const int CBTConfig::get( const CBTConfig::ints ID){
 
 const QValueList<int> CBTConfig::get( const CBTConfig::intLists ID ){
 	KConfig* config = CBTConfig::getConfig();
-	KConfigGroupSaver groupSaver(config, "lists");
+	KConfigGroupSaver groupSaver(config, "intlists");
 	return config->readIntListEntry(getKey(ID));
 }
 
@@ -390,7 +396,7 @@ void CBTConfig::set( const CBTConfig::modules ID, const QString& value ){
 	}
 }
 
-void CBTConfig::set(const  CBTConfig::bools ID,const  bool value ){
+void CBTConfig::set(const CBTConfig::bools ID,const  bool value ){
 	KConfig* config = CBTConfig::getConfig();
 	//special behaviour to work with KTipDialog class of KDE
 	KConfigGroupSaver groupSaver(config, (ID == CBTConfig::tips) ? "TipOfDay" : "bools");
@@ -405,7 +411,7 @@ void CBTConfig::set(const CBTConfig::ints ID, const int value ){
 
 void CBTConfig::set( const CBTConfig::intLists ID, const QValueList<int> value ){
 	KConfig* config = CBTConfig::getConfig();
-	KConfigGroupSaver groupSaver(config, "lists");
+	KConfigGroupSaver groupSaver(config, "intlists");
 	config->writeEntry(getKey(ID), value);
 }
 
@@ -503,39 +509,6 @@ const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults(){
 
 	return options;
 }
-
-// void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
-// 	switch (type) {
-// 		case writeWindow : {
-// 			accel->setConfigGroup("Writewindow shortcuts");
-// 			break;
-// 		};
-// 		case readWindow : {
-// 			accel->setConfigGroup("Readwindow shortcuts");
-// 			break;
-// 		};
-// 		case bookWindow : {
-// 			accel->setConfigGroup("Book shortcuts");
-// 			break;
-// 		};
-// 		case bibleWindow : {
-// 			accel->setConfigGroup("Bible shortcuts");
-// 			break;
-// 		};
-// 		case commentaryWindow : {
-// 			accel->setConfigGroup("Commentary shortcuts");
-// 			break;
-// 		};
-// 		case lexiconWindow : {
-// 			accel->setConfigGroup("Lexicon shortcuts");
-// 			break;
-// 		};
-// 		case application : {
-// 			accel->setConfigGroup("Application shortcuts");
-// 			break;
-// 		};
-// 	};
-// }
 
 void CBTConfig::setupAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection) {
 	QString groupName;

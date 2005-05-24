@@ -502,7 +502,6 @@ void COptionsDialog::initSword(){
 		//fill the comboboxes with the right modules
 		ListCSwordModuleInfo& modules = backend()->moduleList();
 		QString modDescript;
-	/*  for ( modules.first(); modules.current(); modules.next() ) {*/
 		ListCSwordModuleInfo::iterator end_it = modules.end();
 		for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
 			modDescript = (*it)->config(CSwordModuleInfo::Description);
@@ -735,10 +734,6 @@ void COptionsDialog::saveFonts(){
 }
 
 /** No descriptions */
-// void COptionsDialog::/*/*savePro*/*/files(){
-// }
-
-/** No descriptions */
 void COptionsDialog::saveStartup(){
 	CBTConfig::set( CBTConfig::logo, m_settings.startup.showLogo->isChecked() );	
  	CBTConfig::set( CBTConfig::tips, m_settings.startup.showTips->isChecked() );				
@@ -877,6 +872,7 @@ void COptionsDialog::updateStylePreview() {
 }
 
 void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
+	//delete all KKeyChoosers, because this class checks in all instances for key conflicts
  	if (m_settings.keys.general.keyChooser) {
  		m_settings.keys.general.keyChooser->commitChanges();
  	}
@@ -907,69 +903,36 @@ void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
 	delete m_settings.keys.book.keyChooser;
 	m_settings.keys.book.keyChooser = 0;
 	
-	Settings::KeySettings::WindowType* t = 0;
 	
+	Settings::KeySettings::WindowType* t = 0;
 	if (title == m_settings.keys.application.title) {
 		t = &m_settings.keys.application;
 	}
-	else if (title == m_settings.keys.general.title) { // ----- All display windows ------ //
-		m_settings.keys.general.keyChooser = new KKeyChooser(
-			m_settings.keys.keyChooserStack
-		);
-		m_settings.keys.general.keyChooser->insert(
-			m_settings.keys.general.actionCollection,
-			m_settings.keys.general.title
-		);
-
+	else if (title == m_settings.keys.general.title) { // All display windows
 		t = &m_settings.keys.general;
 	}
-	else if (title == m_settings.keys.bible.title) {
-		m_settings.keys.bible.keyChooser = new KKeyChooser(
-			m_settings.keys.keyChooserStack
-		);
-	 	m_settings.keys.bible.keyChooser->insert(
-	 		m_settings.keys.bible.actionCollection,
-	 		m_settings.keys.bible.title
-	 	);
-		
+	else if (title == m_settings.keys.bible.title) { // Bible windows
 		t = &m_settings.keys.bible;
 	}
-	else if (title == m_settings.keys.commentary.title) {
-		m_settings.keys.commentary.keyChooser = new KKeyChooser(
-			m_settings.keys.keyChooserStack
-		);
-		m_settings.keys.commentary.keyChooser->insert(
-			m_settings.keys.commentary.actionCollection,
-			m_settings.keys.commentary.title
-		);
-	
-
+	else if (title == m_settings.keys.commentary.title) { // Commentary windows
 		t = &m_settings.keys.commentary;
 	}
-	else if (title == m_settings.keys.lexicon.title) {
-		m_settings.keys.lexicon.keyChooser = new KKeyChooser(
-			m_settings.keys.keyChooserStack
-		);
-	 	m_settings.keys.lexicon.keyChooser->insert(
-	 		m_settings.keys.lexicon.actionCollection,
-	 		m_settings.keys.lexicon.title
-	 	);
-
-
+	else if (title == m_settings.keys.lexicon.title) { // Lexicon windows
 		t = &m_settings.keys.lexicon;
 	}
-	else if (title == m_settings.keys.book.title) {
-		m_settings.keys.book.keyChooser = new KKeyChooser(
-			m_settings.keys.keyChooserStack
-		);
-	 	m_settings.keys.book.keyChooser->insert(
-	 		m_settings.keys.book.actionCollection,
-	 		m_settings.keys.book.title
-	 	);
-
+	else if (title == m_settings.keys.book.title) { // Book windows
 		t = &m_settings.keys.book;
 	}
 
 	Q_ASSERT(t);
+
+	t->keyChooser = new KKeyChooser(
+		m_settings.keys.keyChooserStack
+	);
+	t->keyChooser->insert(
+		t->actionCollection,
+		t->title
+	);
+
 	m_settings.keys.keyChooserStack->raiseWidget(t->keyChooser);
 }

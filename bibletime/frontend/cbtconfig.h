@@ -74,7 +74,8 @@ public:
     scriptureReferences
   };
   enum intLists {
-		splitterSizes
+		leftPaneSplitterSizes,
+		mainSplitterSizes
 	};
 	enum stringLists {
 		searchCompletionTexts,
