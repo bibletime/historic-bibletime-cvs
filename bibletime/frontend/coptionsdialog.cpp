@@ -342,6 +342,7 @@ void COptionsDialog::initAccelerators(){
 		SLOT(slotKeyChooserTypeChanged(const QString&))
 	);
 	QLabel* dummy = new QLabel( hbox ); // empty label for stretch
+	
 	hbox->setStretchFactor(label, 0);
 	hbox->setStretchFactor(m_settings.keys.typeChooser, 0);
 	hbox->setStretchFactor(dummy, 1);
@@ -390,7 +391,7 @@ void COptionsDialog::initAccelerators(){
  		m_settings.keys.bible.actionCollection
  	);
 
-//  // ----- Commentary windows ------ //
+  // ----- Commentary windows ------ //
 	m_settings.keys.commentary.actionCollection= new KActionCollection(this, "commentaryActions", 0);
 	CCommentaryReadWindow::insertKeyboardActions( m_settings.keys.commentary.actionCollection);
 	CBTConfig::setupAccelSettings(
@@ -904,8 +905,8 @@ void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
 	}
 	delete m_settings.keys.book.keyChooser;
 	m_settings.keys.book.keyChooser = 0;
-	
-	
+
+
 	Settings::KeySettings::WindowType* t = 0;
 	if (title == m_settings.keys.application.title) {
 		t = &m_settings.keys.application;

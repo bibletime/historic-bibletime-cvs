@@ -74,7 +74,7 @@ BibleTime::BibleTime()
 	setPlainCaption("BibleTime " VERSION);
 
   // we don't save the geometry, it's stored in the startup profile
-  setAutoSaveSettings(QString::fromLatin1("MainWindow"), false);
+  setAutoSaveSettings(QString("MainWindow"), false);
 }
 
 BibleTime::~ BibleTime() {

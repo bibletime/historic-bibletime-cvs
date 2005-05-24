@@ -123,7 +123,8 @@ void CBookKeyChooser::setModules(const ListCSwordModuleInfo& modules, const bool
 		m_chooserWidgets.setAutoDelete(false);
 		
 		for (int i = 0; i < m_modules.first()->depth(); ++i) {			
-			CKeyChooserWidget* w = new CKeyChooserWidget(0, false, this); //empty keychooser
+			// Create an empty keychooser, don't handle next/prev signals
+			CKeyChooserWidget* w = new CKeyChooserWidget(0, false, this); 
 			m_chooserWidgets.append( w );
 			
 			//don't allow a too high width, try to keep as narrow as possible

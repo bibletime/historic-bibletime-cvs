@@ -233,10 +233,9 @@ void CBibleKeyChooser::chapterChanged(int /*i*/){
 		return;
 	
 	setUpdatesEnabled(false);		
-	if (m_key)
+	if (m_key) {
 		emit beforeKeyChange(m_key->key());
-//	if (m_key)
-//		emit beforeKeyChange(m_key->key());
+	}
 
 	if (m_key->Chapter() != w_chapter->comboBox()->currentText().toInt()) {
 		m_key->Chapter( w_chapter->comboBox()->currentText().toInt() );

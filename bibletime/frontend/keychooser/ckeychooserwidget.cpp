@@ -45,7 +45,7 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 				index = 0;// return 0 if not found
 			}
 	  	setCurrentItem( index );
-	    emit focusOut( index );
+ 	    emit focusOut( index );
 			
 			return false;
  	  }
@@ -90,16 +90,19 @@ void CKCComboBox::wheelEvent( QWheelEvent* e ) {
 
 CKeyChooserWidget::CKeyChooserWidget(int count, const bool useNextPrevSignals,  QWidget *parent, const char *name) : QWidget(parent,name) {
 	m_useNextPrevSignals = useNextPrevSignals;
-	for (int index=1; index <= count; index++)
-		m_list.append( QString::number(index) );	
+
+	for (int index=1; index <= count; index++) {
+		m_list.append( QString::number(index) );
+	}
 	init();
 	reset(m_list,0,false);
 };
 
 CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSignals, QWidget *parent, const char *name ) : QWidget(parent,name) {
 	m_useNextPrevSignals = useNextPrevSignals;		
+
 	if (list) {
-		m_list = *list;//copy the items of list
+		m_list = *list; //deep copy the items of list
 	}
 	else {
 		m_list.clear();
@@ -284,18 +287,24 @@ void CKeyChooserWidget::init(){
 	connect(btn_fx, SIGNAL(change_requested(int)), SLOT(changeCombo(int)) );
 	
 	connect(m_comboBox, SIGNAL(activated(int)), SLOT(slotComboChanged(int)));
-	connect(m_comboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
- 	connect(m_comboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
+// 	connect(m_comboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
+	connect(m_comboBox->lineEdit(), SIGNAL(returnPressed()), SLOT(slotReturnPressed()));
+ 	connect(m_comboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));
 		
 	isResetting = false;
 }
 
 /** Is called when the return key was presed in the combobox. */
-void CKeyChooserWidget::slotReturnPressed( const QString& text){
+void CKeyChooserWidget::slotReturnPressed( /*const QString& text*/){
+	Q_ASSERT(comboBox()->lineEdit());
+// 	qWarning("return pressed");
+
+	QString text = comboBox()->lineEdit()->text();
 	for (int index=0; index < comboBox()->count(); index++) {
 		if (comboBox()->text(index) == text) {
-			if (/*!oldKey.isNull() &&*/ text != oldKey)	//if the key has changed
+			if (text != oldKey) { //if the key has changed
 				emit changed(index);
+			}
 			break;
 		}
 	}
@@ -304,13 +313,17 @@ void CKeyChooserWidget::slotReturnPressed( const QString& text){
 /** Is called when the current item of the combo box was changed. */
 void CKeyChooserWidget::slotComboChanged(int index){
 // 	qWarning("CKeyChooserWidget::slotComboChanged(int index)");
-	if (!isUpdatesEnabled())
+	if (!isUpdatesEnabled()) {
 		return;
+	}
+	
 	setUpdatesEnabled(false);	
 	
 	const QString key = comboBox()->text( index );
-	if (oldKey.isNull() || (oldKey != key))
+	if (oldKey.isNull() || (oldKey != key)) {
 		emit changed(index);
+	}
+	
 	oldKey = key;
 
 	setUpdatesEnabled(true);		
@@ -345,7 +358,7 @@ bool CKeyChooserWidget::setItem( const QString item ){
 
 /** Jump to the next entry. */
 void CKeyChooserWidget::next(){
-	if (comboBox()->currentItem() != comboBox()->count()-1) {// not last entry
+	if (comboBox()->currentItem() != comboBox()->count()-1) {//current != last entry
 		comboBox()->setCurrentItem( comboBox()->currentItem()+1 );
 		emit changed(comboBox()->currentItem());
 	}
@@ -353,7 +366,7 @@ void CKeyChooserWidget::next(){
 
 /** Jump to the previous entry. */
 void CKeyChooserWidget::previous(){
-	if (comboBox()->currentItem() != 0) {// not last entry
+	if (comboBox()->currentItem() != 0) {// current != first entry
 		comboBox()->setCurrentItem( comboBox()->currentItem()-1 );
 		emit changed(comboBox()->currentItem());
 	}

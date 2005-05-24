@@ -64,7 +64,14 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 
 	Q_ASSERT(modules().first()->getDisplay());
 	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
-		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
+		displayWidget()->setText(
+			display->text(
+				modules(),
+				newKey->key(),
+				displayOptions(),
+				filterOptions()
+			)
+		);
 	}
 	
 	if (key() != newKey) {
@@ -72,6 +79,8 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 	}
 
 	setCaption( windowCaption() );	
+
+	qWarning("moving to anchor %s", CDisplayRendering::keyToHTMLAnchor(key()->key()).latin1());
 	displayWidget()->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key()->key()) );
 }
 

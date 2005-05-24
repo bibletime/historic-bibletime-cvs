@@ -115,6 +115,8 @@ void CLexiconReadWindow::initActions() {
 
 /** No descriptions */
 void CLexiconReadWindow::initConnections(){
+	Q_ASSERT(keyChooser());
+	
  	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 		this, SLOT(lookup(CSwordKey*)));
  	connect(keyChooser(), SIGNAL(historyChanged()),

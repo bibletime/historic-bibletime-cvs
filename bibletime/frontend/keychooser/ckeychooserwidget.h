@@ -149,18 +149,6 @@ protected:
 	*/
 	bool isResetting;
 	/**
- 	* Returns the icons set which contains the UP button.
- 	*/
-//	QIconSet getUpIconSet();
-  /**
-  * Returns the icons set which contains the button used to change the current item.
-  */
-//  QIconSet getMoverIconSet();
-  /**
-  *  Returns the icons set which contains the down button.
-  */
-//  QIconSet getDownIconSet();
-	/**
 	*
 	*/
 	QString oldKey;
@@ -181,7 +169,7 @@ protected slots: // Protected slots
   /**
   * Is called when the return key was presed in the combobox.
   */
-  void slotReturnPressed( const QString& );
+  void slotReturnPressed( /*const QString&*/ );
 	/**
   * Is called when the current item of the combo box was changed.
   */
