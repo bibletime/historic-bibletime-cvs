@@ -341,8 +341,10 @@ void COptionsDialog::initAccelerators(){
 		m_settings.keys.typeChooser, SIGNAL(activated(const QString&)),
 		SLOT(slotKeyChooserTypeChanged(const QString&))
 	);
+	QLabel* dummy = new QLabel( hbox ); // empty label for stretch
 	hbox->setStretchFactor(label, 0);
-	hbox->setStretchFactor(m_settings.keys.typeChooser, 5);
+	hbox->setStretchFactor(m_settings.keys.typeChooser, 0);
+	hbox->setStretchFactor(dummy, 1);
 
 	page->setStretchFactor(hbox, 0);
 
