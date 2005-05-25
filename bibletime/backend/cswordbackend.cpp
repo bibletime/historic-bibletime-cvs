@@ -33,7 +33,6 @@
 #include <swfiltermgr.h>
 #include <encfiltmgr.h>
 #include <plainhtml.h>
-#include <rawgbf.h>
 #include <rtfhtml.h>
 #include <filemgr.h>
 #include <utilstr.h>
@@ -41,11 +40,6 @@
 using std::string;
 using namespace Filters;
 using namespace Rendering;
-
-
-
-//static class-wide members
-// static QMap<QString, QString> moduleDescriptionMap;
 
 CSwordBackend::CSwordBackend()
 	: sword::SWMgr(0, 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), true)
