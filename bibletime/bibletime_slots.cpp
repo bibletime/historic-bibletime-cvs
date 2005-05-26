@@ -11,7 +11,7 @@
 #include "frontend/cmdiarea.h"
 #include "frontend/cprofilemgr.h"
 #include "frontend/cprofile.h"
-#include "frontend/cprofilewindow.h"                       	
+#include "frontend/cprofilewindow.h"
 #include "frontend/coptionsdialog.h"
 #include "frontend/cswordsetupdialog.h"
 #include "frontend/cbtconfig.h"
@@ -395,7 +395,10 @@ void BibleTime::saveProfile(int ID){
 	m_mdi->setUpdatesEnabled(false);
 
   KPopupMenu* popup = m_windowSaveProfile_action->popupMenu();
-	if ( CProfile* p = m_profileMgr.profile(popup->text(ID)) ) {
+	const QString profileName = popup->text(ID).remove("&");
+	CProfile* p = m_profileMgr.profile( profileName );
+	Q_ASSERT(p);
+	if ( p ) {
 		saveProfile(p);
   }
 
@@ -431,19 +434,26 @@ void BibleTime::saveProfile(CProfile* profile){
 
 void BibleTime::loadProfile(int ID){	
 	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
-  if ( CProfile* p = m_profileMgr.profile( popup->text(ID) ) ) {
-    m_mdi->deleteAll();
+ //HACK: workaround the inserted & char by KPopupMenu
+	const QString profileName = popup->text(ID).remove("&");
+	CProfile* p = m_profileMgr.profile( profileName );
+// 	qWarning("requesting popup: %s", popup->text(ID).latin1());
+	Q_ASSERT(p);
 
+  if ( p ) {
+    m_mdi->deleteAll();
     loadProfile(p);
   }
 }
 
 void BibleTime::loadProfile(CProfile* p){
+	Q_ASSERT(p);
 	if (!p) {
 		return;
 	}
-    
+
   QPtrList<CProfileWindow> windows = p->load();
+  Q_ASSERT(windows.count());
 
 	//load mainwindow setttings
 	applyProfileSettings(p);
@@ -502,23 +512,6 @@ void BibleTime::toggleFullscreen(){
 	m_mdi->triggerWindowUpdate();
 }
 
-void BibleTime::deleteProfile(int ID){
-	KPopupMenu* popup = m_windowDeleteProfile_action->popupMenu();
-
-	CProfile* profile = m_profileMgr.profile( popup->text(ID) );
-  if ( profile ) {
-	 	const QString profile = popup->text(ID);
-		m_profileMgr.remove(profile);
-		refreshProfileMenus();
-	}
-	
-/*
- 	const QString profile = m_settings.profiles.profiles->currentText();
-	m_profileMgr.remove(profile);
-	m_profileMgr.refresh();
-*/
-}
-
 /** Saves current settings into a new profile. */
 void BibleTime::saveToNewProfile(){
   bool ok = false;
@@ -541,13 +534,9 @@ void BibleTime::refreshProfileMenus(){
 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
  	loadPopup->clear();
 	
-	KPopupMenu* deletePopup = m_windowDeleteProfile_action->popupMenu();
-	deletePopup->clear();
-
 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
  	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
 		savePopup->insertItem(p->name());
 		loadPopup->insertItem(p->name());
-		deletePopup->insertItem(p->name());
  	}
 }

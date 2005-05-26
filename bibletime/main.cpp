@@ -36,15 +36,16 @@
 
 #include <kmessagebox.h>
 
-bool showDebugMessages = true;
+bool showDebugMessages = false;
 BibleTime* bibletime_ptr = 0;
 
 void myMessageOutput( QtMsgType type, const char *msg ) {	
 	//we use this messagehandler to switch debugging off in final releases
 	switch ( type ) {
 		case QtDebugMsg:
-			if (showDebugMessages)	//only show messages if they are enabled!
+			if (showDebugMessages) {	//only show messages if they are enabled!
 				fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
+			}
 			break;
 		case QtWarningMsg:
 			//if (showDebugMessages) //comment out for releases so users don't get our debug warnings

@@ -330,16 +330,16 @@ void BibleTime::initActions() {
   	m_windowLoadProfile_action->plugAccel( accel() );
   #endif
 
-	m_windowDeleteProfile_action = new KActionMenu(i18n("&Delete session"),
-    CResMgr::mainMenu::window::deleteProfile::icon,
-    actionCollection(),
-    CResMgr::mainMenu::window::deleteProfile::actionName
-  );
-	m_windowDeleteProfile_action->setToolTip( CResMgr::mainMenu::window::deleteProfile::tooltip );
-
-  #if KDE_VERSION_MINOR < 1
-  	m_windowDeleteProfile_action->plugAccel( accel() );
-  #endif
+// 	m_windowDeleteProfile_action = new KActionMenu(i18n("&Delete session"),
+//     CResMgr::mainMenu::window::deleteProfile::icon,
+//     actionCollection(),
+//     CResMgr::mainMenu::window::deleteProfile::actionName
+//   );
+// 	m_windowDeleteProfile_action->setToolTip( CResMgr::mainMenu::window::deleteProfile::tooltip );
+// 
+//   #if KDE_VERSION_MINOR < 1
+//   	m_windowDeleteProfile_action->plugAccel( accel() );
+//   #endif
 
 	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"),
     CResMgr::mainMenu::window::showFullscreen::icon,
@@ -356,18 +356,16 @@ void BibleTime::initActions() {
 
 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
+	loadPopup->setKeyboardShortcutsEnabled(false); //make sure that no ampersand get's added
 	connect(loadPopup, SIGNAL(activated(int)), SLOT(loadProfile(int)));
 	
 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();
+	savePopup->setKeyboardShortcutsEnabled(false);  //make sure that no ampersand get's added
 	connect(savePopup, SIGNAL(activated(int)), SLOT(saveProfile(int)));
-	
-	KPopupMenu* deletePopup = m_windowDeleteProfile_action->popupMenu();
-	connect(deletePopup, SIGNAL(activated(int)), SLOT(deleteProfile(int)));
 	
 	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
 		savePopup->insertItem(p->name());
 		loadPopup->insertItem(p->name());
-		deletePopup->insertItem(p->name());
 	}
 
 	if ( actionCollection()->action( KStdAction::stdName(KStdAction::HelpContents) )) {	 //delete help action if KDE created it

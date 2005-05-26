@@ -80,7 +80,8 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 
 	setCaption( windowCaption() );	
 
-	qWarning("moving to anchor %s", CDisplayRendering::keyToHTMLAnchor(key()->key()).latin1());
+	qDebug("[CReadWindow::lookup] Moving to anchor %s", CDisplayRendering::keyToHTMLAnchor(key()->key()).latin1());
+	
 	displayWidget()->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key()->key()) );
 }
 

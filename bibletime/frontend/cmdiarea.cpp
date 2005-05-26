@@ -88,7 +88,7 @@ void CMDIArea::childEvent( QChildEvent * e ){
 		emit sigLastPresenterClosed();
 	}	
 
- 	Q_ASSERT(!m_deleting && isUpdatesEnabled());
+ 	Q_ASSERT(!m_deleting /*&& isUpdatesEnabled()*/);
   if (!m_deleting /*&& isUpdatesEnabled()*/ && (e->inserted() || e->removed()) ) {
 		if (e->inserted() && e->child() && e->child()->inherits("CDisplayWindow")) {
 			e->child()->installEventFilter(this); //make sure we catch the events of the new window
@@ -111,7 +111,7 @@ void CMDIArea::childEvent( QChildEvent * e ){
 void CMDIArea::resizeEvent(QResizeEvent* e){
 	QWorkspace::resizeEvent(e);	
 
-  if (m_deleting ||  !isUpdatesEnabled()) {
+  if (m_deleting || !isUpdatesEnabled()) {
     return;
   };
   
