@@ -183,8 +183,6 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 					}
 				}
 				else { //attribute was not yet inserted
-// 					const QString attr("%1=\"%2\" ");
-// 					attr.arg(isMorph ? "morph" : "lemma").arg(value);
 					QString attr;
 					attr.setLatin1(isMorph ? "morph" : "lemma").append("=\"").append(value).append("\" ");
 						
@@ -193,8 +191,8 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 					
 					hasMorphAttr = isMorph;
 					hasLemmaAttr = !isMorph;
-				}				
-					
+				}
+
 				//tagAttributeStart remains the same
 			}
 				
@@ -250,11 +248,9 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 			buf.append("\">*</span> ");
 			
 			userData->suspendTextPassThru = true;
-// 			qWarning("inserted");
 		}
 		else if (!strncmp(token, "Rf", 2)) { //end of footnote
 			userData->suspendTextPassThru = false;
-// 			qWarning("%s", buf.c_str());
 		}
 		else if (!strncmp(token, "FN", 2)) { //the end </font> tag is inserted in addTokenSubsitute
 			buf.append("<font face=\"");

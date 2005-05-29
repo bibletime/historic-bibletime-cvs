@@ -2,7 +2,7 @@ SUBDIRS = bibletime pot docs .
 
 EXTRA_DIST = \
 BibleTime.kdevelop \
-COPYING \
+LICENSE \
 ChangeLog \
 bibletime.spec.in bibletime.spec \
 README.in README \

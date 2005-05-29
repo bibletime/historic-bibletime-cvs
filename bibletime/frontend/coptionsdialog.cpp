@@ -382,6 +382,10 @@ void COptionsDialog::initAccelerators(){
  		CBTConfig::allWindows,
  		m_settings.keys.general.actionCollection
  	);
+	m_settings.keys.general.keyChooser = new KKeyChooser(
+ 		m_settings.keys.general.actionCollection,
+		m_settings.keys.keyChooserStack
+	);
 
   // ----- Bible windows ------ //
  	m_settings.keys.bible.actionCollection = new KActionCollection(this, "bibleActions", 0);
@@ -876,11 +880,11 @@ void COptionsDialog::updateStylePreview() {
 
 void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
 	//delete all KKeyChoosers, because this class checks in all instances for key conflicts
- 	if (m_settings.keys.general.keyChooser) {
+/* 	if (m_settings.keys.general.keyChooser) {
  		m_settings.keys.general.keyChooser->commitChanges();
  	}
 	delete m_settings.keys.general.keyChooser;
-	m_settings.keys.general.keyChooser = 0;
+	m_settings.keys.general.keyChooser = 0;*/
 	
  	if (m_settings.keys.bible.keyChooser) {
 	 	m_settings.keys.bible.keyChooser->commitChanges();
@@ -906,13 +910,15 @@ void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
 	delete m_settings.keys.book.keyChooser;
 	m_settings.keys.book.keyChooser = 0;
 
-
+// 	bool createNew = true;
 	Settings::KeySettings::WindowType* t = 0;
-	if (title == m_settings.keys.application.title) {
+	if (title == m_settings.keys.application.title) { //Application wide
 		t = &m_settings.keys.application;
+// 		createNew = false;
 	}
 	else if (title == m_settings.keys.general.title) { // All display windows
 		t = &m_settings.keys.general;
+// 		createNew = false;
 	}
 	else if (title == m_settings.keys.bible.title) { // Bible windows
 		t = &m_settings.keys.bible;
@@ -929,13 +935,15 @@ void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
 
 	Q_ASSERT(t);
 
-	t->keyChooser = new KKeyChooser(
-		m_settings.keys.keyChooserStack
-	);
-	t->keyChooser->insert(
-		t->actionCollection,
-		t->title
-	);
+	if (!t->keyChooser) { //was deleted, create a new one
+		t->keyChooser = new KKeyChooser(
+			m_settings.keys.keyChooserStack
+		);
+		t->keyChooser->insert(
+			t->actionCollection,
+			t->title
+		);
+	}
 
 	m_settings.keys.keyChooserStack->raiseWidget(t->keyChooser);
 }

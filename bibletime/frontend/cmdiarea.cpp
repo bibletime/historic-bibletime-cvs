@@ -192,9 +192,9 @@ void CMDIArea::myTileHorizontal(){
 		int y = 0;
 		for ( int i = 0; i < int(windows.count()); ++i ) {
 			QWidget *window = windows.at(i);
-			if ( window->isMaximized() ) { // prevent flicker
+/*			if ( window->isMaximized() ) { // prevent flicker
 					window->showNormal();
-			}
+			}*/
 			const int preferredHeight = window->minimumHeight() + window->parentWidget()->baseSize().height();
 			const int actHeight = QMAX(heightForEach, preferredHeight);
 
@@ -239,9 +239,9 @@ void CMDIArea::myCascade(){
 			if (window == active) { //leave out the active window which should be the top window
 				continue;
 			}
-			if ( window->isMaximized() ) { // prevent flicker
+/*			if ( window->isMaximized() ) { // prevent flicker
 					window->showNormal();
-			}
+			}*/
 			window->parentWidget()->setGeometry(x, y, windowWidth, windowHeight);
  			window->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order
 			window->parentWidget()->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order

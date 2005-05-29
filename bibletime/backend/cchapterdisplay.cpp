@@ -44,22 +44,23 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
 	
 	//check whether there's an intro we have to include
  	if (module->type() == CSwordModuleInfo::Bible) {
- 		((VerseKey*)(module->module()->getKey()))->Headings(1);
+ 		((VerseKey*)(module->module()->getKey()))->Headings(1); //enable headings for VerseKeys
  		
 		CSwordVerseKey k1(module); 
 		k1.Headings(true);
 		k1.key(key.key());
 		k1.Verse(0);
 		
- 		QString raw = k1.rawText();
-		if (raw.length() == 0) {
+ 		QString raw( k1.rawText() );
+ 		//we need to work around a bug: osis2mod also puts Preverse titles into the chapter intro (verse 0)
+		if (((raw.find("<title") == 0) && (raw.find("</title>")+8 == int(raw.length())) ) || (raw.length() == 0)) {
 			startVerse = 1;
 		}
  	}
 	
 	key = keyName;
 	for (key.Verse(startVerse); 
-				(key.Testament() == currentTestament)
+			     (key.Testament() == currentTestament)
 				&& (key.Book() == currentBook)
 				&& (key.Chapter() == currentChapter)
 				&& ok 

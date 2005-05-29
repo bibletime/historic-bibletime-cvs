@@ -67,7 +67,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					buf.append("<div>");
 				}
 			}
-			else if (tag.isEndTag()) { //start tag
+			else if (tag.isEndTag()) { //end tag
 				buf.append("</div>");
 			}
 		}
@@ -159,11 +159,12 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		}
 		// <note> tag
 		else if (!strcmp(tag.getName(), "note")) {
-			if (!tag.isEndTag()) {
+			if (!tag.isEndTag()) { //start tag
 				const SWBuf type( tag.getAttribute("type") );
 
 				if (type == "crossReference") { //note containing cross references
 					myUserData->inCrossrefNote = true;
+          myUserData->noteType = BT_UserData::CrossReference;
 					
 /*					//get the refList value of the right entry attribute
 					AttributeList notes = myModule->getEntryAttributes()["Footnote"];
@@ -227,6 +228,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}
 			}
 			else { //if (tag.isEndTag()) {
+				Q_ASSERT(myUserData->noteType != BT_UserData::Unknown);
         if (myUserData->noteType == BT_UserData::CrossReference) {
 					buf.append("</span> ");
 					myUserData->suspendTextPassThru = false;
@@ -259,7 +261,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 							mod->name(), ref, CReferenceManager::typeFromModule(mod->type())
 						).utf8()
 					);
-					
 					buf.append("\" crossrefs=\"");
 					buf.append(ref);
 					buf.append("\">");

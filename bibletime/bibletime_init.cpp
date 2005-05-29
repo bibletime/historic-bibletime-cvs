@@ -164,14 +164,18 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::settings::swordSetupDialog::actionName
   );
 	action->setToolTip( CResMgr::mainMenu::settings::swordSetupDialog::tooltip );
-
   #if KDE_VERSION_MINOR < 1
     action->plugAccel( accel() );
   #endif
 
+ 	//delete help action if KDE created it
+	if ( actionCollection()->action( KStdAction::stdName(KStdAction::ConfigureToolbars) )) {
+		actionCollection()->remove(actionCollection()->action(
+			KStdAction::stdName(KStdAction::ConfigureToolbars))
+		);
+  }
   action = KStdAction::configureToolbars(this, SLOT( slotSettingsToolbar() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::settings::editToolBar::tooltip );
-
   #if KDE_VERSION_MINOR < 1
     action->plugAccel( accel() );
   #endif
@@ -263,7 +267,6 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::tileVertical::actionName
 	);
 	m_windowTileVertical_action->setToolTip( CResMgr::mainMenu::window::tileVertical::tooltip );
-
   #if KDE_VERSION_MINOR < 1
   	m_windowTileVertical_action->plugAccel( accel() );
   #endif
@@ -288,7 +291,6 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::closeAll::actionName
   );
 	m_windowCloseAll_action->setToolTip( CResMgr::mainMenu::window::closeAll::tooltip );
-
   #if KDE_VERSION_MINOR < 1
   	m_windowCloseAll_action->plugAccel( accel() );
   #endif
@@ -300,7 +302,6 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::saveProfile::actionName
   );
 	m_windowSaveProfile_action->setToolTip( CResMgr::mainMenu::window::saveProfile::tooltip );
-
   #if KDE_VERSION_MINOR < 1
   	m_windowSaveProfile_action->plugAccel( accel() );
   #endif
@@ -313,7 +314,6 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::saveToNewProfile::actionName
   );
 	m_windowSaveToNewProfile_action->setToolTip( CResMgr::mainMenu::window::saveToNewProfile::tooltip );
-
   #if KDE_VERSION_MINOR < 1
   	m_windowSaveToNewProfile_action->plugAccel( accel() );
   #endif
@@ -325,21 +325,9 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::loadProfile::actionName
   );
 	m_windowLoadProfile_action->setToolTip( CResMgr::mainMenu::window::loadProfile::tooltip );
-
   #if KDE_VERSION_MINOR < 1
   	m_windowLoadProfile_action->plugAccel( accel() );
   #endif
-
-// 	m_windowDeleteProfile_action = new KActionMenu(i18n("&Delete session"),
-//     CResMgr::mainMenu::window::deleteProfile::icon,
-//     actionCollection(),
-//     CResMgr::mainMenu::window::deleteProfile::actionName
-//   );
-// 	m_windowDeleteProfile_action->setToolTip( CResMgr::mainMenu::window::deleteProfile::tooltip );
-// 
-//   #if KDE_VERSION_MINOR < 1
-//   	m_windowDeleteProfile_action->plugAccel( accel() );
-//   #endif
 
 	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"),
     CResMgr::mainMenu::window::showFullscreen::icon,
@@ -348,7 +336,6 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::showFullscreen::actionName
   );
 	m_windowFullscreen_action->setToolTip( CResMgr::mainMenu::window::showFullscreen::tooltip );
-
 	m_windowFullscreen_action->setShortcutConfigurable(true);
   #if KDE_VERSION_MINOR < 1
   	m_windowFullscreen_action->plugAccel( accel() );
@@ -407,7 +394,6 @@ void BibleTime::initActions() {
   }
 	action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::bugreport::tooltip);
-
   #if KDE_VERSION_MINOR < 1
 	  action->plugAccel( accel() );
   #endif
@@ -419,7 +405,6 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::help::dailyTip::actionName
   );
 	action->setToolTip(CResMgr::mainMenu::help::dailyTip::tooltip);
-
   #if KDE_VERSION_MINOR < 1
 	  action->plugAccel( accel() );
   #endif
@@ -430,14 +415,12 @@ void BibleTime::initActions() {
   action = KStdAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::aboutBibleTime::tooltip);
 
-
 	//delete About KDE action if KDE created it already
 	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutKDE ) ) ) {	 //delete About KDE action if KDE created it
 		actionCollection()->remove(actionCollection()->action(KStdAction::stdName( KStdAction::AboutKDE )));
   }
 	action = KStdAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::aboutKDE::tooltip);
-
 }
 
 /** Initializes the menubar of BibleTime. */

@@ -748,16 +748,7 @@ namespace CResMgr {
     }
     namespace aboutModule {
       extern const QString icon;
-    }    
-  };
-  
-  namespace helpDialog {
-    extern const QString moduleLocked;
-    extern const QString firstStart;
-    extern const QString noSwordModules;    
-    extern const QString noSwordModuleConfigDir;
-    extern const QString initBackendFailed;
-    extern const QString firstTimeSearchDialog;
+    }
   };
 }
 

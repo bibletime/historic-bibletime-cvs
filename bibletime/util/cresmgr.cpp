@@ -71,15 +71,15 @@ namespace CResMgr {
         QString tooltip;
 
         const QString icon        = "find";
-        const KShortcut accel     = Qt::CTRL + Qt::Key_G;
-        const char* actionName    = "groupmanager_search_action";
+        const KShortcut accel     = Qt::CTRL + Qt::Key_F;
+        const char* actionName    = "mainindex_search_action";
       }
       namespace searchdefaultbible {
         QString tooltip;
 
         const QString icon        = "find";
-        const KShortcut accel     = Qt::CTRL + Qt::Key_F;
-        const char* actionName    = "groupmanager_searchdefaultbible_action";
+        const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_F;
+        const char* actionName    = "mainindex_searchdefaultbible_action";
       }
     };
 
@@ -738,16 +738,6 @@ namespace CResMgr {
         const QString icon = "info";
       }
     };
-  
-  namespace helpDialog {
-    const QString moduleLocked = "bibletime/helpdialog/help-module-encrypted.html";
-    const QString firstStart = "bibletime/helpdialog/help-first-startup.html";
-    const QString noSwordModules = "bibletime/helpdialog/help-no-modules.html";
-    const QString noSwordModuleConfigDir = "bibletime/helpdialog/help-no-mods-d.html";
-    const QString initBackendFailed = "bibletime/helpdialog/help-initbackend-failed.html";
-    const QString firstTimeSearchDialog = "bibletime/helpdialog/help-first-time-search.html";
-  };
-  
 };
 
 
@@ -1164,25 +1154,6 @@ namespace CResMgr {
           tooltip   = i18n ("The font selection below will apply to all texts in this language.") ;
         };
       };
-/*      {
-        using namespace profiles;
-        {
-          using namespace list;
-          tooltip   = i18n ("The list of available sessions.") ;
-        };
-        {
-          using namespace createNew;
-          tooltip   = i18n ("Create a new, empty session with default settings.") ;
-        };
-        {
-          using namespace deleteCurrent;
-          tooltip   = i18n ("Delete the selected session.") ;
-        };
-        {
-          using namespace renameCurrent;
-          tooltip   = i18n ("Rename the selected session.") ;
-        };
-      };*/
       {
         using namespace settings::sword;
         {
