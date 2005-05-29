@@ -73,5 +73,7 @@ dist-hook:
 #		$(distdir)/bibletime.doxygen $(distdir)/bibletime.kdevses \
 #		$(distdir)/bibletime.start $(distdir)/configure.files \
 #		$(distdir)/bibletime/pics/gen_am.sh
+#	rm -rf $(distdir)/docs/howto/html/*.html $(distdir)/docs/handbook/html/*.html
 	rm -rf $(distdir)/autom4te.cache
-
+	rm -rf $(distdir)/BibleTime.kdevelop.pcs
+# $(distdir)/BibleTime.kdevses

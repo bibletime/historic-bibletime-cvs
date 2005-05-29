@@ -73,3 +73,6 @@ if (-e "template-init.cpp" && compare("template-init.cpp","template-init.cpp-new
 elsif (!-e "template-init.cpp") {
 	move ("template-init.cpp-new","template-init.cpp");
 }
+else { #make sure to remove the -new file
+	unlink("template-init.cpp-new");
+}

@@ -1,57 +1,52 @@
 Additions for BibleTime @VERSION@:
 ---------------------------
 
-These are instructions how to install BibleTime @VERSION@.
-It's sometimes a little bit tricky to get Bibletime and SWORD working, but
-it's possible.
+These are the installation instructions for BibleTime @VERSION@.
+Sometimes it is difficult to compile BibleTime from source code, but it's possible. Don't hesitate to ask for support at info@bibletime.info. In that case, please include your system configuration details.
 
 BibleTime @VERSION@ requires:
-	-KDE  >= 3.0 (at least the libraries (kdelibs) and the base package (kdebase))
+	-KDE >= 3.0 (at least the libraries (kdelibs) and the base package (kdebase))
 	-SWORD 1.5.8
-	-CURL >= 7.9
 
-If you don't have the sources already please browse to www.bibletime.info to see
+If you don't have the sources already, please browse to www.bibletime.info to see
 a list of required packages with their download URLs.
 
-Text Modules are available from http://www.crosswire.org, which has good
-directions regarding their installation.  Install text modules after Sword
-and BibleTime.
+To install texts (e.g. Bibles), just use the new integrated module
+installation manager in the Settings menu of BibleTime.
 
 Complete instructions for the installation of BibleTime, supporting programs,
-and text modules can be found in the project documentation
-at http://www.bibletime.info/.
+and text modules can be found in the project documentation at http://www.bibletime.info/.
 
 
 Compile BibleTime @VERSION@:
 ---------------------------
-cd ~/bibletime				# Move to your source directory
-kde-config --prefix		# Finds your kde directory (optional)
+cd ~/bibletime-@VERSION@	# Move to your source directory
+kde-config --prefix		# Displays your KDE directory (optional)
 
 export QTDIR=<QT source directory>
 export KDEDIR=<KDE directory (where KDE is installed)>
 export PATH=$KDEDIR/bin:$PATH
-./configure		--prefix=<your KDE dir>  # create makefiles
-make			# compile BibleTime
-su					# change to "root user"
-make install	# install BibleTime
+./configure --prefix=<your KDE dir> # create makefiles
+make	# compile BibleTime
+su -c "make install"	# change to "root user" and install BibleTime
 
 
 ---------------------------
 	useful make options
 ---------------------------
-make clean				# Removes binaries from the directory
-					        # where BibleTime was compiled, but not the source
+make clean		# Removes binaries from the directory
+			# where BibleTime was compiled, but not the source
+
 make uninstall		# Removes BibleTime from your system
 
 
 
-If something is missing in this file please post to joachim@ansorgs.de, my peronal
-eMail adress.
+If something is missing in this file please post to info@bibletime.info, the contact adress for BibleTime.
 Please read README for a short description of BibleTime @VERSION@. The new handbook
 does contain better instructions how to install BibleTime from sources.
 It has more information about BibleTime's features and installation.
 
-The BibleTime team <info@bibletime.info>
+The BibleTime team, <info@bibletime.info>
 
 
 ______________________________________________________________________________
