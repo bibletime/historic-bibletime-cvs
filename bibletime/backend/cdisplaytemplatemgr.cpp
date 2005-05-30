@@ -122,7 +122,8 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 			.arg(standardFont.italic() ? "italic" : "normal")
 		);
 	}
-	
+        qWarning("Outputing unformated text");
+	qWarning(newContent.latin1());
 	return QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
 	 .replace("#TITLE#", settings.title)
 	 .replace("#LANG_ABBREV#", settings.langAbbrev)
