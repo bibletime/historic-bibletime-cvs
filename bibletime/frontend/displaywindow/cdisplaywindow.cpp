@@ -385,10 +385,11 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 
 	//ToDo: check for containsRef compat
 	if (m && modules().contains(m) && !keyName.isEmpty()) {
+		qWarning("creating this window");
 		key()->key(keyName);
 		keyChooser()->setKey(key()); //the key chooser does send an update signal
 	}
-	else { //given module not chosen by user
+	else { //given module not displayed in this window
 		//if the module is displayed in another display window we assume a wrong drop
 		QWidgetList windows = mdi()->windowList();
   	bool found = false;
@@ -404,9 +405,11 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 		}
 
 		if (found) { //lookup in the window which has the module displayed
+			qWarning("using other existing window");
 			dw->lookup(moduleName, keyName);
   	}
 		else { //create a new window for the given module
+			qWarning("creating a new window");
     	ListCSwordModuleInfo mList;
      	mList.append(m);
 			mdi()->emitCreateDisplayWindow(mList, keyName);

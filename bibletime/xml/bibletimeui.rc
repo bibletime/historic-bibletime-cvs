@@ -1,4 +1,4 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="22">
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="23">
 <MenuBar>
  <Menu name="file" noMerge="1"><text>&amp;File</text>
   <Action name="file_clear_queue_action"/>
@@ -7,8 +7,8 @@
   <Action name="file_quit"/>
  </Menu>
  <Menu name="search" noMerge="1"><Text>&amp;Search</Text>
- <Action name="groupmanager_searchdefaultbible_action"/>
- <Action name="groupmanager_search_action"/>
+ <Action name="mainindex_searchdefaultbible_action"/>
+ <Action name="mainindex_search_action"/>
  </Menu>
  <Menu name="settings" noMerge="1"><Text>&amp;Settings</Text>
   <Action name="options_configure_toolbars"/>
@@ -54,7 +54,7 @@
 <ToolBar name="mainToolBar" fullWidth="true" noMerge="1" newLine="1">
  <Action name="file_quit"/>
  <Separator/>
- <Action name="groupmanager_search_action"/>
+ <Action name="mainindex_search_action"/>
  <Separator/>
  <Action name="file_print"/>
  <Action name="file_clear_queue_action"/>

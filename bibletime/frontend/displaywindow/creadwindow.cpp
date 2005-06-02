@@ -43,12 +43,24 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ) {
 	CDisplayWindow::setDisplayWidget(newDisplay);
 	if (m_displayWidget) {
 		disconnect(m_displayWidget->connectionsProxy(), SIGNAL(referenceClicked(const QString&, const QString&)), this, SLOT(lookup(const QString&, const QString&)));
+		
 		disconnect(m_displayWidget->connectionsProxy(), SIGNAL(referenceDropped(const QString&)), this, SLOT(lookup(const QString&)));
 	}
 
 	m_displayWidget = newDisplay;
-	connect(m_displayWidget->connectionsProxy(), SIGNAL(referenceClicked(const QString&, const QString&)),this, SLOT(lookup(const QString&, const QString&)));
-	connect(m_displayWidget->connectionsProxy(), SIGNAL(referenceDropped(const QString&)), this, SLOT(lookup(const QString&)));
+	connect(
+		m_displayWidget->connectionsProxy(),
+		SIGNAL(referenceClicked(const QString&, const QString&)),
+		this,
+		SLOT(lookup(const QString&, const QString&))
+	);
+	
+	connect(
+		m_displayWidget->connectionsProxy(),
+		SIGNAL(referenceDropped(const QString&)),
+		this,
+		SLOT(lookup(const QString&))
+	);
 }
 
 /** Lookup the given entry. */

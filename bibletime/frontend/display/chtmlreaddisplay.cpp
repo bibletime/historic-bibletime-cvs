@@ -182,6 +182,7 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
     QString module;
     QString key;
     CReferenceManager::Type type;
+
     CReferenceManager::decodeHyperlink(url, module, key, type);
     if (module.isEmpty()) {
       module = CReferenceManager::preferredModule( type );
@@ -217,7 +218,10 @@ void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )
 
   if (m_urlWorkaroundData.doWorkaround) {
     m_urlWorkaroundData.doWorkaround = false;
-    connectionsProxy()->emitReferenceClicked(m_urlWorkaroundData.module, m_urlWorkaroundData.key);
+    connectionsProxy()->emitReferenceClicked(
+    	m_urlWorkaroundData.module,
+    	m_urlWorkaroundData.key
+    );
   }
 }
 

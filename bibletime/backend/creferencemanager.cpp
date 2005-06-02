@@ -71,7 +71,7 @@ const QString CReferenceManager::encodeHyperlink( const QString moduleName, cons
   		case Commentary: {
         CSwordVerseKey vk(0);
         vk = key;
-        //vk.setLocale("en");
+//         vk.setLocale("en");
 
         ret.append( vk.key() ); //we add the english key, so drag and drop will work in all cases
         break;
@@ -96,12 +96,13 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 	type = Unknown; //not yet known
 	QString ref = hyperlink;
 	//remove the trailing slash
-	if (ref.right(1)=="/" && ref.right(2) != "\\/") //triling slash, but not escaped
+	if (ref.right(1)=="/" && ref.right(2) != "\\/") //trailing slash, but not escaped
 		ref = ref.left(ref.length()-1);
 	
 	//find out which type we have by looking at the beginning (protocoll section of URL)
 	if (ref.left(8) == "sword://") { //Bible, Commentary or Lexicon
 		ref = ref.mid(8);
+				
 		if (ref.left(5) == "Bible") { //a bible hyperlink
 			type = CReferenceManager::Bible;			
 			ref = ref.mid(6); //inclusive trailing slash
@@ -122,7 +123,7 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		if (ref.at(0) != '/' ) { //we have a module given
       while (true) {
   			const int pos = ref.find("/");
-  			if (pos>0 && ref.at(pos-1) != '\\') { //found a slash which is not escaped
+  			if ((pos>0) && ref.at(pos-1) != '\\') { //found a slash which is not escaped
   				module = ref.mid(0,pos);
   				ref = ref.mid(pos+1);
   				break;
@@ -137,6 +138,16 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
     else {
       key = ref.mid(1);
     }
+
+		//the key may be an osis key like "NASBLex:Moses", which sets the module, too
+// 		const int modPos = key.find(":");
+// 		if (modPos != -1 && key.at(modPos-1).isLetter() && key.at(modPos+1).isLetter()) {
+// 			module = key.left(modPos);
+// 			key = key.mid(modPos+1);
+// 			
+// 			qWarning("found the module name %s with key %s", module.latin1(), key.latin1());
+// 		}
+
  		//replace \/ escapes with /
  		key.replace(QRegExp("\\\\/"), "/");
 	}

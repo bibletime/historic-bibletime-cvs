@@ -260,7 +260,7 @@ xx-???, including the AleWiesler module.
   m_langList.append( new Language("ja"  , "Japanese"    , i18n("Japanese")) );
 
   m_langList.append( new Language("ka"  	, "Georgian"  , i18n("Georgian")) );
-	m_langList.append( new Language("kab"  	, "Kabyle"    , i18n("Kabyle")) );
+// 	m_langList.append( new Language("x-E-KAB"  	, "Kabyle"    , i18n("Kabyle")) );
 //  m_langList.append( new Language("ki"  , "Kikuyu"      , i18n("Kikuyu")) );
 //  m_langList.append( new Language("kj"  , "Kuanyama"    , i18n("Kuanyama")) );
 //  m_langList.append( new Language("kk"  , "Kazakh"      , i18n("Kazakh")) );
@@ -376,12 +376,14 @@ xx-???, including the AleWiesler module.
   m_langList.append( new Language("xh"  , "Xhosa"       , i18n("Xhosa")) );
 
   m_langList.append( new Language("x-E-BAR"  , "Bavarian"     , i18n("Bavarian")) );
+  m_langList.append( new Language("x-E-DJE"  , "Zarma"  			, i18n("Zarma")) );
   m_langList.append( new Language("x-E-GSW"  , "Alemannisch"  , i18n("Alemannisch")) );
   m_langList.append( new Language("x-E-HAT"  , "Haitian Creole French" , i18n("Haitian Creole French")) );
   m_langList.append( new Language("x-E-ITZ"  , QString::fromUtf8("Itzá")         , i18n("Itzá")) );
   m_langList.append( new Language("x-E-JIV"  , "Shuar"        , i18n("Shuar")) );
   m_langList.append( new Language("x-E-KEK"  , QString::fromUtf8("Kekchí")       , i18n("Kekchí")) );
-  m_langList.append( new Language("x-E-LMO"  , "Lombard"      , i18n("Lombard")) );  
+	m_langList.append( new Language("x-E-KAB"  , "Kabyle"    		, i18n("Kabyle")) );
+	m_langList.append( new Language("x-E-LMO"  , "Lombard"      , i18n("Lombard")) );
   m_langList.append( new Language("x-E-MKJ"  , "Macedonian"   , i18n("Macedonian")) );
   m_langList.append( new Language("x-E-PDG"  , "Tok Pisin"    , i18n("Tok Pisin")) );
   m_langList.append( new Language("x-E-PPK"  , "Uma"          , i18n("Uma")) );

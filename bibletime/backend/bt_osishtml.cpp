@@ -246,23 +246,53 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				myUserData->suspendTextPassThru = false;
 			}
 		}
-		// <p> paragraph tag is handled by OSISHTMLHref
+		// The <p> paragraph tag is handled by OSISHTMLHref
 		else if (!strcmp(tag.getName(), "reference")) { // <reference> tag
 			if (!tag.isEndTag() && !tag.isEmpty()) {
-        const char* ref = tag.getAttribute("osisRef");
-        Q_ASSERT(ref);
-        if (ref) {
-					CSwordModuleInfo* mod = CPointers::backend()->findSwordModuleByPointer(myModule);
-					Q_ASSERT(mod);
+        QString ref( tag.getAttribute("osisRef") );
+        QString hrefRef( ref );
+        Q_ASSERT(!ref.isEmpty());
+
+        if (!ref.isEmpty()) {
+        	//find out the mod, using the current module makes sense if it's a bible or commentary because the refs link into a bible by default.
+        	//If the osisRef is something like "ModuleID:key comes here" then the
+        	// modulename is given, so we'll use that one
+					CSwordModuleInfo* mod =
+						CPointers::backend()->findSwordModuleByPointer(myModule);
+					if (mod->type() != CSwordModuleInfo::Bible
+						 && mod->type() != CSwordModuleInfo::Commentary)
+					{
+						mod = CBTConfig::get( CBTConfig::standardBible );
+// 						qWarning("setting standard bible module");
+					}
+		/*			else {
+						qWarning("setting current module");
+					}*/
+				Q_ASSERT(mod);
+
+					//if the osisRef like "GerLut:key" contains a module, use that
+					int pos = ref.find(":");
+					if ((pos >= 0) && ref.at(pos-1).isLetter() && ref.at(pos+1).isLetter()) {
+						QString newModuleName = ref.left(pos);
+						hrefRef = ref.mid(pos+1);
+
+/*						qWarning("found mod-key with mod=%s and key=%s",
+							newModuleName.latin1(), ref.latin1()
+						);
+*/
+						if (CPointers::backend()->findModuleByName(newModuleName)) {
+							mod = CPointers::backend()->findModuleByName(newModuleName);
+						}
+					}
 	
 					buf.append("<a href=\"");
-					buf.append(
+					buf.append( //create the hyperlink with key and mod
 						CReferenceManager::encodeHyperlink(
-							mod->name(), ref, CReferenceManager::typeFromModule(mod->type())
+							mod->name(), hrefRef, CReferenceManager::typeFromModule(mod->type())
 						).utf8()
 					);
 					buf.append("\" crossrefs=\"");
-					buf.append(ref);
+					buf.append((const char*)ref.utf8()); //ref must contains the osisRef module marker if there was any
 					buf.append("\">");
 				}
 			}
