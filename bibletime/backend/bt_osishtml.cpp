@@ -40,6 +40,9 @@ BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() {
 	
 	addTokenSubstitute("divineName", "<span class=\"name\"><span class=\"divine\">");
 	addTokenSubstitute("/divineName", "</span></span>");
+	
+	addTokenSubstitute("seg type=\"morph\"", "<span class=\"morphSegmentation\">");
+	addTokenSubstitute("/seg", "</span>");
 }
 
 bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {
