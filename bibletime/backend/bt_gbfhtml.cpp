@@ -56,8 +56,9 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 	addTokenSubstitute("TS", "<div class=\"sectiontitle\">");
 	addTokenSubstitute("Ts", "</div>");
 
-	addTokenSubstitute("PP", "<span class=\"poetry\">"); //  poetry  begin
-	addTokenSubstitute("Pp", "</span>");
+	//addTokenSubstitute("PP", "<span class=\"poetry\">"); //  poetry  begin
+	//addTokenSubstitute("Pp", "</span>");
+
 
 	addTokenSubstitute("Fn", "</font>"); //  font  end
 	addTokenSubstitute("CL", "<br/>"); //  new line
