@@ -240,13 +240,6 @@
 	
 </sect1>	
 
-
-
-
-
-
-
-	
 <sect1 id="hdbk-reference-toolbar"><title>Toolbar reference</title>
 
 	<para>Please review <link linkend="hdbk-reference-menus">the preceding section</link>
@@ -269,22 +262,14 @@
 	
 </sect1>
 
-
-
-
-
-
-
-
-
 <sect1 id="hdbk-reference-hotkeys">
-<title>HotKeys</title>
+<title>HotKeys index</title>
 
-<para>This is a reference to all hotkeys and their corresponding description in
+<para>This is index of all hotkeys and their corresponding description in
 the handbook. The hotkeys are sorted (roughly) alphabetical. If you want to directly
 find out which hotkey a certain menu item has, you can either look at the entry itelf
 in &bibletime; (as it always shows the hotkey), or you can look it up in
-<link linkend="hdbk-reference-menus">the preceding section</link>.</para>
+<link linkend="hdbk-reference-menus">this section</link>.</para>
 
 <informaltable>
 <tgroup cols="2">
@@ -468,6 +453,245 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
 </tbody>
 </tgroup>
 </informaltable>
+
+</sect1>
+
+<sect1 id="hdbk-reference-regexp">
+<title>GCC Regular Expression Reference</title>
+
+<sect2 id="hdbk-reference-regexp-introduction">
+<title>Introduction</title>
+
+<para>Regular expression searches provide a way to do simple or
+complex searches for strings that match a pattern or set of
+patterns (branches) separated by vertical bars "|".
+While a pattern can be built to look for a word or phrase, a
+simple pattern that consists of a word does not look for only
+that word but for any place where that word is found. 
+A search for "right" will return verses
+that contain the word "right", but also "<emphasis>right</emphasis>eous",
+"<emphasis>right</emphasis>eousness", "un<emphasis>right</emphasis>eous",
+"up<emphasis>right</emphasis>" and even "b<emphasis>right</emphasis>".
+A search for "hall not" is not a search for
+"hall" AND "not" but for the string
+"hall not" with a space between the second
+"l" and the "n". The search for "hall
+not" will find occurrences of "s<emphasis>hall not</emphasis>".</para>
+
+<para>The power of Regular Expressions lies in the patterns (or
+templates) used to define a search. A pattern consists of
+ordinary characters and some special characters that are used and
+interpreted by a set of rules. Special characters include
+.\[^*$?+. Ordinary (or simple) characters are any characters that
+are not special. The backslash, "\", is used to convert
+special characters to ordinary and ordinary characters to
+special.</para>
+
+<para>Example: the pattern "i. love\."
+will find sentences that end with "h<emphasis>i</emphasis>s <emphasis>love.</emphasis>"
+or "<emphasis>i</emphasis>n <emphasis>love.</emphasis>" or
+"<emphasis>i</emphasis>s <emphasis>love.</emphasis>". 
+The first period in "i. love\." is a special
+character that means "allow any character in this position". The
+backslash in "i. love\." means that the period
+following it is not to be considered a special character, but is
+an ordinary period.</para>
+</sect2>
+
+<sect2 id="hdbk-reference-regexp-characters">
+<title>Special characters</title>
+
+<itemizedlist>
+<listitem><para>. The period matches any character. See <link
+	linkend="period">details</link></para></listitem>
+<listitem><para>* The asterisk matches 0 or more characters of the
+	preceding: set, character or indicated character. See <link
+	linkend="asterisk">details</link></para></listitem>
+<listitem><para>+ The plus sign matches 1 or more characters of the
+	preceding: set, character or indicated character. See <link
+	linkend="plus">details</link></para></listitem>
+<listitem><para>? The question mark matches 0 or 1 character of the
+	preceding: set, character or indicated character. See <link
+	linkend="question">details</link></para></listitem>
+<listitem><para>[ ] Square brackets match any one of the characters
+	specified inside [ ]. See <link linkend="bracket">details</link></para></listitem>
+<listitem><para>^ A caret as the first character inside [ ] means NOT. See
+	<link linkend="caret">details</link></para></listitem>
+<listitem><para>^ A caret beginning of a pattern anchors the beginning of a
+	line. See <link linkend="caret">details</link></para></listitem>
+<listitem><para>$ A dollar at the end of a pattern anchors the end of a
+	line. See <link linkend="dollar">details</link></para></listitem>
+<listitem><para>| A vertical bar means logical OR. See <link
+	linkend="bar">details</link></para></listitem>
+<listitem><para>( ) Parentheses enclose expressions for grouping.
+<emphasis>Not supported!</emphasis></para></listitem>
+<listitem><para>\ A backslash can be used prior to any special character
+	to match that character. See <link linkend="backslash">details</link></para></listitem>
+<listitem><para>\ A backslash can be used prior to an ordinary character
+	to make it a special character. See <link linkend="backslash">details</link></para></listitem>
+</itemizedlist>
+
+<sect3 id="period">
+<title>The period .</title>
+
+<para>The Period "." will match any single character even
+a space or other non-alphabet character.
+<emphasis>s.t</emphasis> matches <emphasis>s</emphasis>i<emphasis>t</emphasis>,
+<emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>,
+etc., which could be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting,
+compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</emphasis>o<emphasis>t</emphasis>tish
+<emphasis>b..t</emphasis> matches <emphasis>b</emphasis>oo<emphasis>t</emphasis>,
+<emphasis>b</emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t
+foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </emphasis>and
+<emphasis>foot tool</emphasis>.</para>
+</sect3>
+
+<sect3 id="asterisk">
+<title>The asterisk *</title>
+
+<para>The asterisk matches zero or more characters of the preceding:
+set, character or indicated character. Using
+a period asterisk combination ".*" is a common method to match any 
+combination of characters.
+<emphasis>be*n</emphasis> matches<emphasis> beeen, been, ben</emphasis>,
+and <emphasis>bn</emphasis> which could locate Reu<emphasis>ben</emphasis>
+and She<emphasis>bn</emphasis>a. <emphasis>G.*d</emphasis> would match 
+<emphasis>God, good, guard</emphasis> and even <emphasis>Gd</emphasis>.
+</para>
+</sect3>
+
+<sect3 id="plus">
+<title>The plus sign +</title>
+<para>The Plus Sign matches one or more characters of the preceding:
+set, character or indicated character. Using
+a period and plus sign combination ".+" is similar to ".*" (see above),
+but the string has to contain at least one string to match.
+<emphasis>be+n</emphasis> matches <emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>,
+but not <emphasis>bn</emphasis>.</para>
+</sect3>
+
+<sect3 id="question">
+<title>The question mark ?</title>
+<para>The Question Mark matches zero or one character of the
+preceding: set, character or indicated character.
+<emphasis>be?n</emphasis> matches <emphasis>ben</emphasis> and <emphasis>bn</emphasis>
+but not <emphasis>been</emphasis>.
+<emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or <emphasis>tree</emphasis>.</para>
+</sect3>
+
+<sect3 id="bracket">
+<title>The square brackets [ ]</title>
+<para>The Square Brackets enclose a set of characters that can
+match. The period, asterisk, plus sign and question mark are not
+special inside the brackets. A minus sign can be used to indicate
+a range. If you want a caret "^" to be part of the
+range do not place it first after the left bracket or it will be
+a special character. To include a "]" in the set make
+it the first (or second after a special "^") character
+in the set. To include a minus sign in the set make it the first
+(or second after a special "^") or last character in
+the set.
+<emphasis>s[eia]t</emphasis> matches <emphasis>set</emphasis>, <emphasis>sit</emphasis>,
+and <emphasis>sat</emphasis>, but not <emphasis>s</emphasis>o<emphasis>t</emphasis>.
+<emphasis>s[eia]+t </emphasis>matches as above but also, <emphasis>seat,
+seet, siet</emphasis>, etc.
+<emphasis>[a-d]</emphasis> matches <emphasis>a, b, c,</emphasis> or <emphasis>d</emphasis>.
+<emphasis>[A-Z]</emphasis> matches any uppercase letter.
+[.;:?!] matches ., ;, :, ?, or ! but not a comma.
+[ ]^-] matches ] or ^ or -.</para>
+</sect3>
+
+<sect3 id="caret">
+<title>The caret first in square brackets [^xxx]</title>
+<para>If the Caret is the first character after the left bracket it
+means NOT.
+<emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc.,
+but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</emphasis>o<emphasis>t</emphasis>.</para>
+</sect3>
+
+<sect3 id="caret-s">
+<title>The caret as start of line anchor ^xxx</title>
+<para>If the Caret is the first character in a pattern it anchors
+the pattern to the start of a line. Any match must be at the
+beginning of a line. A line here means a part of text delimited 
+by the return character or the end of the text. In Bibles, a "line"
+in this sense is often equivalent to a single verse; the word-wrapping
+that is performed by &bibletime; when the text is rendered on the screen
+does not affect the search algorithm.
+<emphasis>^In the beginning</emphasis> matches lines that
+start with "<emphasis>In the beginning</emphasis>".</para>
+
+<para>(Because of unfiltered
+formatting characters in some texts, this feature does not always
+work correctly, but may if a few periods are placed after the caret to
+account for the formatting characters. If that is the case for you, 
+you could try <emphasis>^..In the beginning</emphasis> instead.)</para>
+</sect3>
+
+<sect3 id="dollar">
+<title>The dollar sign as end of line anchor xxx$</title>
+<para>If the Dollar Sign is the last character in a pattern it
+anchors the pattern to the end of a line. Any match must be at
+the end of a line. 
+<emphasis>Amen\.$</emphasis> matches lines that end with
+"<emphasis>Amen.</emphasis>"</para>
+
+<para>(If you encounter the problem with unfiltered formatting characters
+that we just described, you can try: <emphasis>Amen\...$</emphasis>
+instead.)</para>
+</sect3>
+
+<sect3 id="bar">
+<title>The vertical bar |</title>
+<para>The Vertical Bar between patterns means OR.
+<emphasis>John|Peter</emphasis> matches <emphasis>John</emphasis> or <emphasis>Peter.
+John .*Peter|Peter .*John</emphasis> matches <emphasis>John</emphasis>
+... <emphasis>Peter</emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>.
+<emphasis>pain|suffering|sorrow</emphasis> matches <emphasis>pain</emphasis>,
+or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>.</para>
+</sect3>
+
+<sect3 id="parenth">
+<title>The parentheses ( ) </title>
+<para><emphasis>The use of Parentheses ( ) is
+not supported!</emphasis></para>
+</sect3>
+
+<sect3 id="backslash">
+<title>The backslash prior to a special character \*</title>
+<para>The Backslash prior to a special character indicates that the
+character is not being used in its special meaning, but is just
+to match itself.
+"amen\." matches <emphasis>amen.</emphasis> but not <emphasis>amen</emphasis>t
+and will not locate firm<emphasis>amen</emphasis>t.</para>
+</sect3>
+
+<sect3 id="backslash-o">
+<title>The backslash prior to an ordinary character \s</title>
+
+<para>The Backslash prior to an ordinary character indicates that
+the character is not being used to match itself, but has special
+meaning.</para>
+
+<itemizedlist>
+<listitem><para>
+\b if used outside [ ] means word boundary. If used inside [ ], it means backspace.
+<emphasis>\brighteous\b</emphasis> matches <emphasis>righteous</emphasis> but
+not un<emphasis>righteous</emphasis> or <emphasis>righteous</emphasis>ness.</para></listitem>
+<listitem><para>\B means non-word boundary.  <emphasis>\Brighteous\B</emphasis>
+matches un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly
+but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or <emphasis>
+righteous</emphasis>ness.</para></listitem>
+<listitem><para>\d means digit; same as [0-9].</para></listitem>
+<listitem><para>\D means non-digit, same as [^0-9].</para></listitem>
+<listitem><para>\s means whitespace character.</para></listitem>
+<listitem><para>\S means no whitespace character.</para></listitem>
+<listitem><para>\w means alphanumeric; same as [a-zA-Z0-9_].</para></listitem>
+<listitem><para>\W means not alphanumeric; same as [^a-zA-Z0-9_].</para></listitem>
+</itemizedlist>
+</sect3>
+
+</sect2>
 
 </sect1>
 

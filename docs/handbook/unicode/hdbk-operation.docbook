@@ -1,5 +1,8 @@
 <chapter id="hdbk-op"><title>Program Operation</title>
 
+<sect1 id="hdbk-op-overview">
+<title>Program overview</title>
+
 <para>This is how a typical &bibletime; session looks like:
 
 <mediaobject>
@@ -12,8 +15,10 @@
 
 You can easily see the different parts of the application. The Bookshelf on the left side is used to open works and to manage your bookmarks. The little "Mag" window below the Bookshelf is used to display extra information that is embedded in documents. When you move your mouse over a footnote marker, for example, then the Mag will display the actual content of the footnote. The toolbar gives you quick access to important functions, and the Desk on the right side is where you do your real work.</para>
 <para>Let us now proceed by looking at the different parts of the application individually.</para>
+</sect1>
 
-<sect1 id="hdbk-op-parts"><title>Parts of the &bibletime; application window</title>
+<sect1 id="hdbk-op-parts">
+<title>Parts of the &bibletime; application window</title>
 
 <sect2 id="hdbk-op-parts-bookshelf">
 <title>The Bookshelf</title>
@@ -61,10 +66,15 @@ functions to drag verse references from read windows or search results to the bo
 </sect3>
 </sect2>
 
+<sect2 id="hdbk-op-parts-mag">
+<title>The Mag(nifying glass)</title>
+<para>This little window in the lower left corner of the &bibletime; window is purely passive. Whenever you mouse cursor is located over some text with additional information (e.g., Strong`s numbers), then this additional information will be displayed in the Mag, and not in the text itself. Just try it out.</para>
+</sect2>
+
 <!-- TODO: finish from here -->
 
-<sect2 id="hdbk-op-parts-displaywin">
-<title>Multiple Document Interface (MDI) Window</title>
+<sect2 id="hdbk-op-parts-desk">
+<title>The Desk</title>
 <para>
 This is where the opened documents are displayed.
 Documents are displayed in "Display Windows", that are specific to the four types of
@@ -146,15 +156,15 @@ commentaries and Bible texts.</para></tip>
 </sect3>
 
 </sect2>
+</sect1>
 
-
-<sect2 id="hdbk-op-parts-search">
+<sect1 id="hdbk-op-search">
 <title>Searching in Documents</title>
 <para>Portions of the instructions for the use of GCC Regular Expression in
 Searching Documents is taken from the help files for the
 <trademark class="registered">Microsoft Windows</trademark> version of &sword;.</para>
 
-<sect3 id="hdbk-op-parts-search-functions">
+<sect2 id="hdbk-op-parts-search-functions">
 <title>Accessing search functions</title>
 <para>
 You can search in a document by clicking with the <mousebutton>right</mousebutton> mouse button on the document name in the <guimenu>Main
@@ -162,11 +172,11 @@ Index</guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>.
 By holding shift- or ctrl- and clicking on other module names you can select more than one.
 Then follow the same procedure to open the search dialog.  You will be searching
 in all of these Documents. </para>
-</sect3>
+</sect2>
 
 
 
-<sect3 id="hdbk-op-parts-search-dialog">
+<sect2 id="hdbk-op-parts-search-dialog">
 <title>Using the Search Dialog</title>
 <para>&bibletime; provides a well developed search facility based on
 <application>GCC Regular Expression</application>.  It allows you
@@ -183,7 +193,7 @@ customize &bibletime; to put the search icon
 in the toolbar if you would prefer.</para>
 
 
-<sect4 id="hdbk-op-parts-search-options">
+<sect3 id="hdbk-op-parts-search-options">
 <title>The Options Tab - Setting up your search.</title>
 <para>Use the options tab to set up your search.</para>
 <screenshot>
@@ -194,10 +204,10 @@ in the toolbar if you would prefer.</para>
 </imageobject>
 </mediaobject>
 </screenshot>
-</sect4>
+</sect3>
 
 
-<sect4 id="hdbk-op-parts-search-choose-modules">
+<sect3 id="hdbk-op-parts-search-choose-modules">
 <title>Using the Choose Modules Button</title>
 <para>At the top of the options tab you will find <guibutton>Choose Modules</guibutton> , with the already
 selected modules directly below.  If you would like to search additional modules, click on
@@ -213,9 +223,9 @@ Select modules with a click in the checkbox, then click the <guibutton>Use Selec
 </imageobject>
 </mediaobject>
 </screenshot>
-</sect4>
+</sect3>
 
-<sect4 id="hdbk-op-parts-search-properties">
+<sect3 id="hdbk-op-parts-search-properties">
 <title>Searched Text - what you want to find.</title>
 
 <para>The text box labled Searched Text is where the phrase to be used
@@ -231,7 +241,7 @@ A check box is provided to turn case sensitive search on or off.
 
 <tip><para>Drag &amp; Drop Works Here, you can drop verses and bookmarks into the
 text box.  You can also copy and paste text into the text box.</para></tip>
-</sect4>
+</sect3>
 
 <para>Click on the Case Sensitive check
 box to toggle case sensitivity on or off. If the box is marked a
@@ -268,7 +278,7 @@ thou ought&quot; will find 1 Timothy 3:1, &quot;...that thou
 mayest k<emphasis>now how thou ought</emphasis>est
 to behave...&quot; </para>
 
-<sect4 id="hd-op-parts-search-scope">
+<sect3 id="hd-op-parts-search-scope">
 <title>Using Search Scopes</title>
 <para>Define the Scope of your search by clicking on the <guibutton>Choose Scope</guibutton>
 button.  You will be presented a list of predefined scopes.</para>
@@ -340,7 +350,7 @@ You can also paste text into the entry field.</para></tip>
 </imageobject>
 </mediaobject>
 </screenshot>
-</sect4>
+</sect3>
 
 <para>Click on the <guibutton>Search Button</guibutton> to start
 the search.</para>
@@ -353,7 +363,7 @@ the search.</para>
 </mediaobject>
 </screenshot>
 
-<sect4 id="hdbk-op-parts-search-results">
+<sect3 id="hdbk-op-parts-search-results">
 <title>The Search Results Tab</title>
 <para>Under the search results tab you will find the all of your search hits.</para>
 
@@ -381,9 +391,9 @@ to the verse location (Bibles and commentaries only).</para></tip>
 </imageobject>
 </mediaobject>
 </screenshot>
-</sect4>
+</sect3>
 
-<sect4 id="hdbk-op-parts-search-analysis">
+<sect3 id="hdbk-op-parts-search-analysis">
 <title>Using the Search Analysis</title>
 <para>Click on <guibutton>Search Analysis</guibutton> to open the search analysis display.</para>
 <para>
@@ -400,245 +410,6 @@ your hard drive. </para>
 </mediaobject>
 
 </screenshot>
-</sect4>
-</sect3>
-
-<sect3 id="hdbk-op-parts-search-regexp">
-<title>Search Syntax using GCC Regular Expression</title>
-
-<para>Regular expression searches provide a way to do simple or
-complex searches for strings that match a pattern or set of
-patterns (branches) separated by vertical bars &quot;|&quot;.
-While a pattern can be built to look for a word or phrase, a
-simple pattern that consists of a word does not look for only
-that word but for any place the string of letters that make that
-word are found. A search for &quot;right&quot; will return verses
-that contain the word &quot;right&quot;, but also &quot;<emphasis>right</emphasis>eous&quot;,
-&quot;<emphasis>right</emphasis>eousness&quot;, &quot;un<emphasis>right</emphasis>eous&quot;,
-&quot;up<emphasis>right</emphasis>&quot; and even &quot;b<emphasis>right</emphasis>&quot;.
-A search for &quot;hall not&quot; is not a search for
-&quot;hall&quot; AND &quot;not&quot; but for the string
-&quot;hall not&quot; with a space between the second
-&quot;l&quot; and the &quot;n&quot;. The search for &quot;hall
-not&quot; will find occurrences of &quot;s<emphasis>hall not</emphasis>&quot;.</para>
-
-<para>The power of Regular Expressions is in the patterns (or
-templates) used to define a search. A pattern consists of
-ordinary characters and some special characters that are used and
-interpreted by a set of rules. Special characters include
-.\[^*$?+. Ordinary (or simple) characters are any characters that
-are not special. The backslash, &quot;\&quot;, is used to convert
-special characters to ordinary and ordinary characters to
-special. </para>
-
-<para>Example: the pattern &quot;<emphasis>i. love\.</emphasis>&quot;
-will find sentences that end with &quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot;
-or &quot;<emphasis>i</emphasis>n <emphasis>love</emphasis>&quot; or
-&quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; followed by
-a period. The first period in &quot;i. love\.&quot; is a special
-character that means allow any character in this position. The
-backslash in &quot;i. love\.&quot; means that the period
-following it is not to be considered a special character, but is
-an ordinary period. </para>
-
-<sect4 id="hdbk-op-search-dialog-text-regexp-rules">
-<title>Rules for GCC Regular Expression Search Requests</title>
-<itemizedlist>
-<listitem><para>. The period matches any character. See <link
-	linkend="period">Details</link></para></listitem>
-<listitem><para>* The asterisk matches 0 or more characters of the
-	preceding: set, character or indicated character. See <link
-	linkend="asterisk">Details</link></para></listitem>
-<listitem><para>+ The plus sign matches 1 or more characters of the
-	preceding: set, character or indicated character. See <link
-	linkend="plus">Details</link></para></listitem>
-<listitem><para>? The question mark matches 0 or 1 character of the
-	preceding: set, character or indicated character. See <link
-	linkend="question">Details</link></para></listitem>
-<listitem><para>[ ] Square brackets match any one of the characters
-	specified inside [ ]. See <link linkend="bracket">Details</link></para></listitem>
-<listitem><para>^ A caret as the first character inside [ ] means NOT. See
-	<link linkend="caret">Details</link></para></listitem>
-<listitem><para>^ A caret beginning a pattern anchors the beginning of a
-	line. See <link linkend="caret">Details</link></para></listitem>
-<listitem><para>$ A dollar at the end of a pattern anchors the end of a
-	line. See <link linkend="dollar">Details</link></para></listitem>
-<listitem><para>| A vertical bar means logical OR. See <link
-	linkend="bar">Details</link></para></listitem>
-<listitem><para>( ) Parentheses enclose expressions for grouping.
-<emphasis>Not supported!</emphasis></para></listitem>
-<listitem><para>\ A backslash can be used prior to any special character
-	to match that character. See <link linkend="backslash">Details</link></para></listitem>
-<listitem><para>\ A backslash can be used prior to an ordinary character
-	to make it a special character. See <link linkend="backslash">Details</link></para></listitem>
-</itemizedlist>
-
-<sect5 id="period">
-<title>The Period .</title>
-
-<para>The Period &quot;.&quot; will match any single character even
-a space or other non-alphabet character.
-<emphasis>s.t</emphasis> matches <emphasis>s</emphasis>i<emphasis>t</emphasis>,
-<emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>,
-etc., which could be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting,
-compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</emphasis>o<emphasis>t</emphasis>tish
-<emphasis>b..t</emphasis> matches <emphasis>b</emphasis>oo<emphasis>t</emphasis>,
-<emphasis>b</emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t
-foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </emphasis>and
-<emphasis>foot tool</emphasis></para>
-</sect5>
-
-
-<sect5 id="asterisk">
-<title>The Asterisk *</title>
-
-<para>The asterisk matches zero or more characters of the preceding:
-set, character or indicated character. Using
-a period asterisk combination &quot;.*&quot; after a commonly
-found pattern can cause the search to take a very long time,
-making the program seem to freeze.
-<emphasis>be*n</emphasis> matches<emphasis> beeen, been, ben</emphasis>,
-and <emphasis>bn</emphasis> which could locate Reu<emphasis>ben</emphasis>
-and She<emphasis>bn</emphasis>a.</para>
-</sect5>
-
-
-<sect5 id="plus">
-<title>The Plus Sign +</title>
-<para>The Plus Sign matches one or more characters of the preceding:
-set, character or indicated character. Using
-a period and plus sign combination &quot;.+&quot; after a
-commonly found pattern can cause the search to take a very long
-time, making the program seem to freeze.
-<emphasis>be+n</emphasis> matches <emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>,
-but not <emphasis>bn</emphasis>.</para>
-</sect5>
-
-
-<sect5 id="question">
-<title>The Question Mark ?</title>
-<para>The Question Mark matches zero or one character of the
-preceding: set, character or indicated character.
-<emphasis>be?n</emphasis> matches <emphasis>ben</emphasis> and <emphasis>bn</emphasis>
-but not <emphasis>been</emphasis>.
-<emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or <emphasis>tree</emphasis>.</para>
-</sect5>
-
-
-<sect5 id="bracket">
-<title>The Square Brackets [ ]</title>
-<para>The Square Brackets enclose a set of characters that can
-match. The period, asterisk, plus sign and question mark are not
-special inside the brackets. A minus sign can be used to indicate
-a range. If you want a caret &quot;^&quot; to be part of the
-range do not place it first after the left bracket or it will be
-a special character. To include a &quot;]&quot; in the set make
-it the first (or second after a special &quot;^&quot;) character
-in the set. To include a minus sign in the set make it the first
-(or second after a special &quot;^&quot;) or last character in
-the set.
-<emphasis>s[eia]t</emphasis> matches <emphasis>set</emphasis>, <emphasis>sit</emphasis>,
-and <emphasis>sat</emphasis>, but not <emphasis>s</emphasis>o<emphasis>t</emphasis>.
-<emphasis>s[eia]+t </emphasis>matches as above but also, <emphasis>seat,
-seet, siet</emphasis>, etc.
-<emphasis>[a-d]</emphasis> matches <emphasis>a, b, c,</emphasis> or <emphasis>d</emphasis>.
-<emphasis>[A-Z]</emphasis> matches any uppercase letter.
-[.;:?!] matches ., ;, :, ?, or ! but not a comma.
-[ ]^-] matches ] or ^ or -</para>
-</sect5>
-
-
-<sect5 id="caret">
-<title>The Caret first in Square Brackets [^xxx</title>
-<para>If the Caret is the first character after the left bracket it
-means NOT.
-<emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc.,
-but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</emphasis>o<emphasis>t</emphasis>.</para>
-</sect5>
-
-<sect5 id="caret-s">
-<title>The Caret as Start of Line Anchor ^xxx</title>
-<para>If the Caret is the first character in a pattern it anchors
-the pattern to the start of a line. Any match must be at the
-beginning of a line. Because of unfiltered
-formatting characters in some texts, this feature does not always
-work, but may if a few periods are placed after the caret to
-account for the formatting characters.
-<emphasis>^In the beginning</emphasis> matches lines that
-start with &quot;<emphasis>In the beginning</emphasis>&quot;.
-(May need to use: <emphasis>^.....In the beginning</emphasis>)</para>
-</sect5>
-
-
-<sect5 id="dollar">
-<title>The Dollar Sign as End of Line Anchor xxx$</title>
-<para>If the Dollar Sign is the last character in a pattern it
-anchors the pattern to the end of a line. Any match must be at
-the end of a line. Because of unfiltered
-formatting characters in some texts, this feature does not always
-work, but may if a few periods are placed before the dollar sign
-to account for the formatting characters.
-<emphasis>Amen\.$</emphasis> matches lines that end with
-&quot;<emphasis>Amen.</emphasis>&quot; (May
-need to use Amen\....$, Amen\..........$, or even
-Amen\....................$)</para>
-</sect5>
-
-
-<sect5 id="bar">
-<title>The Vertical Bar |</title>
-<para>The Vertical Bar between patterns means OR.
-<emphasis>John|Peter</emphasis> matches <emphasis>John</emphasis> or <emphasis>Peter.
-John .*Peter|Peter .*John</emphasis> matches <emphasis>John</emphasis>
-... <emphasis>Peter</emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>.
-(.* slows a search)
-<emphasis>pain|suffering|sorrow</emphasis> matches <emphasis>pain</emphasis>,
-or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>.</para>
-</sect5>
-
-
-<sect5 id="parenth">
-<title>The Parentheses ( ) </title>
-<para><emphasis>The use of Parentheses ( ) is
-not supported!</emphasis></para>
-</sect5>
-
-
-<sect5 id="backslash">
-<title>The Backslash Prior to a Special Character \*</title>
-<para>The Backslash prior to a special character indicates that the
-character is not being used in its special meaning, but is just
-to match itself.
-<emphasis>amen\.</emphasis> matches <emphasis>amen.</emphasis> but not <emphasis>amen</emphasis>t
-and will not locate firm<emphasis>amen</emphasis>t.</para>
-</sect5>
-
-<sect5 id="backslash-o">
-<title>The Backslash Prior to an Ordinary Character \s</title>
-
-<para>The Backslash prior to an ordinary character indicates that
-the character is not being used to match itself, but has special
-meaning.</para>
-
-<itemizedlist>
-<listitem><para>
-\b if use outside [ ] means word boundary. If used inside [ ] means backspace.
-<emphasis>\brighteous\b</emphasis> matches <emphasis>righteous</emphasis> but
-not un<emphasis>righteous</emphasis> or <emphasis>righteous</emphasis>ness</para></listitem>
-<listitem><para>\B means non-word boundary.  <emphasis>\Brighteous\B</emphasis>
-matches un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly
-but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or <emphasis>
-righteous</emphasis>ness.</para></listitem>
-<listitem><para>\d means digit; same as [0-9].</para></listitem>
-<listitem><para>\D means non-digit, same as [^0-9].</para></listitem>
-<listitem><para>\s means space. </para></listitem>
-<listitem><para>\S means not a space. </para></listitem>
-<listitem><para>\w means alphanumeric; same as [a-zA-Z0-9_].</para></listitem>
-<listitem><para>\W means not alphanumeric; same as [^a-zA-Z0-9_].</para></listitem>
-</itemizedlist>
-</sect5>
-
-</sect4>
 </sect3>
 </sect2>
 </sect1>
