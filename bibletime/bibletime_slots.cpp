@@ -151,12 +151,11 @@ void BibleTime::slotWindowMenuAboutToShow(){
 		m_windowTileHorizontal_action->setEnabled( false );
 		m_windowCascade_action->setEnabled( false );
 		m_windowCloseAll_action->setEnabled( true );
-		m_windowMenu->insertSeparator();
+// 		m_windowMenu->insertSeparator();
 	} 
 	else {
 		slotUpdateWindowArrangementActions(0); //update the window tile/cascade states
 		m_windowCloseAll_action->setEnabled( true );
-// 		m_windowMenu->insertSeparator();
 	}
 
 	QPtrList<KAction>::iterator end = m_windowOpenWindowsList.end();
@@ -175,7 +174,6 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	for ( int i = 0; i < count; ++i ) {
 		QWidget* w = windows.at(i);
 		Q_ASSERT(w);
-// 		qWarning("%s",w->caption().latin1());
 		
 		KUserDataAction* action = new KUserDataAction(w->caption(), KShortcut(), this, SLOT(slotWindowMenuActivated()), m_windowActionCollection);
 		Q_ASSERT(action);
@@ -501,6 +499,21 @@ void BibleTime::loadProfile(CProfile* p){
 	}
 }
 
+void BibleTime::deleteProfile(int ID){
+	KPopupMenu* popup = m_windowDeleteProfile_action->popupMenu();
+ //HACK: workaround the inserted & char by KPopupMenu
+	const QString profileName = popup->text(ID).remove("&");
+	CProfile* p = m_profileMgr.profile( profileName );
+// 	qWarning("requesting popup: %s", popup->text(ID).latin1());
+	Q_ASSERT(p);
+
+  if ( p ) {
+    m_profileMgr.remove(p);
+  }
+  refreshProfileMenus();
+}
+
+
 void BibleTime::toggleFullscreen(){
 	if (m_windowFullscreen_action->isChecked()) {
  		showFullScreen();
@@ -520,23 +533,33 @@ void BibleTime::saveToNewProfile(){
     CProfile* profile = m_profileMgr.create(name);
     saveProfile(profile);
   };
+  
   refreshProfileMenus();
 }
 
 /** Slot to refresh the save profile and load profile menus. */
 void BibleTime::refreshProfileMenus(){
- 	//refresh the load profile and save profile menus
-	m_profileMgr.refresh();
- 	
 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();
  	savePopup->clear();
  	
 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
  	loadPopup->clear();
 	
+	KPopupMenu* deletePopup = m_windowDeleteProfile_action->popupMenu();
+ 	deletePopup->clear();
+	
+ 	//refresh the load, save and delete profile menus
+	m_profileMgr.refresh();
 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
- 	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
+	
+	const bool enableActions = bool(profiles.count() != 0);
+	m_windowSaveProfile_action->setEnabled(enableActions);
+	m_windowLoadProfile_action->setEnabled(enableActions);
+	m_windowDeleteProfile_action->setEnabled(enableActions);
+	
+	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
 		savePopup->insertItem(p->name());
 		loadPopup->insertItem(p->name());
- 	}
+		deletePopup->insertItem(p->name());
+	}
 }

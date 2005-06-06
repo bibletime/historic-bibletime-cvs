@@ -1,4 +1,4 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="23">
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="24">
 <MenuBar>
  <Menu name="file" noMerge="1"><text>&amp;File</text>
   <Action name="file_clear_queue_action"/>
@@ -27,7 +27,7 @@
   <Action name="windowSaveProfile_action"/>
   <Action name="windowSaveToNewProfile_action"/>
   <Action name="windowLoadProfile_action"/>
-  <Action name="windowEditProfiles_action"/>
+	<Action name="windowDeleteProfile_action"/>
   <Separator/>
   <Action name="windowFullscreen_action"/>
   <Separator/>

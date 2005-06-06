@@ -137,6 +137,20 @@ void CDisplayWindow::insertKeyboardActions( KActionCollection* const a ){
 	KStdAction::close(0, 0, a, "closeWindow"); //no slot
 	KStdAction::selectAll(0,0, a, "selectAll");
  	KStdAction::copy(0,0, a, "copySelectedText");
+
+	new KToolBarPopupAction(
+		i18n("Back in history"),
+		CResMgr::displaywindows::general::backInHistory::icon,
+		CResMgr::displaywindows::general::backInHistory::accel,
+		a,
+		CResMgr::displaywindows::general::backInHistory::actionName
+	);
+	new KToolBarPopupAction(
+		i18n("Forward in history"),
+		CResMgr::displaywindows::general::forwardInHistory::icon,
+		CResMgr::displaywindows::general::forwardInHistory::accel,
+		a, CResMgr::displaywindows::general::forwardInHistory::actionName
+	);
 }
 
 void CDisplayWindow::initActions(){
@@ -169,7 +183,19 @@ void CDisplayWindow::initActions(){
  		displayWidget()->connectionsProxy(), SLOT(copySelection()),
  		actionCollection(), "copySelectedText"
  	);
- 	
+
+	new KToolBarPopupAction(
+		i18n("Back in history"), CResMgr::displaywindows::general::backInHistory::icon, CResMgr::displaywindows::general::backInHistory::accel,
+		keyChooser(), SLOT( backInHistory() ),
+		actionCollection(), CResMgr::displaywindows::general::backInHistory::actionName
+	);
+	
+	new KToolBarPopupAction(
+		i18n("Forward in history"), CResMgr::displaywindows::general::forwardInHistory::icon, CResMgr::displaywindows::general::forwardInHistory::accel,
+		keyChooser(), SLOT( forwardInHistory() ),
+		actionCollection(), CResMgr::displaywindows::general::forwardInHistory::actionName
+	);
+	
 	CBTConfig::setupAccelSettings(CBTConfig::allWindows, actionCollection());
 }
 
@@ -385,7 +411,7 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 
 	//ToDo: check for containsRef compat
 	if (m && modules().contains(m) && !keyName.isEmpty()) {
-		qWarning("creating this window");
+// 		qWarning("creating this window");
 		key()->key(keyName);
 		keyChooser()->setKey(key()); //the key chooser does send an update signal
 	}
@@ -405,11 +431,11 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 		}
 
 		if (found) { //lookup in the window which has the module displayed
-			qWarning("using other existing window");
+// 			qWarning("using other existing window");
 			dw->lookup(moduleName, keyName);
   	}
 		else { //create a new window for the given module
-			qWarning("creating a new window");
+// 			qWarning("creating a new window");
     	ListCSwordModuleInfo mList;
      	mList.append(m);
 			mdi()->emitCreateDisplayWindow(mList, keyName);

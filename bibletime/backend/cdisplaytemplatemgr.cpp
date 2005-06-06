@@ -116,14 +116,14 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 		const QFont standardFont = CBTConfig::getDefault(lang); //we just need a dummy lang param
 		langCSS.prepend( 
 			QString("\n#content {font-family:%1; font-size:%2pt; font-weight:%3; font-style: %4;}\n")
-// 			.arg(lang->abbrev())
-			.arg(standardFont.family()).arg(standardFont.pointSize())
+			.arg(standardFont.family())
+			.arg(standardFont.pointSize())
 			.arg(standardFont.bold() ? "bold" : "normal")
 			.arg(standardFont.italic() ? "italic" : "normal")
 		);
 	}
-        qWarning("Outputing unformated text");
-	qWarning(newContent.latin1());
+//  qWarning("Outputing unformated text");
+// 	qWarning(newContent.latin1());
 	return QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
 	 .replace("#TITLE#", settings.title)
 	 .replace("#LANG_ABBREV#", settings.langAbbrev)

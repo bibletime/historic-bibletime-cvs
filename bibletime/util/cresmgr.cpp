@@ -107,7 +107,6 @@ namespace CResMgr {
         QString tooltip;
 
         const QString icon        = "view_sidetree";
-//         const KShortcut accel     = Qt::Key_F5;
         const char* actionName    = "windowDeleteProfile_action";
       }
       namespace showFullscreen {
@@ -382,15 +381,15 @@ namespace CResMgr {
         QString tooltip;
 
         const QString icon        = "previous";
-        const KShortcut accel     = KShortcut();
-        const char* actionName    = "window_history_back";
+        const KShortcut accel     = Qt::ALT + Qt::Key_Left;
+        const char* actionName    = "window_history_back_action";
       }
 			namespace forwardInHistory {
         QString tooltip;
 
         const QString icon        = "next";
-        const KShortcut accel     = KShortcut();
-        const char* actionName    = "window_history_forward";
+        const KShortcut accel     = Qt::ALT + Qt::Key_Right;
+        const char* actionName    = "window_history_forward_action";
       }
     };
     namespace bibleWindow {
@@ -412,66 +411,55 @@ namespace CResMgr {
 
       namespace chapterList {
         QString tooltip;
-
       };
       namespace nextChapter {
         QString tooltip;
-
         const KShortcut accel = Qt::CTRL + Qt::Key_X;
       }
       namespace previousChapter {
         QString tooltip;
-
         const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_X;
       }
-
       namespace verseList {
         QString tooltip;
       };
       namespace nextVerse {
         QString tooltip;
-
         const KShortcut accel = Qt::CTRL + Qt::Key_D;
       }
       namespace previousVerse {
         QString tooltip;
-
         const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_D;
       }
 
       namespace copyMenu {
-        const QString icon = "editcopy";//CResMgr::displaywindows::lexiconWindow::copyMenu::icon;
+        const QString icon = "editcopy";
       };
       namespace saveMenu {
-        const QString icon = "filesave";//CResMgr::displaywindows::lexiconWindow::saveMenu::icon;
+        const QString icon = "filesave";
       }
       namespace printMenu {
-        const QString icon = "fileprint";//CResMgr::displaywindows::lexiconWindow::printMenu::icon;
+        const QString icon = "fileprint";
       }
     };
     namespace commentaryWindow {
       namespace syncWindow {
-         QString tooltip;
-
-         const QString icon 		= "bt_sync";
-         const KShortcut accel 	= KKeySequence(); //CResMgr::displaywindows::biblewindow::nextBook::accel;
-		 const char* actionName	= "commentary_syncWindow";
-       }
-
+				QString tooltip;
+				const QString icon 		= "bt_sync";
+				const KShortcut accel 	= KKeySequence();
+				const char* actionName	= "commentary_syncWindow";
+			}
     };
     namespace lexiconWindow {
       namespace entryList {
         QString tooltip;
-
       };
       namespace nextEntry {
         QString tooltip;
-
         const KShortcut accel = Qt::CTRL + Qt::Key_V;
       }
       namespace previousEntry {
         QString tooltip;
-
         const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_V;
       }
 
@@ -581,9 +569,7 @@ namespace CResMgr {
       };
       namespace fontColor {
         QString tooltip;
-
       };
-
     };
   };
 
@@ -592,15 +578,12 @@ namespace CResMgr {
       const QString icon = "bt_startconfig";
       namespace dailyTip {
         QString tooltip;
-
       };
       namespace showLogo {
         QString tooltip;
-
       };
       namespace restoreWorkingArea {
         QString tooltip;
-
       };
     };
     namespace fonts {
@@ -608,7 +591,6 @@ namespace CResMgr {
 
       namespace typeChooser {
         QString tooltip;
-
       };
     };
     namespace profiles {
@@ -616,39 +598,31 @@ namespace CResMgr {
 
       namespace list {
         QString tooltip;
-
       };
       namespace createNew {
         QString tooltip;
-
       };
       namespace deleteCurrent {
         QString tooltip;
-
       };
       namespace renameCurrent {
         QString tooltip;
-
       };
     };
     namespace sword {
       const QString icon = "bt_swordconfig";
 
       namespace general {
-        
 				namespace language {
           QString tooltip;
-
         };
       };
       namespace modules {
         namespace bible {
           QString tooltip;
-
         };
         namespace commentary {
           QString tooltip;
-
         };
         namespace lexicon {
           QString tooltip;
@@ -656,23 +630,18 @@ namespace CResMgr {
         };
         namespace dailyDevotional {
           QString tooltip;
-
         };
         namespace hebrewStrongs {
           QString tooltip;
-
         };
         namespace greekStrongs {
           QString tooltip;
-
         };
         namespace hebrewMorph {
           QString tooltip;
-
         };
         namespace greekMorph {
           QString tooltip;
-
         };
       };
     };
@@ -798,7 +767,7 @@ namespace CResMgr {
           }
           {
             using namespace deleteProfile;
-            tooltip     = i18n ("Delete a BibleTime sesison.") ;
+            tooltip     = i18n ("Delete a BibleTime session.") ;
           }
           {
             using namespace showFullscreen;
@@ -819,7 +788,6 @@ namespace CResMgr {
           {
 						{
 							using namespace arrangementMode;
-						
             	tooltip     = i18n ("Choose the way that is used to arrange the windows.") ;
 						}
 						{

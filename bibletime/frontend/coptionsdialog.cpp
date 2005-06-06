@@ -67,7 +67,7 @@ COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KActionCollect
 	m_settings.keys.application.actionCollection = actionCollection;
 	setIconListAllVisible(true);
 
-	initStartup();
+	initDisplay();
 	initFonts();
 	initSword();
 	initAccelerators();
@@ -94,10 +94,10 @@ void COptionsDialog::newDisplayWindowFontAreaSelected(const QString& usage){
 /** Called if the OK button was clicked */
 void COptionsDialog::slotOk(){
 	saveAccelerators();
-	saveDisplayStyle();
+// 	saveDisplayStyle();
 	saveFonts();
 	saveSword();
-	saveStartup();
+	saveDisplay();
 	
 	KDialogBase::slotOk();
   emit signalSettingsChanged( );
@@ -106,10 +106,9 @@ void COptionsDialog::slotOk(){
 /*called if the apply button was clicked*/
 void COptionsDialog::slotApply(){
 	saveAccelerators();
-	saveDisplayStyle();
 	saveFonts();
 	saveSword();
-	saveStartup();
+	saveDisplay();
 
 	KDialogBase::slotApply();
   emit signalSettingsChanged( );
@@ -126,7 +125,7 @@ const bool COptionsDialog::showPart( COptionsDialog::Parts /*ID*/ ){
 }
 
 /** Initializes the startup section of the OD. */
-void COptionsDialog::initStartup(){
+void COptionsDialog::initDisplay(){
 	QFrame* page = addPage(i18n("Display"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
 	QVBoxLayout* layout = new QVBoxLayout(page);
 	layout->setSpacing( 5 );
@@ -176,14 +175,21 @@ void COptionsDialog::initStartup(){
 
 	m_settings.displayStyle.stylePreview = new KHTMLPart(page);
 	layout->addWidget(
-		new QLabel(m_settings.displayStyle.stylePreview->view(), i18n("Style preview"), page)
-		);
+		new QLabel(
+			m_settings.displayStyle.stylePreview->view(),
+			i18n("Style preview"), page
+		)
+	);
 	layout->addWidget(m_settings.displayStyle.stylePreview->view());
 
 	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 	m_settings.displayStyle.styleChooser->insertStringList( tMgr->availableTemplates() );
+	
 	int i = m_settings.displayStyle.styleChooser->listBox()->index(
-		m_settings.displayStyle.styleChooser->listBox()->findItem( CBTConfig::get(CBTConfig::displayStyle), Qt::CaseSensitive )
+		m_settings.displayStyle.styleChooser->listBox()->findItem(
+			CBTConfig::get(CBTConfig::displayStyle),
+			Qt::CaseSensitive
+		)
 	);
 	m_settings.displayStyle.styleChooser->setCurrentItem( i );
 	
@@ -721,16 +727,11 @@ void COptionsDialog::saveAccelerators(){
 }
 
 /** No descriptions */
-void COptionsDialog::saveDisplayStyle(){
-	CBTConfig::set(CBTConfig::displayStyle, m_settings.displayStyle.styleChooser->currentText());
-}
-
-/** No descriptions */
 void COptionsDialog::saveFonts(){
 	for(QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
     const CLanguageMgr::Language* const lang = languageMgr()->languageForTranslatedName(it.key());
     if (!lang->isValid()) { //we probably use a language, for which we have only the abbrev
-      CLanguageMgr::Language l(it.key(), it.key(), it.key());
+      CLanguageMgr::Language l(it.key(), it.key(), it.key()); //create a temp language
 	    CBTConfig::set(&l, it.data());
 
     }
@@ -741,14 +742,14 @@ void COptionsDialog::saveFonts(){
 }
 
 /** No descriptions */
-void COptionsDialog::saveStartup(){
+void COptionsDialog::saveDisplay(){
 	CBTConfig::set( CBTConfig::logo, m_settings.startup.showLogo->isChecked() );	
- 	CBTConfig::set( CBTConfig::tips, m_settings.startup.showTips->isChecked() );				
+ 	CBTConfig::set( CBTConfig::tips, m_settings.startup.showTips->isChecked() );
+	CBTConfig::set( CBTConfig::displayStyle, m_settings.displayStyle.styleChooser->currentText() );
 }
 
 /** No descriptions */
 void COptionsDialog::saveSword(){
-
 	for (int i = 0; i < (int)CBTConfig::lastModuleType; ++i) {
 		QString moduleDescription = QString::null;
   	
@@ -879,46 +880,32 @@ void COptionsDialog::updateStylePreview() {
 }
 
 void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
-	//delete all KKeyChoosers, because this class checks in all instances for key conflicts
-/* 	if (m_settings.keys.general.keyChooser) {
- 		m_settings.keys.general.keyChooser->commitChanges();
- 	}
-	delete m_settings.keys.general.keyChooser;
-	m_settings.keys.general.keyChooser = 0;*/
+	//delete all KKeyChoosers which may not share accels, because this class checks in all instances for key conflicts
+ 	typedef QPtrList<KKeyChooser> KeyChooserList;
+ 	KeyChooserList list;
+	list.append(m_settings.keys.bible.keyChooser);
+	list.append(m_settings.keys.commentary.keyChooser);
+	list.append(m_settings.keys.lexicon.keyChooser);
+	list.append(m_settings.keys.book.keyChooser);
 	
- 	if (m_settings.keys.bible.keyChooser) {
-	 	m_settings.keys.bible.keyChooser->commitChanges();
+	//commit all changes in the keychoosers
+	for (KeyChooserList::iterator it(list.begin()); it != list.end(); ++it) {
+		if (*it) { //the list may contain NULL pointers
+ 	 		(*it)->commitChanges();
+ 	 	}
 	}
-	delete m_settings.keys.bible.keyChooser;
-	m_settings.keys.bible.keyChooser = 0;
+	/* Delete all the keychoosers in the list,
+	*	the keychoosers are set to NULL, because they are QGuardedPtr
+	*/
+	list.setAutoDelete(true);
+	list.clear();
 	
- 	if (m_settings.keys.commentary.keyChooser) {
-		m_settings.keys.commentary.keyChooser->commitChanges();
-	}
-	delete m_settings.keys.commentary.keyChooser;
-	m_settings.keys.commentary.keyChooser = 0;
-	
- 	if (m_settings.keys.lexicon.keyChooser) {
-	 m_settings.keys.lexicon.keyChooser->commitChanges();
-	}
-	delete m_settings.keys.lexicon.keyChooser;
-	m_settings.keys.lexicon.keyChooser = 0;
-	
- 	if (m_settings.keys.book.keyChooser) {
-		m_settings.keys.book.keyChooser->commitChanges();
-	}
-	delete m_settings.keys.book.keyChooser;
-	m_settings.keys.book.keyChooser = 0;
-
-// 	bool createNew = true;
 	Settings::KeySettings::WindowType* t = 0;
 	if (title == m_settings.keys.application.title) { //Application wide
 		t = &m_settings.keys.application;
-// 		createNew = false;
 	}
 	else if (title == m_settings.keys.general.title) { // All display windows
 		t = &m_settings.keys.general;
-// 		createNew = false;
 	}
 	else if (title == m_settings.keys.bible.title) { // Bible windows
 		t = &m_settings.keys.bible;
@@ -934,7 +921,6 @@ void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
 	}
 
 	Q_ASSERT(t);
-
 	if (!t->keyChooser) { //was deleted, create a new one
 		t->keyChooser = new KKeyChooser(
 			m_settings.keys.keyChooserStack

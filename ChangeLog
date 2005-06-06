@@ -1,3 +1,7 @@
+2005-06-06 Joachim Ansorg <jansorg@bibletime.info>
+  * Added the missing "Delete session" menu item
+  * The sessions items are now disabled if no sub-menu items are present
+
 2005-05-29 Joachim Ansorg <jansorg@bibletime.info>
   * Releases BibleTime 1.5rc1
     -Tons of bugfixes, new features and improvements

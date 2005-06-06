@@ -61,9 +61,6 @@ CInputDialog::CInputDialog(const QString& caption, const QString& description, c
 	m_editWidget->setFocus();
 }
 
-//CInputDialog::~CInputDialog(){
-//}
-
 /** Returns the text entered at the moment. */
 const QString CInputDialog::text() {
 	return m_editWidget->text();
@@ -75,10 +72,14 @@ const QString CInputDialog::getText( const QString& caption, const QString& desc
 	QString ret = QString::null;
 		
 	const bool isOk = (dlg->exec() == CInputDialog::Accepted);
-	if (isOk)
+	if (isOk) {
 		ret = dlg->text();
-	if (ok)
+	}
+	
+	if (ok) { //change the ok param to return the value
 		*ok = isOk;
+	}
+	
 	delete dlg;
 	return ret;
 }

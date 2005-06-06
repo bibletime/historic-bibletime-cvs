@@ -384,15 +384,22 @@ void CBibleReadWindow::lookup( CSwordKey* newKey ) {
 }
 
 void CBibleReadWindow::syncWindows() {
+// 	qWarning("syncing windows");
 	QWidgetList windows = mdi()->windowList();
+// 	Q_ASSERT(windows.count());
 	if (!windows.count()) {
 		return;
 	}
 
 	for (windows.first(); windows.current(); windows.next()) {
 		CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.current());
+// 		Q_ASSERT(w && w->syncAllowed());
+		
 		if (w && w->syncAllowed()) {
 			w->lookup( key()->key() );
 		}
+/*		else {
+			qWarning("class sync: %s", w->className());
+		}*/
 	}
 }

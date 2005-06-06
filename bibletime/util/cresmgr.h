@@ -47,7 +47,6 @@ namespace CResMgr {
       }
       namespace quit { //a standard action
         extern QString tooltip;
-
       }
     }
 
@@ -68,7 +67,6 @@ namespace CResMgr {
       }
       namespace showToolBar { //a standard action
         extern QString tooltip;
-
       }
     }
 
@@ -223,7 +221,6 @@ namespace CResMgr {
       };
       namespace bugreport { // available as KStdAction
         extern QString tooltip;
-
       };
       namespace dailyTip {
         extern QString tooltip;
@@ -234,11 +231,9 @@ namespace CResMgr {
       };
       namespace aboutBibleTime { // available as KStdAction
         extern QString tooltip;
-
       };
       namespace aboutKDE { // available as KStdAction
         extern QString tooltip;
-
       };
     };
   }  //end of main menu
@@ -248,79 +243,59 @@ namespace CResMgr {
 
     namespace searchButton {
       extern QString tooltip;
-
     };
     namespace cancelSearchButton {
       extern QString tooltip;
-
     };
 
     namespace options {
-//      namespace moduleChooserDialog {
-//        extern QString tooltip;
-
-//      };
       namespace moduleChooserButton {
         extern QString tooltip;
-
       };
       namespace searchedText {
         extern QString tooltip;
-
       };
       namespace searchType {
         namespace multipleWords_and {
           extern QString tooltip;
-
         };
         namespace multipleWords_or {
           extern QString tooltip;
-
         };
         namespace exactMatch {
           extern QString tooltip;
-
         };
         namespace regExp {
           extern QString tooltip;
-
         };
       };
 
       namespace searchOptions {
         namespace caseSensitive {
           extern QString tooltip;
-
         };
       };
       namespace chooseScope {
         extern QString tooltip;
-
       };
       namespace scopeEditor {
         namespace rangeList {
           extern QString tooltip;
-
         };
         namespace nameEdit {
           extern QString tooltip;
-
         };
         namespace editRange {
           extern QString tooltip;
-
         };
         namespace parsedResult {
           extern QString tooltip;
-
         };
         namespace addNewRange {
           extern QString tooltip;
-
         };
         namespace deleteCurrentRange {
           extern QString tooltip;
-
         };
 
       };
@@ -328,7 +303,6 @@ namespace CResMgr {
     namespace result {
       namespace moduleList {
         extern QString tooltip;
-
 
         namespace copyMenu {
           extern const QString icon;
@@ -343,7 +317,6 @@ namespace CResMgr {
       namespace foundItems {
         extern QString tooltip;
 
-
         namespace copyMenu {
           extern const QString icon;
         };
@@ -357,7 +330,6 @@ namespace CResMgr {
       };
       namespace textPreview {
         extern QString tooltip;
-
       };
     };
   };
@@ -647,44 +619,35 @@ namespace CResMgr {
       extern const QString icon;
 
       namespace general {
-        
+
 				namespace language {
           extern QString tooltip;
-
         };
       };
       namespace modules {
         namespace bible {
           extern QString tooltip;
-
         };
         namespace commentary {
           extern QString tooltip;
-
         };
         namespace lexicon {
           extern QString tooltip;
-
         };
         namespace dailyDevotional {
           extern QString tooltip;
-
         };
         namespace hebrewStrongs {
           extern QString tooltip;
-
         };
         namespace greekStrongs {
           extern QString tooltip;
-
         };
         namespace hebrewMorph {
           extern QString tooltip;
-
         };
         namespace greekMorph {
           extern QString tooltip;
-
         };
       };
     };

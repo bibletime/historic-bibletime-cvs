@@ -33,8 +33,7 @@ BuildArch:      %{buildarch}
 Source0:        %{name}-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Prefix: 	@RPM_PREFIX@
-Requires:	sword >= 1.5.7
-Requires:	curl >= 7.10
+Requires:	sword >= 1.5.8
 Distribution:	%{ostype} %{osversion}
 
 %description

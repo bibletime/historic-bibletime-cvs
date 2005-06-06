@@ -324,9 +324,23 @@ void BibleTime::initActions() {
     actionCollection(),
     CResMgr::mainMenu::window::loadProfile::actionName
   );
-	m_windowLoadProfile_action->setToolTip( CResMgr::mainMenu::window::loadProfile::tooltip );
+	m_windowLoadProfile_action->setToolTip(
+		CResMgr::mainMenu::window::loadProfile::tooltip
+	);
   #if KDE_VERSION_MINOR < 1
   	m_windowLoadProfile_action->plugAccel( accel() );
+  #endif
+
+	m_windowDeleteProfile_action = new KActionMenu(i18n("&Delete session"),
+    CResMgr::mainMenu::window::deleteProfile::icon,
+    actionCollection(),
+    CResMgr::mainMenu::window::deleteProfile::actionName
+  );
+	m_windowLoadProfile_action->setToolTip(
+		CResMgr::mainMenu::window::deleteProfile::tooltip
+	);
+  #if KDE_VERSION_MINOR < 1
+  	m_windowDeleteProfile_action->plugAccel( accel() );
   #endif
 
 	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"),
@@ -341,19 +355,16 @@ void BibleTime::initActions() {
   	m_windowFullscreen_action->plugAccel( accel() );
   #endif
 
-	QPtrList<CProfile> profiles = m_profileMgr.profiles();
+	//connect the profile popups to the right slots
 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
-	loadPopup->setKeyboardShortcutsEnabled(false); //make sure that no ampersand get's added
-	connect(loadPopup, SIGNAL(activated(int)), SLOT(loadProfile(int)));
-	
 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();
-	savePopup->setKeyboardShortcutsEnabled(false);  //make sure that no ampersand get's added
-	connect(savePopup, SIGNAL(activated(int)), SLOT(saveProfile(int)));
+	KPopupMenu* deletePopup = m_windowDeleteProfile_action->popupMenu();
 	
-	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
-		savePopup->insertItem(p->name());
-		loadPopup->insertItem(p->name());
-	}
+	connect(loadPopup, SIGNAL(activated(int)), SLOT(loadProfile(int)));	
+	connect(savePopup, SIGNAL(activated(int)), SLOT(saveProfile(int)));
+	connect(deletePopup, SIGNAL(activated(int)), SLOT(deleteProfile(int)));
+
+	refreshProfileMenus();
 
 	if ( actionCollection()->action( KStdAction::stdName(KStdAction::HelpContents) )) {	 //delete help action if KDE created it
 		actionCollection()->remove(actionCollection()->action(KStdAction::stdName(KStdAction::HelpContents)) );

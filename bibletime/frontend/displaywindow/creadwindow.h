@@ -49,10 +49,6 @@ protected: // Protected methods
   * Returns the display widget of this window.
   */
   virtual CReadDisplay* const displayWidget();
-  /**
-  * Setup the entries of the popup menu.
-  */
-	virtual void initActions();
 
 protected slots:
   virtual void lookup( CSwordKey* );

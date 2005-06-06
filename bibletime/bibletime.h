@@ -266,9 +266,9 @@ protected slots:
 	*/
 	void saveProfile(CProfile* p);
 	/**
-	* Saves the current settings into the currently activatred profile.
+	* Deletes the chosen session from the menu and from disk.
 	*/
-//  	void deleteProfile(int ID);
+ 	void deleteProfile(int ID);
 	/**
 	* Loads the profile with the menu id ID
 	*/
@@ -334,6 +334,7 @@ private:
 	KActionMenu*	m_windowSaveProfile_action;
  	KAction*	m_windowSaveToNewProfile_action;
 	KActionMenu*	m_windowLoadProfile_action;
+	KActionMenu*	m_windowDeleteProfile_action;
 	KToggleAction*	m_windowFullscreen_action;
 
 	QPtrList<KAction> m_windowOpenWindowsList;

@@ -56,29 +56,21 @@ void CLexiconReadWindow::insertKeyboardActions( KActionCollection* const a ){
 
 void CLexiconReadWindow::initActions() {
 	CReadWindow::initActions();
+	
+	m_actions.backInHistory = dynamic_cast<KToolBarPopupAction*>(
+		actionCollection()->action(
+			CResMgr::displaywindows::general::backInHistory::actionName
+		)
+	);
+	Q_ASSERT(m_actions.backInHistory);
 
-	m_actions.backInHistory = new KToolBarPopupAction(
-		i18n("Back in history"), CResMgr::displaywindows::general::backInHistory::icon, CResMgr::displaywindows::general::backInHistory::accel,
-		keyChooser(), SLOT( backInHistory() ),
-		actionCollection(), CResMgr::displaywindows::general::backInHistory::actionName
+	m_actions.forwardInHistory = dynamic_cast<KToolBarPopupAction*>(
+		actionCollection()->action(
+			CResMgr::displaywindows::general::forwardInHistory::actionName
+		)
 	);
-	connect(m_actions.backInHistory->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(slotFillBackHistory()));
-	connect(
-		m_actions.backInHistory->popupMenu(), SIGNAL(activated(int)),
-		keyChooser(), SLOT(backInHistory(int))
-	);
-
-	m_actions.forwardInHistory = new KToolBarPopupAction(
-		i18n("Forward in history"), CResMgr::displaywindows::general::forwardInHistory::icon, CResMgr::displaywindows::general::forwardInHistory::accel,
-		keyChooser(), SLOT( forwardInHistory() ),
-		actionCollection(), CResMgr::displaywindows::general::forwardInHistory::actionName
-	);
-	connect(m_actions.forwardInHistory->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(slotFillForwardHistory()));
-	connect(
-		m_actions.forwardInHistory->popupMenu(), SIGNAL(activated(int)),
-		keyChooser(), SLOT(forwardInHistory(int))
-	);
-  
+		
+	Q_ASSERT(m_actions.forwardInHistory);
   
 	new KAction(
 		i18n("Next entry"), CResMgr::displaywindows::lexiconWindow::nextEntry::accel,
@@ -121,6 +113,26 @@ void CLexiconReadWindow::initConnections(){
 		this, SLOT(lookup(CSwordKey*)));
  	connect(keyChooser(), SIGNAL(historyChanged()),
 		this, SLOT(slotUpdateHistoryButtons()));
+
+	//connect the history actions to the right slots
+	connect(
+		m_actions.backInHistory->popupMenu(), SIGNAL(aboutToShow()),
+		this, SLOT(slotFillBackHistory())
+	);
+	connect(
+		m_actions.backInHistory->popupMenu(), SIGNAL(activated(int)),
+		keyChooser(), SLOT(backInHistory(int))
+	);
+	connect(
+		m_actions.forwardInHistory->popupMenu(), SIGNAL(aboutToShow()),
+		this, SLOT(slotFillForwardHistory())
+	);
+	connect(
+		m_actions.forwardInHistory->popupMenu(), SIGNAL(activated(int)),
+		keyChooser(), SLOT(forwardInHistory(int))
+	);
+  
+
 }
 
 void CLexiconReadWindow::initView(){

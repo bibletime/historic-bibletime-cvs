@@ -10,12 +10,12 @@
 //QT includes
 #include <qwidget.h>
 #include <qframe.h>
+#include <qguardedptr.h>
 #include <qlabel.h>
 #include <qstring.h>
 #include <qmap.h>
 #include <qdict.h>
 #include <qmap.h>
-#include <qwidgetstack.h>
 
 //KDE includes
 #include <kdialogbase.h>
@@ -29,6 +29,8 @@ class QHBox;
 class QCheckBox;
 class QComboBox;
 class QRadioButton;
+class QWidgetStack;
+
 class KListBox;
 class KKeyChooser;
 class KTabCtl;
@@ -88,7 +90,7 @@ private:
 			QWidgetStack* keyChooserStack;
 			
 			struct WindowType {
-				KKeyChooser* keyChooser;
+				QGuardedPtr<KKeyChooser> keyChooser;
 				KActionCollection* actionCollection;
 				QString title;
 
@@ -160,6 +162,10 @@ protected slots: // Protected slots
 
 protected: // Protected methods
   /**
+  * Initializes the startup section of the OD.
+  */
+  void initDisplay();
+  /**
   * Init Sword section.
   */
   void initSword();
@@ -171,14 +177,18 @@ protected: // Protected methods
   * Init fonts section.
   */
   void initFonts();
-  /**
-  * Initializes the startup section of the OD.
+
+  /** Save the display settings.
   */
-  void initStartup();
+ 	void saveDisplay();
+  /** Save the key accel settings.
+  */
   void saveAccelerators();
-	void saveDisplayStyle();
+  /** Save the font settings.
+  */
 	void saveFonts();
- 	void saveStartup();
+  /** Save the Sword specific settings.
+  */
  	void saveSword();
 
 signals: // Signals
