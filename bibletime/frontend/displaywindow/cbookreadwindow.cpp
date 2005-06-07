@@ -78,6 +78,10 @@ void CBookReadWindow::initConnections(){
 
  	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
+ 	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
+ 		keyChooser(), SLOT(updateKey(CSwordKey*)));
+ 	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
+ 		m_treeChooser, SLOT(updateKey(CSwordKey*)));
 }
 
 /** Init the view */
@@ -87,7 +91,7 @@ void CBookReadWindow::initView(){
 	addDockWindow(mainToolBar());
 
 	m_treeChooser = new CBookTreeChooser(modules(), key(), splitter);
-  setDisplayWidget( CDisplay::createReadInstance(this, splitter) ); 	 	
+  setDisplayWidget( CDisplay::createReadInstance(this, splitter) );
 
   setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
 	

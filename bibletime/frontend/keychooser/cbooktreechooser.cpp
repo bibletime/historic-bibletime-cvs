@@ -125,15 +125,12 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	
   m_treeView = new KListView(this);
 	layout->addWidget(m_treeView);	
-//	connect( m_treeView, SIGNAL(executed(QListViewItem*)), SLOT(itemClicked(QListViewItem*)));
-	connect( m_treeView, SIGNAL(selectionChanged(QListViewItem*)), SLOT(itemActivated(QListViewItem*)));  
-	m_treeView->addColumn("Tree");	
-// 	m_treeView->header()->resizeSection( 0,m_treeView->sizeHint().width());
-// 	m_treeView->header()->setResizeEnabled(-1);
+	m_treeView->addColumn("Tree");
 	m_treeView->header()->hide();
 	m_treeView->setSorting(-1);
 	m_treeView->setRootIsDecorated(true);
   m_treeView->setFullWidth(true);
+	connect(m_treeView, SIGNAL(executed(QListViewItem*)), SLOT(itemActivated(QListViewItem*)));
 
   adjustFont();
 }
@@ -155,8 +152,9 @@ void CBookTreeChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	const QString key = m_key->key();
 	
 	QStringList siblings;
-	if (m_key && !key.isEmpty())
+	if (m_key && !key.isEmpty()) {
 		siblings = QStringList::split("/",key,false);
+	}
 	
 	//find the right listview item
 	const int count = siblings.count();
