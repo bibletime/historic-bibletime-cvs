@@ -19,9 +19,11 @@
 namespace Rendering {
 
 /**
-@author The BibleTime team
-*/
-
+ * This CTextRenerding implementation
+ * creates HTML specially made for export as HTML files.
+ * @short HTML rendering for export.
+ * @author The BibleTime team
+ */
 class CHTMLExportRendering : public CTextRendering {
 public:
 	struct Settings {

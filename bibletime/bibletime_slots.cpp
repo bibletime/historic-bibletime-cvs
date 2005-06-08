@@ -186,8 +186,7 @@ void BibleTime::slotWindowMenuAboutToShow(){
 }
 
 /** This slot is connected with the windowAutoTile_action object */
-void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
-	
+void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){	
 	/* If a toggle action was clicked we see if it checked ot unchecked and
 	* enable/disable the simple cascade and tile options accordingly 
 	*/
@@ -208,8 +207,6 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 	}
 	
 	if (clickedAction == m_windowManualMode_action) {
-// 		m_windowManualMode_action->setEnabled(false);
-		
 		m_windowAutoTileVertical_action->setChecked(false);
 		m_windowAutoTileHorizontal_action->setChecked(false);
 		m_windowAutoCascade_action->setChecked(false);
@@ -217,8 +214,6 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 		m_mdi->setGUIOption( CMDIArea::Nothing );
 	}
 	else if (clickedAction == m_windowAutoTileVertical_action) {		
-// 		m_windowManualMode_action->setEnabled(true);
-
 		m_windowManualMode_action->setChecked(false);
 		m_windowAutoTileHorizontal_action->setChecked(false);
 		m_windowAutoCascade_action->setChecked(false);
@@ -226,8 +221,6 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 		m_mdi->setGUIOption( CMDIArea::autoTileVertical );
 	}
 	else if (clickedAction == m_windowAutoTileHorizontal_action) {
-// 		m_windowManualMode_action->setEnabled(true);
-		
 		m_windowManualMode_action->setChecked(false);
 		m_windowAutoTileVertical_action->setChecked(false);
 		m_windowAutoCascade_action->setChecked(false);
@@ -235,8 +228,6 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 		m_mdi->setGUIOption( CMDIArea::autoTileHorizontal );
 	}
 	else if (clickedAction == m_windowAutoCascade_action) {
-// 		m_windowManualMode_action->setEnabled(true);
-		
 		m_windowManualMode_action->setChecked(false);
 		m_windowAutoTileHorizontal_action->setChecked(false);
 		m_windowAutoTileVertical_action->setChecked(false);
@@ -244,20 +235,14 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
 		m_mdi->setGUIOption( CMDIArea::autoCascade );
 	}
 	else if (clickedAction == m_windowCascade_action) {
-// 		m_windowManualMode_action->setEnabled(false);
-		
 		m_mdi->setGUIOption( CMDIArea::Nothing );
 		m_mdi->myCascade();
 	}
 	else if (clickedAction == m_windowTileVertical_action) {
-// 		m_windowManualMode_action->setEnabled(false);
-	
 		m_mdi->setGUIOption( CMDIArea::Nothing );
  		m_mdi->myTileVertical();
 	}
 	else if (clickedAction == m_windowTileHorizontal_action) {
-// 		m_windowManualMode_action->setEnabled(false);
-	
 		m_mdi->setGUIOption( CMDIArea::Nothing );
  		m_mdi->myTileHorizontal();
 	}
@@ -312,6 +297,8 @@ void BibleTime::slotWindowMenuActivated() {
 
 /** Shows/hides the toolbar */
 void BibleTime::slotToggleToolbar(){
+	Q_ASSERT(toolBar("mainToolBar"));
+	
 	if (m_viewToolbar_action->isChecked()) {
 		toolBar("mainToolBar")->show();
 	}
@@ -501,10 +488,9 @@ void BibleTime::loadProfile(CProfile* p){
 
 void BibleTime::deleteProfile(int ID){
 	KPopupMenu* popup = m_windowDeleteProfile_action->popupMenu();
- //HACK: workaround the inserted & char by KPopupMenu
+ //HACK: work around the inserted & char by KPopupMenu
 	const QString profileName = popup->text(ID).remove("&");
 	CProfile* p = m_profileMgr.profile( profileName );
-// 	qWarning("requesting popup: %s", popup->text(ID).latin1());
 	Q_ASSERT(p);
 
   if ( p ) {

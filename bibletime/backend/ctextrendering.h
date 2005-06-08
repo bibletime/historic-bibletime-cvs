@@ -24,8 +24,13 @@
 class CSwordModuleInfo;
 class CSwordKey;
 
-/**
- * This class is responsible for text rendering.
+/** 
+ * CTextRendering is BibleTime's place where the actual rendering takes place.
+ * It provides several methods to convert an abstract tree of items
+ * into a string of html.
+ *
+ * See the implementations @ref CHTMLExportRendering and especially @ref CDisplayRendering.
+ * @short Text rendering based on trees
  * @author The BibleTime team
 */
 namespace Rendering {

@@ -12,7 +12,7 @@ using sword::SWBuf;
 
 namespace Filters {
 
-/**
+/** ThML to HTML filter.
 * This filter converts ThML text to HTML text
 */
 class BT_ThMLHTML : public sword::ThMLHTML {

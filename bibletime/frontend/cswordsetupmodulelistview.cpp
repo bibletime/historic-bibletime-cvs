@@ -20,14 +20,25 @@ using namespace sword;
 
 namespace InstallationManager {
 
+/** Tooltip implementation for QListView widgets.
+ * @short Tooltip for InstallationManager listviews
+ * @author Joachim Ansorg
+ */
 class ToolTip : public QToolTip {
 public:
+	/** Constructor which takes the listview to operate on.
+   * @param listview We operate on this widget to request tooltips from it'd child items.
+	 * @short Constructor.
+	 */
 	ToolTip(CSwordSetupModuleListView* listview)
 		: QToolTip( listview->viewport() ),
 			m_parent( listview )
 	{
 	}
 
+	/** Reimplementation of QToolTip::maybeTip. It's requested if a new tooltip may be displayed.
+	 * @short Display a tooltip if we're over an item
+	 */
 	virtual void maybeTip(const QPoint& pos) {
 		QListViewItem* i = m_parent->itemAt(pos);
 		Q_ASSERT(i);
@@ -43,6 +54,10 @@ protected:
 	CSwordSetupModuleListView* m_parent;
 };
 
+/** Listview specially made for the installation manager.
+ * @short InstallationManager module listviews
+ * @author Martin Gruner
+ */
 CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_remote, sword::InstallSource* installSource)
 	: KListView(parent), m_is_remote( is_remote )
 {
@@ -58,10 +73,10 @@ CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_re
 	addColumn(i18n("Installed version")); //version
 	setColumnAlignment(2, Qt::AlignHCenter);
 	
-	if (m_is_remote){
+	if (m_is_remote) {
 		addColumn(i18n("Remote version")); //version
 	}
-	else{
+	else {
 		addColumn(i18n("Location"));
 	}
 	setColumnAlignment(3, Qt::AlignLeft);
@@ -244,27 +259,19 @@ void CSwordSetupModuleListView::slotItemClicked(QListViewItem*) {
 
 bool CSwordSetupModuleListView::showTooltip(QListViewItem* i, const QPoint&, int) const
 {
-// 	qWarning("showTooltip");
-	
 	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>( i );
  	Q_ASSERT(checkItem);
-// 	Q_ASSERT(checkItem->type() == QCheckListItem::CheckBox);
 
 	return (checkItem && (checkItem->type() == QCheckListItem::CheckBox));
 }
 
 QString CSwordSetupModuleListView::tooltip(QListViewItem* i, int column) const {
-// 	qWarning("tooltip()");
-	QString ret;
-	
+	QString ret;	
 	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>( i );
-// 	Q_ASSERT(checkItem);
 	
 	if (checkItem && (checkItem->type() == QCheckListItem::CheckBox)) {
 		const QString moduleName = checkItem->text(0);
 		CSwordModuleInfo* module = m_backend->findModuleByName(moduleName);
-
-// 		Q_ASSERT(module);
 
 		ret = CToolClass::moduleToolTip(module);
 	}

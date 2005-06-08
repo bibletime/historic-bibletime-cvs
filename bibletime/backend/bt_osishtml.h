@@ -8,12 +8,12 @@
 //Sword includes
 #include <osishtmlhref.h>
 
-/**
-* This filter converts ThML text to HTML text
-*/
 namespace Filters {
 
-class BT_OSISHTML : public sword::OSISHTMLHREF/*, protected CFilterTool*/ {
+/** BibleTime's OSIS to HTMl filter.
+* This filter works on OSIS tags and outputs HTML in the structure supported by BibleTime.
+*/
+class BT_OSISHTML : public sword::OSISHTMLHREF {
 protected:
   class BT_UserData : public sword::OSISHTMLHREF::MyUserData {
   public:

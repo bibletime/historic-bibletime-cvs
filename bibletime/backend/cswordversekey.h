@@ -14,26 +14,27 @@
 #include <versekey.h>
 
 /**
-	* The CKey implementation for verse based modules (Bibles and Commentaries)
-	*
-	*	This class is the implementation of CKey for verse based modules like
-	*	Bibles and commentaries.
-	* This class provides the special functions to work with the verse based modules.
-	*
-	* Useful functions are
-	*	@see NextBook()
-	* @see PreviousBook()
-	* @see NextChapter()
-	* @see PreviousChapter()
-	* @see NextVerse()
-	* @see PreviousVerse().
-	*
-	* Call the constructor only with a valid verse based modules, otherwise this key will be invalid
-	* and the application will probably crash.
-	*
-	*	@version $Id$
-  *	@author The BibleTime team
-  */
+ * The CSwordKey implementation for verse based modules (Bibles and Commentaries)
+ *
+ * This class is the implementation of CKey for verse based modules like
+ * Bibles and commentaries.
+ * This class provides the special functions to work with the verse based modules.
+ *
+ * Useful functions are
+ * @see NextBook()
+ * @see PreviousBook()
+ * @see NextChapter()
+ * @see PreviousChapter()
+ * @see NextVerse()
+ * @see PreviousVerse().
+ *
+ * Call the constructor only with a valid verse based modules, otherwise this key will be invalid
+ * and the application will probably crash.
+ *
+ * @version $Id$
+ * @short CSwordKey implementation for Sword's VerseKey.
+ * @author The BibleTime team
+ */
 class CSwordVerseKey : public CSwordKey, public sword::VerseKey {
 public:
 	enum JumpType {

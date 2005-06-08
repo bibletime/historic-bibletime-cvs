@@ -17,8 +17,10 @@
 namespace Rendering {
 
 /**
-@author The BibleTime team
-*/
+ * This implementation can be used to export content as plain text.
+ * @short Text rendering as plain text.
+ * @author The BibleTime team
+ */
 class CPlainTextExportRendering : public CHTMLExportRendering {
 public:
 	CPlainTextExportRendering(

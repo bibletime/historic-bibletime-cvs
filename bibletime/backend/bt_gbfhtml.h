@@ -15,11 +15,11 @@
 #include <swbasicfilter.h>
 #include <gbfhtml.h>
 
-/**
-* This filter converts GBF Text into HTML
-*/
 namespace Filters {
 
+/** GBF to HTML filter,
+* This filter converts GBF Text into HTML
+*/
 class BT_GBFHTML : public sword::GBFHTML/*, protected CFilterTool */{
 protected:
   class BT_UserData : public sword::GBFHTML::MyUserData {
