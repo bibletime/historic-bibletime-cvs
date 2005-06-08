@@ -28,9 +28,9 @@ namespace Rendering {
 	class CBookDisplay;
 }
 
-/**
+/** The backend layer main class.
 	* This is the implementation of CBackend for Sword. It's additionally derived from SWMgr
-	*	to provide functions of Sword.	
+	*	to provide functions of Sword.
   *
   *	@short The backend implementation of Sword
   *	@author The BibleTime team
@@ -38,21 +38,25 @@ namespace Rendering {
   */
 class CSwordBackend : public sword::SWMgr {
 public:
-
+	/** Filter options. Filter options to
+	 * control the text display of modules. Uses int and not bool because not all
+	 * options have just two toggle values.
+	 */
   struct FilterOptions {
-  	int footnotes;
-  	int strongNumbers;
-  	int headings;
-  	int morphTags;
-		int lemmas;
-		int hebrewPoints;
-		int hebrewCantillation;
-		int greekAccents;
-		int textualVariants;
-    int redLetterWords;
-    int scriptureReferences;
-//     int transliteration;
+  	int footnotes; /**< 0 for disabled, 1 for enabled */
+  	int strongNumbers; /**< 0 for disabled, 1 for enabled */
+  	int headings; /**< 0 for disabled, 1 for enabled */
+  	int morphTags; /**< 0 for disabled, 1 for enabled */
+		int lemmas; /**< 0 for disabled, 1 for enabled */
+		int hebrewPoints; /**< 0 for disabled, 1 for enabled */
+		int hebrewCantillation; /**< 0 for disabled, 1 for enabled */
+		int greekAccents; /**< 0 for disabled, 1 for enabled */
+		int textualVariants; /**< Number n to enabled the n-th variant */
+    int redLetterWords; /**< 0 for disabled, 1 for enabled */
+    int scriptureReferences; /**< 0 for disabled, 1 for enabled */
 	};
+	/** Control the display of a text.
+	*/
 	struct DisplayOptions {
 		int lineBreaks;
 		int verseNumbers;
@@ -164,14 +168,6 @@ public:
   */
   inline virtual const sword::SWVersion Version();
   /**
-  * Returns our transliterator object we use. Returns 0 if ICU is not used.
-  */
-//   inline sword::SWFilter* const transliterator();
-  /** 
-	* Returns true if ICU is being used. 
-	*/
-//   inline const bool useICU() const;
-  /**
   * Reload all Sword modules.
   */
   void reloadModules();
@@ -221,19 +217,5 @@ inline sword::SWConfig* const CSwordBackend::getConfig() const {
 inline const sword::SWVersion CSwordBackend::Version() {
 	return sword::SWVersion::currentVersion;
 }
-
-/** Returns our transliterator object we use. Returns 0 if ICU is not used. */
-// inline sword::SWFilter* const CSwordBackend::transliterator() {
-//   if (!useICU()) {
-//     return 0;
-// 	}
-//   
-// 	return optionFilters["UTF8Transliterator"]; //either valid or null pointer
-// }
-
-// /** Returns true if ICU is being used. */
-// inline const bool CSwordBackend::useICU() const{
-//   return SWMgr::isICU;
-// }
 
 #endif

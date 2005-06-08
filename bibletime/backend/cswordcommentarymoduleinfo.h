@@ -6,15 +6,20 @@
 //own includes
 #include "cswordbiblemoduleinfo.h"
 
-/**
-  * @author The BibleTime team
-  * @version $Id$
-  */
+/** Commentary module implementation.
+ * This CSwordModule implementation provides access to Sword's commentary modules.
+ * @author The BibleTime team
+ * @version $Id$
+ */
 class CSwordCommentaryModuleInfo : public CSwordBibleModuleInfo  {
 public:
 	CSwordCommentaryModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
 	~CSwordCommentaryModuleInfo();
+	/** Reimplementation to return the commentary type.
+	*/
   virtual const CSwordModuleInfo::ModuleType type() const;
+  /** Reimplementation to clone the current object.
+  */
   virtual CSwordModuleInfo* clone();
   /**
   * Returns true if this module may be written by the write display windows.
@@ -22,7 +27,6 @@ public:
   virtual const bool isWritable();
 };
 
-/** No descriptions */
 inline const CSwordModuleInfo::ModuleType CSwordCommentaryModuleInfo::type() const{
 	return CSwordModuleInfo::Commentary;
 }

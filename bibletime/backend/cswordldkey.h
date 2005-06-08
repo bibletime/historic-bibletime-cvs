@@ -23,10 +23,11 @@
 	* of the used module in comparision to the current key.<BR>
 	* Here's an example how to use this class:<BR>
 	* @code
-	*		CSwordLexiconModuleInfo* m_module = new CSwordLexiconModuleInfo( sword_module );
-	*		CSwordLDKey* ldKey = new CSwordLDKey(m_module);
-	*		ldKey->getPreviousEntry( ldKey );
-	*		qDebug( QString("The current key is: %1").arg(QString::fromLocal8Bit((const char*)*ldKey)));
+	*		CSwordLexiconModuleInfo* m_module = backend()->findModuleByName("ISBE");
+	*		CSwordLDKey ldKey(m_module);
+	*		ldKey.key("Adam");
+	*		ldKey.nextEntry();
+	*		qDebug( QString("The current key is: %1").arg(ldKey.key()));
 	* @endcode
 	*
 	* Please not, that the result will be invalid if use the operator const char*
@@ -55,7 +56,6 @@ public:
 	* Copy constructor for this key class.
 	*/
 	CSwordLDKey( const sword::SWKey *k, CSwordModuleInfo* module);
-//	virtual ~CSwordLDKey();
   /**
   * Clones this object by copying the members.
   */

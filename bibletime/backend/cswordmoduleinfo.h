@@ -26,88 +26,88 @@ class CSwordKey;
 
 namespace Rendering { class CEntryDisplay; }
 
-// using namespace Rendering;
-
 /**
-	* Base class for Sword modules.
-	* This is the base class for all Sword modules. Every class handling a special Sword module type
-	* does inherit from this class.
-	*
-  * @author The BibleTime team
-  * @version $Id$
-  */
+ * Base class for Sword modules.
+ * This is the base class for all Sword modules. Every class handling a special Sword module type
+ * does inherit from this class.
+ *
+ * @author The BibleTime team
+ * @version $Id$
+ */
 class CSwordModuleInfo : public CPointers  {
 public:
   /**
- 	* These are the options which could be supported by modules and by this backend.
- 	* It's used in @ref CSwordBackend::isOptionEnabled and @ref CSwordBackend::setOption
- 	*/
+   * These are the options which could be supported by modules and by this backend.
+   * It's used in @ref CSwordBackend::isOptionEnabled and @ref CSwordBackend::setOption.
+   */
   enum FilterTypes {
-  	footnotes,
-  	strongNumbers,
-  	headings,
-  	morphTags,
-		lemmas,
-		hebrewPoints,
-		hebrewCantillation,
-		greekAccents,
-    scriptureReferences,
-    redLetterWords,
-    textualVariants,
-		filterTypesMIN = footnotes,
-		filterTypesMAX = textualVariants /*,*/
-
-//     /* The following are handled in a special way */
-//     transliteration
+  	footnotes, /**< Footnotes embedded in the module's text */
+  	strongNumbers, /**< strong numbers, usually in the text for the info display */
+  	headings, /**< additional section headings */
+  	morphTags, /**< morphology */
+		lemmas, /**< lemma tags */
+		hebrewPoints,/**< Hebrew vowel points */
+		hebrewCantillation, /**<Hewbrew caantillation points */
+		greekAccents, /**< Greek accents may be switched on and off */
+    scriptureReferences, /**< scripture references may be switched on and off, just makes sense in Bibles */
+    redLetterWords, /**< Jesus words in red, color is template specific */
+    textualVariants, /**< variants */
+		filterTypesMIN = footnotes, /**< first entry of this enum */
+		filterTypesMAX = textualVariants /**< last item in this enum */
+//     transliteration /* The following are handled in a special way */
 	};
-
+	/** The text direction of a module */
   enum TextDirection { /* The text direction of the modules's text */
-    LeftToRight,
-    RightToLeft
+    LeftToRight, /**< Left to right text direction, the default setting */
+    RightToLeft /**< Right to left text directin, e.g. for hebrew */
   };
+  /** The module type.
+  */
   enum ModuleType {
-		Bible,
-		Commentary,
-		Lexicon,
-		GenericBook,
-		Unknown
+		Bible, /**< Bible module */
+		Commentary, /**< Commentary module */
+		Lexicon, /**< Lexicon module */
+		GenericBook, /**< Generic book module */
+		Unknown /**< Fall back type for unknown modules */
 	};
   /**
- 	* This enum is used to give
- 	* back an error code after unlocking the module
- 	*/
+ 	 * This enum is used to give
+ 	 * back an error code after unlocking the module
+ 	 * BibleTime stores the unlock key not in the module's config file but in BibleTime's
+ 	 * configuration file.
+ 	 */
   enum UnlockErrorCode {
-		noError,	/* No error occured, everything worked ok. The key was written to the config*/
-		wrongUnlockKey, /* The wrong key was used. Module is not unlocked */				
-		notLocked, /* The module was not locked so it can't be unlocked */
-		noPermission /* The key was not written to config because we have no permissions*/
+		noError,	/**< No error occured, everything worked ok. The key was written to the BibleTime config */
+		wrongUnlockKey, /**< The wrong key was used. Module is not unlocked */
+		notLocked, /**< The module was not locked so it can't be unlocked */
+		noPermission /**< The key was not written to config because we have no permissions */
 	};	
 	enum ConfigEntry {
-		AboutInformation, /* The about information of a module which is stored in the config file*/
-		AbsoluteDataPath, /* The absolute data path stored in the config object */
-		CipherKey, /* The cipher key which was used to unlock the module. Not necessarily set.*/
-		DataPath, /* The relative path. See AbsoluteDataPath*/
-		Description, /* The module description stored in the config file */
-		ModuleVersion, /* The module's version.*/
-		MinimumSwordVersion, /* The required Sword Version of this module. Otherwise some things may not work (compression etc.).*/
-	  TextDir, /* The text direction */	
-    DisplayLevel, /* Mostly used for books. Gives the level which should contain the connected entries.*/
-    GlossaryFrom, /* lamguage from which the Glosaary tramslates */
-    GlossaryTo, /* lamguages to which the glossary maps to */
-		Markup		/* The markup of this module */
+		AboutInformation, /**< The about information of a module which is stored in the config file*/
+		AbsoluteDataPath, /**< The absolute data path stored in the config object */
+		CipherKey, /**< The cipher key which was used to unlock the module. Not necessarily set.*/
+		DataPath, /**< The relative path. See AbsoluteDataPath*/
+		Description, /**< The module description stored in the config file */
+		ModuleVersion, /**< The module's version.*/
+		MinimumSwordVersion, /**< The required Sword Version of this module. Otherwise some things may not work (compression etc.).*/
+	  TextDir, /**< The text direction */
+    DisplayLevel, /**< Mostly used for books. Gives the level which should contain the connected entries.*/
+    GlossaryFrom, /**< lamguage from which the Glosaary tramslates */
+    GlossaryTo, /**< lamguages to which the glossary maps to */
+		Markup		/**< The markup of this module */
 	};
 	enum Feature {
-		StrongsNumbers, /*Use for Bibles which have embedded strong numbers*/
+		StrongsNumbers, /**< Use for Bibles which have embedded strong numbers */
 		GreekDef,
-		HebrewDef, 
+		HebrewDef,
 		GreekParse,
 		HebrewParse,
     featureMin = StrongsNumbers,
     featureMax = HebrewParse
-	};
+	};	
   enum Category {
-    UnknownCategory = 0, /* The category wasn't set or has an unknwon value */
-    Cult, /* The module is a cult / sect / questionable module */
+    UnknownCategory = 0, /**< The category wasn't set or has an unknwon value */
+    Cult, /**< The module is a cult / sect / questionable module */
     DailyDevotional,
     Glossary
   };

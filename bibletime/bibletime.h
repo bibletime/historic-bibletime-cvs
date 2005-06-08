@@ -75,39 +75,46 @@ class QSplitter;
  	*/
 
 /** @mainpage BibleTime - sourcecode documentation
- *
- *	This is the sourcecode documentation of BibleTime, a Bible study tool for KDE/Linux.
- *	BibleTime is devided in two major parts, the backend and the frontend.<BR>
- *	Documentation for the backend: @ref backend<BR>
- *	Documentation for the frontend: @ref frontend.<BR>
+ * BibleTime main page.
+ * This is the sourcecode documentation of BibleTime, a Bible study tool for KDE/Linux.
+ * BibleTime is devided in two major parts, the backend and the frontend.
+ * The backend is mainly a wrapper around Sword's classes to use Qt functionality
+ * to allow easy access to it's functionality and to have it in a (more or less :)
+ * object oriented structure.<BR>
+ *       -Introduction to the backend: @ref backend<BR>
+ *       -Introduction to the frontend: @ref frontend.<BR>
+ * The main class of BibleTime is called @ref BibleTime, which is the main window
+ * and initializes all important parts at startup. The text display windows
+ * belong to the @ref frontend.
  */
 
-/** The main class of BibleTime. Here are the main widgets created.
-	*
-	* This is the main class of BibleTime! This class creates the GUI, the KAction objects
-	* and connects to some slots. Please insert the creation of actions in initActions,
-	* the creation of widgets into initView and the connect(...) calls into initConnections.
-	* Reading from a config file on creation time should go into readSettings(), saving into
-	* saveSettings().
-	* This is the general way of all BibleTime classes.
-	*/
+/** BibleTime's main class.
+ * The main class of BibleTime. Here are the main widgets created.
+ *
+ * This is the main class of BibleTime! This class creates the GUI, the KAction objects
+ * and connects to some slots. Please insert the creation of actions in initActions,
+ * the creation of widgets into initView and the connect(...) calls into initConnections.
+ * Reading from a config file on creation time should go into readSettings(), saving into
+ * saveSettings().
+ * This is the general way of all BibleTime classes.
+ */
 class BibleTime : public KMainWindow {
 	friend class CMDIArea;
 	Q_OBJECT
 public:
 	/**
-	* construtor of BibleTime
-	*/
+	 * construtor of BibleTime
+	 */
 	BibleTime();
 	/**
-	* destrutor of BibleTime
-	*/
+	 * destrutor of BibleTime
+	 */
 	virtual ~BibleTime();
 	
   virtual void polish();
   /**
-	* Reads the settings from the configfile and sets the right properties.
-	*/
+	 * Reads the settings from the configfile and sets the right properties.
+	 */
 	void readSettings();
 	/**
 	* Saves the settings of this class

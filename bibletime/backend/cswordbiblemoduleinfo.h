@@ -31,6 +31,8 @@ public:
 	* The constructor of this class
 	*/
 	CSwordBibleModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend()  );
+	/** The copy constructor for this Bible module.
+	*/
 	CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m );
 	/**
 	* The destructor of this class
@@ -39,20 +41,26 @@ public:
   /**
  	* Returns the number of avalable verses for the given chapter and book.
  	*
- 	* @param book The book we should use
+ 	* @param book The number book we should use
  	* @param chapter The chapter we should use
  	* @return The number of verses for the given book and chapter
  	*/
   virtual const unsigned int verseCount( const unsigned int book, const unsigned int chapter );
-  virtual const unsigned int verseCount( const QString& book, const unsigned int chapter );
   /**
+ 	* Returns the number of avalable verses for the given chapter and book.
+ 	*
+ 	* @param book The name of the book we use
+ 	* @param chapter The number of the chapter we use
+ 	* @return The number of verses for the given book and chapter
+ 	*/
+  virtual const unsigned int verseCount( const QString& book, const unsigned int chapter );
+  /** Information about the chapters in a book.
  	* @return The number of available chapters of the given book.
  	* @return The number of chapters for the given book
  	*/
   virtual const unsigned int chapterCount( const unsigned int book );
-  /**
+  /** Information about the chapters in a book.
  	* @return The number of available chapters of the given book.
- 	* @return The number of chapters for the given book
  	*/
   virtual const unsigned int chapterCount( const QString& book );
   /** Return all book of this module.
@@ -71,6 +79,7 @@ public:
   * Returns true if his module has the text of desired type of testament
   */
   const bool hasTestament( CSwordBibleModuleInfo::Testament );
+  /** Reimplementation to clone this object. */
   virtual CSwordModuleInfo* clone();
   /**
   * Returns the key which represents the lower bound of this module.
@@ -108,6 +117,5 @@ inline const CSwordVerseKey& CSwordBibleModuleInfo::upperBound() {
 	initBounds();
   return m_upperBound;
 }
-
 
 #endif

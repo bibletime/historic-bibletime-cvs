@@ -12,6 +12,7 @@
 class CSwordModuleInfo;
 
 /** BibleTime's implementation of Sword's TreeKeyIdx class.
+	* @short CSwordKey implementation for Sword's TreeKey
   * @author The BibleTime team
   */
 class CSwordTreeKey : public CSwordKey, public sword::TreeKeyIdx  {

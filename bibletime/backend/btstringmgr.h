@@ -1,14 +1,5 @@
-//
-// C++ Interface: btstringmgr
-//
-// Description: 
-//
-//
-// Author: The BibleTime team <info@bibletime.info>, (C) 2004
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/********* Read the file LICENSE for license details. *********/
+
 #ifndef BTSTRINGMGR_H
 #define BTSTRINGMGR_H
 
@@ -21,8 +12,9 @@
 using namespace sword;
 
 /** Unicode string manager implementation.
-* This is the StringManager implementation which works with QString.
-*/
+ * This is the StringManager implementation which works with QString.
+ * @author The BibleTime developers
+ */
 class BTStringMgr : public StringMgr {
 public:
 	/** Converts the param to an upper case Utf8 string
@@ -36,9 +28,11 @@ public:
 	virtual char* upperLatin1(char*);
 
 protected:
+	/** Reimplementation to show unicode support.
+	*/
 	virtual const bool supportsUnicode() const;
 	
-	/** CODE TAKEN FROM KDELIBS 3.2. Licensed under the LGPL 2.
+	/** CODE TAKEN FROM KDELIBS 3.2, which is licensed under the LGPL 2.
 	*
 	* This code was taken from KStringHandler, which is part of the KDE libraries.
 	*

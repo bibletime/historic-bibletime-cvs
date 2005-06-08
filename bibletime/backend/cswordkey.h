@@ -8,10 +8,10 @@
 
 //Qt includes
 #include <qstring.h>
-
-
+//forward declarations
 class CSwordModuleInfo;
-/**
+
+/** Base class for all keys.
  * The base class for all Sword based keys.
  * @author The BibleTime team
  * @version $Id$
@@ -30,26 +30,48 @@ public:
   };
 	virtual ~CSwordKey() {};
 	
-	//pure virtual functions		
+	//pure virtual functions
+	/** Returns the current key.
+	 * @return The current key which belongs to the current object.
+	 */
 	virtual const QString key() const = 0;
+	/** Sets the current key. Sets the key using a utf8 enabled QString.
+	 */
 	virtual void key(const QString&) = 0;
+	/** Set the key using a utf8-decoded c-string
+	 */
 	virtual void key(const char*) = 0;
+	/** Clone this object. Clone this current object and return it.
+	 * @return A clone of the current object.
+	 */
 	virtual CSwordKey* copy() const = 0;	
 	
 	//implemented functions
+	/** Set/get the module. Set and get the module which belongs to this key.
+	 * @return The module which belongs to this key.
+	 */
 	inline virtual CSwordModuleInfo* const module(CSwordModuleInfo* const newModule = 0);
+	/** Returns the raw, unchanged text. Returns the text without any filter modifications,
+	 * just in the way it comes out of the module.
+	 */
 	virtual const QString rawText();
+	/** Returns the rendered text. Returns the text of the current key after passign it through the
+	 * modules filters.
+	 */
   virtual const QString renderedText( const CSwordKey::TextRenderType mode = CSwordKey::Normal );
+  /** Stripped down text. Returns the text after removing all markup tags from it.
+   */
 	virtual const QString strippedText();
   /**
-  * This returns a new object of the right CSwordKey* implementation (e.g. CSwordVerseKey or CSwordLDKey)
-  * The type is determined by the type of the module.
-  * @see CSwordModuleInfo, CSwordBibleModuleInfo, CSwordCommentaryModuleInfo, CSwordLexiconModukleInfo
-  */
+   * This returns a new object of the right CSwordKey* implementation
+   * (e.g. CSwordVerseKey or CSwordLDKey)
+   * The type is determined by the type of the module.
+   * @see CSwordModuleInfo, CSwordBibleModuleInfo, CSwordCommentaryModuleInfo, CSwordLexiconModukleInfo
+   */
   static CSwordKey* createInstance(CSwordModuleInfo * const module);
   /**
-  * The assignment operator for more easy use of the key classes.
-  */
+   * The assignment operator for more easy use of the key classes.
+   */
   inline virtual CSwordKey& operator = ( const QString& );
 
 protected:
