@@ -9,14 +9,23 @@
 //Sword includes
 #include <treekeyidx.h>
 
-
 /** Class for generic book support
   * @author The BibleTime team
   */
 class CSwordBookModuleInfo : public CSwordModuleInfo  {
-public: 
-	CSwordBookModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
-	CSwordBookModuleInfo( const CSwordBookModuleInfo& m );	
+public:
+	/** Constructor.
+	* @param module The module which belongs to this object
+	* @param backend The parent backend for this book module.
+	*/	
+	CSwordBookModuleInfo( sword::SWModule* module, CSwordBackend* backend const = CPointers::backend() );
+	/** Copy constructor.
+	* Copy constructor to copy the passed parameter.
+	* @param module The module which should be copied.
+	*/
+	CSwordBookModuleInfo( const CSwordBookModuleInfo& module );	
+	/** Destructor.
+	*/
 	~CSwordBookModuleInfo();
   /**
   * Returns the type of the module.

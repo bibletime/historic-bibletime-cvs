@@ -39,53 +39,76 @@ class QSplitter;
 
 /**
  	*	@page backend The structure of the backend
- 	*
+ 	* <p>
  	*	The backend implementation for Sword is called CSwordBackend, the classes we use
  	* to work with keys are called CSwordVerseKey and CSwordLDKey, both are derived from
  	* the class CSwordKey.
- 	* The CSwordKey derived classes used for Sword do also inherit the classes VerseKey (CSwordVerseKey)
+ 	* The CSwordKey derived classes used for Sword do also inherit the classes
+ 	* VerseKey (CSwordVerseKey)
  	*	and SWKey (CSwordLDKey).
- 	*	
+ 	*	</p>
+ 	* <p>
  	*	The classes used to handle all module based stuff are derived from CModuleInfo.
- 	*	The module classes are: CSwordModuleInfo (for Sword modules), CSwordBibleModuleInfo (for bibles), CSwordCommentaryModuleInfo (for commentaries) and
+ 	*	The module classes are: CSwordModuleInfo (for Sword modules),
+ 	* CSwordBibleModuleInfo (for bibles), CSwordCommentaryModuleInfo (for commentaries) and
  	*	CSwordLexiconModuleInfo (for lexicons).
  	*	Have a look at the class documentation of the mentioned classes to learn how the
  	*	structure of them looks like and which class inherits which other class.
- 	*
- 	*	The first objects which should be created in the application is the backend (for Sword the class is called CSwordBackend).
- 	*	Then create all the different module classes for the correct Sword modules. Have a look at
+ 	* </p>
+ 	*	<p>
+ 	* The first objects which should be created in the application is the backend
+ 	* (for Sword the class is called CSwordBackend).
+ 	*	Then create all the different module classes for the correct Sword modules.
+ 	* Have a look at
  	* BibleTime::initBackens() to see how it's done in BibleTime.@br
- 	*	Later you can work with them for example by using the CSwordKey and CSwordModuleInfo derived class.
+ 	*	Later you can work with them for example by using the CSwordKey and
+ 	* CSwordModuleInfo derived class.
+ 	* </p>
  	*/
 
 /**
  	*	@page frontend The structure of the frontend
  	*	
- 	*
+ 	* <p>
  	*	The frontend contains the classes which interact with the user. For example the main index,
  	* the display windows, the searchdialog or the other parts.
- 	* The main index is implemented in the class CGroupManager, the items of the main index are implemented in the class CGroupManagerItem.
- 	* Each CGroupManagerItem has a type() function which returns the type of the object (Module, Bookmark or Group).<BR>
- 	* The display windows are all derived from the base class CPresenter. The display windows which handle Sword modules are all derived from the CSwordPresenter class.
- 	* The display windows which provide functionality are CBiblePresenter for Bibles, CCommentaryPresenter for commentaries and CLexiconPresenter for lexicon and dictionaries.
- 	* CSwordPresenter provides the essential base functions which are reimplemented in the derived classes (for example CSwordPresenter::lookup).<BR>
- 	* Another important part of the frontend are the keychoosers. They provide an interface to choose a key of a module. The interface for different module types is different.
- 	* The base class is CKeyChooser which is the factory for the derived classes. Use the function CKeyChooser::createInstance to get the correct
+ 	* </p><p>
+ 	* The main index is implemented in the class CGroupManager, the items of the
+ 	* main index are implemented in the class CGroupManagerItem.
+ 	* Each CGroupManagerItem has a type() function which returns the type of
+ 	* the object (Module, Bookmark or Group).<BR>
+ 	* The display windows are all derived from the base class CPresenter.
+ 	* The display windows which handle Sword modules are all derived from the
+ 	* CSwordPresenter class.
+ 	* The display windows which provide functionality are CBiblePresenter for
+ 	* Bibles, CCommentaryPresenter for commentaries and CLexiconPresenter for
+ 	* lexicon and dictionaries.
+ 	* CSwordPresenter provides the essential base functions which are
+ 	* reimplemented in the derived classes (for example CSwordPresenter::lookup).<BR>
+ 	* </p><p>
+ 	* Another important part of the frontend are the keychoosers.
+ 	* They provide an interface to choose a key of a module.
+ 	* The interface for different module types is different.
+ 	* The base class is CKeyChooser which is the factory for the derived classes.
+ 	* Use the function CKeyChooser::createInstance to get the correct
  	* keychooser implementation for the desired module.<BR>
+ 	* </p>
  	*/
 
 /** @mainpage BibleTime - sourcecode documentation
  * BibleTime main page.
- * This is the sourcecode documentation of BibleTime, a Bible study tool for KDE/Linux.
+ * <p>This is the sourcecode documentation of BibleTime, a Bible study tool for KDE/Linux.
  * BibleTime is devided in two major parts, the backend and the frontend.
  * The backend is mainly a wrapper around Sword's classes to use Qt functionality
  * to allow easy access to it's functionality and to have it in a (more or less :)
- * object oriented structure.<BR>
+ * object oriented structure.</p><BR>
+ * <p>
  *       -Introduction to the backend: @ref backend<BR>
  *       -Introduction to the frontend: @ref frontend.<BR>
  * The main class of BibleTime is called @ref BibleTime, which is the main window
  * and initializes all important parts at startup. The text display windows
  * belong to the @ref frontend.
+ * </p>
  */
 
 /** BibleTime's main class.

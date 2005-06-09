@@ -12,14 +12,26 @@
 class CSwordModuleInfo;
 
 /** BibleTime's implementation of Sword's TreeKeyIdx class.
-	* @short CSwordKey implementation for Sword's TreeKey
-  * @author The BibleTime team
-  */
+ * @short CSwordKey implementation for Sword's TreeKey
+ * @author The BibleTime team
+ */
 class CSwordTreeKey : public CSwordKey, public sword::TreeKeyIdx  {
 public:
-	CSwordTreeKey( const CSwordTreeKey& k );
+	/** Constructor of this CSwordKey implementation.
+	 * @param k The Sword tree key which belongs to this key
+	 * @param module The module which belongs to this key
+	 */
 	CSwordTreeKey( const sword::TreeKeyIdx *k, CSwordModuleInfo* module );
+	/** Copy constructor.
+	 */
+	CSwordTreeKey( const CSwordTreeKey& k );
+	/** The module which belongs to this key.
+	 * @return The module.
+	 */
 	CSwordModuleInfo* const module( CSwordModuleInfo* const newModule );
+	/** Copy method.
+	* @return A new copy of this object.
+	*/
 	virtual CSwordTreeKey* copy() const;
   /**
   * Returns the current key

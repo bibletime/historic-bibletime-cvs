@@ -19,15 +19,22 @@ class CSwordModuleInfo;
 class CSwordKey {
 
 protected:
+	/** Constructor. May not be called because this class contains pure virtual methods.
+	* @param module The module which belongs to this key, may be NULL
+	*/
 	CSwordKey(CSwordModuleInfo* const module = 0); //protected constructor, because CSwordKey shouldn't be used (it's an abstract base class).
+	/** Copy constructor.
+	*/	
 	CSwordKey(const CSwordKey&); //copy constructor
 
 public:
-
   enum TextRenderType {
     Normal = 0,
     HTMLEscaped
   };
+	/** Destructor.
+	* Public, not protected like the constructor, because CSwordKey pointers may be deleted by all others.
+	*/
 	virtual ~CSwordKey() {};
 	
 	//pure virtual functions
@@ -36,11 +43,13 @@ public:
 	 */
 	virtual const QString key() const = 0;
 	/** Sets the current key. Sets the key using a utf8 enabled QString.
+	 * @param key The key which should be used to set the current one
 	 */
-	virtual void key(const QString&) = 0;
+	virtual void key(const QString& key) = 0;
 	/** Set the key using a utf8-decoded c-string
+	 * @param key The key which should be used to set the current one
 	 */
-	virtual void key(const char*) = 0;
+	virtual void key(const char* key) = 0;
 	/** Clone this object. Clone this current object and return it.
 	 * @return A clone of the current object.
 	 */
@@ -92,6 +101,5 @@ inline CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModu
 	
 	return m_module;
 }
-
 
 #endif

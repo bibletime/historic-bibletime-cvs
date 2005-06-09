@@ -282,5 +282,6 @@ const QString CReferenceManager::parseVerseReference( const QString ref, const Q
 	if (!lang.isEmpty() && lang != newLang) {
 		key.setLocale(newLang.latin1());
   }
+  
 	return key.key();
 }

@@ -129,14 +129,13 @@ public:
   static const CSwordBackend::FilterOptions getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
 
-//   static void setupAccel(const CBTConfig::keys type, KAccel* const accel);
   static void setupAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection);
   static void saveAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection);
 
   static const QString getModuleEncryptionKey( const QString& name );
   static void setModuleEncryptionKey( const QString& name, const QString& key );
 	
-	/** 
+	/** The config object.
 	* @return A config object which is used currently, may be the global config or the session config
 	*/
 	static KConfig* const getConfig();

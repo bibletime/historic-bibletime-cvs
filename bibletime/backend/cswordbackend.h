@@ -61,6 +61,8 @@ public:
 		int lineBreaks;
 		int verseNumbers;
 	};
+	/** The error codes which may be returned by the @ref Load() call.
+	*/
   enum LoadError { // the values exist to cast from the char return of SWMgr::Load
 		NoSwordConfig = -1,
 		NoError = 0,
@@ -72,6 +74,11 @@ public:
 	* filters for the module format.
 	*/
 	CSwordBackend();
+	/**
+	* The constructor of the Sword backend.
+	* @param path The path which is used to load modules
+	* @param augmentHome True if the $HOME/.sword/ modules should be augmented with the other modules
+	*/
 	CSwordBackend( const QString& path, const bool augmentHome = true );
   
 	/**
@@ -115,8 +122,9 @@ public:
   virtual const bool isOptionEnabled( const CSwordModuleInfo::FilterTypes type);
   /**
   * Sets the language for the international booknames of Sword.
+  * @param langName The abbreviation string which should be used for the Sword backend
   */
-  const QString booknameLanguage( const QString& = QString::null );
+  const QString booknameLanguage( const QString& langName = QString::null );
   /**
   * This function searches for a module with the specified description
   * @param description The description of the desired module
@@ -128,52 +136,60 @@ public:
   * @param description The description of the desired module
   * @return pointer to the desired module; null if no module has the specified description
   */
-  /*static*/ const QString findModuleNameByDescription(const QString& description);
+  const QString findModuleNameByDescription(const QString& description);
   /**
   * This function searches for a module with the specified name
-  * @param description The name of the desired module
-  * @return pointer to the desired module; null if no module has the specified name
+  * @param name The name of the desired module
+  * @return Pointer to the desired module; null if no module has the specified name
   */
   CSwordModuleInfo* const findModuleByName(const QString& name);
   /**
   * This function searches for a module with the specified sword module as module() object!
-  * @param pointer to a Sword module
+  * @param swmodule to a Sword module
   * @return pointer to the desired module; null if no module has the specified name
   */
   CSwordModuleInfo* const findSwordModuleByPointer(const sword::SWModule* const swmodule);
+  /**
+  * This function searches for a module which is the same as the passed module.
+  * @param module The module which should be used for searching the new one. May be child of a different backend.
+  * @return Pointer to the desired module; null if no module has the specified name
+  */
   CSwordModuleInfo* const findModuleByPointer(const CSwordModuleInfo* const module);
   /**
-  * @return Our global config object to store the cipher keys etc.
+  * @return Our global config object which contains the configs of all modules merged together.
 	*/
   inline sword::SWConfig* const getConfig() const;
   /**
   * Tries to find the config object for the module. The second paramter will be the found config.
   * @return True if the config was found, false if not. If false is returned the moduleConfig object is in undefined/unknwon state.
 	*/
-  const bool moduleConfig(const QString& module, sword::SWConfig& moduleConfig);
+  const bool moduleConfig(const QString& module, sword::SWConfig& moduleConfig );
+  /**
+  * Returns the text used for the option given as parameter.
+  * @param The paramter enum
+  * @return The name of the option given by the parameter
+  */
+  static const QString optionName( const CSwordModuleInfo::FilterTypes option );
   /**
   * Returns the text used for the option given as parameter.
   */
-  static const QString optionName( const CSwordModuleInfo::FilterTypes option);
-  /**
-  * Returns the text used for the option given as parameter.
-  */
-  static const QString configOptionName( const CSwordModuleInfo::FilterTypes option);
+  static const QString configOptionName( const CSwordModuleInfo::FilterTypes option );
   /**
 	* Returns the translated name of the option given as parameter.
+	* @param The translated option name
 	*/
-  static const QString translatedOptionName(const CSwordModuleInfo::FilterTypes option);
+  static const QString translatedOptionName(const CSwordModuleInfo::FilterTypes option );
   /**
   * Returns the version of the Sword library.
+  * @return The version used by this backend
   */
   inline virtual const sword::SWVersion Version();
   /**
   * Reload all Sword modules.
   */
   void reloadModules();
-
-  /**
-  * Reload all Sword modules.
+  /** Sword prefix list.
+  * @return A list of all known Sword prefix dirs
   */
   const QStringList swordDirList();
 	

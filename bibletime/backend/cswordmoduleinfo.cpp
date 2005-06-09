@@ -359,8 +359,7 @@ Rendering::CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
 	return dynamic_cast<Rendering::CEntryDisplay*>(m_module->Disp());
 }
 
-QString CSwordModuleInfo::aboutText(){
-
+QString CSwordModuleInfo::aboutText() const {
 	QString text;	
 	text += "<font size=\"-1\"><table>";
 	
@@ -406,8 +405,9 @@ QString CSwordModuleInfo::aboutText(){
 	unsigned int opts;
 	for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts){
 		if (has( static_cast<CSwordModuleInfo::FilterTypes>(opts) )){
-  		if (!options.isEmpty())
+  		if (!options.isEmpty()) {
   			options += QString::fromLatin1(", ");
+  		}
   		options += CSwordBackend::translatedOptionName( static_cast<CSwordModuleInfo::FilterTypes>(opts) );
 		}
 	}
@@ -422,7 +422,7 @@ QString CSwordModuleInfo::aboutText(){
     text += QString( "<BR><B>%1</B><BR><BR>" )
               .arg( i18n("Take care, this work contains cult / questionable material!") );
 
-	text += QString( "<b>%1:</b><br> <font size=\"-2\">%2</font>" )
+	text += QString( "<b>%1:</b><br><font size=\"-1\">%2</font>" )
 						.arg( i18n("About") )
 						.arg( config(CSwordModuleInfo::AboutInformation) );
 						
@@ -487,6 +487,6 @@ QString CSwordModuleInfo::aboutText(){
 			.arg( m_module->getConfigEntry("CopyrightContactEmail") );
 
 	text += "</table></font>";
-	
+
   return text;
 }

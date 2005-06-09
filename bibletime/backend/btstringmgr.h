@@ -28,7 +28,8 @@ public:
 	virtual char* upperLatin1(char*);
 
 protected:
-	/** Reimplementation to show unicode support.
+	/** Enable Unicode support.
+	* Reimplementation to show unicode support.
 	*/
 	virtual const bool supportsUnicode() const;
 	

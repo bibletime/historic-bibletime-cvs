@@ -15,7 +15,7 @@
 #include <swkey.h>
 
 /**
-	*	This class is the implementation of CKey used for dictionaries and lexicons.
+	*	This class is the implementation of CSwordKey used for dictionaries and lexicons.
 	*
 	*	CSwordLDKey is the implementation of CKey for Lexicons and dictionaries.
 	* It provides a simple interface to set the current key,
@@ -41,7 +41,6 @@
   *	@author The BibleTime team
   *	@version $Id$
   */
-
 class CSwordLDKey : public CSwordKey, public sword::SWKey {
 public: 
 	/**

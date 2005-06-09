@@ -118,8 +118,15 @@ public:
 	const QString config( const CSwordModuleInfo::ConfigEntry entry );
 	
 	CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
+  /** Copy constructor to copy the passed parameter.
+  * @param m The module to be copied
+  */
 	CSwordModuleInfo( const CSwordModuleInfo& m );	
-  virtual CSwordModuleInfo* clone();	
+  /** Reimplementation to return a valid clone.
+  */
+  virtual CSwordModuleInfo* clone();
+  /** Destructor.
+  */
 	virtual ~CSwordModuleInfo();	
 
   /**
@@ -142,16 +149,17 @@ public:
   /**
  	* This function does return true if the data files of the module are encrypted by the module author
  	* (the on who made the module) no matter if it's locked or not.
- 	*
+ 	* @return True if this module is encryped 	
  	*/
   const bool isEncrypted() /*const*/;
   /**
  	* This function returns true if this module is locked (encrypted + correct cipher key),
  	* otherwise return false.
+ 	* @return True if this module is locked, i.e. encrypted but without a key set
  	*/
   const bool isLocked();
-
-  /**
+  
+  /** The module version.
   * @return true if this module has a version number and false if it doesn't have one.
   */
   inline const bool hasVersion() const;
@@ -187,6 +195,7 @@ public:
   const sword::SWVersion minimumSwordVersion();
   /**
   * Returns the name of the module.
+  * @return The name of this module.
   */
   inline const QString name() const;
   /**
@@ -220,8 +229,10 @@ public:
   * Returns the category of this module. See CSwordModuleInfo::Category for possible values.
   */
   const CSwordModuleInfo::Category category() const;
-	
-	QString aboutText();
+  /**
+  * The about text which belongs to this module.
+  */	
+	QString aboutText() const;
 
 protected:
   friend class CSwordBackend;
