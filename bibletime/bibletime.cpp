@@ -96,31 +96,15 @@ void BibleTime::saveSettings(){
 	CBTConfig::set(CBTConfig::mainSplitterSizes, m_mainSplitter->sizes());
 	CBTConfig::set(CBTConfig::leftPaneSplitterSizes, m_leftPaneSplitter->sizes());
 
- 	if (m_windowManualMode_action->isChecked())	{
-		CBTConfig::set(CBTConfig::autoTileVertical, false);
- 		CBTConfig::set(CBTConfig::autoTileHorizontal, false);
- 		CBTConfig::set(CBTConfig::autoCascade, false);
- 	}
- 	else if (m_windowAutoTileVertical_action->isChecked())	{
-		CBTConfig::set(CBTConfig::autoTileVertical, true);
- 		CBTConfig::set(CBTConfig::autoTileHorizontal, false);
- 		CBTConfig::set(CBTConfig::autoCascade, false);
- 	}
- 	else if (m_windowAutoTileHorizontal_action->isChecked())	{
-		CBTConfig::set(CBTConfig::autoTileVertical, false);
- 		CBTConfig::set(CBTConfig::autoTileHorizontal, true);
- 		CBTConfig::set(CBTConfig::autoCascade, false);
- 	}
- 	else if ( m_windowAutoCascade_action->isChecked() ) {
-		CBTConfig::set(CBTConfig::autoTileVertical, false);
-		CBTConfig::set(CBTConfig::autoTileHorizontal, false);
- 		CBTConfig::set(CBTConfig::autoCascade, true);	
- 	}
- 	else { //shouldn't happen, just to be safe
-		CBTConfig::set(CBTConfig::autoTileVertical, false);
-		CBTConfig::set(CBTConfig::autoTileHorizontal, false);
- 		CBTConfig::set(CBTConfig::autoCascade, false);	
- 	}
+  // set the default to false
+/*	CBTConfig::set(CBTConfig::autoTileVertical, false);
+	CBTConfig::set(CBTConfig::autoTileHorizontal, false);
+	CBTConfig::set(CBTConfig::autoCascade, false);
+*/
+	CBTConfig::set(CBTConfig::autoTileVertical, m_windowAutoTileVertical_action->isChecked());
+	CBTConfig::set(CBTConfig::autoTileHorizontal, m_windowAutoTileHorizontal_action->isChecked());
+	CBTConfig::set(CBTConfig::autoCascade, m_windowAutoCascade_action->isChecked());
+ 	
 
 	if (CProfile* p = m_profileMgr.startupProfile()) {
 		saveProfile(p);

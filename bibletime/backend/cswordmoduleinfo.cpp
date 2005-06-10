@@ -92,11 +92,12 @@ const bool CSwordModuleInfo::isLocked() {
 }
 
 /** This functions returns true if this module is encrypted (locked or unlocked). */
-const bool CSwordModuleInfo::isEncrypted()/* const*/ {
+const bool CSwordModuleInfo::isEncrypted() const {
 	/**
 	* If we have the CipherKey entry the module
 	* is encrypted but not necessarily locked
 	*/
+	
 	//This code is still right, though we do no longer write to the module config files any more
 	sword::ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
 	sword::ConfigEntMap::iterator it = config.find("CipherKey");
@@ -181,7 +182,7 @@ const sword::SWVersion CSwordModuleInfo::minimumSwordVersion(){
 	return sword::SWVersion( config(CSwordModuleInfo::MinimumSwordVersion).latin1() );
 }
 
-const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entry) {
+const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entry) const {
 	switch (entry) {
 		case AboutInformation:
 		{
@@ -273,7 +274,7 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 }
 
 /** Returns true if the module supports the feature given as parameter. */
-const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
+const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ) const {
 	switch (feature) {
 		case StrongsNumbers:
 			return m_module->getConfig().has("Feature", "StrongsNumber");
@@ -289,7 +290,7 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 	return false;
 }
 
-const bool CSwordModuleInfo::has( const CSwordModuleInfo::FilterTypes option ){
+const bool CSwordModuleInfo::has( const CSwordModuleInfo::FilterTypes option ) const {
 	//BAD workaround to see if the filter is GBF, OSIS or ThML!	
   const QString name = backend()->configOptionName(option);
  	if (m_module->getConfig().has("GlobalOptionFilter", QString("OSIS").append(name).latin1()))

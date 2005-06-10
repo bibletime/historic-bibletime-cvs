@@ -265,7 +265,7 @@ bool CSwordSetupModuleListView::showTooltip(QListViewItem* i, const QPoint&, int
 	return (checkItem && (checkItem->type() == QCheckListItem::CheckBox));
 }
 
-QString CSwordSetupModuleListView::tooltip(QListViewItem* i, int column) const {
+QString CSwordSetupModuleListView::tooltip(QListViewItem* i, int /*column*/) const {
 	QString ret;	
 	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>( i );
 	

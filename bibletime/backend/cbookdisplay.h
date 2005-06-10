@@ -28,6 +28,8 @@ class CTextRendering::KeyTree;
 */
 class CBookDisplay : public CEntryDisplay  {
 public: // Public methods
+  virtual ~CBookDisplay() {};
+  
   /**
   * Returns the rendered text using the modules in the list and using the key parameter.
   * The displayoptions and filter options are used, too.

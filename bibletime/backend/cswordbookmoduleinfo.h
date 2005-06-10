@@ -18,7 +18,7 @@ public:
 	* @param module The module which belongs to this object
 	* @param backend The parent backend for this book module.
 	*/	
-	CSwordBookModuleInfo( sword::SWModule* module, CSwordBackend* backend const = CPointers::backend() );
+	CSwordBookModuleInfo( sword::SWModule* module, CSwordBackend* const backend = CPointers::backend() );
 	/** Copy constructor.
 	* Copy constructor to copy the passed parameter.
 	* @param module The module which should be copied.

@@ -115,7 +115,7 @@ public:
 	/**
 	* Returns the config entry which is pecified by the parameter.
 	*/
-	const QString config( const CSwordModuleInfo::ConfigEntry entry );
+	const QString config( const CSwordModuleInfo::ConfigEntry entry ) const;
 	
 	CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
   /** Copy constructor to copy the passed parameter.
@@ -151,7 +151,7 @@ public:
  	* (the on who made the module) no matter if it's locked or not.
  	* @return True if this module is encryped 	
  	*/
-  const bool isEncrypted() /*const*/;
+  const bool isEncrypted() const;
   /**
  	* This function returns true if this module is locked (encrypted + correct cipher key),
  	* otherwise return false.
@@ -203,8 +203,8 @@ public:
   * not present in the data files.
   */
   virtual const bool snap() { return false; };
-  const bool has( const CSwordModuleInfo::Feature );
-	const bool has( const CSwordModuleInfo::FilterTypes  );
+  const bool has( const CSwordModuleInfo::Feature ) const;
+	const bool has( const CSwordModuleInfo::FilterTypes  ) const;
   /**
   * Returns the text direction of the module's text.,
   */
@@ -220,11 +220,11 @@ public:
   /**
   * Returns the language of the module.
   */
-  inline const CLanguageMgr::Language* const language();
+  inline const CLanguageMgr::Language* const language() const;
   /**
   * Returns true if this module may be written by the write display windows.
   */
-  inline virtual const bool isWritable();
+  inline virtual const bool isWritable() const;
   /**
   * Returns the category of this module. See CSwordModuleInfo::Category for possible values.
   */
@@ -233,15 +233,17 @@ public:
   * The about text which belongs to this module.
   */	
 	QString aboutText() const;
-
-protected:
-  friend class CSwordBackend;
-	friend class CInfoDisplay;
   /**
   * Returns true if this module is Unicode encoded. False if the charset is iso8859-1.
 	* Protected because it should not be used outside of the CSword*ModuleInfo classes.
   */
-  inline const bool isUnicode();
+  inline const bool isUnicode() const {
+		return m_dataCache.isUnicode;
+	}
+
+protected:
+  friend class CSwordBackend;
+	friend class CInfoDisplay;
 
   virtual inline CSwordBackend* backend() const {
     return m_backend;
@@ -258,7 +260,6 @@ private:
 	mutable struct DataCache {
 		DataCache() {
 			language = 0;
-// 			isUnicode = false;
 		}
 		
 		QString name;
@@ -293,17 +294,15 @@ inline const QString CSwordModuleInfo::name() const {
 }
 
 /** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
-inline const bool CSwordModuleInfo::isUnicode(){
-	return m_dataCache.isUnicode;
-}
+// inline const bool CSwordModuleInfo::isUnicode() const {
 
 /** Returns true if this module may be written by the write display windows. */
-inline const bool CSwordModuleInfo::isWritable() {
+inline const bool CSwordModuleInfo::isWritable() const {
   return false;
 }
 
 /** Returns the language of the module. */
-inline const CLanguageMgr::Language* const CSwordModuleInfo::language() {
+inline const CLanguageMgr::Language* const CSwordModuleInfo::language() const {
 	if (!m_dataCache.language) {
 	  if (module()) {
 			if (category() == Glossary) {

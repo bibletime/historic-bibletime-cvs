@@ -24,7 +24,7 @@ public:
   /**
   * Returns true if this module may be written by the write display windows.
   */
-  virtual const bool isWritable();
+  virtual const bool isWritable() const;
 };
 
 inline const CSwordModuleInfo::ModuleType CSwordCommentaryModuleInfo::type() const{
