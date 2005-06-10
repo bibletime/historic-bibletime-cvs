@@ -1,3 +1,7 @@
+2005-06-10 Joachim Ansorg <jansorg@bibletime.info>
+  * API doc updates
+  * Fixed code to compile with GCC 3.3.6, 3.4.4 and 4.0
+
 2005-06-06 Joachim Ansorg <jansorg@bibletime.info>
   * Added the missing "Delete session" menu item
   * The sessions items are now disabled if no sub-menu items are present
