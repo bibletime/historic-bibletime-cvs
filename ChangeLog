@@ -1,3 +1,8 @@
+2005-06-xx Joachim Ansorg <jansorg@bibletime.info>
+	* BibleTime 1.5rc2
+  * Message freeze
+  * 
+
 2005-06-10 Joachim Ansorg <jansorg@bibletime.info>
   * API doc updates
   * Fixed code to compile with GCC 3.3.6, 3.4.4 and 4.0

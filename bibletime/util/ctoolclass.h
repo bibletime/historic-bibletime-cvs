@@ -23,7 +23,6 @@ class QLabel;
  * @author Joachim Ansorg <info@bibletime.info>
  */
 class CToolClass {
-
 public:
  /**
   * @return The path of the HTML file "filename". This function searches only in $KDEDIR.
@@ -62,7 +61,10 @@ public:
   * Returns true if the character at position "pos" of text is inside an HTML tag. Returns false if it's not inside an HTML tag.
   */
   static bool inHTMLTag(int pos, QString & text);
-
+	/** Return the module's tooltip text
+	* @param module The module required for the toolip
+	* @return The tooltip text for the passed module
+	*/
 	static QString moduleToolTip(CSwordModuleInfo* module);
 };
 

@@ -23,28 +23,59 @@ class CPointers {
 protected:
 	friend class BibleTime; //BibleTime may initialize this object
  	friend class BibleTimeApp; //BibleTimeApp may initialize this object	
-	friend int main(int argc, char* argv[]);
-	
-	static void setBackend(CSwordBackend* const);
-	static void setPrinter(CPrinter* const);
-	static void setInfoDisplay(CInfoDisplay* const);
-	
+	friend int main(int argc, char* argv[]); //main may set the printer
+
+	/** Set the backend.
+	* @param backend Pointer to the new application-wide Sword backend
+	*/
+	static void setBackend(CSwordBackend* const backend);
+	/** Set the printer instance.
+	* @param printer Pointer to the ne CPrinter instance.
+	*/
+	static void setPrinter(CPrinter* const printer);
+	/** Set the info display.
+	* @param iDisplay The pointer to the new info display.
+	*/
+	static void setInfoDisplay(CInfoDisplay* const iDisplay);
+
+	/** Delete the backend. Should be called by BibleTimeApp,
+	* because the backend should be deleted as late as possible.
+	*/
 	static void deleteBackend();
+	/** Delete the printer. Should be called by BibleTimeApp,
+	* because the printer should be deleted as late as possible.
+	*/
 	static void deletePrinter();
+	/** Delete the language manager. Should be called by BibleTimeApp,
+	* because the language manager should be deleted as late as possible.
+	*/
 	static void deleteLanguageMgr();
+	/** Delete the display template manager. Should be called by BibleTimeApp,
+	* because the template manager should be deleted as late as possible.
+	*/
 	static void deleteDisplayTemplateMgr();
 
 public: // Public methods
   /**
   * Returns a pointer to the printer object.
+  * @return The printer oobject.
   */
   inline static CPrinter* const printer();
-  /**
-  * Returns a pointer to the backend ...
+  /** Returns a pointer to the backend
+  * @return The backend pointer.
   */
   inline static CSwordBackend* const backend();
+  /** Returns a pointer to the language manager
+  * @return The language manager
+  */
   inline static CLanguageMgr* const languageMgr();
+  /** Returns a pointer to the info display.
+  * @return The backend pointer.
+  */
 	inline static CInfoDisplay* const infoDisplay();  
+  /** Returns a pointer to the application's display template manager
+  * @return The backend pointer.
+  */
 	static CDisplayTemplateMgr* const displayTemplateManager();
 
 	struct PointerCache {
@@ -55,7 +86,7 @@ public: // Public methods
 			infoDisplay = 0;
 			displayTemplateMgr = 0;
 		};
-		
+
 		CSwordBackend* backend;
 		CPrinter*      printer;
 		CLanguageMgr*  langMgr;

@@ -14,14 +14,19 @@ using namespace Printing;
 CPointers::PointerCache m_pointerCache;
 
 void CPointers::setPrinter(CPrinter* const printer) {
+	Q_ASSERT( m_pointerCache.printer == 0);
+	CPointers::deletePrinter();
 	m_pointerCache.printer = printer;
 }
 
 void CPointers::setBackend(CSwordBackend* const backend) {
+	Q_ASSERT( m_pointerCache.backend == 0);
+	CPointers::deleteBackend();
 	m_pointerCache.backend = backend;
 }
 
 void CPointers::setInfoDisplay(CInfoDisplay* const infoDisplay) {
+	Q_ASSERT( m_pointerCache.infoDisplay == 0);
 	m_pointerCache.infoDisplay = infoDisplay;
 }
 
@@ -47,7 +52,7 @@ void CPointers::deleteDisplayTemplateMgr() {
 
 /** Returns a pointer to the printer object. */
 CDisplayTemplateMgr* const CPointers::displayTemplateManager() {
-  	if (!m_pointerCache.displayTemplateMgr) {
+  if (!m_pointerCache.displayTemplateMgr) {
   		m_pointerCache.displayTemplateMgr = new CDisplayTemplateMgr();
 	}
 	
