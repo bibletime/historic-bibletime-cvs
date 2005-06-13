@@ -147,7 +147,7 @@
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_cascade.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Window</guimenu> <guimenuitem>Cascade</guimenuitem></menuchoice></term>
-			<listitem><para><action>Cascades all open display windows</action>.</para></listitem> 
+			<listitem><para><action>Cascades all open read windows</action>.</para></listitem> 
 		</varlistentry>
 
 		<varlistentry id="hdbk-reference-menus-window-tile">
@@ -156,7 +156,7 @@
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_tile.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Window</guimenu> <guimenuitem>Tile</guimenuitem></menuchoice></term>
-			<listitem><para><action>Tiles all open display windows</action>.</para></listitem> 
+			<listitem><para><action>Tiles all open read windows</action>.</para></listitem> 
 		</varlistentry>
 
 		<varlistentry id="hdbk-reference-menus-window-autocascade">
@@ -165,8 +165,8 @@
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_cascade_auto.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Window</guimenu> <guimenuitem>Auto cascade</guimenuitem></menuchoice></term>
-			<listitem><para><action>Automatically cascades all open display windows</action>.
-			If you enable this setting, &bibletime; will automatically cascade all display windows that you open.</para></listitem> 
+			<listitem><para><action>Automatically cascades all open read windows</action>.
+			If you enable this setting, &bibletime; will automatically cascade all read windows that you open.</para></listitem> 
 		</varlistentry>
 
 		<varlistentry id="hdbk-reference-menus-window-autotile">
@@ -175,8 +175,8 @@
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_tile_auto.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Window</guimenu> <guimenuitem>Auto tile</guimenuitem></menuchoice></term>
-			<listitem><para><action>Automatically tiles all open display windows</action>.
-			If you enable this setting, &bibletime; will automatically tile all display windows that you open.</para></listitem> 
+			<listitem><para><action>Automatically tiles all open read windows</action>.
+			If you enable this setting, &bibletime; will automatically tile all read windows that you open.</para></listitem> 
 		</varlistentry>
 
 		<varlistentry id="hdbk-reference-menus-window-closeall">
@@ -185,7 +185,7 @@
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_fileclose.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Window</guimenu> <guimenuitem>Close all</guimenuitem></menuchoice></term>
-			<listitem><para><action>Closes all open display windows</action>.</para></listitem> 
+			<listitem><para><action>Closes all open read windows</action>.</para></listitem> 
 		</varlistentry>
 	
 		</variablelist>
@@ -377,10 +377,7 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;<keycap>B</keycap> </keycombo></entry>
-  <entry>Moves a bible or commentary display window to the next book.
-	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
-	for detailed instructions.
-	</entry>
+  <entry>Moves a bible or commentary read window to the next book.</entry>
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;<keycap>C</keycap> </keycombo></entry>
@@ -402,10 +399,7 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;<keycap>H</keycap> </keycombo></entry>
-  <entry>Moves a bible or commentary display window to the next chapter.
-	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
-	for detailed instructions.
-	</entry>
+  <entry>Moves a bible or commentary read window to the next chapter.</entry>
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;<keycap>T</keycap> </keycombo></entry>
@@ -416,17 +410,11 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;<keycap>V</keycap> </keycombo></entry>
-  <entry>Moves a display window to the next verse or entry.
-	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
-	for detailed instructions.
-	</entry>
+  <entry>Moves a read window to the next verse or entry.</entry>
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;&Shift;<keycap>B</keycap> </keycombo></entry>
-  <entry>Moves a bible or commentary display window to the previous book.
-	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
-	for detailed instructions.
-	</entry>
+  <entry>Moves a bible or commentary read window to the previous book.</entry>
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;&Shift;<keycap>F</keycap> </keycombo></entry>
@@ -437,17 +425,11 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;&Shift;<keycap>H</keycap> </keycombo></entry>
-  <entry>Moves a bible or commentary display window to the previous chapter.
-	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
-	for detailed instructions.
-	</entry>
+  <entry>Moves a bible or commentary read window to the previous chapter.</entry>
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;&Shift;<keycap>V</keycap> </keycombo></entry>
-  <entry>Moves a display window to the previous verse or entry.
-	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
-	for detailed instructions.
-	</entry>
+  <entry>Moves a read window to the previous verse or entry.</entry>
 </row>
 
 </tbody>

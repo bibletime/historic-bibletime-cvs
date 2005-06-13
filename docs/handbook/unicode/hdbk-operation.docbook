@@ -1,4 +1,4 @@
-<chapter id="hdbk-op"><title>Program Operation</title>
+<chapter id="hdbk-op"><title>Program operation</title>
 
 <sect1 id="hdbk-op-overview">
 <title>Program overview</title>
@@ -71,130 +71,67 @@ functions to drag verse references from read windows or search results to the bo
 <para>This little window in the lower left corner of the &bibletime; window is purely passive. Whenever you mouse cursor is located over some text with additional information (e.g., Strong`s numbers), then this additional information will be displayed in the Mag, and not in the text itself. Just try it out.</para>
 </sect2>
 
-<!-- TODO: finish from here -->
 
 <sect2 id="hdbk-op-parts-desk">
 <title>The Desk</title>
 <para>
-This is where the opened documents are displayed.
-Documents are displayed in "Display Windows", that are specific to the four types of
-documents. Crosswire Bible Society may release other document types for sword in the
-future. When they are released, &bibletime; will support them as well. </para>
+The Desk is where the real work with &bibletime; takes place. Here you can open works from the Bookshelf, read them, <link linkend="hdbk-op-search">search</link> in them, and even save your annotations in the personal commentary module.</para>
 
-<sect3 id="hdbk-op-parts-displaywin-modules">
-<title>Controlling Open Documents</title> <para>
-Document Windows can be controlled and manipulated with normal &kde; window/title bar functions.
-In addition to this, you can tile and cascade open Document Windows. Use the appropriate tool
-bar buttons, or menu functions under <guimenu>&quot;Window&quot;</guimenu> in the main menubar. Document
-Windows can be set to automatically cascade or tile also. </para>
-</sect3>
-
-<sect3 id="hdbk-op-parts-displaywin-navigation">
-<title>Navigating in Open Documents</title> <para>
-Navigation within a document is accomplished with the Document Key
-Control Menu, and the scroll bar.
-</para>
-<tip><para>To move to a specific location use the Document Key Control.</para></tip>
-<tip><para>To move within a section of a document use the scroll bar.</para></tip>
-<tip><para>For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
-<tip><para>For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
-<tip><para>For lexicons the index key is <emphasis>Keyword</emphasis></para></tip>
-<tip><para>Drag &amp; Drop Works Here; if you drag a verse from one open document or a bookmark and drop
-it on another the second document will jump from it's current location to the location
-of the verse or bookmark dragged.</para></tip>
-</sect3>
-
-<sect3 id="hdbk-op-parts-displaywin-commentary">
-<title>Editing your own commentary</title> 
-<para>If the personal commentary is opened with a <mousebutton>left</mousebutton> mouse button it opens
-in read only mode.  If you wish to make entries to the personal commentary, 
-<mousebutton>right</mousebutton> mouse button on the <menuchoice>personal
-commentary</menuchoice> brings up the choice of the <guimenuitem>plane
-text or the HTML editors</guimenuitem>.</para>
-<tip><para>If the editor does not save an entry, please check that you
-have permission to write to the personal commentary.</para></tip>
-<para>The pencil icon is shown for the commentary editor</para>.
-<inlinemediaobject>
-<imageobject>
-<imagedata fileref="i_pencil.png"/>
-</imageobject>
-<textobject>
-<phrase>Enter your notes</phrase>
-</textobject>
-</inlinemediaobject>
-<para>The personal commentary editors are provided with a search key and save button.
-The HTML editor is also provided with the basic functions font name, size, color, 
-italicize, underline and some paragraph formating possibilities.  As with all good
-modern editors What You See Is What You Get.
-</para>
+<sect3 id="hdbk-op-parts-desk-read">
+<title>Reading works</title> 
 <para>
-To delete notes for a selected verse, click the
-<guibutton>delete verse button</guibutton>
-<inlinemediaobject>
-<imageobject>
-<imagedata fileref="i_delete.png"/>
-</imageobject>
-<textobject>
-<phrase>Delete Verse Symbol</phrase>
-</textobject>
-</inlinemediaobject>.
-</para>
-<!-- This is a feature not yet finished.
-You can also set the endpoint of your notes, if for example you want
-to use the same notes to comment on a range of verses. Click the "Edit" button
-again to return to normal commentary browsing mode.
--->
+As we have <link linkend="hdbk-op-parts-bookshelf-open">already seen</link>, you can open works for reading simply by clicking on their symbol in the Bookshelf. A read window will open in the Desk`s area. Every read window has a toolbar. There you can find facilities to navigate in the work that this read window is connected to, as well as history buttons like the ones that you know from your browser.</para>
+</sect3>
 
-<tip><para>The personal commentary is a sword module.  If you do not find it in the
-main index, get it from  the <ulink url="http://www.crosswire.org">
-Crosswire Bible Society</ulink>.</para></tip>
-<tip><para>If you can not write to the personal commentary your permissions for the
-personal commentary module are wrong.  Reset the permissions to allow your user
-to write to it.</para></tip>
-<tip><para>Drag &amp; Drop Works Here, just like other
-commentaries and Bible texts.</para></tip>
+<sect3 id="hdbk-op-parts-desk-placement">
+<title>Read window placement</title> 
+<para>
+Of course, you open multiple works at the same time. There are several possibilities for arranging the read windows on the desk. Please have a look at the entry <guimenu>Window</guimenu> in the main menu. There you can see that you can either control the placement of the read windows completely yourself, or have &bibletime; handle the placement automatically. To achieve this, you have to select one of the automatic placement modes available at <menuchoice><guimenu>Window</guimenu><guimenuitem>Arrangement mode</guimenuitem></menuchoice>. Just try it out, it`s simple and works.
+</para>
+</sect3>
+
+<sect3 id="hdbk-op-parts-desk-write">
+<title>Editing your own commentary</title> 
+<para>
+To be able to store your own comments about parts of the Bible, you have to work with a certain work from the library of the <ulink url="http://www.crosswire.org">Crosswire Bible Society</ulink>. This work is called "Personal commentary".</para>
+<para>
+If you open the personal commentary by clicking on its symbol in the Bookshelf with a <mousebutton>left</mousebutton> mouse button, it opens
+in read mode. You will not be able to edit it in this mode. Should you wish 
+write comments into the personal commentary, you have to open it with the
+<mousebutton>right</mousebutton> mouse button and then select 
+<guimenu>Edit this module</guimenu> and then either
+<guimenuitem>Plain text</guimenuitem>(source code editor) or <guimenuitem>HTML
+</guimenuitem>(basic gui wysiwyg editor).</para>
+
+<tip><para>If <menuchoice><guimenu>Edit this module</guimenu></menuchoice>
+is deactivated, please check if you have write permission for the files of 
+the personal commentary.</para></tip>
+
+<tip><para>Drag&amp;drop works here. Drop a verse reference and the text
+of the verse will be inserted.</para></tip>
 </sect3>
 
 </sect2>
+
 </sect1>
 
 <sect1 id="hdbk-op-search">
-<title>Searching in Documents</title>
-<para>Portions of the instructions for the use of GCC Regular Expression in
-Searching Documents is taken from the help files for the
-<trademark class="registered">Microsoft Windows</trademark> version of &sword;.</para>
 
-<sect2 id="hdbk-op-parts-search-functions">
-<title>Accessing search functions</title>
+
+<title>Searching in works</title>
+
+<sect2 id="hdbk-op-search-access">
+<title>Accessing the search dialog</title>
 <para>
-You can search in a document by clicking with the <mousebutton>right</mousebutton> mouse button on the document name in the <guimenu>Main
-Index</guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>.
-By holding shift- or ctrl- and clicking on other module names you can select more than one.
-Then follow the same procedure to open the search dialog.  You will be searching
-in all of these Documents. </para>
+You can search in a work by clicking with the <mousebutton>right</mousebutton> mouse button 
+it symbol in the <guimenu>Bookshelf</guimenu> and selecting <guimenuitem>Search in work(s)</guimenuitem>. By holding &Shift; or &Ctrl; and clicking on other module names you can select more than one. Then follow the same procedure to open the search dialog.  You will be searching
+in all of these works at the same time.</para>
+<para>You can also access the search dialog by clicking on <menuchoice><guimenu>Search</guimenu></menuchoice> from the main menu, and selecting the 
+appropriate entry.</para>
 </sect2>
 
-
-
-<sect2 id="hdbk-op-parts-search-dialog">
-<title>Using the Search Dialog</title>
-<para>&bibletime; provides a well developed search facility based on
-<application>GCC Regular Expression</application>.  It allows you
-to create almost <link linkend="hdbk-op-search-dialog-text-regexp">any
-type of search you can imagine.</link></para>
-<para>To access the search feature, click with the <mousebutton>right</mousebutton> mouse button in the Main Index now in 
-the drop down select the magnifying glass.  You can also
-customize &bibletime; to put the search icon 
-<inlinemediaobject>
-<imageobject>
-<imagedata fileref="i_find.png" format="PNG"/>
-</imageobject>
-</inlinemediaobject>
-in the toolbar if you would prefer.</para>
-
-
-<sect3 id="hdbk-op-parts-search-options">
-<title>The Options Tab - Setting up your search.</title>
+<sect2 id="hdbk-op-search-config">
+<title>Search configuration</title>
 <para>Use the options tab to set up your search.</para>
 <screenshot>
 <screeninfo>Search Text Dialog Options Tab</screeninfo>
@@ -204,203 +141,121 @@ in the toolbar if you would prefer.</para>
 </imageobject>
 </mediaobject>
 </screenshot>
-</sect3>
 
-
-<sect3 id="hdbk-op-parts-search-choose-modules">
-<title>Using the Choose Modules Button</title>
-<para>At the top of the options tab you will find <guibutton>Choose Modules</guibutton> , with the already
-selected modules directly below.  If you would like to search additional modules, click on
-<guibutton>Choose Modules</guibutton> and you will be offered a menu of all of the modules that can be searched.
-Select modules with a click in the checkbox, then click the <guibutton>Use Selected Modules</guibutton> button.
+<sect3 id="hdbk-op-search-config-modules">
+<title>Selecting works</title>
+<para>At the top of the options tab you will find <guibutton>Choose works</guibutton>. If you would like to search in multiple works, click on this button and you will be offered a menu where you can select the works you want to search in.
 </para>
-
-<screenshot>
-<screeninfo>Choose Modules Dialog Box</screeninfo>
-<mediaobject>
-<imageobject>
-<imagedata fileref="ss_searchmods.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</screenshot>
 </sect3>
 
-<sect3 id="hdbk-op-parts-search-properties">
-<title>Searched Text - what you want to find.</title>
+<sect3 id="hdbk-op-search-config-properties">
+<title>Search text</title>
 
-<para>The text box labled Searched Text is where the phrase to be used
-as the search key is entered.  This phrase may be one or more words, or partial words,
-(separate words, or partials, with a space), a phrase, or pattern 
-<link linkend="hdbk-op-search-dialog-text-regexp">(Regular
-Expression).</link>
-
-You can use the radio buttons select to perform the search using
-the search key in multiple word, exact search, or regular expression mode.
-A check box is provided to turn case sensitive search on or off.
-</para>
-
-<tip><para>Drag &amp; Drop Works Here, you can drop verses and bookmarks into the
-text box.  You can also copy and paste text into the text box.</para></tip>
+<para>The text box labled <guimenuitem>Search text</guimenuitem> is where you can specify what you want to look for. This phrase may be one or more words, or partial words,
+(separate words, or partials, with a space), a phrase, or a  
+<link linkend="hdbk-reference-regexp">regular expression</link>.</para>
 </sect3>
 
-<para>Click on the Case Sensitive check
-box to toggle case sensitivity on or off. If the box is marked a
-search will only find verse in which the found text also matches
-the case of the text in the input field. If the box is unmarked
-the search will match if the texts match but are different in
-case. To locate &quot;LORD&quot; but not &quot;Lord&quot; or
-&quot;lord&quot; mark the check box. To let &quot;LORD&quot; and
-&quot;Lord&quot; match &quot;lord&quot; leave the check box
-unmarked.</para>
+<sect3 id="hdbk-op-search-config-type">
+<title>Search type</title>
 
-<para>If Multiple Words (AND) radio button is marked the search 
-will locate all lines (or verses) that have all the words, listed in the
-Input Field. The position and order of the words, in the line is 
-not a factor. If all the words, are in a line, in any order, even 
-separated by other words, the line will be included in the list of 
-found lines. A search for &quot;prove cause&quot; will find Gen. 
+<variablelist>
+<varlistentry>
+<term><guimenuitem>Multiple words (AND)</guimenuitem></term>
+<listitem>
+<para>If <guimenuitem>Multiple words (AND)</guimenuitem> is marked, the search 
+will locate all lines (or verses) that have all the words. 
+The position and order of the words does not matter. 
+A search for &quot;prove cause&quot; will find Gen. 
 21:25, &quot;And Abraham re<emphasis>prove</emphasis>d Abimelech be
 <emphasis>cause</emphasis> of a well of water...&quot; This is 
 because a word that is part of another word is considered found if 
 a word containing it is found.</para>
+</listitem>
+</varlistentry>
 
-<para>If Multiple Words (OR) radio button is marked the search will locate
-all lines (or verses) that have any of the words, listed in the Input 
-Field.  A search for &quot;cause&quot; will find Genesis 21:11,
+<varlistentry>
+<term><guimenuitem>Multiple words (OR)</guimenuitem></term>
+<listitem>
+<para>If <guimenuitem>Multiple words (OR)</guimenuitem> is marked, the search will locate
+all lines (or verses) that have any of the words.  
+A search for &quot;prove cause&quot; will find Genesis 21:11,
 &quot;And the thing was very grievous in Abraham's sight be<emphasis>cause
 </emphasis> of his son.&quot;</para>
+</listitem>
+</varlistentry>
 
-<para>If the Exact radio button is marked the
-search will locate all lines (or verses) that contain what was entered in the
-input field, exactly as entered, including any spaces. The phrase found does not
-have to start or end at a word boundary. A search for &quot;now how
+<varlistentry>
+<term><guimenuitem>Exact</guimenuitem></term>
+<listitem>
+<para>If <guimenuitem>Exact</guimenuitem> is marked, the
+search will locate all lines (or verses) that contain the very phrase that 
+was entered in the input field, including any spaces. A search for &quot;now how
 thou ought&quot; will find 1 Timothy 3:1, &quot;...that thou
-mayest k<emphasis>now how thou ought</emphasis>est
-to behave...&quot; </para>
+mayest k<emphasis>now how thou ought</emphasis>est to behave...&quot; </para>
+</listitem>
+</varlistentry>
 
-<sect3 id="hd-op-parts-search-scope">
+<varlistentry>
+<term><guimenuitem>Regular expression</guimenuitem></term>
+<listitem>
+<para>If <guimenuitem>Regular expression</guimenuitem> is marked, the search phrase will be treated
+as a GCC regular epression. This allows you to create very advanced searches.
+Please refer to <link linkend="hdbk-reference-regexp">this section</link> for
+detailed instructions how to use this correctly and effectively.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect3>
+
+<sect3 id="hdbk-op-search-config-options">
+<title>Search options</title>
+
+<para>Use the <guimenuitem>Case sensitive</guimenuitem>
+box to switch case sensite searching on or off.</para>
+
+<para>With the <guimenu>Text type</guimenu> selector you can narrow
+your search according to the kind of text you want to search in. Thus you
+can limit your search to include only headings, footnotes, Strong`s numbers or 
+morphological codes. Of course, this will only function if the work you want to search in
+has these features. You can test this with the KJV, a richly marked up English Bible.</para>
+
+<tip>A neat side-effect of this feature is that it enables you to search for all places 
+where a certain word in the greek or hebrew text occurs, and study the usage of that word.
+E.g., if you want to look for all
+occurrences of the word "oikos" (house) in the New Testament, first locate
+a verse where the word "oikos" is found (search for "house" in the New Testament). 
+Find out the Strong`s number of "oikos", which in this case
+is "G3624". Then you can limit your search to Strong`s numbers, and search for "G3624". You
+will find all verses where this word is found in the original greek text.</tip>
+
+</sect3>
+
+<sect3 id="hd-op-search-config-scope">
 <title>Using Search Scopes</title>
-<para>Define the Scope of your search by clicking on the <guibutton>Choose Scope</guibutton>
-button.  You will be presented a list of predefined scopes.</para>
+<para>You can narrow the scope of your search to certain parts of the Bible by selecting one of the predefined scopes from the list in <guimenu>Search scope</guimenu>. Most of these should be obvious. The scope <guimenuitem>Last search result</guimenuitem> will limit the search to the verses found in the previous search.</para>
 
-<itemizedlist>
-<listitem><para><guibutton>No Scope</guibutton> this turns off the search
-scope tab.  The entire document is searched.</para></listitem>
-<listitem><para><guibutton>Last Result</guibutton> The new search will only
-search within the verses found in the previous search.</para></listitem>
-<listitem><para><guibutton>Gospels</guibutton> The new search will be
-performed within the range Matthew 1:1 - John 21:25</para></listitem>
-<listitem><para><guibutton>History</guibutton> The new search will be
-performed within the range Joshua 1:1 - Esther 10:3;</para></listitem>
-</itemizedlist>
-
-<para>If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible module is
-done for the name, Jesus, 939 matches will result. Then if
-<guibutton>Last Result</guibutton> is checked and another search is done for the
-title, Christ, 257 matches from the first 939 matches will
-remain. Then if <guibutton>Last Result</guibutton> remains checked and another
-search is done for the title, Lord, 106 matches from the 257 will
-remain. All the remaining 106 matches will have the name, Jesus,
-and both the titles, Christ and Lord.</para>
-
-<para>Setup Custom Ranges - You can enter upper and lower boundaries
-for the search by clicking on the <guibutton>Setup Custom Ranges</guibutton> button.</para>
-
-<mediaobject>
-<imageobject>
-<imagedata fileref="ss_searchrange.png" format="PNG"/>
-</imageobject>
-<textobject>
-<phrase>Change Range Entry Box</phrase>
-</textobject>
-</mediaobject>
-
-<para>The predefined ranges show examples of the required syntax.</para>
-<para>
-Click on the <guibutton>Add New Range</guibutton> enter the name for your range in the Name text entry box,
-and enter the range in the text entry box labled Edit the search range.  Your range is now added to
-the list of custom ranges.  If you are satisfied you can return to the Search Options tab by clicking on
-<guibutton>OK</guibutton>.
-</para>
-
-<para>A number of custom ranges have been provided.</para>
-
-<para>The scope of a search can be set to the <emphasis>Entire
-Module</emphasis> or the <emphasis>Current Results.</emphasis> If
-Entire Module is checked and a search of the KJV Bible module is
-done for the name, Jesus, 939 matches will result. Then if
-Current Results is checked and another search is done for the
-title, Christ, 257 matches from the first 939 matches will
-remain. Then if Current Results remains checked and another
-search is done for the title, Lord, 106 matches from the 257 will
-remain. All the remaining 106 matches will have the name, Jesus,
-and both the titles, Christ and Lord.</para>
-
-<!-- NOT YET WORKING in 1.3, but a good idea
-<tip><para>Drag &amp; Drop Works Here; you can drop
-verse numbers, and bookmarks into the custom range entry field.
-You can also paste text into the entry field.</para></tip>
--->
-
-<screenshot>
-<screeninfo>Search TextCustom Range Dialog Box</screeninfo>
-<mediaobject>
-<imageobject>
-<imagedata fileref="ss_searchrange.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</screenshot>
+<para>You can also define your own search ranges by clicking the <guibutton>Setup ranges</guibutton> button.</para>
 </sect3>
+</sect2>
 
-<para>Click on the <guibutton>Search Button</guibutton> to start
-the search.</para>
-<screenshot>
-<screeninfo>Search Text Dialog Box</screeninfo>
-<mediaobject>
-<imageobject>
-<imagedata fileref="ss_searchtext.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</screenshot>
-
-<sect3 id="hdbk-op-parts-search-results">
-<title>The Search Results Tab</title>
-<para>Under the search results tab you will find the all of your search hits.</para>
-
+<sect2 id="hdbk-op-search-results">
+<title>Search results</title>
 <para>
-Search Result - This tells you first, by module, how many instances of the
-search string were found. In the Module Column, clicking on a document will open the list of
-references (clicking with the <mousebutton>right</mousebutton> mouse button allows you to copy, save, or print the list of items found).
-Clicking on a reference (the found items list) opens that verse up in the window below.
-Drag the reference and drop it on a document in the main index to open the
-module to that verse in a new display window, or look at the verse in the bottom pane
-of the search results tab.</para>
+Here you can see how many instances of the search string were found, sorted by works.
+Clicking on a work with the <mousebutton>right</mousebutton> mouse button allows you to copy, save, or print all verses that were found in a certain work at once. This also works when you click on one or more of the references to copy, save or print them. Clicking on a particular reference opens that verse up in context in the preview window below.</para>
 
-<tip><para>Drag &amp; Drop Works Here in the text display area.</para></tip>
-<tip><para>Select verse numbers and drag them to the main index to create bookmarks.</para></tip>
-<tip><para>Select verse numbers and drop them on an unopened module in the main index
-to open the module and jump to the verse location (Bibles and commentaries only).</para></tip>
-<tip><para>Select verse numbers and drag them to an open document and the document will jump
-to the verse location (Bibles and commentaries only).</para></tip>
+<tip>Drag a reference and drop it on a work symbol on the Bookshelf to open the
+work at that verse in a new read window.</tip>
+<tip>Drag a reference and drop it on an open read window, and it will jump to that verse.</tip>
+<tip>Select references and drag them to the Bookshelf to create bookmarks.</tip>
 
-<screenshot>
-<screeninfo>Search Result Dialog Box</screeninfo>
-<mediaobject>
-<imageobject>
-<imagedata fileref="ss_searchresult.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</screenshot>
-</sect3>
+<sect3 id="hdbk-op-search-analysis">
+<title>Search result analysis</title>
+<para>Click on <guibutton>Search analysis</guibutton> to open the search analysis display. 
+This gives a simple graphic analysis of the number of instances the
+search string was found in each book of the Bible, and you can also save the analysis.</para>
 
-<sect3 id="hdbk-op-parts-search-analysis">
-<title>Using the Search Analysis</title>
-<para>Click on <guibutton>Search Analysis</guibutton> to open the search analysis display.</para>
-<para>
-<guibutton>Search Analysis</guibutton> - This gives a graphic analysis of the number of instances the
-search string was found in each book. It can display results for all documents searched.
-You have the option of saving the analysis as an html formated list on
-your hard drive. </para>
 <screenshot>
 <screeninfo>Search Analysis Dialog Box</screeninfo>
 <mediaobject>
@@ -408,115 +263,59 @@ your hard drive. </para>
 <imagedata fileref="ss_searchanal.png" format="PNG"/>
 </imageobject>
 </mediaobject>
-
 </screenshot>
 </sect3>
+
 </sect2>
+
+</sect1>
+
+<sect1 id="hdbk-op-bookshelfmanager">
+<title>The <guimenuitem>Bookshelf Manager</guimenuitem></title>
+
+<para>The <guimenuitem>Bookshelf Manager</guimenuitem> is a tool to manage your Bookshelf. You can install new works to your Bookshelf, and update or remove existing works from your Bookshelf.</para>
+
+<sect2 id="hdbk-op-bookshelfmanager-path">
+<title>Bookshelf path(s) setup</title>
+
+<para>Here you can specify where &bibletime; may store your Bookshelf on the harddrive. You can even store it in multiple directories. Default is "~/.sword/".</para>
+
+<tip>If you have a sword CD, but do not want to install all the works on the harddisk, but use them directly from the CD, then you can add the path to the CD as one of your bookshelf paths. When you start &bibletime;, it will show all works on the CD if it is present.</tip>
+</sect2>
+
+<sect2 id="hdbk-op-bookshelfmanager-installupdate">
+<title>Install/update work(s)</title>
+
+<para>With this facility, you can connect to a repository of works (called "library"), and transfer one or more works to your local Bookshelf. These libraries may be local (e.g. a Sword CD), or remote (e.g. Crosswire`s online repository of Sword modules, or another site offering Sword modules). You can manage your libraries with <guibutton>Add library</guibutton> and <guibutton>Delete library</guibutton>.</para>
+
+<para>To begin the installation or update process, select a library you want to connect to and a local Bookshelf path to install the work(s) to. Then click on <guibutton>Connect to library</guibutton>. &bibletime; will scan the contents of the library and present you with a list of works that you can add to your Bookshelf, or that you already have installed but are available in a new version in the library, and thus can be updated. Then you can mark all works that you want to install or update, and click on <guibutton>Install works</guibutton>. They will then be transferred to your Bookshelf.
+</para>
+</sect2>
+
+<sect2 id="hdbk-op-bookshelfmanager-remove">
+<title>Remove work(s)</title>
+
+<para>This facility allows you to delete one or more of the works from your Bookshelf too free up disk space. Simply mark the items and click on <guibutton>Remove works</guibutton>.
+</para>
+
+</sect2>
+
 </sect1>
 
 <sect1 id="hdbk-op-output">
 <title>Exporting and Printing</title>
-<para>Bible Window, Lexicon Window, Commentary Window, Book Window.</para>
-<para>By clicking with the <mousebutton>right</mousebutton> mouse button on the index key number, 
-verse number or text the Bible Window, Lexicon Window, Commentary Window or Book Window drop down box is
-displayed (depending on which kind of window is current),
-providing options to select all, and the export options copy, 
-add to printing queue, and save.</para>
 
-<sect2 id="hdbk-op-select-all">
-<title>Select All</title>
-<para>A mouse click here will select all of the text in the chapter displayed
-in the current window.
-</para>
-</sect2>
+<para>
+In many places, you can open a context menu by clicking with the
+<mousebutton>right</mousebutton> mouse button. Depending on context, it will allow you
+to <guimenuitem>Select</guimenuitem>, <guimenuitem>Copy</guimenuitem> (to clipboard), <guimenuitem>Save</guimenuitem> or <guimenuitem>Print</guimenuitem> text. This works for example in the read windows, when you click on the normal text or the verse reference, or in the search result page when you click on a work or one or more verse references. It is pretty straightforward, so just try it out.</para>
 
-<sect2 id="hdbk-op-copy">
-<title>Copy</title>
-<para>A mouse click here will bring up a sub menu offering to copy to the copy
-buffer using the current location of the cursor as the starting point.
-</para>
-<itemizedlist>
-<listitem>
-<para>
-<guimenuitem>Reference only</guimenuitem> - The number of the current verse (such as Genesis 1:25).
-</para>
-</listitem>
-<listitem>
-<para>
-<guimenuitem>Text of Reference</guimenuitem> - The text of the current verse.
-</para>
-</listitem>
-<listitem>
-<para>
-<guimenuitem>Reference with Text</guimenuitem> - Both the text of the current verse, and the verse number.
-</para>
-</listitem>
-<listitem>
-<para>
-<guimenuitem>Chapter</guimenuitem> - the entire chapter.
-</para>
-</listitem>
-<listitem>
-<para>
-<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlighted) text.
-</para>
-</listitem>
-</itemizedlist>
-<para>
-This text can be copied into any application that can access the linux copy buffer.
-</para>
-</sect2>
-
-<sect2 id="hdbk-op-print"><title>Print</title>
-<para>
-Selecting print here sends your selection to the &kde; print system.
-</para>
-<para>A mouse click here will bring up a submenu with the printing options:
-</para>
-<itemizedlist>
-<listitem>
-<para>
-<guimenuitem>reference with text</guimenuitem>
-</para>
-</listitem>
-<listitem>
-<para>
-<guimenuitem>chapter</guimenuitem>
-</para>
-</listitem>
-</itemizedlist>
 <para>Printing from &bibletime; is rather basic and is intended as
-a utility.  If you are composing a document or presentation containing text from
-&bibletime; documents, we suggest that you use one of the presentation or editing
-tools on your system to format your work.
+a utility. If you are composing a document or presentation containing text from
+&bibletime; works, we suggest that you use one of the presentation or editing
+tools on your system to format your document, rather than printing from &bibletime; directly.
 </para>
-</sect2>
 
-<sect2 id="hdbk-op-save">
-<title>Save</title>
-<para>A mouse click here will bring up a submenu with save options:
-</para>
-<itemizedlist>
-<listitem>
-<para>
-<guimenuitem>Verse with reference</guimenuitem> - a file is created in &UNIX; formated ASCII text.
-</para>
-</listitem>
-<listitem>
-<para>
-<guimenuitem>Chapter as plain text</guimenuitem> - a file is created in &UNIX; formated ASCII text.
-</para>
-</listitem>
-<listitem>
-<para>
-<guimenuitem>Chapter as HTML</guimenuitem> - a file is created formated in HTML.
-</para>
-</listitem>
-</itemizedlist>
-<para>
-Once saved this text can be opened and edited by any text or HTML application.
-</para>
-</sect2>
 </sect1>
 
 </chapter>

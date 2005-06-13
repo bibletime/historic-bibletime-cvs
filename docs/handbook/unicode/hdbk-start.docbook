@@ -1,16 +1,14 @@
 <chapter id="hdbk-term"><title>Starting &bibletime;</title>
 
-<sect1 id="hdbk-start"><title>How to Start BibleTime</title>
+<sect1 id="hdbk-start"><title>How to start &bibletime;</title>
 
 	<sect2 id="hdbk-start-kde"><title>Starting &bibletime; from KDE</title>
 	
-		<para>
-		&bibletime; is a &kde; program and is integrated with the &kde; desktop.
+		<para>		&bibletime; is a &kde; program and is integrated with the &kde; desktop.
 		You can launch &bibletime; from the &kde; Start Menu in
 		the Applications group with this icon:
 		<mediaobject>
-		<imageobject><imagedata fileref="i_bibletime.png" format="PNG"/>
-		</imageobject>
+		<imageobject><imagedata fileref="i_bibletime.png" format="PNG"/></imageobject>
 		<textobject>
 		<phrase>&bibletime; start icon</phrase> </textobject>
 		</mediaobject>
@@ -25,7 +23,7 @@ bibletime
 	
 	</sect2>
 	
-	<sect2 id="hdbk-start-otherwm"><title>Other Window Managers</title>
+	<sect2 id="hdbk-start-otherwm"><title>Other window managers</title>
 	
 		<para>&bibletime; can be used with other window managers such as Gnome, BlackBox or Sawfish, 
 		providing	&kde; is already installed on your computer. If your &kde; is installed 
@@ -38,7 +36,7 @@ bibletime
 			
 	</sect2>
 	
-	<sect2 id="hdbk-start-custom"><title>Startup Customization</title>
+	<sect2 id="hdbk-start-custom"><title>Startup customization</title>
 		
 		<para>From a terminal you can use &bibletime; to open a random verse in the 
 		default bible:
@@ -56,7 +54,7 @@ bibletime --open-default-bible "John 3:16"
 
 </sect1>
 
-<sect1 id="hdbk-startsequence"><title>Startup Sequence</title>
+<sect1 id="hdbk-startsequence"><title>Startup sequence</title>
 
 	<para>As &bibletime; launches you may see the following screens before
 	the main &bibletime; window opens:</para>
@@ -83,9 +81,6 @@ bibletime --open-default-bible "John 3:16"
 			<term><interface>Tip of the Day</interface></term>
 			<listitem><para>These nifty little tips give you helpful hints for working
 			more efficiently with &bibletime;, and also a few quotations from the Bible.
-			<mediaobject><imageobject><imagedata fileref="ss_starttips.png" format="PNG"/>
-			</imageobject><textobject><phrase>Tip of the Day</phrase> </textobject></mediaobject>
-
 			</para></listitem> 
 		</varlistentry>
 		

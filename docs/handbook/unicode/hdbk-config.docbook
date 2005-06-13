@@ -12,7 +12,7 @@ dialog.</para>
 	selecting <menuchoice><guimenu>Settings</guimenu></menuchoice>
 	<guimenuitem>Configure &bibletime;</guimenuitem>.</para>
 
-	<sect2 id="hdbk-config-bt-startup"><title>Startup</title>
+	<sect2 id="hdbk-config-bt-startup"><title><guimenu>Startup</guimenu></title>
 	
 		<para>The startup behavior can be customized.
 		Select from the following options:</para>
@@ -23,7 +23,7 @@ dialog.</para>
 		</itemizedlist>
 	</sect2>
 	
-	<sect2 id="hdbk-config-bt-fonts"><title>Fonts</title>
+	<sect2 id="hdbk-config-bt-fonts"><title><guimenu>Fonts</guimenu></title>
 	<para>By default, &bibletime; uses the &kde; general display font which can
 	be specified in the &kcontrolcenter;. You can override this font if neccessary.
 	Some languages require special fonts to be displayed correctly, and this dialog
@@ -123,14 +123,14 @@ dialog.</para>
 		</sect3>
 	</sect2>
 	
-	<sect2 id="hdbk-config-bt-profiles"><title>Display templates</title>
+	<sect2 id="hdbk-config-bt-profiles"><title><guimenu>Display templates</guimenu></title>
 	
 		<para>Display templates define the rendering of text (colors, size etc.). Various built-in templates are available.
 		If you select one, you will see a preview on the right pane.</para>
 		
 	</sect2>
 	
-	<sect2 id="hdbk-config-bt-profiles"><title>Sessions</title>
+	<sect2 id="hdbk-config-bt-profiles"><title><guimenu>Sessions</guimenu></title>
 	
 		<para>Sessions define the appearance of the work area, for example which
 		windows are open and which texts should be displayed in these windows.
@@ -144,14 +144,14 @@ dialog.</para>
 		
 	</sect2>
 
-	<sect2 id="hdbk-config-bt-sword"><title>Sword</title>
+	<sect2 id="hdbk-config-bt-sword"><title><guimenu>Sword</guimenu></title>
 	
 		<para>Many features provided by the Sword backend can now be customized in
 		&bibletime;. These features are documented right in the dialog.</para>
 		
 	</sect2>
 	
-	<sect2 id="hdbk-config-bt-Accelerators"><title>HotKeys</title>
+	<sect2 id="hdbk-config-bt-Accelerators"><title><guimenu>HotKeys</guimenu></title>
 	
 	<!-- TODO: RECREATE FONTCONFIG SCREENSHOT-->
 	
