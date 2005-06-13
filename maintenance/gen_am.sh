@@ -226,7 +226,7 @@ EOF
 for DOC_PO_PART in handbook howto; do
 
 	echo generating ../../bibletime-i18n/po/$DOC_PO_PART/Makefile.am
-	( # output to Makefile.am
+	( # output to Makefile.am, removed --no-fuzzy-matching from msgcat
 		echo -e $HEADER
 		echo
 		echo 'KDE_OPTIONS = foreign'
@@ -238,7 +238,7 @@ for DOC_PO_PART in handbook howto; do
 		echo '		echo $$cat $$lang $$name; \'
 		echo '		if test -d ../../../bibletime-website/$$lang; then \'
 		echo '			echo Trying to merge from the website po files; \'
-		echo '			msgcat --force-po --no-fuzzy-matching --no-wrap -o $$cat.temp ../../../bibletime-website/$$lang/po/full.po $$cat; \'
+		echo '			msgcat --force-po --no-wrap -o $$cat.temp ../../../bibletime-website/$$lang/po/full.po $$cat; \'
 		echo '			mv $$cat.temp $$cat; \'
 		echo '		else \'
 		echo '			echo No merging from the website files possible.; \'
