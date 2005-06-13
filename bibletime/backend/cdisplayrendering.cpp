@@ -131,14 +131,15 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	}
 */
 	
-	const CLanguageMgr::Language* const lang = 
-		  modules.first() 
+	const CLanguageMgr::Language* const lang =
+		  (modules.count() >= 1)
 		? modules.first()->language() 
 		: CPointers::languageMgr()->defaultLanguage();
 	
 	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
+	Q_ASSERT(modules.count() >= 1);
 	settings.langAbbrev = ((modules.count() == 1) && lang->isValid())
 		?	lang->abbrev() 
 		: QString::null;

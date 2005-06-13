@@ -44,6 +44,16 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo co
 	m_moduleList.append( const_cast<CSwordModuleInfo*>(mod) ); //BAD CODE
 }
 
+CTextRendering::KeyTreeItem::KeyTreeItem(const QString& content, const Settings settings )
+	: m_settings( settings ),
+		m_moduleList(),
+		m_key( QString::null ),
+		m_childList( 0 ),
+		m_stopKey( QString::null ),
+		m_alternativeContent( content )
+{
+}
+
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, const ListCSwordModuleInfo& mods, const Settings settings ) 
 	: m_settings( settings ),
 		m_moduleList( mods ),
@@ -129,7 +139,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 	//make it into "<simple|range> (modulename)"
 	
 	if (startKey == stopKey) {
-		m_alternativeContent = startKey; 
+		m_alternativeContent = startKey;
 	}
 	else {
 		sword::VerseKey vk(startKey.utf8(), stopKey.utf8());
@@ -147,9 +157,8 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 				.arg(QString::fromUtf8(vk.LowerBound().getText()))
 				.arg(vk.UpperBound().Verse());
 		}
-		
-// 		m_alternativeContent = vk.getRangeText();
 	}
+	
 	m_alternativeContent.append(" (").append(module->name()).append(")");
 }
 

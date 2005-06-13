@@ -45,10 +45,10 @@ public:
 	public:
 		struct Settings {
 			enum KeyRenderingFace {
-				NoKey, //means no key shown at all
-				SimpleKey, //means only versenumber or only lexicon entry name
-				CompleteShort, //means key like "Gen 1:1"
-				CompleteLong //means "Genesis 1:1"
+				NoKey, //< means no key shown at all
+				SimpleKey, //< means only versenumber or only lexicon entry name
+				CompleteShort, //< means key like "Gen 1:1"
+				CompleteLong //< means "Genesis 1:1"
 			};
 
 			Settings(const bool highlight = false, KeyRenderingFace keyRendering = SimpleKey) : highlight(highlight), keyRenderingFace(keyRendering) {
@@ -61,12 +61,16 @@ public:
 		KeyTreeItem(const QString& key, CSwordModuleInfo const * module, const Settings settings);
 		KeyTreeItem(const QString& key, const ListCSwordModuleInfo& modules, const Settings settings);
 		KeyTreeItem(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module, const Settings settings);
+		KeyTreeItem(const QString& content, const Settings settings);
 		KeyTreeItem(const KeyTreeItem& i);
 		
 		virtual ~KeyTreeItem();
 		
     const QString& getAlternativeContent() const;
-		const bool hasAlternativeContent() const {
+    inline void setAlternativeContent(const QString& newContent) {
+			m_alternativeContent = newContent;
+    };
+		inline const bool hasAlternativeContent() const {
 			return !m_alternativeContent.isEmpty();
 		};
 		
