@@ -527,26 +527,28 @@ void BibleTime::initPrinter() {
 
 /** Apply the settings given by the profile p*/
 void BibleTime::applyProfileSettings( CProfile* p ){
+	Q_ASSERT(p);
 	if (!p) {
 		return;
   }
 
-// 	if (!m_initialized) 
-	{ //on startup KDE sets the main geometry
-    const QRect geometry = p->geometry();
-		resize( geometry.size() );
-		move( geometry.topLeft() );		
-	}
+//  	if (m_initialized) { //on startup KDE sets the main geometry
+  const QRect geometry = p->geometry();
+	resize( geometry.size() );
+	move( geometry.topLeft() );
+// 	}
 	
 	m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state
-	toggleFullscreen();  
+	toggleFullscreen();
 }
 
 /** Stores the settings of the mainwindow in the profile p */
 void BibleTime::storeProfileSettings( CProfile* p ){
+	Q_ASSERT(p && m_windowFullscreen_action);
   if (!p || !m_windowFullscreen_action) {
     return;
   }
+  
   p->setFullscreen( m_windowFullscreen_action->isChecked() );
 	
 	QRect geometry;

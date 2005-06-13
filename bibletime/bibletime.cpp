@@ -77,7 +77,7 @@ BibleTime::BibleTime()
   setAutoSaveSettings(QString("MainWindow"), false);
 }
 
-BibleTime::~ BibleTime() {
+BibleTime::~BibleTime() {
 	// The backend is deleted by the BibleTimeApp instance
 }
 
@@ -106,9 +106,10 @@ void BibleTime::saveSettings(){
 	CBTConfig::set(CBTConfig::autoCascade, m_windowAutoCascade_action->isChecked());
  	
 
-	if (CProfile* p = m_profileMgr.startupProfile()) {
+	CProfile* p = m_profileMgr.startupProfile();
+	if (p) {
 		saveProfile(p);
-   }
+	}
 }
 
 /** Reads the settings from the configfile and sets the right properties. */
