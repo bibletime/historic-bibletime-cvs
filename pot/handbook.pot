@@ -46,7 +46,7 @@ msgid ""
 "&bibletime;</guimenuitem>."
 msgstr ""
 
-#. Tag: title
+#. Tag: guimenu
 #: hdbk-config.docbook:15
 #, no-c-format
 msgid "Startup"
@@ -77,7 +77,7 @@ msgstr ""
 msgid "Restore windows from the last &bibletime; session"
 msgstr ""
 
-#. Tag: title
+#. Tag: guimenu
 #: hdbk-config.docbook:26
 #, no-c-format
 msgid "Fonts"
@@ -323,7 +323,7 @@ msgid ""
 "ranges and the Unicode fonts that support them</ulink>)."
 msgstr ""
 
-#. Tag: title
+#. Tag: guimenu
 #: hdbk-config.docbook:126
 #, no-c-format
 msgid "Display templates"
@@ -338,7 +338,7 @@ msgid ""
 "on the right pane."
 msgstr ""
 
-#. Tag: title
+#. Tag: guimenu
 #: hdbk-config.docbook:133
 #, no-c-format
 msgid "Sessions"
@@ -361,7 +361,7 @@ msgid ""
 "saved those sessions, you can switch between them quickly."
 msgstr ""
 
-#. Tag: title
+#. Tag: guimenu
 #: hdbk-config.docbook:147
 #, no-c-format
 msgid "Sword"
@@ -375,8 +375,8 @@ msgid ""
 "&bibletime;. These features are documented right in the dialog."
 msgstr ""
 
-#. Tag: title
-#: hdbk-config.docbook:154 hdbk-reference.docbook:281
+#. Tag: guimenu
+#: hdbk-config.docbook:154
 #, no-c-format
 msgid "HotKeys"
 msgstr ""
@@ -447,7 +447,7 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-intro.docbook:1
+#: hdbk-intro.docbook:1 hdbk-reference.docbook:445
 #, no-c-format
 msgid "Introduction"
 msgstr ""
@@ -465,21 +465,26 @@ msgid ""
 "&bibletime; is a powerful Bible study tool written for the &kde; environment "
 "on the Linux operating system. It is based on the <ulink url=\"http://www."
 "crosswire.org/sword\">Sword</ulink> library, which provides the back-end "
-"functionality for &bibletime;, such as viewing Bible text, searching, "
-"bookmarking, etc. Sword is the flagship product of the <ulink url=\"http://"
-"www.crosswire.org\">Crosswire Bible Society</ulink>."
+"functionality for &bibletime;, such as viewing Bible text, searching etc. "
+"Sword is the flagship product of the <ulink url=\"http://www.crosswire.org"
+"\">Crosswire Bible Society</ulink>."
 msgstr ""
 
 #. Tag: para
 #: hdbk-intro.docbook:12
 #, no-c-format
 msgid ""
-"&bibletime; is designed to be used with documents that have been encoded in "
-"Theological Markup Language (ThML) and General Bible Format (GBF). These "
-"markup languages are focused on the requirements of religious texts. "
-"Complete information on the supported document formats can be found in the "
-"<ulink url=\"http://www.crosswire.org/sword/develop/index.jsp\"> developers "
-"section of the Sword Project, Crosswire Bible Society</ulink>."
+"&bibletime; is designed to be used with works encoded in one of the formats "
+"supported by the Sword project. Complete information on the supported "
+"document formats can be found in the <ulink url=\"http://www.crosswire.org/"
+"sword/develop/index.jsp\"> developers section</ulink> of the Sword Project, "
+"Crosswire Bible Society."
+msgstr ""
+
+#. Tag: title
+#: hdbk-intro.docbook:18
+#, no-c-format
+msgid "Available works"
 msgstr ""
 
 #. Tag: para
@@ -491,61 +496,62 @@ msgid ""
 msgstr ""
 
 #. Tag: term
-#: hdbk-intro.docbook:27
+#: hdbk-intro.docbook:25
 #, no-c-format
 msgid "Bibles"
 msgstr ""
 
 #. Tag: para
-#: hdbk-intro.docbook:29
+#: hdbk-intro.docbook:27
 #, no-c-format
 msgid ""
-"The full Bible text, with optional things like Strong's Numbers and "
-"footnotes in the text. The Strong's Numbers hot link to the entry in "
-"Strong's Hebrew Bible Dictionary or Strong's Greek Bible Dictionary. Bibles "
-"are available in many languages, and include not only modern versions, but "
-"also Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint "
-"(Greek)."
+"The full Bible text, with optional things like Strong's Numbers, headings "
+"and/or footnotes in the text. Bibles are available in many languages, and "
+"include not only modern versions, but also ancient texts like the Codex "
+"Leningradensis (\"WLC\", Hebrew), and the Septuagint (\"LXX\", Greek). This "
+"is the most advanced section in the library of the Sword project."
 msgstr ""
 
 #. Tag: term
-#: hdbk-intro.docbook:38
+#: hdbk-intro.docbook:34
 #, no-c-format
 msgid "Commentaries"
 msgstr ""
 
 #. Tag: para
-#: hdbk-intro.docbook:40
+#: hdbk-intro.docbook:36
 #, no-c-format
 msgid ""
 "Commentaries available include classics like John Wesley's \"Notes on the "
-"Bible,\" and Luther's \"Commentary on Galatians.\" With the "
-"<emphasis>Personal</emphasis> commentary you can record your own personal "
-"notes to different parts of the Bible."
+"Bible\", Matthew Henry`s commentary and Luther's \"Commentary on Galatians."
+"\" With the <emphasis>Personal</emphasis> commentary you can <link linkend="
+"\"hdbk-op-parts-desk-write\">record your own personal notes</link> to "
+"sections of the Bible."
 msgstr ""
 
 #. Tag: term
-#: hdbk-intro.docbook:52
+#: hdbk-intro.docbook:43
 #, no-c-format
 msgid "Lexicons"
 msgstr ""
 
 #. Tag: para
-#: hdbk-intro.docbook:54
+#: hdbk-intro.docbook:45
 #, no-c-format
 msgid ""
 "Lexicons available include: Robinson's Morphological Analysis Codes, Brown-"
-"Driver-Briggs Hebrew Lexicon, International Standard Bible Encyclopedia"
+"Driver-Briggs Hebrew Lexicon and the International Standard Bible "
+"Encyclopedia."
 msgstr ""
 
 #. Tag: term
-#: hdbk-intro.docbook:61
+#: hdbk-intro.docbook:53
 #, no-c-format
 msgid "Dictionaries"
 msgstr ""
 
 #. Tag: para
-#: hdbk-intro.docbook:63
+#: hdbk-intro.docbook:55
 #, no-c-format
 msgid ""
 "Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's "
@@ -554,151 +560,43 @@ msgid ""
 msgstr ""
 
 #. Tag: term
-#: hdbk-intro.docbook:70
+#: hdbk-intro.docbook:63
 #, no-c-format
 msgid "Books"
 msgstr ""
 
 #. Tag: para
-#: hdbk-intro.docbook:72
+#: hdbk-intro.docbook:65
 #, no-c-format
 msgid ""
 "Books available include &quot;Imitation of Christ&quot;, &quot;Enuma "
 "Elish&quot;, and &quot;Josephus: The Complete Works&quot;"
 msgstr ""
 
-#. Tag: para
-#: hdbk-intro.docbook:78
-#, no-c-format
-msgid ""
-"Additional documents are added to the &sword; repository frequently, so "
-"visit often."
-msgstr ""
-
 #. Tag: title
-#: hdbk-intro.docbook:82
-#, no-c-format
-msgid "Changes for &bibletime; Release 1.5"
-msgstr ""
-
-#. Tag: para
-#: hdbk-intro.docbook:83
-#, no-c-format
-msgid ""
-"&bibletime; version 1.3 provides a number of bugfixes and stability "
-"improvements. You will also find a number of changes to the appearance of "
-"bibletime. This is a partial list, for a more complete list, see the "
-"changlog."
-msgstr ""
-
-#. Tag: title
-#: hdbk-intro.docbook:88
-#, no-c-format
-msgid "Main window"
-msgstr ""
-
-#. Tag: para
-#: hdbk-intro.docbook:89
-#, no-c-format
-msgid ""
-"Main index was reorganized, sorting the modules by type of module, then by "
-"language."
-msgstr ""
-
-#. Tag: para
-#: hdbk-intro.docbook:92
-#, no-c-format
-msgid ""
-"Bookmarks are now stored in an XML file, but the old format can still be "
-"imported. After upgrading an existing installation the old bookmarks are "
-"placed in the \"Old bookmarks\" subfolder."
-msgstr ""
-
-#. Tag: para
-#: hdbk-intro.docbook:97
-#, no-c-format
-msgid "Drag&amp;Drop works now for more than one item."
-msgstr ""
-
-#. Tag: para
-#: hdbk-intro.docbook:99
-#, no-c-format
-msgid ""
-"Search default Bible and search open modules options added in the search "
-"menu."
-msgstr ""
-
-#. Tag: title
-#: hdbk-intro.docbook:103
-#, no-c-format
-msgid "Searchdialog"
-msgstr ""
-
-#. Tag: para
-#: hdbk-intro.docbook:104
-#, no-c-format
-msgid ""
-"Major redesign of the user interface, reducing the number of tabs to two "
-"(search and result). Features have been moved to the appropriate tab."
-msgstr ""
-
-#. Tag: title
-#: hdbk-intro.docbook:109
-#, no-c-format
-msgid "Display windows"
-msgstr ""
-
-#. Tag: para
-#: hdbk-intro.docbook:110
-#, no-c-format
-msgid ""
-"Separated now in &quot;read only&quot; and &quot;write only&quot; windows. "
-"Write windows can be opened by <mousebutton>right</mousebutton> mouse button "
-"menu in the main index on the Personal Commentary module (or any other "
-"RawFiles module)."
-msgstr ""
-
-#. Tag: title
-#: hdbk-intro.docbook:114
-#, no-c-format
-msgid "Options dialog"
-msgstr ""
-
-#. Tag: para
-#: hdbk-intro.docbook:115
-#, no-c-format
-msgid ""
-"A custom font can now be specified for each language. The default font is "
-"KDE's default font, and will work for most modules."
-msgstr ""
-
-#. Tag: title
-#: hdbk-intro.docbook:121
+#: hdbk-intro.docbook:73
 #, no-c-format
 msgid "Motivation"
 msgstr ""
 
 #. Tag: para
-#: hdbk-intro.docbook:122
+#: hdbk-intro.docbook:74
 #, no-c-format
 msgid ""
 "Our desire is to serve God, and to do our part to help others grow in their "
-"relationship with Him. We have found a gaping hole, in that there has been a "
-"total lack of user-friendly Bible-study software available for &Linux;-based "
-"computers. &bibletime; is supposed to fill that void. We have striven to "
-"make this a powerful, quality program, and still make it simple and "
-"intuitive to operate. It is our desire that God be praised, as He is the "
-"source of all good things."
+"relationship with Him. We have striven to make this a powerful, quality "
+"program, and still make it simple and intuitive to operate. It is our desire "
+"that God be praised, as He is the source of all good things."
 msgstr ""
 
 #. Tag: attribution
-#: hdbk-intro.docbook:131
+#: hdbk-intro.docbook:81
 #, no-c-format
 msgid "James 1:17, NASB"
 msgstr ""
 
 #. Tag: para
-#: hdbk-intro.docbook:132
+#: hdbk-intro.docbook:82
 #, no-c-format
 msgid ""
 "Every good thing given and every perfect gift is from above, coming down "
@@ -707,7 +605,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-intro.docbook:136
+#: hdbk-intro.docbook:86
 #, no-c-format
 msgid "God bless you as you use this program."
 msgstr ""
@@ -715,1177 +613,681 @@ msgstr ""
 #. Tag: title
 #: hdbk-operation.docbook:1
 #, no-c-format
-msgid "Program Operation"
+msgid "Program operation"
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:5
+#: hdbk-operation.docbook:4
 #, no-c-format
-msgid "Parts of the &bibletime; application window"
+msgid "Program overview"
 msgstr ""
 
-#. Tag: phrase
-#: hdbk-operation.docbook:13
+#. Tag: para
+#: hdbk-operation.docbook:6
 #, no-c-format
-msgid "The &bibletime; application window"
+msgid ""
+"This is how a typical &bibletime; session looks like: <mediaobject> "
+"<imageobject> <imagedata fileref=\"ss_mainterms.png\" format=\"PNG\"/> </"
+"imageobject> <textobject> <phrase>The &bibletime; application window</"
+"phrase> </textobject> </mediaobject> You can easily see the different parts "
+"of the application. The Bookshelf on the left side is used to open works and "
+"to manage your bookmarks. The little \"Mag\" window below the Bookshelf is "
+"used to display extra information that is embedded in documents. When you "
+"move your mouse over a footnote marker, for example, then the Mag will "
+"display the actual content of the footnote. The toolbar gives you quick "
+"access to important functions, and the Desk on the right side is where you "
+"do your real work."
 msgstr ""
 
 #. Tag: para
 #: hdbk-operation.docbook:17
 #, no-c-format
 msgid ""
-"&bibletime; is mainly operated from the Module Tree (this tree is called the "
-"\"Main Index\"). The second important place to work with &bibletime; is the "
-"MDI area (MDI = Multiple Document Interface)."
+"Let us now proceed by looking at the different parts of the application "
+"individually."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:23
+#: hdbk-operation.docbook:21
 #, no-c-format
-msgid "Main Index"
+msgid "Parts of the &bibletime; application window"
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:24
+#, no-c-format
+msgid "The Bookshelf"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:24
+#: hdbk-operation.docbook:25
 #, no-c-format
 msgid ""
-"This is the pane on the left side of the &bibletime; window. It contains the "
-"tree of installed documents (Sword Modules), as well as any bookmarks you "
-"enter."
+"The Bookshelf lists all installed works, sorted by category and language. It "
+"also has a category called \"Bookmarks\". This is where you can store and "
+"access your own bookmarks."
 msgstr ""
 
-#. Tag: screeninfo
+#. Tag: title
+#: hdbk-operation.docbook:29 hdbk-operation.docbook:81
+#, no-c-format
+msgid "Reading works"
+msgstr ""
+
+#. Tag: para
 #: hdbk-operation.docbook:30
 #, no-c-format
-msgid "Module Tree"
+msgid ""
+"To open a work from the bookshelf for reading, simply click with the "
+"<mousebutton>left mouse button</mousebutton> on the desired category "
+"(Bibles, Commentaries, Lexicons, Books, Devotionals or Glossaries) to "
+"display its contents. Then just click on one of the works to open it for "
+"reading. A read window will appear in the Desk area."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:33 hdbk-operation.docbook:59
+#, no-c-format
+msgid "Drag &amp; Drop Works Here"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:34
+#, no-c-format
+msgid ""
+"There is a shortcut for opening a work at the same place of another work "
+"that you are already reading. Simply click with the <mousebutton>left mouse "
+"button</mousebutton> on the verse reference (pointer changes to hand) and "
+"drag it to the Bookshelf. Drop it on the work you want to open, and it will "
+"be opened for reading at the specified location. You can also drag a verse "
+"reference into an existing read window, then it will jump to the specified "
+"location."
 msgstr ""
 
 #. Tag: title
 #: hdbk-operation.docbook:40
 #, no-c-format
-msgid "Selecting a document toview"
+msgid "Additional information about works"
 msgstr ""
 
 #. Tag: para
 #: hdbk-operation.docbook:41
 #, no-c-format
 msgid ""
-"To select a document, click with the <mousebutton>left</mousebutton> mouse "
-"button on the desired document group (Bibles, Commentaries, Lexicons, Books, "
-"Devotionals or Glossaries) to display the contents of a document group, "
-"click with the <mousebutton>right</mousebutton> mouse button on the icon for "
-"the desired group. To open a document, click on it's icon."
-msgstr ""
-
-#. Tag: screeninfo
-#: hdbk-operation.docbook:47
-#, no-c-format
-msgid "Document Selection"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:54 hdbk-operation.docbook:101
-#, no-c-format
-msgid "Drag &amp; Drop Works Here"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:55
-#, no-c-format
-msgid ""
-"A document can be opened from an already opened document. Simply click with "
-"the <mousebutton>left</mousebutton> mouse button on the verse number "
-"(pointer changes to hand) and drag it to the module list. Drop it on the "
-"name of the module you want to open, and it will open that module to the "
-"verse you dragged over. If you drag a verse number to an already open "
-"module, it will automatically jump that module to the location of the verse "
-"that was dragged over. This works for Bibles and Commentaries only."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:62
-#, no-c-format
-msgid ""
-"There are two other functions accessible through clicking with the "
-"<mousebutton>right</mousebutton> mouse button on the document name. \"About "
-"This Module\" opens a window with information about copyright and other "
-"pertinent things about the selected document. \"Unlock This Module\" opens a "
-"small dialog for encrypted documents. This allows those with the key to "
-"enter it to decrypt the document and make it human-readable. Crosswire Bible "
-"Society must encrypt modules unless either the copyright holder provides "
-"permission for distribution as a sword module, or the text has passed into "
-"the public domain (copyright has expired). <ulink url=\"http://www.crosswire."
-"org/sword/modules/aboutlocked.jsp\"> See information on locked modules on "
-"the Crosswire Bible Society web site.</ulink>"
+"If you click with the <mousebutton>right</mousebutton> mouse button on the "
+"symbol of a work, you will see a menu with additional entries that are "
+"relevant for this work. <guimenuitem>\"About this work\"</guimenuitem> opens "
+"a window with information about copyright andother pertinent things about "
+"the selected document. <guimenuitem>\"Unlock this work\"</guimenuitem> opens "
+"a small dialog for encrypted documents, where you can enter the unlock key "
+"to access the module. For additional information on locked modules, please "
+"see <ulink url=\"http://www.crosswire.org/sword/modules/aboutlocked.jsp"
+"\">this page</ulink> on the Crosswire Bible Society web site."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:77
+#: hdbk-operation.docbook:49 hdbk-operation.docbook:121
 #, no-c-format
-msgid "Accessing the search dialog"
+msgid "Searching in works"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:77
+#: hdbk-operation.docbook:49
 #, no-c-format
 msgid ""
-"You can search in a module by clicking with the <mousebutton>right</"
-"mousebutton> mouse button on the module name in the module list and "
-"selecting \"Search in module(s)\". By pressing shift and clicking on other "
-"module names you can select more than one. Then follow the same procedure to "
-"open the search dialog. You will be searching in all of these documents. A "
-"complete description of the operation of the search features can be found "
-"<link linkend=\"hdbk-op-search\">here</link>."
-msgstr ""
-
-#. Tag: screeninfo
-#: hdbk-operation.docbook:88 hdbk-operation.docbook:112
-#, no-c-format
-msgid "Bookmark Selection"
+"You can search in a work by clicking with the <mousebutton>right</"
+"mousebutton> mouse button on its symbol and selecting <guimenuitem>\"Search "
+"in work(s)\"</guimenuitem>. By pressing &Shift; and clicking on other works "
+"you can select more than one. Then follow the same procedure to open the "
+"search dialog. You will be searching in all of these documents. A complete "
+"description of the operation of the search features can be found <link "
+"linkend=\"hdbk-op-search\">here</link>."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:99
+#: hdbk-operation.docbook:57
 #, no-c-format
-msgid "Accessing bookmark functions"
+msgid "Working with bookmarks"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:101
+#: hdbk-operation.docbook:59
 #, no-c-format
 msgid ""
 "Click with the <mousebutton>right</mousebutton> mouse button on the bookmark "
-"group of the module tree window and select <guimenuitem>&quot;Create new "
-"folder&quot;</guimenuitem> to create a new bookmark sub folder. You can use "
-"normal drag 'n' drop functions to drag verse numbers from search dialog "
-"results to the bookmark folder, and to rearrange bookmarks between folders. "
-"There is an import/export function for bookmarks also. From the "
-"<guimenu>right-mouse-button menu</guimenu>, select &quot;Export "
-"bookmarks&quot;. This will bring up a dialog box for you to save the "
-"bookmark collection. They can be shared with other &bibletime; users, "
-"archived, etc. They can be imported in the same way. You can also click with "
-"the <mousebutton>right</mousebutton> mouse button to change folder names and "
-"bookmark descriptions, and delete folders and bookmarks."
+"category of the bookshelf and select <guimenuitem>\"Create new folder\"</"
+"guimenuitem> to create a new bookmark subfolder. You can use normal drag "
+"&amp; drop functions to drag verse references from read windows or search "
+"results to the bookmark folder, and to rearrange bookmarks between folders."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:63
+#, no-c-format
+msgid ""
+"You can also import bookmarks from other people or export bookmarks to share "
+"them. To do this, open the <guimenu>context menu</guimenu> of the bookmark "
+"folder as described above, and select <guimenuitem>\"Export bookmarks\"</"
+"guimenuitem>. This will bring up a dialog box for you to save the bookmark "
+"collection. You can import bookmarks in a similar way."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:65
+#, no-c-format
+msgid ""
+"You can also click with the <mousebutton>right</mousebutton> on folders and "
+"bookmarks to change their names and descriptions."
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:70
+#, no-c-format
+msgid "The Mag(nifying glass)"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:71
+#, no-c-format
+msgid ""
+"This little window in the lower left corner of the &bibletime; window is "
+"purely passive. Whenever you mouse cursor is located over some text with "
+"additional information (e.g., Strong`s numbers), then this additional "
+"information will be displayed in the Mag, and not in the text itself. Just "
+"try it out."
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:76
+#, no-c-format
+msgid "The Desk"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:77
+#, no-c-format
+msgid ""
+"The Desk is where the real work with &bibletime; takes place. Here you can "
+"open works from the Bookshelf, read them, <link linkend=\"hdbk-op-search"
+"\">search</link> in them, and even save your annotations in the personal "
+"commentary module."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:82
+#, no-c-format
+msgid ""
+"As we have <link linkend=\"hdbk-op-parts-bookshelf-open\">already seen</"
+"link>, you can open works for reading simply by clicking on their symbol in "
+"the Bookshelf. A read window will open in the Desk`s area. Every read window "
+"has a toolbar. There you can find facilities to navigate in the work that "
+"this read window is connected to, as well as history buttons like the ones "
+"that you know from your browser."
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:87
+#, no-c-format
+msgid "Read window placement"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:88
+#, no-c-format
+msgid ""
+"Of course, you open multiple works at the same time. There are several "
+"possibilities for arranging the read windows on the desk. Please have a look "
+"at the entry <guimenu>Window</guimenu> in the main menu. There you can see "
+"that you can either control the placement of the read windows completely "
+"yourself, or have &bibletime; handle the placement automatically. To achieve "
+"this, you have to select one of the automatic placement modes available at "
+"<menuchoice><guimenu>Window</guimenu><guimenuitem>Arrangement mode</"
+"guimenuitem></menuchoice>. Just try it out, it`s simple and works."
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:94
+#, no-c-format
+msgid "Editing your own commentary"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:95
+#, no-c-format
+msgid ""
+"To be able to store your own comments about parts of the Bible, you have to "
+"work with a certain work from the library of the <ulink url=\"http://www."
+"crosswire.org\">Crosswire Bible Society</ulink>. This work is called "
+"\"Personal commentary\"."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:97
+#, no-c-format
+msgid ""
+"If you open the personal commentary by clicking on its symbol in the "
+"Bookshelf with a <mousebutton>left</mousebutton> mouse button, it opens in "
+"read mode. You will not be able to edit it in this mode. Should you wish "
+"write comments into the personal commentary, you have to open it with the "
+"<mousebutton>right</mousebutton> mouse button and then select <guimenu>Edit "
+"this module</guimenu> and then either <guimenuitem>Plain text</guimenuitem>"
+"(source code editor) or <guimenuitem>HTML </guimenuitem>(basic gui wysiwyg "
+"editor)."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:106
+#, no-c-format
+msgid ""
+"If <menuchoice><guimenu>Edit this module</guimenu></menuchoice> is "
+"deactivated, please check if you have write permission for the files of the "
+"personal commentary."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:110
+#, no-c-format
+msgid ""
+"Drag&amp;drop works here. Drop a verse reference and the text of the verse "
+"will be inserted."
 msgstr ""
 
 #. Tag: title
 #: hdbk-operation.docbook:124
 #, no-c-format
-msgid "Multiple Document Interface (MDI) Window"
+msgid "Accessing the search dialog"
 msgstr ""
 
 #. Tag: para
 #: hdbk-operation.docbook:125
 #, no-c-format
 msgid ""
-"This is where the opened documents are displayed. Documents are displayed in "
-"\"Display Windows\", that are specific to the four types of documents. "
-"Crosswire Bible Society may release other document types for sword in the "
-"future. When they are released, &bibletime; will support them as well."
+"You can search in a work by clicking with the <mousebutton>right</"
+"mousebutton> mouse button it symbol in the <guimenu>Bookshelf</guimenu> and "
+"selecting <guimenuitem>Search in work(s)</guimenuitem>. By holding &Shift; "
+"or &Ctrl; and clicking on other module names you can select more than one. "
+"Then follow the same procedure to open the search dialog. You will be "
+"searching in all of these works at the same time."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:129
+#, no-c-format
+msgid ""
+"You can also access the search dialog by clicking on "
+"<menuchoice><guimenu>Search</guimenu></menuchoice> from the main menu, and "
+"selecting the appropriate entry."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:132
+#: hdbk-operation.docbook:134
 #, no-c-format
-msgid "Controlling Open Documents"
+msgid "Search configuration"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:132
+#: hdbk-operation.docbook:135
 #, no-c-format
-msgid ""
-"Document Windows can be controlled and manipulated with normal &kde; window/"
-"title bar functions. In addition to this, you can tile and cascade open "
-"Document Windows. Use the appropriate tool bar buttons, or menu functions "
-"under <guimenu>&quot;Window&quot;</guimenu> in the main menubar. Document "
-"Windows can be set to automatically cascade or tile also."
+msgid "Use the options tab to set up your search."
+msgstr ""
+
+#. Tag: screeninfo
+#: hdbk-operation.docbook:137
+#, no-c-format
+msgid "Search Text Dialog Options Tab"
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:140
-#, no-c-format
-msgid "Navigating in Open Documents"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:140
-#, no-c-format
-msgid ""
-"Navigation within a document is accomplished with the Document Key Control "
-"Menu, and the scroll bar."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:144
-#, no-c-format
-msgid "To move to a specific location use the Document Key Control."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:145
-#, no-c-format
-msgid "To move within a section of a document use the scroll bar."
-msgstr ""
-
-#. Tag: para
 #: hdbk-operation.docbook:146
 #, no-c-format
-msgid ""
-"For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis>"
+msgid "Selecting works"
 msgstr ""
 
 #. Tag: para
 #: hdbk-operation.docbook:147
 #, no-c-format
 msgid ""
-"For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:148
-#, no-c-format
-msgid "For lexicons the index key is <emphasis>Keyword</emphasis>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:149
-#, no-c-format
-msgid ""
-"Drag &amp; Drop Works Here; if you drag a verse from one open document or a "
-"bookmark and drop it on another the second document will jump from it's "
-"current location to the location of the verse or bookmark dragged."
+"At the top of the options tab you will find <guibutton>Choose works</"
+"guibutton>. If you would like to search in multiple works, click on this "
+"button and you will be offered a menu where you can select the works you "
+"want to search in."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:155
+#: hdbk-operation.docbook:152
 #, no-c-format
-msgid "Editing your own commentary"
+msgid "Search text"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:156
+#: hdbk-operation.docbook:154
 #, no-c-format
 msgid ""
-"If the personal commentary is opened with a <mousebutton>left</mousebutton> "
-"mouse button it opens in read only mode. If you wish to make entries to the "
-"personal commentary, <mousebutton>right</mousebutton> mouse button on the "
-"<menuchoice>personal commentary</menuchoice> brings up the choice of the "
-"<guimenuitem>plane text or the HTML editors</guimenuitem>."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:161
-#, no-c-format
-msgid ""
-"If the editor does not save an entry, please check that you have permission "
-"to write to the personal commentary."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:163
-#, no-c-format
-msgid "The pencil icon is shown for the commentary editor"
-msgstr ""
-
-#. Tag: sect3
-#: hdbk-operation.docbook:163
-#, no-c-format
-msgid "<sect3>.</sect3>"
-msgstr ""
-
-#. Tag: phrase
-#: hdbk-operation.docbook:169
-#, no-c-format
-msgid "Enter your notes"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:172
-#, no-c-format
-msgid ""
-"The personal commentary editors are provided with a search key and save "
-"button. The HTML editor is also provided with the basic functions font name, "
-"size, color, italicize, underline and some paragraph formating "
-"possibilities. As with all good modern editors What You See Is What You Get."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:177
-#, no-c-format
-msgid ""
-"To delete notes for a selected verse, click the <guibutton>delete verse "
-"button</guibutton> <inlinemediaobject> <imageobject> <imagedata fileref="
-"\"i_delete.png\"/> </imageobject> <textobject> <phrase>Delete Verse Symbol</"
-"phrase> </textobject> </inlinemediaobject>."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:195
-#, no-c-format
-msgid ""
-"The personal commentary is a sword module. If you do not find it in the main "
-"index, get it from the <ulink url=\"http://www.crosswire.org\"> Crosswire "
-"Bible Society</ulink>."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:198
-#, no-c-format
-msgid ""
-"If you can not write to the personal commentary your permissions for the "
-"personal commentary module are wrong. Reset the permissions to allow your "
-"user to write to it."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:201
-#, no-c-format
-msgid ""
-"Drag &amp; Drop Works Here, just like other commentaries and Bible texts."
+"The text box labled <guimenuitem>Search text</guimenuitem> is where you can "
+"specify what you want to look for. This phrase may be one or more words, or "
+"partial words, (separate words, or partials, with a space), a phrase, or a "
+"<link linkend=\"hdbk-reference-regexp\">regular expression</link>."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:209
+#: hdbk-operation.docbook:160
 #, no-c-format
-msgid "Searching in Documents"
+msgid "Search type"
+msgstr ""
+
+#. Tag: guimenuitem
+#: hdbk-operation.docbook:164
+#, no-c-format
+msgid "Multiple words (AND)"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:210
+#: hdbk-operation.docbook:166
 #, no-c-format
 msgid ""
-"Portions of the instructions for the use of GCC Regular Expression in "
-"Searching Documents is taken from the help files for the <trademark class="
-"\"registered\">Microsoft Windows</trademark> version of &sword;."
+"If <guimenuitem>Multiple words (AND)</guimenuitem> is marked, the search "
+"will locate all lines (or verses) that have all the words. The position and "
+"order of the words does not matter. A search for &quot;prove cause&quot; "
+"will find Gen. 21:25, &quot;And Abraham re<emphasis>prove</emphasis>d "
+"Abimelech be <emphasis>cause</emphasis> of a well of water...&quot; This is "
+"because a word that is part of another word is considered found if a word "
+"containing it is found."
+msgstr ""
+
+#. Tag: guimenuitem
+#: hdbk-operation.docbook:178
+#, no-c-format
+msgid "Multiple words (OR)"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:180
+#, no-c-format
+msgid ""
+"If <guimenuitem>Multiple words (OR)</guimenuitem> is marked, the search will "
+"locate all lines (or verses) that have any of the words. A search for &quot;"
+"prove cause&quot; will find Genesis 21:11, &quot;And the thing was very "
+"grievous in Abraham's sight be<emphasis>cause </emphasis> of his son.&quot;"
+msgstr ""
+
+#. Tag: guimenuitem
+#: hdbk-operation.docbook:189
+#, no-c-format
+msgid "Exact"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:191
+#, no-c-format
+msgid ""
+"If <guimenuitem>Exact</guimenuitem> is marked, the search will locate all "
+"lines (or verses) that contain the very phrase that was entered in the input "
+"field, including any spaces. A search for &quot;now how thou ought&quot; "
+"will find 1 Timothy 3:1, &quot;...that thou mayest k<emphasis>now how thou "
+"ought</emphasis>est to behave...&quot;"
+msgstr ""
+
+#. Tag: guimenuitem
+#: hdbk-operation.docbook:200
+#, no-c-format
+msgid "Regular expression"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:202
+#, no-c-format
+msgid ""
+"If <guimenuitem>Regular expression</guimenuitem> is marked, the search "
+"phrase will be treated as a GCC regular epression. This allows you to create "
+"very advanced searches. Please refer to <link linkend=\"hdbk-reference-regexp"
+"\">this section</link> for detailed instructions how to use this correctly "
+"and effectively."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:215
+#: hdbk-operation.docbook:212
 #, no-c-format
-msgid "Accessing search functions"
+msgid "Search options"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:216
+#: hdbk-operation.docbook:214
 #, no-c-format
 msgid ""
-"You can search in a document by clicking with the <mousebutton>right</"
-"mousebutton> mouse button on the document name in the <guimenu>Main Index</"
-"guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>. By "
-"holding shift- or ctrl- and clicking on other module names you can select "
-"more than one. Then follow the same procedure to open the search dialog. You "
-"will be searching in all of these Documents."
+"Use the <guimenuitem>Case sensitive</guimenuitem> box to switch case sensite "
+"searching on or off."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:217
+#, no-c-format
+msgid ""
+"With the <guimenu>Text type</guimenu> selector you can narrow your search "
+"according to the kind of text you want to search in. Thus you can limit your "
+"search to include only headings, footnotes, Strong`s numbers or "
+"morphological codes. Of course, this will only function if the work you want "
+"to search in has these features. You can test this with the KJV, a richly "
+"marked up English Bible."
+msgstr ""
+
+#. Tag: tip
+#: hdbk-operation.docbook:223
+#, no-c-format
+msgid ""
+"A neat side-effect of this feature is that it enables you to search for all "
+"places where a certain word in the greek or hebrew text occurs, and study "
+"the usage of that word. E.g., if you want to look for all occurrences of the "
+"word \"oikos\" (house) in the New Testament, first locate a verse where the "
+"word \"oikos\" is found (search for \"house\" in the New Testament). Find "
+"out the Strong`s number of \"oikos\", which in this case is \"G3624\". Then "
+"you can limit your search to Strong`s numbers, and search for \"G3624\". You "
+"will find all verses where this word is found in the original greek text."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:227
+#: hdbk-operation.docbook:235
 #, no-c-format
-msgid "Using the Search Dialog"
+msgid "Using Search Scopes"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:228
+#: hdbk-operation.docbook:236
 #, no-c-format
 msgid ""
-"&bibletime; provides a well developed search facility based on "
-"<application>GCC Regular Expression</application>. It allows you to create "
-"almost <link linkend=\"hdbk-op-search-dialog-text-regexp\">any type of "
-"search you can imagine.</link>"
+"You can narrow the scope of your search to certain parts of the Bible by "
+"selecting one of the predefined scopes from the list in <guimenu>Search "
+"scope</guimenu>. Most of these should be obvious. The scope "
+"<guimenuitem>Last search result</guimenuitem> will limit the search to the "
+"verses found in the previous search."
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:232
+#: hdbk-operation.docbook:238
 #, no-c-format
 msgid ""
-"To access the search feature, click with the <mousebutton>right</"
-"mousebutton> mouse button in the Main Index now in the drop down select the "
-"magnifying glass. You can also customize &bibletime; to put the search icon "
-"<inlinemediaobject> <imageobject> <imagedata fileref=\"i_find.png\" format="
-"\"PNG\"/> </imageobject> </inlinemediaobject> in the toolbar if you would "
-"prefer."
+"You can also define your own search ranges by clicking the <guibutton>Setup "
+"ranges</guibutton> button."
 msgstr ""
 
 #. Tag: title
+#: hdbk-operation.docbook:243
+#, no-c-format
+msgid "Search results"
+msgstr ""
+
+#. Tag: para
 #: hdbk-operation.docbook:244
 #, no-c-format
-msgid "The Options Tab - Setting up your search."
+msgid ""
+"Here you can see how many instances of the search string were found, sorted "
+"by works. Clicking on a work with the <mousebutton>right</mousebutton> mouse "
+"button allows you to copy, save, or print all verses that were found in a "
+"certain work at once. This also works when you click on one or more of the "
+"references to copy, save or print them. Clicking on a particular reference "
+"opens that verse up in context in the preview window below."
 msgstr ""
 
-#. Tag: para
-#: hdbk-operation.docbook:245
-#, no-c-format
-msgid "Use the options tab to set up your search."
-msgstr ""
-
-#. Tag: screeninfo
-#: hdbk-operation.docbook:247
-#, no-c-format
-msgid "Search Text Dialog Options Tab"
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:258
-#, no-c-format
-msgid "Using the Choose Modules Button"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:259
+#. Tag: tip
+#: hdbk-operation.docbook:248
 #, no-c-format
 msgid ""
-"At the top of the options tab you will find <guibutton>Choose Modules</"
-"guibutton> , with the already selected modules directly below. If you would "
-"like to search additional modules, click on <guibutton>Choose Modules</"
-"guibutton> and you will be offered a menu of all of the modules that can be "
-"searched. Select modules with a click in the checkbox, then click the "
-"<guibutton>Use Selected Modules</guibutton> button."
+"Drag a reference and drop it on a work symbol on the Bookshelf to open the "
+"work at that verse in a new read window."
 msgstr ""
 
-#. Tag: screeninfo
-#: hdbk-operation.docbook:266
+#. Tag: tip
+#: hdbk-operation.docbook:250
 #, no-c-format
-msgid "Choose Modules Dialog Box"
+msgid ""
+"Drag a reference and drop it on an open read window, and it will jump to "
+"that verse."
+msgstr ""
+
+#. Tag: tip
+#: hdbk-operation.docbook:251
+#, no-c-format
+msgid "Select references and drag them to the Bookshelf to create bookmarks."
 msgstr ""
 
 #. Tag: title
+#: hdbk-operation.docbook:254
+#, no-c-format
+msgid "Search result analysis"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:255
+#, no-c-format
+msgid ""
+"Click on <guibutton>Search analysis</guibutton> to open the search analysis "
+"display. This gives a simple graphic analysis of the number of instances the "
+"search string was found in each book of the Bible, and you can also save the "
+"analysis."
+msgstr ""
+
+#. Tag: screeninfo
+#: hdbk-operation.docbook:260
+#, no-c-format
+msgid "Search Analysis Dialog Box"
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:274
+#, no-c-format
+msgid "The <guimenuitem>Bookshelf Manager</guimenuitem>"
+msgstr ""
+
+#. Tag: para
 #: hdbk-operation.docbook:276
 #, no-c-format
-msgid "Searched Text - what you want to find."
+msgid ""
+"The <guimenuitem>Bookshelf Manager</guimenuitem> is a tool to manage your "
+"Bookshelf. You can install new works to your Bookshelf, and update or remove "
+"existing works from your Bookshelf."
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:279
+#, no-c-format
+msgid "Bookshelf path(s) setup"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:278
+#: hdbk-operation.docbook:281
 #, no-c-format
 msgid ""
-"The text box labled Searched Text is where the phrase to be used as the "
-"search key is entered. This phrase may be one or more words, or partial "
-"words, (separate words, or partials, with a space), a phrase, or pattern "
-"<link linkend=\"hdbk-op-search-dialog-text-regexp\">(Regular Expression).</"
-"link> You can use the radio buttons select to perform the search using the "
-"search key in multiple word, exact search, or regular expression mode. A "
-"check box is provided to turn case sensitive search on or off."
+"Here you can specify where &bibletime; may store your Bookshelf on the "
+"harddrive. You can even store it in multiple directories. Default is \"~/."
+"sword/\"."
+msgstr ""
+
+#. Tag: tip
+#: hdbk-operation.docbook:283
+#, no-c-format
+msgid ""
+"If you have a sword CD, but do not want to install all the works on the "
+"harddisk, but use them directly from the CD, then you can add the path to "
+"the CD as one of your bookshelf paths. When you start &bibletime;, it will "
+"show all works on the CD if it is present."
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:287
+#, no-c-format
+msgid "Install/update work(s)"
 msgstr ""
 
 #. Tag: para
 #: hdbk-operation.docbook:289
 #, no-c-format
 msgid ""
-"Drag &amp; Drop Works Here, you can drop verses and bookmarks into the text "
-"box. You can also copy and paste text into the text box."
+"With this facility, you can connect to a repository of works (called "
+"\"library\"), and transfer one or more works to your local Bookshelf. These "
+"libraries may be local (e.g. a Sword CD), or remote (e.g. Crosswire`s online "
+"repository of Sword modules, or another site offering Sword modules). You "
+"can manage your libraries with <guibutton>Add library</guibutton> and "
+"<guibutton>Delete library</guibutton>."
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:293
+#: hdbk-operation.docbook:291
 #, no-c-format
 msgid ""
-"Click on the Case Sensitive check box to toggle case sensitivity on or off. "
-"If the box is marked a search will only find verse in which the found text "
-"also matches the case of the text in the input field. If the box is unmarked "
-"the search will match if the texts match but are different in case. To "
-"locate &quot;LORD&quot; but not &quot;Lord&quot; or &quot;lord&quot; mark "
-"the check box. To let &quot;LORD&quot; and &quot;Lord&quot; match &quot;"
-"lord&quot; leave the check box unmarked."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:303
-#, no-c-format
-msgid ""
-"If Multiple Words (AND) radio button is marked the search will locate all "
-"lines (or verses) that have all the words, listed in the Input Field. The "
-"position and order of the words, in the line is not a factor. If all the "
-"words, are in a line, in any order, even separated by other words, the line "
-"will be included in the list of found lines. A search for &quot;prove "
-"cause&quot; will find Gen. 21:25, &quot;And Abraham re<emphasis>prove</"
-"emphasis>d Abimelech be <emphasis>cause</emphasis> of a well of water..."
-"&quot; This is because a word that is part of another word is considered "
-"found if a word containing it is found."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:314
-#, no-c-format
-msgid ""
-"If Multiple Words (OR) radio button is marked the search will locate all "
-"lines (or verses) that have any of the words, listed in the Input Field. A "
-"search for &quot;cause&quot; will find Genesis 21:11, &quot;And the thing "
-"was very grievous in Abraham's sight be<emphasis>cause </emphasis> of his "
-"son.&quot;"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:320
-#, no-c-format
-msgid ""
-"If the Exact radio button is marked the search will locate all lines (or "
-"verses) that contain what was entered in the input field, exactly as "
-"entered, including any spaces. The phrase found does not have to start or "
-"end at a word boundary. A search for &quot;now how thou ought&quot; will "
-"find 1 Timothy 3:1, &quot;...that thou mayest k<emphasis>now how thou ought</"
-"emphasis>est to behave...&quot;"
+"To begin the installation or update process, select a library you want to "
+"connect to and a local Bookshelf path to install the work(s) to. Then click "
+"on <guibutton>Connect to library</guibutton>. &bibletime; will scan the "
+"contents of the library and present you with a list of works that you can "
+"add to your Bookshelf, or that you already have installed but are available "
+"in a new version in the library, and thus can be updated. Then you can mark "
+"all works that you want to install or update, and click on "
+"<guibutton>Install works</guibutton>. They will then be transferred to your "
+"Bookshelf."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:329
+#: hdbk-operation.docbook:296
 #, no-c-format
-msgid "Using Search Scopes"
+msgid "Remove work(s)"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:330
+#: hdbk-operation.docbook:298
 #, no-c-format
 msgid ""
-"Define the Scope of your search by clicking on the <guibutton>Choose Scope</"
-"guibutton> button. You will be presented a list of predefined scopes."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:334
-#, no-c-format
-msgid ""
-"<guibutton>No Scope</guibutton> this turns off the search scope tab. The "
-"entire document is searched."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:336
-#, no-c-format
-msgid ""
-"<guibutton>Last Result</guibutton> The new search will only search within "
-"the verses found in the previous search."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:338
-#, no-c-format
-msgid ""
-"<guibutton>Gospels</guibutton> The new search will be performed within the "
-"range Matthew 1:1 - John 21:25"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:340
-#, no-c-format
-msgid ""
-"<guibutton>History</guibutton> The new search will be performed within the "
-"range Joshua 1:1 - Esther 10:3;"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:344
-#, no-c-format
-msgid ""
-"If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible "
-"module is done for the name, Jesus, 939 matches will result. Then if "
-"<guibutton>Last Result</guibutton> is checked and another search is done for "
-"the title, Christ, 257 matches from the first 939 matches will remain. Then "
-"if <guibutton>Last Result</guibutton> remains checked and another search is "
-"done for the title, Lord, 106 matches from the 257 will remain. All the "
-"remaining 106 matches will have the name, Jesus, and both the titles, Christ "
-"and Lord."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:353
-#, no-c-format
-msgid ""
-"Setup Custom Ranges - You can enter upper and lower boundaries for the "
-"search by clicking on the <guibutton>Setup Custom Ranges</guibutton> button."
-msgstr ""
-
-#. Tag: phrase
-#: hdbk-operation.docbook:361
-#, no-c-format
-msgid "Change Range Entry Box"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:365
-#, no-c-format
-msgid "The predefined ranges show examples of the required syntax."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:366
-#, no-c-format
-msgid ""
-"Click on the <guibutton>Add New Range</guibutton> enter the name for your "
-"range in the Name text entry box, and enter the range in the text entry box "
-"labled Edit the search range. Your range is now added to the list of custom "
-"ranges. If you are satisfied you can return to the Search Options tab by "
-"clicking on <guibutton>OK</guibutton>."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:373
-#, no-c-format
-msgid "A number of custom ranges have been provided."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:375
-#, no-c-format
-msgid ""
-"The scope of a search can be set to the <emphasis>Entire Module</emphasis> "
-"or the <emphasis>Current Results.</emphasis> If Entire Module is checked and "
-"a search of the KJV Bible module is done for the name, Jesus, 939 matches "
-"will result. Then if Current Results is checked and another search is done "
-"for the title, Christ, 257 matches from the first 939 matches will remain. "
-"Then if Current Results remains checked and another search is done for the "
-"title, Lord, 106 matches from the 257 will remain. All the remaining 106 "
-"matches will have the name, Jesus, and both the titles, Christ and Lord."
-msgstr ""
-
-#. Tag: screeninfo
-#: hdbk-operation.docbook:393
-#, no-c-format
-msgid "Search TextCustom Range Dialog Box"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:402
-#, no-c-format
-msgid "Click on the <guibutton>Search Button</guibutton> to start the search."
-msgstr ""
-
-#. Tag: screeninfo
-#: hdbk-operation.docbook:405
-#, no-c-format
-msgid "Search Text Dialog Box"
+"This facility allows you to delete one or more of the works from your "
+"Bookshelf too free up disk space. Simply mark the items and click on "
+"<guibutton>Remove works</guibutton>."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:414
-#, no-c-format
-msgid "The Search Results Tab"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:415
-#, no-c-format
-msgid "Under the search results tab you will find the all of your search hits."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:417
-#, no-c-format
-msgid ""
-"Search Result - This tells you first, by module, how many instances of the "
-"search string were found. In the Module Column, clicking on a document will "
-"open the list of references (clicking with the <mousebutton>right</"
-"mousebutton> mouse button allows you to copy, save, or print the list of "
-"items found). Clicking on a reference (the found items list) opens that "
-"verse up in the window below. Drag the reference and drop it on a document "
-"in the main index to open the module to that verse in a new display window, "
-"or look at the verse in the bottom pane of the search results tab."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:426
-#, no-c-format
-msgid "Drag &amp; Drop Works Here in the text display area."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:427
-#, no-c-format
-msgid ""
-"Select verse numbers and drag them to the main index to create bookmarks."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:428
-#, no-c-format
-msgid ""
-"Select verse numbers and drop them on an unopened module in the main index "
-"to open the module and jump to the verse location (Bibles and commentaries "
-"only)."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:430
-#, no-c-format
-msgid ""
-"Select verse numbers and drag them to an open document and the document will "
-"jump to the verse location (Bibles and commentaries only)."
-msgstr ""
-
-#. Tag: screeninfo
-#: hdbk-operation.docbook:434
-#, no-c-format
-msgid "Search Result Dialog Box"
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:444
-#, no-c-format
-msgid "Using the Search Analysis"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:445
-#, no-c-format
-msgid ""
-"Click on <guibutton>Search Analysis</guibutton> to open the search analysis "
-"display."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:446
-#, no-c-format
-msgid ""
-"<guibutton>Search Analysis</guibutton> - This gives a graphic analysis of "
-"the number of instances the search string was found in each book. It can "
-"display results for all documents searched. You have the option of saving "
-"the analysis as an html formated list on your hard drive."
-msgstr ""
-
-#. Tag: screeninfo
-#: hdbk-operation.docbook:452
-#, no-c-format
-msgid "Search Analysis Dialog Box"
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:464
-#, no-c-format
-msgid "Search Syntax using GCC Regular Expression"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:466
-#, no-c-format
-msgid ""
-"Regular expression searches provide a way to do simple or complex searches "
-"for strings that match a pattern or set of patterns (branches) separated by "
-"vertical bars &quot;|&quot;. While a pattern can be built to look for a word "
-"or phrase, a simple pattern that consists of a word does not look for only "
-"that word but for any place the string of letters that make that word are "
-"found. A search for &quot;right&quot; will return verses that contain the "
-"word &quot;right&quot;, but also &quot;<emphasis>right</emphasis>eous&quot;, "
-"&quot;<emphasis>right</emphasis>eousness&quot;, &quot;un<emphasis>right</"
-"emphasis>eous&quot;, &quot;up<emphasis>right</emphasis>&quot; and even &quot;"
-"b<emphasis>right</emphasis>&quot;. A search for &quot;hall not&quot; is not "
-"a search for &quot;hall&quot; AND &quot;not&quot; but for the string &quot;"
-"hall not&quot; with a space between the second &quot;l&quot; and the &quot;"
-"n&quot;. The search for &quot;hall not&quot; will find occurrences of &quot;"
-"s<emphasis>hall not</emphasis>&quot;."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:482
-#, no-c-format
-msgid ""
-"The power of Regular Expressions is in the patterns (or templates) used to "
-"define a search. A pattern consists of ordinary characters and some special "
-"characters that are used and interpreted by a set of rules. Special "
-"characters include .\\[^*$?+. Ordinary (or simple) characters are any "
-"characters that are not special. The backslash, &quot;\\&quot;, is used to "
-"convert special characters to ordinary and ordinary characters to special."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:491
-#, no-c-format
-msgid ""
-"Example: the pattern &quot;<emphasis>i. love\\.</emphasis>&quot; will find "
-"sentences that end with &quot;h<emphasis>i</emphasis>s <emphasis>love</"
-"emphasis>&quot; or &quot;<emphasis>i</emphasis>n <emphasis>love</"
-"emphasis>&quot; or &quot;<emphasis>i</emphasis>s <emphasis>love</"
-"emphasis>&quot; followed by a period. The first period in &quot;i. love\\."
-"&quot; is a special character that means allow any character in this "
-"position. The backslash in &quot;i. love\\.&quot; means that the period "
-"following it is not to be considered a special character, but is an ordinary "
-"period."
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:502
-#, no-c-format
-msgid "Rules for GCC Regular Expression Search Requests"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:504
-#, no-c-format
-msgid ""
-". The period matches any character. See <link linkend=\"period\">Details</"
-"link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:506
-#, no-c-format
-msgid ""
-"* The asterisk matches 0 or more characters of the preceding: set, character "
-"or indicated character. See <link linkend=\"asterisk\">Details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:509
-#, no-c-format
-msgid ""
-"+ The plus sign matches 1 or more characters of the preceding: set, "
-"character or indicated character. See <link linkend=\"plus\">Details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:512
-#, no-c-format
-msgid ""
-"? The question mark matches 0 or 1 character of the preceding: set, "
-"character or indicated character. See <link linkend=\"question\">Details</"
-"link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:515
-#, no-c-format
-msgid ""
-"[ ] Square brackets match any one of the characters specified inside [ ]. "
-"See <link linkend=\"bracket\">Details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:517
-#, no-c-format
-msgid ""
-"^ A caret as the first character inside [ ] means NOT. See <link linkend="
-"\"caret\">Details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:519
-#, no-c-format
-msgid ""
-"^ A caret beginning a pattern anchors the beginning of a line. See <link "
-"linkend=\"caret\">Details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:521
-#, no-c-format
-msgid ""
-"$ A dollar at the end of a pattern anchors the end of a line. See <link "
-"linkend=\"dollar\">Details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:523
-#, no-c-format
-msgid ""
-"| A vertical bar means logical OR. See <link linkend=\"bar\">Details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:525
-#, no-c-format
-msgid ""
-"( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</"
-"emphasis>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:527
-#, no-c-format
-msgid ""
-"\\ A backslash can be used prior to any special character to match that "
-"character. See <link linkend=\"backslash\">Details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:529
-#, no-c-format
-msgid ""
-"\\ A backslash can be used prior to an ordinary character to make it a "
-"special character. See <link linkend=\"backslash\">Details</link>"
-msgstr ""
-
-#. Tag: sect4
-#: hdbk-operation.docbook:531
-#, no-c-format
-msgid ""
-"<sect5 id=\"period\"> <title>The Period .</title> <para>The Period &quot;."
-"&quot; will match any single character even a space or other non-alphabet "
-"character. <emphasis>s.t</emphasis> matches <emphasis>s</"
-"emphasis>i<emphasis>t</emphasis>, <emphasis>s</emphasis>e<emphasis>t</"
-"emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>, etc., which could "
-"be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting, "
-"compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</"
-"emphasis>o<emphasis>t</emphasis>tish <emphasis>b..t</emphasis> matches "
-"<emphasis>b</emphasis>oo<emphasis>t</emphasis>, <emphasis>b</"
-"emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t "
-"foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </"
-"emphasis>and <emphasis>foot tool</emphasis></para> </sect5> <sect5 id="
-"\"asterisk\"> <title>The Asterisk *</title> <para>The asterisk matches zero "
-"or more characters of the preceding: set, character or indicated character. "
-"Using a period asterisk combination &quot;.*&quot; after a commonly found "
-"pattern can cause the search to take a very long time, making the program "
-"seem to freeze. <emphasis>be*n</emphasis> matches<emphasis> beeen, been, "
-"ben</emphasis>, and <emphasis>bn</emphasis> which could locate "
-"Reu<emphasis>ben</emphasis> and She<emphasis>bn</emphasis>a.</para> </sect5> "
-"<sect5 id=\"plus\"> <title>The Plus Sign +</title> <para>The Plus Sign "
-"matches one or more characters of the preceding: set, character or indicated "
-"character. Using a period and plus sign combination &quot;.+&quot; after a "
-"commonly found pattern can cause the search to take a very long time, making "
-"the program seem to freeze. <emphasis>be+n</emphasis> matches "
-"<emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>, but not "
-"<emphasis>bn</emphasis>.</para> </sect5> <sect5 id=\"question\"> <title>The "
-"Question Mark ?</title> <para>The Question Mark matches zero or one "
-"character of the preceding: set, character or indicated character. "
-"<emphasis>be?n</emphasis> matches <emphasis>ben</emphasis> and <emphasis>bn</"
-"emphasis> but not <emphasis>been</emphasis>. <emphasis>trees?</emphasis> "
-"matches <emphasis>trees</emphasis> or <emphasis>tree</emphasis>.</para> </"
-"sect5> <sect5 id=\"bracket\"> <title>The Square Brackets [ ]</title> "
-"<para>The Square Brackets enclose a set of characters that can match. The "
-"period, asterisk, plus sign and question mark are not special inside the "
-"brackets. A minus sign can be used to indicate a range. If you want a caret "
-"&quot;^&quot; to be part of the range do not place it first after the left "
-"bracket or it will be a special character. To include a &quot;]&quot; in the "
-"set make it the first (or second after a special &quot;^&quot;) character in "
-"the set. To include a minus sign in the set make it the first (or second "
-"after a special &quot;^&quot;) or last character in the set. <emphasis>s[eia]"
-"t</emphasis> matches <emphasis>set</emphasis>, <emphasis>sit</emphasis>, and "
-"<emphasis>sat</emphasis>, but not <emphasis>s</emphasis>o<emphasis>t</"
-"emphasis>. <emphasis>s[eia]+t </emphasis>matches as above but also, "
-"<emphasis>seat, seet, siet</emphasis>, etc. <emphasis>[a-d]</emphasis> "
-"matches <emphasis>a, b, c,</emphasis> or <emphasis>d</emphasis>. <emphasis>"
-"[A-Z]</emphasis> matches any uppercase letter. [.;:?!] matches ., ;, :, ?, "
-"or ! but not a comma. [ ]^-] matches ] or ^ or -</para> </sect5> <sect5 id="
-"\"caret\"> <title>The Caret first in Square Brackets [^xxx</title> <para>If "
-"the Caret is the first character after the left bracket it means NOT. "
-"<emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc., "
-"but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</"
-"emphasis>o<emphasis>t</emphasis>.</para> </sect5> <sect5 id=\"caret-s\"> "
-"<title>The Caret as Start of Line Anchor ^xxx</title> <para>If the Caret is "
-"the first character in a pattern it anchors the pattern to the start of a "
-"line. Any match must be at the beginning of a line. Because of unfiltered "
-"formatting characters in some texts, this feature does not always work, but "
-"may if a few periods are placed after the caret to account for the "
-"formatting characters. <emphasis>^In the beginning</emphasis> matches lines "
-"that start with &quot;<emphasis>In the beginning</emphasis>&quot;. (May need "
-"to use: <emphasis>^.....In the beginning</emphasis>)</para> </sect5> <sect5 "
-"id=\"dollar\"> <title>The Dollar Sign as End of Line Anchor xxx$</title> "
-"<para>If the Dollar Sign is the last character in a pattern it anchors the "
-"pattern to the end of a line. Any match must be at the end of a line. "
-"Because of unfiltered formatting characters in some texts, this feature does "
-"not always work, but may if a few periods are placed before the dollar sign "
-"to account for the formatting characters. <emphasis>Amen\\.$</emphasis> "
-"matches lines that end with &quot;<emphasis>Amen.</emphasis>&quot; (May need "
-"to use Amen\\....$, Amen\\..........$, or even Amen\\....................$)</"
-"para> </sect5> <sect5 id=\"bar\"> <title>The Vertical Bar |</title> "
-"<para>The Vertical Bar between patterns means OR. <emphasis>John|Peter</"
-"emphasis> matches <emphasis>John</emphasis> or <emphasis>Peter. John .*Peter|"
-"Peter .*John</emphasis> matches <emphasis>John</emphasis> ... "
-"<emphasis>Peter</emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</"
-"emphasis>. (.* slows a search) <emphasis>pain|suffering|sorrow</emphasis> "
-"matches <emphasis>pain</emphasis>, or <emphasis>suffering</emphasis>, or "
-"<emphasis>sorrow</emphasis>.</para> </sect5> <sect5 id=\"parenth\"> "
-"<title>The Parentheses ( ) </title> <para><emphasis>The use of Parentheses "
-"( ) is not supported!</emphasis></para> </sect5> <sect5 id=\"backslash\"> "
-"<title>The Backslash Prior to a Special Character \\*</title> <para>The "
-"Backslash prior to a special character indicates that the character is not "
-"being used in its special meaning, but is just to match itself. "
-"<emphasis>amen\\.</emphasis> matches <emphasis>amen.</emphasis> but not "
-"<emphasis>amen</emphasis>t and will not locate firm<emphasis>amen</"
-"emphasis>t.</para> </sect5> <sect5 id=\"backslash-o\"> <title>The Backslash "
-"Prior to an Ordinary Character \\s</title> <para>The Backslash prior to an "
-"ordinary character indicates that the character is not being used to match "
-"itself, but has special meaning.</para> <itemizedlist> <listitem><para> \\b "
-"if use outside [ ] means word boundary. If used inside [ ] means backspace. "
-"<emphasis>\\brighteous\\b</emphasis> matches <emphasis>righteous</emphasis> "
-"but not un<emphasis>righteous</emphasis> or <emphasis>righteous</"
-"emphasis>ness</para></listitem> <listitem><para>\\B means non-word boundary. "
-"<emphasis>\\Brighteous\\B</emphasis> matches un<emphasis>righteous</"
-"emphasis>ness and un<emphasis>righteous</emphasis>ly but not "
-"<emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or "
-"<emphasis> righteous</emphasis>ness.</para></listitem> <listitem><para>\\d "
-"means digit; same as [0-9].</para></listitem> <listitem><para>\\D means non-"
-"digit, same as [^0-9].</para></listitem> <listitem><para>\\s means space. </"
-"para></listitem> <listitem><para>\\S means not a space. </para></listitem> "
-"<listitem><para>\\w means alphanumeric; same as [a-zA-Z0-9_].</para></"
-"listitem> <listitem><para>\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
-"</para></listitem> </itemizedlist> </sect5>"
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:704
+#: hdbk-operation.docbook:306
 #, no-c-format
 msgid "Exporting and Printing"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:705
-#, no-c-format
-msgid "Bible Window, Lexicon Window, Commentary Window, Book Window."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:706
+#: hdbk-operation.docbook:308
 #, no-c-format
 msgid ""
-"By clicking with the <mousebutton>right</mousebutton> mouse button on the "
-"index key number, verse number or text the Bible Window, Lexicon Window, "
-"Commentary Window or Book Window drop down box is displayed (depending on "
-"which kind of window is current), providing options to select all, and the "
-"export options copy, add to printing queue, and save."
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:713
-#, no-c-format
-msgid "Select All"
+"In many places, you can open a context menu by clicking with the "
+"<mousebutton>right</mousebutton> mouse button. Depending on context, it will "
+"allow you to <guimenuitem>Select</guimenuitem>, <guimenuitem>Copy</"
+"guimenuitem> (to clipboard), <guimenuitem>Save</guimenuitem> or "
+"<guimenuitem>Print</guimenuitem> text. This works for example in the read "
+"windows, when you click on the normal text or the verse reference, or in the "
+"search result page when you click on a work or one or more verse references. "
+"It is pretty straightforward, so just try it out."
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:714
-#, no-c-format
-msgid ""
-"A mouse click here will select all of the text in the chapter displayed in "
-"the current window."
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:720
-#, no-c-format
-msgid "Copy"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:721
-#, no-c-format
-msgid ""
-"A mouse click here will bring up a sub menu offering to copy to the copy "
-"buffer using the current location of the cursor as the starting point."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:726
-#, no-c-format
-msgid ""
-"<guimenuitem>Reference only</guimenuitem> - The number of the current verse "
-"(such as Genesis 1:25)."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:731
-#, no-c-format
-msgid ""
-"<guimenuitem>Text of Reference</guimenuitem> - The text of the current verse."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:736
-#, no-c-format
-msgid ""
-"<guimenuitem>Reference with Text</guimenuitem> - Both the text of the "
-"current verse, and the verse number."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:741
-#, no-c-format
-msgid "<guimenuitem>Chapter</guimenuitem> - the entire chapter."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:746
-#, no-c-format
-msgid ""
-"<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlighted) "
-"text."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:751
-#, no-c-format
-msgid ""
-"This text can be copied into any application that can access the linux copy "
-"buffer."
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:756
-#, no-c-format
-msgid "Print"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:757
-#, no-c-format
-msgid "Selecting print here sends your selection to the &kde; print system."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:760
-#, no-c-format
-msgid "A mouse click here will bring up a submenu with the printing options:"
-msgstr ""
-
-#. Tag: guimenuitem
-#: hdbk-operation.docbook:765
-#, no-c-format
-msgid "reference with text"
-msgstr ""
-
-#. Tag: guimenuitem
-#: hdbk-operation.docbook:770
-#, no-c-format
-msgid "chapter"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:774
+#: hdbk-operation.docbook:313
 #, no-c-format
 msgid ""
 "Printing from &bibletime; is rather basic and is intended as a utility. If "
 "you are composing a document or presentation containing text from "
-"&bibletime; documents, we suggest that you use one of the presentation or "
-"editing tools on your system to format your work."
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:782
-#, no-c-format
-msgid "Save"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:783
-#, no-c-format
-msgid "A mouse click here will bring up a submenu with save options:"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:787
-#, no-c-format
-msgid ""
-"<guimenuitem>Verse with reference</guimenuitem> - a file is created in "
-"&UNIX; formated ASCII text."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:792
-#, no-c-format
-msgid ""
-"<guimenuitem>Chapter as plain text</guimenuitem> - a file is created in "
-"&UNIX; formated ASCII text."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:797
-#, no-c-format
-msgid ""
-"<guimenuitem>Chapter as HTML</guimenuitem> - a file is created formated in "
-"HTML."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:802
-#, no-c-format
-msgid ""
-"Once saved this text can be opened and edited by any text or HTML "
-"application."
+"&bibletime; works, we suggest that you use one of the presentation or "
+"editing tools on your system to format your document, rather than printing "
+"from &bibletime; directly."
 msgstr ""
 
 #. Tag: title
@@ -1897,7 +1299,7 @@ msgstr ""
 #. Tag: title
 #: hdbk-start.docbook:3
 #, no-c-format
-msgid "How to Start BibleTime"
+msgid "How to start &bibletime;"
 msgstr ""
 
 #. Tag: title
@@ -1916,13 +1318,13 @@ msgid ""
 msgstr ""
 
 #. Tag: phrase
-#: hdbk-start.docbook:15
+#: hdbk-start.docbook:13
 #, no-c-format
 msgid "&bibletime; start icon"
 msgstr ""
 
 #. Tag: para
-#: hdbk-start.docbook:19
+#: hdbk-start.docbook:17
 #, no-c-format
 msgid ""
 "&bibletime; can also be launched from a terminal command prompt. To launch "
@@ -1933,19 +1335,19 @@ msgstr ""
 #. Tag: screen
 #. #-#-#-#-#  index.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
 #. Tag: keyword
-#: hdbk-start.docbook:21 index.docbook:88
+#: hdbk-start.docbook:19 index.docbook:66
 #, no-c-format
 msgid "bibletime"
 msgstr ""
 
 #. Tag: title
-#: hdbk-start.docbook:26
+#: hdbk-start.docbook:24
 #, no-c-format
-msgid "Other Window Managers"
+msgid "Other window managers"
 msgstr ""
 
 #. Tag: para
-#: hdbk-start.docbook:28
+#: hdbk-start.docbook:26
 #, no-c-format
 msgid ""
 "&bibletime; can be used with other window managers such as Gnome, BlackBox "
@@ -1955,7 +1357,7 @@ msgid ""
 msgstr ""
 
 #. Tag: screen
-#: hdbk-start.docbook:32
+#: hdbk-start.docbook:30
 #, no-c-format
 msgid ""
 "export KDEDIR=/opt/kde  #your KDE directory\n"
@@ -1963,13 +1365,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-start.docbook:36
+#: hdbk-start.docbook:34
 #, no-c-format
-msgid "Startup Customization"
+msgid "Startup customization"
 msgstr ""
 
 #. Tag: para
-#: hdbk-start.docbook:38
+#: hdbk-start.docbook:36
 #, no-c-format
 msgid ""
 "From a terminal you can use &bibletime; to open a random verse in the "
@@ -1981,13 +1383,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-start.docbook:50
+#: hdbk-start.docbook:48
 #, no-c-format
-msgid "Startup Sequence"
+msgid "Startup sequence"
 msgstr ""
 
 #. Tag: para
-#: hdbk-start.docbook:52
+#: hdbk-start.docbook:50
 #, no-c-format
 msgid ""
 "As &bibletime; launches you may see the following screens before the main "
@@ -1995,13 +1397,13 @@ msgid ""
 msgstr ""
 
 #. Tag: interface
-#: hdbk-start.docbook:58
+#: hdbk-start.docbook:56
 #, no-c-format
 msgid "Sword configuration dialog"
 msgstr ""
 
 #. Tag: para
-#: hdbk-start.docbook:59
+#: hdbk-start.docbook:57
 #, no-c-format
 msgid ""
 "<action>Modifies your Sword installation.</action> This dialog lets you "
@@ -2010,13 +1412,13 @@ msgid ""
 msgstr ""
 
 #. Tag: interface
-#: hdbk-start.docbook:67
+#: hdbk-start.docbook:65
 #, no-c-format
 msgid "Preferences dialog"
 msgstr ""
 
 #. Tag: para
-#: hdbk-start.docbook:68
+#: hdbk-start.docbook:66
 #, no-c-format
 msgid ""
 "<action>Customizes &bibletime;.</action> This dialog lets you adapt "
@@ -2025,29 +1427,23 @@ msgid ""
 msgstr ""
 
 #. Tag: interface
-#: hdbk-start.docbook:74
+#: hdbk-start.docbook:72
 #, no-c-format
-msgid "<interface>Tip of the Day</interface>"
+msgid "Tip of the Day"
 msgstr ""
 
 #. Tag: para
-#: hdbk-start.docbook:75
+#: hdbk-start.docbook:73
 #, no-c-format
 msgid ""
 "These nifty little tips give you helpful hints for working more efficiently "
 "with &bibletime;, and also a few quotations from the Bible."
 msgstr ""
 
-#. Tag: phrase
-#: hdbk-start.docbook:78
-#, no-c-format
-msgid "<phrase>Tip of the Day</phrase>"
-msgstr ""
-
 #. Tag: title
 #: index.docbook:21
 #, no-c-format
-msgid "The &bibletime; Handbook"
+msgid "The &bibletime; handbook"
 msgstr ""
 
 #. Tag: author
@@ -2056,97 +1452,68 @@ msgstr ""
 msgid "<firstname>Fred</firstname> <surname>Saalbach</surname>"
 msgstr ""
 
-#. Tag: email
-#: index.docbook:29
-#, no-c-format
-msgid "info@bibletime.info"
-msgstr ""
-
 #. Tag: author
-#: index.docbook:33
+#: index.docbook:30
 #, no-c-format
 msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
 msgstr ""
 
+#. Tag: author
+#: index.docbook:35
+#, no-c-format
+msgid "<firstname>Martin</firstname> <surname>Gruner</surname>"
+msgstr ""
+
 #. Tag: trans_comment
-#: index.docbook:40
+#: index.docbook:42
 #, no-c-format
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
 
 #. Tag: holder
-#: index.docbook:48
+#: index.docbook:46
 #, no-c-format
-msgid "The team of &bibletime;, info@bibletime.info"
+msgid "the &bibletime; team, <email>info@bibletime.info</email>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:53
+#: index.docbook:50
 #, no-c-format
 msgid "The &bibletime; handbook is part of &bibletime;."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:56
+#: index.docbook:59
 #, no-c-format
-msgid ""
-"&bibletime; is free software; you can redistribute it and/or modify it under "
-"the terms of the GNU General Public License as published by the Free "
-"Software Foundation; either version 2 of the License, or (at your option) "
-"any later version."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:63
-#, no-c-format
-msgid ""
-"This program is distributed in the hope that it will be useful, but WITHOUT "
-"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
-"more details."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:70
-#, no-c-format
-msgid ""
-"You should have received a copy of the GNU General Public License along with "
-"this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
-"Ave, Cambridge, MA 02139, USA."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:80
-#, no-c-format
-msgid "&bibletime; is an application to aid in study of the Bible."
+msgid "&bibletime; is a powerful Bible study tool for &kde;."
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:87
+#: index.docbook:65
 #, no-c-format
 msgid "<keyword>KDE</keyword>"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:89
+#: index.docbook:67
 #, no-c-format
 msgid "&bibletime;"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:90
+#: index.docbook:68
 #, no-c-format
 msgid "sword"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:91
+#: index.docbook:69
 #, no-c-format
 msgid "crosswire"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:92
+#: index.docbook:70
 #, no-c-format
 msgid "help dialog"
 msgstr ""
@@ -2409,7 +1776,7 @@ msgstr ""
 #. Tag: para
 #: hdbk-reference.docbook:150
 #, no-c-format
-msgid "<action>Cascades all open display windows</action>."
+msgid "<action>Cascades all open read windows</action>."
 msgstr ""
 
 #. Tag: menuchoice
@@ -2425,7 +1792,7 @@ msgstr ""
 #. Tag: para
 #: hdbk-reference.docbook:159
 #, no-c-format
-msgid "<action>Tiles all open display windows</action>."
+msgid "<action>Tiles all open read windows</action>."
 msgstr ""
 
 #. Tag: menuchoice
@@ -2442,9 +1809,9 @@ msgstr ""
 #: hdbk-reference.docbook:168
 #, no-c-format
 msgid ""
-"<action>Automatically cascades all open display windows</action>. If you "
-"enable this setting, &bibletime; will automatically cascade all display "
-"windows that you open."
+"<action>Automatically cascades all open read windows</action>. If you enable "
+"this setting, &bibletime; will automatically cascade all read windows that "
+"you open."
 msgstr ""
 
 #. Tag: menuchoice
@@ -2461,9 +1828,9 @@ msgstr ""
 #: hdbk-reference.docbook:178
 #, no-c-format
 msgid ""
-"<action>Automatically tiles all open display windows</action>. If you enable "
-"this setting, &bibletime; will automatically tile all display windows that "
-"you open."
+"<action>Automatically tiles all open read windows</action>. If you enable "
+"this setting, &bibletime; will automatically tile all read windows that you "
+"open."
 msgstr ""
 
 #. Tag: menuchoice
@@ -2479,7 +1846,7 @@ msgstr ""
 #. Tag: para
 #: hdbk-reference.docbook:188
 #, no-c-format
-msgid "<action>Closes all open display windows</action>."
+msgid "<action>Closes all open read windows</action>."
 msgstr ""
 
 #. Tag: guimenu
@@ -2550,13 +1917,13 @@ msgid "&help.menu.documentation;"
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:250
+#: hdbk-reference.docbook:243
 #, no-c-format
 msgid "Toolbar reference"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:252
+#: hdbk-reference.docbook:245
 #, no-c-format
 msgid ""
 "Please review <link linkend=\"hdbk-reference-menus\">the preceding section</"
@@ -2566,7 +1933,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:256
+#: hdbk-reference.docbook:249
 #, no-c-format
 msgid ""
 "You can adapt the toolbar to your needs. Please use the following entry in "
@@ -2578,38 +1945,43 @@ msgid ""
 "menus-settings-toolbars\">this section</link> for detailed instructions."
 msgstr ""
 
+#. Tag: title
+#: hdbk-reference.docbook:266
+#, no-c-format
+msgid "HotKeys index"
+msgstr ""
+
 #. Tag: para
-#: hdbk-reference.docbook:283
+#: hdbk-reference.docbook:268
 #, no-c-format
 msgid ""
-"This is a reference to all hotkeys and their corresponding description in "
-"the handbook. The hotkeys are sorted (roughly) alphabetical. If you want to "
+"This is index of all hotkeys and their corresponding description in the "
+"handbook. The hotkeys are sorted (roughly) alphabetical. If you want to "
 "directly find out which hotkey a certain menu item has, you can either look "
 "at the entry itelf in &bibletime; (as it always shows the hotkey), or you "
-"can look it up in <link linkend=\"hdbk-reference-menus\">the preceding "
-"section</link>."
+"can look it up in <link linkend=\"hdbk-reference-menus\">this section</link>."
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:295
+#: hdbk-reference.docbook:280
 #, no-c-format
 msgid "Hotkey"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:296
+#: hdbk-reference.docbook:281
 #, no-c-format
 msgid "Description"
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:301
+#: hdbk-reference.docbook:286
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>A</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:302
+#: hdbk-reference.docbook:287
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-autocascade\"><menuchoice> "
@@ -2618,13 +1990,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:308
+#: hdbk-reference.docbook:293
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>S</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:309
+#: hdbk-reference.docbook:294
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-savenewsession\"><menuchoice> "
@@ -2633,13 +2005,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:315
+#: hdbk-reference.docbook:300
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>T</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:316
+#: hdbk-reference.docbook:301
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-autotile\"><menuchoice> "
@@ -2648,13 +2020,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:322
+#: hdbk-reference.docbook:307
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>W</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:323
+#: hdbk-reference.docbook:308
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-closeall\"><menuchoice> "
@@ -2663,13 +2035,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:329
+#: hdbk-reference.docbook:314
 #, no-c-format
 msgid "<keycap>F1</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:330
+#: hdbk-reference.docbook:315
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Handbook</guimenuitem></"
@@ -2677,13 +2049,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:336
+#: hdbk-reference.docbook:321
 #, no-c-format
 msgid "<keycap>F2</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:337
+#: hdbk-reference.docbook:322
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>BibleStudy Howto</"
@@ -2691,13 +2063,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:343
+#: hdbk-reference.docbook:328
 #, no-c-format
 msgid "<keycap>F3</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:344
+#: hdbk-reference.docbook:329
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Daily tip</guimenuitem></"
@@ -2705,13 +2077,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:351
+#: hdbk-reference.docbook:336
 #, no-c-format
 msgid "<keycap>F4</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:352
+#: hdbk-reference.docbook:337
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-settings-sword\"><menuchoice> "
@@ -2720,13 +2092,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:358
+#: hdbk-reference.docbook:343
 #, no-c-format
 msgid "<keycap>F5</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:359
+#: hdbk-reference.docbook:344
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-configuresessions\"><menuchoice> "
@@ -2736,13 +2108,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:365
+#: hdbk-reference.docbook:350
 #, no-c-format
 msgid "<keycap>F8</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:366
+#: hdbk-reference.docbook:351
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-view-showmainindex\"><menuchoice> "
@@ -2751,13 +2123,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:372
+#: hdbk-reference.docbook:357
 #, no-c-format
 msgid "<keycap>F9</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:373
+#: hdbk-reference.docbook:358
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-view-showinfodisplay\"><menuchoice> "
@@ -2766,13 +2138,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:379
+#: hdbk-reference.docbook:364
 #, no-c-format
 msgid "&Shift;<keycap>F1</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:380
+#: hdbk-reference.docbook:365
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>What`s this?</"
@@ -2782,13 +2154,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:387
+#: hdbk-reference.docbook:372
 #, no-c-format
 msgid "&Ctrl;<keycap>A</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:388
+#: hdbk-reference.docbook:373
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-cascade\"><menuchoice> "
@@ -2797,40 +2169,37 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:394
+#: hdbk-reference.docbook:379
 #, no-c-format
 msgid "&Ctrl;<keycap>B</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:395
+#: hdbk-reference.docbook:380
 #, no-c-format
-msgid ""
-"Moves a bible or commentary display window to the next book. Please see "
-"<link linkend=\"hdbk-op-MDI-window-navigation\">this section</link> for "
-"detailed instructions."
+msgid "Moves a bible or commentary read window to the next book."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:401
+#: hdbk-reference.docbook:383
 #, no-c-format
 msgid "&Ctrl;<keycap>C</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:402
+#: hdbk-reference.docbook:384
 #, no-c-format
 msgid "Copies selected text."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:405
+#: hdbk-reference.docbook:387
 #, no-c-format
 msgid "&Ctrl;<keycap>F</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:406
+#: hdbk-reference.docbook:388
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-search-defaultbible\"><menuchoice> "
@@ -2840,13 +2209,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:412
+#: hdbk-reference.docbook:394
 #, no-c-format
 msgid "&Ctrl;<keycap>G</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:413
+#: hdbk-reference.docbook:395
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-search-openmodules\"><menuchoice> "
@@ -2856,28 +2225,25 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:419
+#: hdbk-reference.docbook:401
 #, no-c-format
 msgid "&Ctrl;<keycap>H</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:420
+#: hdbk-reference.docbook:402
 #, no-c-format
-msgid ""
-"Moves a bible or commentary display window to the next chapter. Please see "
-"<link linkend=\"hdbk-op-MDI-window-navigation\">this section</link> for "
-"detailed instructions."
+msgid "Moves a bible or commentary read window to the next chapter."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:426
+#: hdbk-reference.docbook:405
 #, no-c-format
 msgid "&Ctrl;<keycap>T</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:427
+#: hdbk-reference.docbook:406
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-tile\"><menuchoice> "
@@ -2886,43 +2252,37 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:433
+#: hdbk-reference.docbook:412
 #, no-c-format
 msgid "&Ctrl;<keycap>V</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:434
+#: hdbk-reference.docbook:413
 #, no-c-format
-msgid ""
-"Moves a display window to the next verse or entry. Please see <link linkend="
-"\"hdbk-op-MDI-window-navigation\">this section</link> for detailed "
-"instructions."
+msgid "Moves a read window to the next verse or entry."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:440
+#: hdbk-reference.docbook:416
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>B</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:441
+#: hdbk-reference.docbook:417
 #, no-c-format
-msgid ""
-"Moves a bible or commentary display window to the previous book. Please see "
-"<link linkend=\"hdbk-op-MDI-window-navigation\">this section</link> for "
-"detailed instructions."
+msgid "Moves a bible or commentary read window to the previous book."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:447
+#: hdbk-reference.docbook:420
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>F</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:448
+#: hdbk-reference.docbook:421
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-fullscreen\"><menuchoice> "
@@ -2931,31 +2291,465 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:454
+#: hdbk-reference.docbook:427
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>H</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:455
+#: hdbk-reference.docbook:428
 #, no-c-format
-msgid ""
-"Moves a bible or commentary display window to the previous chapter. Please "
-"see <link linkend=\"hdbk-op-MDI-window-navigation\">this section</link> for "
-"detailed instructions."
+msgid "Moves a bible or commentary read window to the previous chapter."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:461
+#: hdbk-reference.docbook:431
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>V</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:462
+#: hdbk-reference.docbook:432
+#, no-c-format
+msgid "Moves a read window to the previous verse or entry."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:442
+#, no-c-format
+msgid "GCC Regular Expression Reference"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:447
 #, no-c-format
 msgid ""
-"Moves a display window to the previous verse or entry. Please see <link "
-"linkend=\"hdbk-op-MDI-window-navigation\">this section</link> for detailed "
-"instructions."
+"Regular expression searches provide a way to do simple or complex searches "
+"for strings that match a pattern or set of patterns (branches) separated by "
+"vertical bars \"|\". While a pattern can be built to look for a word or "
+"phrase, a simple pattern that consists of a word does not look for only that "
+"word but for any place where that word is found. A search for \"right\" will "
+"return verses that contain the word \"right\", but also \"<emphasis>right</"
+"emphasis>eous\", \"<emphasis>right</emphasis>eousness\", "
+"\"un<emphasis>right</emphasis>eous\", \"up<emphasis>right</emphasis>\" and "
+"even \"b<emphasis>right</emphasis>\". A search for \"hall not\" is not a "
+"search for \"hall\" AND \"not\" but for the string \"hall not\" with a space "
+"between the second \"l\" and the \"n\". The search for \"hall not\" will "
+"find occurrences of \"s<emphasis>hall not</emphasis>\"."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:463
+#, no-c-format
+msgid ""
+"The power of Regular Expressions lies in the patterns (or templates) used to "
+"define a search. A pattern consists of ordinary characters and some special "
+"characters that are used and interpreted by a set of rules. Special "
+"characters include .\\[^*$?+. Ordinary (or simple) characters are any "
+"characters that are not special. The backslash, \"\\\", is used to convert "
+"special characters to ordinary and ordinary characters to special."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:472
+#, no-c-format
+msgid ""
+"Example: the pattern \"i. love\\.\" will find sentences that end with "
+"\"h<emphasis>i</emphasis>s <emphasis>love.</emphasis>\" or \"<emphasis>i</"
+"emphasis>n <emphasis>love.</emphasis>\" or \"<emphasis>i</emphasis>s "
+"<emphasis>love.</emphasis>\". The first period in \"i. love\\.\" is a "
+"special character that means \"allow any character in this position\". The "
+"backslash in \"i. love\\.\" means that the period following it is not to be "
+"considered a special character, but is an ordinary period."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:484
+#, no-c-format
+msgid "Special characters"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:487
+#, no-c-format
+msgid ""
+". The period matches any character. See <link linkend=\"period\">details</"
+"link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:489
+#, no-c-format
+msgid ""
+"* The asterisk matches 0 or more characters of the preceding: set, character "
+"or indicated character. See <link linkend=\"asterisk\">details</link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:492
+#, no-c-format
+msgid ""
+"+ The plus sign matches 1 or more characters of the preceding: set, "
+"character or indicated character. See <link linkend=\"plus\">details</link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:495
+#, no-c-format
+msgid ""
+"? The question mark matches 0 or 1 character of the preceding: set, "
+"character or indicated character. See <link linkend=\"question\">details</"
+"link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:498
+#, no-c-format
+msgid ""
+"[ ] Square brackets match any one of the characters specified inside [ ]. "
+"See <link linkend=\"bracket\">details</link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:500
+#, no-c-format
+msgid ""
+"^ A caret as the first character inside [ ] means NOT. See <link linkend="
+"\"caret\">details</link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:502
+#, no-c-format
+msgid ""
+"^ A caret beginning of a pattern anchors the beginning of a line. See <link "
+"linkend=\"caret\">details</link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:504
+#, no-c-format
+msgid ""
+"$ A dollar at the end of a pattern anchors the end of a line. See <link "
+"linkend=\"dollar\">details</link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:506
+#, no-c-format
+msgid ""
+"| A vertical bar means logical OR. See <link linkend=\"bar\">details</link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:508
+#, no-c-format
+msgid ""
+"( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</"
+"emphasis>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:510
+#, no-c-format
+msgid ""
+"\\ A backslash can be used prior to any special character to match that "
+"character. See <link linkend=\"backslash\">details</link>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:512
+#, no-c-format
+msgid ""
+"\\ A backslash can be used prior to an ordinary character to make it a "
+"special character. See <link linkend=\"backslash\">details</link>"
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:517
+#, no-c-format
+msgid "The period ."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:519
+#, no-c-format
+msgid ""
+"The Period \".\" will match any single character even a space or other non-"
+"alphabet character. <emphasis>s.t</emphasis> matches <emphasis>s</"
+"emphasis>i<emphasis>t</emphasis>, <emphasis>s</emphasis>e<emphasis>t</"
+"emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>, etc., which could "
+"be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting, "
+"compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</"
+"emphasis>o<emphasis>t</emphasis>tish <emphasis>b..t</emphasis> matches "
+"<emphasis>b</emphasis>oo<emphasis>t</emphasis>, <emphasis>b</"
+"emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t "
+"foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </"
+"emphasis>and <emphasis>foot tool</emphasis>."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:532
+#, no-c-format
+msgid "The asterisk *"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:534
+#, no-c-format
+msgid ""
+"The asterisk matches zero or more characters of the preceding: set, "
+"character or indicated character. Using a period asterisk combination \".*\" "
+"is a common method to match any combination of characters. <emphasis>be*n</"
+"emphasis> matches<emphasis> beeen, been, ben</emphasis>, and <emphasis>bn</"
+"emphasis> which could locate Reu<emphasis>ben</emphasis> and "
+"She<emphasis>bn</emphasis>a. <emphasis>G.*d</emphasis> would match "
+"<emphasis>God, good, guard</emphasis> and even <emphasis>Gd</emphasis>."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:546
+#, no-c-format
+msgid "The plus sign +"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:547
+#, no-c-format
+msgid ""
+"The Plus Sign matches one or more characters of the preceding: set, "
+"character or indicated character. Using a period and plus sign combination "
+"\".+\" is similar to \".*\" (see above), but the string has to contain at "
+"least one string to match. <emphasis>be+n</emphasis> matches "
+"<emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>, but not "
+"<emphasis>bn</emphasis>."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:556
+#, no-c-format
+msgid "The question mark ?"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:557
+#, no-c-format
+msgid ""
+"The Question Mark matches zero or one character of the preceding: set, "
+"character or indicated character. <emphasis>be?n</emphasis> matches "
+"<emphasis>ben</emphasis> and <emphasis>bn</emphasis> but not <emphasis>been</"
+"emphasis>. <emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or "
+"<emphasis>tree</emphasis>."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:565
+#, no-c-format
+msgid "The square brackets [ ]"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:566
+#, no-c-format
+msgid ""
+"The Square Brackets enclose a set of characters that can match. The period, "
+"asterisk, plus sign and question mark are not special inside the brackets. A "
+"minus sign can be used to indicate a range. If you want a caret \"^\" to be "
+"part of the range do not place it first after the left bracket or it will be "
+"a special character. To include a \"]\" in the set make it the first (or "
+"second after a special \"^\") character in the set. To include a minus sign "
+"in the set make it the first (or second after a special \"^\") or last "
+"character in the set. <emphasis>s[eia]t</emphasis> matches <emphasis>set</"
+"emphasis>, <emphasis>sit</emphasis>, and <emphasis>sat</emphasis>, but not "
+"<emphasis>s</emphasis>o<emphasis>t</emphasis>. <emphasis>s[eia]+t </"
+"emphasis>matches as above but also, <emphasis>seat, seet, siet</emphasis>, "
+"etc. <emphasis>[a-d]</emphasis> matches <emphasis>a, b, c,</emphasis> or "
+"<emphasis>d</emphasis>. <emphasis>[A-Z]</emphasis> matches any uppercase "
+"letter. [.;:?!] matches ., ;, :, ?, or ! but not a comma. [ ]^-] matches ] "
+"or ^ or -."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:587
+#, no-c-format
+msgid "The caret first in square brackets [^xxx]"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:588
+#, no-c-format
+msgid ""
+"If the Caret is the first character after the left bracket it means NOT. "
+"<emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc., "
+"but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</"
+"emphasis>o<emphasis>t</emphasis>."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:595
+#, no-c-format
+msgid "The caret as start of line anchor ^xxx"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:596
+#, no-c-format
+msgid ""
+"If the Caret is the first character in a pattern it anchors the pattern to "
+"the start of a line. Any match must be at the beginning of a line. A line "
+"here means a part of text delimited by the return character or the end of "
+"the text. In Bibles, a \"line\" in this sense is often equivalent to a "
+"single verse; the word-wrapping that is performed by &bibletime; when the "
+"text is rendered on the screen does not affect the search algorithm. "
+"<emphasis>^In the beginning</emphasis> matches lines that start with "
+"\"<emphasis>In the beginning</emphasis>\"."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:606
+#, no-c-format
+msgid ""
+"(Because of unfiltered formatting characters in some texts, this feature "
+"does not always work correctly, but may if a few periods are placed after "
+"the caret to account for the formatting characters. If that is the case for "
+"you, you could try <emphasis>^..In the beginning</emphasis> instead.)"
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:614
+#, no-c-format
+msgid "The dollar sign as end of line anchor xxx$"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:615
+#, no-c-format
+msgid ""
+"If the Dollar Sign is the last character in a pattern it anchors the pattern "
+"to the end of a line. Any match must be at the end of a line. <emphasis>Amen"
+"\\.$</emphasis> matches lines that end with \"<emphasis>Amen.</emphasis>\""
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:621
+#, no-c-format
+msgid ""
+"(If you encounter the problem with unfiltered formatting characters that we "
+"just described, you can try: <emphasis>Amen\\...$</emphasis> instead.)"
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:627
+#, no-c-format
+msgid "The vertical bar |"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:628
+#, no-c-format
+msgid ""
+"The Vertical Bar between patterns means OR. <emphasis>John|Peter</emphasis> "
+"matches <emphasis>John</emphasis> or <emphasis>Peter. John .*Peter|Peter ."
+"*John</emphasis> matches <emphasis>John</emphasis> ... <emphasis>Peter</"
+"emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>. "
+"<emphasis>pain|suffering|sorrow</emphasis> matches <emphasis>pain</"
+"emphasis>, or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:637
+#, no-c-format
+msgid "The parentheses ( )"
+msgstr ""
+
+#. Tag: emphasis
+#: hdbk-reference.docbook:638
+#, no-c-format
+msgid "The use of Parentheses ( ) is not supported!"
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:643
+#, no-c-format
+msgid "The backslash prior to a special character \\*"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:644
+#, no-c-format
+msgid ""
+"The Backslash prior to a special character indicates that the character is "
+"not being used in its special meaning, but is just to match itself. \"amen\\."
+"\" matches <emphasis>amen.</emphasis> but not <emphasis>amen</emphasis>t and "
+"will not locate firm<emphasis>amen</emphasis>t."
+msgstr ""
+
+#. Tag: title
+#: hdbk-reference.docbook:652
+#, no-c-format
+msgid "The backslash prior to an ordinary character \\s"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:654
+#, no-c-format
+msgid ""
+"The Backslash prior to an ordinary character indicates that the character is "
+"not being used to match itself, but has special meaning."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:659
+#, no-c-format
+msgid ""
+"\\b if used outside [ ] means word boundary. If used inside [ ], it means "
+"backspace. <emphasis>\\brighteous\\b</emphasis> matches <emphasis>righteous</"
+"emphasis> but not un<emphasis>righteous</emphasis> or <emphasis>righteous</"
+"emphasis>ness."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:663
+#, no-c-format
+msgid ""
+"\\B means non-word boundary. <emphasis>\\Brighteous\\B</emphasis> matches "
+"un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly "
+"but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or "
+"<emphasis> righteous</emphasis>ness."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:667
+#, no-c-format
+msgid "\\d means digit; same as [0-9]."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:668
+#, no-c-format
+msgid "\\D means non-digit, same as [^0-9]."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:669
+#, no-c-format
+msgid "\\s means whitespace character."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:670
+#, no-c-format
+msgid "\\S means no whitespace character."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:671
+#, no-c-format
+msgid "\\w means alphanumeric; same as [a-zA-Z0-9_]."
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:672
+#, no-c-format
+msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
 msgstr ""
