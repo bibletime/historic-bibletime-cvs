@@ -34,6 +34,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qscrollview.h>
+#include <qregexp.h>
 
 //KDE includes
 #include <klocale.h>
@@ -137,6 +138,7 @@ const QString CInfoDisplay::decodeAbbreviation( const QString& data ) {
 }
 
 const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
+	Q_ASSERT(!data.isEmpty());
 	if (data.isEmpty()) {
 		return QString("<div class=\"crossrefinfo\"><h3>%1</h3></div>")
 			.arg(i18n("Cross references"));
@@ -160,16 +162,17 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 // 	const bool isBible = true;
 	CSwordModuleInfo* module = CBTConfig::get(CBTConfig::standardBible);
 	
-	const int pos = data.find(":");
+	const int pos = data.find(QRegExp("[a-zA-Z0-9]+:"));
 	if (pos > 0) {
 		const QString moduleName = data.left(pos);
-// 		qWarning("found module %s", moduleName.latin1());
+ 		qWarning("found module %s", moduleName.latin1());
 		module = CPointers::backend()->findModuleByName(moduleName);
 		if (!module) {
 			module = CBTConfig::get(CBTConfig::standardBible);
 		}
 	}
-	
+
+	Q_ASSERT(module);
 	CTextRendering::KeyTreeItem::Settings settings (
 		false, 
 		CTextRendering::KeyTreeItem::Settings::CompleteShort

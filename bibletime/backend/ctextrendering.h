@@ -71,7 +71,7 @@ public:
 			m_alternativeContent = newContent;
     };
 		inline const bool hasAlternativeContent() const {
-			return !m_alternativeContent.isEmpty();
+			return !m_alternativeContent.isNull();
 		};
 		
 		inline const ListCSwordModuleInfo& modules() const {
@@ -128,10 +128,11 @@ inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() c
 };
 
 inline const bool CTextRendering::KeyTreeItem::hasChildItems() const {
-	if (!m_childList)
+	if (!m_childList) {
 		return false;
-		
-	return m_childList->isEmpty();
+	}
+	
+	return !m_childList->isEmpty();
 }
  
 }

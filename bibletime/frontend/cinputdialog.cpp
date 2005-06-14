@@ -40,21 +40,21 @@ CInputDialog::CInputDialog(const QString& caption, const QString& description, c
 	buttonLayout->addStretch(2);		
 
 	QPushButton* cancel = new QPushButton(this);
-	cancel->setText(i18n("Cancel"));	
+	cancel->setText(i18n("&Cancel"));	
 	connect(cancel, SIGNAL(clicked()), SLOT(reject()));	
 	buttonLayout->addWidget(cancel,1);	
 
 	buttonLayout->addSpacing(15);	
 
 	QPushButton* clear = new QPushButton(this);
-	clear->setText(i18n("Clear"));	
+	clear->setText(i18n("C&lear"));	
 	connect(clear, SIGNAL(clicked()),m_editWidget, SLOT(clear()));	
 	buttonLayout->addWidget(clear,1);	
 
 	buttonLayout->addSpacing(15);	
 			
 	QPushButton* ok = new QPushButton(this);
-	ok->setText(i18n("Ok"));
+	ok->setText(i18n("&Ok"));
 	connect(ok, SIGNAL(clicked()), SLOT(accept()));
 	buttonLayout->addWidget(ok,1);
 	

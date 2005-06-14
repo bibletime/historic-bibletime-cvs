@@ -169,8 +169,6 @@ const QString& CTextRendering::KeyTreeItem::getAlternativeContent() const {
 	return m_alternativeContent;
 }
 
-
-
 ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 	//collect all modules which are available and used by child items
 	ListCSwordModuleInfo modules;
@@ -207,7 +205,7 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();	
 	QString t = QString::null;
 	
-	//opimization for entries with the same key
+	//optimization for entries with the same key
 	util::scoped_ptr<CSwordKey> key( 
 		(modules.count() == 1) ? CSwordKey::createInstance(modules.first()) : 0 
 	);

@@ -118,7 +118,7 @@ void CMainIndex::initView(){
   m_actions.newFolder = new KAction(i18n("Create a new folder"), CResMgr::mainIndex::newFolder::icon, 0, this, SLOT(createNewFolder()), this);
   m_actions.changeFolder = new KAction(i18n("Change this folder"),CResMgr::mainIndex::changeFolder::icon, 0, this, SLOT(changeFolder()), this);
 
-  m_actions.changeBookmark = new KAction(i18n("Change this bookmark"),CResMgr::mainIndex::changeBookmark::icon, 0, this, SLOT(changeBookmark()), this);
+  m_actions.changeBookmark = new KAction(i18n("Change bookmark description"),CResMgr::mainIndex::changeBookmark::icon, 0, this, SLOT(changeBookmark()), this);
   m_actions.importBookmarks = new KAction(i18n("Import bookmarks"),CResMgr::mainIndex::importBookmarks::icon, 0, this, SLOT(importBookmarks()), this);
   m_actions.exportBookmarks = new KAction(i18n("Export bookmarks"),CResMgr::mainIndex::exportBookmarks::icon, 0, this, SLOT(exportBookmarks()), this);
   m_actions.printBookmarks = new KAction(i18n("Print bookmarks"),CResMgr::mainIndex::printBookmarks::icon, 0, this, SLOT(printBookmarks()), this);
@@ -239,14 +239,8 @@ void CMainIndex::initTree(){
 
 /** No descriptions */
 void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* after){
-//  qWarning("CMainIndex::dropped");
    Q_ASSERT(after);
    Q_ASSERT(parent);
-
-//  	if (after)
-//  		qWarning("DROP AFTER %s", after->text(0).latin1());
-//  	if (parent)
-//  		qWarning("DROP parent %s", parent->text(0).latin1());
 
   //the drop was started in this main index widget
   if (m_itemsMovable && (e->source() == viewport())) {
