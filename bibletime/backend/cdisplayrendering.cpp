@@ -143,6 +143,10 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	settings.langAbbrev = ((modules.count() == 1) && lang->isValid())
 		?	lang->abbrev() 
 		: QString::null;
+		
+	settings.pageDirection = (modules.count() == 1)
+		?	((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr"  : "rtl")
+		: QString::null;
 
 	return tMgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), oldText, settings);
 }

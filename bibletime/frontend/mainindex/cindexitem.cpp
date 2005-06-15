@@ -326,7 +326,21 @@ const QString CBookmarkItem::toolTip(){
 	QString ret;	
 	util::scoped_ptr<CSwordKey> k( CSwordKey::createInstance(module()) );
 	k->key(this->key());
-	if (k.get()) {
+
+	const CLanguageMgr::Language* lang = module()->language();
+	CBTConfig::FontSettingsPair fontPair = CBTConfig::get(lang);
+
+	Q_ASSERT(k.get());
+	if (fontPair.first) { //use a special font
+		qWarning("using a font, %s", fontPair.second.family().latin1());
+		ret = QString::fromLatin1("<b>%1 (%2)</b><br/><small>%3</small><hr><font face=\"%4\" size=\"4\">%5</font>")
+			.arg(key())
+			.arg(module()->name())
+			.arg(description())
+			.arg(fontPair.second.family())
+			.arg(k->renderedText());
+	}
+	else {
 		ret = QString::fromLatin1("<b>%1 (%2)</b><br/><small>%3</small><hr>%4")
 			.arg(key())
 			.arg(module()->name())

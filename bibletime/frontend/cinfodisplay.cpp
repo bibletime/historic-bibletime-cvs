@@ -115,9 +115,10 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	CDisplayTemplateMgr* mgr = CPointers::displayTemplateManager();
 	CDisplayTemplateMgr::Settings settings;
 	settings.pageCSS_ID = "infodisplay";
+// 	settings.langAbbrev = "";
 	QString content = mgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
 
-// 	qWarning("setting text:\n%s", content.latin1());
+//  	qWarning("setting text:\n%s", content.latin1());
 	
 	m_htmlPart->setText(content);
 }
@@ -144,6 +145,8 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 			.arg(i18n("Cross references"));
 	}
 
+	qWarning("setting crossref %s", data.latin1());
+
 	CSwordBackend::DisplayOptions dispOpts;
 	dispOpts.lineBreaks 	= false;
 	dispOpts.verseNumbers = true;
@@ -162,11 +165,12 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 // 	const bool isBible = true;
 	CSwordModuleInfo* module = CBTConfig::get(CBTConfig::standardBible);
 	
-	const int pos = data.find(QRegExp("[a-zA-Z0-9]+:"));
+	const int pos = data.find(":");
 	if (pos > 0) {
 		const QString moduleName = data.left(pos);
  		qWarning("found module %s", moduleName.latin1());
 		module = CPointers::backend()->findModuleByName(moduleName);
+		Q_ASSERT(module);
 		if (!module) {
 			module = CBTConfig::get(CBTConfig::standardBible);
 		}
@@ -180,7 +184,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	
 	if (module && (module->type() == CSwordModuleInfo::Bible)) {
 		VerseKey vk;
-		sword::ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
+		sword::ListKey refs = vk.ParseVerseList((const char*)data.mid((pos == -1) ? 0 : pos+1).utf8(), "Gen 1:1", true);
 
 		for (int i = 0; i < refs.Count(); ++i) {
 			SWKey* key = refs.getElement(i);
@@ -204,6 +208,8 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 					settings
 				);
 			}
+
+			Q_ASSERT(i);
 			
 			tree.append( i );
 		}	
@@ -211,14 +217,14 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	else {
 		Q_ASSERT(module);
 		CTextRendering::KeyTreeItem* i = new CTextRendering::KeyTreeItem(
-			data.mid(pos+1),
+			data.mid((pos == -1) ? 0 : pos+1),
 			module,
 			settings
 		);
 		tree.append( i );
 	}
 	
-	return QString("<div class=\"crossrefinfo\"><h3>%1</h3><p>%2</p></div>")
+	return QString("<div class=\"crossrefinfo\"><h3>%1</h3><div class=\"para\">%2</div></div>")
 		.arg(i18n("Cross references"))
 		.arg(renderer.renderKeyTree(tree));
 }

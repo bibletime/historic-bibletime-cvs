@@ -33,11 +33,16 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 
 /** Sets a new key to this keychooser */
 void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
-	if (m_key != newKey ) {
+	if (m_key != newKey) {
 		m_key = dynamic_cast<CSwordTreeKey*>(newKey);
 	}
 	
-	const QString oldKey = m_key->key();
+	/*const */QString oldKey = m_key->key();
+
+	if (oldKey.isEmpty()) { //don't set keys equal to "/", always use a key which may have content
+		m_key->firstChild();
+		oldKey = m_key->key();
+	}
 	const int oldOffset = m_key->getOffset();
 	
 	QStringList siblings;
@@ -52,23 +57,24 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	
 	while( m_key->firstChild() && (depth <= int(siblings.count())) ) {
 		const QString key = m_key->key();
-		index = 0;
+		index = (depth == 0) ? -1 : 0;
 		const QString sibling = siblings[depth];
 		
 		if (!sibling.isEmpty()) { //found it
-			bool found = false;			
+			bool found = false;
 			
 			do {
 				++index;
 				found = (m_key->getLocalName() == sibling);
-			} while (!found && m_key->nextSibling());			
+			} while (!found && m_key->nextSibling());
 			
 			if (!found) {
 				m_key->key( key );
 			}
 		}
-		
-		setupCombo(key, depth++, index);		
+
+		setupCombo(key, depth, index);
+		depth++;
 	}
 	
 	//clear the combos which were not filled
@@ -207,7 +213,10 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 	
 	//insert an empty item at the top
 	QStringList items;	
-	items << QString::null;
+	if (depth > 0) {
+		items << QString::null;
+	}
+	
 	do {
 		items << QString::fromLocal8Bit(m_key->getLocalName());
 	}

@@ -412,10 +412,16 @@ QString CSwordModuleInfo::aboutText() const {
   		options += CSwordBackend::translatedOptionName( static_cast<CSwordModuleInfo::FilterTypes>(opts) );
 		}
 	}
-	if (!options.isEmpty())
+	if (options.isEmpty()) {
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Features") )
+			.arg( i18n("No features included") );
+	}
+	else {
 		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
 			.arg(i18n( "Features") )
 			.arg( options );
+	}
 	
 	text += "</table><hr>";
 

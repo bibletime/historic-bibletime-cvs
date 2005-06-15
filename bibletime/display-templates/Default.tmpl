@@ -57,10 +57,10 @@ a:hover {
 	text-align:left;
 }
 .entry[dir=rtl] {
-	text-align:right;
+	text-align:right !important;
 }
 #printer .entry[dir=rtl] {
-	text-align:right;
+	text-align:right !important;
 }
 div.entry, td.entry {
 	vertical-align:top;	
@@ -73,7 +73,7 @@ div.entry, td.entry {
 	text-align:justify;
 }
 .currententry[dir=rtl] {
-	text-align:right;
+	text-align:right !important;
 }
 div.currententry {
 }
@@ -303,6 +303,6 @@ td.entry + td.entry {
 </head>
 
 <body id="#DISPLAYTYPE#">
-	<div id="content" lang="#LANG_ABBREV#" xml:lang="#LANG_ABBREV#">#CONTENT#</div>
+	<div id="content" lang="#LANG_ABBREV#" xml:lang="#LANG_ABBREV#" dir="#PAGE_DIRECTION#">#CONTENT#</div>
 </body>
 </html>

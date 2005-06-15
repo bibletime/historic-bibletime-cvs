@@ -38,10 +38,12 @@ public:
 			title = QString::null;
 			langAbbrev = QString::null;
 			pageCSS_ID = QString::null;
+			pageDirection = QString("ltr");
 		};
 		ListCSwordModuleInfo modules; /**< the list of modules */
 		QString title; /**< the title which is used for the new processed HTML page */
 		QString langAbbrev; /**< the language for the HTML page. */
+		QString pageDirection; /**< the language for the HTML page. */
 		QString pageCSS_ID; /**< the CSS ID which is used in the content part of the page */
 	};
 

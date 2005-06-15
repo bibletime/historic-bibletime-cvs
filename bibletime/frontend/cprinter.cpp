@@ -119,6 +119,9 @@ const QString CPrinter::finishText(const QString& text, KeyTree& tree)
 	settings.langAbbrev = (lang && (modules.count() == 1) && lang->isValid())
 		?	lang->abbrev() 
 		: "unknown";
+	settings.pageDirection = (modules.count() == 1)
+		?	((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr"  : "rtl")
+		: QString::null;
 
 	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager(); 	
 	return tMgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);

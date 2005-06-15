@@ -143,7 +143,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		entry.append(langAttr).append(isRTL ? " dir=\"rtl\"" : " dir=\"ltr\"").append(">");
 
  		//keys should normally be left-to-right, but this doesn't apply in all cases
-		entry.append("<span class=\"entryname\">").append(entryLink(i, *mod_Itr)).append("</span>");
+		entry.append("<span class=\"entryname\" dir=\"ltr\">").append(entryLink(i, *mod_Itr)).append("</span>");
 		
 		if (m_settings.addText) {
 			//entry.append( QString::fromLatin1("<span %1>%2</span>").arg(langAttr).arg(key_renderedText) );
@@ -199,6 +199,9 @@ const QString CHTMLExportRendering::finishText( const QString& text, KeyTree& tr
 	settings.langAbbrev = ((modules.count() == 1) && lang->isValid())
 		?	lang->abbrev() 
 		: "unknown";
+	settings.pageDirection = (modules.count() == 1)
+		?	((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr"  : "rtl")
+		: QString::null;
 
 	return tMgr->fillTemplate(i18n("Export"), text, settings);
 }

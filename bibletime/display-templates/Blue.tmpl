@@ -27,7 +27,7 @@
 }
 #content > table th {
 	padding: 0 0 2px 0;
-	text-align: center; 
+	text-align: center;
 	font-weight: bold;
 	font-size: 110%;
 	border-bottom: 1px dotted #7B7B7B;
@@ -57,7 +57,7 @@ a:hover {
 td.entry {
 /* 	padding: 4px; */
 	vertical-align: top;
-/* 	text-align: justify; */
+ 	text-align: justify;
 /* 	line-height: 1.5em; */
 }
 #printer .entry {
@@ -65,10 +65,10 @@ td.entry {
 	text-align: left;
 }
 .entry[dir=rtl] {
-	text-align: right;
+	text-align: right !important;
 }
 #printer .entry[dir=rtl] {
-	text-align:right;
+	text-align:right !important;
 }
 /*div.entry, td.entry {
  	vertical-align: middle;
@@ -83,7 +83,7 @@ td.entry {
 /* 	line-height: 1.5em; */
 }
 .currententry[dir=rtl] {
-	text-align:right;
+	text-align:right !important;
 }
 div.currententry {
 	vertical-align:middle;
@@ -348,6 +348,6 @@ td.entry + td.entry {
 </head>
 
 <body id="#DISPLAYTYPE#">
-	<div id="content" lang="#LANG_ABBREV#" xml:lang="#LANG_ABBREV#">#CONTENT#</div>
+	<div id="content" lang="#LANG_ABBREV#" xml:lang="#LANG_ABBREV#" dir="#PAGE_DIRECTION#">#CONTENT#</div>
 </body>
 </html>

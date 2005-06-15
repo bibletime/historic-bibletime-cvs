@@ -10,6 +10,7 @@
 #include "frontend/searchdialog/csearchdialog.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cdragdropmgr.h"
+#include "frontend/cinfodisplay.h"
 
 #include "frontend/cprinter.h"
 
@@ -34,9 +35,11 @@ CMainIndex::ToolTip::ToolTip(CMainIndex* parent) : QToolTip(parent->viewport()),
 }
 
 void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
-	CItemBase* i = 0;
-	if ( !( i = dynamic_cast<CItemBase*>(m_mainIndex->itemAt(p))) )
+	CItemBase* i = dynamic_cast<CItemBase*>(m_mainIndex->itemAt(p));
+	Q_ASSERT(i);
+	if ( !i ) {
 		return;
+	}
 			
 	QRect r = m_mainIndex->itemRect(i);
 	if (!r.isValid()) {
@@ -46,7 +49,21 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 	//get type of item and display correct text
 	const QString text = i->toolTip();
 	if (!text.isEmpty()) {
+		CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>(i);
+		if (bookmark) {
+			CPointers::infoDisplay()->setInfo(
+				InfoDisplay::CInfoDisplay::CrossReference,
+				bookmark->module()->name() + ":" + bookmark->key()
+			);
+		}
+		else {
+			CPointers::infoDisplay()->clearInfo();
+		}
+		
 		tip(r, text);
+	}
+	else {
+		CPointers::infoDisplay()->clearInfo();
 	}
 }
 
