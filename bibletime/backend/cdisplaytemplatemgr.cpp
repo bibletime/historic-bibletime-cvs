@@ -105,10 +105,10 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 			css.append("; }\n");
 			
 			langCSS +=
-				QString("\n#content[lang=%1], *[lang=%2], td[lang=%3] %5")
+				QString("\n*[lang=%1] %2")
 					.arg(lang->abbrev())
-					.arg(lang->abbrev())
-					.arg(lang->abbrev())
+// 					.arg(lang->abbrev())
+// 					.arg(lang->abbrev())
 // 					.arg(lang->abbrev())
 					.arg(css);
 		}

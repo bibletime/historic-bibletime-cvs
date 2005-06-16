@@ -62,7 +62,7 @@ using std::string;
 using std::list;
 
 COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KActionCollection* actionCollection )
-	: KDialogBase(IconList, i18n("Preferences"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
+	: KDialogBase(IconList, i18n("Configure BibleTime"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
 	m_settings.keys.application.actionCollection = actionCollection;
 	setIconListAllVisible(true);
@@ -94,7 +94,6 @@ void COptionsDialog::newDisplayWindowFontAreaSelected(const QString& usage){
 /** Called if the OK button was clicked */
 void COptionsDialog::slotOk(){
 	saveAccelerators();
-// 	saveDisplayStyle();
 	saveFonts();
 	saveSword();
 	saveDisplay();

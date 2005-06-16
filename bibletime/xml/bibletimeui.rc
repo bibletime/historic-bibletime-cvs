@@ -1,4 +1,4 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="24">
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="26">
 <MenuBar>
  <Menu name="file" noMerge="1"><text>&amp;File</text>
   <Action name="file_clear_queue_action"/>
@@ -10,18 +10,18 @@
  <Action name="mainindex_searchdefaultbible_action"/>
  <Action name="mainindex_search_action"/>
  </Menu>
- <Menu name="settings" noMerge="1"><Text>&amp;Settings</Text>
-  <Action name="options_configure_toolbars"/>
-  <Separator/>
-  <Action name="options_configure"/>
-  <Separator/>
-  <Action name="options_sword_setup"/>
- </Menu>
  <Menu name="view" noMerge="1"><Text>&amp;View</Text>
   <Action name="options_show_toolbar"/>
   <Separator/>
   <Action name="viewMainIndex_action"/>
   <Action name="viewInfoDisplay_action"/>
+ </Menu>
+ <Menu name="settings" noMerge="1"><Text>&amp;Settings</Text>
+	 <Action name="options_configure_toolbars"/>
+	 <Separator/>
+	 <Action name="options_configure"/>
+	 <Separator/>
+	 <Action name="options_sword_setup"/>
  </Menu>
  <Menu name="window"><Text>&amp;Window</Text>
   <Action name="windowSaveProfile_action"/>
@@ -51,13 +51,11 @@
   <Action name="help_about_kde"/>
  </Menu>
 </MenuBar>
+
 <ToolBar name="mainToolBar" fullWidth="true" noMerge="1" newLine="1">
  <Action name="file_quit"/>
  <Separator/>
  <Action name="mainindex_search_action"/>
- <Separator/>
- <Action name="file_print"/>
- <Action name="file_clear_queue_action"/>
  <Separator/>
  <Action name="viewMainIndex_action"/>
  <Action name="windowFullscreen_action"/>

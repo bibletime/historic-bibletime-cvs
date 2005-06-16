@@ -169,7 +169,7 @@ const QString& CTextRendering::KeyTreeItem::getAlternativeContent() const {
 	return m_alternativeContent;
 }
 
-ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
+ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() const {
 	//collect all modules which are available and used by child items
 	ListCSwordModuleInfo modules;
 
@@ -223,7 +223,7 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	return finishText(t, tree);
 }
 
-const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& highlightKey, const KeyTreeItem::Settings keySettings ) {
+const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& highlightKey, const KeyTreeItem::Settings& keySettings ) {
 
 // 	CSwordModuleInfo* module = modules.getFirst();
  	CSwordModuleInfo* module = modules.first();
@@ -235,7 +235,8 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 
 	sword::SWKey* sw_start = dynamic_cast<sword::SWKey*>(lowerBound.get());
 	sword::SWKey* sw_stop = dynamic_cast<sword::SWKey*>(upperBound.get());
-	
+
+	Q_ASSERT((*sw_start == *sw_stop) || (*sw_start < *sw_stop));
 	if (*sw_start == *sw_stop) { //same key, render single key
 		return renderSingleKey(lowerBound->key(), modules);
 	}
@@ -244,15 +245,18 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
  		KeyTreeItem::Settings settings = keySettings;
 		
 		CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(lowerBound.get());
+		Q_ASSERT(vk_start);
+		
 		CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(upperBound.get());
+		Q_ASSERT(vk_stop);
 		
 		bool ok = true;
 		while (ok && ((*vk_start < *vk_stop) || (*vk_start == *vk_stop))) {
 			//make sure the key given by highlightKey gets marked as current key
 			settings.highlight = (!highlightKey.isEmpty() ? (vk_start->key() == highlightKey) : false);
-			
+
 			tree.append( new KeyTreeItem(vk_start->key(), modules, settings) );
-			
+
 			ok = vk_start->next(CSwordVerseKey::UseVerse);
 		}
 		
@@ -262,7 +266,7 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 	return QString::null;
 }
 
-const QString CTextRendering::renderSingleKey( const QString& key, const ListCSwordModuleInfo& moduleList, const KeyTreeItem::Settings settings ) {
+const QString CTextRendering::renderSingleKey( const QString& key, const ListCSwordModuleInfo& moduleList, const KeyTreeItem::Settings& settings ) {
 	KeyTree tree;
 	tree.append( new KeyTreeItem(key, moduleList, settings) );
 	

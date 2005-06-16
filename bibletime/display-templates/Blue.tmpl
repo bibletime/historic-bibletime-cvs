@@ -57,7 +57,7 @@ a:hover {
 td.entry {
 /* 	padding: 4px; */
 	vertical-align: top;
- 	text-align: justify;
+ 	text-align: justify !important;
 /* 	line-height: 1.5em; */
 }
 #printer .entry {
@@ -282,11 +282,11 @@ td.entry + td.entry {
 }
 
 .morphSegmentation {
-	border: 1px solid grey;
-	margin-top: 1px; /* Don`t let the boxes touch here, between the lines */
-	margin-left: -1px; /* But here, for better reading of the text, 
-											this will only occur within a word consisting of several segments.*/
-	margin-right: 0px;
+	border-right: 2px solid grey;
+/* 	margin-top: 1px; /* Don`t let the boxes touch here, between the lines */ */
+/* 	margin-left: -1px; /* But here, for better reading of the text,  */
+/* 											this will only occur within a word consisting of several segments.*/ */
+/* 	margin-right: 0px; */
 }
 
 #infodisplay {
@@ -300,11 +300,14 @@ td.entry + td.entry {
 	font-weight:bold;
 	border-bottom:1px solid grey;
 	font-size:90%;
+	text-align: right;
 }
 
-#infodisplay > p, #infodisplay * > p { /* We only format the first p child in a special way */
+#infodisplay > p, #infodisplay * > p,
+#infodisplay > .para, #infodisplay * > .para
+{ /* We only format the first p child in a special way */
 	font-size:80%;
-	text-align:justify;
+	text-align:justify !important;
 	color:black;
 	margin:0px;
 	padding:0px;
@@ -313,19 +316,25 @@ td.entry + td.entry {
 /*Required for cross references*/
 #infodisplay .entry {
 	padding:2px;
-	text-align:justify;
+	text-align:justify !important;
 	font-size:80%;
 	margin-bottom:10px;
 	margin-left:15px;
+}
+#infodisplay .entry[dir=rtl] {
+	text-align: right !important;
 }
 #infodisplay .entry .entry { /*No smaller font size for nested entries*/
 	font-size:100%;
 	margin:0px;
 }
+#infodisplay .entry .entry[dir=rtl] { /*No smaller font size for nested entries*/
+	text-align: right !important;
+}
 #infodisplay .entryname {
 	padding:2px;
 	margin:0px;
-	text-align:left;
+	text-align:left !important;
 	font-weight:bold;	
 	font-size:90%;
 }
@@ -342,7 +351,6 @@ td.entry + td.entry {
 }
 
 #LANG_CSS#
-
 	/* ]]> */
 	</style>
 </head>

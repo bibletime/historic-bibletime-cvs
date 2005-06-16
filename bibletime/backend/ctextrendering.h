@@ -101,7 +101,7 @@ public:
 	
 	class KeyTree : public KeyTreeItemList {
 	public:
-		ListCSwordModuleInfo collectModules();
+		ListCSwordModuleInfo collectModules() const;
 	};
 
   virtual ~CTextRendering() {
@@ -109,9 +109,9 @@ public:
 
 	const QString renderKeyTree( KeyTree& );
 	
-	const QString renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& hightlightKey = QString::null, const KeyTreeItem::Settings settings = KeyTreeItem::Settings() );
+	const QString renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& hightlightKey = QString::null, const KeyTreeItem::Settings& settings = KeyTreeItem::Settings() );
 	
-	const QString renderSingleKey( const QString& key, const ListCSwordModuleInfo&, const KeyTreeItem::Settings settings = KeyTreeItem::Settings() );
+	const QString renderSingleKey( const QString& key, const ListCSwordModuleInfo&, const KeyTreeItem::Settings& settings = KeyTreeItem::Settings() );
 	
 protected:
 	virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 ) = 0;

@@ -28,7 +28,8 @@ const QString CEntryDisplay::text( const ListCSwordModuleInfo& modules, const QS
 	
 	//no highlighted key and no extra key link in the text
 	CTextRendering::KeyTreeItem::Settings settings(
-		false, CTextRendering::KeyTreeItem::Settings::CompleteShort
+		false,
+		CTextRendering::KeyTreeItem::Settings::CompleteShort
 	);
 	
 	return render.renderSingleKey(keyName, modules, settings);

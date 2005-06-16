@@ -43,13 +43,18 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 //  	Q_ASSERT(!i.hasAlternativeContent());
 	if (i.hasAlternativeContent()) {
 		QString ret;
-		ret.setLatin1("<div class=\"entry\"><div class=\"rangeheading\">")
+		ret.setLatin1("<div class=\"entry\"><div dir=\"ltr\" class=\"rangeheading\">")
 			.append(i.getAlternativeContent())
 			.append("</div>");
 
 		Q_ASSERT(i.hasChildItems());
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
+
+			ListCSwordModuleInfo modules( tree->collectModules() );
+			if (modules.count() == 1) { //insert the direction into the sorrounding div
+				ret.insert( 5, QString("dir=\"%1\" ").arg((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr" : "rtl" ));
+			}
 			
 			for ( KeyTreeItem* c = tree->first(); c; c = tree->next() ) {
 				ret.append( renderEntry( *c ) );
