@@ -164,11 +164,18 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 
 // 	const bool isBible = true;
 	CSwordModuleInfo* module = CBTConfig::get(CBTConfig::standardBible);
+
+	//a prefixed module gives the module to look into
+	QRegExp re("^[^ ]+:");
+// 	re.setMinimal(true);
+	int pos = re.search(data,0);
+	if (pos != -1) {
+		pos += re.matchedLength()-1;
+	}
 	
-	const int pos = data.find(":");
 	if (pos > 0) {
 		const QString moduleName = data.left(pos);
-//  		qWarning("found module %s", moduleName.latin1());
+//   		qWarning("found module %s", moduleName.latin1());
 		module = CPointers::backend()->findModuleByName(moduleName);
 		Q_ASSERT(module);
 		if (!module) {
