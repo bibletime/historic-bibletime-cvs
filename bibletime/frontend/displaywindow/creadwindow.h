@@ -55,6 +55,8 @@ protected slots:
   
 private:
 	CReadDisplay* m_displayWidget;
+protected:
+    virtual void resizeEvent(QResizeEvent* e);
 };
 
 #endif

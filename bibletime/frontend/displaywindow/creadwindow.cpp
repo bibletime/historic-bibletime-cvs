@@ -161,3 +161,14 @@ void CReadWindow::copyDisplayedText() {
 	CExportManager mgr(QString::null);
 	mgr.copyKey(key(), CExportManager::Text, true);
 }
+
+
+/*!
+    \fn CReadWindow::resizeEvent(QResizeEvent* e)
+ */
+void CReadWindow::resizeEvent(QResizeEvent* e) {
+// 	qWarning("resizeEvent...");
+	displayWidget()->moveToAnchor(
+		Rendering::CDisplayRendering::keyToHTMLAnchor(key()->key())
+	);
+}
