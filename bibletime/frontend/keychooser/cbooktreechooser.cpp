@@ -112,9 +112,11 @@ void CBookTreeChooser::TreeItem::setOpen(bool o) {
 //////////////////////////////////
 
 CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name)
-	: CKeyChooser(modules, key, parent,name) {
+	: CKeyChooser(modules, key, parent,name),
+		m_key( dynamic_cast<CSwordTreeKey*>(key) )
+{
   setModules(modules, false);	
-  m_key = dynamic_cast<CSwordTreeKey*>(key);
+  
   if (!modules.count()) {
 		m_modules.clear();
 		m_key = 0;
@@ -132,6 +134,7 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
   m_treeView->setFullWidth(true);
 	connect(m_treeView, SIGNAL(executed(QListViewItem*)), SLOT(itemActivated(QListViewItem*)));
 
+	setKey(key);
   adjustFont();
 }
 

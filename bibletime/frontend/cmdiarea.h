@@ -117,7 +117,6 @@ signals: // Signals
 private:
 	MDIOption m_guiOption;
 	bool m_childEvent;
-  bool m_deleting;
 	QString m_appCaption;
 };
 

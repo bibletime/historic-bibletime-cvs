@@ -1,10 +1,10 @@
 /********* Read the file LICENSE for license details. *********/
 
 #include "ckeychooser.h"
-#include "../../backend/cswordmoduleinfo.h"
-#include "../../backend/cswordbiblemoduleinfo.h"
-#include "../../backend/cswordcommentarymoduleinfo.h"
-#include "../../backend/cswordlexiconmoduleinfo.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordbiblemoduleinfo.h"
+#include "backend/cswordcommentarymoduleinfo.h"
+#include "backend/cswordlexiconmoduleinfo.h"
 
 #include "clexiconkeychooser.h"
 #include "cbiblekeychooser.h"
@@ -14,7 +14,7 @@ CKeyChooser::CKeyChooser(ListCSwordModuleInfo, CSwordKey *, QWidget *parent, con
 	: QWidget(parent, name),
  		m_inHistoryFunction(false)
 {
- 	connect(this, SIGNAL(keyChanged(CSwordKey*)), SLOT(addToHistory(CSwordKey*)));
+ 		
 }
 
 CKeyChooser::~CKeyChooser() {
@@ -130,4 +130,15 @@ const QStringList CKeyChooser::getPreviousKeys() const {
 
 const QStringList CKeyChooser::getNextKeys() const {
  	return m_nextKeyHistoryList;
+}
+
+
+/*!
+    \fn CKeyChooser::polish()
+ */
+void CKeyChooser::polish() {
+	QWidget::polish();
+	
+	//connect the history calls just before we show, we want an empty history
+	connect(this, SIGNAL(keyChanged(CSwordKey*)), SLOT(addToHistory(CSwordKey*)));
 }

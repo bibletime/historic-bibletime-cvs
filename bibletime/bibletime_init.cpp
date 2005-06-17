@@ -534,8 +534,11 @@ void BibleTime::applyProfileSettings( CProfile* p ){
 
 //  	if (m_initialized) { //on startup KDE sets the main geometry
   const QRect geometry = p->geometry();
+  qWarning("main window: %i, %i @ %i x %i", geometry.topLeft().x(), geometry.topLeft().y(), geometry.width(), geometry.height());
+//   hide();
 	resize( geometry.size() );
 	move( geometry.topLeft() );
+// 	show();
 // 	}
 	
 	m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state

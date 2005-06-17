@@ -27,6 +27,8 @@ CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const c
 	: CDisplayWindow(modules,parent,name),
 		m_displayWidget(0)
 {
+ 	
+//  	installEventFilter(this);
 }
 
 CReadWindow::~CReadWindow() {
@@ -97,16 +99,6 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 	displayWidget()->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key()->key()) );
 }
 
-/** Reimplementation to use the popup menu. */
-const bool CReadWindow::init( const QString& keyName ) {
-	CDisplayWindow::init(keyName);
-	
-	setReady(true);
-	keyChooser()->setKey(key());
-
-	return true;
-}
-
 /** Store the settings of this window in the given CProfileWindow object. */
 void CReadWindow::storeProfileSettings(CProfileWindow * const settings) {
 	QRect rect;
@@ -151,7 +143,8 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings) {
 	if (settings->maximized()) { //maximize this window
 		// Use parentWidget() to call showMaximized. Otherwise we'd get lot's of X11 errors
 		parentWidget()->showMaximized();
-	} else {
+	}
+	else {
 		const QRect rect = settings->geometry();
 		resize(rect.width(), rect.height());
 		parentWidget()->move(rect.x(), rect.y());

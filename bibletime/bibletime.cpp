@@ -160,8 +160,10 @@ CDisplayWindow* BibleTime::createReadDisplayWindow(ListCSwordModuleInfo modules,
 
   CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);
   if ( displayWindow ) {
-  	displayWindow->init(key);
+   	displayWindow->init();
 		displayWindow->show();
+// 		if (!key.isEmpty())
+  	displayWindow->lookup(key);
 	}
 
   kapp->restoreOverrideCursor();  
@@ -185,8 +187,9 @@ CDisplayWindow* BibleTime::createWriteDisplayWindow(CSwordModuleInfo* module, co
 
   CDisplayWindow* displayWindow = CDisplayWindow::createWriteInstance(modules, m_mdi, type);
   if ( displayWindow ) {
-  	displayWindow->init(key);
+   	displayWindow->init();
 		displayWindow->show();
+		displayWindow->lookup(key);
 	}
 
   kapp->restoreOverrideCursor();
@@ -197,7 +200,8 @@ CDisplayWindow* BibleTime::createWriteDisplayWindow(CSwordModuleInfo* module, co
 void BibleTime::refreshDisplayWindows() {
 	unsigned int index;				
 	for ( index = 0; index < m_mdi->windowList().count(); index++) {
-		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index))) {
+		CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index));
+		if (window) {
    		window->reload();
     }
 	}
@@ -205,12 +209,13 @@ void BibleTime::refreshDisplayWindows() {
 
 /** Called before quit. */
 bool BibleTime::queryExit(){
-  if (!m_initialized) {
-  	return false;
+	bool ret = false;
+  if (m_initialized) {
+		saveSettings();
+  	ret = true;
   }
-	saveSettings();
 	
-	return true;
+	return ret;
 }
 
 /** Called before a window is closed */

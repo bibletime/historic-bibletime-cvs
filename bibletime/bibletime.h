@@ -240,9 +240,9 @@ protected slots:
 	/**
  	* Creates a new presenter in the MDI area according to the type of the module.
  	*/
-	CDisplayWindow* createReadDisplayWindow(ListCSwordModuleInfo, const QString&);
-	CDisplayWindow* createReadDisplayWindow(CSwordModuleInfo*, const QString&);
-	CDisplayWindow* createWriteDisplayWindow(CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType&);  
+	CDisplayWindow* createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& key);
+	CDisplayWindow* createReadDisplayWindow(CSwordModuleInfo* moduke, const QString& key);
+	CDisplayWindow* createWriteDisplayWindow(CSwordModuleInfo* module, const QString& key, const CDisplayWindow::WriteWindowType& type);
 	/** 	
  	* Is called when the window menu is about to show ;-)
  	*/

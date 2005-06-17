@@ -21,7 +21,8 @@
 #include <klocale.h>
 
 CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name )
-	: CKeyChooser(modules, key, parent, name), m_key(dynamic_cast<CSwordVerseKey*>(key))
+	: CKeyChooser(modules, key, parent, name),
+		m_key(dynamic_cast<CSwordVerseKey*>(key))
 {
 	setModules(modules, false);
 	if (!m_modules.count()) {
@@ -85,6 +86,9 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	connect(w_verse,SIGNAL(next_requested())  ,SLOT(verseNextRequested()));
 	connect(w_verse,SIGNAL(prev_requested())  ,SLOT(versePrevRequested()));
 	connect(w_verse,SIGNAL(focusOut(int))     ,SLOT(verseFocusOut(int)));
+
+
+	setKey(m_key); //set the key without changing it, setKey(key()) would change it
 }
 
 CSwordKey* const CBibleKeyChooser::key(){
@@ -102,8 +106,8 @@ CSwordKey* const CBibleKeyChooser::key(){
 }
 
 void CBibleKeyChooser::setKey(CSwordKey* key){
-	Q_ASSERT(key);
-	if (! dynamic_cast<CSwordVerseKey*>(key)) {
+	Q_ASSERT(dynamic_cast<CSwordVerseKey*>(key));
+	if (dynamic_cast<CSwordVerseKey*>(key) == 0) {
 		return;
 	}
 	
@@ -137,7 +141,7 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 
     emit keyChanged(m_key);
 	}
-	else {
+	else { //reset to Gen.1.1
 		w_book->comboBox()->setCurrentItem(0);
 		m_key->book(w_book->comboBox()->currentText());
 		

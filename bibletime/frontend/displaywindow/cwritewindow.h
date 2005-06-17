@@ -17,15 +17,10 @@
 class CWriteWindow : public CDisplayWindow  {
 	Q_OBJECT
 public:
-// 	static void insertKeyboardActions( KAccel* const a );
 	static void insertKeyboardActions( KActionCollection* const a );
 
 	CWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
-	~CWriteWindow();
-  /**
-  * Reimplementation to use the popup menu.
-  */
-  virtual const bool init( const QString& key );
+	virtual ~CWriteWindow();
   /**
   * Store the settings of this window in the given CProfileWindow object.
   */

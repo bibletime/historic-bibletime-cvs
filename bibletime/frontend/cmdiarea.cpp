@@ -25,8 +25,8 @@ CMDIArea::CMDIArea(QWidget *parent, const char *name )
 		: QWorkspace(parent, name),
 		m_guiOption(Nothing),
 		m_childEvent(false),
-		m_deleting(false),
-m_appCaption(QString::null) {
+		m_appCaption(QString::null)
+{
 	initView();
 	initConnections();
 	readSettings();
@@ -73,9 +73,9 @@ void CMDIArea::childEvent( QChildEvent * e ) {
 	QWorkspace::childEvent(e);
 
 	if ( m_childEvent /*|| !isUpdatesEnabled()*/ || !e) {
-		if (windowList().count() == 0) {
+/*		if (windowList().count() == 0) {
 			m_deleting = false;
-		}
+		}*/
 		return;
 	}
 
@@ -87,8 +87,8 @@ void CMDIArea::childEvent( QChildEvent * e ) {
 		emit sigLastPresenterClosed();
 	}
 
-	Q_ASSERT(!m_deleting /*&& isUpdatesEnabled()*/);
-	if (!m_deleting /*&& isUpdatesEnabled()*/ && (e->inserted() || e->removed()) ) {
+// 	Q_ASSERT(!m_deleting /*&& isUpdatesEnabled()*/);
+	if ((e->inserted() || e->removed()) ) {
 		if (e->inserted() && e->child() && e->child()->inherits("CDisplayWindow")) {
 			e->child()->installEventFilter(this); //make sure we catch the events of the new window
 		} else if (e->removed() && e->child() && e->child()->inherits("CDisplayWindow")) {
@@ -100,16 +100,16 @@ void CMDIArea::childEvent( QChildEvent * e ) {
 
 	m_childEvent = false;
 
-	if (windowList().count() == 0) {
+/*	if (windowList().count() == 0) {
 		m_deleting = false;
-	}
+	}*/
 }
 
 /** Reimplementation */
 void CMDIArea::resizeEvent(QResizeEvent* e) {
 	QWorkspace::resizeEvent(e);
 
-	if (m_deleting || !isUpdatesEnabled()) {
+	if (/*m_deleting || */!isUpdatesEnabled()) {
 		return;
 	};
 
@@ -157,7 +157,7 @@ void CMDIArea::setGUIOption( const MDIOption& newOption ) {
 
 /**  */
 void CMDIArea::myTileVertical() {
-	if (m_deleting || !isUpdatesEnabled() || !usableWindowList().count() ) {
+	if (!isUpdatesEnabled() || !usableWindowList().count() ) {
 		return;
 	}
 
@@ -174,7 +174,7 @@ void CMDIArea::myTileVertical() {
 }
 
 void CMDIArea::myTileHorizontal() {
-	if (m_deleting || !isUpdatesEnabled() || !usableWindowList().count() ) {
+	if (/*m_deleting || */!isUpdatesEnabled() || !usableWindowList().count() ) {
 		return;
 	}
 
@@ -217,9 +217,10 @@ void CMDIArea::myTileHorizontal() {
 
 /**  */
 void CMDIArea::myCascade() {
-	if (m_deleting || !isUpdatesEnabled() || !usableWindowList().count() ) {
+	if (/*m_deleting || */!isUpdatesEnabled() || !usableWindowList().count() ) {
 		return;
 	}
+	
 	QPtrList<QWidget> windows = usableWindowList();
 	if ( !windows.count() ) {
 		return;
@@ -246,24 +247,19 @@ void CMDIArea::myCascade() {
 		blockSignals(true);
 		setUpdatesEnabled(false);
 
-		for ( int i(windows.count()-1); i >= 0; --i ) {
+// 		for ( int i(windows.count()-1); i >= 0; --i ) {
+		for (int i(0); i < windows.count(); ++i) {
 			QWidget* window = windows.at(i);
-
-			window->setUpdatesEnabled(false);
-			if (window == active) { { //leave out the active window which should be the top window
-					continue;
-				}
-
+			if (window == active) { //leave out the active window which should be the top window
+				continue;
 			}
-			// 			if ( window->isMaximized() ) { // prevent flicker
-			window->parentWidget()->showNormal();
-			qApp->sendPostedEvents( 0, QEvent::ShowNormal );
-			// 			}
+			
+			window->setUpdatesEnabled(false);
+			
+ 			window->parentWidget()->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order
 			window->parentWidget()->setGeometry(x, y, windowWidth, windowHeight);
-			// 			window->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order
-			window->parentWidget()->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order
-			x += offsetX;
-			y += offsetY;
+ 			x += offsetX;
+ 			y += offsetY;
 
 			window->setUpdatesEnabled(true);
 		}
@@ -272,7 +268,6 @@ void CMDIArea::myCascade() {
 
 		active->parentWidget()->setGeometry(x, y, windowWidth, windowHeight);
 		active->parentWidget()->raise();
-		// 		active->raise();
 		active->setActiveWindow();
 
 		blockSignals(false);
@@ -335,22 +330,22 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
  */
 void CMDIArea::triggerWindowUpdate() {
 	// 	Q_ASSERT(!(m_deleting || !isUpdatesEnabled() || !usableWindowList().count()));
-	if (m_deleting || !isUpdatesEnabled() || !usableWindowList().count() ) {
+	if (/*m_deleting || */!isUpdatesEnabled() || !usableWindowList().count() ) {
 		return;
 	}
 
 	switch (m_guiOption) {
 		case autoTileVertical:
-		QTimer::singleShot(0, this, SLOT(myTileVertical()));
-		break;
+			QTimer::singleShot(0, this, SLOT(myTileVertical()));
+			break;
 		case autoTileHorizontal:
-		QTimer::singleShot(0, this, SLOT(myTileHorizontal()));
-		break;
+			QTimer::singleShot(0, this, SLOT(myTileHorizontal()));
+			break;
 		case autoCascade:
-		QTimer::singleShot(0, this, SLOT(myCascade()));
-		break;
+			QTimer::singleShot(0, this, SLOT(myCascade()));
+			break;
 		default:
-		qDebug("CMDIArea::triggerWindowUpdate: no known m_guiType");
-		break;
+			qDebug("CMDIArea::triggerWindowUpdate: no known m_guiType");
+			break;
 	}
 }

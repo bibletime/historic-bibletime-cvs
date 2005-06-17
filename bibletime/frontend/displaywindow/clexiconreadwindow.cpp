@@ -137,7 +137,7 @@ void CLexiconReadWindow::initConnections(){
 
 void CLexiconReadWindow::initView(){
 	setDisplayWidget( CDisplay::createReadInstance(this) );
- 	setCentralWidget( displayWidget()->view() );
+//  	setCentralWidget( displayWidget()->view() );
 
   setMainToolBar( new KToolBar(this) );
   mainToolBar()->setFullSize(true);
@@ -152,6 +152,8 @@ void CLexiconReadWindow::initView(){
 	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
 
   setIcon(CToolClass::getIconForModule(modules().first()));
+ 	
+ 	setCentralWidget( displayWidget()->view() );
 }
 
 void CLexiconReadWindow::initToolbars(){

@@ -28,15 +28,6 @@ void CWriteWindow::insertKeyboardActions( KActionCollection* const ){
 		a, "nextBook"
 	);*/
 }
-const bool CWriteWindow::init( const QString& keyName ) {
-//   qWarning("CWriteWindow::init( const QString& keyName )");
-  CDisplayWindow::init(keyName);
-// 	setupPopupMenu();
-  keyChooser()->setKey(key());
-	setReady(true);
-  return true;
-};
-
 
 void CWriteWindow::initConnections() {
 // 	qWarning("CWriteWindow::initConnections()");

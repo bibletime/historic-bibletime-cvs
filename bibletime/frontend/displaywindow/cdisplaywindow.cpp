@@ -207,10 +207,10 @@ void CDisplayWindow::windowActivated( const bool hasFocus ){
 }
 
 /** Reimplementation from QWidget. Used to initialize things before the widget is shown. */
-void CDisplayWindow::polish(){
-//  qWarning("CDisplayWindow::polish()");
-  KMainWindow::polish();
-}
+// void CDisplayWindow::polish(){
+// //  qWarning("CDisplayWindow::polish()");
+//   KMainWindow::polish();
+// }
 
 /** Refresh the settings of this window. */
 void CDisplayWindow::reload() {
@@ -340,17 +340,16 @@ void CDisplayWindow::setModules( const ListCSwordModuleInfo& newModules ){
 }
 
 /** Initialize the window. Call this method from the outside, because calling this in the constructor is not possible! */
-const bool CDisplayWindow::init( const QString& keyName ){
+const bool CDisplayWindow::init() {
+	//BibleTime::createReadDisplayWindow calls the show() method
   initView();
-  setMinimumSize( 350,300 );
+  setMinimumSize( 250,200 );
 
   setCaption(windowCaption());
   //setup focus stuff.
   setFocusPolicy(QWidget::ClickFocus);
   parentWidget()->setFocusPolicy(QWidget::ClickFocus);
 
-	//Why do we need the show call here? It's done in BibleTime::createReadWindow after the init() call
-//   show();
   initActions();
   initToolbars();
  	initConnections();
@@ -362,10 +361,12 @@ const bool CDisplayWindow::init( const QString& keyName ){
 		displaySettingsButton()->reset(modules());
   }
 
-  if (key()) {
-    key()->key(keyName);
-  }
+//   if (key() && !keyName.isEmpty()) {
+//     key()->key(keyName);
+//   }
 
+// 	keyChooser()->setKey(key());
+	setReady(true);
   return true;
 }
 
@@ -394,11 +395,12 @@ void CDisplayWindow::setDisplaySettingsButton( CDisplaySettingsButton* button ){
 }
 
 /** Lookup the current key. Used to refresh the display. */
-void CDisplayWindow::lookup(){
+void CDisplayWindow::lookup() {
  	lookup( key() );
 }
 
 void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName ) {
+  Q_ASSERT(isReady());
   if (!isReady()) {
   	return;
 	}
@@ -410,8 +412,8 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 	}
 
 	//ToDo: check for containsRef compat
-	if (m && modules().contains(m) && !keyName.isEmpty()) {
-// 		qWarning("creating this window");
+	if (m && modules().contains(m) /*&& !keyName.isEmpty()*/) {
+//  		qWarning("using this window");
 		key()->key(keyName);
 		keyChooser()->setKey(key()); //the key chooser does send an update signal
 	}
@@ -431,11 +433,11 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 		}
 
 		if (found) { //lookup in the window which has the module displayed
-// 			qWarning("using other existing window");
+//  			qWarning("using other existing window");
 			dw->lookup(moduleName, keyName);
   	}
 		else { //create a new window for the given module
-// 			qWarning("creating a new window");
+//  			qWarning("creating a new window");
     	ListCSwordModuleInfo mList;
      	mList.append(m);
 			mdi()->emitCreateDisplayWindow(mList, keyName);
@@ -443,11 +445,13 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 	}
 }
 
-void CDisplayWindow::lookup( const QString& key ) {
+void CDisplayWindow::lookup( const QString& keyName ) {
 	/* This function is called for example after a bookmark was dropped on this window
 	*/
-		
-	lookup(modules().first()->name(), key);
+	Q_ASSERT(modules().first());
+
+// // 	qWarning("looking up %s", keyName.latin1());
+	lookup(modules().first()->name(), keyName);
 }
 
 /** Update the status of the popup menu entries. */
@@ -494,4 +498,14 @@ void CDisplayWindow::closeEvent(QCloseEvent* e) {
 
 void CDisplayWindow::slotSearchInModules() {
 	CSearchDialog::openDialog(modules());
+}
+
+
+/*!
+    \fn CDisplayWindow::polish()
+ */
+void CDisplayWindow::showEvent(QShowEvent* e)
+{
+	KMainWindow::showEvent(e);
+// 	init(QString::null);
 }

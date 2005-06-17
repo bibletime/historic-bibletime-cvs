@@ -224,7 +224,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 		tree.append( i );
 	}
 
-	qWarning("rendered the tree: %s", renderer.renderKeyTree(tree).latin1());
+// 	qWarning("rendered the tree: %s", renderer.renderKeyTree(tree).latin1());
 	//spanns containing rtl text need dir=rtl on their parent tag to be aligned properly
 	return QString("<div class=\"crossrefinfo\"><h3>%1</h3><div class=\"para\" dir=\"%2\">%3</div></div>")
 		.arg(i18n("Cross references"))

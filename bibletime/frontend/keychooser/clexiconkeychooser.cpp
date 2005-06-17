@@ -52,7 +52,7 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
 	connect(m_widget,SIGNAL(focusOut(int)),SLOT(activated(int)));
 
   setModules(modules, true);
-// 	adjustFont();
+  setKey(key);
 }
 
 CSwordKey* const CLexiconKeyChooser::key(){

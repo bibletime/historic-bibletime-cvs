@@ -28,10 +28,6 @@ public:
   CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
 	virtual ~CReadWindow();
   /**
-  * Reimplementation to use the popup menu.
-  */
-  virtual const bool init( const QString& key );
-  /**
   * Store the settings of this window in the given CProfileWindow object.
   */
   virtual void storeProfileSettings(CProfileWindow * const settings);

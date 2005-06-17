@@ -118,7 +118,7 @@ public:
   /**
   * Initialize the window. Call this method from the outside, because calling this in the constructor is not possible!
   */
-  virtual const bool init( const QString& key );
+  virtual const bool init();
   /**
   * Sets the main toolbar.
   */
@@ -215,6 +215,8 @@ protected:
   */
   KPopupMenu* const popup();
   virtual void closeEvent(QCloseEvent* e);
+  virtual void showEvent(QShowEvent* e);
+// 	virtual void polish();
   
 protected slots:
 	virtual void modulesChanged();
@@ -225,7 +227,7 @@ protected slots:
   /**
   * Reimplementation from QWidget. Used to initialize things before this widget is shown.
   */
-  virtual void polish();
+//   virtual void polish();
   virtual void updatePopupMenu();
 	
 	void slotSearchInModules();

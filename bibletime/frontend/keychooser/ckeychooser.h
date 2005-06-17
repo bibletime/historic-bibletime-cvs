@@ -98,6 +98,8 @@ private:
 	QStringList m_nextKeyHistoryList;
 	int m_currentKeyHistoryPos;
 	bool m_inHistoryFunction;
+protected:
+    virtual void polish();
 };
 
 #endif
