@@ -1,10 +1,12 @@
-2005-06-xx Joachim Ansorg <jansorg@bibletime.info>
-	* BibleTime 1.5rc2
-  * Message freeze
-  * 
+2005-06-17 Joachim Ansorg <jansorg@bibletime.info>
+  * BibleTime 1.5rc2
+  * Most of the bugs reported for rc1 are fixed
+  * Major handbook update
+  * Display windows scroll now to the right position after they opened and
+    after a resize 
 
 2005-06-10 Joachim Ansorg <jansorg@bibletime.info>
-  * API doc updates
+  * API doc updates (BibleTime.DoxyFile)
   * Fixed code to compile with GCC 3.3.6, 3.4.4 and 4.0
 
 2005-06-06 Joachim Ansorg <jansorg@bibletime.info>

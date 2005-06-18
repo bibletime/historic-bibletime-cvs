@@ -10,11 +10,12 @@
 #include "cswordlexiconmoduleinfo.h"
 #include "cswordbookmoduleinfo.h"
 
-#include "frontend/cbtconfig.h"
-
 #include "bt_thmlhtml.h"
 #include "bt_osishtml.h"
 #include "bt_gbfhtml.h"
+#include "osismorphsegmentation.h"
+
+#include "frontend/cbtconfig.h"
 
 #include <dirent.h>
 #include <unistd.h>
@@ -36,6 +37,7 @@
 #include <rtfhtml.h>
 #include <filemgr.h>
 #include <utilstr.h>
+#include <swfilter.h>
 
 using std::string;
 using namespace Filters;
@@ -52,6 +54,8 @@ CSwordBackend::CSwordBackend()
 	m_filters.thml = 0;
 	m_filters.osis = 0;
 	m_filters.plain = 0;
+
+	filterInit();
 }
 
 CSwordBackend::CSwordBackend(const QString& path, const bool augmentHome)
@@ -65,6 +69,8 @@ CSwordBackend::CSwordBackend(const QString& path, const bool augmentHome)
 	m_filters.thml = 0;
 	m_filters.osis = 0;
 	m_filters.plain = 0;
+
+	filterInit();
 }
 
 CSwordBackend::~CSwordBackend(){
@@ -274,7 +280,8 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options
 	setOption( CSwordModuleInfo::hebrewCantillation, 	options.hebrewCantillation );
 	setOption( CSwordModuleInfo::greekAccents, 				options.greekAccents );
 	setOption( CSwordModuleInfo::redLetterWords,			options.redLetterWords );	
-  setOption( CSwordModuleInfo::textualVariants,			options.textualVariants );	
+  setOption( CSwordModuleInfo::textualVariants,			options.textualVariants );
+  setOption( CSwordModuleInfo::morphSegmentation,		options.morphSegmentation );
 // 	setOption( CSwordModuleInfo::transliteration,			options.transliteration );	
 	setOption( CSwordModuleInfo::scriptureReferences,	options.scriptureReferences);	
 }
@@ -455,6 +462,8 @@ const QString CSwordBackend::optionName( const CSwordModuleInfo::FilterTypes opt
 			return QString("Textual Variants");	
 		case CSwordModuleInfo::scriptureReferences:
 			return QString("Cross-references");
+		case CSwordModuleInfo::morphSegmentation:
+			return QString("Morph Segmentation");
 // 		case CSwordModuleInfo::transliteration:
 // 			return QString("Transliteration");
 	}
@@ -486,6 +495,8 @@ const QString CSwordBackend::translatedOptionName(const CSwordModuleInfo::Filter
 			return i18n("Textual Variants");
 		case CSwordModuleInfo::scriptureReferences:
 			return i18n("Scripture Cross-references");	
+		case CSwordModuleInfo::morphSegmentation:
+			return i18n("Morph Segmentation");
 // 		case CSwordModuleInfo::transliteration:
 // 			return i18n("Transliteration between scripts");	
 	}
@@ -517,6 +528,8 @@ const QString CSwordBackend::configOptionName( const CSwordModuleInfo::FilterTyp
 			return QString("Variants");
 		case CSwordModuleInfo::scriptureReferences:
 			return QString("Scripref");
+		case CSwordModuleInfo::morphSegmentation:
+			return QString("MorphSegmentation");
     default:
       return QString::null;
 	}
@@ -602,4 +615,14 @@ const QStringList CSwordBackend::swordDirList(){
 	}
 	
 	return ret;
+}
+
+void CSwordBackend::filterInit() {
+	SWMgr::init();
+
+	qWarning("## INIT");
+	
+ 	SWFilter* tmpFilter = new OSISMorphSegmentation();
+ 	optionFilters.insert(FilterMap::value_type("OSISMorphSegmentation", tmpFilter));
+ 	cleanupFilters.push_back(tmpFilter);	
 }

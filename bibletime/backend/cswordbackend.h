@@ -54,6 +54,7 @@ public:
 		int textualVariants; /**< Number n to enabled the n-th variant */
     int redLetterWords; /**< 0 for disabled, 1 for enabled */
     int scriptureReferences; /**< 0 for disabled, 1 for enabled */
+    int morphSegmentation; /**< 0 for disabled, 1 for enabled */
 	};
 	/** Control the display of a text.
 	*/
@@ -199,6 +200,10 @@ protected:
 	* @param module Add a render filter to this module!
 	*/
 	virtual void AddRenderFilters(sword::SWModule *module, sword::ConfigEntMap &section);
+	/**
+	* Initializes the filters provided by BibleTime.
+	*/
+  virtual void filterInit();
 	
 private:
 	// Filters
@@ -210,9 +215,9 @@ private:
 	} m_filters;
 
 	struct Displays {
-		Rendering::CChapterDisplay* 	chapter;
-		Rendering::CEntryDisplay* 		entry;
-		Rendering::CBookDisplay* 		book;
+		Rendering::CChapterDisplay* chapter;
+		Rendering::CEntryDisplay* entry;
+		Rendering::CBookDisplay* book;
 	} m_displays;
 
 	ListCSwordModuleInfo m_moduleList;

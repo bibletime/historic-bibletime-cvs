@@ -80,6 +80,7 @@ private:
   		QCheckBox* headings;
 			QCheckBox* hebrewPoints;
 			QCheckBox* hebrewCantillation;
+			QCheckBox* morphSegmentation;
 			QCheckBox* greekAccents;
 			QCheckBox* textualVariants;
       QCheckBox* scriptureReferences;

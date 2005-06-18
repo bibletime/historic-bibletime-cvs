@@ -88,6 +88,7 @@ for PART in $DOC_PARTS; do
 		echo generating $I2/Makefile.am
 		( # output to Makefile.am
 			echo -e $HEADER
+			echo "KDE_OPTIONS = noautodist"
 			echo -n "EXTRA_DIST = "
 
 			FILES=`ls -d $I2/*.png $I2/*.html $I2/*.docbook 2>/dev/null`;

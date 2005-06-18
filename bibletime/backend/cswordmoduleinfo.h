@@ -52,8 +52,9 @@ public:
     scriptureReferences, /**< scripture references may be switched on and off, just makes sense in Bibles */
     redLetterWords, /**< Jesus words in red, color is template specific */
     textualVariants, /**< variants */
+    morphSegmentation, /**< morph word segmentation, supported by OSIS */
 		filterTypesMIN = footnotes, /**< first entry of this enum */
-		filterTypesMAX = textualVariants /**< last item in this enum */
+		filterTypesMAX = morphSegmentation /**< last item in this enum */
 //     transliteration /* The following are handled in a special way */
 	};
 	/** The text direction of a module */

@@ -669,6 +669,11 @@ void COptionsDialog::initSword(){
 		m_settings.swords.hebrewCantillation->setChecked(CBTConfig::get(CBTConfig::hebrewCantillation));		
 		layout->addWidget(m_settings.swords.hebrewCantillation);
 	
+		m_settings.swords.morphSegmentation = new QCheckBox(currentTab);
+		m_settings.swords.morphSegmentation->setText(i18n("Show Moprh Segmentation"));
+		m_settings.swords.morphSegmentation->setChecked(CBTConfig::get(CBTConfig::morphSegmentation));
+		layout->addWidget(m_settings.swords.morphSegmentation);
+		
 		m_settings.swords.textualVariants = new QCheckBox(currentTab);
 		m_settings.swords.textualVariants->setText(i18n("Use textual variants"));
 		m_settings.swords.textualVariants->setChecked(CBTConfig::get(CBTConfig::textualVariants));		
@@ -821,6 +826,7 @@ void COptionsDialog::saveSword(){
  	CBTConfig::set(CBTConfig::scriptureReferences, m_settings.swords.scriptureReferences->isChecked());
  	CBTConfig::set(CBTConfig::hebrewPoints, m_settings.swords.hebrewPoints->isChecked());
  	CBTConfig::set(CBTConfig::hebrewCantillation, m_settings.swords.hebrewCantillation->isChecked());
+ 	CBTConfig::set(CBTConfig::morphSegmentation, m_settings.swords.morphSegmentation->isChecked());
  	CBTConfig::set(CBTConfig::greekAccents, m_settings.swords.greekAccents->isChecked());
  	CBTConfig::set(CBTConfig::textualVariants, m_settings.swords.textualVariants->isChecked());
 }

@@ -152,6 +152,8 @@ int CDisplaySettingsButton::populateMenu(){
 		isOptionAvailable(CSwordModuleInfo::textualVariants ));
   ret += addMenuEntry(i18n("Show scripture cross-references"), &m_moduleSettings->scriptureReferences,
 		isOptionAvailable(CSwordModuleInfo::scriptureReferences ));
+  ret += addMenuEntry(i18n("Show morph segmentation"), &m_moduleSettings->morphSegmentation,
+		isOptionAvailable(CSwordModuleInfo::morphSegmentation ));
 
 	return ret;
 }

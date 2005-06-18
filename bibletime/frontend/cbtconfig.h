@@ -71,7 +71,8 @@ public:
 		greekAccents,
 		textualVariants,
 //     transliteration,
-    scriptureReferences
+    scriptureReferences,
+    morphSegmentation
   };
   enum intLists {
 		leftPaneSplitterSizes,

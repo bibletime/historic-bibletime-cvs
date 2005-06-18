@@ -67,13 +67,15 @@ MAINTAINERCLEANFILES = configure.files subdirs
 
 dist-hook:	
 	rm -f $(distdir)/bibletime-*.tar.gz $(distdir)/bibletime-*.tar.bz2
-	rm -rf `find $(distdir) -name tags -o -name TAGS -o -name \*.xcf`
+	rm -rf $(find $(distdir) -name tags -o -name TAGS -o -name \*.xcf -o -name \*.xcf.bz2)
 #	rm -f $(distdir)/admin/Changelog $(distdir)/make-messages.sh \
 #		$(distdir)/extractrc $(distdir)/preparetips \
 #		$(distdir)/bibletime.doxygen $(distdir)/bibletime.kdevses \
 #		$(distdir)/bibletime.start $(distdir)/configure.files \
 #		$(distdir)/bibletime/pics/gen_am.sh
-#	rm -rf $(distdir)/docs/howto/html/*.html $(distdir)/docs/handbook/html/*.html
 	rm -rf $(distdir)/autom4te.cache
 	rm -rf $(distdir)/BibleTime.kdevelop.pcs
+	rm -rf $(distdir)/docs/handbook/html/*.html
+	rm -rf $(distdir)/docs/howto/html/*.html
+#	rm -rf $(distdir)/BibleTime.tag
 # $(distdir)/BibleTime.kdevses

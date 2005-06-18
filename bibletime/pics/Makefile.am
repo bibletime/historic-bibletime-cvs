@@ -1,3 +1,5 @@
+KDE_OPTIONS = noautodist
+
 SUBDIRS = \
 16x16 \
 22x22 \

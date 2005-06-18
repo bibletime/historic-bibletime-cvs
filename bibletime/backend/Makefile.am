@@ -3,7 +3,7 @@ noinst_LIBRARIES = libbackend.a
 
 INCLUDES = $(all_includes)
 
-libbackend_a_SOURCES = cswordmodulesearch.cpp cswordbackend.cpp cswordkey.cpp cswordldkey.cpp cswordversekey.cpp cswordmoduleinfo.cpp cswordlexiconmoduleinfo.cpp cswordcommentarymoduleinfo.cpp cswordbiblemoduleinfo.cpp cswordbookmoduleinfo.cpp cswordtreekey.cpp creferencemanager.cpp bt_thmlhtml.cpp bt_osishtml.cpp bt_gbfhtml.cpp centrydisplay.cpp clanguagemgr.cpp cfiltertool.cpp cdisplaytemplatemgr.cpp ctextrendering.cpp btstringmgr.cpp cbookdisplay.cpp cchapterdisplay.cpp chtmlexportrendering.cpp cplaintextexportrendering.cpp cdisplayrendering.cpp
+libbackend_a_SOURCES = cswordmodulesearch.cpp cswordbackend.cpp cswordkey.cpp cswordldkey.cpp cswordversekey.cpp cswordmoduleinfo.cpp cswordlexiconmoduleinfo.cpp cswordcommentarymoduleinfo.cpp cswordbiblemoduleinfo.cpp cswordbookmoduleinfo.cpp cswordtreekey.cpp creferencemanager.cpp bt_thmlhtml.cpp bt_osishtml.cpp bt_gbfhtml.cpp centrydisplay.cpp clanguagemgr.cpp cfiltertool.cpp cdisplaytemplatemgr.cpp ctextrendering.cpp btstringmgr.cpp cbookdisplay.cpp cchapterdisplay.cpp chtmlexportrendering.cpp cplaintextexportrendering.cpp cdisplayrendering.cpp osismorphsegmentation.cpp
 
 all_headers = cswordbiblemoduleinfo.h \
 cswordcommentarymoduleinfo.h \
@@ -30,6 +30,7 @@ cbookdisplay.h \
 cchapterdisplay.h \
 chtmlexportrendering.h \
 cplaintextexportrendering.h \
-cdisplayrendering.h
+cdisplayrendering.h \
+osismorphsegmentation.h
 
 EXTRA_DIST = $(libbackend_a_SOURCES) $(all_headers)

@@ -122,6 +122,7 @@ const QString CBTConfig::getKey( const CBTConfig::ints ID){
 		case textualVariants:			return "textualVariants";
 //     case transliteration:     return "transliteration";
     case scriptureReferences: return "scriptureReferences";
+    case morphSegmentation:   return "morphSegmentation";
   }
   return QString::null;
 }
@@ -163,6 +164,7 @@ const int CBTConfig::getDefault( const CBTConfig::ints ID){
 		case textualVariants:			return false;
 //     case transliteration:     return 0;
     case scriptureReferences:	return true;
+    case morphSegmentation:		return false;
   }
   return 0;
 }
@@ -506,6 +508,7 @@ const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults(){
   options.textualVariants = 		get(CBTConfig::textualVariants);
 //   options.transliteration = 		get(CBTConfig::transliteration);
   options.scriptureReferences = get(CBTConfig::scriptureReferences);
+  options.morphSegmentation		= get(CBTConfig::morphSegmentation);
 
 	return options;
 }
