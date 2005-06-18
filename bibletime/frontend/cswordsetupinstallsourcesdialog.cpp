@@ -57,7 +57,7 @@ CSwordSetupInstallSourcesDialog::CSwordSetupInstallSourcesDialog(/*QWidget *pare
 
 	m_pathEdit = new QLineEdit( this );
 	layout->addWidget( m_pathEdit, 1, 2 );
-	m_pathEdit->setText("/pub/sword");
+	m_pathEdit->setText("/pub/sword/raw");
 	
 	mainLayout->addSpacing( 10 );
 
@@ -75,6 +75,7 @@ CSwordSetupInstallSourcesDialog::CSwordSetupInstallSourcesDialog(/*QWidget *pare
 
 }
 void CSwordSetupInstallSourcesDialog::slotOk(){
+	//run a few tests to validate the input first
 	if ( m_captionEdit->text().stripWhiteSpace().isEmpty() ){ //no caption
 		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a caption."), QMessageBox::Retry);
 		return;
@@ -92,10 +93,16 @@ void CSwordSetupInstallSourcesDialog::slotOk(){
 		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a server name."), QMessageBox::Retry);
 		return;
 	}
-	const QFileInfo fi( m_pathEdit->text() );
-	if (!fi.exists() || !fi.isReadable()){ //no valid and readable path
-		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a valid, readable path."), QMessageBox::Retry);
-		return;
+	if ( m_protocolCombo->currentText() == PROTO_FILE){
+		const QFileInfo fi( m_pathEdit->text() );
+		if (!fi.exists() || !fi.isReadable()){ //no valid and readable path
+			QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a valid, readable path."), QMessageBox::Retry);
+			return;
+		}
+		else if ( m_pathEdit->text().isEmpty() ){
+			QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a path."), QMessageBox::Retry);
+
+		}
 	}
 	accept(); //only if nothing else failed
 }
