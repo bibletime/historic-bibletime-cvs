@@ -498,6 +498,7 @@ const bool CSwordSetupDialog::refreshRemoteModuleCache( const QString& sourceNam
 
 void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName ){
   KApplication::kApplication()->processEvents();
+  Q_ASSERT(m_installModuleListView);
 	if (!m_installModuleListView) { // this may be an update after removing modules
 		return;
 	}
@@ -509,28 +510,45 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
  	if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is) 
 			&& !refreshRemoteModuleCache(sourceName)) {
+// 		qWarning("finish");
 		m_installModuleListView->finish();
  		return;
  	}
 
   //kind of a hack to provide a pointer to mgr next line
+//   qWarning("createing remote_backend");
   util::scoped_ptr<CSwordBackend> remote_backend( BTInstallMgr::Tool::backend(&is) );
+// 	qWarning("config path1 is %s", remote_backend->configPath);
+// 	qWarning("config path2 is %s", BTInstallMgr::Tool::backend(&is)->configPath ); //mem leak
+//   qWarning("after creating remote_backend");
+  Q_ASSERT(remote_backend);
   Q_ASSERT( BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is) );
   if (!remote_backend) {
 		m_installModuleListView->finish();
     return;
 	}
 	
-	CSwordBackend local_backend;
+	CSwordBackend* local_backend = CPointers::backend();
+	Q_ASSERT(local_backend);
+// 	qWarning("local backend has path %s", local_backend->);
 	KApplication::kApplication()->processEvents();
-	local_backend.initModules();
+	//local_backend.initModules();
 
+// 	qWarning("config path3 is %s", remote_backend->configPath);
   ListCSwordModuleInfo mods = remote_backend->moduleList();
+  Q_ASSERT(mods.count() > 0);
+  
 	ListCSwordModuleInfo::iterator end_it = mods.end();
 	for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
+// 		qWarning("adding module %s (%s)", (*it)->name().latin1(), (*it)->config(CSwordModuleInfo::AbsoluteDataPath).latin1());
     bool isUpdate = false;
 
-    CSwordModuleInfo* const installedModule = local_backend.findModuleByName((*it)->name());
+    CSwordModuleInfo* const installedModule = local_backend->findModuleByName((*it)->name());
+    if (installedModule) {
+// 			qWarning("module is already installed in %s", installedModule->config(CSwordModuleInfo::AbsoluteDataPath).latin1());
+    }
+    Q_ASSERT(installedModule);
+    
     if (installedModule) { //module already installed?
       //check whether it's an uodated module or just the same
       const SWVersion installedVersion(
@@ -543,12 +561,14 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
       isUpdate = (newVersion > installedVersion);
 			if (!isUpdate) {
+// 				qWarning("    mod %s is not an update", (*it)->name().latin1());
          continue;
 			}
     }
 
 //TODO: is this still true?
     if ((*it)->isLocked() || (*it)->isEncrypted()) { //encrypted modules have no data files on the server
+//     	qWarning("not using encrypted mod");
       continue;
 		}
 

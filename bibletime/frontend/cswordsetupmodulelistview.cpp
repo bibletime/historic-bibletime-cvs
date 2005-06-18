@@ -61,6 +61,7 @@ protected:
 CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_remote, sword::InstallSource* installSource)
 	: KListView(parent), m_is_remote( is_remote )
 {
+	Q_ASSERT(installSource);
 	new InstallationManager::ToolTip(this);
 	m_backend = installSource ? BTInstallMgr::Tool::backend(installSource) : CPointers::backend();
 	

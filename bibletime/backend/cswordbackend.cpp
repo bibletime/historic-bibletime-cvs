@@ -59,8 +59,9 @@ CSwordBackend::CSwordBackend()
 }
 
 CSwordBackend::CSwordBackend(const QString& path, const bool augmentHome)
-	: sword::SWMgr((!path.isEmpty() ? (const char*)path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), false, augmentHome) // don't allow module renaming, because we load from a path
-{	
+	: sword::SWMgr(!path.isEmpty() ? (const char*)path.local8Bit() : 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), false, augmentHome) // don't allow module renaming, because we load from a path
+{
+	qWarning("CSwordBackend::CSwordBackend for %s, using %s", path.latin1(), configPath);
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
 	m_displays.book = 0;
@@ -96,6 +97,7 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 
 	sword::ModMap::iterator end = Modules.end();
 	ret = LoadError( Load() );
+
 	for (sword::ModMap::iterator it = Modules.begin(); it != end; it++) {
 		sword::SWModule* const curMod = (*it).second;
 		CSwordModuleInfo* newModule = 0;
@@ -620,7 +622,7 @@ const QStringList CSwordBackend::swordDirList(){
 }
 
 void CSwordBackend::filterInit() {
-	SWMgr::init();
+// 	SWMgr::init();
 
 	qWarning("## INIT");
 	

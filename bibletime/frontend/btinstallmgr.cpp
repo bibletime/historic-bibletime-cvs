@@ -239,21 +239,24 @@ void BTInstallMgr::Tool::RemoteConfig::resetLocalSources() {
 }
 
 CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
+	Q_ASSERT(is);
   if (!is) {
     return 0;
    }
 
   CSwordBackend* ret = 0;
   if (RemoteConfig::isRemoteSource(is)) {
-    ret = new CSwordBackend( QString(is->localShadow.c_str()), false );
 //     qWarning("## remote backend for %s", is->localShadow.c_str());
+    ret = new CSwordBackend( QString(is->localShadow.c_str()), false );
 	}
   else {
+//   	qWarning("## local  backend for %s", QString(is->directory.c_str()).latin1());
     ret = new CSwordBackend( QString(is->directory.c_str()) );
 	}
 
+	Q_ASSERT(ret);
 	if (ret) {
-    ret->initModules();
+     ret->initModules();
 	}
 
   return ret;
