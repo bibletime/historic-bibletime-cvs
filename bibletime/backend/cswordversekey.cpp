@@ -107,15 +107,6 @@ const QString CSwordVerseKey::key() const {
 }
 
 void CSwordVerseKey::key( const QString& newKey ) {
-/*	if (newKey.isEmpty()) {
-    CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module());
-		if ( bible ) {
-			VerseKey::operator = ((const char*)bible->lowerBound().key().utf8());
-    }
-  }
-  else {
-		VerseKey::operator = ((const char*)newKey.utf8());
-  }*/
 	key( (const char*)newKey.utf8() );
 }
 

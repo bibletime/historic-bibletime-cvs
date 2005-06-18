@@ -23,9 +23,7 @@ const StringList oValues(&choices[0], &choices[2]);
 namespace Filters {
 
 OSISMorphSegmentation::OSISMorphSegmentation() : sword::SWOptionFilter(oName, oTip, &oValues) {
-	printf("morph segmenation filter\n");
-	setOptionValue("Off");
-	
+	setOptionValue("Off");	
 }
 
 

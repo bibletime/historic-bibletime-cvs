@@ -469,7 +469,6 @@ void BibleTime::initConnections(){
 
 /** Initializes the backend */
 void BibleTime::initBackends(){
-// 	SWLog::getSystemLog()->setLogLevel(0);
 	KStartupLogo::setStatusMessage(i18n("Initializing Sword") + QString("..."));
 
 	StringMgr::setSystemStringMgr( new BTStringMgr() );

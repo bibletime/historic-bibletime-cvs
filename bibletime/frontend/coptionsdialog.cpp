@@ -68,7 +68,7 @@ COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KActionCollect
 	setIconListAllVisible(true);
 
 	initDisplay();
-	initFonts();
+	initLanguages();
 	initSword();
 	initAccelerators();
 }
@@ -94,7 +94,7 @@ void COptionsDialog::newDisplayWindowFontAreaSelected(const QString& usage){
 /** Called if the OK button was clicked */
 void COptionsDialog::slotOk(){
 	saveAccelerators();
-	saveFonts();
+	saveLanguages();
 	saveSword();
 	saveDisplay();
 	
@@ -105,7 +105,7 @@ void COptionsDialog::slotOk(){
 /*called if the apply button was clicked*/
 void COptionsDialog::slotApply(){
 	saveAccelerators();
-	saveFonts();
+	saveLanguages();
 	saveSword();
 	saveDisplay();
 
@@ -196,7 +196,7 @@ void COptionsDialog::initDisplay(){
 }
 
 /** Init fonts section. */
-void COptionsDialog::initFonts(){
+void COptionsDialog::initLanguages(){
 	QFrame* page = addPage(i18n("Languages"), QString::null, DesktopIcon(CResMgr::settings::fonts::icon, 32));
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
 	layout->setResizeMode( QLayout::Minimum );
@@ -221,10 +221,14 @@ void COptionsDialog::initFonts(){
 		layout->addLayout(hBoxLayout);
 	
 		QStringList languageNames;
-		languageNames.append( i18n("English") );
+		languageNames.append( languageMgr()->languageForAbbrev("en_US")->translatedName() );
+// 		languageNames.append( i18n("English") );
 		
-		const list<sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
+		list<sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
+// 		locales.push_back(SWBuf("en_US"));
+		
 		for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
+			qWarning("working on %s", (*it).c_str());
 			const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev(
 				sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getName()
 			);
@@ -245,6 +249,7 @@ void COptionsDialog::initFonts(){
 		const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev( 
 			CBTConfig::get(CBTConfig::language)
 		);
+		
 		QString currentLanguageName;
 		if ( l->isValid() && languageNames.contains(l->translatedName()) ) { //tranlated language name is in the box
 			currentLanguageName = l->translatedName();
@@ -259,7 +264,9 @@ void COptionsDialog::initFonts(){
 		}
 		
 		if (currentLanguageName.isEmpty()) { // set english as default if nothing was chosen
-			currentLanguageName = i18n("English");
+// 			currentLanguageName = i18n("English");
+			Q_ASSERT(languageMgr()->languageForAbbrev("en_US"));
+			currentLanguageName = languageMgr()->languageForAbbrev("en_US")->translatedName();
 		}
 		
 		//now set the item with the right name as current item
@@ -731,13 +738,12 @@ void COptionsDialog::saveAccelerators(){
 }
 
 /** No descriptions */
-void COptionsDialog::saveFonts(){
+void COptionsDialog::saveLanguages(){
 	for(QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
     const CLanguageMgr::Language* const lang = languageMgr()->languageForTranslatedName(it.key());
     if (!lang->isValid()) { //we probably use a language, for which we have only the abbrev
       CLanguageMgr::Language l(it.key(), it.key(), it.key()); //create a temp language
 	    CBTConfig::set(&l, it.data());
-
     }
 		else {
     	CBTConfig::set(lang, it.data());

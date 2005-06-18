@@ -538,16 +538,18 @@ const QString CSwordBackend::configOptionName( const CSwordModuleInfo::FilterTyp
 
 const QString CSwordBackend::booknameLanguage( const QString& language ) {
 	if (!language.isEmpty()) {
+// 		qWarning("setting language %s", language.latin1());
 		sword::LocaleMgr::getSystemLocaleMgr()->setDefaultLocaleName( language.latin1() );
+// 		qWarning("got language %s", sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName() );
 		
 		//refresh the locale of all Bible and commentary modules!
 		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+		//use what sword returns, language may be different
+		QString newLocaleName( sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName()  ); 
 		for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
       if ( (*it)->type() == CSwordModuleInfo::Bible || (*it)->type() == CSwordModuleInfo::Commentary ) {
 				//Create a new key, it will get the default bookname language
-//         SWKey* k = (*it)->module()->CreateKey();
-// 				k->Persist(1);
-				((sword::VerseKey*)((*it)->module()->getKey()))->setLocale( language.latin1() );
+				((sword::VerseKey*)((*it)->module()->getKey()))->setLocale( newLocaleName.latin1() );
       }
     }
 		

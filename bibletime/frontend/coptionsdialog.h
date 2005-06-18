@@ -177,7 +177,7 @@ protected: // Protected methods
   /**
   * Init fonts section.
   */
-  void initFonts();
+  void initLanguages();
 
   /** Save the display settings.
   */
@@ -187,7 +187,7 @@ protected: // Protected methods
   void saveAccelerators();
   /** Save the font settings.
   */
-	void saveFonts();
+	void saveLanguages();
   /** Save the Sword specific settings.
   */
  	void saveSword();

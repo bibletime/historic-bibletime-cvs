@@ -70,8 +70,11 @@ const QString CReferenceManager::encodeHyperlink( const QString moduleName, cons
       case Bible: //bibles or commentary keys need parsing
   		case Commentary: {
         CSwordVerseKey vk(0);
+        //make sure we parse the scripref in the module's language!
+				CSwordModuleInfo* mod = CPointers::backend()->findModuleByName(moduleName);
+				vk.setLocale(mod->module()->Lang());
         vk = key;
-//         vk.setLocale("en");
+        vk.setLocale("en");
 
         ret.append( vk.key() ); //we add the english key, so drag and drop will work in all cases
         break;
