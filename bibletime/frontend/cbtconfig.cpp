@@ -154,17 +154,17 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 const int CBTConfig::getDefault( const CBTConfig::ints ID){
 	switch ( ID ){
 		case footnotes: 					return true;
-		case strongNumbers:  			return false;
+		case strongNumbers:  			return true;
   	case headings: 						return true;
-  	case morphTags: 					return false;
-		case lemmas: 							return false;
+  	case morphTags: 					return true;
+		case lemmas: 							return true;
 		case hebrewPoints: 				return true;
 		case hebrewCantillation: 	return true;
 		case greekAccents: 				return true;
 		case textualVariants:			return false;
 //     case transliteration:     return 0;
-    case scriptureReferences:	return true;
-    case morphSegmentation:		return false;
+		case scriptureReferences:	return true;
+		case morphSegmentation:		return true;
   }
   return 0;
 }
