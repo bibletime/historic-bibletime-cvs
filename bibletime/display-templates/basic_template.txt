@@ -157,6 +157,10 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 .transchange > .moved { }
 .transchange > .tenseChange { }
 
+/* Special text markup */
+/* Morph segmentation is a special feature for hebrew to markup the word divisions in the text */
+.morphSegmentation {}
+
 /* The formatting of all things displayed in the information window */
 #infodisplay { }
 
@@ -186,8 +190,5 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 
 <!--  The display type may be bible, book, printer -->
 <body id="#DISPLAYTYPE#">
-	<div id="content" lang="#LANG_ABBREV#" xml:lang="#LANG_ABBREV#">
-#CONTENT#
-	</div>
-</body>
+	<div id="content" lang="#LANG_ABBREV#" xml:lang="#LANG_ABBREV#">#CONTENT#</div></body>
 </html>

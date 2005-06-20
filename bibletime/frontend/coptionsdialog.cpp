@@ -872,41 +872,41 @@ void COptionsDialog::updateStylePreview() {
 
  	CTextRendering::KeyTreeItem::Settings settings;
  	tree.append( new CTextRendering::KeyTreeItem(
- 		QString("<div class=\"currententry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"Johannes316\" href=\"sword://Bible/WEB/Johannes 3:16\">16</a> </span>%1</div>")
- 			.arg("For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life."),
+ 		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"John316\" href=\"sword://Bible/WEB/John 3:16\">16</a></span>%1</div>")
+ 			.arg(i18n("John 3:16", "For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.")),
  		settings));
  		
 	tree.append( new CTextRendering::KeyTreeItem(
-		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"Johannes317\" href=\"sword://Bible/WEB/Johannes 3:17\">17</a></span>%1</div>")
-			.arg("For God didn?t send his Son into the world to judge the world, but that the world should be saved through him."),
+		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"John317\" href=\"sword://Bible/WEB/John 3:17\">17</a></span>%1</div>")
+			.arg(i18n("For God didn't send his Son into the world to judge the world, but that the world should be saved through him.")),
 	 settings));
 	 
 	tree.append( new CTextRendering::KeyTreeItem(
-		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"Johannes318\" href=\"sword://Bible/WEB/Johannes 3:18\">18</a></span>%1</div>")
-			.arg("He who believes in him is not judged. He who doesn?t believe has been judged already, because he has not believed in the name of the one and only Son of God."),
+		QString("<div class=\"currententry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"John318\" href=\"sword://Bible/WEB/John 3:18\">18</a></span>%1</div>")
+			.arg(i18n("He who believes in him is not judged. He who doesn't believe has been judged already, because he has not believed in the name of the one and only Son of God.")),
 		settings) );
 
 	tree.append( new CTextRendering::KeyTreeItem(
-		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"Johannes319\" href=\"sword://Bible/WEB/Johannes 3:19\">19</a></span>%1</div>")
-			.arg("This is the judgment, that the light has come into the world, and men loved the darkness rather than the light; for their works were evil."),
+		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"John319\" href=\"sword://Bible/WEB/John 3:19\">19</a></span>%1</div>")
+			.arg(i18n("This is the judgment, that the light has come into the world, and men loved the darkness rather than the light; for their works were evil.")),
 		settings));
 
 	tree.append( new CTextRendering::KeyTreeItem(
-		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"Johannes320\" href=\"sword://Bible/WEB/Johannes 3:20\">20</a></span>%1<br/></div>")
-			.arg("For everyone who does evil hates the light, and doesn?t come to the light, lest his works would be exposed."),
+		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"John320\" href=\"sword://Bible/WEB/John 3:20\">20</a></span>%1<br/></div>")
+			.arg(i18n("For everyone who does evil hates the light, and doesn't come to the light, lest his works would be exposed.")),
 		settings));
 	
 	tree.append( new CTextRendering::KeyTreeItem(
-		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"Johannes321\" href=\"sword://Bible/WEB/Johannes 3:21\">21</a></span>%1<br/></div>")
-			.arg("But he who does the truth comes to the light, that his works may be revealed, that they have been done in God."),
+		QString("<div class=\"entry\" xml:lang=\"en\" lang=\"en\" dir=\"ltr\"><span class=\"entryname\"><a name=\"John321\" href=\"sword://Bible/WEB/John 3:21\">21</a></span>%1</div>")
+			.arg(i18n("But he who does the truth comes to the light, that his works may be revealed, that they have been done in God.")),
 		settings));
 	
 	const QString oldStyleName = CBTConfig::get(CBTConfig::displayStyle);
 	CBTConfig::set(CBTConfig::displayStyle, styleName);
 
-	CDisplayRendering render;	
+	CDisplayRendering render;
 	m_settings.displayStyle.stylePreview->begin();
-	m_settings.displayStyle.stylePreview->write( render.renderKeyTree(tree) );
+	m_settings.displayStyle.stylePreview->write( render.renderKeyTree(tree));
 	m_settings.displayStyle.stylePreview->end();
 
 	CBTConfig::set(CBTConfig::displayStyle, oldStyleName);

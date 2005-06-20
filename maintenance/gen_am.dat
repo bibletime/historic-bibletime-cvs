@@ -23,7 +23,7 @@
 # RELEASE:
 #export FOREIGN_DOC_LANGUAGES="de"
 # WORK:
- export FOREIGN_DOC_LANGUAGES="bg cs de fr it ko nl pt-br ru"
+ export FOREIGN_DOC_LANGUAGES="bg cs de fi fr it ko nl pt-br ru"
 
 # This variable identifies which parts of the documentation
 # are in use. You should not need to change this unless you

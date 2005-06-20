@@ -249,8 +249,12 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 }
 
 /*Required for cross references*/
-#infodisplay .entry { }
-#infodisplay .entry .entry { /* No smaller font size for nested entries */ }
+#infodisplay .entry {
+	font-size:80%;
+}
+#infodisplay .entry .entry { /* No smaller font size for nested entries */
+	font-size:100% !important;
+}
 #infodisplay .entryname {
 	font-weight:bold;
 }

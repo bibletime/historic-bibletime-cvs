@@ -158,6 +158,7 @@ const bool CDisplay::save( const CDisplay::TextType format, const CDisplay::Text
 
 /** Emits the signal which used when a reference was clicked. */
 void CDisplay::emitReferenceClicked( const QString& reference ){
+  qWarning("reference clicked %s", reference.latin1());
   QString module;
   QString key;
   CReferenceManager::Type type;

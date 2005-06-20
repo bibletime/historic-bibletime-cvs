@@ -36,7 +36,7 @@ char OSISMorphSegmentation::processText(SWBuf &text, const SWKey */*key*/, const
 	bool intoken    = false;
 	bool hide       = false;
 
-	SWBuf orig = text;
+	SWBuf orig( text );
 	const char *from = orig.c_str();
 	
 	XMLTag tag;
@@ -50,25 +50,26 @@ char OSISMorphSegmentation::processText(SWBuf &text, const SWKey */*key*/, const
 
 		if (*from == '>') {	// process tokens
 			intoken = false;
-			if (!strncmp(token.c_str(), "seg", 3) || !strncmp(token.c_str(), "/seg", 4)) {
+			if (!strncmp(token.c_str(), "seg ", 4) || !strncmp(token.c_str(), "/seg", 4)) {
 				tag = token;
 				
-				if (!tag.isEndTag()) { //<seg type="morph">
-					if (tag.getAttribute("type") && !strcmp("morph", tag.getAttribute("type"))) {
-						hide = !option; //only hide if option is Off
-					}
+				if (!tag.isEndTag() && tag.getAttribute("type") && !strcmp("morph", tag.getAttribute("type"))) {  //<seg type="morph"> start tag
+					hide = !option; //only hide if option is Off
 				}
 
-				if (!hide) { //hides start and end tags as long as hide is set
-					text.append('<');
-					text.append(token);
-					text.append('>');
-				}
-				
-				if (tag.isEndTag()) { //</seg>
-					hide = false;
+				if (hide) { //hides start and end tags as long as hide is set
+					if (tag.isEndTag()) { //</seg>
+						hide = false;
+					}
+					
+					continue; //leave out the current token
 				}
 			} //end of seg tag handling
+
+			text.append('<');
+			text.append(token);
+			text.append('>');
+			hide = false;
 
  			continue;
 		} //end of intoken part

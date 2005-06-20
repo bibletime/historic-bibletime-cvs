@@ -72,7 +72,11 @@ const QString CReferenceManager::encodeHyperlink( const QString moduleName, cons
         CSwordVerseKey vk(0);
         //make sure we parse the scripref in the module's language!
 				CSwordModuleInfo* mod = CPointers::backend()->findModuleByName(moduleName);
-				vk.setLocale(mod->module()->Lang());
+				StringList locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
+				StringList::iterator it = find(locales.begin(), locales.end(), mod->module()->Lang());
+				if (it != locales.end()) {
+					vk.setLocale(mod->module()->Lang());
+				}
         vk = key;
         vk.setLocale("en");
 

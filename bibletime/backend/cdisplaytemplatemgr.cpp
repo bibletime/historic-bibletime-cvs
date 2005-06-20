@@ -63,6 +63,9 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 					displayTypeString = "singleentry";
 					break;
 			};
+		}
+		else { //use bible as default type if no modules are set
+			displayTypeString = "bible";
 		};
 	}
 		
@@ -107,9 +110,6 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 			langCSS +=
 				QString("\n*[lang=%1] %2")
 					.arg(lang->abbrev())
-// 					.arg(lang->abbrev())
-// 					.arg(lang->abbrev())
-// 					.arg(lang->abbrev())
 					.arg(css);
 		}
 	}
@@ -127,6 +127,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 			.arg(standardFont.italic() ? "italic" : "normal")
 		);
 	}
+
 //  qWarning("Outputing unformated text");
 //  	qWarning("%s", newContent.latin1());
 	return QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy

@@ -52,6 +52,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		sword::SWModule* myModule = const_cast<sword::SWModule*>(myUserData->module); //hack
 		
     XMLTag tag(token);
+//     qWarning("found %s", token);
   	const	bool osisQToTick = ((!userData->module->getConfigEntry("OSISqToTick")) || (strcmp(userData->module->getConfigEntry("OSISqToTick"), "false")));
 
     if (!tag.getName()) {
@@ -216,7 +217,8 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 	          myUserData->noteType = BT_UserData::Alternative;
 						myUserData->suspendTextPassThru = true;
 				}
-        else {	
+        else {
+//          	qWarning("found note in %s", myUserData->key->getShortText());
 					buf.append(" <span class=\"footnote\" note=\"");
 					buf.append(myModule->Name());
 					buf.append('/');
@@ -260,17 +262,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
         	//find out the mod, using the current module makes sense if it's a bible or commentary because the refs link into a bible by default.
         	//If the osisRef is something like "ModuleID:key comes here" then the
         	// modulename is given, so we'll use that one
-					CSwordModuleInfo* mod =
-						CPointers::backend()->findSwordModuleByPointer(myModule);
+					CSwordModuleInfo* mod = CPointers::backend()->findSwordModuleByPointer(myModule);
 					if (mod->type() != CSwordModuleInfo::Bible
 						 && mod->type() != CSwordModuleInfo::Commentary)
 					{
 						mod = CBTConfig::get( CBTConfig::standardBible );
 // 						qWarning("setting standard bible module");
 					}
-		/*			else {
-						qWarning("setting current module");
-					}*/
 				Q_ASSERT(mod);
 
 					//if the osisRef like "GerLut:key" contains a module, use that
