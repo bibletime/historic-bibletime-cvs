@@ -96,8 +96,8 @@
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_configuretoolbars.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term>
-			<listitem><para><action>Opens a dialog where you can customize &bibletime;`s toolbar</action>.
-			Just try it out, you can move around the toolbar buttons and even add new ones. All entries available from
+			<listitem><para><action>Opens a dialog where you can customize &bibletime;'s toolbar</action>.
+			Just try it out, you can move around the toolbar buttons and even add new ones. Most of the entries available from
 			the main menu can be put on the toolbar as buttons. If you need a certain feature often, you might want to 
 			put a button on the main menu, so that you can access it with only one click.</para></listitem> 
 		</varlistentry>
@@ -107,7 +107,7 @@
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_configure.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Settings</guimenu> <guimenuitem>Configure &bibletime;</guimenuitem></menuchoice></term>
-			<listitem><para><action>Opens &bibletime;`s main configuration dialog</action>.
+			<listitem><para><action>Opens &bibletime;'s main configuration dialog</action>.
 			You can configure all kinds of nice settings there to adapt &bibletime; to your needs.
 			Please see <link linkend="hdbk-config-bt">this section</link> for details.
 			</para></listitem> 
@@ -355,7 +355,7 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
   <entry><keycombo action="simul">&Shift;<keycap>F1</keycap> </keycombo></entry>
   <entry><menuchoice>
 	<guimenu>Help</guimenu>
-  <guimenuitem>What`s this?</guimenuitem></menuchoice> equivalent; 
+  <guimenuitem>What's this?</guimenuitem></menuchoice> equivalent; 
 	changes the mouse cursor to a help arrow. Click on any element that you
 	want more information about and a tooltip will appear.</entry>
 </row>

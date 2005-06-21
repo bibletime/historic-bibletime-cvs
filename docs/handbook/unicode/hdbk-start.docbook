@@ -43,11 +43,11 @@ bibletime
 <screen>
 bibletime --open-default-bible "&lt;random&gt;"
 </screen>
-		To open at a given passage use:
+		To open at a given passage like John 3:16, use:
 <screen>
 bibletime --open-default-bible "John 3:16"
 </screen>
-		You can also use keys in your current bookname language.
+		You can also use booknames in your current bookname language.
 		</para>
 		
 	</sect2>

@@ -1,11 +1,11 @@
 <chapter id="hdbk-config"><title>Configuring &bibletime;</title>
 
 <para>In this section you find a description of the different possibilities
-to configure &bibletime;: The <link linkend="hdbk-config-bt">Preferences Dialog
+to configure &bibletime;: The <link linkend="hdbk-config-bt">Configure BibleTime Dialog
 </link> and the <link linkend="hdbk-config-toolbar">Configure Toolbars</link>
 dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.</para>
 
-<sect1 id="hdbk-config-bt"><title>Preferences Dialog</title>
+<sect1 id="hdbk-config-bt"><title>Configure BibleTime Dialog</title>
 
 	<para>The &bibletime; user interface can be customized in many ways
 	depending on your needs. You can access the configuration dialog by
@@ -41,20 +41,20 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 		<trademark class="registered">Adobe</trademark> Type3 fonts, or 
 		<trademark class="registered">TrueType</trademark>.</para>
 	
-		<para>As long as the modules you are interested in display correctly nothing
-		needs to be done here.  If a module only displays as a series 
+		<para>As long as the works you are interested in display correctly nothing
+		needs to be done here.  If a work only displays as a series 
 		of question marks (??????) or empty boxes, then you know that the standard 
-		KDE display font does not contain the characters used in this module.</para>
+		KDE display font does not contain the characters used in this work.</para>
 	
-		<para>To correct this, choose this module`s language from the drop down menu.
+		<para>To correct this, choose this work's language from the drop down menu.
 		Select the use custom font checkbox.  Now select a font.  For example, a font 
 		that supports many languages is Code2000. If no installed font can display
-		the module you are interested in, try installing the &kde; localization
+		the work you are interested in, try installing the &kde; localization
 		package for that language.</para>
 		
 		<sect3 id="hdbk-config-bt-addfont"><title>Installing fonts</title>
 			<para>Detailed font installation instructions are outside the scope of this handbook.
-			&kde;`s <ulink url="help:/kcontrol/index.html">KControl Center</ulink> contains
+			&kde;'s <ulink url="help:/kcontrol/index.html">KControl Center</ulink> contains
 			an excellent and easy to use font installation module.
 			Please read <ulink url="help:/kcontrol/kcmfontinst/index.html">
 			its documentation</ulink>. For further information you might want to refer to the
@@ -139,7 +139,7 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 		existing session file. Use <menuchoice><guimenu>Window</guimenu><guimenuitem>Load session
 		</guimenuitem></menuchoice> to load a an existing session into &bibletime;. Play around with
 		this helpful feature to see what you can do with it. For example, you might want to create
-		one session with modules that you use for Bible study, and another one for devotional reading.
+		one session with works that you use for Bible study, and another one for devotional reading.
 		Once you created and saved those sessions, you can switch between them quickly.</para>
 		
 	</sect2>
@@ -151,14 +151,12 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 		
 	</sect2>
 	
-	<sect2 id="hdbk-config-bt-Accelerators"><title><guimenu>HotKeys</guimenu></title>
-	
-	<!-- TODO: RECREATE FONTCONFIG SCREENSHOT-->
+	<sect2 id="hdbk-config-bt-hotkeys"><title><guimenu>HotKeys</guimenu></title>
 	
 		<para>HotKeys are special key commands that can be used in the place of
 		the menu items and icons. A number of &bibletime;'s commands have
 		predefined HotKeys (see <link linkend="hdbk-reference-hotkeys">this section</link>
-		for a complete listing). All of &bibletime;'s commands can be assigned
+		for a complete listing). Most of &bibletime;'s commands can be assigned
 		HotKeys here. This is very helpful to quickly access the functions that you need the most.</para>
 	
 	</sect2>
@@ -166,8 +164,7 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 </sect1>
 	
 		
-	<sect1 id="hdbk-config-toolbar"><title>Toolbar configuration dialog</title>
-	<!-- THIS SECTION IS FINISHED -->
+	<sect1 id="hdbk-config-toolbar"><title>Configure Toolbars dialog</title>
 	<para>You can adapt the toolbar to your needs. Please use the following entry in the main menu:
 	<variablelist>
 		<varlistentry>
