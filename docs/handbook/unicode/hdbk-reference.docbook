@@ -38,24 +38,24 @@
 			on or off.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="hdbk-reference-menus-view-showmainindex">
+		<varlistentry id="hdbk-reference-menus-view-showbookshelf">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul"><keycap>F9</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
-			View</guimenu> <guimenuitem>Show Main Index</guimenuitem></menuchoice></term>
-			<listitem><para><action>Toggles display of the Main Index.</action> Toggle this setting to turn the
-			main index on the left pane on or off.</para></listitem> 
+			View</guimenu> <guimenuitem>Show Bookshelf</guimenuitem></menuchoice></term>
+			<listitem><para><action>Toggles display of the Bookshelf.</action> Toggle this setting to turn the
+			Bookshelf on the left pane on or off. This can be handy if you need more space for the Mag.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="hdbk-reference-menus-view-showinfodisplay">
+		<varlistentry id="hdbk-reference-menus-view-showmag">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul"><keycap>F8</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
-			View</guimenu> <guimenuitem>Show Info Display</guimenuitem></menuchoice></term>
-			<listitem><para><action>Toggles display of the Info Display.</action> Toggle this setting to turn the
-			Info Display on the left pane on or off.</para></listitem> 
+			View</guimenu> <guimenuitem>Show Mag</guimenuitem></menuchoice></term>
+			<listitem><para><action>Toggles display of the Mag(nifying glass).</action> Toggle this setting to turn the
+			Mag on the left pane on or off.</para></listitem> 
 		</varlistentry>
 
 		</variablelist>
@@ -71,23 +71,63 @@
 			<imagedata fileref="i_find.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Search</guimenu> <guimenuitem>Search in default bible</guimenuitem></menuchoice></term>
 			<listitem><para><action>Opens the Search Dialog to search in the default Bible only</action>.
-			More modules can be added in the Search Dialog.</para></listitem> 
+			More works can be added in the Search Dialog.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="hdbk-reference-menus-search-openmodules">
+		<varlistentry id="hdbk-reference-menus-search-openworks">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_find.png"	format="PNG"/></imageobject></inlinemediaobject>
-			Search</guimenu> <guimenuitem>Search in open module(s)</guimenuitem></menuchoice></term>
-			<listitem><para><action>Opens the Search Dialog to search in all open modules</action>.
-			More modules can be added in the Search Dialog.</para></listitem> 
+			Search</guimenu> <guimenuitem>Search in open work(s)</guimenuitem></menuchoice></term>
+			<listitem><para><action>Opens the Search Dialog to search in all open works</action>.
+			More works can be added in the Search Dialog.</para></listitem> 
 		</varlistentry>
 
 		</variablelist>
 
 	</sect2>
 
+	<sect2 id="hdbk-reference-menus-settings"><title><guimenu>Settings</guimenu></title>
+		<variablelist>
+		
+		<varlistentry id="hdbk-reference-menus-settings-toolbars">
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="i_configuretoolbars.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term>
+			<listitem><para><action>Opens a dialog where you can customize &bibletime;`s toolbar</action>.
+			Just try it out, you can move around the toolbar buttons and even add new ones. All entries available from
+			the main menu can be put on the toolbar as buttons. If you need a certain feature often, you might want to 
+			put a button on the main menu, so that you can access it with only one click.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="hdbk-reference-menus-settings-bibletime">
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="i_configure.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Settings</guimenu> <guimenuitem>Configure &bibletime;</guimenuitem></menuchoice></term>
+			<listitem><para><action>Opens &bibletime;`s main configuration dialog</action>.
+			You can configure all kinds of nice settings there to adapt &bibletime; to your needs.
+			Please see <link linkend="hdbk-config-bt">this section</link> for details.
+			</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="hdbk-reference-menus-settings-bookshelf_manager">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul"><keycap>F4</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="i_configuresword.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Settings</guimenu> <guimenuitem>Bookshelf Manager</guimenuitem></menuchoice></term>
+			<listitem><para><action>Opens a dialog where you can change your Sword configuration and
+			manage your bookshelf</action>.
+			Please see <link linkend="hdbk-op-bookshelfmanager">this section</link> for details.
+			</para></listitem> 
+		</varlistentry>
+
+		</variablelist>
+	</sect2>
+	
 	<sect2 id="hdbk-reference-menus-window"><title><guimenu>Window</guimenu></title>
 		<variablelist>
 
@@ -95,9 +135,9 @@
 			<term><menuchoice>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
-			Window</guimenu> <guimenuitem>Save as new session</guimenuitem></menuchoice></term>
+			Window</guimenu> <guimenuitem>Save session</guimenuitem></menuchoice></term>
 			<listitem><para><action>Directly saves the current session</action>.
-			This will open a context menu where you can select an already saved session to save to.
+			This will open a context menu where you can select an existing session to save to.
 			It will be overwritten with your current session. See the next item on how to save to a new session.</para></listitem> 
 		</varlistentry>
 		
@@ -117,17 +157,16 @@
 			<imagedata fileref="i_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Window</guimenu> <guimenuitem>Load session</guimenuitem></menuchoice></term>
 			<listitem><para><action>Loads an existing session</action>.
-			This will open a context menu where you can select an already saved session to load.</para></listitem> 
+			This will open a context menu where you can select an existing session to load.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="hdbk-reference-menus-window-configuresessions">
+		<varlistentry id="hdbk-reference-menus-window-deletesession">
 			<term><menuchoice>
-			<shortcut><keycombo action="simul"><keycap>F5</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
-			Window</guimenu> <guimenuitem>Configure sessions</guimenuitem></menuchoice></term>
-			<listitem><para><action>This brings up the sessions tab of the Preferences Dialog</action>.
-			There you can manage your sessions easily.</para></listitem> 
+			Window</guimenu> <guimenuitem>Delete session</guimenuitem></menuchoice></term>
+			<listitem><para><action>Deletes an existing session</action>.
+			This will open a context menu where you can select an existing session to load.</para></listitem> 
 		</varlistentry>	
 
 		<varlistentry id="hdbk-reference-menus-window-fullscreen">
@@ -191,47 +230,6 @@
 		</variablelist>
 	</sect2>
 
-	
-	<sect2 id="hdbk-reference-menus-settings"><title><guimenu>Settings</guimenu></title>
-		<variablelist>
-		
-		<varlistentry id="hdbk-reference-menus-settings-toolbars">
-			<term><menuchoice>
-			<guimenu>	<inlinemediaobject><imageobject>
-			<imagedata fileref="i_configuretoolbars.png"	format="PNG"/></imageobject></inlinemediaobject>
-			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term>
-			<listitem><para><action>Opens a dialog where you can customize &bibletime;`s toolbar</action>.
-			Just try it out, you can move around the toolbar buttons and even add new ones. All entries available from
-			the main menu can be put on the toolbar as buttons. If you need a certain feature often, you might want to 
-			put a button on the main menu, so that you can access it with only one click.</para></listitem> 
-		</varlistentry>
-
-		<varlistentry id="hdbk-reference-menus-settings-bibletime">
-			<term><menuchoice>
-			<guimenu>	<inlinemediaobject><imageobject>
-			<imagedata fileref="i_configure.png"	format="PNG"/></imageobject></inlinemediaobject>
-			Settings</guimenu> <guimenuitem>Configure &bibletime;</guimenuitem></menuchoice></term>
-			<listitem><para><action>Opens &bibletime;`s main configuration dialog</action>.
-			You can configure all kinds of nice settings there to adapt &bibletime; to your needs.
-			Please see <link linkend="hdbk-config-bt">this section</link> for details.
-			</para></listitem> 
-		</varlistentry>
-
-		<varlistentry id="hdbk-reference-menus-settings-sword">
-			<term><menuchoice>
-			<shortcut><keycombo action="simul"><keycap>F4</keycap></keycombo></shortcut>
-			<guimenu>	<inlinemediaobject><imageobject>
-			<imagedata fileref="i_configuresword.png"	format="PNG"/></imageobject></inlinemediaobject>
-			Settings</guimenu> <guimenuitem>Configure Sword</guimenuitem></menuchoice></term>
-			<listitem><para><action>Opens a dialog where you can change your Sword configuration and
-			manage your Sword modules</action>.
-			Please see <link linkend="hdbk-config-bt-sword">this section</link> for details.
-			</para></listitem> 
-		</varlistentry>
-
-		</variablelist>
-	</sect2>
-	
 	<sect2 id="hdbk-reference-menus-help"><title><guimenu>Help</guimenu></title>
 
 		&help.menu.documentation;
@@ -334,28 +332,21 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
 
 <row>
   <entry><keycombo action="simul"><keycap>F4</keycap> </keycombo></entry>
-  <entry><link linkend="hdbk-reference-menus-settings-sword"><menuchoice>
+  <entry><link linkend="hdbk-reference-menus-settings-bookshelf_manager"><menuchoice>
 	<guimenu>Settings</guimenu>
   <guimenuitem>Configure Sword</guimenuitem></menuchoice></link> equivalent; 
 	opens the Sword configuration dialog.</entry>
 </row>
 <row>
-  <entry><keycombo action="simul"><keycap>F5</keycap> </keycombo></entry>
-  <entry><link linkend="hdbk-reference-menus-window-configuresessions"><menuchoice>
-	<guimenu>Window</guimenu>
-  <guimenuitem>Configure sessions</guimenuitem></menuchoice></link> equivalent; 
-	opens the main configuration dialog, where you can configure your sessions.</entry>
-</row>
-<row>
   <entry><keycombo action="simul"><keycap>F8</keycap> </keycombo></entry>
-  <entry><link linkend="hdbk-reference-menus-view-showmainindex"><menuchoice>
+  <entry><link linkend="hdbk-reference-menus-view-showbookshelf"><menuchoice>
 	<guimenu>View</guimenu>
   <guimenuitem>Show main index</guimenuitem></menuchoice></link> equivalent; 
 	toggles display of the main index.</entry>
 </row>
 <row>
   <entry><keycombo action="simul"><keycap>F9</keycap> </keycombo></entry>
-  <entry><link linkend="hdbk-reference-menus-view-showinfodisplay"><menuchoice>
+  <entry><link linkend="hdbk-reference-menus-view-showmag"><menuchoice>
 	<guimenu>View</guimenu>
   <guimenuitem>Show info display</guimenuitem></menuchoice></link> equivalent; 
 	toggles display of the info display.</entry>
@@ -392,10 +383,10 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;<keycap>G</keycap> </keycombo></entry>
-  <entry><link linkend="hdbk-reference-menus-search-openmodules"><menuchoice>
+  <entry><link linkend="hdbk-reference-menus-search-openworks"><menuchoice>
 	<guimenu>Search</guimenu>
-  <guimenuitem>Search in open module(s)</guimenuitem></menuchoice></link> equivalent; 
-	opens the search dialog to search in all currently opened modules.</entry>
+  <guimenuitem>Search in open work(s)</guimenuitem></menuchoice></link> equivalent; 
+	opens the search dialog to search in all currently opened works.</entry>
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;<keycap>H</keycap> </keycombo></entry>

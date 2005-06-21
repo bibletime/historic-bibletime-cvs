@@ -29,36 +29,7 @@
 	ancient texts like the Codex Leningradensis ("WLC", Hebrew), and the Septuagint ("LXX", Greek). This is the most advanced section in the library of the Sword project.
 	</para>
 	</listitem></varlistentry>
-	
-	<varlistentry>
-	<term>Commentaries</term>
-	<listitem>
-	<para>
-	Commentaries available include classics like John Wesley's "Notes on the Bible", Matthew Henry`s commentary and Luther's "Commentary on Galatians." With the <emphasis>Personal</emphasis> commentary you can <link linkend="hdbk-op-parts-desk-write">record your own personal notes</link> to sections of the Bible.
-	</para> 
-	</listitem>
-	</varlistentry>
-	
-	<varlistentry>
-	<term>Lexicons</term>
-	<listitem>
-	<para>
-	Lexicons available include: Robinson's Morphological Analysis Codes,
-	Brown-Driver-Briggs Hebrew Lexicon and the International Standard Bible Encyclopedia.
-	</para>
-	</listitem>
-	</varlistentry>
-	
-	<varlistentry>
-	<term>Dictionaries</term>
-	<listitem>
-	<para>
-	Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's Greek Bible Dictionary,
-	Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Topical Bible.
-	</para>
-	</listitem>
-	</varlistentry>
-	
+
 	<varlistentry>
 	<term>Books</term>
 	<listitem>
@@ -67,6 +38,34 @@
 	</listitem>
 	</varlistentry>
 	</variablelist>
+		
+	<varlistentry>
+	<term>Commentaries</term>
+	<listitem>
+	<para>
+	Commentaries available include classics like John Wesley's "Notes on the Bible", Matthew Henry`s commentary and Luther's "Commentary on Galatians." With the <emphasis>Personal</emphasis> commentary you can <link linkend="hdbk-op-parts-desk-write">record your own personal notes</link> to sections of the Bible.
+	</para> 
+	</listitem>
+	</varlistentry>
+		
+	<varlistentry>
+	<term>Daily devotionals</term>
+	<listitem>
+	<para>Many people appreciate these daily portions from God's word. Available works include Daily Light on the Daily Path, and the Losungen.
+	</para>
+	</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	<term>Lexicons/Dictionaries</term>
+	<listitem>
+	<para>
+	Lexicons available include: Robinson's Morphological Analysis Codes,
+	Brown-Driver-Briggs Hebrew Lexicon and the International Standard Bible Encyclopedia. Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's Greek Bible Dictionary, Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Topical Bible.
+	</para>
+	</listitem>
+	</varlistentry>
+
 	</para>
 </sect2>
 

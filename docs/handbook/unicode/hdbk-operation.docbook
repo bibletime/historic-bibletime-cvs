@@ -273,7 +273,7 @@ search string was found in each book of the Bible, and you can also save the ana
 <sect1 id="hdbk-op-bookshelfmanager">
 <title>The <guimenuitem>Bookshelf Manager</guimenuitem></title>
 
-<para>The <guimenuitem>Bookshelf Manager</guimenuitem> is a tool to manage your Bookshelf. You can install new works to your Bookshelf, and update or remove existing works from your Bookshelf.</para>
+<para>The <guimenuitem>Bookshelf Manager</guimenuitem> is a tool to manage your Bookshelf. You can install new works to your Bookshelf, and update or remove existing works from your Bookshelf. Access it by clicking <menuchoice><guimenu>Settings</guimenu><guimenuitem>Bookshelf Manager</guimenuitem></menuchoice> in the main menu.</para>
 
 <sect2 id="hdbk-op-bookshelfmanager-path">
 <title>Bookshelf path(s) setup</title>

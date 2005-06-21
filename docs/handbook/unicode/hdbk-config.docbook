@@ -3,7 +3,7 @@
 <para>In this section you find a description of the different possibilities
 to configure &bibletime;: The <link linkend="hdbk-config-bt">Preferences Dialog
 </link> and the <link linkend="hdbk-config-toolbar">Configure Toolbars</link>
-dialog.</para>
+dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.</para>
 
 <sect1 id="hdbk-config-bt"><title>Preferences Dialog</title>
 
