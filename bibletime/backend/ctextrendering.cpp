@@ -160,6 +160,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 	}
 	
 	m_alternativeContent.append(" (").append(module->name()).append(")");
+	m_alternativeContent.prepend("<div class=\"rangeheading\" dir=\"ltr\">").append("</div>"); //insert the right tags
 }
 
 /*!

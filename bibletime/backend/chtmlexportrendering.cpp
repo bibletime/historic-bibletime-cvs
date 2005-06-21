@@ -43,9 +43,9 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 //  	Q_ASSERT(!i.hasAlternativeContent());
 	if (i.hasAlternativeContent()) {
 		QString ret;
-		ret.setLatin1("<div class=\"entry\"><div dir=\"ltr\" class=\"rangeheading\">")
-			.append(i.getAlternativeContent())
-			.append("</div>");
+		ret.setLatin1(i.settings().highlight ? "<div class=\"currententry\">" : "<div class=\"entry\">")
+			.append(i.getAlternativeContent());
+// 			.append("</div>");
 
 		Q_ASSERT(i.hasChildItems());
 		if (i.hasChildItems()) {
@@ -62,7 +62,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		}
 
 		ret.append("</div>");
-// 		qWarning("altern. content: %s", ret.latin1());
+//  		qWarning("altern. content: %s", ret.latin1());
 		return ret; //WARNING: Return already here!
 	}
 		

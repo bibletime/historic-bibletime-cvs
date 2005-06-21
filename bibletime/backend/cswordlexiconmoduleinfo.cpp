@@ -71,8 +71,8 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 // 			qWarning("read entries %d",m_entryList->count());
 		}
 
-		Q_ASSERT(read);
-		Q_ASSERT(m_entryList->count());
+// 		Q_ASSERT(read);
+// 		Q_ASSERT(m_entryList->count());
     if (!read || !m_entryList->count()){
       my_module->setSkipConsecutiveLinks(true);
 			(*my_module) = sword::TOP;

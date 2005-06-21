@@ -247,6 +247,9 @@ void CModuleChooserButton::updateMenuItems() {
 			moduleName = popup->text(popup->idAt(i));
   		module = backend()->findModuleByName( moduleName.left(moduleName.find(" ")) );
 			Q_ASSERT(module);
+			if (!module) {
+				qWarning("Can't find module with name %s", moduleName.latin1());
+			}
 
 			bool alreadyChosen = chosenModules.contains( module );
 			if (m_module) {

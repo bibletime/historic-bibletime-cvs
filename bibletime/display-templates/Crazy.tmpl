@@ -9,14 +9,17 @@
 	
 	<style type="text/css">
 /* <![CDATA[ */
-* { 
-	background-color:inherit; /* To work around a KDE 3.2 bug / problem */
-}
 
 body {
 	margin:0px;
 	padding:0;
+	background-color:inherit
 }
+* { 
+	background-color:inherit; /* To work around a KDE 3.2 bug / problem */
+}
+
+
 /* content wraps all of the displayed elements */
 #content {
 	margin:0px;
@@ -25,7 +28,7 @@ body {
 	line-height:1.2em;
 	text-align:justify;
 }
-*[dir=rtl] { text-align:right !important; }
+
 /* The table contains the Bible verses, each verse on an own row, each Bible module in an own column */
 #content > table { 
 	margin:0;
@@ -71,8 +74,8 @@ table .entry:nth-child(1) {
 
 #printer .entry { text-indent:15px; }
 /* Often needed to format BiDi text in the right way */
-.entry[dir=rtl] { text-align:right !important; }
-#printer .entry[dir=rtl] { }
+/* .entry[dir=rtl] { text-align:right !important; } */b
+/* #printer .entry[dir=rtl] { } */
 
 /* Special formatting for the block element entries */
 div.entry, td.entry { }
@@ -92,8 +95,8 @@ table .currententry:nth-child(1) {
 	margin-left:0;
 	border-left:10px solid #99B4FF;
 }
-.currententry[dir=rtl] {
-}
+/* .currententry[dir=rtl] { */
+/* } */
 div.currententry { }
 span.currententry { }
 
@@ -109,6 +112,7 @@ td.entry + td.entry {
 #bible div.entry[dir=rtl] {
 	border-left:none;
 	border-right:10px solid white;
+	text-align:right;
 }
 #bible div.currententry {
 	border-left:10px solid #99B4FF;
@@ -160,7 +164,14 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 .abbreviation { }
 
 /* A title within the text. This is the formatting which applies to a title of a section, as you can find them in Bibles */
-.sectiontitle { padding:0.3em; text-shadow:gray 0px 0px 6px; font-size:1.3em; font-weight:bold; text-transform:capitalize; padding-bottom:2px;}
+.sectiontitle {
+	 padding:0.3em;
+	 text-shadow:gray 0px 0px 6px;
+	 font-size:1.3em;
+	 font-weight:bold;
+	 text-transform:uppercase;
+	 padding-bottom:2px;
+}
 #printer .sectiontitle { }
 /* You may want to format elements before section titles in a special way. */
 * + .sectiontitle { }
@@ -224,7 +235,10 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 
 /* Special text markup */
 /* Morph segmentation is a special feature for hebrew to markup the word divisions in the text */
-.morphSegmentation { border-left:1px solid red; }
+/* .morphSegmentation { border-left:1px solid red; } */
+.morphSegmentation + .morphSegmentation {
+	border-right: 1px red solid;
+}
 
 /* The formatting of all things displayed in the information window */
 #infodisplay {background:white; font-size:10pt; padding:5px; margin:0px;}
@@ -264,6 +278,9 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 
 #printer .rangeheading {}
 
+
+*[dir=rtl] { text-align:right !important; }
+
 /* Here's the marker for the language specific fotn information. BibleTime replaces this by the CSS for the fonts */
 #LANG_CSS#
 
@@ -273,6 +290,6 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 
 <!--  The display type may be bible, book, printer -->
 <body id="#DISPLAYTYPE#">
-	<div id="content" lang="#LANG_ABBREV#" xml:lang="#LANG_ABBREV#">#CONTENT#</div>
+	<div id="content" lang="#LANG_ABBREV#" xml:lang="#LANG_ABBREV#" dir="#PAGE_DIRECTION#">#CONTENT#</div>
 </body>
 </html>
