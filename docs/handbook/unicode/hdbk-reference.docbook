@@ -99,7 +99,7 @@
 			<listitem><para><action>Opens a dialog where you can customize &bibletime;'s toolbar</action>.
 			Just try it out, you can move around the toolbar buttons and even add new ones. Most of the entries available from
 			the main menu can be put on the toolbar as buttons. If you need a certain feature often, you might want to 
-			put a button on the main menu, so that you can access it with only one click.</para></listitem> 
+			put a button on the main menu, so that you can access it with only one click. Please see <link linkend="hdbk-config-toolbar">this section</link> for further information.</para></listitem> 
 		</varlistentry>
 
 		<varlistentry id="hdbk-reference-menus-settings-bibletime">
@@ -243,7 +243,7 @@
 	<para>Please review <link linkend="hdbk-reference-menus">the preceding section</link>
 	for an explanation of the buttons that you find on the toolbar. You can also 
 	<action>move the cursor over a button and wait a few seconds</action> to activate 
-	the button's tooltip 	with a short description.</para>
+	the button's tooltip with a short description.</para>
 	<para>You can adapt the toolbar to your needs. Please use the following entry in the main menu:
 	<variablelist>
 		<varlistentry>
@@ -253,9 +253,7 @@
 			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term> 
 		</varlistentry>
 	</variablelist>
-	Please see 
-	<link linkend="hdbk-reference-menus-settings-toolbars">this section</link> for detailed
-	instructions.
+	Please see <link linkend="hdbk-reference-menus-settings-toolbars">this section</link> for detailed instructions.
 	</para>
 	
 </sect1>

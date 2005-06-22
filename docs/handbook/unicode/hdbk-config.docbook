@@ -12,18 +12,24 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 	selecting <menuchoice><guimenu>Settings</guimenu></menuchoice>
 	<guimenuitem>Configure &bibletime;</guimenuitem>.</para>
 
-	<sect2 id="hdbk-config-bt-startup"><title><guimenu>Startup</guimenu></title>
+	<sect2 id="hdbk-config-bt-display"><title><guimenu>Display</guimenu></title>
 	
-		<para>The startup behavior can be customized.
-		Select from the following options:</para>
+		<para>The startup behavior can be customized. Select from the following options:
 		<itemizedlist>
 		<listitem>Show tip of the day</listitem>
 		<listitem>Show startup logo</listitem>
-		<listitem>Restore windows from the last &bibletime; session</listitem>
 		</itemizedlist>
+		</para>
+		<para>Display templates define the rendering of text (colors, size etc.). Various built-in templates are available.
+		If you select one, you will see a preview on the right pane.</para>
+
 	</sect2>
 	
-	<sect2 id="hdbk-config-bt-fonts"><title><guimenu>Fonts</guimenu></title>
+	<sect2 id="hdbk-config-bt-languages"><title><guimenu>Languages</guimenu></title>
+	
+	<para>Here you can specify which language should be used for the biblical booknames. Set
+	this to your native language, if it is available, and you'll feel at home.</para>
+	
 	<para>By default, &bibletime; uses the &kde; general display font which can
 	be specified in the &kcontrolcenter;. You can override this font if neccessary.
 	Some languages require special fonts to be displayed correctly, and this dialog
@@ -36,12 +42,8 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 	<caption><para>The Options dialog - Fonts.</para></caption>
 	</mediaobject>
 
-		<para>&bibletime; can now use all fonts supported by KDE/QT.  These may be Bitmap Fonts, 
-		<trademark class="registered">Adobe</trademark> Type1 Fonts, 
-		<trademark class="registered">Adobe</trademark> Type3 fonts, or 
-		<trademark class="registered">TrueType</trademark>.</para>
-	
-		<para>As long as the works you are interested in display correctly nothing
+		<para>&bibletime; can now use all fonts supported by KDE/QT. 
+		As long as the works you are interested in display correctly nothing
 		needs to be done here.  If a work only displays as a series 
 		of question marks (??????) or empty boxes, then you know that the standard 
 		KDE display font does not contain the characters used in this work.</para>
@@ -69,12 +71,10 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 		<sect3 id="hdbk-config-bt-ob-font"><title>Obtaining Fonts</title>
 			<para>Fonts can be obtained from a number of sources:</para>
 			<itemizedlist>
-			<listitem>Your distribution.</listitem>
+			<listitem>Your Linux distribution.</listitem>
 			<listitem>Your distribution's localization packages.</listitem>
-			<listitem>An existing &Microsoft; &Windows; installation on the same computer.</listitem>
-			<listitem>A font collection, such as are available from 
-			<trademark class="registered">Adobe</trademark> or
-			<trademark class="registered">Bitstream</trademark>.</listitem>
+			<listitem>An existing <trademark class="registered">Microsoft Windows</trademark> installation on the same computer.</listitem>
+			<listitem>A font collection, such as are available from Adobe or Bitstream.</listitem>
 			<listitem>Online font collections.</listitem>
 			</itemizedlist>
 	
@@ -123,31 +123,15 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 		</sect3>
 	</sect2>
 	
-	<sect2 id="hdbk-config-bt-profiles"><title><guimenu>Display templates</guimenu></title>
-	
-		<para>Display templates define the rendering of text (colors, size etc.). Various built-in templates are available.
-		If you select one, you will see a preview on the right pane.</para>
-		
-	</sect2>
-	
-	<sect2 id="hdbk-config-bt-profiles"><title><guimenu>Sessions</guimenu></title>
-	
-		<para>Sessions define the appearance of the work area, for example which
-		windows are open and which texts should be displayed in these windows.
-		Once a session is created, you can use the menu item <menuchoice><guimenu>Window</guimenu>
-		<guimenuitem>Save session</guimenuitem></menuchoice> to save the current session into an
-		existing session file. Use <menuchoice><guimenu>Window</guimenu><guimenuitem>Load session
-		</guimenuitem></menuchoice> to load a an existing session into &bibletime;. Play around with
-		this helpful feature to see what you can do with it. For example, you might want to create
-		one session with works that you use for Bible study, and another one for devotional reading.
-		Once you created and saved those sessions, you can switch between them quickly.</para>
-		
-	</sect2>
 
-	<sect2 id="hdbk-config-bt-sword"><title><guimenu>Sword</guimenu></title>
+	<sect2 id="hdbk-config-bt-desk"><title><guimenu>Desk</guimenu></title>
 	
 		<para>Many features provided by the Sword backend can now be customized in
-		&bibletime;. These features are documented right in the dialog.</para>
+		&bibletime;. These features are documented right in the dialog. You also have
+		the possibility to specify standard works that should be used when no specific work
+		is specified in a reference. An example: The standard Bible is used to display the content of
+		crossreferences in the Bible. When you hover over then, the Mag will show the content of the verses
+		referred to, according to the standard Bible you specified.</para>
 		
 	</sect2>
 	
@@ -188,6 +172,7 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 	<para>Use the 4 buttons in the middle of the window to move buttons to the toolbar,
 	away from the toolbar or to sort them on the toolbar according to your preference.
 	</para>
+	<para>Please see <link linkend="hdbk-reference-menus-settings-toolbars">this section</link> for further information.</para>
 	</sect1>
 
 </chapter>

@@ -62,16 +62,17 @@ bibletime --open-default-bible "John 3:16"
 	<variablelist>
 	
 		<varlistentry>
-			<term><interface>Sword configuration dialog</interface></term>
-			<listitem><para><action>Modifies your Sword installation.</action> This dialog
-			lets you modify your Sword library, add or delete modules from your system.
-			It will only be shown if no default Sword library can be found.</para></listitem> 
-			
-<!-- TODO: add link to SWORD CONFIG DIALOG HELP-->
+			<term><interface>Bookshelf Manager</interface></term>
+			<listitem><para><action>Modifies your Bookshelf.</action> This dialog
+			lets you modify your Bookshelf, add or delete works from your system.
+			It will only be shown if no default Bookshelf can be found. Please see
+			<link linkend="hdbk-op-bookshelfmanager">this section</link>for further details.
+			If you start off with an empty Bookshelf, it will be helpful to install at least one Bible,
+			Commentary, Lexicon and one Book to get to know &bibletime;'s basic features quickly.</para></listitem> 
 		</varlistentry>
 		
 		<varlistentry>
-			<term><interface>Preferences dialog</interface></term>
+			<term><interface>Configure &bibletime; dialog</interface></term>
 			<listitem><para><action>Customizes &bibletime;.</action> This dialog lets you
 			adapt &bibletime; to your needs. Please see <link linkend="hdbk-config-bt">
 			the detailed description</link> of this dialog.</para></listitem> 
