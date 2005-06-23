@@ -39,19 +39,16 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 }
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
-//  	qWarning("rendering %s", i.key().latin1());
-//  	Q_ASSERT(!i.hasAlternativeContent());
 	if (i.hasAlternativeContent()) {
 		QString ret;
-		ret.setLatin1(i.settings().highlight ? "<div class=\"currententry\">" : "<div class=\"entry\">")
-			.append(i.getAlternativeContent());
-// 			.append("</div>");
+		ret.setLatin1(i.settings().highlight ? "<div class=\"currententry\">" : "<div class=\"entry\">");
+		ret.append(i.getAlternativeContent());
 
 		Q_ASSERT(i.hasChildItems());
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
 
-			ListCSwordModuleInfo modules( tree->collectModules() );
+			const ListCSwordModuleInfo& modules( tree->collectModules() );
 			if (modules.count() == 1) { //insert the direction into the sorrounding div
 				ret.insert( 5, QString("dir=\"%1\" ").arg((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr" : "rtl" ));
 			}
@@ -62,12 +59,11 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		}
 
 		ret.append("</div>");
-//  		qWarning("altern. content: %s", ret.latin1());
 		return ret; //WARNING: Return already here!
 	}
 		
 		
-	ListCSwordModuleInfo modules( i.modules() );
+	const ListCSwordModuleInfo& modules( i.modules() );
 	Q_ASSERT(modules.first());
 	
 	util::scoped_ptr<CSwordKey> scoped_key( !k ? CSwordKey::createInstance(modules.first()) : 0 );

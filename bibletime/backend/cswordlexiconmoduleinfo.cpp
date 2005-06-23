@@ -14,9 +14,17 @@
 #include <kglobal.h>
 #include <kstandarddirs.h>
 
+//STL includes
+#include <algorithm>
+
 //Change it once the format changed to make all
 //systems rebuild their caches
 #define CACHE_FORMAT "2"
+
+// bool operator< (const QString& s1, const QString& s2) {
+// 	qWarning("using own operator<()");
+// 	return s1.localeAwareCompare(s2);
+// }
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( sword::SWModule* module, CSwordBackend* const backend ) : CSwordModuleInfo(module, backend) {
 	m_entryList = 0;
@@ -89,12 +97,12 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
         else { //for latin1 modules use fromLatin1 because of speed
 //           m_entryList->append(QString::fromLatin1(my_module->KeyText()));
 					m_entryList->append(QString(my_module->KeyText()));
-				}  			
+				}
 				(*my_module)++;
 				i++;
   		} while ( !my_module->Error() );
 			
-// 			qWarning("Reading finished. Module has %d entries.", i );
+ 			qWarning("Reading finished. Module has %d entries.", i );
 			
 			(*my_module) = sword::TOP; //back to the first entry
       my_module->setSkipConsecutiveLinks(false);
@@ -103,11 +111,18 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
         m_entryList->first().simplifyWhiteSpace();
     		if (m_entryList->first().stripWhiteSpace().isEmpty()) {
   	  		m_entryList->remove( m_entryList->begin() );
-				}	
-// 				m_entryList->sort(); //make sure the module is sorted by utf-8
+				}
+
+				//now sort the list, this is necesssary because Sword doesn't do Unicode ordering 
+				
+				qWarning("sorting");
+// 				QStringList::iterator start(m_entryList->begin());
+// 				QStringList::iterator end(m_entryList->end());
+// 				std::sort( start, end ); //stl sort
+//  				m_entryList->sort(); //make sure the module is sorted by utf-8
       }
 
-// 			qWarning("Writing cache file." );
+ 			qWarning("Writing cache file.");
 			
 			if (m_entryList->count()){
   			//create cache
@@ -124,8 +139,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   			  f2.close();
         }
 			}
-// 			qWarning("Writing finished." );
-
+ 			qWarning("Writing finished." );
 		}
 	}
 	

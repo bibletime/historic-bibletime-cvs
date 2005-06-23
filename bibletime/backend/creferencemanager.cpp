@@ -78,6 +78,11 @@ const QString CReferenceManager::encodeHyperlink( const QString moduleName, cons
 					vk.setLocale(mod->module()->Lang());
 				}
         vk = key;
+         
+        if (vk.Error()) { //an error occured
+ 					vk.setLocale( CPointers::backend()->booknameLanguage().latin1() ); //try to use the default locale as fall back
+ 					vk = key;
+        }
         vk.setLocale("en");
 
         ret.append( vk.key() ); //we add the english key, so drag and drop will work in all cases

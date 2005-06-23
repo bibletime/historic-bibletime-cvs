@@ -28,17 +28,6 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
 		module->module()->setSkipConsecutiveLinks( true ); //skip empty, linked verses
 	}
   
-// 	bool ok = true;
-	
-/*	CSwordVerseKey key(modules.count() == 1 ? module : 0);
-	key.Headings(1);
-  key.key( keyName );*/
-	
-/*	const int currentTestament = key.Testament();
-	const int currentBook = key.Book();
-	const int currentChapter = key.Chapter();
-*/
-// 	CTextRendering::KeyTree tree;
  	CTextRendering::KeyTreeItem::Settings settings;
 	settings.keyRenderingFace =
 		displayOptions.verseNumbers
@@ -74,39 +63,6 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
  		
  	CDisplayRendering render(displayOptions, filterOptions);
 	return render.renderKeyRange( startKey, endKey, modules, keyName, settings );
-
-// 	CTextRendering::KeyTree* rootItem = &tree;
-// 	Q_ASSERT(rootItem);
-// 	
-// 	if (modules.count() == 1) {
-// 		CTextRendering::KeyTreeItem::Settings settings;
-// 		
-// 		CTextRendering::KeyTreeItem* headingItem = new CTextRendering::KeyTreeItem("Test", settings);
-// 		rootItem = headingItem->childList();
-// 	}
-// 
-// 	Q_ASSERT(rootItem);
-// 	
-// 	key = keyName;
-// 	for (key.Verse(startVerse); 
-// 			     (key.Testament() == currentTestament)
-// 				&& (key.Book() == currentBook)
-// 				&& (key.Chapter() == currentChapter)
-// 				&& ok
-// 				&& !module->module()->Error();	
-// 			 ok = (key.next(CSwordVerseKey::UseVerse) && !key.Error()) )  //error 1 means not sucessful
-// 	{
-// 		settings.highlight = (key.key() == keyName);
-// 		settings.keyRenderingFace = 
-// 			displayOptions.verseNumbers 
-// 			? CTextRendering::KeyTreeItem::Settings::SimpleKey
-// 			: CTextRendering::KeyTreeItem::Settings::NoKey;
-// 			
-// 		rootItem->append( new CTextRendering::KeyTreeItem( key.key(), modules, settings ) );
-// 	}
-// 
-// 	CDisplayRendering render(displayOptions, filterOptions);
-// 	return render.renderKeyTree( tree );
 }
 
 };

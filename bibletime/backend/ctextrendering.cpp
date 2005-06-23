@@ -247,9 +247,11 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 		
 		CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(lowerBound.get());
 		Q_ASSERT(vk_start);
+// 		vk_start->setLocale("en_US");
 		
 		CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(upperBound.get());
 		Q_ASSERT(vk_stop);
+// 		vk_stop->setLocale("en_US");
 		
 		bool ok = true;
 		while (ok && ((*vk_start < *vk_stop) || (*vk_start == *vk_stop))) {

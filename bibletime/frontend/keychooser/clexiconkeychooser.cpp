@@ -130,6 +130,11 @@ void CLexiconKeyChooser::refreshContent(){
     
     m_widget->reset(goodEntries, 0, true); //write down the entries
   } //end of ELSE
+
+  //make sure the list sorted
+  /* This is not the best solution, module()->entries() should be sorted already */
+//   Q_ASSERT(m_widget->comboBox()->listBox());
+//   m_widget->comboBox()->listBox()->sort();
 }
 
 /** No descriptions */
@@ -140,12 +145,15 @@ void CLexiconKeyChooser::adjustFont(){
 
 /** Sets the module and refreshes the combo boxes */
 void CLexiconKeyChooser::setModules( const ListCSwordModuleInfo& modules, const bool refresh ) {
+  Q_ASSERT(!m_modules.autoDelete());
   m_modules.clear();
   Q_ASSERT(!m_modules.autoDelete());
+
 //   for (modules.first(); modules.current(); modules.next()) {
 	ListCSwordModuleInfo::const_iterator end_it = modules.end();
 	for (ListCSwordModuleInfo::const_iterator it(modules.begin()); it != end_it; ++it) {
-    if (CSwordLexiconModuleInfo* lexicon = dynamic_cast<CSwordLexiconModuleInfo*>(*it)) {
+		CSwordLexiconModuleInfo* lexicon = dynamic_cast<CSwordLexiconModuleInfo*>(*it);
+    if (lexicon) {
       m_modules.append(lexicon);
     }
   }
