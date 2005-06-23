@@ -53,11 +53,17 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 	
 	sword::SWModule* my_module = module();
 	bool is_unicode = isUnicode();
-
+	
   if (!m_entryList) {
 		m_entryList = new QStringList();
 		bool read = false;
-
+		
+			//Check for buggy modules! They will not be loaded any more.
+		if ( name() == QString("ZhEnglish") && QString( config( CSwordModuleInfo::ModuleVersion ) ) == QString("0.5") ){
+			qWarning("Module ZhEnglish (Version 0.5) is buggy and will not be loaded. Please install a newer version.");
+			return m_entryList;
+		}
+		
 		QString dir( KGlobal::dirs()->saveLocation("data", "bibletime/cache/") );
 		QFile f1(
 			QString(dir)

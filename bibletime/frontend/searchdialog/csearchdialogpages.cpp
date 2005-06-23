@@ -737,9 +737,8 @@ void CSearchOptionsPage::initView(){
 		m_textTypeCombo->insertItem(i18n("Footnotes"));
 		m_textTypeCombo->insertItem(i18n("Headings"));
 		m_textTypeCombo->insertItem(i18n("Strong's numbers"));
-// TODO: temporarily disabled, as this will not work correctly with 1.5.8
-// Reenable whenever it will work with a sword release.
  		m_textTypeCombo->insertItem(i18n("Morph codes"));
+		m_textTypeCombo->setMaximumWidth( 150 );
 		
 		connect(m_textTypeCombo, SIGNAL( activated(int) ), this, SLOT( textTypeSelected() ) );
 		
@@ -747,15 +746,16 @@ void CSearchOptionsPage::initView(){
 	}
 
 	{
-		QGroupBox* box2 = new QGroupBox(2, Qt::Vertical , i18n("Search scope"), this);
+		QGroupBox* box2 = new QGroupBox(2, Qt::Horizontal , i18n("Search scope"), this);
 		grid->addWidget(box2, 5,2);
 	
 		m_rangeChooserCombo = new KComboBox(box2);
+		m_rangeChooserCombo->setMaximumWidth( 150 );
 		QToolTip::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
-
 	
 		refreshRanges();  
-		m_chooseRangeButton = new QPushButton(i18n("Setup ranges"), box2);
+		
+		m_chooseRangeButton = new QPushButton(i18n("Setup"), box2);
 		connect(m_chooseRangeButton, SIGNAL(clicked()),
 			this, SLOT(setupRanges()));
 		
