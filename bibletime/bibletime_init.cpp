@@ -531,15 +531,14 @@ void BibleTime::applyProfileSettings( CProfile* p ){
 		return;
   }
 
-//  	if (m_initialized) { //on startup KDE sets the main geometry
-  const QRect geometry = p->geometry();
-  qWarning("main window: %i, %i @ %i x %i", geometry.topLeft().x(), geometry.topLeft().y(), geometry.width(), geometry.height());
-//   hide();
-	resize( geometry.size() );
-	move( geometry.topLeft() );
-// 	show();
-// 	}
-	
+ 	if (m_initialized) { //on startup KDE sets the main geometry
+ 	//see polish(), where m_initialized is set and the KDE methods are called for window resize
+  	const QRect geometry = p->geometry();
+  	qWarning("main window: %i, %i @ %i x %i", geometry.topLeft().x(), geometry.topLeft().y(), geometry.width(), geometry.height());
+		resize( geometry.size() );
+		move( geometry.topLeft() );
+	}
+		
 	m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state
 	toggleFullscreen();
 }

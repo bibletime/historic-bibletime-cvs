@@ -21,10 +21,13 @@
 //systems rebuild their caches
 #define CACHE_FORMAT "2"
 
-// bool operator< (const QString& s1, const QString& s2) {
-// 	qWarning("using own operator<()");
-// 	return s1.localeAwareCompare(s2);
-// }
+// class myLocaleAwareCompare {
+// public:
+// 	int operator() (const QString& s1, const QString& s2) {
+// // 	qWarning("using own operator<()");
+//  		return s1.localeAwareCompare(s2);
+//  	}
+//  };
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( sword::SWModule* module, CSwordBackend* const backend ) : CSwordModuleInfo(module, backend) {
 	m_entryList = 0;
@@ -108,7 +111,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 				i++;
   		} while ( !my_module->Error() );
 			
- 			qWarning("Reading finished. Module has %d entries.", i );
+//  			qWarning("Reading finished. Module has %d entries.", i );
 			
 			(*my_module) = sword::TOP; //back to the first entry
       my_module->setSkipConsecutiveLinks(false);
@@ -121,10 +124,10 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 
 				//now sort the list, this is necesssary because Sword doesn't do Unicode ordering 
 				
-				qWarning("sorting");
-// 				QStringList::iterator start(m_entryList->begin());
-// 				QStringList::iterator end(m_entryList->end());
-// 				std::sort( start, end ); //stl sort
+// 				qWarning("sorting");
+//  				QStringList::iterator start(m_entryList->begin());
+//  				QStringList::iterator end(m_entryList->end());
+//  				std::sort( start, end, myLocaleAwareCompare() ); //stl sort
 //  				m_entryList->sort(); //make sure the module is sorted by utf-8
       }
 
@@ -145,7 +148,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   			  f2.close();
         }
 			}
- 			qWarning("Writing finished." );
+// //  			qWarning("Writing finished." );
 		}
 	}
 	

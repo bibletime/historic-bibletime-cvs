@@ -38,6 +38,7 @@
 
 //KDE includes
 #include <klocale.h>
+#include <kstdaction.h>
 
 
 using namespace Rendering;
@@ -52,6 +53,7 @@ CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
 	
 	m_htmlPart = CDisplay::createReadInstance(0, this);
 	m_htmlPart->setMouseTracking(false); //we don't want strong/lemma/note mouse infos
+	KStdAction::copy(m_htmlPart->connectionsProxy(), SLOT(copySelection()), 0, "copyMagSelection");
 	
 	layout->addWidget(headingLabel);
 	layout->addWidget(m_htmlPart->view());

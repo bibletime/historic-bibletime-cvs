@@ -482,7 +482,7 @@ const QString CSwordBackend::translatedOptionName(const CSwordModuleInfo::Filter
 		case CSwordModuleInfo::headings:
 			return i18n("Headings");
 		case CSwordModuleInfo::morphTags:
-			return i18n("Morphological ags");
+			return i18n("Morphological tags");
   	case CSwordModuleInfo::lemmas:
 			return i18n("Lemmas");
 		case CSwordModuleInfo::hebrewPoints:

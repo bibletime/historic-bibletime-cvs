@@ -290,6 +290,7 @@ void BibleTime::processCommandline(){
 
 void BibleTime::polish(){
   m_initialized = true;
+  
   KMainWindow::polish();
   applyMainWindowSettings(CBTConfig::getConfig(), QString::fromLatin1("MainWindow"));
 }
