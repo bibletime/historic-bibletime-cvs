@@ -677,7 +677,7 @@ void COptionsDialog::initSword(){
 		layout->addWidget(m_settings.swords.hebrewCantillation);
 	
 		m_settings.swords.morphSegmentation = new QCheckBox(currentTab);
-		m_settings.swords.morphSegmentation->setText(i18n("Show Moprh Segmentation"));
+		m_settings.swords.morphSegmentation->setText(i18n("Show morph segmentation"));
 		m_settings.swords.morphSegmentation->setChecked(CBTConfig::get(CBTConfig::morphSegmentation));
 		layout->addWidget(m_settings.swords.morphSegmentation);
 		

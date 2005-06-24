@@ -478,27 +478,27 @@ const QString CSwordBackend::translatedOptionName(const CSwordModuleInfo::Filter
 		case CSwordModuleInfo::footnotes:
 			return i18n("Footnotes");
 		case CSwordModuleInfo::strongNumbers:
-			return i18n("Strong's Numbers");
+			return i18n("Strong's numbers");
 		case CSwordModuleInfo::headings:
 			return i18n("Headings");
 		case CSwordModuleInfo::morphTags:
-			return i18n("Morphological Tags");
+			return i18n("Morphological ags");
   	case CSwordModuleInfo::lemmas:
 			return i18n("Lemmas");
 		case CSwordModuleInfo::hebrewPoints:
-			return i18n("Hebrew Vowel Points");
+			return i18n("Hebrew vowel points");
 		case CSwordModuleInfo::hebrewCantillation:
-			return i18n("Hebrew Cantillation");
+			return i18n("Hebrew cantillation marks");
 		case CSwordModuleInfo::greekAccents:
-			return i18n("Greek Accents");
+			return i18n("Greek accents");
 		case CSwordModuleInfo::redLetterWords:
 			return i18n("Red letter words");
 		case CSwordModuleInfo::textualVariants:
-			return i18n("Textual Variants");
+			return i18n("Textual variants");
 		case CSwordModuleInfo::scriptureReferences:
-			return i18n("Scripture Cross-references");	
+			return i18n("Scripture cross-references");	
 		case CSwordModuleInfo::morphSegmentation:
-			return i18n("Morph Segmentation");
+			return i18n("Morph segmentation");
 // 		case CSwordModuleInfo::transliteration:
 // 			return i18n("Transliteration between scripts");	
 	}
