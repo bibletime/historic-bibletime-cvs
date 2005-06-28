@@ -364,15 +364,13 @@ QString CSwordModuleInfo::aboutText() const {
 	QString text;	
 	text += "<font size=\"-1\"><table>";
 	
-	if ( hasVersion() )
-    text += QString( "<tr><td><b>%1</b></td><td>%2</td><tr>" )
-    	.arg( i18n("Version") )
-    	.arg( config( CSwordModuleInfo::ModuleVersion ));
+	text += QString( "<tr><td><b>%1</b></td><td>%2</td><tr>" )
+		.arg( i18n("Version") )
+		.arg( hasVersion() ? config( CSwordModuleInfo::ModuleVersion ) : i18n("unknown") );
 
-	if ( !QString( m_module->getConfigEntry("SourceType") ).isEmpty() )
-		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
-			.arg( i18n("Markup") )
-			.arg( m_module->getConfigEntry("SourceType") );
+	text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+		.arg( i18n("Markup") )
+		.arg( !QString( m_module->getConfigEntry("SourceType") ).isEmpty() ? m_module->getConfigEntry("SourceType") : i18n("unknown") );
 
 	text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
 		.arg( i18n("Location") )
@@ -392,10 +390,9 @@ QString CSwordModuleInfo::aboutText() const {
 			.arg( i18n("LCSH") )
 			.arg( m_module->getConfigEntry("LCSH") );
 
-	if ( isWritable() )
-		text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
-			.arg( i18n("Writable") )
-			.arg( i18n("yes") );
+	text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
+		.arg( i18n("Writable") )
+		.arg( isWritable() ? i18n("yes") : i18n("no") );
 
 	if ( isEncrypted() )
 		text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
@@ -420,15 +417,15 @@ QString CSwordModuleInfo::aboutText() const {
 	
 	text += "</table><hr>";
 
-  if ( category() == CSwordModuleInfo::Cult ) //clearly say the module contains cult/questionable materials
-    text += QString( "<BR><B>%1</B><BR><BR>" )
-              .arg( i18n("Take care, this work contains cult / questionable material!") );
+	if ( category() == CSwordModuleInfo::Cult ) //clearly say the module contains cult/questionable materials
+		text += QString( "<BR><B>%1</B><BR><BR>" )
+			.arg( i18n("Take care, this work contains cult / questionable material!") );
 
 	text += QString( "<b>%1:</b><br><font size=\"-1\">%2</font>" )
-						.arg( i18n("About") )
-						.arg( config(CSwordModuleInfo::AboutInformation) );
+		.arg( i18n("About") )
+		.arg( config(CSwordModuleInfo::AboutInformation) );
 						
-	text += ("<hr> <table>");
+	text += ("<hr><table>");
 	
 	if ( !QString( m_module->getConfigEntry("DistributionLicense") ).isEmpty() )
 		text += QString( "<tr><td><b>%1</b></td><td><b>%2</b></td></tr>" )
