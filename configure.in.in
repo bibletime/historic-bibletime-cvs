@@ -49,7 +49,6 @@ AC_CHECK_DISTRIBUTION
 
 dnl add here all your Makefiles. They are created by configure
 
-AC_CONFIG_FILES([ NEWS ])
 AC_CONFIG_FILES([ README ])
 AC_CONFIG_FILES([ INSTALL ])
 AC_CONFIG_FILES([ bibletime.lsm ])

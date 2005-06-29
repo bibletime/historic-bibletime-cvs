@@ -10,7 +10,6 @@ INSTALL.in INSTALL\
 bibletime.lsm.in bibletime.lsm \
 configure.in.in configure.in \
 bibletime.desktop.in bibletime.desktop \
-NEWS.in NEWS \
 Makefile.cvs autogen.sh \
 bibletime.m4 sword.m4
 
