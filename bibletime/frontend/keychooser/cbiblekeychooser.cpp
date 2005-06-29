@@ -129,8 +129,6 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 		}
 	}
 
- 	Q_ASSERT(bookIsValid);
-	
 	if (bookIsValid) {//we have a valid book
 		if (w_book->comboBox()->currentText() != m_key->book()) { //necessary?
 			w_book->setItem( m_key->book() );
