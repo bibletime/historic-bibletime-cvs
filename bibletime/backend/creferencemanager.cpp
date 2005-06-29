@@ -283,7 +283,7 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 }
 
 /** Parses the given verse references using the given language and the module.*/
-const QString CReferenceManager::parseVerseReference( const QString ref, const QString& lang, const QString& newLang){
+const QString CReferenceManager::parseVerseReference( const QString ref, const QString& lang, const QString newLang){
 	CSwordVerseKey key(0);
 	if (!lang.isEmpty()) {
 		key.setLocale( lang.latin1() );

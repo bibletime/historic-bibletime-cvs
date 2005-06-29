@@ -80,7 +80,7 @@ public:
 	* @param lang The language of the verse reference
 	* @param newLang The language of the reference, which will be returned. For example: If BibleTime using an english environment parses a spanish ref (lang=es) the returned ref should be in english (newLang=en), because his english standard module only understands en.
 	*/
-  static const QString parseVerseReference( const QString ref, const QString& lang = QString::null, const QString& newLang = "en");
+  static const QString parseVerseReference( const QString ref, const QString& lang = QString::null, const QString newLang = "en");
 };
 
 #endif

@@ -51,7 +51,7 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 	if (!text.isEmpty()) {
 		CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>(i);
 		if (bookmark) {
-			CPointers::infoDisplay()->setInfo(
+			(CPointers::infoDisplay())->setInfo(
 				InfoDisplay::CInfoDisplay::CrossReference,
 				bookmark->module()->name() + ":" + bookmark->key()
 			);
@@ -260,7 +260,7 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
    Q_ASSERT(parent);
 
   //the drop was started in this main index widget
-  if (m_itemsMovable && (e->source() == viewport())) {
+  if (m_itemsMovable && ((e->source()) == (viewport()))) {
     /*
     * If the drag was started from the main index and should move items and if the destination is the bookmark
     * folder or one of its subfolders

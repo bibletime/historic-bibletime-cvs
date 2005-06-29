@@ -54,7 +54,7 @@ CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CM
 }
 
 
-CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const CDisplayWindow::WriteWindowType& type,  const char* name) {
+CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const CDisplayWindow::WriteWindowType type, const char* name) {
   if (type == HTMLWindow) {
     return new CHTMLWriteWindow(modules, parent, name);
   }

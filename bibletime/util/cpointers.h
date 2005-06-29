@@ -25,6 +25,9 @@ protected:
  	friend class BibleTimeApp; //BibleTimeApp may initialize this object	
 	friend int main(int argc, char* argv[]); //main may set the printer
 
+	//Empty virtuaual destructor
+	virtual ~CPointers() {};
+	
 	/** Set the backend.
 	* @param backend Pointer to the new application-wide Sword backend
 	*/

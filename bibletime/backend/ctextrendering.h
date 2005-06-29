@@ -125,7 +125,7 @@ inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() c
 	}
 		
 	return m_childList;
-};
+}
 
 inline const bool CTextRendering::KeyTreeItem::hasChildItems() const {
 	if (!m_childList) {

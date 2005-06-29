@@ -19,7 +19,7 @@ class CFolderBase;
 class CTreeFolder;
 class CMainIndex;
 
-class CItemBase : public KListViewItem, public CPointers {
+class CItemBase : public KListViewItem/*, public CPointers */{
 public:
   enum Type {
     Unknown = 0,
@@ -104,7 +104,13 @@ public:
 
 protected:
   friend class CMainIndex;
-  virtual void dropped( QDropEvent* e, QListViewItem* after = 0 );
+  
+  /** Reimplementation which uses our extended version of dropped (see below).
+  */
+	virtual void dropped( QDropEvent* e) { dropped(e,0); };
+	/** Our extended version of the dropped method to include a item above the point we dropped the stuff.
+	*/
+  virtual void dropped( QDropEvent* /*e*/, QListViewItem* /*after*/) {};
   /**
   * Reimplementation. Returns true if the auto opening of this folder is allowd
   * The default return value is "false"
@@ -136,7 +142,7 @@ protected: // Protected methods
   * In this case open the searchdialog. In the case of a referebnce open the module at the given position.
   */
   virtual bool acceptDrop( const QMimeSource* src ) const;
-  virtual void dropped( QDropEvent* e, QListViewItem* after = 0 );
+  virtual void dropped( QDropEvent* e, QListViewItem* after );
 
 private:
   CSwordModuleInfo* m_module;
@@ -146,7 +152,7 @@ class CBookmarkItem : public CItemBase {
 public:
 	CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, const QString& key, const QString& description);
 	CBookmarkItem(CFolderBase* parentItem, QDomElement& xml);
-	~CBookmarkItem();
+	virtual ~CBookmarkItem();
   CSwordModuleInfo* const module();
   const QString key();
   const QString& description();
@@ -241,7 +247,8 @@ class CTreeFolder : public CFolderBase {
 public: 
 	CTreeFolder(CMainIndex* mainIndex, const Type type, const QString& language );
 	CTreeFolder(CFolderBase* parentFolder, const Type type, const QString& language );
-	~CTreeFolder();
+	virtual ~CTreeFolder();
+	
   virtual void addGroup(const Type type, const QString language);
   virtual void addModule(CSwordModuleInfo* const);
   virtual void addBookmark(CSwordModuleInfo* module, const QString& key, const QString& description);
@@ -261,10 +268,11 @@ class CGlossaryFolder : public CTreeFolder {
 public:
 	CGlossaryFolder(CMainIndex* mainIndex, const Type type, const QString& fromLanguage, const QString& toLanguage );
 	CGlossaryFolder(CFolderBase* parentFolder, const Type type, const QString& fromLanguage, const QString& toLanguage );
-	~CGlossaryFolder();
+	virtual ~CGlossaryFolder();
   
   virtual void initTree();
   virtual void init();
+	virtual void addGroup(const Type /*type*/, const QString& /*fromLanguage*/) {}; //standard reimpl to overload the old one right
   virtual void addGroup(const Type type, const QString& fromLanguage, const QString& toLanguage);
   /**
   * Returns the language this glossary folder maps from.
@@ -289,7 +297,7 @@ public:
   virtual void exportBookmarks();
   virtual void importBookmarks();
   virtual bool acceptDrop(const QMimeSource * src) const;
-  virtual void dropped(QDropEvent *e, QListViewItem* after = 0);
+  virtual void dropped(QDropEvent *e, QListViewItem* after);
 
   /**
   * Loads bookmarks from XML content
@@ -334,7 +342,7 @@ namespace Bookmarks {
   private:
   // made provate because we offer one static functions which doesn't need constructor and destructor
     OldBookmarkImport();
-    ~OldBookmarkImport();    
+    virtual ~OldBookmarkImport();    
   };
       
   class SubFolder : public CBookmarkFolder {
@@ -359,6 +367,6 @@ namespace Bookmarks {
   private:
     QDomElement m_startupXML;
   };
-};
+} //end of namespace Bookmarks
   
 #endif

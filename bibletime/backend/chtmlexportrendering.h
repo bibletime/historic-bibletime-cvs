@@ -52,6 +52,6 @@ protected:
 	Settings m_settings;
 };
 
-};
+}
 
 #endif

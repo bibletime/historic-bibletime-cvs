@@ -16,7 +16,6 @@
 #include "frontend/cinputdialog.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cdragdropmgr.h"
-// #include "frontend/ctooltipmanager.h"
 
 #include "util/cresmgr.h"
 #include "util/scoped_resource.h"
@@ -89,10 +88,6 @@ void CItemBase::moveAfter( CItemBase* const item ){
 		moveItem(item); //both items are on the same level, so we can use moveItem
 	}
 }
-
-void CItemBase::dropped( QDropEvent* /*e*/, QListViewItem* /*after*/ ) {
-}
-
 
 /** Returns true if the given action should be enabled in the popup menu. */
 const bool CItemBase::enableAction( const MenuAction /*action*/ ){
@@ -169,7 +164,7 @@ bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
   if (CDragDropMgr::canDecode(src)) {
     if (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark) {
       CDragDropMgr::Item item = CDragDropMgr::decode(src).first();
-      CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
+      CSwordModuleInfo* m = CPointers::backend()->findModuleByName( item.bookmarkModule() );
       if (m && (module()->type() == m->type())) { //it makes only sense
         return true;
       }
@@ -189,7 +184,7 @@ bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
 }
 
 /** No descriptions */
-void CModuleItem::dropped( QDropEvent* e, QListViewItem* /*after */){
+void CModuleItem::dropped( QDropEvent* e, QListViewItem* /*after*/){
   /* Something was dropped on a module item
   *
   * 1. If the drop type is plain text open the searchdialog for this text and start the search
@@ -211,7 +206,7 @@ void CModuleItem::dropped( QDropEvent* e, QListViewItem* /*after */){
       }
     }
     else if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) { //open the module
-      CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
+      CSwordModuleInfo* m = CPointers::backend()->findModuleByName( item.bookmarkModule() );
       if (m) { //it makes only sense to create a new window for a module with the same type
         if ((module()->type() == m->type()) ||
             ((module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary)
@@ -353,7 +348,7 @@ const QString CBookmarkItem::toolTip(){
 
 /** Returns the used module. */
 CSwordModuleInfo* const CBookmarkItem::module() {
-  CSwordModuleInfo* const m = backend()->findModuleByName(m_moduleName);
+  CSwordModuleInfo* const m = CPointers::backend()->findModuleByName(m_moduleName);
   Q_ASSERT(m);
   return m;
 }
@@ -369,7 +364,7 @@ const QString CBookmarkItem::key(){
   if ((module()->type() == CSwordModuleInfo::Bible) || (module()->type() == CSwordModuleInfo::Commentary)) {
     CSwordVerseKey vk(0);
     vk = englishKeyName;
-    vk.setLocale( backend()->booknameLanguage().latin1() );
+    vk.setLocale(CPointers::backend()->booknameLanguage().latin1() );
 
     returnKeyName = vk.key(); //the returned key is always in the currently set bookname language
   }
@@ -622,7 +617,7 @@ void CTreeFolder::init(){
     };
   }
   else {
-    const CLanguageMgr::Language* const lang = languageMgr()->languageForAbbrev( language() );
+    const CLanguageMgr::Language* const lang = CPointers::languageMgr()->languageForAbbrev( language() );
     
     setText(0, !language().isEmpty() ? ( lang->isValid() ? lang->translatedName() : language()) : i18n("Unknown language"));
   }
@@ -646,7 +641,7 @@ void CTreeFolder::initTree(){
     moduleType = CSwordModuleInfo::GenericBook;
 
   //get all modules by using the given type
-  ListCSwordModuleInfo allModules = backend()->moduleList();
+  ListCSwordModuleInfo allModules =CPointers::backend()->moduleList();
   ListCSwordModuleInfo usedModules;
 	ListCSwordModuleInfo::iterator end_it = allModules.end();
 	for (ListCSwordModuleInfo::iterator it(allModules.begin()); it != end_it; ++it) {
@@ -999,10 +994,10 @@ void CBookmarkFolder::dropped(QDropEvent *e, QListViewItem* after) {
   if (acceptDrop(e)) {
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
     CDragDropMgr::ItemList::Iterator it;
-    CItemBase* previousItem = dynamic_cast<CItemBase*>(after);
+     CItemBase* previousItem = dynamic_cast<CItemBase*>(after);
 		
     for( it = dndItems.begin(); it != dndItems.end(); ++it) {
-      CSwordModuleInfo* module =  backend()->findModuleByName(
+      CSwordModuleInfo* module = CPointers::backend()->findModuleByName(
 				(*it).bookmarkModule() 
 			);
 			
@@ -1129,7 +1124,7 @@ void CGlossaryFolder::initTree(){
     return;
 
   //get all modules by using the lexicon type
-  ListCSwordModuleInfo allModules = backend()->moduleList();
+  ListCSwordModuleInfo allModules =CPointers::backend()->moduleList();
   ListCSwordModuleInfo usedModules;
 //   for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
 	
@@ -1193,8 +1188,8 @@ void CGlossaryFolder::init(){
     setText(0,i18n("Glossaries"));
   }
   else {
-    const CLanguageMgr::Language* const fromLang = languageMgr()->languageForAbbrev( m_fromLanguage );    
-    const CLanguageMgr::Language* const toLang = languageMgr()->languageForAbbrev( m_toLanguage );
+    const CLanguageMgr::Language* const fromLang = CPointers::languageMgr()->languageForAbbrev( m_fromLanguage );
+    const CLanguageMgr::Language* const toLang = CPointers::languageMgr()->languageForAbbrev( m_toLanguage );
 
     QString fromLangString  = fromLang->translatedName();
     QString toLangString    = toLang->translatedName();
@@ -1225,7 +1220,8 @@ const QString& CGlossaryFolder::toLanguage() const{
 void CGlossaryFolder::addGroup(const Type type, const QString& fromLanguage, const QString& toLanguage) {
   CTreeFolder* i = new CGlossaryFolder(this, type, fromLanguage, toLanguage);
   i->init();
-  if (!i->childCount())
+  if (!i->childCount()) {
     delete i;
+	}
 }
 

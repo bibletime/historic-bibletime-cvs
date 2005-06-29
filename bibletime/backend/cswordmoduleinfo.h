@@ -34,7 +34,7 @@ namespace Rendering { class CEntryDisplay; }
  * @author The BibleTime team
  * @version $Id$
  */
-class CSwordModuleInfo : public CPointers  {
+class CSwordModuleInfo /*: public CPointers  */{
 public:
   /**
    * These are the options which could be supported by modules and by this backend.
@@ -246,10 +246,10 @@ protected:
   friend class CSwordBackend;
 	friend class CInfoDisplay;
 
-  virtual inline CSwordBackend* backend() const {
+  /*virtual */inline CSwordBackend* backend() const {
     return m_backend;
   }
-  virtual inline void backend( CSwordBackend* newBackend ) {
+  /*virtual */inline void backend( CSwordBackend* newBackend ) {
     if (newBackend) {
       m_backend = newBackend;
     }
@@ -308,14 +308,14 @@ inline const CLanguageMgr::Language* const CSwordModuleInfo::language() const {
 	  if (module()) {
 			if (category() == Glossary) {
 				//special handling for glossaries, we use the "from language" as language for the module
-				m_dataCache.language = languageMgr()->languageForAbbrev( config(GlossaryFrom) );
+				m_dataCache.language = (CPointers::languageMgr())->languageForAbbrev( config(GlossaryFrom) );
 			}
 			else {
-				m_dataCache.language = languageMgr()->languageForAbbrev( module()->Lang() );
+				m_dataCache.language = (CPointers::languageMgr())->languageForAbbrev( module()->Lang() );
 			}
 		}
 		else {
-			m_dataCache.language = languageMgr()->defaultLanguage(); //default language
+			m_dataCache.language = (CPointers::languageMgr())->defaultLanguage(); //default language
 		}
 	}
 	

@@ -155,7 +155,7 @@ inline void CSwordModuleSearch::percentUpdate(char percent, void *){
 	searcher->cms_currentProgress = (int)percent;
 	
 	if (searcher->cms_module_count > 1) {
-	  searcher->cms_overallProgress = (int)((float)((searcher->cms_module_current - 1) * 100 + searcher->cms_currentProgress)) / searcher->cms_module_count;
+	  searcher->cms_overallProgress = (int)(((float)((searcher->cms_module_current - 1) * 100 + searcher->cms_currentProgress)) / searcher->cms_module_count);
 	}
 	else {
 	  searcher->cms_overallProgress = searcher->cms_currentProgress;

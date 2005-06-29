@@ -35,6 +35,6 @@ protected:
 	virtual const QString finishText( const QString&, KeyTree& tree );
 };
 
-};
+}
 
 #endif

@@ -69,7 +69,7 @@ public:
 	* Deletes all the objects which belong to the stored pointers
 	* @see clear()
 	*/	
-	~AutoPtrVector() {
+	virtual ~AutoPtrVector() {
 		clear();
 	};
 	

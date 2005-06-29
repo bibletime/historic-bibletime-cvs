@@ -137,19 +137,18 @@ inline const QString& CLanguageMgr::Language::abbrev() const {
     return m_altAbbrevs->first();
   };
   return m_abbrev;
-};
+}
 
 inline const QString& CLanguageMgr::Language::translatedName() const {
   return m_translatedName;
-};
+}
 
 inline const CLanguageMgr::LangMap* const CLanguageMgr::languages() const {
   return &m_langMap;
-};
+}
 
 inline const CLanguageMgr::Language* const CLanguageMgr::defaultLanguage() const {
 	return &m_defaultLanguage;
-};
-
+}
 
 #endif

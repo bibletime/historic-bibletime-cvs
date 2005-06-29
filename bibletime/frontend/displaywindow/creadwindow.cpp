@@ -166,7 +166,7 @@ void CReadWindow::copyDisplayedText() {
 /*!
     \fn CReadWindow::resizeEvent(QResizeEvent* e)
  */
-void CReadWindow::resizeEvent(QResizeEvent* e) {
+void CReadWindow::resizeEvent(QResizeEvent* /*e*/) {
 // 	qWarning("resizeEvent...");
 	displayWidget()->moveToAnchor(
 		Rendering::CDisplayRendering::keyToHTMLAnchor(key()->key())

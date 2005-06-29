@@ -27,7 +27,7 @@ public:
 	enum strings {
 		bibletimeVersion,
 		language,
-		displayStyle,
+		displayStyle
 	};
 	enum modules {
 		standardBible = 0, //just to make sure, default is IMHO 0, so that's redundant here
