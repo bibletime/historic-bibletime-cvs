@@ -30,7 +30,7 @@ public:
 		displayStyle,
 	};
 	enum modules {
-		standardBible,
+		standardBible = 0, //just to make sure, default is IMHO 0, so that's redundant here
 		standardCommentary,
 		standardLexicon,
 		standardDailyDevotional,    

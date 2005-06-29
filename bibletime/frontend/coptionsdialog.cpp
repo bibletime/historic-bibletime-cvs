@@ -510,7 +510,7 @@ void COptionsDialog::initSword(){
 	
 		m_settings.swords.standardGreekMorph = new QComboBox(currentTab);
 		label = new QLabel(m_settings.swords.standardGreekMorph, i18n("Standard Greek Morphological Lexicon"), currentTab);
-		label->setAutoResize(true); 	 	
+		label->setAutoResize(true);
 		QToolTip::add(m_settings.swords.standardGreekMorph, CResMgr::settings::sword::modules::greekMorph::tooltip);
 
 		gridLayout->addWidget(label,8,0);
@@ -544,10 +544,10 @@ void COptionsDialog::initSword(){
 						inserted = true;
 					}
 					if ((*it)->has(CSwordModuleInfo::HebrewParse)) {
-						m_settings.swords.standardHebrewMorph->insertItem(modDescript);				
+						m_settings.swords.standardHebrewMorph->insertItem(modDescript);
 						inserted = true;
 					}
-					if ((*it)->has(CSwordModuleInfo::GreekParse)) {       
+					if ((*it)->has(CSwordModuleInfo::GreekParse)) {
 						m_settings.swords.standardGreekMorph->insertItem(modDescript);
 						inserted = true;
 					}
@@ -572,7 +572,7 @@ void COptionsDialog::initSword(){
 		comboList.setAutoDelete(false);//don't delete the combos accidentally
 		QStringList moduleList;
 		
-		for (int i = 0; i < (int)CBTConfig::lastModuleType; ++i) {
+		for (int i = 0; i <= (int)CBTConfig::lastModuleType; ++i) {
 			//fill the combobox list in the right order (i.e. same order as the CBTConfig::module enum list)
 			CBTConfig::modules moduleType = (CBTConfig::modules)(i);
 			switch (moduleType) {
@@ -760,7 +760,7 @@ void COptionsDialog::saveDisplay(){
 
 /** No descriptions */
 void COptionsDialog::saveSword(){
-	for (int i = 0; i < (int)CBTConfig::lastModuleType; ++i) {
+	for (int i = 0; i <= (int)CBTConfig::lastModuleType; ++i) {
 		QString moduleDescription = QString::null;
   	
 		CBTConfig::modules moduleType = (CBTConfig::modules)(i);
@@ -789,6 +789,8 @@ void COptionsDialog::saveSword(){
 			case CBTConfig::standardGreekMorphLexicon:
 				moduleDescription = m_settings.swords.standardGreekMorph->currentText();
 				break;
+			default:
+				Q_ASSERT("Unhandled module type.");
 		};
 		
 		CSwordModuleInfo* const module = backend()->findModuleByDescription(moduleDescription);
