@@ -50,7 +50,7 @@ msgstr ""
 #. Tag: guimenu
 #: hdbk-config.docbook:15
 #, no-c-format
-msgid "Startup"
+msgid "Display"
 msgstr ""
 
 #. Tag: para
@@ -61,31 +61,43 @@ msgid ""
 msgstr ""
 
 #. Tag: listitem
-#: hdbk-config.docbook:20
+#: hdbk-config.docbook:19
 #, no-c-format
 msgid "Show tip of the day"
 msgstr ""
 
 #. Tag: listitem
-#: hdbk-config.docbook:21
+#: hdbk-config.docbook:20
 #, no-c-format
 msgid "Show startup logo"
 msgstr ""
 
-#. Tag: listitem
-#: hdbk-config.docbook:22
+#. Tag: para
+#: hdbk-config.docbook:23
 #, no-c-format
-msgid "Restore windows from the last &bibletime; session"
+msgid ""
+"Display templates define the rendering of text (colors, size etc.). Various "
+"built-in templates are available. If you select one, you will see a preview "
+"on the right pane."
 msgstr ""
 
 #. Tag: guimenu
-#: hdbk-config.docbook:26
+#: hdbk-config.docbook:28
 #, no-c-format
-msgid "Fonts"
+msgid "Languages"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:27
+#: hdbk-config.docbook:30
+#, no-c-format
+msgid ""
+"Here you can specify which language should be used for the biblical "
+"booknames. Set this to your native language, if it is available, and you'll "
+"feel at home."
+msgstr ""
+
+#. Tag: para
+#: hdbk-config.docbook:33
 #, no-c-format
 msgid ""
 "By default, &bibletime; uses the &kde; general display font which can be "
@@ -95,39 +107,30 @@ msgid ""
 msgstr ""
 
 #. Tag: phrase
-#: hdbk-config.docbook:35
+#: hdbk-config.docbook:41
 #, no-c-format
 msgid "Options Dialog - fonts"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:36
+#: hdbk-config.docbook:42
 #, no-c-format
 msgid "The Options dialog - Fonts."
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:39
+#: hdbk-config.docbook:45
 #, no-c-format
 msgid ""
-"&bibletime; can now use all fonts supported by KDE/QT. These may be Bitmap "
-"Fonts, <trademark class=\"registered\">Adobe</trademark> Type1 Fonts, "
-"<trademark class=\"registered\">Adobe</trademark> Type3 fonts, or <trademark "
-"class=\"registered\">TrueType</trademark>."
+"&bibletime; can now use all fonts supported by KDE/QT. As long as the works "
+"you are interested in display correctly nothing needs to be done here. If a "
+"work only displays as a series of question marks (??????) or empty boxes, "
+"then you know that the standard KDE display font does not contain the "
+"characters used in this work."
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:44
-#, no-c-format
-msgid ""
-"As long as the works you are interested in display correctly nothing needs "
-"to be done here. If a work only displays as a series of question marks "
-"(??????) or empty boxes, then you know that the standard KDE display font "
-"does not contain the characters used in this work."
-msgstr ""
-
-#. Tag: para
-#: hdbk-config.docbook:49
+#: hdbk-config.docbook:51
 #, no-c-format
 msgid ""
 "To correct this, choose this work's language from the drop down menu. Select "
@@ -138,13 +141,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:55
+#: hdbk-config.docbook:57
 #, no-c-format
 msgid "Installing fonts"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:56
+#: hdbk-config.docbook:58
 #, no-c-format
 msgid ""
 "Detailed font installation instructions are outside the scope of this "
@@ -157,7 +160,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:64
+#: hdbk-config.docbook:66
 #, no-c-format
 msgid ""
 "If you use a small font like Clearlyu (about 22kb), &bibletime; will run "
@@ -166,42 +169,41 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:69
+#: hdbk-config.docbook:71
 #, no-c-format
 msgid "Obtaining Fonts"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:70
+#: hdbk-config.docbook:72
 #, no-c-format
 msgid "Fonts can be obtained from a number of sources:"
 msgstr ""
 
 #. Tag: listitem
-#: hdbk-config.docbook:72
-#, no-c-format
-msgid "Your distribution."
-msgstr ""
-
-#. Tag: listitem
-#: hdbk-config.docbook:73
-#, no-c-format
-msgid "Your distribution's localization packages."
-msgstr ""
-
-#. Tag: listitem
 #: hdbk-config.docbook:74
 #, no-c-format
-msgid "An existing &Microsoft; &Windows; installation on the same computer."
+msgid "Your Linux distribution."
 msgstr ""
 
 #. Tag: listitem
 #: hdbk-config.docbook:75
 #, no-c-format
+msgid "Your distribution's localization packages."
+msgstr ""
+
+#. Tag: listitem
+#: hdbk-config.docbook:76
+#, no-c-format
 msgid ""
-"A font collection, such as are available from <trademark class=\"registered"
-"\">Adobe</trademark> or <trademark class=\"registered\">Bitstream</"
-"trademark>."
+"An existing <trademark class=\"registered\">Microsoft Windows</trademark> "
+"installation on the same computer."
+msgstr ""
+
+#. Tag: listitem
+#: hdbk-config.docbook:77
+#, no-c-format
+msgid "A font collection, such as are available from Adobe or Bitstream."
 msgstr ""
 
 #. Tag: listitem
@@ -325,65 +327,32 @@ msgid ""
 msgstr ""
 
 #. Tag: guimenu
-#: hdbk-config.docbook:126
+#: hdbk-config.docbook:127
 #, no-c-format
-msgid "Display templates"
+msgid "Desk"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:128
-#, no-c-format
-msgid ""
-"Display templates define the rendering of text (colors, size etc.). Various "
-"built-in templates are available. If you select one, you will see a preview "
-"on the right pane."
-msgstr ""
-
-#. Tag: guimenu
-#: hdbk-config.docbook:133
-#, no-c-format
-msgid "Sessions"
-msgstr ""
-
-#. Tag: para
-#: hdbk-config.docbook:135
-#, no-c-format
-msgid ""
-"Sessions define the appearance of the work area, for example which windows "
-"are open and which texts should be displayed in these windows. Once a "
-"session is created, you can use the menu item <menuchoice><guimenu>Window</"
-"guimenu> <guimenuitem>Save session</guimenuitem></menuchoice> to save the "
-"current session into an existing session file. Use "
-"<menuchoice><guimenu>Window</guimenu><guimenuitem>Load session </"
-"guimenuitem></menuchoice> to load a an existing session into &bibletime;. "
-"Play around with this helpful feature to see what you can do with it. For "
-"example, you might want to create one session with works that you use for "
-"Bible study, and another one for devotional reading. Once you created and "
-"saved those sessions, you can switch between them quickly."
-msgstr ""
-
-#. Tag: guimenu
-#: hdbk-config.docbook:147
-#, no-c-format
-msgid "Sword"
-msgstr ""
-
-#. Tag: para
-#: hdbk-config.docbook:149
+#: hdbk-config.docbook:129
 #, no-c-format
 msgid ""
 "Many features provided by the Sword backend can now be customized in "
-"&bibletime;. These features are documented right in the dialog."
+"&bibletime;. These features are documented right in the dialog. You also "
+"have the possibility to specify standard works that should be used when no "
+"specific work is specified in a reference. An example: The standard Bible is "
+"used to display the content of crossreferences in the Bible. When you hover "
+"over then, the Mag will show the content of the verses referred to, "
+"according to the standard Bible you specified."
 msgstr ""
 
 #. Tag: guimenu
-#: hdbk-config.docbook:154
+#: hdbk-config.docbook:138
 #, no-c-format
 msgid "HotKeys"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:156
+#: hdbk-config.docbook:140
 #, no-c-format
 msgid ""
 "HotKeys are special key commands that can be used in the place of the menu "
@@ -395,13 +364,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:167
+#: hdbk-config.docbook:151
 #, no-c-format
 msgid "Configure Toolbars dialog"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:168
+#: hdbk-config.docbook:152
 #, no-c-format
 msgid ""
 "You can adapt the toolbar to your needs. Please use the following entry in "
@@ -409,7 +378,7 @@ msgid ""
 msgstr ""
 
 #. Tag: menuchoice
-#: hdbk-config.docbook:171 hdbk-reference.docbook:95
+#: hdbk-config.docbook:155 hdbk-reference.docbook:95
 #, no-c-format
 msgid ""
 "<guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
@@ -419,7 +388,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:178
+#: hdbk-config.docbook:162
 #, no-c-format
 msgid ""
 "You will see this dialog, which allows adding and removing buttons from the "
@@ -427,19 +396,19 @@ msgid ""
 msgstr ""
 
 #. Tag: phrase
-#: hdbk-config.docbook:185
+#: hdbk-config.docbook:169
 #, no-c-format
 msgid "Toolbar configuration dialog"
 msgstr ""
 
 #. Tag: caption
-#: hdbk-config.docbook:186
+#: hdbk-config.docbook:170
 #, no-c-format
 msgid "The Toolbar configuration dialog."
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:188
+#: hdbk-config.docbook:172
 #, no-c-format
 msgid ""
 "Use the 4 buttons in the middle of the window to move buttons to the "
@@ -447,8 +416,16 @@ msgid ""
 "your preference."
 msgstr ""
 
+#. Tag: para
+#: hdbk-config.docbook:175
+#, no-c-format
+msgid ""
+"Please see <link linkend=\"hdbk-reference-menus-settings-toolbars\">this "
+"section</link> for further information."
+msgstr ""
+
 #. Tag: title
-#: hdbk-intro.docbook:1 hdbk-reference.docbook:436
+#: hdbk-intro.docbook:1 hdbk-reference.docbook:434
 #, no-c-format
 msgid "Introduction"
 msgstr ""
@@ -1412,26 +1389,30 @@ msgstr ""
 #. Tag: interface
 #: hdbk-start.docbook:56
 #, no-c-format
-msgid "Sword configuration dialog"
+msgid "Bookshelf Manager"
 msgstr ""
 
 #. Tag: para
 #: hdbk-start.docbook:57
 #, no-c-format
 msgid ""
-"<action>Modifies your Sword installation.</action> This dialog lets you "
-"modify your Sword library, add or delete modules from your system. It will "
-"only be shown if no default Sword library can be found."
+"<action>Modifies your Bookshelf.</action> This dialog lets you modify your "
+"Bookshelf, add or delete works from your system. It will only be shown if no "
+"default Bookshelf can be found. Please see <link linkend=\"hdbk-op-"
+"bookshelfmanager\">this section</link>for further details. If you start off "
+"with an empty Bookshelf, it will be helpful to install at least one Bible, "
+"Commentary, Lexicon and one Book to get to know &bibletime;'s basic features "
+"quickly."
 msgstr ""
 
 #. Tag: interface
-#: hdbk-start.docbook:65
+#: hdbk-start.docbook:66
 #, no-c-format
-msgid "Preferences dialog"
+msgid "Configure &bibletime; dialog"
 msgstr ""
 
 #. Tag: para
-#: hdbk-start.docbook:66
+#: hdbk-start.docbook:67
 #, no-c-format
 msgid ""
 "<action>Customizes &bibletime;.</action> This dialog lets you adapt "
@@ -1440,13 +1421,13 @@ msgid ""
 msgstr ""
 
 #. Tag: interface
-#: hdbk-start.docbook:72
+#: hdbk-start.docbook:73
 #, no-c-format
 msgid "Tip of the Day"
 msgstr ""
 
 #. Tag: para
-#: hdbk-start.docbook:73
+#: hdbk-start.docbook:74
 #, no-c-format
 msgid ""
 "These nifty little tips give you helpful hints for working more efficiently "
@@ -1693,7 +1674,8 @@ msgid ""
 "add new ones. Most of the entries available from the main menu can be put on "
 "the toolbar as buttons. If you need a certain feature often, you might want "
 "to put a button on the main menu, so that you can access it with only one "
-"click."
+"click. Please see <link linkend=\"hdbk-config-toolbar\">this section</link> "
+"for further information."
 msgstr ""
 
 #. Tag: menuchoice
@@ -1960,13 +1942,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:264
+#: hdbk-reference.docbook:262
 #, no-c-format
 msgid "HotKeys index"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:266
+#: hdbk-reference.docbook:264
 #, no-c-format
 msgid ""
 "This is index of all hotkeys and their corresponding description in the "
@@ -1977,25 +1959,25 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:278
+#: hdbk-reference.docbook:276
 #, no-c-format
 msgid "Hotkey"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:279
+#: hdbk-reference.docbook:277
 #, no-c-format
 msgid "Description"
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:284
+#: hdbk-reference.docbook:282
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>A</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:285
+#: hdbk-reference.docbook:283
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-autocascade\"><menuchoice> "
@@ -2004,13 +1986,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:291
+#: hdbk-reference.docbook:289
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>S</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:292
+#: hdbk-reference.docbook:290
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-savenewsession\"><menuchoice> "
@@ -2019,13 +2001,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:298
+#: hdbk-reference.docbook:296
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>T</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:299
+#: hdbk-reference.docbook:297
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-autotile\"><menuchoice> "
@@ -2034,13 +2016,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:305
+#: hdbk-reference.docbook:303
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>W</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:306
+#: hdbk-reference.docbook:304
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-closeall\"><menuchoice> "
@@ -2049,13 +2031,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:312
+#: hdbk-reference.docbook:310
 #, no-c-format
 msgid "<keycap>F1</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:313
+#: hdbk-reference.docbook:311
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Handbook</guimenuitem></"
@@ -2063,13 +2045,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:319
+#: hdbk-reference.docbook:317
 #, no-c-format
 msgid "<keycap>F2</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:320
+#: hdbk-reference.docbook:318
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>BibleStudy Howto</"
@@ -2077,13 +2059,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:326
+#: hdbk-reference.docbook:324
 #, no-c-format
 msgid "<keycap>F3</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:327
+#: hdbk-reference.docbook:325
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Daily tip</guimenuitem></"
@@ -2091,13 +2073,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:334
+#: hdbk-reference.docbook:332
 #, no-c-format
 msgid "<keycap>F4</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:335
+#: hdbk-reference.docbook:333
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-settings-bookshelf_manager"
@@ -2107,13 +2089,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:341
+#: hdbk-reference.docbook:339
 #, no-c-format
 msgid "<keycap>F8</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:342
+#: hdbk-reference.docbook:340
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-view-showbookshelf\"><menuchoice> "
@@ -2122,13 +2104,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:348
+#: hdbk-reference.docbook:346
 #, no-c-format
 msgid "<keycap>F9</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:349
+#: hdbk-reference.docbook:347
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-view-showmag\"><menuchoice> "
@@ -2137,13 +2119,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:355
+#: hdbk-reference.docbook:353
 #, no-c-format
 msgid "&Shift;<keycap>F1</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:356
+#: hdbk-reference.docbook:354
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>What's this?</"
@@ -2153,13 +2135,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:363
+#: hdbk-reference.docbook:361
 #, no-c-format
 msgid "&Ctrl;<keycap>A</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:364
+#: hdbk-reference.docbook:362
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-cascade\"><menuchoice> "
@@ -2168,37 +2150,37 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:370
+#: hdbk-reference.docbook:368
 #, no-c-format
 msgid "&Ctrl;<keycap>B</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:371
+#: hdbk-reference.docbook:369
 #, no-c-format
 msgid "Moves a bible or commentary read window to the next book."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:374
+#: hdbk-reference.docbook:372
 #, no-c-format
 msgid "&Ctrl;<keycap>C</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:375
+#: hdbk-reference.docbook:373
 #, no-c-format
 msgid "Copies selected text."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:378
+#: hdbk-reference.docbook:376
 #, no-c-format
 msgid "&Ctrl;<keycap>F</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:379
+#: hdbk-reference.docbook:377
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-search-defaultbible\"><menuchoice> "
@@ -2208,13 +2190,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:385
+#: hdbk-reference.docbook:383
 #, no-c-format
 msgid "&Ctrl;<keycap>G</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:386
+#: hdbk-reference.docbook:384
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-search-openworks\"><menuchoice> "
@@ -2224,25 +2206,25 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:392
+#: hdbk-reference.docbook:390
 #, no-c-format
 msgid "&Ctrl;<keycap>H</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:393
+#: hdbk-reference.docbook:391
 #, no-c-format
 msgid "Moves a bible or commentary read window to the next chapter."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:396
+#: hdbk-reference.docbook:394
 #, no-c-format
 msgid "&Ctrl;<keycap>T</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:397
+#: hdbk-reference.docbook:395
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-tile\"><menuchoice> "
@@ -2251,37 +2233,37 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:403
+#: hdbk-reference.docbook:401
 #, no-c-format
 msgid "&Ctrl;<keycap>V</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:404
+#: hdbk-reference.docbook:402
 #, no-c-format
 msgid "Moves a read window to the next verse or entry."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:407
+#: hdbk-reference.docbook:405
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>B</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:408
+#: hdbk-reference.docbook:406
 #, no-c-format
 msgid "Moves a bible or commentary read window to the previous book."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:411
+#: hdbk-reference.docbook:409
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>F</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:412
+#: hdbk-reference.docbook:410
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-fullscreen\"><menuchoice> "
@@ -2290,37 +2272,37 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:418
+#: hdbk-reference.docbook:416
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>H</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:419
+#: hdbk-reference.docbook:417
 #, no-c-format
 msgid "Moves a bible or commentary read window to the previous chapter."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:422
+#: hdbk-reference.docbook:420
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>V</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:423
+#: hdbk-reference.docbook:421
 #, no-c-format
 msgid "Moves a read window to the previous verse or entry."
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:433
+#: hdbk-reference.docbook:431
 #, no-c-format
 msgid "GCC Regular Expression Reference"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:438
+#: hdbk-reference.docbook:436
 #, no-c-format
 msgid ""
 "Regular expression searches provide a way to do simple or complex searches "
@@ -2338,7 +2320,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:454
+#: hdbk-reference.docbook:452
 #, no-c-format
 msgid ""
 "The power of Regular Expressions lies in the patterns (or templates) used to "
@@ -2350,7 +2332,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:463
+#: hdbk-reference.docbook:461
 #, no-c-format
 msgid ""
 "Example: the pattern \"i. love\\.\" will find sentences that end with "
@@ -2363,13 +2345,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:475
+#: hdbk-reference.docbook:473
 #, no-c-format
 msgid "Special characters"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:478
+#: hdbk-reference.docbook:476
 #, no-c-format
 msgid ""
 ". The period matches any character. See <link linkend=\"period\">details</"
@@ -2377,7 +2359,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:480
+#: hdbk-reference.docbook:478
 #, no-c-format
 msgid ""
 "* The asterisk matches 0 or more characters of the preceding: set, character "
@@ -2385,7 +2367,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:483
+#: hdbk-reference.docbook:481
 #, no-c-format
 msgid ""
 "+ The plus sign matches 1 or more characters of the preceding: set, "
@@ -2393,7 +2375,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:486
+#: hdbk-reference.docbook:484
 #, no-c-format
 msgid ""
 "? The question mark matches 0 or 1 character of the preceding: set, "
@@ -2402,7 +2384,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:489
+#: hdbk-reference.docbook:487
 #, no-c-format
 msgid ""
 "[ ] Square brackets match any one of the characters specified inside [ ]. "
@@ -2410,7 +2392,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:491
+#: hdbk-reference.docbook:489
 #, no-c-format
 msgid ""
 "^ A caret as the first character inside [ ] means NOT. See <link linkend="
@@ -2418,7 +2400,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:493
+#: hdbk-reference.docbook:491
 #, no-c-format
 msgid ""
 "^ A caret beginning of a pattern anchors the beginning of a line. See <link "
@@ -2426,7 +2408,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:495
+#: hdbk-reference.docbook:493
 #, no-c-format
 msgid ""
 "$ A dollar at the end of a pattern anchors the end of a line. See <link "
@@ -2434,14 +2416,14 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:497
+#: hdbk-reference.docbook:495
 #, no-c-format
 msgid ""
 "| A vertical bar means logical OR. See <link linkend=\"bar\">details</link>"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:499
+#: hdbk-reference.docbook:497
 #, no-c-format
 msgid ""
 "( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</"
@@ -2449,7 +2431,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:501
+#: hdbk-reference.docbook:499
 #, no-c-format
 msgid ""
 "\\ A backslash can be used prior to any special character to match that "
@@ -2457,7 +2439,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:503
+#: hdbk-reference.docbook:501
 #, no-c-format
 msgid ""
 "\\ A backslash can be used prior to an ordinary character to make it a "
@@ -2465,13 +2447,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:508
+#: hdbk-reference.docbook:506
 #, no-c-format
 msgid "The period ."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:510
+#: hdbk-reference.docbook:508
 #, no-c-format
 msgid ""
 "The Period \".\" will match any single character even a space or other non-"
@@ -2488,13 +2470,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:523
+#: hdbk-reference.docbook:521
 #, no-c-format
 msgid "The asterisk *"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:525
+#: hdbk-reference.docbook:523
 #, no-c-format
 msgid ""
 "The asterisk matches zero or more characters of the preceding: set, "
@@ -2507,13 +2489,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:537
+#: hdbk-reference.docbook:535
 #, no-c-format
 msgid "The plus sign +"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:538
+#: hdbk-reference.docbook:536
 #, no-c-format
 msgid ""
 "The Plus Sign matches one or more characters of the preceding: set, "
@@ -2525,13 +2507,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:547
+#: hdbk-reference.docbook:545
 #, no-c-format
 msgid "The question mark ?"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:548
+#: hdbk-reference.docbook:546
 #, no-c-format
 msgid ""
 "The Question Mark matches zero or one character of the preceding: set, "
@@ -2542,13 +2524,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:556
+#: hdbk-reference.docbook:554
 #, no-c-format
 msgid "The square brackets [ ]"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:557
+#: hdbk-reference.docbook:555
 #, no-c-format
 msgid ""
 "The Square Brackets enclose a set of characters that can match. The period, "
@@ -2569,13 +2551,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:578
+#: hdbk-reference.docbook:576
 #, no-c-format
 msgid "The caret first in square brackets [^xxx]"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:579
+#: hdbk-reference.docbook:577
 #, no-c-format
 msgid ""
 "If the Caret is the first character after the left bracket it means NOT. "
@@ -2585,13 +2567,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:586
+#: hdbk-reference.docbook:584
 #, no-c-format
 msgid "The caret as start of line anchor ^xxx"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:587
+#: hdbk-reference.docbook:585
 #, no-c-format
 msgid ""
 "If the Caret is the first character in a pattern it anchors the pattern to "
@@ -2605,7 +2587,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:597
+#: hdbk-reference.docbook:595
 #, no-c-format
 msgid ""
 "(Because of unfiltered formatting characters in some texts, this feature "
@@ -2615,13 +2597,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:605
+#: hdbk-reference.docbook:603
 #, no-c-format
 msgid "The dollar sign as end of line anchor xxx$"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:606
+#: hdbk-reference.docbook:604
 #, no-c-format
 msgid ""
 "If the Dollar Sign is the last character in a pattern it anchors the pattern "
@@ -2630,7 +2612,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:612
+#: hdbk-reference.docbook:610
 #, no-c-format
 msgid ""
 "(If you encounter the problem with unfiltered formatting characters that we "
@@ -2638,13 +2620,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:618
+#: hdbk-reference.docbook:616
 #, no-c-format
 msgid "The vertical bar |"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:619
+#: hdbk-reference.docbook:617
 #, no-c-format
 msgid ""
 "The Vertical Bar between patterns means OR. <emphasis>John|Peter</emphasis> "
@@ -2656,25 +2638,25 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:628
+#: hdbk-reference.docbook:626
 #, no-c-format
 msgid "The parentheses ( )"
 msgstr ""
 
 #. Tag: emphasis
-#: hdbk-reference.docbook:629
+#: hdbk-reference.docbook:627
 #, no-c-format
 msgid "The use of Parentheses ( ) is not supported!"
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:634
+#: hdbk-reference.docbook:632
 #, no-c-format
 msgid "The backslash prior to a special character \\*"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:635
+#: hdbk-reference.docbook:633
 #, no-c-format
 msgid ""
 "The Backslash prior to a special character indicates that the character is "
@@ -2684,13 +2666,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:643
+#: hdbk-reference.docbook:641
 #, no-c-format
 msgid "The backslash prior to an ordinary character \\s"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:645
+#: hdbk-reference.docbook:643
 #, no-c-format
 msgid ""
 "The Backslash prior to an ordinary character indicates that the character is "
@@ -2698,7 +2680,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:650
+#: hdbk-reference.docbook:648
 #, no-c-format
 msgid ""
 "\\b if used outside [ ] means word boundary. If used inside [ ], it means "
@@ -2708,7 +2690,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:654
+#: hdbk-reference.docbook:652
 #, no-c-format
 msgid ""
 "\\B means non-word boundary. <emphasis>\\Brighteous\\B</emphasis> matches "
@@ -2718,37 +2700,37 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:658
+#: hdbk-reference.docbook:656
 #, no-c-format
 msgid "\\d means digit; same as [0-9]."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:659
+#: hdbk-reference.docbook:657
 #, no-c-format
 msgid "\\D means non-digit, same as [^0-9]."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:660
+#: hdbk-reference.docbook:658
 #, no-c-format
 msgid "\\s means whitespace character."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:661
+#: hdbk-reference.docbook:659
 #, no-c-format
 msgid "\\S means no whitespace character."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:662
+#: hdbk-reference.docbook:660
 #, no-c-format
 msgid "\\w means alphanumeric; same as [a-zA-Z0-9_]."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:663
+#: hdbk-reference.docbook:661
 #, no-c-format
 msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
 msgstr ""
