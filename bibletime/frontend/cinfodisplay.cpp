@@ -285,7 +285,7 @@ const QString CInfoDisplay::decodeStrongs( const QString& data ) {
 	QStringList::const_iterator end = strongs.end();
 	for (QStringList::const_iterator it = strongs.begin(); it != end; ++it) {
 		CSwordModuleInfo* const module = CBTConfig::get( 
-			(*it).left(1) == "H" ? 
+			((*it).left(1) == QString("H")) ?
 			CBTConfig::standardHebrewStrongsLexicon : 
 			CBTConfig::standardGreekStrongsLexicon
  		);
@@ -322,9 +322,10 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 		int valStart = (*it).find(':');
 		if (valStart > -1) {
 			valueClass = (*it).mid(0, valStart);
+			module = CPointers::backend()->findModuleByName( valueClass );
+			Q_ASSERT(module);
 		}
-		value = (*it).mid(valStart+1);
-		module = CPointers::backend()->findModuleByName( valueClass );
+		value = (*it).mid(valStart+1); //works for prepended module and without (-1 +1 == 0).
 
 		// if we don't have a class assigned or desired one isn't installed...
 		if (!module) {
@@ -345,18 +346,30 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 						break;
 					default:
 						skipFirstChar = false;
-						module = 0;
+						//TODO: we can't tell here if it's a greek or hebrew moprh code, that's a problem we have to solve
+// 						module = CBTConfig::get(CBTConfig::standardGreekMorphLexicon);
 						break;
 				}
+			}
+			//if it is still not set use the default
+			if (!module) {
+				module = CBTConfig::get(CBTConfig::standardGreekMorphLexicon);
 			}
 		}
 		
 		QString text;
+		Q_ASSERT(module);
 		if (module) {
 			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
  			
 			//skip H or G (language sign) if we have to skip it			
-			key->key( skipFirstChar ? value.mid(1) : value );
+			const bool isOk = key->key( skipFirstChar ? value.mid(1) : value );
+			Q_ASSERT(isOk);
+			if (!isOk) { //try to use the other morph lexicon, because this one failed with the current morph code
+				key->module(CBTConfig::get(CBTConfig::standardHebrewMorphLexicon));
+				key->key( skipFirstChar ? value.mid(1) : value );
+			}
+			
 			text = key->renderedText();
 		}
 		

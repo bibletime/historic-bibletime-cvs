@@ -50,10 +50,10 @@ const QString CSwordLDKey::key() const {
 	return QString::fromUtf8((const char*)*this);
 }
 
-void CSwordLDKey::key( const QString& newKey ){
+const bool CSwordLDKey::key( const QString& newKey ){
 //	SWKey::operator = ((const char*)newKey.local8Bit());		
-	SWKey::operator = ((const char*)newKey.utf8()); //set the key
- 	m_module->module()->SetKey(this);
+// 	SWKey::operator = ((const char*)newKey.utf8()); //set the key
+//  	m_module->module()->SetKey(this);
 // 	m_module->module()->getKey()->setText( (const char*)key().utf8() );
 /*	if (!m_module->snap()) {
 		qWarning("set %s got %s, error=1", newKey.latin1(), m_module->module()->KeyText());
@@ -61,11 +61,14 @@ void CSwordLDKey::key( const QString& newKey ){
 	
 	
 // 	SWKey::operator = (m_module->module()->KeyText());
+	return key( (const char*)newKey.utf8() );
 }
 
 
 /** Sets the key of this instance */
-void CSwordLDKey::key( const char* newKey ){
+const bool CSwordLDKey::key( const char* newKey ){
+	Q_ASSERT(newKey);
+	
 	if (newKey) {
 		SWKey::operator = (newKey); //set the key
 
@@ -74,6 +77,8 @@ void CSwordLDKey::key( const char* newKey ){
 		m_module->snap();
 // 		SWKey::operator = (m_module->module()->KeyText());
 	}
+
+	return !Error();
 }
 
 /** Uses the parameter to returns the next entry afer this key. */

@@ -248,7 +248,7 @@ void CMDIArea::myCascade() {
 		setUpdatesEnabled(false);
 
 // 		for ( int i(windows.count()-1); i >= 0; --i ) {
-		for (int i(0); i < windows.count(); ++i) {
+		for (int i(0); i < int(windows.count()); ++i) {
 			QWidget* window = windows.at(i);
 			if (window == active) { //leave out the active window which should be the top window
 				continue;

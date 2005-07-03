@@ -175,11 +175,13 @@ void CBibleKeyChooser::chapterPrevRequested(void){
 		return;
 
 	setUpdatesEnabled(false);
-	if (m_key)
+	if (m_key) {
 		emit beforeKeyChange(m_key->key());
+	}
 
-	if (m_key->previous(CSwordVerseKey::UseChapter))
+	if (m_key->previous(CSwordVerseKey::UseChapter)) {
 		setKey(m_key);
+	}
 	setUpdatesEnabled(true);
 }
 
@@ -189,8 +191,9 @@ void CBibleKeyChooser::verseNextRequested(void){
 		return;
 	
 	setUpdatesEnabled(false);
-	if (m_key)
+	if (m_key) {
 		emit beforeKeyChange(m_key->key());
+	}
 
 	if (m_key->next(CSwordVerseKey::UseVerse))
 		setKey(m_key);
@@ -203,11 +206,13 @@ void CBibleKeyChooser::versePrevRequested(void){
 		return;
 	
 	setUpdatesEnabled(false);	
-	if (m_key)
+	if (m_key) {
 		emit beforeKeyChange(m_key->key());
+	}
 
-	if (m_key->previous(CSwordVerseKey::UseVerse))
+	if (m_key->previous(CSwordVerseKey::UseVerse)) {
 		setKey(m_key);
+	}
 	setUpdatesEnabled(true);
 }
 
@@ -299,8 +304,9 @@ void CBibleKeyChooser::setModules(const ListCSwordModuleInfo& modules, const boo
 
 /** called when the book combo lost the focus with reason == tab @param the new book */
 void CBibleKeyChooser::bookFocusOut(int /*index*/){
-	if (!isUpdatesEnabled())
+	if (!isUpdatesEnabled()) {
 		return;
+	}
 		
 	setUpdatesEnabled(false);
 	

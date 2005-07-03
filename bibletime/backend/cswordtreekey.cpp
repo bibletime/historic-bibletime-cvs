@@ -21,21 +21,34 @@ const QString CSwordTreeKey::key() const {
 	return QString::fromUtf8( getFullName() ); //don't use fromUtf8
 }
 
-void CSwordTreeKey::key( const QString& newKey ){
-  if (newKey.isEmpty()) {
-    root();
-  }
-  else
-    TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!	
- 	
-  if (Error())
- 		root();
+const bool CSwordTreeKey::key( const QString& newKey ){
+//   if (newKey.isEmpty()) {
+//     root();
+//   }
+//   else {
+//     TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!
+// 	}
+
+	return key( (const char*)newKey.local8Bit() );
+
+//   if (Error()) {
+//  		root();
+//  	}
+// 
+//  	return !Error();
 }
 
-void CSwordTreeKey::key( const char* newKey ){
+const bool CSwordTreeKey::key( const char* newKey ){
+	Q_ASSERT(newKey);
+	
 	if (newKey) {
 		TreeKeyIdx::operator = (newKey);
 	}
+	else {
+		root();
+	}
+
+	return !Error();
 }
 
 CSwordModuleInfo* const CSwordTreeKey::module( CSwordModuleInfo* const newModule ) {

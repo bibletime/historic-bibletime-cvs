@@ -78,11 +78,11 @@ public:
   /**
   * Set the current key
   */
-  virtual void key( const QString& newKey );
+  virtual const bool key( const QString& newKey );
   /**
   * Returns the current key as a QString
   */
-  virtual void key( const char* );
+  virtual const bool key( const char* );
   /** 
 	* Assignment operator for more ease of use of this class. 
 	*/

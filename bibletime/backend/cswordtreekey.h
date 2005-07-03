@@ -28,7 +28,7 @@ public:
 	/** The module which belongs to this key.
 	 * @return The module.
 	 */
-	CSwordModuleInfo* const module( CSwordModuleInfo* const newModule );
+	virtual CSwordModuleInfo* const module( CSwordModuleInfo* const newModule );
 	/** Copy method.
 	* @return A new copy of this object.
 	*/
@@ -40,12 +40,12 @@ public:
   /**
   * Set the key. If the parameter is empty or null, the key will be set to "/"
   */
-  virtual void key( const QString& key );
+  virtual const bool key( const QString& key );
   /**
   * Set/get the key. If the parameter is not set (means equal to QString::null)
   * the used key is returned. Otherwise the key is set and the new on ei returned.
   */
-	virtual void key( const char* key );
+	virtual const bool key( const char* key );
   /**
   * Assignment operator.
   */

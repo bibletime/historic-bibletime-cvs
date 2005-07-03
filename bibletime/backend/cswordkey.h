@@ -45,11 +45,11 @@ public:
 	/** Sets the current key. Sets the key using a utf8 enabled QString.
 	 * @param key The key which should be used to set the current one
 	 */
-	virtual void key(const QString& key) = 0;
+	virtual const bool key(const QString& key) = 0;
 	/** Set the key using a utf8-decoded c-string
 	 * @param key The key which should be used to set the current one
 	 */
-	virtual void key(const char* key) = 0;
+	virtual const bool key(const char* key) = 0;
 	/** Clone this object. Clone this current object and return it.
 	 * @return A clone of the current object.
 	 */

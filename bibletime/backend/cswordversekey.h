@@ -71,12 +71,12 @@ public:
   /**
   * Set the current key.
   */
-  virtual void key( const QString& );
+  virtual const bool key( const QString& );
   /**
   * Set/get the key. If the parameter is not set (means equal to QString::null)
   * the used key is returned. Otherwise the key is set and the new on ei returned.
   */
-	virtual void key( const char* key );
+	virtual const bool key( const char* key );
 	
 	/**
 	* Jumps to the next entry of the given type

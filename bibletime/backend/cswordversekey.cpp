@@ -106,11 +106,11 @@ const QString CSwordVerseKey::key() const {
 	return QString::fromUtf8(getText());
 }
 
-void CSwordVerseKey::key( const QString& newKey ) {
-	key( (const char*)newKey.utf8() );
+const bool CSwordVerseKey::key( const QString& newKey ) {
+	return key( (const char*)newKey.utf8() );
 }
 
-void CSwordVerseKey::key( const char* newKey ){
+const bool CSwordVerseKey::key( const char* newKey ){
   if (newKey && (strlen(newKey)>0) ) {
 		VerseKey::operator = (newKey);
 	}
@@ -120,6 +120,8 @@ void CSwordVerseKey::key( const char* newKey ){
 			VerseKey::operator = ((const char*)bible->lowerBound().key().utf8());
     }
   }
+
+  return !Error();
 }
 
 const bool CSwordVerseKey::next( const JumpType type ) {

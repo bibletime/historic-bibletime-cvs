@@ -39,6 +39,7 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 }
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
+// 	qDebug("CHTMLExportRendering::renderEntry");
 	if (i.hasAlternativeContent()) {
 		QString ret;
 		ret.setLatin1(i.settings().highlight ? "<div class=\"currententry\">" : "<div class=\"entry\">");
@@ -181,6 +182,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		renderedText.append("</tr>\n");
 	}
 	
+// 	qDebug("CHTMLExportRendering: %s", renderedText.latin1());
   return renderedText;	
 }
 
