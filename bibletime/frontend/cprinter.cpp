@@ -1,14 +1,4 @@
-//
-// C++ Implementation: cprinter
-//
-// Description: 
-//
-//
-// Author: The BibleTime team <info@bibletime.info>, (C) 2004
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/********* Read the file LICENSE for license details. *********/
 
 #include "cprinter.h"
 
@@ -21,6 +11,8 @@
 #include <khtmlview.h>
 
 /* Class: CPrinter */
+
+namespace Printing {
 
 CPrinter::CPrinter(QObject */*parent*/, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
  : 	QObject(/*parent*/0),
@@ -126,3 +118,5 @@ const QString CPrinter::finishText(const QString& text, KeyTree& tree)
 	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager(); 	
 	return tMgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
 }
+
+} //end of namespace

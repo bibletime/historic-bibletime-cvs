@@ -430,6 +430,7 @@ private:
 	class ToolTip : public QToolTip {
 	public:
 		ToolTip(QWidget* parent);
+		virtual ~ToolTip() {};
 		/**
 		* Displays a tooltip for position p
 		*/		

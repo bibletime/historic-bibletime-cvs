@@ -4,11 +4,7 @@
 #define CSWORDMODULEINFO_H
 
 //BibleTime includes
-// #include "centrydisplay.h"
-// #include "cswordbackend.h"
 #include "clanguagemgr.h"
-
-#include "util/cpointers.h"
 
 //Qt includes
 #include <qstring.h>
@@ -34,7 +30,7 @@ namespace Rendering { class CEntryDisplay; }
  * @author The BibleTime team
  * @version $Id$
  */
-class CSwordModuleInfo /*: public CPointers  */{
+class CSwordModuleInfo {
 public:
   /**
    * These are the options which could be supported by modules and by this backend.
@@ -118,7 +114,7 @@ public:
 	*/
 	const QString config( const CSwordModuleInfo::ConfigEntry entry ) const;
 	
-	CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
+	CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const = 0 );
   /** Copy constructor to copy the passed parameter.
   * @param m The module to be copied
   */
@@ -221,7 +217,7 @@ public:
   /**
   * Returns the language of the module.
   */
-  inline const CLanguageMgr::Language* const language() const;
+  const CLanguageMgr::Language* const language() const;
   /**
   * Returns true if this module may be written by the write display windows.
   */
@@ -244,7 +240,7 @@ public:
 
 protected:
   friend class CSwordBackend;
-	friend class CInfoDisplay;
+// 	friend class CInfoDisplay;
 
   /*virtual */inline CSwordBackend* backend() const {
     return m_backend;
@@ -302,25 +298,8 @@ inline const bool CSwordModuleInfo::isWritable() const {
   return false;
 }
 
-/** Returns the language of the module. */
-inline const CLanguageMgr::Language* const CSwordModuleInfo::language() const {
-	if (!m_dataCache.language) {
-	  if (module()) {
-			if (category() == Glossary) {
-				//special handling for glossaries, we use the "from language" as language for the module
-				m_dataCache.language = (CPointers::languageMgr())->languageForAbbrev( config(GlossaryFrom) );
-			}
-			else {
-				m_dataCache.language = (CPointers::languageMgr())->languageForAbbrev( module()->Lang() );
-			}
-		}
-		else {
-			m_dataCache.language = (CPointers::languageMgr())->defaultLanguage(); //default language
-		}
-	}
-	
-	return m_dataCache.language;	
-}
+#include "util/cpointers.h"
+
 
 
 #endif

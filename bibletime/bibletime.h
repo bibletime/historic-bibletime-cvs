@@ -22,7 +22,7 @@ class CDisplayWindow;
 class CMainIndex;
 
 namespace InfoDisplay{ class CInfoDisplay; }
-using namespace InfoDisplay;
+namespace Printing{ class CPrinter; }
 
 //KDE classes
 class KToggleAction;
@@ -386,11 +386,11 @@ private:
 
 	CProfileMgr m_profileMgr;
 	CSwordBackend* m_backend;
-	CPrinter* m_printer;
+	Printing::CPrinter* m_printer;
 
 	CMainIndex* m_mainIndex;
 
-	CInfoDisplay* m_infoDisplay;
+	InfoDisplay::CInfoDisplay* m_infoDisplay;
 
 };
 

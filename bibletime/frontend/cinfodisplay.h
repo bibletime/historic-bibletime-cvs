@@ -14,7 +14,7 @@
 #define CINFODISPLAY_H
 
 //Backend
-#include  "backend/ctextrendering.h"
+#include "backend/ctextrendering.h"
 
 //Qt includes
 #include <qwidget.h>
@@ -63,7 +63,6 @@ protected:
  
 private:
 	CReadDisplay* m_htmlPart;
-	
 };
 
 } //end of InfoDisplay namespace

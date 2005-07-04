@@ -120,7 +120,7 @@ private:
 	typedef QPtrList<CLanguageMgr::Language> LanguageList;
 	static LanguageList m_langList;
 	
-	struct {
+	struct ModuleCache {
 		unsigned int moduleCount;
 		LangMap availableLanguages;
 	} m_availableModulesCache;

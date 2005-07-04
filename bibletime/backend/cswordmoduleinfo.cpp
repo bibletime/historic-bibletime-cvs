@@ -9,6 +9,7 @@
 #include "clanguagemgr.h"
 
 #include "util/scoped_resource.h"
+#include "util/cpointers.h"
 #include "frontend/cbtconfig.h"
 
 #include <sys/types.h>
@@ -38,7 +39,7 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module, CSwordBackend* cons
 	Q_ASSERT(module);
 	
 	m_searchResult.ClearList();
-  m_backend = usedBackend;
+  m_backend = usedBackend ? usedBackend : CPointers::backend();
 	m_dataCache.name = module ? QString(module->Name()) : QString::null;
 	m_dataCache.isUnicode = module ? module->isUnicode() : false;
 	m_dataCache.category = UnknownCategory;
@@ -488,4 +489,24 @@ QString CSwordModuleInfo::aboutText() const {
 	text += "</table></font>";
 
   return text;
+}
+
+/** Returns the language of the module. */
+const CLanguageMgr::Language* const CSwordModuleInfo::language() const {
+	if (!m_dataCache.language) {
+	  if (module()) {
+			if (category() == Glossary) {
+				//special handling for glossaries, we use the "from language" as language for the module
+				m_dataCache.language = (CPointers::languageMgr())->languageForAbbrev( config(GlossaryFrom) );
+			}
+			else {
+				m_dataCache.language = (CPointers::languageMgr())->languageForAbbrev( module()->Lang() );
+			}
+		}
+		else {
+			m_dataCache.language = (CPointers::languageMgr())->defaultLanguage(); //default language
+		}
+	}
+	
+	return m_dataCache.language;	
 }

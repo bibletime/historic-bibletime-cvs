@@ -6,15 +6,18 @@
 //BibleTime includes
 #include "backend/clanguagemgr.h"
 
+#include "frontend/cinfodisplay.h"
+
 class CSwordBackend;
 class CLanguageMgr;
 class CDisplayTemplateMgr;
 
-namespace Printing { class CPrinter; }
-using namespace Printing;
-
-namespace InfoDisplay { class CInfoDisplay; };
-using namespace InfoDisplay;
+namespace Printing {
+	class CPrinter;
+}
+namespace InfoDisplay {
+	class CInfoDisplay;
+}
 
 /** Holds the pointers to important classes like modules, backend etc.
   * @author The BibleTime team
@@ -35,11 +38,11 @@ protected:
 	/** Set the printer instance.
 	* @param printer Pointer to the ne CPrinter instance.
 	*/
-	static void setPrinter(CPrinter* const printer);
+	static void setPrinter(Printing::CPrinter* const printer);
 	/** Set the info display.
 	* @param iDisplay The pointer to the new info display.
 	*/
-	static void setInfoDisplay(CInfoDisplay* const iDisplay);
+	static void setInfoDisplay(InfoDisplay::CInfoDisplay* const iDisplay);
 
 	/** Delete the backend. Should be called by BibleTimeApp,
 	* because the backend should be deleted as late as possible.
@@ -63,7 +66,7 @@ public: // Public methods
   * Returns a pointer to the printer object.
   * @return The printer oobject.
   */
-  inline static CPrinter* const printer();
+  inline static Printing::CPrinter* const printer();
   /** Returns a pointer to the backend
   * @return The backend pointer.
   */
@@ -75,7 +78,7 @@ public: // Public methods
   /** Returns a pointer to the info display.
   * @return The backend pointer.
   */
-	inline static CInfoDisplay* const infoDisplay();  
+	inline static InfoDisplay::CInfoDisplay* const infoDisplay();
   /** Returns a pointer to the application's display template manager
   * @return The backend pointer.
   */
@@ -91,9 +94,9 @@ public: // Public methods
 		};
 
 		CSwordBackend* backend;
-		CPrinter*      printer;
+		Printing::CPrinter*      printer;
 		CLanguageMgr*  langMgr;
-		CInfoDisplay*  infoDisplay;
+		InfoDisplay::CInfoDisplay*  infoDisplay;
 		CDisplayTemplateMgr* displayTemplateMgr;
 	};
 };
@@ -114,12 +117,12 @@ inline CLanguageMgr* const CPointers::languageMgr() {
 }
 
 /** Returns a pointer to the printer object. */
-inline CPrinter* const CPointers::printer() {
+inline Printing::CPrinter* const CPointers::printer() {
 	return m_pointerCache.printer;
 }
 
 /** Returns a pointer to the printer object. */
-inline CInfoDisplay* const CPointers::infoDisplay() {
+inline InfoDisplay::CInfoDisplay* const CPointers::infoDisplay() {
 	return m_pointerCache.infoDisplay;
 }
 

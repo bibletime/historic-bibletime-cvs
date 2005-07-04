@@ -44,6 +44,8 @@
 using namespace Rendering;
 using namespace sword;
 
+namespace InfoDisplay {
+
 CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
     : QWidget(parent, name)
 {
@@ -416,3 +418,4 @@ void CInfoDisplay::clearInfo() {
 	m_htmlPart->setText( tmgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, settings) );
 }
 
+} //end of namespace InfoDisplay

@@ -9,11 +9,10 @@
 //BibleTime's frontend
 #include "frontend/cprinter.h"
 
-using namespace Printing;
 
 CPointers::PointerCache m_pointerCache;
 
-void CPointers::setPrinter(CPrinter* const printer) {
+void CPointers::setPrinter(Printing::CPrinter* const printer) {
 	Q_ASSERT( m_pointerCache.printer == 0);
 	CPointers::deletePrinter();
 	m_pointerCache.printer = printer;
@@ -25,7 +24,7 @@ void CPointers::setBackend(CSwordBackend* const backend) {
 	m_pointerCache.backend = backend;
 }
 
-void CPointers::setInfoDisplay(CInfoDisplay* const infoDisplay) {
+void CPointers::setInfoDisplay(InfoDisplay::CInfoDisplay* const infoDisplay) {
 	Q_ASSERT( m_pointerCache.infoDisplay == 0);
 	m_pointerCache.infoDisplay = infoDisplay;
 }

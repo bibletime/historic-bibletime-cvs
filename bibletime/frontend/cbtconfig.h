@@ -3,13 +3,14 @@
 #ifndef CBTCONFIG_H
 #define CBTCONFIG_H
 
+#include "backend/cswordbackend.h"
+#include "backend/clanguagemgr.h"
+
+//Qt includes
 #include <qstring.h>
 #include <qfont.h>
 #include <qvaluelist.h>
 #include <qmap.h>
-
-#include "backend/cswordbackend.h"
-#include "backend/clanguagemgr.h"
 
 //Forward declarations
 class KAccel;

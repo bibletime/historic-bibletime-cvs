@@ -8,7 +8,6 @@
 
 #include "util/cpointers.h"
 
-
 //Qt includes
 #include <qapplication.h>
 #include <qfontdatabase.h>

@@ -14,7 +14,6 @@
 
 #include "chtmlexportrendering.h"
 
-
 namespace Rendering {
 
 /** HTML rendering for the text display widgets.
@@ -30,7 +29,7 @@ public:
 		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
 	);
 
-protected:	
+protected:
 	virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* const module );
 	virtual const QString finishText( const QString&, KeyTree& tree );
 };

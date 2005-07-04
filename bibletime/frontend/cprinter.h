@@ -1,18 +1,10 @@
-//
-// C++ Interface: cprinter
-//
-// Description: 
-//
-//
-// Author: The BibleTime team <info@bibletime.info>, (C) 2004
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/********* Read the file LICENSE for license details. *********/
+
 #ifndef CPRINTER_H
 #define CPRINTER_H
 
 //BibleTime backend
+#include "backend/cswordbackend.h"
 #include "backend/cdisplayrendering.h"
 
 //BibleTime frontend

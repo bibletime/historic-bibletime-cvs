@@ -32,6 +32,7 @@ class CMainIndex : public KListView {
   class ToolTip : public QToolTip {
 	public:
 		ToolTip(CMainIndex* parent);
+		virtual ~ToolTip() {};
 		/**
 		* Displays a tooltip for position p using the getToolTip() function of CGroupManagerItem
 		*/		

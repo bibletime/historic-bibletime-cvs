@@ -21,7 +21,7 @@
 //QT includes
 #include <qstring.h>
 
-class CSwordModuleInfo;
+// class CSwordModuleInfo;
 class CSwordKey;
 
 /** 
