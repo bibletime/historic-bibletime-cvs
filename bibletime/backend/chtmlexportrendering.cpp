@@ -65,7 +65,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		
 		
 	const ListCSwordModuleInfo& modules( i.modules() );
-	Q_ASSERT(modules.first());
+	Q_ASSERT(modules.count() >= 1);
 	
 	util::scoped_ptr<CSwordKey> scoped_key( !k ? CSwordKey::createInstance(modules.first()) : 0 );
 	
@@ -78,6 +78,9 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 	}
   
 	QString renderedText( (modules.count() > 1) ? "<tr>" : "" );
+	if (modules.count() == 0) {
+		return QString(""); //no module present for rendering
+	}
 
 	// Only insert the table stuff if we are displaying parallel.
   // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!

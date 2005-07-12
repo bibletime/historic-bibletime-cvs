@@ -181,10 +181,10 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 		const QString moduleName = data.left(pos);
 //   		qWarning("found module %s", moduleName.latin1());
 		module = CPointers::backend()->findModuleByName(moduleName);
-		Q_ASSERT(module);
 		if (!module) {
 			module = CBTConfig::get(CBTConfig::standardBible);
 		}
+// 		Q_ASSERT(module);
 	}
 
 	Q_ASSERT(module);
@@ -225,8 +225,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 			tree.append( i );
 		}	
 	}
-	else {
-		Q_ASSERT(module);
+	else if (module) {
 		CTextRendering::KeyTreeItem* i = new CTextRendering::KeyTreeItem(
 			data.mid((pos == -1) ? 0 : pos+1),
 			module,
@@ -239,7 +238,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	//spanns containing rtl text need dir=rtl on their parent tag to be aligned properly
 	return QString("<div class=\"crossrefinfo\"><h3>%1</h3><div class=\"para\" dir=\"%2\">%3</div></div>")
 		.arg(i18n("Cross references"))
- 		.arg((module->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr" : "rtl")
+ 		.arg(module ? ((module->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr" : "rtl") : "")
 		.arg(renderer.renderKeyTree(tree));
 }
 
