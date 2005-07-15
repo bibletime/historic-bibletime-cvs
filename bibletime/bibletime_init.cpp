@@ -96,7 +96,7 @@ void BibleTime::initActions() {
     action->plugAccel( accel() );
   #endif
 
-  action = new KAction(i18n("Search in open work(s)"),
+  action = new KAction(i18n("Search in &open work(s)"),
     CResMgr::mainMenu::mainIndex::search::icon,
     CResMgr::mainMenu::mainIndex::search::accel,
     this, SLOT(slotSearchModules()), actionCollection(),
@@ -108,7 +108,7 @@ void BibleTime::initActions() {
     action->plugAccel( accel() );
   #endif
 
-  action = new KAction(i18n("Search in standard Bible"),
+  action = new KAction(i18n("Search in standard &Bible"),
     CResMgr::mainMenu::mainIndex::searchdefaultbible::icon,
     CResMgr::mainMenu::mainIndex::searchdefaultbible::accel,
     this, SLOT(slotSearchDefaultBible()), actionCollection(),
@@ -157,7 +157,7 @@ void BibleTime::initActions() {
   	action->plugAccel( accel() );
   #endif
 
-  action = new KAction(i18n("&Bookshelf Manager"),
+  action = new KAction(i18n("Bookshelf &Manager"),
     CResMgr::mainMenu::settings::swordSetupDialog::icon,
     CResMgr::mainMenu::settings::swordSetupDialog::accel,
 		this, SLOT( slotSwordSetupDialog() ), actionCollection(),
@@ -187,7 +187,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::arrangementMode::actionName	
 	);
 
-	m_windowManualMode_action = new KToggleAction(i18n("Manual mode"),
+	m_windowManualMode_action = new KToggleAction(i18n("&Manual mode"),
     CResMgr::mainMenu::window::arrangementMode::manual::icon,
 		CResMgr::mainMenu::window::arrangementMode::manual::accel,
     this, SLOT(slotManualArrangementMode()), actionCollection(),
@@ -202,7 +202,7 @@ void BibleTime::initActions() {
 	m_windowArrangementMode_action->insert( m_windowManualMode_action );
 	
 	
-	m_windowAutoTileVertical_action = new KToggleAction(i18n("Tile vertical"),
+	m_windowAutoTileVertical_action = new KToggleAction(i18n("Auto-tile &vertically"),
     CResMgr::mainMenu::window::arrangementMode::autoTileVertical::icon,
 		CResMgr::mainMenu::window::arrangementMode::autoTileVertical::accel,
     this, SLOT(slotAutoTileVertical()), actionCollection(),
@@ -217,7 +217,7 @@ void BibleTime::initActions() {
 	m_windowArrangementMode_action->insert( m_windowAutoTileVertical_action );
 	
 
-	m_windowAutoTileHorizontal_action = new KToggleAction(i18n("Tile horizontal"),
+	m_windowAutoTileHorizontal_action = new KToggleAction(i18n("Auto-tile &horizontally"),
     CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::icon,
 		CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::accel,
     this, SLOT(slotAutoTileHorizontal()), actionCollection(),
@@ -232,7 +232,7 @@ void BibleTime::initActions() {
 	m_windowArrangementMode_action->insert( m_windowAutoTileHorizontal_action );
 	
 	
-	m_windowAutoCascade_action 	= new KToggleAction(i18n("&Cascade"),
+	m_windowAutoCascade_action 	= new KToggleAction(i18n("Auto-&cascade"),
     CResMgr::mainMenu::window::arrangementMode::autoCascade::icon,
 		CResMgr::mainMenu::window::arrangementMode::autoCascade::accel,
     this, SLOT(slotAutoCascade()), actionCollection(),
@@ -260,7 +260,7 @@ void BibleTime::initActions() {
   #endif
 
 
-  m_windowTileVertical_action = new KAction(i18n("&Tile vertical"),
+  m_windowTileVertical_action = new KAction(i18n("Tile &vertically"),
     CResMgr::mainMenu::window::tileVertical::icon,
     CResMgr::mainMenu::window::tileVertical::accel,
     this, SLOT(slotTileVertical()), actionCollection(),
@@ -271,7 +271,7 @@ void BibleTime::initActions() {
   	m_windowTileVertical_action->plugAccel( accel() );
   #endif
 
-  m_windowTileHorizontal_action = new KAction(i18n("&Tile horizontal"),
+  m_windowTileHorizontal_action = new KAction(i18n("Tile &horizontally"),
     CResMgr::mainMenu::window::tileHorizontal::icon,
     CResMgr::mainMenu::window::tileHorizontal::accel,
     this, SLOT(slotTileHorizontal()), actionCollection(),
@@ -307,7 +307,7 @@ void BibleTime::initActions() {
   #endif
 
 
-  m_windowSaveToNewProfile_action = new KAction(i18n("Sa&ve as new session"),
+  m_windowSaveToNewProfile_action = new KAction(i18n("Save as &new session"),
     CResMgr::mainMenu::window::saveToNewProfile::icon,
     CResMgr::mainMenu::window::saveToNewProfile::accel,
     this, SLOT(saveToNewProfile()), actionCollection(),

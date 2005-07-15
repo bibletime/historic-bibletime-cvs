@@ -119,14 +119,14 @@ namespace CResMgr {
       namespace arrangementMode {
 				QString tooltip;
 
-				const QString icon        = "bt_tile";
+				const QString icon        = "bt_cascade_auto";
 				const KShortcut accel     = KKeySequence();
 				const char* actionName    = "windowArrangementMode_action";
 				
 				namespace manual {
 					QString tooltip;
 
-					const QString icon        = "bt_tile_manual";
+					const QString icon        = "bt_tile";
 					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_M;
 					const char* actionName    = "windowArrangementManual_action";
 				}
@@ -425,11 +425,11 @@ namespace CResMgr {
       }
       namespace nextVerse {
         QString tooltip;
-        const KShortcut accel = Qt::CTRL + Qt::Key_D;
+        const KShortcut accel = Qt::CTRL + Qt::Key_V;
       }
       namespace previousVerse {
         QString tooltip;
-        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_D;
+        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_V;
       }
 
       namespace copyMenu {

@@ -1,4 +1,4 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="26">
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="27">
 <MenuBar>
  <Menu name="file" noMerge="1"><text>&amp;File</text>
   <Action name="file_clear_queue_action"/>
@@ -16,7 +16,7 @@
   <Action name="viewMainIndex_action"/>
   <Action name="viewInfoDisplay_action"/>
  </Menu>
- <Menu name="settings" noMerge="1"><Text>&amp;Settings</Text>
+ <Menu name="settings" noMerge="1"><Text>Se&amp;ttings</Text>
 	 <Action name="options_configure_toolbars"/>
 	 <Separator/>
 	 <Action name="options_configure"/>
