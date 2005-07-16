@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-16 13:07+0200\n"
+"POT-Creation-Date: 2005-07-16 15:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -295,20 +295,16 @@ msgstr ""
 msgid "Session name:"
 msgstr ""
 
-#: ../bibletime/display-templates/template-init.cpp:2
-msgid "Blue"
-msgstr ""
-
 #: ../bibletime/display-templates/template-init.cpp:361
 msgid "Crazy"
 msgstr ""
 
-#: ../bibletime/display-templates/template-init.cpp:966
+#: ../bibletime/display-templates/template-init.cpp:657
 msgid "High contrast"
 msgstr ""
 
-#: ../bibletime/display-templates/template-init.cpp:1288
-msgid "Simple "
+#: ../bibletime/display-templates/template-init.cpp:979
+msgid "Simple"
 msgstr ""
 
 #: ../bibletime/frontend/cbtconfig.cpp:226
@@ -601,36 +597,38 @@ msgstr ""
 msgid "Use textual variants"
 msgstr ""
 
-#: ../bibletime/frontend/coptionsdialog.cpp:880
-msgid "John 3:16"
+#: ../bibletime/frontend/coptionsdialog.cpp:875
+msgid ""
+"For God so loved the world, that he gave his one and only Son, that whoever "
+"believes in him should not perish, but have eternal life."
 msgstr ""
 
-#: ../bibletime/frontend/coptionsdialog.cpp:885
+#: ../bibletime/frontend/coptionsdialog.cpp:880
 msgid ""
 "For God didn't send his Son into the world to judge the world, but that the "
 "world should be saved through him."
 msgstr ""
 
-#: ../bibletime/frontend/coptionsdialog.cpp:892
+#: ../bibletime/frontend/coptionsdialog.cpp:887
 msgid ""
 "He who believes in him is not judged. He who doesn't believe has been judged "
 "already, because he has not believed in the name of the one and only Son of "
 "God."
 msgstr ""
 
-#: ../bibletime/frontend/coptionsdialog.cpp:899
+#: ../bibletime/frontend/coptionsdialog.cpp:894
 msgid ""
 "This is the judgment, that the light has come into the world, and men loved "
 "the darkness rather than the light; for their works were evil."
 msgstr ""
 
-#: ../bibletime/frontend/coptionsdialog.cpp:904
+#: ../bibletime/frontend/coptionsdialog.cpp:899
 msgid ""
 "For everyone who does evil hates the light, and doesn't come to the light, "
 "lest his works would be exposed."
 msgstr ""
 
-#: ../bibletime/frontend/coptionsdialog.cpp:909
+#: ../bibletime/frontend/coptionsdialog.cpp:904
 msgid ""
 "But he who does the truth comes to the light, that his works may be "
 "revealed, that they have been done in God."
