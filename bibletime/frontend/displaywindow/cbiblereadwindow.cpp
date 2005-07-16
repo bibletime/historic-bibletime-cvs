@@ -348,7 +348,7 @@ void CBibleReadWindow::reload(){
   CLexiconReadWindow::reload();
 
 	//refresh the book lists
-	qWarning("lang is %s",backend()->booknameLanguage().latin1());
+	qDebug("lang is %s",backend()->booknameLanguage().latin1());
   verseKey()->setLocale( backend()->booknameLanguage().latin1() );
   keyChooser()->refreshContent();
 

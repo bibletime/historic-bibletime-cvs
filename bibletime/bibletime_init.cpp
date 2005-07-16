@@ -383,7 +383,7 @@ void BibleTime::initActions() {
   #endif
 
 	action = new KAction(i18n("&Bible Study Howto"),
-    CResMgr::mainMenu::help::bibleStudyHowTo::icon,
+		CResMgr::mainMenu::help::bibleStudyHowTo::icon,
     CResMgr::mainMenu::help::bibleStudyHowTo::accel,
     this, SLOT(openOnlineHelp_Howto()), actionCollection(),
     CResMgr::mainMenu::help::bibleStudyHowTo::actionName
@@ -534,7 +534,7 @@ void BibleTime::applyProfileSettings( CProfile* p ){
  	if (m_initialized) { //on startup KDE sets the main geometry
  	//see polish(), where m_initialized is set and the KDE methods are called for window resize
   	const QRect geometry = p->geometry();
-  	qWarning("main window: %i, %i @ %i x %i", geometry.topLeft().x(), geometry.topLeft().y(), geometry.width(), geometry.height());
+  	qDebug("main window: %i, %i @ %i x %i", geometry.topLeft().x(), geometry.topLeft().y(), geometry.width(), geometry.height());
 		resize( geometry.size() );
 		move( geometry.topLeft() );
 	}

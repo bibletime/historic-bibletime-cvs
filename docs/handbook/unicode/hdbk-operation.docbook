@@ -216,14 +216,15 @@ can limit your search to include only headings, footnotes, Strong's numbers or
 morphological codes. Of course, this will only function if the work you want to search in
 has these features. You can test this with the KJV, a richly marked up English Bible.</para>
 
-<tip>A neat side-effect of this feature is that it enables you to search for all places 
+<tip><para>
+A neat side-effect of this feature is that it enables you to search for all places 
 where a certain word in the greek or hebrew text occurs, and study the usage of that word.
 E.g., if you want to look for all
 occurrences of the word "oikos" (house) in the New Testament, first locate
 a verse where the word "oikos" is found (search for "house" in the New Testament). 
 Find out the Strong's number of "oikos", which in this case
 is "G3624". Then you can limit your search to Strong's numbers, and search for "G3624". You
-will find all verses where this word is found in the original greek text.</tip>
+will find all verses where this word is found in the original greek text.</para></tip>
 
 </sect3>
 
@@ -241,10 +242,10 @@ will find all verses where this word is found in the original greek text.</tip>
 Here you can see how many instances of the search string were found, sorted by works.
 Clicking on a work with the <mousebutton>right</mousebutton> mouse button allows you to copy, save, or print all verses that were found in a certain work at once. This also works when you click on one or more of the references to copy, save or print them. Clicking on a particular reference opens that verse up in context in the preview window below.</para>
 
-<tip>Drag a reference and drop it on a work symbol on the Bookshelf to open the
-work at that verse in a new read window.</tip>
-<tip>Drag a reference and drop it on an open read window, and it will jump to that verse.</tip>
-<tip>Select references and drag them to the Bookshelf to create bookmarks.</tip>
+<tip><para>Drag a reference and drop it on a work symbol on the Bookshelf to open the
+work at that verse in a new read window.</para></tip>
+<tip><para>Drag a reference and drop it on an open read window, and it will jump to that verse.</para></tip>
+<tip><para>Select references and drag them to the Bookshelf to create bookmarks.</para></tip>
 
 <sect3 id="hdbk-op-search-analysis">
 <title>Search result analysis</title>
@@ -276,7 +277,7 @@ search string was found in each book of the Bible, and you can also save the ana
 
 <para>Here you can specify where &bibletime; may store your Bookshelf on the harddrive. You can even store it in multiple directories. Default is "~/.sword/".</para>
 
-<tip>If you have a sword CD, but do not want to install all the works on the harddisk, but use them directly from the CD, then you can add the path to the CD as one of your bookshelf paths. When you start &bibletime;, it will show all works on the CD if it is present.</tip>
+<tip><para>If you have a sword CD, but do not want to install all the works on the harddisk, but use them directly from the CD, then you can add the path to the CD as one of your bookshelf paths. When you start &bibletime;, it will show all works on the CD if it is present.</para></tip>
 </sect2>
 
 <sect2 id="hdbk-op-bookshelfmanager-installupdate">

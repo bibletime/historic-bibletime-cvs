@@ -378,7 +378,7 @@ msgid ""
 msgstr ""
 
 #. Tag: menuchoice
-#: hdbk-config.docbook:155 hdbk-reference.docbook:95
+#: hdbk-config.docbook:155 hdbk-reference.docbook:197
 #, no-c-format
 msgid ""
 "<guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
@@ -425,7 +425,7 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-intro.docbook:1 hdbk-reference.docbook:434
+#: hdbk-intro.docbook:1 hdbk-reference.docbook:480
 #, no-c-format
 msgid "Introduction"
 msgstr ""
@@ -1627,17 +1627,17 @@ msgstr ""
 #: hdbk-reference.docbook:68
 #, no-c-format
 msgid ""
-"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>F</keycap></keycombo></"
-"shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
-"\"i_find.png\" format=\"PNG\"/></imageobject></inlinemediaobject> Search</"
-"guimenu> <guimenuitem>Search in default bible</guimenuitem>"
+"<shortcut><keycombo action=\"simul\">&Alt;&Ctrl;<keycap>F</keycap></"
+"keycombo></shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata "
+"fileref=\"i_find.png\" format=\"PNG\"/></imageobject></inlinemediaobject> "
+"Search</guimenu> <guimenuitem>Search in standard bible</guimenuitem>"
 msgstr ""
 
 #. Tag: para
 #: hdbk-reference.docbook:73
 #, no-c-format
 msgid ""
-"<action>Opens the Search Dialog to search in the default Bible only</"
+"<action>Opens the Search Dialog to search in the standard Bible only</"
 "action>. More works can be added in the Search Dialog."
 msgstr ""
 
@@ -1645,7 +1645,7 @@ msgstr ""
 #: hdbk-reference.docbook:78
 #, no-c-format
 msgid ""
-"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>G</keycap></keycombo></"
+"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>F</keycap></keycombo></"
 "shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
 "\"i_find.png\" format=\"PNG\"/></imageobject></inlinemediaobject> Search</"
 "guimenu> <guimenuitem>Search in open work(s)</guimenuitem>"
@@ -1662,11 +1662,192 @@ msgstr ""
 #. Tag: guimenu
 #: hdbk-reference.docbook:91
 #, no-c-format
-msgid "Settings"
+msgid "Window"
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:95
+#, no-c-format
+msgid ""
+"<guimenu> <inlinemediaobject><imageobject> <imagedata fileref=\"i_sidetree."
+"png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</guimenu> "
+"<guimenuitem>Save session</guimenuitem>"
 msgstr ""
 
 #. Tag: para
 #: hdbk-reference.docbook:99
+#, no-c-format
+msgid ""
+"<action>Directly saves the current session</action>. This will open a "
+"context menu where you can select an existing session to save to. It will be "
+"overwritten with your current session. See the next item on how to save to a "
+"new session."
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:105
+#, no-c-format
+msgid ""
+"<shortcut><keycombo action=\"simul\">&Alt;&Ctrl;<keycap>S</keycap></"
+"keycombo></shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata "
+"fileref=\"i_sidetree.png\" format=\"PNG\"/></imageobject></"
+"inlinemediaobject> Window</guimenu> <guimenuitem>Save as new Session</"
+"guimenuitem>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:110
+#, no-c-format
+msgid ""
+"<action>Saves the current session under a new name</action>. This will ask "
+"for a new name to save the session to."
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:115
+#, no-c-format
+msgid ""
+"<guimenu> <inlinemediaobject><imageobject> <imagedata fileref=\"i_sidetree."
+"png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</guimenu> "
+"<guimenuitem>Load session</guimenuitem>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:119
+#, no-c-format
+msgid ""
+"<action>Loads an existing session</action>. This will open a context menu "
+"where you can select an existing session to load."
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:124
+#, no-c-format
+msgid ""
+"<guimenu> <inlinemediaobject><imageobject> <imagedata fileref=\"i_sidetree."
+"png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</guimenu> "
+"<guimenuitem>Delete session</guimenuitem>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:128
+#, no-c-format
+msgid ""
+"<action>Deletes an existing session</action>. This will open a context menu "
+"where you can select an existing session that should be deleted."
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:133
+#, no-c-format
+msgid ""
+"<shortcut><keycombo action=\"simul\">&Ctrl;&Shift;<keycap>F</keycap></"
+"keycombo></shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata "
+"fileref=\"i_fullscreen.png\" format=\"PNG\"/></imageobject></"
+"inlinemediaobject> Window</guimenu> <guimenuitem>Fullscreen Mode</"
+"guimenuitem>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:138
+#, no-c-format
+msgid ""
+"<action>Toggles fullscreen mode</action>. Here you can turn fullscreen mode "
+"on or off. In fullscreen mode, &bibletime; will expand to the full size of "
+"your monitor screen, using as much space as possible."
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:144
+#, no-c-format
+msgid ""
+"<guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
+"\"i_cascade_auto.png\" format=\"PNG\"/></imageobject></inlinemediaobject> "
+"Window</guimenu> <guimenuitem>Arrangement mode</guimenuitem>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:148
+#, no-c-format
+msgid ""
+"<action>Controls the basic window arrangement behaviour</action>. In the "
+"opening context menu, you can either specify that you want to take care of "
+"the window arrangement yourself (Manual mode) or have &bibletime; handle it "
+"for you (Automatical modes, just try them out!)."
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:155
+#, no-c-format
+msgid ""
+"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>G</keycap></keycombo></"
+"shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
+"\"i_tile.png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</"
+"guimenu> <guimenuitem>Tile vertically</guimenuitem>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:160
+#, no-c-format
+msgid "<action>Tiles all open read windows vertically</action>."
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:164
+#, no-c-format
+msgid ""
+"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>H</keycap></keycombo></"
+"shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
+"\"i_tile.png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</"
+"guimenu> <guimenuitem>Tile horizontally</guimenuitem>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:169
+#, no-c-format
+msgid "<action>Tiles all open windows horizontally</action>."
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:173
+#, no-c-format
+msgid ""
+"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>J</keycap></keycombo></"
+"shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
+"\"i_cascade.png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</"
+"guimenu> <guimenuitem>Cascade</guimenuitem>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:178
+#, no-c-format
+msgid "<action>Cascades all open windows</action>."
+msgstr ""
+
+#. Tag: menuchoice
+#: hdbk-reference.docbook:182
+#, no-c-format
+msgid ""
+"<shortcut><keycombo action=\"simul\">&Alt;&Ctrl;<keycap>W</keycap></"
+"keycombo></shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata "
+"fileref=\"i_fileclose.png\" format=\"PNG\"/></imageobject></"
+"inlinemediaobject> Window</guimenu> <guimenuitem>Close all</guimenuitem>"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:187
+#, no-c-format
+msgid "<action>Closes all open windows</action>."
+msgstr ""
+
+#. Tag: guimenu
+#: hdbk-reference.docbook:193
+#, no-c-format
+msgid "Settings"
+msgstr ""
+
+#. Tag: para
+#: hdbk-reference.docbook:201
 #, no-c-format
 msgid ""
 "<action>Opens a dialog where you can customize &bibletime;'s toolbar</"
@@ -1679,7 +1860,7 @@ msgid ""
 msgstr ""
 
 #. Tag: menuchoice
-#: hdbk-reference.docbook:106
+#: hdbk-reference.docbook:208
 #, no-c-format
 msgid ""
 "<guimenu> <inlinemediaobject><imageobject> <imagedata fileref=\"i_configure."
@@ -1688,7 +1869,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:110
+#: hdbk-reference.docbook:212
 #, no-c-format
 msgid ""
 "<action>Opens &bibletime;'s main configuration dialog</action>. You can "
@@ -1698,7 +1879,7 @@ msgid ""
 msgstr ""
 
 #. Tag: menuchoice
-#: hdbk-reference.docbook:117
+#: hdbk-reference.docbook:219
 #, no-c-format
 msgid ""
 "<shortcut><keycombo action=\"simul\"><keycap>F4</keycap></keycombo></"
@@ -1708,7 +1889,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:122
+#: hdbk-reference.docbook:224
 #, no-c-format
 msgid ""
 "<action>Opens a dialog where you can change your Sword configuration and "
@@ -1717,209 +1898,25 @@ msgid ""
 msgstr ""
 
 #. Tag: guimenu
-#: hdbk-reference.docbook:131
-#, no-c-format
-msgid "Window"
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:135
-#, no-c-format
-msgid ""
-"<guimenu> <inlinemediaobject><imageobject> <imagedata fileref=\"i_sidetree."
-"png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</guimenu> "
-"<guimenuitem>Save session</guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:139
-#, no-c-format
-msgid ""
-"<action>Directly saves the current session</action>. This will open a "
-"context menu where you can select an existing session to save to. It will be "
-"overwritten with your current session. See the next item on how to save to a "
-"new session."
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:145
-#, no-c-format
-msgid ""
-"<shortcut><keycombo action=\"simul\">&Alt;&Ctrl;<keycap>S</keycap></"
-"keycombo></shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata "
-"fileref=\"i_sidetree.png\" format=\"PNG\"/></imageobject></"
-"inlinemediaobject> Window</guimenu> <guimenuitem>Save as new Session</"
-"guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:150
-#, no-c-format
-msgid ""
-"<action>Saves the current session under a new name</action>. This will ask "
-"for a new name to save the session to."
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:155
-#, no-c-format
-msgid ""
-"<guimenu> <inlinemediaobject><imageobject> <imagedata fileref=\"i_sidetree."
-"png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</guimenu> "
-"<guimenuitem>Load session</guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:159
-#, no-c-format
-msgid ""
-"<action>Loads an existing session</action>. This will open a context menu "
-"where you can select an existing session to load."
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:164
-#, no-c-format
-msgid ""
-"<guimenu> <inlinemediaobject><imageobject> <imagedata fileref=\"i_sidetree."
-"png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</guimenu> "
-"<guimenuitem>Delete session</guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:168
-#, no-c-format
-msgid ""
-"<action>Deletes an existing session</action>. This will open a context menu "
-"where you can select an existing session to load."
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:173
-#, no-c-format
-msgid ""
-"<shortcut><keycombo action=\"simul\">&Ctrl;&Shift;<keycap>F</keycap></"
-"keycombo></shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata "
-"fileref=\"i_fullscreen.png\" format=\"PNG\"/></imageobject></"
-"inlinemediaobject> Window</guimenu> <guimenuitem>Fullscreen Mode</"
-"guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:178
-#, no-c-format
-msgid ""
-"<action>Toggles fullscreen mode</action>. Here you can turn fullscreen mode "
-"on or off. In fullscreen mode, &bibletime; will expand to the full size of "
-"your monitor screen, using as much space as possible."
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:184
-#, no-c-format
-msgid ""
-"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>A</keycap></keycombo></"
-"shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
-"\"i_cascade.png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</"
-"guimenu> <guimenuitem>Cascade</guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:189
-#, no-c-format
-msgid "<action>Cascades all open read windows</action>."
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:193
-#, no-c-format
-msgid ""
-"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>T</keycap></keycombo></"
-"shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
-"\"i_tile.png\" format=\"PNG\"/></imageobject></inlinemediaobject> Window</"
-"guimenu> <guimenuitem>Tile</guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:198
-#, no-c-format
-msgid "<action>Tiles all open read windows</action>."
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:202
-#, no-c-format
-msgid ""
-"<shortcut><keycombo action=\"simul\">&Alt;&Ctrl;<keycap>A</keycap></"
-"keycombo></shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata "
-"fileref=\"i_cascade_auto.png\" format=\"PNG\"/></imageobject></"
-"inlinemediaobject> Window</guimenu> <guimenuitem>Auto cascade</guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:207
-#, no-c-format
-msgid ""
-"<action>Automatically cascades all open read windows</action>. If you enable "
-"this setting, &bibletime; will automatically cascade all read windows that "
-"you open."
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:212
-#, no-c-format
-msgid ""
-"<shortcut><keycombo action=\"simul\">&Alt;&Ctrl;<keycap>T</keycap></"
-"keycombo></shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata "
-"fileref=\"i_tile_auto.png\" format=\"PNG\"/></imageobject></"
-"inlinemediaobject> Window</guimenu> <guimenuitem>Auto tile</guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:217
-#, no-c-format
-msgid ""
-"<action>Automatically tiles all open read windows</action>. If you enable "
-"this setting, &bibletime; will automatically tile all read windows that you "
-"open."
-msgstr ""
-
-#. Tag: menuchoice
-#: hdbk-reference.docbook:222
-#, no-c-format
-msgid ""
-"<shortcut><keycombo action=\"simul\">&Alt;&Ctrl;<keycap>W</keycap></"
-"keycombo></shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata "
-"fileref=\"i_fileclose.png\" format=\"PNG\"/></imageobject></"
-"inlinemediaobject> Window</guimenu> <guimenuitem>Close all</guimenuitem>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:227
-#, no-c-format
-msgid "<action>Closes all open read windows</action>."
-msgstr ""
-
-#. Tag: guimenu
-#: hdbk-reference.docbook:233
+#: hdbk-reference.docbook:234
 #, no-c-format
 msgid "Help"
 msgstr ""
 
 #. Tag: sect2
-#: hdbk-reference.docbook:233
+#: hdbk-reference.docbook:234
 #, no-c-format
 msgid "&help.menu.documentation;"
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:241
+#: hdbk-reference.docbook:242
 #, no-c-format
 msgid "Toolbar reference"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:243
+#: hdbk-reference.docbook:244
 #, no-c-format
 msgid ""
 "Please review <link linkend=\"hdbk-reference-menus\">the preceding section</"
@@ -1929,7 +1926,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:247
+#: hdbk-reference.docbook:248
 #, no-c-format
 msgid ""
 "You can adapt the toolbar to your needs. Please use the following entry in "
@@ -1942,13 +1939,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:262
+#: hdbk-reference.docbook:263
 #, no-c-format
 msgid "HotKeys index"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:264
+#: hdbk-reference.docbook:265
 #, no-c-format
 msgid ""
 "This is index of all hotkeys and their corresponding description in the "
@@ -1959,40 +1956,125 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:276
+#: hdbk-reference.docbook:277
 #, no-c-format
 msgid "Hotkey"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:277
+#: hdbk-reference.docbook:278
 #, no-c-format
 msgid "Description"
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:282
+#: hdbk-reference.docbook:283
 #, no-c-format
-msgid "&Alt;&Ctrl;<keycap>A</keycap>"
+msgid "&Alt;<keycap>Left</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:283
+#: hdbk-reference.docbook:284
 #, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-window-autocascade\"><menuchoice> "
-"<guimenu>Window</guimenu> <guimenuitem>Auto cascade</guimenuitem></"
-"menuchoice></link> equivalent; toggle automatic window cascading."
+msgid "Moves back in the history of read windows."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:289
+#: hdbk-reference.docbook:287
+#, no-c-format
+msgid "&Alt;<keycap>Right</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:288
+#, no-c-format
+msgid "Moves forward in the history of read windows."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:291
+#, no-c-format
+msgid "&Alt;&Ctrl;<keycap>F</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:292
+#, no-c-format
+msgid ""
+"<link linkend=\"hdbk-reference-menus-search-defaultbible\"><menuchoice> "
+"<guimenu>Search</guimenu> <guimenuitem>Search in default bible</"
+"guimenuitem></menuchoice></link> equivalent; opens the search dialog to "
+"search in the default bible."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:298
+#, no-c-format
+msgid "&Alt;&Ctrl;<keycap>G</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:299
+#, no-c-format
+msgid ""
+"<menuchoice><guimenu>Window</guimenu><guimenuitem>Arrangement mode</"
+"guimenuitem> <guimenuitem>Auto-tile vertically</guimenuitem></menuchoice> "
+"equivalent; toggle automatic window tiling."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:304
+#, no-c-format
+msgid "&Alt;&Ctrl;<keycap>H</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:305
+#, no-c-format
+msgid ""
+"<menuchoice><guimenu>Window</guimenu><guimenuitem>Arrangement mode</"
+"guimenuitem> <guimenuitem>Auto-tile horizontally</guimenuitem></menuchoice> "
+"equivalent; toggle automatic window tiling."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:310
+#, no-c-format
+msgid "&Alt;&Ctrl;<keycap>J</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:311
+#, no-c-format
+msgid ""
+"<menuchoice><guimenu>Window</guimenu><guimenuitem>Arrangement mode</"
+"guimenuitem> <guimenuitem>Auto-cascade</guimenuitem></menuchoice> "
+"equivalent; toggle automatic window cascading."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:316
+#, no-c-format
+msgid "&Alt;&Ctrl;<keycap>M</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:317
+#, no-c-format
+msgid ""
+"<menuchoice><guimenu>Window</guimenu><guimenuitem>Arrangement mode</"
+"guimenuitem> <guimenuitem>Manual mode</guimenuitem></menuchoice> equivalent; "
+"toggle manual window placement."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:322
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>S</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:290
+#: hdbk-reference.docbook:323
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-savenewsession\"><menuchoice> "
@@ -2001,28 +2083,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:296
-#, no-c-format
-msgid "&Alt;&Ctrl;<keycap>T</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:297
-#, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-window-autotile\"><menuchoice> "
-"<guimenu>Window</guimenu> <guimenuitem>Auto tile</guimenuitem></menuchoice></"
-"link> equivalent; toggle automatic window tiling."
-msgstr ""
-
-#. Tag: keycombo
-#: hdbk-reference.docbook:303
+#: hdbk-reference.docbook:329
 #, no-c-format
 msgid "&Alt;&Ctrl;<keycap>W</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:304
+#: hdbk-reference.docbook:330
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-closeall\"><menuchoice> "
@@ -2030,114 +2097,74 @@ msgid ""
 "link> equivalent; closes all open windows."
 msgstr ""
 
-#. Tag: keycap
-#: hdbk-reference.docbook:310
+#. Tag: keycombo
+#: hdbk-reference.docbook:336
 #, no-c-format
-msgid "<keycap>F1</keycap>"
+msgid "&Ctrl;<keycap>-</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:311
+#: hdbk-reference.docbook:337
 #, no-c-format
-msgid ""
-"<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Handbook</guimenuitem></"
-"menuchoice> equivalent; opens the handbook."
-msgstr ""
-
-#. Tag: keycap
-#: hdbk-reference.docbook:317
-#, no-c-format
-msgid "<keycap>F2</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:318
-#, no-c-format
-msgid ""
-"<menuchoice> <guimenu>Help</guimenu> <guimenuitem>BibleStudy Howto</"
-"guimenuitem></menuchoice> equivalent; opens the BibleStudy Howto."
-msgstr ""
-
-#. Tag: keycap
-#: hdbk-reference.docbook:324
-#, no-c-format
-msgid "<keycap>F3</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:325
-#, no-c-format
-msgid ""
-"<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Daily tip</guimenuitem></"
-"menuchoice> equivalent; opens the tip of the day."
-msgstr ""
-
-#. Tag: keycap
-#: hdbk-reference.docbook:332
-#, no-c-format
-msgid "<keycap>F4</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:333
-#, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-settings-bookshelf_manager"
-"\"><menuchoice> <guimenu>Settings</guimenu> <guimenuitem>Configure Sword</"
-"guimenuitem></menuchoice></link> equivalent; opens the Sword configuration "
-"dialog."
-msgstr ""
-
-#. Tag: keycap
-#: hdbk-reference.docbook:339
-#, no-c-format
-msgid "<keycap>F8</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:340
-#, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-view-showbookshelf\"><menuchoice> "
-"<guimenu>View</guimenu> <guimenuitem>Show main index</guimenuitem></"
-"menuchoice></link> equivalent; toggles display of the main index."
-msgstr ""
-
-#. Tag: keycap
-#: hdbk-reference.docbook:346
-#, no-c-format
-msgid "<keycap>F9</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:347
-#, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-view-showmag\"><menuchoice> "
-"<guimenu>View</guimenu> <guimenuitem>Show info display</guimenuitem></"
-"menuchoice></link> equivalent; toggles display of the info display."
+msgid "Zoom out. This decreases the font size of read windows."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:353
+#: hdbk-reference.docbook:340
 #, no-c-format
-msgid "&Shift;<keycap>F1</keycap>"
+msgid "&Ctrl;<keycap>+</keycap>"
 msgstr ""
 
 #. Tag: entry
+#: hdbk-reference.docbook:341
+#, no-c-format
+msgid "Zoom in. This increases the font size of read windows."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:344
+#, no-c-format
+msgid "&Ctrl;<keycap>A</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:345
+#, no-c-format
+msgid "Select all. This selects all text in read windows."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:348
+#, no-c-format
+msgid "&Ctrl;<keycap>C</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:349
+#, no-c-format
+msgid "Copy. This copies the selected text to the clipboard."
+msgstr ""
+
+#. Tag: keycombo
 #: hdbk-reference.docbook:354
 #, no-c-format
+msgid "&Ctrl;<keycap>F</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:355
+#, no-c-format
 msgid ""
-"<menuchoice> <guimenu>Help</guimenu> <guimenuitem>What's this?</"
-"guimenuitem></menuchoice> equivalent; changes the mouse cursor to a help "
-"arrow. Click on any element that you want more information about and a "
-"tooltip will appear."
+"<link linkend=\"hdbk-reference-menus-search-openworks\"><menuchoice> "
+"<guimenu>Search</guimenu> <guimenuitem>Search in open work(s)</guimenuitem></"
+"menuchoice></link> equivalent; opens the search dialog to search in all "
+"currently opened works."
 msgstr ""
 
 #. Tag: keycombo
 #: hdbk-reference.docbook:361
 #, no-c-format
-msgid "&Ctrl;<keycap>A</keycap>"
+msgid "&Ctrl;<keycap>J</keycap>"
 msgstr ""
 
 #. Tag: entry
@@ -2152,84 +2179,82 @@ msgstr ""
 #. Tag: keycombo
 #: hdbk-reference.docbook:368
 #, no-c-format
-msgid "&Ctrl;<keycap>B</keycap>"
+msgid "&Ctrl;<keycap>G</keycap>"
 msgstr ""
 
 #. Tag: entry
 #: hdbk-reference.docbook:369
 #, no-c-format
-msgid "Moves a bible or commentary read window to the next book."
-msgstr ""
-
-#. Tag: keycombo
-#: hdbk-reference.docbook:372
-#, no-c-format
-msgid "&Ctrl;<keycap>C</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:373
-#, no-c-format
-msgid "Copies selected text."
-msgstr ""
-
-#. Tag: keycombo
-#: hdbk-reference.docbook:376
-#, no-c-format
-msgid "&Ctrl;<keycap>F</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:377
-#, no-c-format
 msgid ""
-"<link linkend=\"hdbk-reference-menus-search-defaultbible\"><menuchoice> "
-"<guimenu>Search</guimenu> <guimenuitem>Search in default bible</"
-"guimenuitem></menuchoice></link> equivalent; opens the search dialog to "
-"search in the default bible."
+"<link linkend=\"hdbk-reference-menus-window-tile-vertically\"><menuchoice> "
+"<guimenu>Window</guimenu> <guimenuitem>Tile vertically</guimenuitem></"
+"menuchoice></link> equivalent; tiles all open windows vertically."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:383
-#, no-c-format
-msgid "&Ctrl;<keycap>G</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:384
-#, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-search-openworks\"><menuchoice> "
-"<guimenu>Search</guimenu> <guimenuitem>Search in open work(s)</guimenuitem></"
-"menuchoice></link> equivalent; opens the search dialog to search in all "
-"currently opened works."
-msgstr ""
-
-#. Tag: keycombo
-#: hdbk-reference.docbook:390
+#: hdbk-reference.docbook:375
 #, no-c-format
 msgid "&Ctrl;<keycap>H</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:391
+#: hdbk-reference.docbook:376
+#, no-c-format
+msgid ""
+"<link linkend=\"hdbk-reference-menus-window-tile-horizontally\"><menuchoice> "
+"<guimenu>Window</guimenu> <guimenuitem>Tile horizontally</guimenuitem></"
+"menuchoice></link> equivalent; tiles all open windows horizontally."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:382
+#, no-c-format
+msgid "&Ctrl;<keycap>Q</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:383
+#, no-c-format
+msgid ""
+"<link linkend=\"hdbk-reference-menus-file-quit\"><menuchoice> <guimenu>File</"
+"guimenu> <guimenuitem>Quit</guimenuitem></menuchoice></link> equivalent; "
+"closes &bibletime;."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:389
+#, no-c-format
+msgid "&Ctrl;<keycap>W</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:390
+#, no-c-format
+msgid "Closes the current window."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:393
+#, no-c-format
+msgid "&Ctrl;<keycap>X</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:394
 #, no-c-format
 msgid "Moves a bible or commentary read window to the next chapter."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:394
+#: hdbk-reference.docbook:397
 #, no-c-format
-msgid "&Ctrl;<keycap>T</keycap>"
+msgid "&Ctrl;<keycap>Y</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:395
+#: hdbk-reference.docbook:398
 #, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-window-tile\"><menuchoice> "
-"<guimenu>Window</guimenu> <guimenuitem>Tile</guimenuitem></menuchoice></"
-"link> equivalent; tiles all open windows."
+msgid "Moves a bible or commentary read window to the next book."
 msgstr ""
 
 #. Tag: keycombo
@@ -2245,64 +2270,151 @@ msgid "Moves a read window to the next verse or entry."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:405
-#, no-c-format
-msgid "&Ctrl;&Shift;<keycap>B</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:406
-#, no-c-format
-msgid "Moves a bible or commentary read window to the previous book."
-msgstr ""
-
-#. Tag: keycombo
-#: hdbk-reference.docbook:409
+#: hdbk-reference.docbook:407
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>F</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:410
+#: hdbk-reference.docbook:408
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-fullscreen\"><menuchoice> "
-"<guimenu>View</guimenu> <guimenuitem>Fullscreen Mode</guimenuitem></"
-"menuchoice></link> equivalent; toggles fullscreen display mode."
+"<guimenu>Window</guimenu> <guimenuitem>Fullscreen mode</guimenuitem></"
+"menuchoice></link> equivalent; toggles fullscreen mode."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:416
+#: hdbk-reference.docbook:414
 #, no-c-format
-msgid "&Ctrl;&Shift;<keycap>H</keycap>"
+msgid "&Ctrl;&Shift;<keycap>X</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:417
+#: hdbk-reference.docbook:415
 #, no-c-format
 msgid "Moves a bible or commentary read window to the previous chapter."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:420
+#: hdbk-reference.docbook:418
+#, no-c-format
+msgid "&Ctrl;&Shift;<keycap>Y</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:419
+#, no-c-format
+msgid "Moves a bible or commentary read window to the previous book."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:422
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>V</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:421
+#: hdbk-reference.docbook:423
 #, no-c-format
 msgid "Moves a read window to the previous verse or entry."
 msgstr ""
 
+#. Tag: keycap
+#: hdbk-reference.docbook:427
+#, no-c-format
+msgid "<keycap>F1</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:428
+#, no-c-format
+msgid ""
+"<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Handbook</guimenuitem></"
+"menuchoice> equivalent; opens the handbook."
+msgstr ""
+
+#. Tag: keycap
+#: hdbk-reference.docbook:434
+#, no-c-format
+msgid "<keycap>F2</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:435
+#, no-c-format
+msgid ""
+"<menuchoice> <guimenu>Help</guimenu> <guimenuitem>BibleStudy Howto</"
+"guimenuitem></menuchoice> equivalent; opens the BibleStudy Howto."
+msgstr ""
+
+#. Tag: keycap
+#: hdbk-reference.docbook:441
+#, no-c-format
+msgid "<keycap>F3</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:442
+#, no-c-format
+msgid ""
+"<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Daily tip</guimenuitem></"
+"menuchoice> equivalent; opens the tip of the day."
+msgstr ""
+
+#. Tag: keycap
+#: hdbk-reference.docbook:448
+#, no-c-format
+msgid "<keycap>F4</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:449
+#, no-c-format
+msgid ""
+"<link linkend=\"hdbk-reference-menus-settings-bookshelf_manager"
+"\"><menuchoice> <guimenu>Settings</guimenu> <guimenuitem>Bookshelf Manager</"
+"guimenuitem></menuchoice></link> equivalent; opens the Bookshelf Manager."
+msgstr ""
+
+#. Tag: keycap
+#: hdbk-reference.docbook:455
+#, no-c-format
+msgid "<keycap>F8</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:456
+#, no-c-format
+msgid ""
+"<link linkend=\"hdbk-reference-menus-view-showbookshelf\"><menuchoice> "
+"<guimenu>View</guimenu> <guimenuitem>Show Bookshelf</guimenuitem></"
+"menuchoice></link> equivalent; toggles display of the Bookshelf."
+msgstr ""
+
+#. Tag: keycap
+#: hdbk-reference.docbook:462
+#, no-c-format
+msgid "<keycap>F9</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:463
+#, no-c-format
+msgid ""
+"<link linkend=\"hdbk-reference-menus-view-showmag\"><menuchoice> "
+"<guimenu>View</guimenu> <guimenuitem>Show mag</guimenuitem></menuchoice></"
+"link> equivalent; toggles display of the mag(nifying glass)."
+msgstr ""
+
 #. Tag: title
-#: hdbk-reference.docbook:431
+#: hdbk-reference.docbook:477
 #, no-c-format
 msgid "GCC Regular Expression Reference"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:436
+#: hdbk-reference.docbook:482
 #, no-c-format
 msgid ""
 "Regular expression searches provide a way to do simple or complex searches "
@@ -2320,7 +2432,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:452
+#: hdbk-reference.docbook:498
 #, no-c-format
 msgid ""
 "The power of Regular Expressions lies in the patterns (or templates) used to "
@@ -2332,7 +2444,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:461
+#: hdbk-reference.docbook:507
 #, no-c-format
 msgid ""
 "Example: the pattern \"i. love\\.\" will find sentences that end with "
@@ -2345,13 +2457,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:473
+#: hdbk-reference.docbook:519
 #, no-c-format
 msgid "Special characters"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:476
+#: hdbk-reference.docbook:522
 #, no-c-format
 msgid ""
 ". The period matches any character. See <link linkend=\"period\">details</"
@@ -2359,7 +2471,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:478
+#: hdbk-reference.docbook:524
 #, no-c-format
 msgid ""
 "* The asterisk matches 0 or more characters of the preceding: set, character "
@@ -2367,7 +2479,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:481
+#: hdbk-reference.docbook:527
 #, no-c-format
 msgid ""
 "+ The plus sign matches 1 or more characters of the preceding: set, "
@@ -2375,7 +2487,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:484
+#: hdbk-reference.docbook:530
 #, no-c-format
 msgid ""
 "? The question mark matches 0 or 1 character of the preceding: set, "
@@ -2384,7 +2496,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:487
+#: hdbk-reference.docbook:533
 #, no-c-format
 msgid ""
 "[ ] Square brackets match any one of the characters specified inside [ ]. "
@@ -2392,7 +2504,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:489
+#: hdbk-reference.docbook:535
 #, no-c-format
 msgid ""
 "^ A caret as the first character inside [ ] means NOT. See <link linkend="
@@ -2400,7 +2512,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:491
+#: hdbk-reference.docbook:537
 #, no-c-format
 msgid ""
 "^ A caret beginning of a pattern anchors the beginning of a line. See <link "
@@ -2408,7 +2520,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:493
+#: hdbk-reference.docbook:539
 #, no-c-format
 msgid ""
 "$ A dollar at the end of a pattern anchors the end of a line. See <link "
@@ -2416,14 +2528,14 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:495
+#: hdbk-reference.docbook:541
 #, no-c-format
 msgid ""
 "| A vertical bar means logical OR. See <link linkend=\"bar\">details</link>"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:497
+#: hdbk-reference.docbook:543
 #, no-c-format
 msgid ""
 "( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</"
@@ -2431,7 +2543,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:499
+#: hdbk-reference.docbook:545
 #, no-c-format
 msgid ""
 "\\ A backslash can be used prior to any special character to match that "
@@ -2439,7 +2551,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:501
+#: hdbk-reference.docbook:547
 #, no-c-format
 msgid ""
 "\\ A backslash can be used prior to an ordinary character to make it a "
@@ -2447,13 +2559,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:506
+#: hdbk-reference.docbook:552
 #, no-c-format
 msgid "The period ."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:508
+#: hdbk-reference.docbook:554
 #, no-c-format
 msgid ""
 "The Period \".\" will match any single character even a space or other non-"
@@ -2470,13 +2582,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:521
+#: hdbk-reference.docbook:567
 #, no-c-format
 msgid "The asterisk *"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:523
+#: hdbk-reference.docbook:569
 #, no-c-format
 msgid ""
 "The asterisk matches zero or more characters of the preceding: set, "
@@ -2489,13 +2601,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:535
+#: hdbk-reference.docbook:581
 #, no-c-format
 msgid "The plus sign +"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:536
+#: hdbk-reference.docbook:582
 #, no-c-format
 msgid ""
 "The Plus Sign matches one or more characters of the preceding: set, "
@@ -2507,13 +2619,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:545
+#: hdbk-reference.docbook:591
 #, no-c-format
 msgid "The question mark ?"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:546
+#: hdbk-reference.docbook:592
 #, no-c-format
 msgid ""
 "The Question Mark matches zero or one character of the preceding: set, "
@@ -2524,13 +2636,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:554
+#: hdbk-reference.docbook:600
 #, no-c-format
 msgid "The square brackets [ ]"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:555
+#: hdbk-reference.docbook:601
 #, no-c-format
 msgid ""
 "The Square Brackets enclose a set of characters that can match. The period, "
@@ -2551,13 +2663,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:576
+#: hdbk-reference.docbook:622
 #, no-c-format
 msgid "The caret first in square brackets [^xxx]"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:577
+#: hdbk-reference.docbook:623
 #, no-c-format
 msgid ""
 "If the Caret is the first character after the left bracket it means NOT. "
@@ -2567,13 +2679,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:584
+#: hdbk-reference.docbook:630
 #, no-c-format
 msgid "The caret as start of line anchor ^xxx"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:585
+#: hdbk-reference.docbook:631
 #, no-c-format
 msgid ""
 "If the Caret is the first character in a pattern it anchors the pattern to "
@@ -2587,7 +2699,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:595
+#: hdbk-reference.docbook:641
 #, no-c-format
 msgid ""
 "(Because of unfiltered formatting characters in some texts, this feature "
@@ -2597,13 +2709,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:603
+#: hdbk-reference.docbook:649
 #, no-c-format
 msgid "The dollar sign as end of line anchor xxx$"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:604
+#: hdbk-reference.docbook:650
 #, no-c-format
 msgid ""
 "If the Dollar Sign is the last character in a pattern it anchors the pattern "
@@ -2612,7 +2724,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:610
+#: hdbk-reference.docbook:656
 #, no-c-format
 msgid ""
 "(If you encounter the problem with unfiltered formatting characters that we "
@@ -2620,13 +2732,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:616
+#: hdbk-reference.docbook:662
 #, no-c-format
 msgid "The vertical bar |"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:617
+#: hdbk-reference.docbook:663
 #, no-c-format
 msgid ""
 "The Vertical Bar between patterns means OR. <emphasis>John|Peter</emphasis> "
@@ -2638,25 +2750,25 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:626
+#: hdbk-reference.docbook:672
 #, no-c-format
 msgid "The parentheses ( )"
 msgstr ""
 
 #. Tag: emphasis
-#: hdbk-reference.docbook:627
+#: hdbk-reference.docbook:673
 #, no-c-format
 msgid "The use of Parentheses ( ) is not supported!"
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:632
+#: hdbk-reference.docbook:678
 #, no-c-format
 msgid "The backslash prior to a special character \\*"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:633
+#: hdbk-reference.docbook:679
 #, no-c-format
 msgid ""
 "The Backslash prior to a special character indicates that the character is "
@@ -2666,13 +2778,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:641
+#: hdbk-reference.docbook:687
 #, no-c-format
 msgid "The backslash prior to an ordinary character \\s"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:643
+#: hdbk-reference.docbook:689
 #, no-c-format
 msgid ""
 "The Backslash prior to an ordinary character indicates that the character is "
@@ -2680,7 +2792,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:648
+#: hdbk-reference.docbook:694
 #, no-c-format
 msgid ""
 "\\b if used outside [ ] means word boundary. If used inside [ ], it means "
@@ -2690,7 +2802,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:652
+#: hdbk-reference.docbook:698
 #, no-c-format
 msgid ""
 "\\B means non-word boundary. <emphasis>\\Brighteous\\B</emphasis> matches "
@@ -2700,37 +2812,37 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:656
+#: hdbk-reference.docbook:702
 #, no-c-format
 msgid "\\d means digit; same as [0-9]."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:657
+#: hdbk-reference.docbook:703
 #, no-c-format
 msgid "\\D means non-digit, same as [^0-9]."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:658
+#: hdbk-reference.docbook:704
 #, no-c-format
 msgid "\\s means whitespace character."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:659
+#: hdbk-reference.docbook:705
 #, no-c-format
 msgid "\\S means no whitespace character."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:660
+#: hdbk-reference.docbook:706
 #, no-c-format
 msgid "\\w means alphanumeric; same as [a-zA-Z0-9_]."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:661
+#: hdbk-reference.docbook:707
 #, no-c-format
 msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
 msgstr ""

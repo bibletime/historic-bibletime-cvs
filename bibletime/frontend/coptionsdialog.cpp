@@ -203,14 +203,14 @@ void COptionsDialog::initLanguages(){
 	
 	{ //Sword locales
 		layout->addWidget(
-			CToolClass::explanationLabel(page, i18n("Specify a language for biblical booknames"),
+			CToolClass::explanationLabel(page, i18n("Specify a language for names of Bible books"),
 				i18n("Sword has a number of locales available which can be used to internationalize the \
-	booknames of the bible. You can specify which locale to use. If you want to \
+	names of books of the Bible. You can specify which locale to use. If you want to \
 	create a new locale, see http://www.crosswire.org/sword/develop for details."))
 		);
 	
 		m_settings.fonts.swordLocaleCombo = new QComboBox(page);
-		QLabel* label = new QLabel(m_settings.fonts.swordLocaleCombo, i18n("Language for biblical booknames"), page);
+		QLabel* label = new QLabel(m_settings.fonts.swordLocaleCombo, i18n("Language for names of Bible books"), page);
 		QToolTip::add(m_settings.fonts.swordLocaleCombo, CResMgr::settings::sword::general::language::tooltip);
 
 		
@@ -228,7 +228,7 @@ void COptionsDialog::initLanguages(){
 // 		locales.push_back(SWBuf("en_US"));
 		
 		for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
-			qWarning("working on %s", (*it).c_str());
+// 			qWarning("working on %s", (*it).c_str());
 			const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev(
 				sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getName()
 			);
@@ -790,7 +790,7 @@ void COptionsDialog::saveSword(){
 				moduleDescription = m_settings.swords.standardGreekMorph->currentText();
 				break;
 			default:
-				Q_ASSERT("Unhandled module type.");
+				qWarning("Unhandled module type.");
 		};
 		
 		CSwordModuleInfo* const module = backend()->findModuleByDescription(moduleDescription);
@@ -865,11 +865,6 @@ void COptionsDialog::updateStylePreview() {
 	
 	const QString styleName = m_settings.displayStyle.styleChooser->currentText();
 	
-	CSwordModuleInfo* const module = CBTConfig::get(CBTConfig::standardBible);
-	if (!module) {
-		return; //WARNING: return already here!
-	}
-		
 	CTextRendering::KeyTree tree;
 
  	CTextRendering::KeyTreeItem::Settings settings;
@@ -877,7 +872,7 @@ void COptionsDialog::updateStylePreview() {
  	
  	tree.append( new CTextRendering::KeyTreeItem(
  		QString("\n<span class=\"entryname\"><a name=\"John316\" href=\"sword://Bible/WEB/John 3:16\">16</a></span>%1")
- 			.arg(i18n("John 3:16", "For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.")),
+ 			.arg(i18n("For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.")),
  		settings));
  		
 	tree.append( new CTextRendering::KeyTreeItem(

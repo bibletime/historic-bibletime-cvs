@@ -15,56 +15,57 @@
 	url="http://www.crosswire.org/sword/develop/index.jsp">
 	developers section</ulink> of the Sword Project, Crosswire Bible Society.</para>
 	
-	<sect2 id="hdbk-intro-works"><title>Available works</title>
+<sect2 id="hdbk-intro-works"><title>Available works</title>
+
 	<para>
 	Over 200 documents in 50 languages are available from the <ulink
 	url="http://www.crosswire.org">Crosswire Bible Society</ulink>. These include:
 
 	<variablelist>
-	<varlistentry>
-	<term>Bibles</term>
-	<listitem>
-	<para>
-	The full Bible text, with optional things like Strong's Numbers, headings and/or footnotes in the text. Bibles are available in many languages, and include not only modern versions, but also 
-	ancient texts like the Codex Leningradensis ("WLC", Hebrew), and the Septuagint ("LXX", Greek). This is the most advanced section in the library of the Sword project.
-	</para>
-	</listitem></varlistentry>
-
-	<varlistentry>
-	<term>Books</term>
-	<listitem>
-	<para>Books available include &quot;Imitation of Christ&quot;, &quot;Enuma Elish&quot;, and &quot;Josephus: The Complete Works&quot;
-	</para>
-	</listitem>
-	</varlistentry>
+		<varlistentry>
+		<term>Bibles</term>
+		<listitem>
+		<para>
+		The full Bible text, with optional things like Strong's Numbers, headings and/or footnotes in the text. Bibles are available in many languages, and include not only modern versions, but also 
+		ancient texts like the Codex Leningradensis ("WLC", Hebrew), and the Septuagint ("LXX", Greek). This is the most advanced section in the library of the Sword project.
+		</para>
+		</listitem></varlistentry>
+	
+		<varlistentry>
+		<term>Books</term>
+		<listitem>
+		<para>Books available include &quot;Imitation of Christ&quot;, &quot;Enuma Elish&quot;, and &quot;Josephus: The Complete Works&quot;
+		</para>
+		</listitem>
+		</varlistentry>
+			
+		<varlistentry>
+		<term>Commentaries</term>
+		<listitem>
+		<para>
+		Commentaries available include classics like John Wesley's "Notes on the Bible", Matthew Henry`s commentary and Luther's "Commentary on Galatians." With the <emphasis>Personal</emphasis> commentary you can <link linkend="hdbk-op-parts-desk-write">record your own personal notes</link> to sections of the Bible.
+		</para> 
+		</listitem>
+		</varlistentry>
+			
+		<varlistentry>
+		<term>Daily devotionals</term>
+		<listitem>
+		<para>Many people appreciate these daily portions from God's word. Available works include Daily Light on the Daily Path, and the Losungen.
+		</para>
+		</listitem>
+		</varlistentry>
+	
+		<varlistentry>
+		<term>Lexicons/Dictionaries</term>
+		<listitem>
+		<para>
+		Lexicons available include: Robinson's Morphological Analysis Codes,
+		Brown-Driver-Briggs Hebrew Lexicon and the International Standard Bible Encyclopedia. Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's Greek Bible Dictionary, Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Topical Bible.
+		</para>
+		</listitem>
+		</varlistentry>
 	</variablelist>
-		
-	<varlistentry>
-	<term>Commentaries</term>
-	<listitem>
-	<para>
-	Commentaries available include classics like John Wesley's "Notes on the Bible", Matthew Henry`s commentary and Luther's "Commentary on Galatians." With the <emphasis>Personal</emphasis> commentary you can <link linkend="hdbk-op-parts-desk-write">record your own personal notes</link> to sections of the Bible.
-	</para> 
-	</listitem>
-	</varlistentry>
-		
-	<varlistentry>
-	<term>Daily devotionals</term>
-	<listitem>
-	<para>Many people appreciate these daily portions from God's word. Available works include Daily Light on the Daily Path, and the Losungen.
-	</para>
-	</listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Lexicons/Dictionaries</term>
-	<listitem>
-	<para>
-	Lexicons available include: Robinson's Morphological Analysis Codes,
-	Brown-Driver-Briggs Hebrew Lexicon and the International Standard Bible Encyclopedia. Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's Greek Bible Dictionary, Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Topical Bible.
-	</para>
-	</listitem>
-	</varlistentry>
 
 	</para>
 </sect2>

@@ -15,10 +15,10 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 	<sect2 id="hdbk-config-bt-display"><title><guimenu>Display</guimenu></title>
 	
 		<para>The startup behavior can be customized. Select from the following options:
-		<itemizedlist>
-		<listitem>Show tip of the day</listitem>
-		<listitem>Show startup logo</listitem>
-		</itemizedlist>
+			<itemizedlist>
+				<listitem><para>Show tip of the day</para></listitem>
+				<listitem><para>Show startup logo</para></listitem>
+			</itemizedlist>
 		</para>
 		<para>Display templates define the rendering of text (colors, size etc.). Various built-in templates are available.
 		If you select one, you will see a preview on the right pane.</para>
@@ -71,11 +71,11 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 		<sect3 id="hdbk-config-bt-ob-font"><title>Obtaining Fonts</title>
 			<para>Fonts can be obtained from a number of sources:</para>
 			<itemizedlist>
-			<listitem>Your Linux distribution.</listitem>
-			<listitem>Your distribution's localization packages.</listitem>
-			<listitem>An existing <trademark class="registered">Microsoft Windows</trademark> installation on the same computer.</listitem>
-			<listitem>A font collection, such as are available from Adobe or Bitstream.</listitem>
-			<listitem>Online font collections.</listitem>
+			<listitem><para>Your Linux distribution.</para></listitem>
+			<listitem><para>Your distribution's localization packages.</para></listitem>
+			<listitem><para>An existing <trademark class="registered">Microsoft Windows</trademark> installation on the same computer.</para></listitem>
+			<listitem><para>A font collection, such as are available from Adobe or Bitstream.</para></listitem>
+			<listitem><para>Online font collections.</para></listitem>
 			</itemizedlist>
 	
 			<para>Unicode fonts support more characters than other fonts, and some of these fonts are
@@ -153,9 +153,13 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 	<variablelist>
 		<varlistentry>
 			<term><menuchoice>
-			<guimenu>	<inlinemediaobject><imageobject>
-			<imagedata fileref="i_configuretoolbars.png"	format="PNG"/></imageobject></inlinemediaobject>
-			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term> 
+			<guimenu>
+				<inlinemediaobject><imageobject>
+					<imagedata fileref="i_configuretoolbars.png" format="PNG"/></imageobject>
+				</inlinemediaobject>Settings
+			</guimenu>
+			<guimenuitem>Configure toolbars</guimenuitem></menuchoice></term> 
+			<listitem><para>Configure toolbars</para></listitem>
 		</varlistentry>
 	</variablelist>
 	</para>
@@ -167,7 +171,7 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 		<imagedata fileref="ss_configtoolbar.png" format="PNG"/>
 		</imageobject>
 		<textobject><phrase>Toolbar configuration dialog</phrase></textobject>
-		<caption>The Toolbar configuration dialog.</caption>
+		<caption><para>The Toolbar configuration dialog.</para></caption>
 	</mediaobject>
 	<para>Use the 4 buttons in the middle of the window to move buttons to the toolbar,
 	away from the toolbar or to sort them on the toolbar according to your preference.

@@ -368,11 +368,11 @@ void BibleTime::slotSearchDefaultBible() {
 }
 
 void BibleTime::openOnlineHelp_Handbook() {
-   kapp->invokeHelp("", "bibletime/handbook");
+   kapp->invokeHelp("", "bibletime/handbook/");
 }
 
 void BibleTime::openOnlineHelp_Howto() {
-  kapp->invokeHelp("", "bibletime/howto");
+  kapp->invokeHelp("", "bibletime/howto/");
 }
 
 /** Saves the current settings into the currently activatred profile. */

@@ -252,6 +252,7 @@
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_configuretoolbars.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term> 
+			<listitem><para>Configure toolbars</para></listitem>
 		</varlistentry>
 	</variablelist>
 	Please see <link linkend="hdbk-reference-menus-settings-toolbars">this section</link> for detailed instructions.

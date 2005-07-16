@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-01 18:46+0200\n"
+"POT-Creation-Date: 2005-07-16 13:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,103 +78,103 @@ msgstr ""
 msgid "Morph segmentation"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:368
+#: ../bibletime/backend/cswordmoduleinfo.cpp:369
 #: ../bibletime/util/ctoolclass.cpp:204
 msgid "Version"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:369
-#: ../bibletime/backend/cswordmoduleinfo.cpp:373
+#: ../bibletime/backend/cswordmoduleinfo.cpp:370
+#: ../bibletime/backend/cswordmoduleinfo.cpp:374
 #: ../bibletime/frontend/cprofile.cpp:19
 #: ../bibletime/frontend/mainindex/cindexitem.cpp:293
 msgid "unknown"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:372
+#: ../bibletime/backend/cswordmoduleinfo.cpp:373
 msgid "Markup"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:376
+#: ../bibletime/backend/cswordmoduleinfo.cpp:377
 #: ../bibletime/frontend/cswordsetupmodulelistview.cpp:81
 msgid "Location"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:380
+#: ../bibletime/backend/cswordmoduleinfo.cpp:381
 #: ../bibletime/util/ctoolclass.cpp:196
 msgid "Language"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:385
+#: ../bibletime/backend/cswordmoduleinfo.cpp:386
 msgid "Category"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:390
+#: ../bibletime/backend/cswordmoduleinfo.cpp:391
 msgid "LCSH"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:394
+#: ../bibletime/backend/cswordmoduleinfo.cpp:395
 msgid "Writable"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:395
+#: ../bibletime/backend/cswordmoduleinfo.cpp:396
 msgid "no"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:395
+#: ../bibletime/backend/cswordmoduleinfo.cpp:396
 msgid "yes"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:399
+#: ../bibletime/backend/cswordmoduleinfo.cpp:400
 #: ../bibletime/util/ctoolclass.cpp:199
 msgid "Unlock key"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:414
+#: ../bibletime/backend/cswordmoduleinfo.cpp:415
 msgid "Features"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:422
+#: ../bibletime/backend/cswordmoduleinfo.cpp:423
 #: ../bibletime/util/ctoolclass.cpp:192
 msgid "Take care, this work contains cult / questionable material!"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:432
+#: ../bibletime/backend/cswordmoduleinfo.cpp:433
 msgid "Distribution license"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:437
+#: ../bibletime/backend/cswordmoduleinfo.cpp:438
 msgid "Distribution source"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:442
+#: ../bibletime/backend/cswordmoduleinfo.cpp:443
 msgid "Text source"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:447
+#: ../bibletime/backend/cswordmoduleinfo.cpp:448
 msgid "Distribution notes"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:455
+#: ../bibletime/backend/cswordmoduleinfo.cpp:456
 msgid "Copyright notes"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:461
+#: ../bibletime/backend/cswordmoduleinfo.cpp:462
 msgid "Copyright holder"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:466
+#: ../bibletime/backend/cswordmoduleinfo.cpp:467
 msgid "Copyright date"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:471
+#: ../bibletime/backend/cswordmoduleinfo.cpp:472
 msgid "Copyright contact name"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:479
+#: ../bibletime/backend/cswordmoduleinfo.cpp:480
 msgid "Copyright contact address"
 msgstr ""
 
-#: ../bibletime/backend/cswordmoduleinfo.cpp:485
+#: ../bibletime/backend/cswordmoduleinfo.cpp:486
 msgid "Copyright contact email"
 msgstr ""
 
@@ -192,11 +192,11 @@ msgid "Initializing menu- and toolbars"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:99
-msgid "Search in open work(s)"
+msgid "Search in &open work(s)"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:111
-msgid "Search in standard Bible"
+msgid "Search in standard &Bible"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:131
@@ -208,7 +208,7 @@ msgid "Show &mag"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:160
-msgid "&Bookshelf Manager"
+msgid "Bookshelf &Manager"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:184
@@ -216,27 +216,31 @@ msgid "&Arrangement mode"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:190
-msgid "Manual mode"
+msgid "&Manual mode"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:205
-msgid "Tile vertical"
+msgid "Auto-tile &vertically"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:220
-msgid "Tile horizontal"
+msgid "Auto-tile &horizontally"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:235 ../bibletime/bibletime_init.cpp:250
+#: ../bibletime/bibletime_init.cpp:235
+msgid "Auto-&cascade"
+msgstr ""
+
+#: ../bibletime/bibletime_init.cpp:250
 msgid "&Cascade"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:263
-msgid "&Tile vertical"
+msgid "Tile &vertically"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:274
-msgid "&Tile horizontal"
+msgid "Tile &horizontally"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:287
@@ -248,7 +252,7 @@ msgid "&Save session"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:310
-msgid "Sa&ve as new session"
+msgid "Save as &new session"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:322
@@ -307,35 +311,35 @@ msgstr ""
 msgid "Simple "
 msgstr ""
 
-#: ../bibletime/frontend/cbtconfig.cpp:227
+#: ../bibletime/frontend/cbtconfig.cpp:226
 msgid "Old testament"
 msgstr ""
 
-#: ../bibletime/frontend/cbtconfig.cpp:228
+#: ../bibletime/frontend/cbtconfig.cpp:227
 msgid "Moses/Pentateuch/Torah"
 msgstr ""
 
-#: ../bibletime/frontend/cbtconfig.cpp:229
+#: ../bibletime/frontend/cbtconfig.cpp:228
 msgid "History"
 msgstr ""
 
-#: ../bibletime/frontend/cbtconfig.cpp:230
+#: ../bibletime/frontend/cbtconfig.cpp:229
 msgid "Prophets"
 msgstr ""
 
-#: ../bibletime/frontend/cbtconfig.cpp:231
+#: ../bibletime/frontend/cbtconfig.cpp:230
 msgid "New testament"
 msgstr ""
 
-#: ../bibletime/frontend/cbtconfig.cpp:232
+#: ../bibletime/frontend/cbtconfig.cpp:231
 msgid "Gospels"
 msgstr ""
 
-#: ../bibletime/frontend/cbtconfig.cpp:233
+#: ../bibletime/frontend/cbtconfig.cpp:232
 msgid "Letters/Epistles"
 msgstr ""
 
-#: ../bibletime/frontend/cbtconfig.cpp:234
+#: ../bibletime/frontend/cbtconfig.cpp:233
 msgid "Paul's Epistles"
 msgstr ""
 
@@ -355,32 +359,32 @@ msgstr ""
 msgid "All files (*.*)"
 msgstr ""
 
-#: ../bibletime/frontend/cinfodisplay.cpp:51
+#: ../bibletime/frontend/cinfodisplay.cpp:53
 msgid "Mag (\"shift\" to lock)"
 msgstr ""
 
-#: ../bibletime/frontend/cinfodisplay.cpp:136
+#: ../bibletime/frontend/cinfodisplay.cpp:138
 msgid "Abbreviation"
 msgstr ""
 
-#: ../bibletime/frontend/cinfodisplay.cpp:147
-#: ../bibletime/frontend/cinfodisplay.cpp:239
+#: ../bibletime/frontend/cinfodisplay.cpp:149
+#: ../bibletime/frontend/cinfodisplay.cpp:240
 msgid "Cross references"
 msgstr ""
 
-#: ../bibletime/frontend/cinfodisplay.cpp:277
+#: ../bibletime/frontend/cinfodisplay.cpp:278
 msgid "Footnote"
 msgstr ""
 
-#: ../bibletime/frontend/cinfodisplay.cpp:303
+#: ../bibletime/frontend/cinfodisplay.cpp:304
 msgid "Strongs"
 msgstr ""
 
-#: ../bibletime/frontend/cinfodisplay.cpp:365
+#: ../bibletime/frontend/cinfodisplay.cpp:379
 msgid "Morphology"
 msgstr ""
 
-#: ../bibletime/frontend/cinfodisplay.cpp:387
+#: ../bibletime/frontend/cinfodisplay.cpp:401
 msgid "Word lookup"
 msgstr ""
 
@@ -431,19 +435,19 @@ msgid "Languages"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:206
-msgid "Specify a language for biblical booknames"
+msgid "Specify a language for names of Bible books"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:207
 msgid ""
 "Sword has a number of locales available which can be used to "
-"internationalize the \tbooknames of the bible. You can specify which locale "
-"to use. If you want to \tcreate a new locale, see http://www.crosswire.org/"
-"sword/develop for details."
+"internationalize the \tnames of books of the Bible. You can specify which "
+"locale to use. If you want to \tcreate a new locale, see http://www."
+"crosswire.org/sword/develop for details."
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:213
-msgid "Language for biblical booknames"
+msgid "Language for names of Bible books"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:286
@@ -1717,6 +1721,10 @@ msgstr ""
 
 #: ../bibletime/rc-dummy.cpp:2
 msgid "&Search"
+msgstr ""
+
+#: ../bibletime/rc-dummy.cpp:4
+msgid "Se&ttings"
 msgstr ""
 
 #: ../bibletime/rc-dummy.cpp:5

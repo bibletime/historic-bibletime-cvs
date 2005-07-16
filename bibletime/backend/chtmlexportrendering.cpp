@@ -45,7 +45,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		ret.setLatin1(i.settings().highlight ? "<div class=\"currententry\">" : "<div class=\"entry\">");
 		ret.append(i.getAlternativeContent());
 
-		Q_ASSERT(i.hasChildItems());
+// 		Q_ASSERT(i.hasChildItems());
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
 

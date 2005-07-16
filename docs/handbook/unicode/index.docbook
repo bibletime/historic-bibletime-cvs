@@ -43,7 +43,7 @@
 
 <copyright>
 	<year>1999-2005</year>
-	<holder>the &bibletime; team, <email>info@bibletime.info</email></holder>
+	<holder>the &bibletime; team</holder>
 </copyright>
 
 <legalnotice>
@@ -64,7 +64,6 @@
 <keywordset>
 <keyword>KDE</keyword>
 <keyword>bibletime</keyword>
-<keyword>&bibletime;</keyword>
 <keyword>sword</keyword>
 <keyword>crosswire</keyword>
 <keyword>help dialog</keyword>

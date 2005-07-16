@@ -137,9 +137,11 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 		: CPointers::languageMgr()->defaultLanguage();
 	
 	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
+
+	Q_ASSERT(modules.count() >= 1);
+
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
-	Q_ASSERT(modules.count() >= 1);
 	settings.langAbbrev = ((modules.count() == 1) && lang->isValid())
 		?	lang->abbrev() 
 		: QString::null;

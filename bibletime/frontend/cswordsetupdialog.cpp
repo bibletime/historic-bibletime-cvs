@@ -547,7 +547,7 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
     if (installedModule) {
 // 			qWarning("module is already installed in %s", installedModule->config(CSwordModuleInfo::AbsoluteDataPath).latin1());
     }
-    Q_ASSERT(installedModule);
+//     Q_ASSERT(installedModule);
     
     if (installedModule) { //module already installed?
       //check whether it's an uodated module or just the same

@@ -27,7 +27,7 @@ export QTDIR=<QT source directory>
 export KDEDIR=<KDE directory (where KDE is installed)>
 export PATH=$KDEDIR/bin:$PATH
 ./configure --prefix=<your KDE dir> # create makefiles
-make	# compile BibleTime
+make			# compile BibleTime
 su -c "make install"	# change to "root user" and install BibleTime
 
 

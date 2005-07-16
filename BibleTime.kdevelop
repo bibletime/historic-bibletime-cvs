@@ -6,7 +6,7 @@
     <projectmanagement>KDevAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <ignoreparts>
-      <part>kdevrbdebugger</part>
+      <part>kdevdistpart</part>
     </ignoreparts>
     <version>1.5pre</version>
     <description/>
@@ -139,10 +139,7 @@
       <automaticHeaderCompletion>true</automaticHeaderCompletion>
       <headerCompletionDelay>250</headerCompletionDelay>
     </codecompletion>
-    <references>
-      <pcs>Qt</pcs>
-      <pcs>KDElibs</pcs>
-    </references>
+    <references/>
     <creategettersetter>
       <prefixGet/>
       <prefixSet>set</prefixSet>
@@ -179,4 +176,8 @@
     <graphicFilter>-f0</graphicFilter>
     <scaling>-1</scaling>
   </kdevvisualadvance>
+  <ctagspart>
+    <customArguments/>
+    <customTagfilePath/>
+  </ctagspart>
 </kdevelop>
