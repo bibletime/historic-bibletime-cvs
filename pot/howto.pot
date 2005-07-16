@@ -26,7 +26,13 @@ msgstr ""
 msgid "Our Purpose as we Approach the Bible"
 msgstr ""
 
-#. Tag: quote
+#. Tag: attribution
+#: how2-basics.docbook:6
+#, no-c-format
+msgid "Jn.5:39-40"
+msgstr ""
+
+#. Tag: para
 #: how2-basics.docbook:6
 #, no-c-format
 msgid ""
@@ -35,14 +41,8 @@ msgid ""
 "to Me, that you may have life."
 msgstr ""
 
-#. Tag: attribution
-#: how2-basics.docbook:8
-#, no-c-format
-msgid "Jn.5:39-40"
-msgstr ""
-
 #. Tag: para
-#: how2-basics.docbook:11
+#: how2-basics.docbook:12
 #, no-c-format
 msgid ""
 "The chief purpose of the book is to bring us to the Person. Martin Luther "
@@ -51,7 +51,7 @@ msgid ""
 msgstr ""
 
 #. Tag: attribution
-#: how2-basics.docbook:16
+#: how2-basics.docbook:17
 #, no-c-format
 msgid ""
 "John R.W. Stott, <emphasis>Christ the Controversialist</emphasis>, "
@@ -59,7 +59,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:18
+#: how2-basics.docbook:19
 #, no-c-format
 msgid ""
 "The Jews to whom Jesus spoke [...] imagined that to possess Scripture was "
@@ -70,7 +70,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:23
+#: how2-basics.docbook:24
 #, no-c-format
 msgid ""
 "There is neither merit nor profit in the reading of Scripture for its own "
@@ -80,13 +80,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:30
+#: how2-basics.docbook:31
 #, no-c-format
 msgid "Approaches to God's Word"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:31
+#: how2-basics.docbook:32
 #, no-c-format
 msgid ""
 "Hearing and reading provide a telescopic view of the scripture while study "
@@ -96,13 +96,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:36
+#: how2-basics.docbook:37
 #, no-c-format
 msgid "Hear"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:37
+#: how2-basics.docbook:38
 #, no-c-format
 msgid ""
 "Lk.11:28 <quote>blessed are those who hear the word of God, and observe it.</"
@@ -110,13 +110,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:41
+#: how2-basics.docbook:42
 #, no-c-format
 msgid "Read"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:42
+#: how2-basics.docbook:43
 #, no-c-format
 msgid ""
 "Rev.1:3 <quote>Blessed is he who reads and those who hear the words of this "
@@ -124,7 +124,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:44
+#: how2-basics.docbook:45
 #, no-c-format
 msgid ""
 "1 Tim.4:13 <quote>give attention to the public reading of Scripture [...]</"
@@ -135,13 +135,13 @@ msgstr ""
 #. Tag: title
 #. #-#-#-#-#  index.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
 #. Tag: keyword
-#: how2-basics.docbook:48 index.docbook:76
+#: how2-basics.docbook:49 index.docbook:76
 #, no-c-format
 msgid "Study"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:49
+#: how2-basics.docbook:50
 #, no-c-format
 msgid ""
 "Acts 17:11 <quote>Now these were more noble-minded than those in "
@@ -150,7 +150,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:53
+#: how2-basics.docbook:54
 #, no-c-format
 msgid ""
 "2 Tim.2:15 <quote>Be diligent [KJV `Study'] to present yourself approved to "
@@ -159,13 +159,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:58
+#: how2-basics.docbook:59
 #, no-c-format
 msgid "Memorize"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:59
+#: how2-basics.docbook:60
 #, no-c-format
 msgid ""
 "Ps.119:11 <quote>Thy word I have hid in my heart, that I may not sin against "
@@ -173,13 +173,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:63
+#: how2-basics.docbook:64
 #, no-c-format
 msgid "Meditate"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:64
+#: how2-basics.docbook:65
 #, no-c-format
 msgid ""
 "Ps.1:2-3 <quote>But his delight is in the law of the Lord, And in His law he "
@@ -189,7 +189,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:70
+#: how2-basics.docbook:71
 #, no-c-format
 msgid ""
 "The Navigators illustrate this by saying that as the thumb can touch all the "
@@ -200,19 +200,19 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:78
+#: how2-basics.docbook:79
 #, no-c-format
 msgid "Types of Bible Studies"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:79
+#: how2-basics.docbook:80
 #, no-c-format
 msgid "Topical Study"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:80
+#: how2-basics.docbook:81
 #, no-c-format
 msgid ""
 "Pick out a certain topic and follow it through, using cross-references or a "
@@ -220,44 +220,44 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:84
+#: how2-basics.docbook:85
 #, no-c-format
 msgid "Character Study"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:85
+#: how2-basics.docbook:86
 #, no-c-format
 msgid ""
 "Studying the life of a Bible character, e.g. Joseph's life in Gen.37-50."
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:89
+#: how2-basics.docbook:90
 #, no-c-format
 msgid "Expository Study"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:90
+#: how2-basics.docbook:91
 #, no-c-format
 msgid "Studying a certain passage: paragraph, chapter, or book."
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:94
+#: how2-basics.docbook:95
 #, no-c-format
 msgid "Basics of Correct Interpretation"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:96
+#: how2-basics.docbook:97
 #, no-c-format
 msgid "Content"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:97
+#: how2-basics.docbook:98
 #, no-c-format
 msgid ""
 "What does it say? What does it say in the original language? Be careful with "
@@ -265,13 +265,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:101
+#: how2-basics.docbook:102
 #, no-c-format
 msgid "Context"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:102
+#: how2-basics.docbook:103
 #, no-c-format
 msgid ""
 "What do the verses around it say? &quot;Context is king&quot; is the rule -- "
@@ -280,13 +280,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:106 how2-interpretation.docbook:26
+#: how2-basics.docbook:107 how2-interpretation.docbook:26
 #, no-c-format
 msgid "Cross-reference"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:107
+#: how2-basics.docbook:108
 #, no-c-format
 msgid ""
 "What do other verses about this subject say through the rest of the Bible? "
@@ -295,13 +295,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:112
+#: how2-basics.docbook:113
 #, no-c-format
 msgid "An Expository Study of Matthew 6:1-18"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:113
+#: how2-basics.docbook:114
 #, no-c-format
 msgid ""
 "Let's study together Mt.6:1-18. Read it to yourself, first looking for the "
@@ -311,14 +311,14 @@ msgid ""
 "numeral One of your outline:"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:118
+#. Tag: para
+#: how2-basics.docbook:119
 #, no-c-format
 msgid "Beware of practicing your righteousness before men to be noticed"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:121
+#: how2-basics.docbook:122
 #, no-c-format
 msgid ""
 "What does <quote>practicing your righteousness</quote> mean? Does the "
@@ -326,114 +326,114 @@ msgid ""
 "<emphasis>Our motives!</emphasis> What sub-headings develop this thought?"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:125 how2-basics.docbook:134
+#. Tag: para
+#: how2-basics.docbook:126 how2-basics.docbook:135
 #, no-c-format
 msgid "When you give"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:126
+#. Tag: para
+#: how2-basics.docbook:127
 #, no-c-format
 msgid "When you fast"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:127
+#. Tag: para
+#: how2-basics.docbook:128
 #, no-c-format
 msgid "When you pray"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:130
+#: how2-basics.docbook:131
 #, no-c-format
 msgid ""
 "Now fill in the outline with specific instructions of how to avoid wrong "
 "ways of practicing our righteousness:"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:136
+#. Tag: para
+#: how2-basics.docbook:137
 #, no-c-format
 msgid ""
 "don't sound a trumpet. (how might someone <quote>sound a trumpet</quote> "
 "today?)"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:137
+#. Tag: para
+#: how2-basics.docbook:138
 #, no-c-format
 msgid "do it secretly."
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:138
+#. Tag: para
+#: how2-basics.docbook:139
 #, no-c-format
 msgid "etc."
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:144
+#: how2-basics.docbook:145
 #, no-c-format
 msgid "Worksheet: How to Use a Concordance"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:146
+#: how2-basics.docbook:147
 #, no-c-format
 msgid "To Find a Particular Verse"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:148
+#. Tag: para
+#: how2-basics.docbook:149
 #, no-c-format
 msgid "Pick out a key word or most-unusual word of the verse."
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:149
+#. Tag: para
+#: how2-basics.docbook:150
 #, no-c-format
 msgid "Turn to this word alphabetically."
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:150
+#. Tag: para
+#: how2-basics.docbook:151
 #, no-c-format
 msgid "Go down the column of listings until you find your verse."
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:153
+#: how2-basics.docbook:154
 #, no-c-format
 msgid "Find these verses:"
 msgstr ""
 
 #. Tag: quote
-#: how2-basics.docbook:155
+#: how2-basics.docbook:156
 #, no-c-format
 msgid "Faithful are the wounds of a friend"
 msgstr ""
 
 #. Tag: quote
-#: how2-basics.docbook:156
+#: how2-basics.docbook:157
 #, no-c-format
 msgid "We are ambassadors of Christ."
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:157
+#. Tag: para
+#: how2-basics.docbook:158
 #, no-c-format
 msgid "The story of the rich man and Lazarus."
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:162
+#: how2-basics.docbook:163
 #, no-c-format
 msgid "To Do a Topical Study"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:163
+#: how2-basics.docbook:164
 #, no-c-format
 msgid ""
 "Let's say you wanted to do a study of the word &quot;redemption.&quot; First "
@@ -444,13 +444,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:169
+#: how2-basics.docbook:170
 #, no-c-format
 msgid "To Clarify Word Meanings in the Greek and Hebrew"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:170
+#: how2-basics.docbook:171
 #, no-c-format
 msgid ""
 "What if you noticed a contradiction in the KJV between Mt.7:1 <quote>Judge "
@@ -461,13 +461,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:174
+#: how2-basics.docbook:175
 #, no-c-format
 msgid "Look up &quot;judge&quot;."
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:175
+#: how2-basics.docbook:176
 #, no-c-format
 msgid ""
 "Go down the column of entries to Mt.7:1. To the right is a number, 2919. "
@@ -475,19 +475,19 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:177
+#: how2-basics.docbook:178
 #, no-c-format
 msgid "Now look up &quot;judgeth&quot;."
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:178
+#: how2-basics.docbook:179
 #, no-c-format
 msgid "Go down the column to 1 Cor.2:15 . . . . . 350."
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:179
+#: how2-basics.docbook:180
 #, no-c-format
 msgid ""
 "Turn in the back to the Greek dictionary. (Remember, you're in the NT so the "
@@ -496,44 +496,44 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:184
+#: how2-basics.docbook:185
 #, no-c-format
 msgid "To Find Meanings of Names"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:185
+#: how2-basics.docbook:186
 #, no-c-format
 msgid ""
 "By the same process we can find the meaning of a name in the Greek or Hebrew."
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:186
+#: how2-basics.docbook:187
 #, no-c-format
 msgid "Look up these names and write down their meaning:"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:188
+#. Tag: para
+#: how2-basics.docbook:189
 #, no-c-format
 msgid "Nabal"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:189
+#. Tag: para
+#: how2-basics.docbook:190
 #, no-c-format
 msgid "Abigail"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:190
+#. Tag: para
+#: how2-basics.docbook:191
 #, no-c-format
 msgid "Joshua"
 msgstr ""
 
-#. Tag: listitem
-#: how2-basics.docbook:191
+#. Tag: para
+#: how2-basics.docbook:192
 #, no-c-format
 msgid "Barnabus"
 msgstr ""
@@ -566,7 +566,7 @@ msgid "The Bible stands alone in many ways. It is unique in:"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:12
+#: how2-importance.docbook:11
 #, no-c-format
 msgid ""
 "popularity. Bible sales in North America: more than $500 million per year. "
@@ -574,7 +574,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:18
+#: how2-importance.docbook:17
 #, no-c-format
 msgid ""
 "authorship. It was written over a period of 1600 years by 40 different "
@@ -582,7 +582,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:24
+#: how2-importance.docbook:23
 #, no-c-format
 msgid ""
 "preservation. F. F. Bruce in <emphasis>Are New Testament Documents Reliable?"
@@ -590,176 +590,176 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:31
+#: how2-importance.docbook:30
 #, no-c-format
 msgid "Comparison of New Testament manuscripts with other ancient texts."
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:35
+#: how2-importance.docbook:34
 #, no-c-format
 msgid "Work"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:36
+#: how2-importance.docbook:35
 #, no-c-format
 msgid "When Written"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:37
+#: how2-importance.docbook:36
 #, no-c-format
 msgid "Earliest Copy"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:38
+#: how2-importance.docbook:37
 #, no-c-format
 msgid "Time Lapse"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:38
+#: how2-importance.docbook:37
 #, no-c-format
 msgid "Number of Copies"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:42
+#: how2-importance.docbook:41
 #, no-c-format
 msgid "Herodotus"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:43
+#: how2-importance.docbook:42
 #, no-c-format
 msgid "448-428 B.C."
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:43 how2-importance.docbook:53
-#: how2-importance.docbook:58
+#: how2-importance.docbook:42 how2-importance.docbook:52
+#: how2-importance.docbook:57
 #, no-c-format
 msgid "900 A.D."
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:44
+#: how2-importance.docbook:43
 #, no-c-format
 msgid "1300 years"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:44
+#: how2-importance.docbook:43
 #, no-c-format
 msgid "<entry>8</entry>"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:47
+#: how2-importance.docbook:46
 #, no-c-format
 msgid "Tacitus"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:48
+#: how2-importance.docbook:47
 #, no-c-format
 msgid "100 A.D."
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:48
+#: how2-importance.docbook:47
 #, no-c-format
 msgid "1100 A.D."
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:49
+#: how2-importance.docbook:48
 #, no-c-format
 msgid "1000 years"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:49 how2-importance.docbook:59
+#: how2-importance.docbook:48 how2-importance.docbook:58
 #, no-c-format
 msgid "<entry>20</entry>"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:52
+#: how2-importance.docbook:51
 #, no-c-format
 msgid "Caesar's <emphasis>Gallic War</emphasis>"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:53
+#: how2-importance.docbook:52
 #, no-c-format
 msgid "50-58 B.C."
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:54
+#: how2-importance.docbook:53
 #, no-c-format
 msgid "950 years"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:54
+#: how2-importance.docbook:53
 #, no-c-format
 msgid "<entry>10</entry>"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:57
+#: how2-importance.docbook:56
 #, no-c-format
 msgid "Livy's <emphasis>Roman History</emphasis>"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:58
+#: how2-importance.docbook:57
 #, no-c-format
 msgid "59 B.C. - 17 A.D."
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:59
+#: how2-importance.docbook:58
 #, no-c-format
 msgid "900 years"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:62
+#: how2-importance.docbook:61
 #, no-c-format
 msgid "New Testament"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:63
+#: how2-importance.docbook:62
 #, no-c-format
 msgid "40 A.D. - 100 A.D."
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:63
+#: how2-importance.docbook:62
 #, no-c-format
 msgid "130 A.D. Partial manuscripts 350 A.D. Full manuscripts"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:64
+#: how2-importance.docbook:63
 #, no-c-format
 msgid "30 - 310 years"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:64
+#: how2-importance.docbook:63
 #, no-c-format
 msgid "5000 Greek &amp; 10,000 Latin"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:67
+#: how2-importance.docbook:66
 #, no-c-format
 msgid ""
 "Ten copies of Caesar's <emphasis>Gallic War</emphasis> exist, the earliest "
@@ -771,7 +771,7 @@ msgid ""
 msgstr ""
 
 #. Tag: attribution
-#: how2-importance.docbook:73
+#: how2-importance.docbook:72
 #, no-c-format
 msgid ""
 "Textual critic F. J. A. Hort, \"The New Testament in the Original Greek\", "
@@ -780,7 +780,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:75
+#: how2-importance.docbook:74
 #, no-c-format
 msgid ""
 "\"In the verity and fullness of the evidence on which it rests, the text of "
@@ -789,13 +789,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:80
+#: how2-importance.docbook:79
 #, no-c-format
 msgid "A Book that God Breathed"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:81
+#: how2-importance.docbook:80
 #, no-c-format
 msgid ""
 "<emphasis>Heb.4:12 </emphasis>\"<emphasis>For the word of God is living and "
@@ -807,7 +807,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:87
+#: how2-importance.docbook:86
 #, no-c-format
 msgid ""
 "2 Tim.3:16 declares, \"<emphasis>All scripture is inspired by God [lit., God-"
@@ -816,7 +816,7 @@ msgid ""
 msgstr ""
 
 #. Tag: attribution
-#: how2-importance.docbook:90
+#: how2-importance.docbook:89
 #, no-c-format
 msgid ""
 "John R.W. Stott, <emphasis>Christ the Controversialist</emphasis>, "
@@ -824,7 +824,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:91
+#: how2-importance.docbook:90
 #, no-c-format
 msgid ""
 "He referred to the human authors, but took it for granted that behind them "
@@ -844,7 +844,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:105
+#: how2-importance.docbook:104
 #, no-c-format
 msgid ""
 "This, then, was Christ's view of the Scriptures. Their witness was God's "
@@ -854,7 +854,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:111
+#: how2-importance.docbook:110
 #, no-c-format
 msgid ""
 "2 Tim.3:16 goes on, \"<emphasis>and profitable for teaching, for correction, "
@@ -865,13 +865,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:118
+#: how2-importance.docbook:117
 #, no-c-format
 msgid "A Book that Works"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:119
+#: how2-importance.docbook:118
 #, no-c-format
 msgid ""
 "What will studying the Bible do for you? 1 Thess.2:13 says that the Bible "
@@ -880,44 +880,44 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:126
+#: how2-importance.docbook:125
 #, no-c-format
 msgid "What does Bible study do for Christians?"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:130
+#: how2-importance.docbook:129
 #, no-c-format
 msgid "Reference"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:131
+#: how2-importance.docbook:130
 #, no-c-format
 msgid "Action"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:136
+#: how2-importance.docbook:135
 #, no-c-format
 msgid "Eph. 5:26"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:138
+#: how2-importance.docbook:137
 #, no-c-format
 msgid ""
 "cleanses -- \"...having cleansed her by the washing of water with the word.\""
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:142
+#: how2-importance.docbook:141
 #, no-c-format
 msgid "Acts 20:32"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:145
+#: how2-importance.docbook:144
 #, no-c-format
 msgid ""
 "builds up -- \" ...the word of His grace, which is able to build you up and "
@@ -925,13 +925,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:154
+#: how2-importance.docbook:153
 #, no-c-format
 msgid "Rom. 15:4"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:157
+#: how2-importance.docbook:156
 #, no-c-format
 msgid ""
 "encourages -- \"that through perseverance and the encouragement of the "
@@ -939,13 +939,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:164
+#: how2-importance.docbook:163
 #, no-c-format
 msgid "Rom. 10:17"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:167
+#: how2-importance.docbook:166
 #, no-c-format
 msgid ""
 "gives faith -- \"So faith comes from hearing, and hearing by the word of "
@@ -953,13 +953,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:175
+#: how2-importance.docbook:174
 #, no-c-format
 msgid "1 Cor. 10:11"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:178
+#: how2-importance.docbook:177
 #, no-c-format
 msgid ""
 "instructs -- \"Now these things happened to them for an example, and they "
@@ -967,13 +967,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:186
+#: how2-importance.docbook:185
 #, no-c-format
 msgid "Mt. 4:4"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:189
+#: how2-importance.docbook:188
 #, no-c-format
 msgid ""
 "nourishment -- \"But He answered and said, 'It is written, Man shall not "
@@ -982,13 +982,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:201
+#: how2-importance.docbook:200
 #, no-c-format
 msgid "A Book that Liberates"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:202
+#: how2-importance.docbook:201
 #, no-c-format
 msgid ""
 "Jn.8:32 \"<emphasis>and you shall know the truth, and the truth shall make "
@@ -1000,7 +1000,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:209
+#: how2-importance.docbook:208
 #, no-c-format
 msgid ""
 "We see that this is a conditional promice, specifically speaking of the "
@@ -1008,7 +1008,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:211
+#: how2-importance.docbook:210
 #, no-c-format
 msgid ""
 "The Greek word for \"wind\" used in Eph.4:14 means a <emphasis>violent wind."
@@ -1019,7 +1019,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:217
+#: how2-importance.docbook:216
 #, no-c-format
 msgid ""
 "<emphasis>But Jesus answered and said to them, </emphasis>\"<emphasis>You "
@@ -1028,97 +1028,97 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:219
+#: how2-importance.docbook:218
 #, no-c-format
 msgid "What 2 things do we need to know to be kept from error?"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:221
+#: how2-importance.docbook:220
 #, no-c-format
 msgid "God's word"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:222
+#: how2-importance.docbook:221
 #, no-c-format
 msgid "God's power"
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:226
+#: how2-importance.docbook:225
 #, no-c-format
 msgid "A Book that Wars"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:227
+#: how2-importance.docbook:226
 #, no-c-format
 msgid "Eph.6:10-18 is one picture of our spiritual armament."
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:230
+#: how2-importance.docbook:229
 #, no-c-format
 msgid "Spiritual Armor"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:234
+#: how2-importance.docbook:233
 #, no-c-format
 msgid "Question"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:235
+#: how2-importance.docbook:234
 #, no-c-format
 msgid "Answer"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:238
+#: how2-importance.docbook:237
 #, no-c-format
 msgid "How many of the weapons listed here are defensive weapons?"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:238
+#: how2-importance.docbook:237
 #, no-c-format
 msgid "<entry>5</entry>"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:239
+#: how2-importance.docbook:238
 #, no-c-format
 msgid "How many are offensive?"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:239
+#: how2-importance.docbook:238
 #, no-c-format
 msgid "<entry>One</entry>"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:240
+#: how2-importance.docbook:239
 #, no-c-format
 msgid "Which one(s)?"
 msgstr ""
 
 #. Tag: entry
-#: how2-importance.docbook:240
+#: how2-importance.docbook:239
 #, no-c-format
 msgid "the word - <foreignphrase>rhema</foreignphrase>"
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:244
+#: how2-importance.docbook:243
 #, no-c-format
 msgid "Exhortations"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:245
+#: how2-importance.docbook:244
 #, no-c-format
 msgid ""
 "2 Tim.2:15 (KJV) \"<emphasis>Study to show thyself approved unto God, a "
@@ -1127,7 +1127,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:249
+#: how2-importance.docbook:248
 #, no-c-format
 msgid ""
 "Col.3:16 \"<emphasis>Let the word of Christ richly dwell within you; with "
@@ -1137,19 +1137,19 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:254
+#: how2-importance.docbook:253
 #, no-c-format
 msgid "If you're rich in something, how much of it do you have?"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:256
+#: how2-importance.docbook:255
 #, no-c-format
 msgid "Not a little!"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:259
+#: how2-importance.docbook:258
 #, no-c-format
 msgid ""
 "Eccl.12:11-12 \"<emphasis>The words of wise men are like goads, and masters "
@@ -1160,13 +1160,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:266
+#: how2-importance.docbook:265
 #, no-c-format
 msgid "Appendix: \"Once for All\""
 msgstr ""
 
 #. Tag: attribution
-#: how2-importance.docbook:269
+#: how2-importance.docbook:268
 #, no-c-format
 msgid ""
 "John R. W. Stott, <emphasis>Christ the Controversialist,</emphasis> "
@@ -1174,7 +1174,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:270
+#: how2-importance.docbook:269
 #, no-c-format
 msgid ""
 "The truth regarding the finality of God's initiative in Christ is conveyed "
@@ -1189,7 +1189,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:279
+#: how2-importance.docbook:278
 #, no-c-format
 msgid ""
 "Thus we may say that God has spoken once for all and Christ has suffered "
@@ -1204,13 +1204,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-importance.docbook:291
+#: how2-importance.docbook:290
 #, no-c-format
 msgid "Supplement: Bible Reading Programs"
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:292
+#: how2-importance.docbook:291
 #, no-c-format
 msgid ""
 "Here are some easy programs to systematically read your Bible. You can do "
@@ -1219,13 +1219,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:297
+#: how2-importance.docbook:296
 #, no-c-format
 msgid "New Testament in a Year: read one chapter each day, 5 days a week."
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:299
+#: how2-importance.docbook:298
 #, no-c-format
 msgid ""
 "Proverbs in a Month: read one chapter of Proverbs each day, corresponding to "
@@ -1233,7 +1233,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:301
+#: how2-importance.docbook:300
 #, no-c-format
 msgid ""
 "Psalms in a Month: read 5 Psalms at intervals of 30 each day, for instance "
@@ -1241,7 +1241,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:303
+#: how2-importance.docbook:302
 #, no-c-format
 msgid ""
 "Psalms &amp; Proverbs in 6 months: read through Psalms and Proverbs one "
@@ -1249,7 +1249,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-importance.docbook:305
+#: how2-importance.docbook:304
 #, no-c-format
 msgid ""
 "Old Testament without Psalms &amp; Proverbs in 2 years: if you read one "
@@ -1403,78 +1403,78 @@ msgid ""
 "usually signifies action prior to that of the main verb.\" (Zodhiates p.851)"
 msgstr ""
 
-#. Tag: listitem
+#. Tag: para
 #: how2-interpretation.docbook:62
 #, no-c-format
 msgid "Cross-references for aleipho:"
 msgstr ""
 
-#. Tag: listitem
+#. Tag: para
 #: how2-interpretation.docbook:64
 #, no-c-format
 msgid "Mt.6:17 But you, when you fast, anoint your head"
 msgstr ""
 
-#. Tag: listitem
+#. Tag: para
 #: how2-interpretation.docbook:65
 #, no-c-format
 msgid "Mk.16:1 [the women] brought spices that they might come and anoint Him."
 msgstr ""
 
-#. Tag: listitem
+#. Tag: para
 #: how2-interpretation.docbook:66
 #, no-c-format
 msgid ""
 "Mk.6:13 And they were...anointing with oil many sick people and healing them."
 msgstr ""
 
-#. Tag: listitem
+#. Tag: para
 #: how2-interpretation.docbook:67
 #, no-c-format
 msgid "Lk.7:38 [...] kissing His feet and anointing them with the perfume"
 msgstr ""
 
-#. Tag: listitem
+#. Tag: para
 #: how2-interpretation.docbook:68
 #, no-c-format
 msgid ""
 "Jn.12:3 Mary [...] anointed the feet of Jesus, and wiped them with her hair"
 msgstr ""
 
-#. Tag: listitem
-#: how2-interpretation.docbook:71
+#. Tag: para
+#: how2-interpretation.docbook:72
 #, no-c-format
 msgid "Cross-references of chrio:"
 msgstr ""
 
-#. Tag: listitem
-#: how2-interpretation.docbook:73
+#. Tag: para
+#: how2-interpretation.docbook:74
 #, no-c-format
 msgid ""
 "Lk.4:18 <quote>The Spirit of the Lord is upon me, because He has anointed me "
 "to preach [...]</quote>"
 msgstr ""
 
-#. Tag: listitem
-#: how2-interpretation.docbook:74
+#. Tag: para
+#: how2-interpretation.docbook:75
 #, no-c-format
 msgid "Acts 4:27 Jesus, whom Thou hast anointed"
 msgstr ""
 
-#. Tag: listitem
-#: how2-interpretation.docbook:75
+#. Tag: para
+#: how2-interpretation.docbook:76
 #, no-c-format
 msgid "Acts 10:38 God anointed Jesus with the Holy Ghost and power"
 msgstr ""
 
-#. Tag: listitem
-#: how2-interpretation.docbook:76
+#. Tag: para
+#: how2-interpretation.docbook:77
 #, no-c-format
 msgid "2 Cor.1:21 Now He who...anointed us is God"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:81
+#: how2-interpretation.docbook:82
 #, no-c-format
 msgid ""
 "So what's the difference between aleipho and chrio? Look back over the cross-"
@@ -1484,7 +1484,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:84
+#: how2-interpretation.docbook:85
 #, no-c-format
 msgid ""
 "As an illustration (although the word is not used) of the practical use of "
@@ -1494,7 +1494,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:88
+#: how2-interpretation.docbook:89
 #, no-c-format
 msgid ""
 "Now let's apply what we just learned by this word study to James 5:14 "
@@ -1504,7 +1504,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:91
+#: how2-interpretation.docbook:92
 #, no-c-format
 msgid ""
 "And the tense in Greek, the aorist participle, would be better translated "
@@ -1516,13 +1516,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:102
+#: how2-interpretation.docbook:103
 #, no-c-format
 msgid "Rule 2 - Interpret within the biblical context"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:104
+#: how2-interpretation.docbook:105
 #, no-c-format
 msgid ""
 "Interpret scripture in harmony with other scripture. What do the verses on "
@@ -1534,13 +1534,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:109
+#: how2-interpretation.docbook:110
 #, no-c-format
 msgid "Example 2A"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:110
+#: how2-interpretation.docbook:111
 #, no-c-format
 msgid ""
 "In a previous lesson we considered Jn.3:5 <emphasis>\"born of water and the "
@@ -1548,7 +1548,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:112
+#: how2-interpretation.docbook:113
 #, no-c-format
 msgid ""
 "Water baptism is not under discussion here, which would be a big switch from "
@@ -1558,13 +1558,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:116
+#: how2-interpretation.docbook:117
 #, no-c-format
 msgid "Example 2B"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:117
+#: how2-interpretation.docbook:118
 #, no-c-format
 msgid ""
 "1 Cor.14:34 <quote>Let the women keep silent in the churches</quote> has to "
@@ -1573,13 +1573,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:120
+#: how2-interpretation.docbook:121
 #, no-c-format
 msgid "Example 2C"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:121
+#: how2-interpretation.docbook:122
 #, no-c-format
 msgid ""
 "Acts 2:38 <quote>And Peter said to them, &quot;Repent, and let each of you "
@@ -1594,13 +1594,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:133
+#: how2-interpretation.docbook:134
 #, no-c-format
 msgid "Rule 3 - Interpret within the historical and cultural context"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:134
+#: how2-interpretation.docbook:135
 #, no-c-format
 msgid ""
 "At first we are not asking <quote>What does it mean to me?</quote> but "
@@ -1610,13 +1610,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:138
+#: how2-interpretation.docbook:139
 #, no-c-format
 msgid "Example 3A"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:138
+#: how2-interpretation.docbook:139
 #, no-c-format
 msgid ""
 "<quote>3 days &amp; 3 nights</quote> (Mt.12:40) have led some to come up "
@@ -1627,7 +1627,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:143
+#: how2-interpretation.docbook:144
 #, no-c-format
 msgid ""
 "We need an historical tidbit: Jews counted any part of a day as a full day, "
@@ -1641,13 +1641,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:150
+#: how2-interpretation.docbook:151
 #, no-c-format
 msgid "Example 3B"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:150
+#: how2-interpretation.docbook:151
 #, no-c-format
 msgid ""
 "Gen.15:7-21. The historical context is that cutting animals in two and then "
@@ -1659,13 +1659,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:158
+#: how2-interpretation.docbook:159
 #, no-c-format
 msgid "Rule 4 - Interpret according to the normal usage of words in language"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:159
+#: how2-interpretation.docbook:160
 #, no-c-format
 msgid ""
 "Let literal language be literal and figurative language be figurative. And "
@@ -1673,19 +1673,19 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:162
+#: how2-interpretation.docbook:163
 #, no-c-format
 msgid "Example 4A"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:163
+#: how2-interpretation.docbook:164
 #, no-c-format
 msgid "<quote>evil eye</quote> in Mt.6:23."
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:164
+#: how2-interpretation.docbook:165
 #, no-c-format
 msgid ""
 "Rule 1, definition of \"evil\" and \"eye\" - no help here. Rule 2, context: "
@@ -1694,7 +1694,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:167
+#: how2-interpretation.docbook:168
 #, no-c-format
 msgid ""
 "What we have here is a Hebrew idiom, <quote>evil eye</quote>. Let's look up "
@@ -1706,25 +1706,25 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:173
+#: how2-interpretation.docbook:174
 #, no-c-format
 msgid "Example 4B"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:174
+#: how2-interpretation.docbook:175
 #, no-c-format
 msgid "Is.59:1 <quote>The Lord's hand is not short;</quote>"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:175
+#: how2-interpretation.docbook:176
 #, no-c-format
 msgid "Deut.33:27 <quote>Underneath are the everlasting arms.</quote>"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:176
+#: how2-interpretation.docbook:177
 #, no-c-format
 msgid ""
 "References to body parts of God are used by Latter-Day Saints to prove that "
@@ -1741,7 +1741,7 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:188
+#: how2-interpretation.docbook:189
 #, no-c-format
 msgid ""
 "Rule 5 - Understand the purpose of parables and the difference between a "
@@ -1749,7 +1749,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:189
+#: how2-interpretation.docbook:190
 #, no-c-format
 msgid ""
 "An allegory is: <emphasis>A story where each element has a meaning.</"
@@ -1757,13 +1757,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:190
+#: how2-interpretation.docbook:191
 #, no-c-format
 msgid "Every parable is an allegory, true or false?"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:192
+#: how2-interpretation.docbook:193
 #, no-c-format
 msgid ""
 "Some parables are allegories, for instance, the parable of the sower is an "
@@ -1775,13 +1775,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:197
+#: how2-interpretation.docbook:198
 #, no-c-format
 msgid "Example 5A"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:198
+#: how2-interpretation.docbook:199
 #, no-c-format
 msgid ""
 "The parable of the widow with the unrighteous judge in Lk.18:1-8. This story "
@@ -1790,7 +1790,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:200
+#: how2-interpretation.docbook:201
 #, no-c-format
 msgid ""
 "All sorts of violence happens to the meanings: God is reluctant to protect "
@@ -1798,13 +1798,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:203
+#: how2-interpretation.docbook:204
 #, no-c-format
 msgid "Example 5B"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:204
+#: how2-interpretation.docbook:205
 #, no-c-format
 msgid ""
 "The parable of the unrighteous steward in Lk.16:1-9. What is the point of "
@@ -1812,7 +1812,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:206
+#: how2-interpretation.docbook:207
 #, no-c-format
 msgid ""
 "The steward is commended for only one thing, his shrewdness in using what he "
