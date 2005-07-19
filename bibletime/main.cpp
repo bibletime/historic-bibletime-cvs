@@ -35,7 +35,6 @@
 #include <klocale.h>
 
 #include <kmessagebox.h>
-//more tests
 
 bool showDebugMessages = false;
 BibleTime* bibletime_ptr = 0;
