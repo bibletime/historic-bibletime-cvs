@@ -35,6 +35,7 @@
 #include <klocale.h>
 
 #include <kmessagebox.h>
+//Test comment, to test branching. You can safely remove this. =)
 
 bool showDebugMessages = false;
 BibleTime* bibletime_ptr = 0;
