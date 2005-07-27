@@ -282,7 +282,7 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
 	
 	if (afterItem && afterItem->isFolder()) {
 		moveSelectedItems = false;
-		removeSelectedItems = true;
+		removeSelectedItems = false; //why TRUE?
 		
 		afterItem->setOpen(true);
 		afterItem->dropped(e); //inserts new items, moving only works on the same level
@@ -312,9 +312,9 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
 		
 		parentItem->setOpen(true);
 	}
-	else if (parentItem) {
+	else if (parentItem) { //no after item present, but a parent is there
 		moveSelectedItems = false;
-		removeSelectedItems = true;
+		removeSelectedItems = false;
 
 		parentItem->setOpen(true);
 		parentItem->dropped(e);

@@ -8,6 +8,9 @@
 //QT includes
 #include <qregexp.h>
 
+//stl includes
+#include <algorithm>       // STL algorithms class library
+
 /** Returns a hyperlink used to be imbedded in the display windows. At the moment the format is sword://module/key */
 const QString CReferenceManager::encodeHyperlink( const QString moduleName, const QString key, const CReferenceManager::Type type){
 	QString ret = QString::null;
@@ -73,7 +76,7 @@ const QString CReferenceManager::encodeHyperlink( const QString moduleName, cons
         //make sure we parse the scripref in the module's language!
 				CSwordModuleInfo* mod = CPointers::backend()->findModuleByName(moduleName);
 				StringList locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
-				StringList::iterator it = find(locales.begin(), locales.end(), mod->module()->Lang());
+				StringList::iterator it = std::find(locales.begin(), locales.end(), mod->module()->Lang());
 				if (it != locales.end()) {
 					vk.setLocale(mod->module()->Lang());
 				}

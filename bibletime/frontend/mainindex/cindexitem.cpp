@@ -987,14 +987,14 @@ bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
 //   qWarning("bool CBookmarkFolder::acceptDrop(const QMimeSource * src): return%ii", (CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark)));
 	
   return CDragDropMgr::canDecode(src)
-		  && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
+	  && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
 }
 
 void CBookmarkFolder::dropped(QDropEvent *e, QListViewItem* after) {
   if (acceptDrop(e)) {
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
     CDragDropMgr::ItemList::Iterator it;
-     CItemBase* previousItem = dynamic_cast<CItemBase*>(after);
+    CItemBase* previousItem = dynamic_cast<CItemBase*>(after);
 		
     for( it = dndItems.begin(); it != dndItems.end(); ++it) {
       CSwordModuleInfo* module = CPointers::backend()->findModuleByName(

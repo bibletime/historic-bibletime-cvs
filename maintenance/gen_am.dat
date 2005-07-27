@@ -18,7 +18,7 @@
 # RELEASE:
 # export FOREIGN_PO_LANGUAGES="bg cs de en_GB es fi fr ko nl pl pt_br ro ru sk ua"
 # WORK:
- export FOREIGN_PO_LANGUAGES="af bg cs de en_GB es fi fr hu it ko nl no nn_NO pl pt_br ro ru sk ua"
+ export FOREIGN_PO_LANGUAGES="af bg cs de da en_GB es fi fr hu it ko nl no nn_NO pl pt_br ro ru sk ua"
 
 # RELEASE:
 #export FOREIGN_DOC_LANGUAGES="de"
