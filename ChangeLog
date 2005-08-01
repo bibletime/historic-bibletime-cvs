@@ -1,3 +1,6 @@
+2005-08-01 Joachim Ansorg <info@bibletime.info>
+  * New feature: Display templates can now be stored in $KDEDIR/share/apps/bibletime/display-templates/
+
 2005-07-16 Joachim Ansorg <info@bibletime.info>
   * BibleTime 1.5
   * Handbook update by Martin
