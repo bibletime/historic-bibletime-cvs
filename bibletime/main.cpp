@@ -35,6 +35,7 @@
 #include <klocale.h>
 
 #include <kmessagebox.h>
+//more tests
 
 bool showDebugMessages = false;
 BibleTime* bibletime_ptr = 0;
@@ -189,7 +190,8 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 	KCmdLineArgs::addCmdLineOptions( options );
 
 	BibleTimeApp app;
-	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
+	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics");
+	KGlobal::dirs()->addResourceType("BT_DisplayTemplates", "share/apps/bibletime/display-templates");
 
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
