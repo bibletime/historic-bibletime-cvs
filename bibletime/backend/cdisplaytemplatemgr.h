@@ -72,6 +72,8 @@ protected:
 	*/
 	~CDisplayTemplateMgr();
 
+  void loadUserTemplates();
+
 private:	
 	void init();
 	QMap<QString, QString> m_templateMap;

@@ -23,14 +23,18 @@
 
 //Qt includes
 #include <qstringlist.h>
+#include <qfile.h>
+#include <qfileinfo.h>
 
 //KDE includes
 #include <klocale.h>
+#include <kstandarddirs.h>
 
 #include <iostream>
 
 CDisplayTemplateMgr::CDisplayTemplateMgr() {
 	init();
+	loadUserTemplates();
 }
 
 CDisplayTemplateMgr::~CDisplayTemplateMgr() {
@@ -97,6 +101,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
   for ( CLanguageMgr::LangMapIterator it( langMap ); it.current(); ++it ) {
   	const CLanguageMgr::Language* lang = it.current();
 		
+
 		if (lang->isValid() && CBTConfig::get(lang).first) {
 			const QFont f = CBTConfig::get(lang).second;
 				
@@ -139,5 +144,28 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	 .replace("#CONTENT#", newContent);
 }
 
+
+/*!
+    \fn CDisplayTemplateMgr::loadUserTemplates
+ */
+void CDisplayTemplateMgr::loadUserTemplates() {
+	QStringList files = KGlobal::dirs()->findAllResources("BT_DisplayTemplates");
+	for ( QStringList::iterator it( files.begin() ); it != files.end(); ++it){
+		qWarning("found template %s", (*it).latin1());
+		
+		QFile f( *it );
+		Q_ASSERT( f.exists() );
+		
+	 	if (f.open( IO_ReadOnly )) {
+			QString fileContent = QTextStream( &f ).read();
+			
+			if (!fileContent.isEmpty()) {
+				m_templateMap[ QFileInfo(*it).fileName() + QString(" ") + i18n("(user template)")] = fileContent;
+			}
+		}
+	}
+}
+
 //Include the HTML templates which were put into a cpp file by a Perl script
 #include "../display-templates/template-init.cpp"
+
