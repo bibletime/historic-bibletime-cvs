@@ -305,19 +305,18 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					Q_ASSERT(ref);
 					
 					CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
-					/*CPointers::backend()->findSwordModuleByPointer(myModule)*/
 					Q_ASSERT(mod);
-					
-					buf.append("<span class=\"crossreference\">");
-					buf.append("<a href=\"");
-					buf.append(
-						CReferenceManager::encodeHyperlink(mod->name(), QString(ref), CReferenceManager::typeFromModule(mod->type())).utf8()
-					);
-					buf.append("\" crossrefs=\"");
-					buf.append(ref);
-					buf.append("\">");
-					
-// 					qWarning("inserted passage ref in %s", buf.c_str());
+
+					if (mod) {	
+						buf.append("<span class=\"crossreference\">");
+						buf.append("<a href=\"");
+						buf.append(
+							CReferenceManager::encodeHyperlink(mod->name(), QString(ref), CReferenceManager::typeFromModule(mod->type())).utf8()
+						);
+						buf.append("\" crossrefs=\"");
+						buf.append(ref);
+						buf.append("\">");
+					}
 				}
 				else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 					myUserData->inscriptRef = false;
