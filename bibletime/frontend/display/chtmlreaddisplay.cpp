@@ -203,7 +203,7 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
     moveToAnchor(url.mid(1));
   }
 	else if (url.left(7) == "http://"){ //open the bowser configured by kdeb
-		KApplication::kApplication()->invokeBrowser( url, "0" ); //ToDo: Not yet tested
+		KApplication::kApplication()->invokeBrowser( url ); //ToDo: Not yet tested
 	}
 }
 
