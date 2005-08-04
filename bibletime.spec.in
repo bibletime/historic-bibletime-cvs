@@ -35,6 +35,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Prefix: 	@RPM_PREFIX@
 Requires:	sword >= 1.5.8
 Distribution:	%{ostype} %{osversion}
+BuildRequires: 	kdelibs-devel
+BuildRequires: 	sword-devel >= 1.5.8
 
 %description
 BibleTime %{version}-%{release} is a free and easy to use bible study tool for UNIX systems.

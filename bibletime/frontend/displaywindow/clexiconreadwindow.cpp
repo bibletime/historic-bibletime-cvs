@@ -25,7 +25,7 @@
 #include <klocale.h>
 #include <kpopupmenu.h>
 #include <kdeversion.h>
-#include <kactionclasses.h>
+// #include <kactionclasses.h>
 
 CLexiconReadWindow::CLexiconReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name) : CReadWindow(moduleList, parent,name) {
 	setKey( CSwordKey::createInstance(moduleList.first()) );
