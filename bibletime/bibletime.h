@@ -394,6 +394,7 @@ private:
 	InfoDisplay::CInfoDisplay* m_infoDisplay;
 
 protected: //DCOP interface implementation
+	//see bibletimeinterface.h for a documentation of these functions
 	virtual void closeAllModuleWindows();
 	virtual void syncAllBibles(QString key);
 	virtual void syncAllCommentaries(QString key);
