@@ -43,7 +43,8 @@
 #include <krandomsequence.h>
 
 BibleTime::BibleTime()
-  : KMainWindow(0,0, WType_TopLevel),
+  : BibleTimeInterface("BibleTimeInterface"),
+  	KMainWindow(KMainWindow::NoDCOPObject, 0,0, WType_TopLevel),
 		m_windowActionCollection(0),
 	  m_initialized(false),
 	  m_moduleList(0),
@@ -56,8 +57,9 @@ BibleTime::BibleTime()
     m_backend(0),
     m_printer(0),
     m_mainIndex(0)
-    
 {
+	setObjId("BibleTimeInterface");
+// 	m_dcopInterface = new BibleTimeInterface(this);
 	setHelpMenuEnabled(false);
 
   initBackends();
@@ -78,6 +80,7 @@ BibleTime::BibleTime()
 }
 
 BibleTime::~BibleTime() {
+// 	delete m_dcopInterface;
 	// The backend is deleted by the BibleTimeApp instance
 }
 

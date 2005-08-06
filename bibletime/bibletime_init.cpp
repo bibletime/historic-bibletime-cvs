@@ -468,7 +468,7 @@ void BibleTime::initConnections(){
 }
 
 /** Initializes the backend */
-void BibleTime::initBackends(){
+void BibleTime::initBackends() {
 	KStartupLogo::setStatusMessage(i18n("Initializing Sword") + QString("..."));
 
 	StringMgr::setSystemStringMgr( new BTStringMgr() );
@@ -535,8 +535,8 @@ void BibleTime::applyProfileSettings( CProfile* p ){
  	//see polish(), where m_initialized is set and the KDE methods are called for window resize
   	const QRect geometry = p->geometry();
   	qDebug("main window: %i, %i @ %i x %i", geometry.topLeft().x(), geometry.topLeft().y(), geometry.width(), geometry.height());
-		resize( geometry.size() );
-		move( geometry.topLeft() );
+		KMainWindow::resize( geometry.size() ); //Don't use KMainWindowInterface::resize
+		KMainWindow::move( geometry.topLeft() );//Don't use KMainWindowInterface::move
 	}
 		
 	m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state

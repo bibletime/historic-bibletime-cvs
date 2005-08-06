@@ -3,8 +3,8 @@
 #ifndef BIBLETIME_H
 #define BIBLETIME_H
 
-//KDE includes
-#include <kmainwindow.h>
+//Own includes
+#include "bibletimeinterface.h"
 
 //Frontend includes
 #include "frontend/cprofilemgr.h"
@@ -13,9 +13,10 @@
 //Backend includes
 #include "backend/cswordmoduleinfo.h"
 
-//forward class declarations
+//KDE includes
+#include <kmainwindow.h>
 
-//BT classes
+//forward: BT classes
 class CMDIArea;
 class CProfile;
 class CDisplayWindow;
@@ -121,7 +122,7 @@ class QSplitter;
  * saveSettings().
  * This is the general way of all BibleTime classes.
  */
-class BibleTime : public KMainWindow {
+class BibleTime : public KMainWindow, virtual public BibleTimeInterface {
 	friend class CMDIArea;
 	Q_OBJECT
 public:
@@ -241,7 +242,7 @@ protected slots:
  	* Creates a new presenter in the MDI area according to the type of the module.
  	*/
 	CDisplayWindow* createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& key);
-	CDisplayWindow* createReadDisplayWindow(CSwordModuleInfo* moduke, const QString& key);
+	CDisplayWindow* createReadDisplayWindow(CSwordModuleInfo* module, const QString& key);
 	CDisplayWindow* createWriteDisplayWindow(CSwordModuleInfo* module, const QString& key, const CDisplayWindow::WriteWindowType& type);
 	/** 	
  	* Is called when the window menu is about to show ;-)
@@ -392,6 +393,18 @@ private:
 
 	InfoDisplay::CInfoDisplay* m_infoDisplay;
 
+protected: //DCOP interface implementation
+	virtual void closeAllModuleWindows();
+	virtual void syncAllBibles(QString key);
+	virtual void syncAllCommentaries(QString key);
+	virtual void syncAllLexicons(QString key);
+	virtual void syncAllVerseBasedModules(QString key);
+	virtual void openWindow(QString moduleName, QString key);
+	virtual void openDefaultBible(QString key);
+	virtual QStringList searchInOpenModules(QString searchText);
+	virtual QStringList searchIndefaultBible(QString searchText);
+private:
+	DCOPObject* m_dcopInterface;
 };
 
 #endif

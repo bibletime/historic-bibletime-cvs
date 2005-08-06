@@ -65,7 +65,7 @@ CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, 
 }
 
 CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, const char *name )
-  : KMainWindow(parent, name, WDestructiveClose),
+  : KMainWindow(KMainWindow::NoDCOPObject, parent, name, WDestructiveClose),
     m_mdi(parent),
 //    m_modules(modules),
     m_filterOptions(),

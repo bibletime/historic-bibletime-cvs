@@ -1,9 +1,5 @@
-bibletime_SOURCES = \
-bibletime_init.cpp \
-bibletime_slots.cpp \
-bibletime.cpp \
-bibletimeapp.cpp \
-main.cpp
+bibletime_SOURCES = bibletime_init.cpp bibletime_slots.cpp bibletime.cpp \
+	bibletimeapp.cpp main.cpp bibletime_dcop.cpp bibletimeinterface.skel
 
 bibletime_LDADD   = \
 ./frontend/displaywindow/libdisplaywindow.a \
@@ -28,6 +24,7 @@ $(LIBSOCKET)
 SUBDIRS = display-templates backend frontend xml pics util
 
 all_headers = bibletime.h bibletimeapp.h
+include_HEADERS = bibletimeinterface.h
 
 EXTRA_DIST = $(bibletime_SOURCES) $(all_headers)
 
@@ -68,3 +65,4 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(kde_confdir)
 
 rpm: dist
+noinst_HEADERS = bibletimeinterface.h
