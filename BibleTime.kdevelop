@@ -19,7 +19,7 @@
   </general>
   <kdevautoproject>
     <general>
-      <activetarget>bibletime/backend/libbackend.a</activetarget>
+      <activetarget>bibletime/bibletime</activetarget>
       <useconfiguration>default</useconfiguration>
     </general>
     <run>

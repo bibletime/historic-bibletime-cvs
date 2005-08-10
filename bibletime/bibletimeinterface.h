@@ -11,8 +11,17 @@
 #include <dcopobject.h>
 #include <kmainwindowiface.h>
 
+/** DCOP interface definition for BibleTime.
+* This is the interface definition for BibleTime's DCOP client interface. The main window class "BibleTime" 
+* inherits from this class and re-implements these pure virtual functions.
+* It uses virtual inheritance so that a widget which inherits twice from DCOPObject does not get mixed up.
+* This file is turned into bibletimeinterface_skel.cpp by the KDE automake system.
+*
+* @author Joachim Ansorg
+*/
 class BibleTimeInterface : virtual public DCOPObject
 {
+	//This K_DCOP line is required so that the k_dcop: and ASYNC are processed.
   K_DCOP
 
 public:
@@ -46,7 +55,6 @@ k_dcop:
 	/** Search in the default Bible module and return the search result.
 	*/
 	virtual QStringList searchIndefaultBible(QString searchText) = 0;
-
 };
 
 #endif

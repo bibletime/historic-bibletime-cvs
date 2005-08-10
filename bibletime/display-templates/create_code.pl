@@ -8,7 +8,7 @@ use FindBin qw($RealBin);
 my %names;
 
 sub read_names() {
-	open(IN, "< ".$RealBin."/names.conf");
+	open(IN, "< " . $RealBin . "/names.conf");
 	
 	while (<IN>) {
 		my $line = $_;
@@ -51,7 +51,8 @@ sub extract_data {
 }
 
 my $dir = $RealBin;
-print $dir."\n";
+#print $dir."\n";
+
 &read_names;
 my $code = "";
 foreach my $f (@ARGV) {
@@ -63,16 +64,16 @@ foreach my $f (@ARGV) {
 }
 
 
-open(OUT, "> template-init.cpp-new");
+open(OUT, "> $RealBin/template-init.cpp-new");
 print OUT "void CDisplayTemplateMgr::init() {\n$code\n}\n";
 close(OUT);
 
-if (-e "template-init.cpp" && compare("template-init.cpp","template-init.cpp-new")) { #differ
-	move("template-init.cpp-new","template-init.cpp");
+if (-e "$RealBin/template-init.cpp" && compare("$RealBin/template-init.cpp","$RealBin/template-init.cpp-new")) { #differ
+	move("$RealBin/template-init.cpp-new","$RealBin/template-init.cpp");
 }
-elsif (!-e "template-init.cpp") {
-	move ("template-init.cpp-new","template-init.cpp");
+elsif (!-e "$RealBin/template-init.cpp") {
+	move ("$RealBin/template-init.cpp-new","$RealBin/template-init.cpp");
 }
 else { #make sure to remove the -new file
-	unlink("template-init.cpp-new");
+	unlink("$RealBin/template-init.cpp-new");
 }
