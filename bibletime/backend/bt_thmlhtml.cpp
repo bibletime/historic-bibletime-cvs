@@ -317,6 +317,9 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						buf.append(ref);
 						buf.append("\">");
 					}
+					else {
+						buf.append("<span><a>");
+					}
 				}
 				else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 					myUserData->inscriptRef = false;
