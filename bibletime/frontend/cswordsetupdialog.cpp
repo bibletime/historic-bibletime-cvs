@@ -144,16 +144,16 @@ void CSwordSetupDialog::initInstall(){
 	m_sourceCombo = new QComboBox(m_installSourcePage);
 	layout->addWidget(m_sourceCombo, 2, 0);
 
-	QPushButton* addSourceButton = new QPushButton(i18n("Add library"), m_installSourcePage);
-	addSourceButton->setIconSet(SmallIcon("folder_new", 16));
-	connect(addSourceButton, SIGNAL(clicked()), SLOT(slot_installAddSource()));
-	layout->addWidget(addSourceButton, 2, 1, Qt::AlignLeft);
-
 	QPushButton* deleteSourceButton = new QPushButton(i18n("Delete library"), m_installSourcePage);
 	deleteSourceButton->setIconSet(SmallIcon("remove", 16));
 	connect(deleteSourceButton, SIGNAL(clicked()), SLOT(slot_installDeleteSource()));
-	layout->addWidget(deleteSourceButton, 2, 2, Qt::AlignLeft);
+	layout->addWidget(deleteSourceButton, 2, 1, Qt::AlignLeft);
 	
+   QPushButton* addSourceButton = new QPushButton(i18n("Add library"), m_installSourcePage);
+   addSourceButton->setIconSet(SmallIcon("folder_new", 16));
+   connect(addSourceButton, SIGNAL(clicked()), SLOT(slot_installAddSource()));
+   layout->addWidget(addSourceButton, 2, 2, Qt::AlignLeft);
+
 	m_sourceLabel = new QLabel(m_installSourcePage);
 	layout->addMultiCellWidget(m_sourceLabel, 3,3,0,1);
 
