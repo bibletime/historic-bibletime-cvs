@@ -74,12 +74,12 @@ const QString CReferenceManager::encodeHyperlink( const QString moduleName, cons
   		case Commentary: {
         CSwordVerseKey vk(0);
         //make sure we parse the scripref in the module's language!
-				CSwordModuleInfo* mod = CPointers::backend()->findModuleByName(moduleName);
-				StringList locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
-				StringList::iterator it = std::find(locales.begin(), locales.end(), mod->module()->Lang());
-				if (it != locales.end()) {
-					vk.setLocale(mod->module()->Lang());
-				}
+         CSwordModuleInfo* mod = CPointers::backend()->findModuleByName(moduleName);
+         StringList locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
+         StringList::iterator it = std::find(locales.begin(), locales.end(), mod->module()->Lang());
+         if (it != locales.end()) {
+            vk.setLocale(mod->module()->Lang());
+         }
         vk = key;
          
         if (vk.Error()) { //an error occured

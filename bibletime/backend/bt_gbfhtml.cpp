@@ -85,11 +85,12 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 		return 1; //WARNING: Return alread here
 	}
 
-	//Am Anfang<WH07225> schuf<WH01254><WTH8804> Gott<WH0430> Himmel<WH08064> und Erde<WH0776>.
+	//Am Anfang<WH07225> schuf<WH01254><WTH8804> Gott<WH0430> Himmel<WH08064> und<WT> Erde<WH0776>.
+   //A simple word<WT> means: No entry for this word "word"  
 	QString result;
 	
 	QString t = QString::fromUtf8(buf.c_str());
-	QRegExp tag("([.,;:]?<W[HGT][^>]+>\\s*)+");
+	QRegExp tag("([.,;:]?<W[HGT][^>]*>\\s*)+");
 	
 	QStringList list;
 	int lastMatchEnd = 0;
@@ -102,8 +103,8 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	while (pos != -1) {
 		list.append(t.mid(lastMatchEnd, pos+tag.matchedLength()-lastMatchEnd));
 	
-		lastMatchEnd = pos+tag.matchedLength();
-		pos = tag.search(t,pos+tag.matchedLength());
+		lastMatchEnd = pos + tag.matchedLength();
+		pos = tag.search(t, pos + tag.matchedLength());
 	}
 	
 	if (!t.right(t.length() - lastMatchEnd).isEmpty()) {
@@ -111,11 +112,11 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	}
 
 	//now create the necessary HTML in list entries and concat them to the result
-	tag = QRegExp("<W([HGT])([^>]+)>");
+	tag = QRegExp("<W([HGT])([^>]*)>");
 	tag.setMinimal(true);
 
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
-		QString e = *it; //current enty to process
+		QString e = (*it); //current entry to process
 		
 		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(1) != "<");
 		if (!textPresent) {
@@ -235,7 +236,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 		else if (!strncmp(token, "RF", 2)) {			
 			//we use several append calls because appendFormatted slows down filtering, which should be fast
 			if (myUserData->hasFootnotePreTag) {
-				qWarning("inserted footnotepre end");
+// 				qWarning("inserted footnotepre end");
 				buf.append("</span>");
 				myUserData->hasFootnotePreTag = false;
 			}

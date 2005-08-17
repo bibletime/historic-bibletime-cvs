@@ -286,15 +286,16 @@ const QString CInfoDisplay::decodeStrongs( const QString& data ) {
 	QStringList::const_iterator end = strongs.end();
 	for (QStringList::const_iterator it = strongs.begin(); it != end; ++it) {
 		CSwordModuleInfo* const module = CBTConfig::get( 
-			((*it).left(1) == QString("H")) ?
-			CBTConfig::standardHebrewStrongsLexicon : 
-			CBTConfig::standardGreekStrongsLexicon
+			((*it).left(1) == QString("H")) 
+         ? CBTConfig::standardHebrewStrongsLexicon
+			: CBTConfig::standardGreekStrongsLexicon
  		);
 		
 		QString text;
 		if (module) { 
 			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
 			key->key( (*it).mid(1) ); //skip H or G (language sign), will have to change later if we have better modules
+//           qWarning("strong %s", (*it).mid(1).latin1());
 			text = key->renderedText();
 		}		
 		//if the module could not be found just display an empty lemma info

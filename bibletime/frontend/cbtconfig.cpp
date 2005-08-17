@@ -110,15 +110,15 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 
 const QString CBTConfig::getKey( const CBTConfig::ints ID){
 	switch ( ID ){
-		case footnotes: 					return "footnotes";
-		case strongNumbers:  			return "strongNumbers";
-  	case headings: 						return "headings";
+		case footnotes: 				return "footnotes";
+		case strongNumbers:  		return "strongNumbers";
+  	case headings: 					return "headings";
   	case morphTags: 					return "morphTags";
-		case lemmas: 							return "lemmas";
-		case hebrewPoints: 				return "hebrewPoints";
+		case lemmas: 					return "lemmas";
+		case hebrewPoints: 			return "hebrewPoints";
 		case hebrewCantillation: 	return "hebrewCantillation";
-		case greekAccents: 				return "greekAccents";
-		case textualVariants:			return "textualVariants";
+		case greekAccents: 			return "greekAccents";
+		case textualVariants:		return "textualVariants";
 //     case transliteration:     return "transliteration";
     case scriptureReferences: return "scriptureReferences";
     case morphSegmentation:   return "morphSegmentation";

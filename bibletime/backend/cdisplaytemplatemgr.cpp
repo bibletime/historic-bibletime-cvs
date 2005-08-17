@@ -160,7 +160,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 void CDisplayTemplateMgr::loadUserTemplates() {
 	QStringList files = KGlobal::dirs()->findAllResources("BT_DisplayTemplates");
 	for ( QStringList::iterator it( files.begin() ); it != files.end(); ++it){
-		qWarning("found template %s", (*it).latin1());
+		qDebug("Found user template %s", (*it).latin1());
 		
 		QFile f( *it );
 		Q_ASSERT( f.exists() );

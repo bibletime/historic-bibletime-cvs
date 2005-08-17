@@ -138,7 +138,7 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	
 	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 
-	Q_ASSERT(modules.count() >= 1);
+// 	Q_ASSERT(modules.count() >= 1);
 
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
