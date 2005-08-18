@@ -112,7 +112,7 @@ void CMainIndex::initView(){
 
  	m_toolTip = new ToolTip(this);
 	setTooltipColumn(-1);
-	setShowToolTips(false);//to disable Qt's tooltips
+	setShowToolTips(false);//to disable Qt's tooltips, we use our own
 
 	setBackgroundMode(PaletteBase);
 	setFullWidth(true);
@@ -565,9 +565,9 @@ const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
 }
 
 /** Is called when items should be moved. */
-void CMainIndex::moved( QPtrList<QListViewItem>& /*items*/, QPtrList<QListViewItem>& /*afterFirst*/, QPtrList<QListViewItem>& /*afterNow*/){
-// 	qWarning("move items");
-}
+// void CMainIndex::moved( QPtrList<QListViewItem>& /*items*/, QPtrList<QListViewItem>& /*afterFirst*/, QPtrList<QListViewItem>& /*afterNow*/){
+// // 	qWarning("move items");
+// }
 
 /** Opens an editor window to edit the modules content. */
 void CMainIndex::editModulePlain(){

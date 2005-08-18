@@ -143,7 +143,7 @@ protected slots: // Protected slots
   /**
   * Is called when items should be moved.
   */
-  void moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow);
+//   void moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow);
   /**
   * Opens a plain text editor window to edit the modules content.
   */
