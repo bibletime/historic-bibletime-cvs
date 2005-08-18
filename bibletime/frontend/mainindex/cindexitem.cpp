@@ -46,7 +46,7 @@ CItemBase::CItemBase(CMainIndex* mainIndex, const Type type)
     m_type(type),
     m_sortingEnabled(true)
 {
-  
+
 }
 
 CItemBase::CItemBase(CItemBase* parentItem, const Type type)
@@ -83,7 +83,7 @@ const CItemBase::Type& CItemBase::type() const{
 void CItemBase::moveAfter( CItemBase* const item ){
 	if (!item)
 		return;
-	
+
 	if ( parent() == item->parent() ) { //same parent means level
 		moveItem(item); //both items are on the same level, so we can use moveItem
 	}
@@ -287,7 +287,7 @@ CBookmarkItem::~CBookmarkItem() {
 void CBookmarkItem::update(){
 	setMultiLinesEnabled(true);
   setPixmap(0,SmallIcon(CResMgr::mainIndex::bookmark::icon,16));
-	
+
   const QString title = QString::fromLatin1("%1 (%2)")
 		.arg(key())
 		.arg(module() ? module()->name() : i18n("unknown"));
@@ -317,8 +317,8 @@ const QString CBookmarkItem::toolTip(){
 	filterOptions.footnotes = false;
 	filterOptions.scriptureReferences = false;
 	CPointers::backend()->setFilterOptions(filterOptions);
-	
-	QString ret;	
+
+	QString ret;
 	util::scoped_ptr<CSwordKey> k( CSwordKey::createInstance(module()) );
 	k->key(this->key());
 
@@ -342,7 +342,7 @@ const QString CBookmarkItem::toolTip(){
 			.arg(description())
 			.arg(k->renderedText());
 	}
-	
+
 	return ret;
 }
 
@@ -394,7 +394,7 @@ const bool CBookmarkItem::enableAction(const MenuAction action){
 void CBookmarkItem::rename(){
   bool ok  = false;
   const QString newDescription = CInputDialog::getText(i18n("Change description ..."), i18n("Enter a new description for the chosen bookmark."), description(), &ok, listView(), true);
-	
+
   if (ok) {
     m_description = newDescription;
     update();
@@ -514,13 +514,13 @@ QPtrList<QListViewItem> CFolderBase::getChildList() {
 	QPtrList<QListViewItem> childs;
 	if (!childCount()) //no childs available
 		return childs;
-		
+
 	QListViewItem* i = firstChild();
-	while (i && (i->parent() == this)) {		
+	while (i && (i->parent() == this)) {
 		CItemBase* item = dynamic_cast<CItemBase*>(i);
 		if (item) { //we found a valid item
 			childs.append(item);
-			
+
 			CFolderBase* folder = dynamic_cast<CFolderBase*>(i);
 			if (folder) {
 				QPtrList<QListViewItem> subChilds = folder->getChildList();
@@ -529,12 +529,12 @@ QPtrList<QListViewItem> CFolderBase::getChildList() {
 				}
 			}
 		}
-		
+
 		do {
 			i = i->nextSibling();
 		} while (i && (i->parent() != this));
-	}	
-	
+	}
+
 	return childs;
 }
 
@@ -618,7 +618,7 @@ void CTreeFolder::init(){
   }
   else {
     const CLanguageMgr::Language* const lang = CPointers::languageMgr()->languageForAbbrev( language() );
-    
+
     setText(0, !language().isEmpty() ? ( lang->isValid() ? lang->translatedName() : language()) : i18n("Unknown language"));
   }
   initTree();
@@ -676,7 +676,7 @@ void CTreeFolder::initTree(){
         usedLangs.append(lang);
       }
     }
-    
+
 		//ToDo:: Optimize the loop with const itrs
 		QStringList::iterator lang_it;
     for (lang_it = usedLangs.begin(); lang_it != usedLangs.end(); ++lang_it) {
@@ -870,7 +870,7 @@ namespace Bookmarks {
 
   if ((action == PrintBookmarks) && childCount())
     return true;
-  
+
    return false;
  }
 
@@ -944,7 +944,7 @@ void CBookmarkFolder::initTree(){
   addGroup(OldBookmarkFolder, "*");
 
   KStandardDirs stdDirs;
- 	const QString path = stdDirs.saveLocation("data", "bibletime/");	
+ 	const QString path = stdDirs.saveLocation("data", "bibletime/");
   if (!path.isEmpty()) {
     loadBookmarks(path + "bookmarks.xml");
   }
@@ -960,7 +960,7 @@ const bool CBookmarkFolder::enableAction(const MenuAction action){
 
   if ((action == PrintBookmarks) && childCount())
     return true;
-  
+
 	return false;
 }
 
@@ -976,7 +976,7 @@ void CBookmarkFolder::exportBookmarks(){
 void CBookmarkFolder::importBookmarks(){
   QString fileName = KFileDialog::getOpenFileName(QString::null, i18n("*.btb | BibleTime bookmark files (*.btb)\n*.* | All files (*.*)"), 0, i18n("BibleTime - Import bookmarks"));
   if (!fileName.isEmpty()) {
-    //we have to decide if we should load an old bookmark file from 1.2 or earlier or the new XML format of > 1.3    
+    //we have to decide if we should load an old bookmark file from 1.2 or earlier or the new XML format of > 1.3
     if ( !loadBookmarks(fileName) ) { //if this failed try to load it as old bookmark file
       loadBookmarksFromXML( Bookmarks::OldBookmarkImport::oldBookmarksXML( fileName ) );
     };
@@ -985,7 +985,7 @@ void CBookmarkFolder::importBookmarks(){
 
 bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
 //   qWarning("bool CBookmarkFolder::acceptDrop(const QMimeSource * src): return%ii", (CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark)));
-	
+
   return CDragDropMgr::canDecode(src)
 	  && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
 }
@@ -995,23 +995,21 @@ void CBookmarkFolder::dropped(QDropEvent *e, QListViewItem* after) {
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
     CDragDropMgr::ItemList::Iterator it;
     CItemBase* previousItem = dynamic_cast<CItemBase*>(after);
-		
+
     for( it = dndItems.begin(); it != dndItems.end(); ++it) {
-      CSwordModuleInfo* module = CPointers::backend()->findModuleByName(
-				(*it).bookmarkModule() 
-			);
-			
+        CSwordModuleInfo* module = CPointers::backend()->findModuleByName( (*it).bookmarkModule() );
+
       CBookmarkItem* i = new CBookmarkItem(
-					this, 
-					module, 
-					(*it).bookmarkKey(), 
+					this,
+					module,
+					(*it).bookmarkKey(),
 					(*it).bookmarkDescription()
 			);
-				
+
       if (previousItem) {
         i->moveAfter( previousItem );
       }
-			
+
       i->init();
       previousItem = i;
     };
@@ -1084,17 +1082,17 @@ const bool CBookmarkFolder::loadBookmarksFromXML( const QString& xml ){
 
 /** Loads bookmarks from a file. */
 const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
-  QFile file(filename);	
+  QFile file(filename);
 	if (!file.exists())
 		return false;
 
-  QString xml;	
-	if (file.open(IO_ReadOnly)) {		
+  QString xml;
+	if (file.open(IO_ReadOnly)) {
 		QTextStream t;
 		t.setEncoding(QTextStream::UnicodeUTF8); //set encoding before file is used for input!
 		t.setDevice(&file);
     xml = t.read();
-		file.close();	
+		file.close();
 	}
 
   return loadBookmarksFromXML( xml );
@@ -1106,7 +1104,7 @@ CGlossaryFolder::CGlossaryFolder(CMainIndex* mainIndex, const Type type, const Q
   : CTreeFolder(mainIndex, type, fromLanguage)
 {
   m_fromLanguage = fromLanguage;
-  m_toLanguage = toLanguage;  
+  m_toLanguage = toLanguage;
 }
 
 CGlossaryFolder::CGlossaryFolder(CFolderBase* item, const Type type, const QString& fromLanguage, const QString& toLanguage)
@@ -1127,7 +1125,7 @@ void CGlossaryFolder::initTree(){
   ListCSwordModuleInfo allModules =CPointers::backend()->moduleList();
   ListCSwordModuleInfo usedModules;
 //   for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
-	
+
 	ListCSwordModuleInfo::iterator end_it = allModules.end();
 	for (ListCSwordModuleInfo::iterator it(allModules.begin()); it != end_it; ++it) {
     if ((*it)->type() == CSwordModuleInfo::Lexicon) { //found a module, check if the type is correct (devotional etc.)
@@ -1152,7 +1150,7 @@ void CGlossaryFolder::initTree(){
   if (language() == QString::fromLatin1("*")) { //create subfolders for each language
     typedef std::pair<QString, QString> LanguagePair;
     typedef QValueList<LanguagePair> LanguagePairList;
-    
+
     LanguagePairList usedLangs;
 //     for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
 		ListCSwordModuleInfo::iterator end_it = usedModules.end();
@@ -1161,12 +1159,12 @@ void CGlossaryFolder::initTree(){
 				 (*it)->config(CSwordModuleInfo::GlossaryFrom),
 				 (*it)->config(CSwordModuleInfo::GlossaryTo)
 			);
-			
+
       if (!usedLangs.contains(langPair)) {
         usedLangs.append(langPair);
       }
     }
-		
+
     LanguagePairList::iterator lang_it;
     for (lang_it = usedLangs.begin(); lang_it != usedLangs.end(); ++lang_it) {
       addGroup(type(), (*lang_it).first, (*lang_it).second);
@@ -1180,7 +1178,7 @@ void CGlossaryFolder::initTree(){
     }
   }
 
-  sortChildItems(0,true);  
+  sortChildItems(0,true);
 }
 
 void CGlossaryFolder::init(){
@@ -1193,14 +1191,14 @@ void CGlossaryFolder::init(){
 
     QString fromLangString  = fromLang->translatedName();
     QString toLangString    = toLang->translatedName();
-        
+
     if (fromLangString.isEmpty()) { //use abbrev!
       fromLangString = m_fromLanguage;
     };
     if (toLangString.isEmpty()) { //use abbrev!
       toLangString = m_toLanguage;
     };
-    
+
     setText(0, fromLangString + " - " + toLangString );
   }
   initTree();

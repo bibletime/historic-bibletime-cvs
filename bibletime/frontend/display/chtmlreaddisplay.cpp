@@ -36,7 +36,7 @@
 
 using namespace InfoDisplay;
 
-CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) 
+CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget)
 	: KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget),
 	CReadDisplay(readWindow),
 	m_currentAnchorCache(QString::null)
@@ -45,9 +45,9 @@ CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidge
   setJavaEnabled(false);
 	setJScriptEnabled(false);
 	setPluginsEnabled(false);
-	
+
 	m_view->setDragAutoScroll(false);
-	
+
 }
 
 CHTMLReadDisplay::~CHTMLReadDisplay(){
@@ -85,7 +85,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
    		QString keyName;
      	CReferenceManager::Type type;
       CReferenceManager::decodeHyperlink(activeAnchor(), moduleName, keyName, type);
-      
+
      	return keyName;
     }
 
@@ -113,7 +113,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
       if (CSwordModuleInfo* module = backend()->findModuleByName(moduleName)) {
 				util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
     		key->key( keyName );
-				
+
 				//TODO: This is a BAD HACK, we have to fnd a better solution to manage the settings now
 				CSwordBackend::FilterOptions filterOptions;
 				filterOptions.footnotes = false;
@@ -124,7 +124,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 				filterOptions.textualVariants = false;
 
 				CPointers::backend()->setFilterOptions(filterOptions);
-				
+
       	return QString(key->strippedText()).append("\n(")
 						.append(key->key())
 						.append(", ")
@@ -166,10 +166,10 @@ void CHTMLReadDisplay::selectAll() {
 /** No descriptions */
 void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
 	m_currentAnchorCache = anchor;
-	
+
 	//This is an ugly hack to work around a KDE problem in KDE including 3.3.1 (no later versions tested so far)
  	QTimer::singleShot(0, this, SLOT(slotGoToAnchor()));
-	
+
 // instead of:
 // 	slotGoToAnchor();
 }
@@ -255,20 +255,22 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
   if( e->qmouseEvent()->state() & LeftButton == LeftButton) { //left mouse button pressed
 		const int delay = KGlobalSettings::dndEventDelay();
 		QPoint newPos = QPoint(e->x(), e->y());
-	
+
 		if ( (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < (m_dndData.startPos.x()-delay) ||
 				newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < (m_dndData.startPos.y()-delay)) &&
 				!m_dndData.isDragging && m_dndData.mousePressed  )
 		{
 			QDragObject* d = 0;
+
 			if (!m_dndData.anchor.isEmpty() && (m_dndData.dragType == DNDData::Link) && !m_dndData.node.isNull() ) {
 			// create a new bookmark drag!
-				QString module = QString::null;
-				QString key = QString::null;
+				QString module;
+				QString key;
 				CReferenceManager::Type type;
-				if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
+				if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) ) {
 					return;
-				
+                }
+
 				CDragDropMgr::ItemList dndItems;
 				dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
 				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
@@ -278,15 +280,18 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				dndItems.append( CDragDropMgr::Item(m_dndData.selection) ); //no description!
 				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
 			}
-	
+
 			if (d) {
 				m_dndData.isDragging = true;
 				m_dndData.mousePressed = false;
-	
-				//first make a virtual mouse click to end the selection, it it's in progress
+
+				//HACK: first make a virtual mouse click to end the selection, it it's in progress
+                //This is to work around a KDE problem
+
 				QMouseEvent e(QEvent::MouseButtonRelease, QPoint(0,0), Qt::LeftButton, Qt::LeftButton);
 				KApplication::sendEvent(view()->viewport(), &e);
-				d->drag();
+
+                d->drag();
 			}
 		}
 	}
@@ -298,7 +303,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 		if (!node.isNull() && (m_previousEventNode != node) ) { //we want to avoid precessing the node again
 			DOM::Node currentNode = node;
 			DOM::Node attr;
-			
+
 			CInfoDisplay::ListInfoData infoList;
 			do {
 				if (!currentNode.isNull() && (currentNode.nodeType() == DOM::Node::ELEMENT_NODE) && currentNode.hasAttributes()) { //found right node
@@ -306,17 +311,17 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 					if (!attr.isNull()) {
 						infoList.append( qMakePair(CInfoDisplay::Footnote, attr.nodeValue().string()) );
 					}
-				
+
 					attr = currentNode.attributes().getNamedItem("lemma");
 					if (!attr.isNull()) {
 						infoList.append( qMakePair(CInfoDisplay::Lemma, attr.nodeValue().string()) );
 					}
-					
+
 					attr = currentNode.attributes().getNamedItem("morph");
 					if (!attr.isNull()) {
 						infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
 					}
-					
+
 					attr = currentNode.attributes().getNamedItem("expansion");
 					if (!attr.isNull()) {
 						infoList.append( qMakePair(CInfoDisplay::Abbreviation, attr.nodeValue().string()) );
@@ -325,17 +330,17 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 					if (!attr.isNull()) {
 						//infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
 					}*/
-					
+
 /*					attr = currentNode.attributes().getNamedItem("gloss");
 					if (!attr.isNull()) {
 						infoList.append( qMakePair(CInfoDisplay::WordGloss, attr.nodeValue().string()) );
 					}*/
-				
+
 /*					attr = currentNode.attributes().getNamedItem("xlit");
 					if (!attr.isNull()) {
 						//infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
 					}*/
-					
+
 					attr = currentNode.attributes().getNamedItem("crossrefs");
 					if (!attr.isNull()) {
 						infoList.append( qMakePair(CInfoDisplay::CrossReference, attr.nodeValue().string()) );
@@ -350,29 +355,29 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 					}
 				}
 			} while ( !currentNode.isNull() );
-			
+
 			//Code part to show a translation of the hovered word, only works with KDE 3.3
 /*			if (!infoList.count()) { //translate the text under the mouse, find the lowest node containing the mouse
-			
+
 				DOM::Node node = nonSharedNodeUnderMouse();
 
 				if (!node.isNull() && node.nodeName().string() == "#text") {
  					infoList.append( qMakePair(
-							CInfoDisplay::WordTranslation, 
+							CInfoDisplay::WordTranslation,
 							node.nodeValue().string()
 						)
 					);
 				}
 			}*/
-			
+
 			if ( !(e->qmouseEvent()->state() & Qt::ShiftButton) ) { //SHIFT key not pressed, so we display
 				CPointers::infoDisplay()->setInfo(infoList);
 			}
-			
+
 			m_previousEventNode = node;
 		}
-	} 
-	
+	}
+
 	KHTMLPart::khtmlMouseMoveEvent(e);
 }
 
@@ -407,10 +412,10 @@ void CHTMLReadDisplayView::polish(){
 void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
   if (CDragDropMgr::canDecode(e) && CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) {
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
-    CDragDropMgr::Item item = dndItems.first();  
+    CDragDropMgr::Item item = dndItems.first();
     e->acceptAction();
-    
-		m_display->connectionsProxy()->emitReferenceDropped(item.bookmarkKey());
+
+	m_display->connectionsProxy()->emitReferenceDropped(item.bookmarkKey());
     return;
   };
 

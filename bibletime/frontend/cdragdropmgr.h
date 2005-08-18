@@ -84,13 +84,13 @@ public:
     Type m_type; //the member to save the type of the action
     QString m_bookmarkModuleName; //the modules which is used by this item, only valid for type() == Bookmark
     QString m_bookmarkKey; //the key of a bookmark, only valid if type() == Bookmark
-    QString m_bookmarkDescription; //the description of a bookmark, only valid if type() == Bookmark    
-    QString m_text; //the text of this item, only valid if type() == Text    
+    QString m_bookmarkDescription; //the description of a bookmark, only valid if type() == Bookmark
+    QString m_text; //the text of this item, only valid if type() == Text
   }; //end of class CDragDropMgr::Item
 
   //the item list we're using
   typedef QValueList<Item> ItemList;
-  
+
   /** Return whether the drop should be accepted
   * This functions tests whether the drop should be accepted or not. It returns true if the drop object
   * is supported by the CDragDropMgr and if it cotains valid data. Oterwise this function returns false.
@@ -107,26 +107,26 @@ public:
   * Returns a list of CDragDropMgr::Item objects.
   * If it's a wrong dropEvent we return an empty ist
   */
-  static CDragDropMgr::ItemList decode( const QMimeSource* const src  ); 
+  static CDragDropMgr::ItemList decode( const QMimeSource* const src  );
   /**
   * Returns which type the given drop event has, if it's a mixed one (both bookmarks and plain text),
   * which shouldn't happen, it return Item::Unknown.
   * It also returns Unknown if the drop event is not supported.
   */
   static CDragDropMgr::Item::Type dndType( const QMimeSource* e );
-  
+
 protected:
   //The class which represents our XML drag object stuff
   class BTDrag : public QTextDrag {
   public:
-    BTDrag( const QString& xml, QWidget* dragSource = 0, const char* name = 0);
+    BTDrag( const QString& xml, QWidget* dragSource, const char* name = 0);
     //reimplemented static publoc function to provide functionality for BibleTime XML drags
     static bool canDecode( const QMimeSource * e );
     virtual bool provides( const char* type ) const;
     virtual const char* format( int i = 0 ) const;
 
     virtual QByteArray encodedData( const char* type ) const;
-    
+
   protected:
     friend class CDragDropMgr;
     //made protected because the BibleTime classes may not manage the data of BTDrag
@@ -139,7 +139,7 @@ protected:
 
   //protected constructor and destructor because we do not allow inheritance, functionality is provided by static functions
 	CDragDropMgr();
-	virtual ~CDragDropMgr();  
+	virtual ~CDragDropMgr();
 };
 
 #endif

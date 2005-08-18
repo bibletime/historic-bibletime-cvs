@@ -28,16 +28,16 @@ class CSearchDialog;
 
 class CMainIndex : public KListView {
   Q_OBJECT
-	
+
   class ToolTip : public QToolTip {
 	public:
 		ToolTip(CMainIndex* parent);
 		virtual ~ToolTip() {};
 		/**
 		* Displays a tooltip for position p using the getToolTip() function of CGroupManagerItem
-		*/		
+		*/
 		virtual void maybeTip( const QPoint &pos);
-	
+
 	private:
 		CMainIndex* m_mainIndex;
 	};
@@ -50,12 +50,12 @@ public:
   * Opens the searchdialog using the given modules using the given search text.
   */
   void emitModulesChosen( ListCSwordModuleInfo modules, QString key );
-  /** 
-	* Saves the bookmarks to disk 
+  /**
+	* Saves the bookmarks to disk
 	*/
   void saveBookmarks();
   /**
-	* Reloads the main index's Sword dependend things like modules 
+	* Reloads the main index's Sword dependend things like modules
 	*/
   void reloadSword();
 
@@ -87,16 +87,12 @@ protected: // Protected methods
   */
   KAction* const action( const CItemBase::MenuAction type ) const;
   /**
-  * Reimplementation. Takes care of movable items.
-  */
-  virtual void startDrag();
-  /**
   * Reimplementation to support the items dragEnter and dragLeave functions.
   */
   virtual void contentsDragMoveEvent( QDragMoveEvent* event );
   virtual void contentsDragLeaveEvent( QDragLeaveEvent* e );
-	QRect drawItemHighlighter(QPainter* painter, QListViewItem * item );
-	
+  QRect drawItemHighlighter(QPainter* painter, QListViewItem * item );
+
 protected slots: // Protected slots
   /**
   * Is called when an item was clicked/double clicked.
@@ -126,7 +122,7 @@ protected slots: // Protected slots
   /**
   * Import bookmarks from a file and add them to the selected folder.
   */
-  void importBookmarks();  
+  void importBookmarks();
   /**
   * Deletes the selected entries.
   */
@@ -160,7 +156,6 @@ protected slots: // Protected slots
 private: // Private methods
   CSearchDialog* m_searchDialog;
   ToolTip* m_toolTip;
-  bool m_itemsMovable;
   QListViewItem* m_autoOpenFolder;
   QTimer m_autoOpenTimer;
 
@@ -188,7 +183,7 @@ private: // Private methods
     KActionMenu* editModuleMenu;
     KAction* editModulePlain;
     KAction* editModuleHTML;
-    
+
     KAction* searchInModules;
     KAction* unlockModule;
     KAction* aboutModule;
@@ -200,7 +195,7 @@ signals: // Signals
   * Is emitted when a module should be opened,
   */
   void createReadDisplayWindow( ListCSwordModuleInfo, const QString& );
-  void createWriteDisplayWindow( CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType& );  
+  void createWriteDisplayWindow( CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType& );
 };
 
 #endif
