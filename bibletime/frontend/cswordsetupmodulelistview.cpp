@@ -49,7 +49,7 @@ public:
 			tip(rect, tipText);
 		}
 	}
-	
+
 protected:
 	CSwordSetupModuleListView* m_parent;
 };
@@ -64,7 +64,7 @@ CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_re
 	Q_ASSERT(installSource);
 	new InstallationManager::ToolTip(this);
 	m_backend = installSource ? BTInstallMgr::Tool::backend(installSource) : CPointers::backend();
-	
+
 	addColumn(i18n("Name"));
 	setColumnWidthMode( 0, QListView::Maximum );
 	setColumnWidth( 0, 200 ); //don`t get too broad
@@ -73,7 +73,7 @@ CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_re
 	setColumnAlignment(1, Qt::AlignRight);
 	addColumn(i18n("Installed version")); //version
 	setColumnAlignment(2, Qt::AlignHCenter);
-	
+
 	if (m_is_remote) {
 		addColumn(i18n("Remote version")); //version
 	}
@@ -81,13 +81,13 @@ CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_re
 		addColumn(i18n("Location"));
 	}
 	setColumnAlignment(3, Qt::AlignLeft);
-	
+
 	setAllColumnsShowFocus(true);
 	setFullWidth(true);
 	setRootIsDecorated(true);
 	setResizeMode(QListView::LastColumn);
 	setTooltipColumn(0);
-		
+
 	init();
 }
 
@@ -129,7 +129,8 @@ void CSwordSetupModuleListView::init(){
   m_categoryDevotionals->setOpen(true);
   m_categoryGlossaries->setOpen(true);
 
-  connect(this, SIGNAL(executed(QListViewItem*)), SLOT(slotItemClicked(QListViewItem*)));
+//   connect(this, SIGNAL(executed(QListViewItem*)), SLOT(slotItemClicked(QListViewItem*)));
+  connect(this, SIGNAL(clicked(QListViewItem*)), SLOT(slotItemClicked(QListViewItem*))); //items have to be clicked only once in double click mode
   connect(this, SIGNAL(spacePressed(QListViewItem*)), SLOT(slotItemClicked(QListViewItem*)));
 }
 
@@ -192,12 +193,12 @@ void CSwordSetupModuleListView::addModule(CSwordModuleInfo* module, QString loca
 	QListViewItem * langFolder = 0;
 	if (parent){
 		langFolder = parent->firstChild();
-		
+
 		while( langFolder ) { //try to find language folder if it exsists
 			if (langFolder->text(0) == langName) { //found right folder
 				break;
 			}
-			
+
 			langFolder = langFolder->nextSibling();
 		}
 	}
@@ -213,7 +214,7 @@ void CSwordSetupModuleListView::addModule(CSwordModuleInfo* module, QString loca
 	}
 
 	Q_ASSERT(langFolder);
-	
+
 	QListViewItem* newItem = 0;
 	if (langFolder) {
 		newItem = new QCheckListItem(langFolder, module->name(), QCheckListItem::CheckBox);
@@ -258,8 +259,7 @@ void CSwordSetupModuleListView::slotItemClicked(QListViewItem*) {
 	emit selectedModulesChanged();
 }
 
-bool CSwordSetupModuleListView::showTooltip(QListViewItem* i, const QPoint&, int) const
-{
+bool CSwordSetupModuleListView::showTooltip(QListViewItem* i, const QPoint&, int) const {
 	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>( i );
  	Q_ASSERT(checkItem);
 
@@ -267,9 +267,9 @@ bool CSwordSetupModuleListView::showTooltip(QListViewItem* i, const QPoint&, int
 }
 
 QString CSwordSetupModuleListView::tooltip(QListViewItem* i, int /*column*/) const {
-	QString ret;	
+	QString ret;
 	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>( i );
-	
+
 	if (checkItem && (checkItem->type() == QCheckListItem::CheckBox)) {
 		const QString moduleName = checkItem->text(0);
 		CSwordModuleInfo* module = m_backend->findModuleByName(moduleName);
