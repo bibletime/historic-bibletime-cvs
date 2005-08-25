@@ -72,10 +72,7 @@ void CMDIArea::slotClientActivated(QWidget* client) {
 void CMDIArea::childEvent( QChildEvent * e ) {
 	QWorkspace::childEvent(e);
 
-	if ( m_childEvent /*|| !isUpdatesEnabled()*/ || !e) {
-/*		if (windowList().count() == 0) {
-			m_deleting = false;
-		}*/
+	if ( m_childEvent || !e) {
 		return;
 	}
 
@@ -87,7 +84,6 @@ void CMDIArea::childEvent( QChildEvent * e ) {
 		emit sigLastPresenterClosed();
 	}
 
-// 	Q_ASSERT(!m_deleting /*&& isUpdatesEnabled()*/);
 	if ((e->inserted() || e->removed()) ) {
 		if (e->inserted() && e->child() && e->child()->inherits("CDisplayWindow")) {
 			e->child()->installEventFilter(this); //make sure we catch the events of the new window
@@ -99,10 +95,6 @@ void CMDIArea::childEvent( QChildEvent * e ) {
 	}
 
 	m_childEvent = false;
-
-/*	if (windowList().count() == 0) {
-		m_deleting = false;
-	}*/
 }
 
 /** Reimplementation */
@@ -183,7 +175,8 @@ void CMDIArea::myTileHorizontal() {
 	if ((windows.count() == 1) && windows.at(0)) {
 		m_appCaption = windows.at(0)->caption();
 		windows.at(0)/*->parentWidget()*/->showMaximized();
-	} else {
+	}
+    else {
 
 		QWidget* active = activeWindow();
 		if (active->isMaximized()) {
@@ -220,7 +213,7 @@ void CMDIArea::myCascade() {
 	if (/*m_deleting || */!isUpdatesEnabled() || !usableWindowList().count() ) {
 		return;
 	}
-	
+
 	QPtrList<QWidget> windows = usableWindowList();
 	if ( !windows.count() ) {
 		return;
@@ -253,9 +246,9 @@ void CMDIArea::myCascade() {
 			if (window == active) { //leave out the active window which should be the top window
 				continue;
 			}
-			
+
 			window->setUpdatesEnabled(false);
-			
+
  			window->parentWidget()->raise(); //make it the on-top-of-window-stack window to make sure they're in the right order
 			window->parentWidget()->setGeometry(x, y, windowWidth, windowHeight);
  			x += offsetX;
@@ -309,12 +302,12 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
 	bool ret = QWorkspace::eventFilter(o,e);
 
 	if ( w && (e->type() == QEvent::WindowStateChange) ) {
-// 		Q_ASSERT(o->inherits("CDisplayWindow"));
+//  		Q_ASSERT(o->inherits("CDisplayWindow"));
 
 		if (o->inherits("CDisplayWindow") && ((w->windowState() & Qt::WindowMinimized) || w->isHidden())) { //window was minimized, trigger a tile/cascade update if necessary
 			triggerWindowUpdate();
 			ret = false;
-		} 
+		}
 		else if (!o->inherits("CDisplayWindow")) {
  			qDebug("bad mdi child classname: %s", o->className());
 			o->dumpObjectInfo();

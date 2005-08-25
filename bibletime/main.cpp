@@ -40,7 +40,7 @@
 bool showDebugMessages = false;
 BibleTime* bibletime_ptr = 0;
 
-void myMessageOutput( QtMsgType type, const char *msg ) {	
+void myMessageOutput( QtMsgType type, const char *msg ) {
 	//we use this messagehandler to switch debugging off in final releases
 	switch ( type ) {
 		case QtDebugMsg:
@@ -141,7 +141,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   *    Active developers (sorted by last name)   *
   ************************************************/
   // Project coordination
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "junkmail@joachim.ansorgs.de", "http://joachim.ansorgs.de");
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "nospam@joachim-ansorg.de", "http://www.joachim-ansorg.de");
   // Second main developer
 	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
 	// artwork
@@ -250,9 +250,9 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 			KStartupLogo::deleteSplash();
 		}
 	}
-	
+
 	const int ret = app.exec();
-	
+
 	delete bibletime_ptr;
 	return ret;
 }

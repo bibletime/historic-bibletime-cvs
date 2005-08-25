@@ -60,7 +60,8 @@ void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString
 
   if (modules.count()) {
     m_staticDialog->setModules(modules);
-  } else {
+  }
+  else {
     m_staticDialog->showModulesSelector();
   }
 
@@ -68,7 +69,7 @@ void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString
   if (m_staticDialog->isHidden()) {
     m_staticDialog->show();
   }
-  
+
   m_staticDialog->raise();
   if (modules.count() && !searchText.isEmpty()) {
     m_staticDialog->startSearch();
@@ -83,14 +84,15 @@ CSearchDialog* const CSearchDialog::getSearchDialog() {
 CSearchDialog::CSearchDialog(QWidget *parent)
   : KDialogBase(Tabbed, i18n("Search dialog"), Close | User1 | User2, User1, parent, "CSearchDialog", false, true, i18n("Search"), i18n("Interrupt")) {
 
-  setWFlags( getWFlags() | Qt::WStyle_MinMax );
+    clearWFlags(0);
+    setWFlags( Qt::WStyle_MinMax );
 	setIcon(CResMgr::searchdialog::icon);
-	
-	m_searcher.connectPercentUpdate(this, SLOT(updateProgress()));
+
+    m_searcher.connectPercentUpdate(this, SLOT(updateProgress()));
 	m_searcher.connectFinished(this, SLOT(searchFinished()));
 
-  initView();
-  initConnections();
+    initView();
+    initConnections();
 }
 
 // CSearchDialog::~CSearchDialog(){
@@ -109,21 +111,21 @@ void CSearchDialog::startSearch(){
   enableButton(User2,true);
   m_interruptedSearch = false;
 
-  int searchFlags = m_searchOptionsPage->searchFlags();	
+  int searchFlags = m_searchOptionsPage->searchFlags();
   m_searchOptionsPage->prepareSearch();
 
   const CSwordModuleSearch::scopeType scopeType = m_searchOptionsPage->scopeType();
   if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
     searchFlags |= CSwordModuleSearch::useLastResult;
-  } 
+  }
 	else if ( (scopeType == CSwordModuleSearch::Scope_Bounds)
 					 && strlen(m_searchOptionsPage->searchScope().getRangeText()))
 	{
     //we need the scope flag and a valid scope!
     searchFlags |= CSwordModuleSearch::useScope;
     m_searcher.setSearchScope( m_searchOptionsPage->searchScope() );
-  }  
-  
+  }
+
   m_searcher.setModules( modules() );
   m_searcher.setSearchedText(searchText);
   m_searcher.setSearchOptions(searchFlags);
@@ -170,7 +172,7 @@ const CSwordModuleSearch::scopeType CSearchDialog::searchScopeType() const {
 const int CSearchDialog::searchFlags() const {
   return m_searchOptionsPage->searchFlags();
 }
-  
+
 /** Returns the search text which is used for the search. */
 void CSearchDialog::setSearchText( const QString searchText ){
   m_searchOptionsPage->setSearchText(searchText);
@@ -185,11 +187,11 @@ void CSearchDialog::initView(){
   QHBox* box = addHBoxPage(i18n("Search &options"));
   m_index.optionsPage = pageIndex(box);
   m_searchOptionsPage = new CSearchOptionsPage(box);
-  
+
   box = addHBoxPage(i18n("Search &result"));
   m_index.resultPage = pageIndex(box);
   m_searchResultPage = new CSearchResultPage(box);
-	
+
  	enableButton(User2,false); //cancel button
 //  	enableButton(User1,true);	 //start search button
 }
@@ -228,7 +230,7 @@ void CSearchDialog::slotSetSearchButtonStatus(bool status) {
 void CSearchDialog::initConnections(){
   connect(this, SIGNAL(user1Clicked()), SLOT(startSearch()));
   connect(this, SIGNAL(user2Clicked()), SLOT(interruptSearch()));
-  connect(this, SIGNAL(closeClicked()), SLOT(slotDelayedDestruct()));  
+  connect(this, SIGNAL(closeClicked()), SLOT(slotDelayedDestruct()));
   connect(this, SIGNAL(aboutToShowPage(QWidget*)), SLOT(slotShowPage(QWidget*)));
 
 	connect(m_searchOptionsPage, SIGNAL(sigSetSearchButtonStatus(bool)), this, SLOT(slotSetSearchButtonStatus(bool)));
@@ -237,7 +239,7 @@ void CSearchDialog::initConnections(){
 /** Updates the progress. */
 void CSearchDialog::updateProgress(){
   KApplication::kApplication()->processEvents(1);//not too long
-	
+
   m_searchOptionsPage->setOverallProgress(m_searcher.getPercent(CSwordModuleSearch::allModules));
   m_searchOptionsPage->setCurrentModuleProgress(m_searcher.getPercent(CSwordModuleSearch::currentModule));
 }
@@ -353,20 +355,20 @@ void CModuleChooser::initTree(){
   while (ok) {
     ListCSwordModuleInfo modsForType;
     QString typeFolderCaption = QString::null;
-    incType = false;  
+    incType = false;
     if (static_cast<CSwordModuleInfo::ModuleType>(type) == CSwordModuleInfo::Lexicon) {
       if (!addedLexs) {
 //         for (mods.first(); mods.current(); mods.next()) {
 				ListCSwordModuleInfo::iterator end_it = mods.end();
 				for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
-          if (((*it)->type() == CSwordModuleInfo::Lexicon) 
-							&& ((*it)->category() != CSwordModuleInfo::DailyDevotional) 
+          if (((*it)->type() == CSwordModuleInfo::Lexicon)
+							&& ((*it)->category() != CSwordModuleInfo::DailyDevotional)
 							&& ((*it)->category() != CSwordModuleInfo::Glossary)
 					) {
             modsForType.append( *it );
           };
         };
-				
+
         addedLexs = true;
         typeFolderCaption = QString::null;
       }
@@ -390,7 +392,7 @@ void CModuleChooser::initTree(){
           };
         };
         addedGlossaries = true;
-        typeFolderCaption = i18n("Glossaries");        
+        typeFolderCaption = i18n("Glossaries");
       };
 
       if (addedLexs && addedDevotionals && addedGlossaries)
@@ -436,7 +438,7 @@ void CModuleChooser::initTree(){
       continue;
     };
 
-    
+
     QString language = QString::null;
     CLanguageMgr* langMgr = languageMgr();
     for ( QStringList::Iterator it = langs.begin(); it != langs.end(); ++it ) {
@@ -444,7 +446,7 @@ void CModuleChooser::initTree(){
       if (language.isEmpty()) {
         language = (*it);
       }
-      
+
       QListViewItem* langFolder = new QListViewItem(typeFolder,language);
       langFolder->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
@@ -499,7 +501,7 @@ void CModuleChooser::setModules( ListCSwordModuleInfo modules ){
 
 /****************************/
 
-CModuleChooserDialog::CModuleChooserDialog( QWidget* parentDialog, ListCSwordModuleInfo modules ) : 
+CModuleChooserDialog::CModuleChooserDialog( QWidget* parentDialog, ListCSwordModuleInfo modules ) :
 		KDialogBase(Plain, i18n("Choose work(s)"), Ok, Ok, parentDialog, "CModuleChooser", false, true) {
   initView();
   initConnections();
@@ -566,7 +568,7 @@ void CRangeChooserDialog::RangeItem::setCaption(const QString newCaption) {
 CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(Plain, i18n("Search range editor"), Default | Ok | Cancel, Ok, parentDialog, "CRangeChooserDialog", false, true) {
   initView();
   initConnections();
-  
+
   //add the existing scopes
   CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
   CBTConfig::StringMap::Iterator it;
@@ -586,7 +588,7 @@ CRangeChooserDialog::~CRangeChooserDialog() {
 /** Initializes the view of this object. */
 void CRangeChooserDialog::initView(){
 //  setButtonOKText(i18n(""));
-  
+
   QGridLayout* grid = new QGridLayout(plainPage(),6,5,0,3);
 
   m_rangeList = new KListView(plainPage());
@@ -605,9 +607,9 @@ void CRangeChooserDialog::initView(){
   m_deleteRangeButton = new QPushButton(i18n("Delete current range"),plainPage());
   connect(m_deleteRangeButton, SIGNAL(clicked()), this, SLOT(deleteCurrentRange()));
   grid->addWidget(m_deleteRangeButton,5,1);
-    
+
   grid->addColSpacing(2, 5);
-  
+
   QLabel* label = new QLabel(i18n("Name:"), plainPage());
   m_nameEdit = new QLineEdit(plainPage());
   grid->addWidget(label,0,3);
@@ -621,16 +623,16 @@ void CRangeChooserDialog::initView(){
   grid->addMultiCellWidget(m_rangeEdit,2,2,3,4);
 
   grid->addRowSpacing(3, 10);
-  
+
   m_resultList = new KListView(plainPage());
   m_resultList->addColumn(i18n("Parsed search range:"));
   m_resultList->setFullWidth(true);
   m_resultList->setSorting(-1);
-  m_resultList->setShowSortIndicator(false);  
+  m_resultList->setShowSortIndicator(false);
   m_resultList->header()->setClickEnabled(false);
   m_resultList->header()->setMovingEnabled(false);
   m_resultList->setSelectionModeExt(KListView::NoSelection);
-  
+
   grid->addMultiCellWidget(m_resultList, 4,5,3,4);
 
   grid->setRowStretch(4,5);
@@ -654,7 +656,7 @@ void CRangeChooserDialog::initConnections(){
 void CRangeChooserDialog::addNewRange(){
   RangeItem* i = new RangeItem(m_rangeList, m_rangeList->lastItem(), i18n("New range"));
   m_rangeList->setSelected(i, true);
-  m_rangeList->setCurrentItem(i);  
+  m_rangeList->setCurrentItem(i);
   editRange(i);
 
   m_nameEdit->setFocus();
@@ -663,12 +665,12 @@ void CRangeChooserDialog::addNewRange(){
 /** No descriptions */
 void CRangeChooserDialog::editRange(QListViewItem* item){
   RangeItem* const range = dynamic_cast<RangeItem*>(item);
-  
+
   m_nameEdit->setEnabled( range ); //only if an item is selected enable the edit part
   m_rangeEdit->setEnabled( range );
   m_resultList->setEnabled( range );
   m_deleteRangeButton->setEnabled( range );
-  
+
   if (range) {
     m_nameEdit->setText(range->caption());
     m_rangeEdit->setText(range->range());
@@ -682,7 +684,7 @@ void CRangeChooserDialog::parseRange(){
   //hack: repair range to  work with Sword 1.5.6
   QString range( m_rangeEdit->text() );
   range.replace(QRegExp("\\s{0,}-\\s{0,}"), "-" );
-  
+
   sword::VerseKey key;
   sword::ListKey verses = key.ParseVerseList((const char*)range.utf8(), "Genesis 1:1", true);
 	for (int i = 0; i < verses.Count(); ++i) {
@@ -706,12 +708,12 @@ void CRangeChooserDialog::rangeChanged(){
 void CRangeChooserDialog::nameChanged(const QString& newCaption){
   m_rangeEdit->setEnabled(!newCaption.isEmpty());
   m_resultList->setEnabled(!newCaption.isEmpty());
-  m_resultList->header()->setEnabled(!newCaption.isEmpty());  
+  m_resultList->header()->setEnabled(!newCaption.isEmpty());
 
   if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
     if (!newCaption.isEmpty()) {
         m_newRangeButton->setEnabled(true);
-        i->setCaption(newCaption);        
+        i->setCaption(newCaption);
         m_rangeList->sort();
     }
     else { //invalid name
@@ -730,11 +732,11 @@ void CRangeChooserDialog::deleteCurrentRange(){
     }
     else {
       m_rangeList->setSelected(m_rangeList->firstChild(), true);
-      m_rangeList->setCurrentItem(m_rangeList->firstChild());      
+      m_rangeList->setCurrentItem(m_rangeList->firstChild());
     }
     delete i;
   }
-  editRange(m_rangeList->currentItem()); 
+  editRange(m_rangeList->currentItem());
 }
 
 void CRangeChooserDialog::slotOk(){
@@ -750,7 +752,7 @@ void CRangeChooserDialog::slotOk(){
 
   KDialogBase::slotOk();
 }
-  
+
 void CRangeChooserDialog::slotDefault(){
   m_rangeList->clear();
   CBTConfig::StringMap map = CBTConfig::getDefault(CBTConfig::searchScopes);
@@ -759,14 +761,14 @@ void CRangeChooserDialog::slotDefault(){
     new RangeItem(m_rangeList, 0, it.key(), it.data());
   };
   m_rangeList->setSelected(m_rangeList->selectedItem(), false);
-  m_rangeList->setCurrentItem(0);  
-  
+  m_rangeList->setCurrentItem(0);
+
   editRange(0);
   if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
     nameChanged(i->caption());
   }
 
-  KDialogBase::slotDefault();  
+  KDialogBase::slotDefault();
 }
 
 /****************************/
@@ -776,7 +778,7 @@ CSearchAnalysisDialog::CSearchAnalysisDialog( ListCSwordModuleInfo modules, QWid
   initConnections();
   m_analysis->reset();
   m_analysis->analyse(modules);
-  showMaximized();  
+  showMaximized();
 };
 
 CSearchAnalysisDialog::~CSearchAnalysisDialog() {
@@ -799,7 +801,7 @@ void CSearchAnalysisDialog::initView(){
   m_analysisView->show();
   layout->addWidget(m_analysisView);
 
-  connect(button, SIGNAL(clicked()), m_analysis, SLOT(saveAsHTML()));  
+  connect(button, SIGNAL(clicked()), m_analysis, SLOT(saveAsHTML()));
 }
 
 /** Initializes the widgets SIGNAL and SLOT connections,. */
@@ -815,7 +817,7 @@ CSearchAnalysis::CSearchAnalysis(QObject *parent, const char *name )
 
   m_scaleFactor = 0.0;
   m_legend = 0;
-  setBackgroundColor(Qt::white);	
+  setBackgroundColor(Qt::white);
   m_canvasItemList.resize(67);
   m_canvasItemList.setAutoDelete(true);
   resize(1,1);
@@ -842,24 +844,24 @@ void CSearchAnalysis::analyse(ListCSwordModuleInfo modules){
 	*/
   setModules(modules);
 
-	m_lastPosList.clear();		
+	m_lastPosList.clear();
 	const int numberOfModules = m_moduleList.count();
 	if (!numberOfModules)
-		return;	
-	m_legend = new CSearchAnalysisLegendItem(this, &m_moduleList);	
+		return;
+	m_legend = new CSearchAnalysisLegendItem(this, &m_moduleList);
 	m_legend->setX(LEFT_BORDER);
 	m_legend->setY(UPPER_BORDER);
 	m_legend->setSize(LEGEND_WIDTH,
 	           LEGEND_INNER_BORDER*2 + ITEM_TEXT_SIZE*numberOfModules + LEGEND_DELTAY*(numberOfModules-1));
-  m_legend->show();	
+  m_legend->show();
 
-  int xPos = LEFT_BORDER + m_legend->width() + SPACE_BETWEEN_PARTS;			
-	int moduleIndex = 0;	
-	m_maxCount = 0;	
+  int xPos = LEFT_BORDER + m_legend->width() + SPACE_BETWEEN_PARTS;
+	int moduleIndex = 0;
+	m_maxCount = 0;
 	int count = 0;
-	CSwordVerseKey key(0);	
-	key.key("Genesis 1:1");	
-	
+	CSwordVerseKey key(0);
+	key.key("Genesis 1:1");
+
 	CSearchAnalysisItem* analysisItem = m_canvasItemList[key.book()];
 	bool ok = true;
 	while (ok && analysisItem) {
@@ -871,21 +873,21 @@ void CSearchAnalysis::analyse(ListCSwordModuleInfo modules){
 			if (!m_lastPosList.contains(*it)) {
 				m_lastPosList.insert(*it,0);
 			}
-			
+
 			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.book(), *it)));
 			m_maxCount = (count > m_maxCount) ? count : m_maxCount;
-			
+
 			++moduleIndex;
 		}
 		analysisItem->setX(xPos);
 		analysisItem->setY(UPPER_BORDER);
 		analysisItem->show();
-		
+
 		xPos += (int)analysisItem->width() + SPACE_BETWEEN_PARTS;
-		ok = key.next(CSwordVerseKey::UseBook);		
+		ok = key.next(CSwordVerseKey::UseBook);
    	analysisItem = m_canvasItemList[key.book()];
 	}
-	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );	
+	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );
 	slotResized();
 }
 
@@ -901,8 +903,8 @@ void CSearchAnalysis::setModules(ListCSwordModuleInfo modules){
   }
 
 	m_canvasItemList.clear();
-	CSearchAnalysisItem* analysisItem = 0;	
-	CSwordVerseKey key(0);	
+	CSearchAnalysisItem* analysisItem = 0;
+	CSwordVerseKey key(0);
 	key.key("Genesis 1:1");
 	do {
    	analysisItem = new CSearchAnalysisItem(this, m_moduleList.count(), key.book(), &m_scaleFactor, &m_moduleList);
@@ -915,28 +917,28 @@ void CSearchAnalysis::setModules(ListCSwordModuleInfo modules){
 /** Sets back the items and deletes things to cleanup */
 void CSearchAnalysis::reset(){
 	m_scaleFactor = 0.0;
-	
+
   QDictIterator<CSearchAnalysisItem> it( m_canvasItemList ); // iterator for items
 	while ( it.current() ) {
 		it.current()->hide();
 		++it;
-	}	
-	m_lastPosList.clear();	
-	
+	}
+	m_lastPosList.clear();
+
 	if (m_legend) {
 		m_legend->hide();
 	}
-	
+
 	delete m_legend;
-	m_legend = 0;	
-	
+	m_legend = 0;
+
 	update();
 }
 
 /** No descriptions */
 void CSearchAnalysis::slotResized(){
 	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(m_moduleList.count()-1)*BAR_DELTAY)
-	                                    /(double)m_maxCount);	
+	                                    /(double)m_maxCount);
 	QDictIterator<CSearchAnalysisItem> it( m_canvasItemList );
 	while ( it.current() ) {
 		it.current()->setSize(BAR_WIDTH + (m_moduleList.count()-1)*BAR_DELTAX, height()-UPPER_BORDER-LOWER_BORDER);
@@ -966,15 +968,15 @@ QColor CSearchAnalysis::getColor(int index){
 /** Returns the count of the book in the module */
 const unsigned int CSearchAnalysis::getCount( const QString book, CSwordModuleInfo* module ){
 	sword::ListKey& result = module->searchResult();
-	const int length = book.length();	
+	const int length = book.length();
 	unsigned int i = m_lastPosList[module];
 	unsigned int count = 0;
 	const unsigned int resultCount = result.Count();
 	while (i < resultCount) {
-		if ( strncmp(book.utf8(), (const char*)*result.GetElement(i), length) )		
+		if ( strncmp(book.utf8(), (const char*)*result.GetElement(i), length) )
 			break;
 		i++;
-		++count;		
+		++count;
 	}
 	m_lastPosList.contains(module) ? m_lastPosList.replace(module,i) : m_lastPosList.insert(module,i);
 
@@ -990,9 +992,9 @@ CSearchAnalysisItem::CSearchAnalysisItem(QCanvas *parent, const int moduleCount,
 	m_moduleList( modules ),
 	m_scaleFactor(scaleFactor),
 	m_bookName(bookname),
-	m_moduleCount(moduleCount), 	
+	m_moduleCount(moduleCount),
 	m_bufferPixmap(0)
-{	
+{
  	m_resultCountArray.resize(m_moduleCount);
  	int index = 0;
  	for (index = 0; index < m_moduleCount; ++index)
@@ -1018,24 +1020,24 @@ void CSearchAnalysisItem::draw(QPainter& painter) {
 	QFont f = painter.font();
 	f.setPointSize(ITEM_TEXT_SIZE);
 	painter.setFont(f);
-	
+
 	setPen(QPen(black,1));
 	setBrush(Qt::red);
-  /**	
+  /**
 	* We have to paint so many bars as we have modules available (we use m_moduleCount)
 	* We paint inside the area which is given by height and width of this rectangle item
-	*/	
-	int index = 0;	
+	*/
+	int index = 0;
 	int drawn = 0;
 	int Value = 0;
-	
+
 	//find out the biggest value
 	for (index=0;index < m_moduleCount; index++) {
 	  if (m_resultCountArray[index] > Value) {
 	    Value = m_resultCountArray[index];
-    } 
+    }
   };
-	
+
 	while (drawn < m_moduleCount) {
     for (index = 0; index < m_moduleCount; index++) {
       if (m_resultCountArray[index] == Value) {
@@ -1055,15 +1057,15 @@ void CSearchAnalysisItem::draw(QPainter& painter) {
    	  if (m_resultCountArray[index] < Value && m_resultCountArray[index] >= newValue)
    	    newValue = m_resultCountArray[index];
    	Value = newValue;
-	}		
+	}
 	if (!m_bufferPixmap) {
 		m_bufferPixmap = new QPixmap();
 		m_bufferPixmap->resize(width(),BAR_LOWER_BORDER);
-		m_bufferPixmap->fill();		
-		QPainter p(m_bufferPixmap);				
+		m_bufferPixmap->fill();
+		QPainter p(m_bufferPixmap);
 		f = p.font();
 		f.setPointSize(ITEM_TEXT_SIZE);
-		p.setFont(f);		
+		p.setFont(f);
 		p.rotate(90);
 		p.drawText(QPoint(5,0), m_bookName);
 	}
@@ -1072,23 +1074,23 @@ void CSearchAnalysisItem::draw(QPainter& painter) {
 
 /** Returns the width of this item. */
 int CSearchAnalysisItem::width(){
-	return m_moduleCount*(m_moduleCount>1 ? BAR_DELTAX : 0) + BAR_WIDTH;	
+	return m_moduleCount*(m_moduleCount>1 ? BAR_DELTAX : 0) + BAR_WIDTH;
 }
 
 /** Returns the tooltip for this item. */
 const QString CSearchAnalysisItem::getToolTip(){
 	QString ret = QString("<center><b>%1</b></center><hr/>").arg(m_bookName);
 	ret += "<table cellspacing=\"0\" cellpadding=\"3\" width=\"100%\" height=\"100%\" align=\"center\">";
-	
+
 	//ToDo: Fix that loop
  	int i = 0;
  	ListCSwordModuleInfo::iterator end_it = m_moduleList->end();
- 	
+
 	for (ListCSwordModuleInfo::iterator it(m_moduleList->begin()); it != end_it; ++it) {
 // 	for (int i = 0; i < m_moduleCount; ++i) {
  		CSwordModuleInfo* info = (*it);
 		const QColor c = CSearchAnalysis::getColor(i);
-		
+
 		ret.append(
 			QString("<tr bgcolor=\"white\"><td><b><font color=\"#%1\">%2</font></b></td><td>%3 (%4%)</td></tr>")
 				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
@@ -1098,9 +1100,9 @@ const QString CSearchAnalysisItem::getToolTip(){
 		);
  		++i;
 	}
-	
+
 	ret += "</table>";
-	
+
 	return ret;
 }
 
@@ -1139,17 +1141,17 @@ void CSearchAnalysisView::ToolTip::maybeTip(const QPoint& p) {
 	CSearchAnalysisItem* i = view->itemAt( view->viewportToContents(point) );
 	if (!i)
 		return;
-				
+
 	//get type of item and display correct text
 	QString text = i->getToolTip();
 	if (text.isEmpty())
 		return;
-	
+
 	QPoint p1 = view->viewport()->mapTo(view, view->contentsToViewport(i->rect().topLeft()));
-	p1.setY(0);	
+	p1.setY(0);
 	QPoint p2 = view->viewport()->mapTo(view, view->contentsToViewport(i->rect().bottomRight()));
-	p2.setY(view->height());	
-	QRect r = QRect( p1, p2 );	
+	p2.setY(view->height());
+	QRect r = QRect( p1, p2 );
 	if (r.contains(p))
 		tip(r, text);
 }
@@ -1160,7 +1162,7 @@ CSearchAnalysisItem* CSearchAnalysisView::itemAt( const QPoint& p ){
 	QCanvasItemList l = canvas()->collisions(p);
 	if (!l.count())
 		return 0;
-	return dynamic_cast<CSearchAnalysisItem*>(l.first());	
+	return dynamic_cast<CSearchAnalysisItem*>(l.first());
 }
 
 //------------------------------------------------------------------
@@ -1172,9 +1174,9 @@ CSearchAnalysisLegendItem::CSearchAnalysisLegendItem(QCanvas *parent, ListCSword
 }
 
 /** Reimplementation. Draws the content of this item. */
-void CSearchAnalysisLegendItem::draw (QPainter& painter) {	
+void CSearchAnalysisLegendItem::draw (QPainter& painter) {
  	painter.save();
- 		
+
 	setPen( QPen(black,2) );
 	setBrush( Qt::white );
   //the outer rectangle
@@ -1183,11 +1185,11 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
   QRect r(p1, p2);
   r.normalize();
  	painter.drawRect(r);
- 	
+
   QFont f = painter.font();
   f.setPointSize(ITEM_TEXT_SIZE);
   painter.setFont(f);
- 	
+
 //  	for (unsigned int index=0; index < m_moduleList->count(); index++){
 	int moduleIndex = 0;
 	ListCSwordModuleInfo::iterator end_it = m_moduleList->end();
@@ -1199,10 +1201,10 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
  		painter.fillRect(r, QBrush(CSearchAnalysis::getColor(moduleIndex)) );
  		r.normalize();
  		painter.drawRect(r);
- 		
+
  		QPoint p3( p2.x() + LEGEND_INNER_BORDER, p2.y() );
   	painter.drawText(p3, (*it)->name() );
-		
+
 		++moduleIndex;
  	}
   painter.restore();
@@ -1210,9 +1212,9 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
 
 /** No descriptions */
 void CSearchAnalysis::saveAsHTML(){
- 	const QString file = KFileDialog::getSaveFileName(QString::null, 
-		QString("*.html | %1").arg(i18n("HTML files")), 
-		0, 
+ 	const QString file = KFileDialog::getSaveFileName(QString::null,
+		QString("*.html | %1").arg(i18n("HTML files")),
+		0,
 		i18n("Save Search Analysis"));
 	if (file.isNull()) {
     return;
@@ -1256,7 +1258,7 @@ void CSearchAnalysis::saveAsHTML(){
  		tableTitle += QString("<th align=\"left\">") + (*it)->name() + QString("</th>");
  		searchResult = (*it)->searchResult();
  		countStr.setNum(searchResult.Count());
-		
+
 		tableTotals += QString("<td align=\"right\">") + countStr + QString("</td>");
 		++moduleIndex;
  	}
@@ -1268,7 +1270,7 @@ void CSearchAnalysis::saveAsHTML(){
  	while (ok) {
  		m_searchAnalysisHTML += QString("<tr><td>") + key.book() + QString("</td>");
  		analysisItem = m_canvasItemList.find( key.book() );
-		
+
 //  		for (moduleIndex = 0, m_moduleList.first(); m_moduleList.current(); m_moduleList.next(), ++moduleIndex) {
 		moduleIndex = 0;
 		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
@@ -1276,13 +1278,13 @@ void CSearchAnalysis::saveAsHTML(){
  			count = analysisItem->getCountForModule(moduleIndex);
  			countStr.setNum(count);
  			m_searchAnalysisHTML += QString("<td align=\"right\">") + countStr + QString("</td>");
-			
+
 			++moduleIndex;
  		}
  		m_searchAnalysisHTML += QString("</tr>\n");
  		ok = key.next(CSwordVerseKey::UseBook);
  	}
-	
+
  	text += QString("<table>\n") + tableTitle + tableTotals + m_searchAnalysisHTML + QString("</table>\n");
  	text += QString("<center>") + i18n("Created by") + QString(" <a href=\"http://www.bibletime.info/\">BibleTime</a></center>");
  	text += QString("</body></html>");

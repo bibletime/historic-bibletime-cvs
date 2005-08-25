@@ -9,6 +9,7 @@
 #include <kfileitem.h>
 #include <kio/jobclasses.h>
 #include <kio/job.h>
+#include <kprotocolmanager.h>
 
 namespace InstallationManager {
 bool finishedDownload = false;
@@ -20,23 +21,31 @@ KIO_FTPTransport::KIO_FTPTransport(const char *host, sword::StatusReporter *stat
 {
 }
 
- 
+
 KIO_FTPTransport::~KIO_FTPTransport() {}
 
 char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 	qWarning("FTP: Copy %s -> %s", sourceURL, destPath);
-	
+
 	KIO::file_delete(
 		KURL(QString::fromLocal8Bit(destPath)),
 		false
-	);	
-	
-	KIO::Job* job = KIO::copy(
-		KURL(QString::fromLocal8Bit(sourceURL)),
-		KURL(QString::fromLocal8Bit(destPath)),
-		false
 	);
-	
+
+// 	KIO::Job* job = KIO::copy(
+// 		KURL(QString::fromLocal8Bit(sourceURL)),
+// 		KURL(QString::fromLocal8Bit(destPath)),
+// 		false
+// 	);
+    KIO::Job* job = KIO::file_copy(
+        KURL(QString::fromLocal8Bit(sourceURL)),
+        KURL(QString::fromLocal8Bit(destPath)),
+        -1, //no special persmissions
+        true, //overwrite
+        false, //no resume
+        false //no progress dialog
+    );
+
 	//make sure to wait as long as the job is working
 	finishedDownload = false;
 	const int progressID = job->progressId();
@@ -52,14 +61,12 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 		job, SIGNAL(processedSize(KIO::Job*, KIO::filesize_t)),
 		this, SLOT(slotCopyProgress(KIO::Job*, KIO::filesize_t))
 	);
-	
+
 	while (!finishedDownload) {
 		KApplication::kApplication()->processEvents(1);
 // 		qWarning("FTP: Copy not yet finished");
-		if (term) {
-			if (job) {
-				job->kill(false); //kill emits the result signal
-			}
+		if (term && job) {
+			job->kill(false); //kill emits the result signal
 		}
 	}
 
@@ -84,9 +91,9 @@ void KIO_FTPTransport::slotTotalSize(KIO::Job* /*job*/, KIO::filesize_t size) {
 void KIO_FTPTransport::slotCopyResult(KIO::Job *job) {
 	m_copyResults.insert(job->progressId(),job->error());
 	finishedDownload = true;
-	  
+
 	if ( job->error() ) {
-	
+
 	}
 }
 
@@ -109,10 +116,13 @@ std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
 // 		dirURL[strlen(dirURL)-1] = 0;
 // 	}
 
-	qWarning("listing %s", dirURL);
+	qWarning("KIO_FTPTransport: getDirList %s", dirURL);
+    QString proxy = KProtocolManager::proxyForURL(KURL(dirURL));
+    qWarning("  using proxy %s", proxy.latin1());
+
 
 	Q_ASSERT(!term);
-	if (term)	{
+	if (term) {
 		return ret;
 	}
 
@@ -120,43 +130,45 @@ std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
  	KDirLister lister;
 	connect(&lister, SIGNAL(canceled()), SLOT(slotDirListingCanceled()));
 	lister.openURL(KURL(dirURL));
-	
+
 	while (!lister.isFinished() && !m_listingCancelled) {
 		if (term) {
 			lister.stop();
 			break;
 		}
-			
+
 		KApplication::kApplication()->processEvents(1);
 	}
-	
-	
+
+	Q_ASSERT(!term);
 	if (term) {
 		return ret;
 	}
-		
+
+//     qWarning("  DirList: listing");
 	KFileItemList items = lister.itemsForDir(KURL(dirURL));
-	KFileItem* i = 0;
-	for ( i = items.first(); i; i = items.next() ) {
+// 	KFileItem* i = 0;
+	for ( KFileItem* i = items.first(); i; i = items.next() ) {
 		int length = i->name().length();
 		const char* t = i->name().latin1();
-		
+//         qWarning("  DirList: got item %s", t);
+
 		struct ftpparse s;
 		s.name = new char[length+1];//i->name().latin1();
 		bzero(s.name, length+1);
 		strcpy(s.name, t);
 		s.namelen = length+1;
-		
+
 		s.size = i->size();
 		s.flagtrycwd = i->isDir(); //== 1 means a dir
-		
+
 		s.id = 0;
 		s.idlen = 0;
 
-// 		qWarning("push_back item");
 		ret.push_back(s);
 	}
-	
+
+    Q_ASSERT(ret.size() > 0);
 	return ret;
 }
 

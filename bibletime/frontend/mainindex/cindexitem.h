@@ -58,7 +58,7 @@ public:
   CItemBase(CMainIndex* mainIndex, const Type type = Unknown);
   CItemBase(CItemBase* item, const Type type = Unknown);
   virtual ~CItemBase();
-	
+
   virtual const QString toolTip();
   virtual CMainIndex* listView() const;
   /**
@@ -104,7 +104,7 @@ public:
 
 protected:
   friend class CMainIndex;
-  
+
   /** Reimplementation which uses our extended version of dropped (see below).
   */
 	virtual void dropped( QDropEvent* e) { dropped(e,0); };
@@ -116,7 +116,7 @@ protected:
   * The default return value is "false"
   */
   virtual const bool allowAutoOpen( const QMimeSource* src ) const;
-  
+
 private:
   Type m_type;
   bool m_sortingEnabled;
@@ -159,7 +159,7 @@ public:
   virtual const QString toolTip();
 
 	//virtual int compare( QListViewItem * i, int col, bool ascending ) const;
-	
+
   virtual void update();
   virtual void init();
   virtual const bool isMovable();
@@ -194,7 +194,7 @@ private:
 protected: // Protected methods
   /**
   * Reimplementation. Returns false everytime
-  * because a bookmarks 
+  * because a bookmarks
   * has not possible drops.
   */
   virtual bool acceptDrop(const QMimeSource * src) const;
@@ -227,15 +227,15 @@ public:
   virtual void newSubFolder();
 
 	QPtrList<QListViewItem> getChildList();
-	
+
 protected:
   /**
   * Reimplementation. Returns true if the auto opening of this folder is allowd
   */
-  virtual const bool allowAutoOpen( const QMimeSource* src ) const;  
-  /** 
+  virtual const bool allowAutoOpen( const QMimeSource* src ) const;
+  /**
 	* Reimplementation. Returns false because folders have no use for drops
-	* (except for the bookmark folders) 
+	* (except for the bookmark folders)
 	*/
   bool acceptDrop(const QMimeSource * src) const;
 };
@@ -244,11 +244,11 @@ protected:
   * @author The BibleTime team
   */
 class CTreeFolder : public CFolderBase {
-public: 
+public:
 	CTreeFolder(CMainIndex* mainIndex, const Type type, const QString& language );
 	CTreeFolder(CFolderBase* parentFolder, const Type type, const QString& language );
 	virtual ~CTreeFolder();
-	
+
   virtual void addGroup(const Type type, const QString language);
   virtual void addModule(CSwordModuleInfo* const);
   virtual void addBookmark(CSwordModuleInfo* module, const QString& key, const QString& description);
@@ -269,7 +269,7 @@ public:
 	CGlossaryFolder(CMainIndex* mainIndex, const Type type, const QString& fromLanguage, const QString& toLanguage );
 	CGlossaryFolder(CFolderBase* parentFolder, const Type type, const QString& fromLanguage, const QString& toLanguage );
 	virtual ~CGlossaryFolder();
-  
+
   virtual void initTree();
   virtual void init();
 	virtual void addGroup(const Type /*type*/, const QString& /*fromLanguage*/) {}; //standard reimpl to overload the old one right
@@ -285,7 +285,7 @@ public:
 
 private:
   QString m_fromLanguage;
-  QString m_toLanguage;  
+  QString m_toLanguage;
 };
 
 class CBookmarkFolder : public CTreeFolder {
@@ -342,9 +342,9 @@ namespace Bookmarks {
   private:
   // made provate because we offer one static functions which doesn't need constructor and destructor
     OldBookmarkImport();
-    virtual ~OldBookmarkImport();    
+    virtual ~OldBookmarkImport();
   };
-      
+
   class SubFolder : public CBookmarkFolder {
   public:
     SubFolder(CFolderBase* parentItem, const QString& caption);
@@ -368,5 +368,5 @@ namespace Bookmarks {
     QDomElement m_startupXML;
   };
 } //end of namespace Bookmarks
-  
+
 #endif
