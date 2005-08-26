@@ -25,22 +25,17 @@ KIO_FTPTransport::KIO_FTPTransport(const char *host, sword::StatusReporter *stat
 KIO_FTPTransport::~KIO_FTPTransport() {}
 
 char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
-	qWarning("FTP: Copy %s -> %s", sourceURL, destPath);
+	qDebug("FTP: Copy %s -> %s", sourceURL, destPath);
 
 	KIO::file_delete(
 		KURL(QString::fromLocal8Bit(destPath)),
 		false
 	);
 
-// 	KIO::Job* job = KIO::copy(
-// 		KURL(QString::fromLocal8Bit(sourceURL)),
-// 		KURL(QString::fromLocal8Bit(destPath)),
-// 		false
-// 	);
     KIO::Job* job = KIO::file_copy(
         KURL(QString::fromLocal8Bit(sourceURL)),
         KURL(QString::fromLocal8Bit(destPath)),
-        -1, //no special persmissions
+        -1, //no special permissions
         true, //overwrite
         false, //no resume
         false //no progress dialog
@@ -64,7 +59,6 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 
 	while (!finishedDownload) {
 		KApplication::kApplication()->processEvents(1);
-// 		qWarning("FTP: Copy not yet finished");
 		if (term && job) {
 			job->kill(false); //kill emits the result signal
 		}
@@ -78,6 +72,7 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 	else if (m_copyResults[progressID] > 0) { //an error occurred
 		return 1; //an error occured
 	}
+
 	return 0;
 }
 
@@ -116,9 +111,9 @@ std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
 // 		dirURL[strlen(dirURL)-1] = 0;
 // 	}
 
-	qWarning("KIO_FTPTransport: getDirList %s", dirURL);
+	qDebug("KIO_FTPTransport: getDirList %s", dirURL);
     QString proxy = KProtocolManager::proxyForURL(KURL(dirURL));
-    qWarning("  using proxy %s", proxy.latin1());
+    qDebug("  using proxy %s", proxy.latin1());
 
 
 	Q_ASSERT(!term);
