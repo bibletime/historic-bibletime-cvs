@@ -35,7 +35,9 @@
  * @short CSwordKey implementation for Sword's VerseKey.
  * @author The BibleTime team
  */
+
 class CSwordVerseKey : public CSwordKey, public sword::VerseKey {
+
 public:
 	enum JumpType {
 		UseBook,

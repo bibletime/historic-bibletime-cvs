@@ -12,7 +12,9 @@
  * rendered HTML code.
  * @author The BibleTime team
  */
+
 class CReferenceManager {
+
 public:
 	enum Type {
 		Bible, /**< Bibles */

@@ -60,7 +60,8 @@ void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString
 
 	if (modules.count()) {
 		m_staticDialog->setModules(modules);
-	} else {
+	}
+	else {
 		m_staticDialog->showModulesSelector();
 	}
 
@@ -81,7 +82,7 @@ CSearchDialog* const CSearchDialog::getSearchDialog() {
 };
 
 CSearchDialog::CSearchDialog(QWidget *parent)
-		: KDialogBase(Tabbed, i18n("Search dialog"), Close | User1 | User2, User1, parent, "CSearchDialog", false, true, i18n("Search"), i18n("Interrupt")) {
+: KDialogBase(Tabbed, i18n("Search dialog"), Close | User1 | User2, User1, parent, "CSearchDialog", false, true, i18n("Search"), i18n("Interrupt")) {
 
 	setWFlags( getWFlags() | Qt::WStyle_MinMax );
 	setIcon(CResMgr::searchdialog::icon);
@@ -115,8 +116,9 @@ void CSearchDialog::startSearch() {
 	const CSwordModuleSearch::scopeType scopeType = m_searchOptionsPage->scopeType();
 	if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
 		searchFlags |= CSwordModuleSearch::useLastResult;
-	} else if ( (scopeType == CSwordModuleSearch::Scope_Bounds)
-				&& strlen(m_searchOptionsPage->searchScope().getRangeText())) {
+	}
+	else if ( (scopeType == CSwordModuleSearch::Scope_Bounds)
+			  && strlen(m_searchOptionsPage->searchScope().getRangeText())) {
 		//we need the scope flag and a valid scope!
 		searchFlags |= CSwordModuleSearch::useScope;
 		m_searcher.setSearchScope( m_searchOptionsPage->searchScope() );
@@ -206,7 +208,8 @@ void CSearchDialog::searchFinished() {
 	if ( !m_interruptedSearch && m_searcher.foundItems() ) {
 		m_searchResultPage->setSearchResult(modules());
 		showPage(m_index.resultPage);
-	} else
+	}
+	else
 		m_searchResultPage->reset();
 
 	enableButton(User2,false); //cancel button
@@ -364,7 +367,8 @@ void CModuleChooser::initTree() {
 
 				addedLexs = true;
 				typeFolderCaption = QString::null;
-			} else if (!addedDevotionals) {
+			}
+			else if (!addedDevotionals) {
 				//         for (mods.first(); mods.current(); mods.next()) {
 				ListCSwordModuleInfo::iterator end_it = mods.end();
 				for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
@@ -374,7 +378,8 @@ void CModuleChooser::initTree() {
 				};
 				addedDevotionals = true;
 				typeFolderCaption = i18n("Daily Devotionals");
-			} else if (!addedGlossaries) {
+			}
+			else if (!addedGlossaries) {
 				//         for (mods.first(); mods.current(); mods.next()) {
 				ListCSwordModuleInfo::iterator end_it = mods.end();
 				for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
@@ -388,7 +393,8 @@ void CModuleChooser::initTree() {
 
 			if (addedLexs && addedDevotionals && addedGlossaries)
 				incType = true;
-		} else if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary || type == CSwordModuleInfo::GenericBook) {
+		}
+		else if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary || type == CSwordModuleInfo::GenericBook) {
 			//       for (mods.first(); mods.current(); mods.next()) {
 			ListCSwordModuleInfo::iterator end_it = mods.end();
 			for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
@@ -397,7 +403,8 @@ void CModuleChooser::initTree() {
 				};
 			};
 			incType = true;
-		} else
+		}
+		else
 			ok = false;
 
 		if (typeFolderCaption.isEmpty()) {
@@ -419,7 +426,8 @@ void CModuleChooser::initTree() {
 		QListViewItem* typeFolder = 0;
 		if (modsForType.count()) {
 			typeFolder = new QListViewItem(this, typeFolder, typeFolderCaption);
-		} else {
+		}
+		else {
 			if (incType) {
 				type++;
 			}
@@ -703,7 +711,8 @@ void CRangeChooserDialog::nameChanged(const QString& newCaption) {
 			m_newRangeButton->setEnabled(true);
 			i->setCaption(newCaption);
 			m_rangeList->sort();
-		} else { //invalid name
+		}
+		else { //invalid name
 			i->setCaption(i18n("<invalid name of search range>"));
 			m_newRangeButton->setEnabled(false);
 		};
@@ -717,7 +726,8 @@ void CRangeChooserDialog::deleteCurrentRange() {
 		if (QListViewItem* selection = i->itemBelow() ? i->itemBelow() : i->itemAbove()) {
 			m_rangeList->setSelected(selection, true);
 			m_rangeList->setCurrentItem(selection);
-		} else {
+		}
+		else {
 			m_rangeList->setSelected(m_rangeList->firstChild(), true);
 			m_rangeList->setCurrentItem(m_rangeList->firstChild());
 		}
@@ -800,7 +810,7 @@ void CSearchAnalysisDialog::initConnections() {}
 /****************************/
 
 CSearchAnalysis::CSearchAnalysis(QObject *parent, const char *name )
-		: QCanvas(parent,name) {
+: QCanvas(parent,name) {
 
 	m_scaleFactor = 0.0;
 	m_legend = 0;
@@ -896,7 +906,8 @@ void CSearchAnalysis::setModules(ListCSwordModuleInfo modules) {
 		analysisItem = new CSearchAnalysisItem(this, m_moduleList.count(), key.book(), &m_scaleFactor, &m_moduleList);
 		analysisItem->hide();
 		m_canvasItemList.insert(key.book(), analysisItem);
-	} while (key.next(CSwordVerseKey::UseBook));
+	}
+	while (key.next(CSwordVerseKey::UseBook));
 	update();
 }
 
@@ -937,27 +948,27 @@ void CSearchAnalysis::slotResized() {
 /** This function returns a color for each module */
 QColor CSearchAnalysis::getColor(int index) {
 	switch (index) {
-	case  0:
+		case  0:
 		return Qt::red;
-	case  1:
+		case  1:
 		return Qt::darkGreen;
-	case  2:
+		case  2:
 		return Qt::blue;
-	case  3:
+		case  3:
 		return Qt::cyan;
-	case  4:
+		case  4:
 		return Qt::magenta;
-	case  5:
+		case  5:
 		return Qt::darkRed;
-	case  6:
+		case  6:
 		return Qt::darkGray;
-	case  7:
+		case  7:
 		return Qt::black;
-	case  8:
+		case  8:
 		return Qt::darkCyan;
-	case  9:
+		case  9:
 		return Qt::darkMagenta;
-	default:
+		default:
 		return Qt::red;
 	}
 }
@@ -985,11 +996,11 @@ const unsigned int CSearchAnalysis::getCount( const QString book, CSwordModuleIn
 //------------------------------------------------------------------
 
 CSearchAnalysisItem::CSearchAnalysisItem(QCanvas *parent, const int moduleCount, const QString &bookname, double *scaleFactor, ListCSwordModuleInfo* modules)
-		: QCanvasRectangle(parent),
-		m_moduleList( modules ),
-		m_scaleFactor(scaleFactor),
-		m_bookName(bookname),
-		m_moduleCount(moduleCount),
+: QCanvasRectangle(parent),
+m_moduleList( modules ),
+m_scaleFactor(scaleFactor),
+m_bookName(bookname),
+m_moduleCount(moduleCount),
 m_bufferPixmap(0) {
 	m_resultCountArray.resize(m_moduleCount);
 	int index = 0;
@@ -1106,7 +1117,7 @@ const QString CSearchAnalysisItem::getToolTip() {
 //------------------------------------------------------------------
 
 CSearchAnalysisView::CSearchAnalysisView(QCanvas* canvas, QWidget* parent)
-		: QCanvasView(canvas, parent) {
+: QCanvasView(canvas, parent) {
 	setFocusPolicy(QWidget::WheelFocus);
 	m_toolTip = new ToolTip(this);
 	resize(sizeHint());
@@ -1164,7 +1175,7 @@ CSearchAnalysisItem* CSearchAnalysisView::itemAt( const QPoint& p ) {
 //------------------------------------------------------------------
 
 CSearchAnalysisLegendItem::CSearchAnalysisLegendItem(QCanvas *parent, ListCSwordModuleInfo *list )
-		: QCanvasRectangle(parent) {
+: QCanvasRectangle(parent) {
 	m_moduleList = list;
 }
 

@@ -21,7 +21,7 @@ namespace InfoDisplay {
 	/**
 	 */
 	CrossRefRendering::CrossRefRendering( CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
-			: CHTMLExportRendering(Settings(), displayOptions, filterOptions) {}
+: CHTMLExportRendering(Settings(), displayOptions, filterOptions) {}
 
 	const QString CrossRefRendering::finishText( const QString& text, KeyTree& ) {
 		//   qDebug("CrossRefRendering::finishText");
@@ -38,32 +38,32 @@ namespace InfoDisplay {
 		}
 
 		switch (item.settings().keyRenderingFace) {
-		case KeyTreeItem::Settings::NoKey: {
+			case KeyTreeItem::Settings::NoKey: {
 				linkText = QString::null;
 				break; //no key is valid for all modules
 			}
-		case KeyTreeItem::Settings::CompleteShort: {
+			case KeyTreeItem::Settings::CompleteShort: {
 				if (isBible) {
 					linkText = QString::fromUtf8(vk.getShortText());
 					break;
 				}
 				//fall through for non-Bible modules
 			}
-		case KeyTreeItem::Settings::CompleteLong: {
+			case KeyTreeItem::Settings::CompleteLong: {
 				if (isBible) {
 					linkText = vk.key();
 					break;
 				}
 				//fall through for non-Bible modules
 			}
-		case KeyTreeItem::Settings::SimpleKey: {
+			case KeyTreeItem::Settings::SimpleKey: {
 				if (isBible) {
 					linkText = QString::number(vk.Verse());
 					break;
 				}
 				//fall through for non-Bible modules
 			}
-		default: { //default behaviour to return the passed key
+			default: { //default behaviour to return the passed key
 				linkText = item.key();
 				break;
 			}

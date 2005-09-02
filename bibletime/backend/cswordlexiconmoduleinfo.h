@@ -14,7 +14,9 @@
  * @author The BibleTime team
  * @version $Id$
  */
+
 class CSwordLexiconModuleInfo : public CSwordModuleInfo {
+
 public:
 	/**
 	* The standard constructor fot this object.

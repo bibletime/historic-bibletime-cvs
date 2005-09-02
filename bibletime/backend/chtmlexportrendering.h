@@ -25,8 +25,11 @@ namespace Rendering {
 	 * @short HTML rendering for export.
 	 * @author The BibleTime team
 	 */
-	class CHTMLExportRendering : public CTextRendering {
-	public:
+
+class CHTMLExportRendering : public CTextRendering {
+
+public:
+
 		struct Settings {
 			Settings(const bool text = true) {
 				addText = text;
@@ -42,7 +45,7 @@ namespace Rendering {
 		);
 		virtual ~CHTMLExportRendering();
 
-	protected:
+protected:
 		virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
 		virtual const QString finishText( const QString&, KeyTree& tree );
 		virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* module );

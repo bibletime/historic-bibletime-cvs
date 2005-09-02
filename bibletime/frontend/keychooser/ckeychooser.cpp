@@ -11,7 +11,7 @@
 #include "cbookkeychooser.h"
 
 CKeyChooser::CKeyChooser(ListCSwordModuleInfo, CSwordKey *, QWidget *parent, const char *name )
-		: QWidget(parent, name),
+: QWidget(parent, name),
 m_inHistoryFunction(false) {}
 
 CKeyChooser::~CKeyChooser() {}
@@ -23,17 +23,17 @@ CKeyChooser* CKeyChooser::createInstance(ListCSwordModuleInfo modules, CSwordKey
 
 	CKeyChooser* ck = 0;
 	switch ( modules.first()->type() ) {
-	case CSwordModuleInfo::Commentary:  //Bibles and commentaries uise the same key chooser
-	case CSwordModuleInfo::Bible:
+		case CSwordModuleInfo::Commentary:  //Bibles and commentaries uise the same key chooser
+		case CSwordModuleInfo::Bible:
 		ck = new CBibleKeyChooser(modules,key,parent);
 		break;
-	case CSwordModuleInfo::Lexicon:
+		case CSwordModuleInfo::Lexicon:
 		ck = new CLexiconKeyChooser(modules,key,parent);
 		break;
-	case CSwordModuleInfo::GenericBook:
+		case CSwordModuleInfo::GenericBook:
 		ck = new CBookKeyChooser(modules,key,parent);
 		break;
-	default:
+		default:
 		return 0;
 	}
 	return ck;
@@ -118,7 +118,7 @@ void CKeyChooser::addToHistory(CSwordKey* k) {
 const QStringList CKeyChooser::getPreviousKeys() const {
 	QStringList ret = m_prevKeyHistoryList;
 	if (ret.size() >= 1) {
-		ret.pop_front(); //the first item always is equal to the current key
+	ret.pop_front(); //the first item always is equal to the current key
 	}
 
 	return ret;

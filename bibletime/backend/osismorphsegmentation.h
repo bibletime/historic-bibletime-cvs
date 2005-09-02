@@ -29,8 +29,10 @@ namespace Filters {
 
 	/** This Filter shows/hides headings in a OSIS text
 	 */
-	class OSISMorphSegmentation : public SWOptionFilter {
-	public:
+
+class OSISMorphSegmentation : public SWOptionFilter {
+
+public:
 		OSISMorphSegmentation();
 		virtual ~OSISMorphSegmentation();
 

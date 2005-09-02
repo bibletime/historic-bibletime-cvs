@@ -77,7 +77,7 @@ protected slots: // Protected slots
 
 private:
 class TreeItem : public KListViewItem {
-	public:
+public:
 		TreeItem(QListViewItem* parent, QListViewItem* after, CSwordTreeKey* key, const QString keyName);
 		TreeItem(QListViewItem* parent, CSwordTreeKey* key, const QString keyName);
 		TreeItem(QListView* view,QListViewItem* after, CSwordTreeKey* key, const QString keyName);
@@ -85,12 +85,12 @@ class TreeItem : public KListViewItem {
 		void createChilds();
 		virtual void setOpen(bool);
 
-	protected:
+protected:
 		/**
 		* Initializes this item with the correct caption.
 		*/
 		virtual void setup();
-	private:
+private:
 		CSwordTreeKey* m_key;
 		QString m_keyName;
 	};

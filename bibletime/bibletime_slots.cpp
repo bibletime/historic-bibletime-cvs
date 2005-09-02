@@ -58,7 +58,7 @@
 class KUserDataAction : public KToggleAction {
 public:
 	KUserDataAction( QString caption, const KShortcut& shortcut, const QObject* receiver, const char* slot, KActionCollection* actionCollection)
-			: KToggleAction(caption, shortcut, receiver, slot, actionCollection), m_userData(0) { /* no impl */
+: KToggleAction(caption, shortcut, receiver, slot, actionCollection), m_userData(0) { /* no impl */
 	};
 
 	void setUserData(QWidget* const data) {
@@ -147,13 +147,15 @@ void BibleTime::slotWindowMenuAboutToShow() {
 		m_windowTileVertical_action->setEnabled(false);
 		m_windowTileHorizontal_action->setEnabled(false);
 		m_windowCloseAll_action->setEnabled(false);
-	} else if (m_mdi->windowList().count() == 1) {
+	}
+	else if (m_mdi->windowList().count() == 1) {
 		m_windowTileVertical_action->setEnabled( false );
 		m_windowTileHorizontal_action->setEnabled( false );
 		m_windowCascade_action->setEnabled( false );
 		m_windowCloseAll_action->setEnabled( true );
 		//   m_windowMenu->insertSeparator();
-	} else {
+	}
+	else {
 		slotUpdateWindowArrangementActions(0); //update the window tile/cascade states
 		m_windowCloseAll_action->setEnabled( true );
 	}
@@ -212,31 +214,37 @@ void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ) {
 		m_windowAutoCascade_action->setChecked(false);
 
 		m_mdi->setGUIOption( CMDIArea::Nothing );
-	} else if (clickedAction == m_windowAutoTileVertical_action) {
+	}
+	else if (clickedAction == m_windowAutoTileVertical_action) {
 		m_windowManualMode_action->setChecked(false);
 		m_windowAutoTileHorizontal_action->setChecked(false);
 		m_windowAutoCascade_action->setChecked(false);
 
 		m_mdi->setGUIOption( CMDIArea::autoTileVertical );
-	} else if (clickedAction == m_windowAutoTileHorizontal_action) {
+	}
+	else if (clickedAction == m_windowAutoTileHorizontal_action) {
 		m_windowManualMode_action->setChecked(false);
 		m_windowAutoTileVertical_action->setChecked(false);
 		m_windowAutoCascade_action->setChecked(false);
 
 		m_mdi->setGUIOption( CMDIArea::autoTileHorizontal );
-	} else if (clickedAction == m_windowAutoCascade_action) {
+	}
+	else if (clickedAction == m_windowAutoCascade_action) {
 		m_windowManualMode_action->setChecked(false);
 		m_windowAutoTileHorizontal_action->setChecked(false);
 		m_windowAutoTileVertical_action->setChecked(false);
 
 		m_mdi->setGUIOption( CMDIArea::autoCascade );
-	} else if (clickedAction == m_windowCascade_action) {
+	}
+	else if (clickedAction == m_windowCascade_action) {
 		m_mdi->setGUIOption( CMDIArea::Nothing );
 		m_mdi->myCascade();
-	} else if (clickedAction == m_windowTileVertical_action) {
+	}
+	else if (clickedAction == m_windowTileVertical_action) {
 		m_mdi->setGUIOption( CMDIArea::Nothing );
 		m_mdi->myTileVertical();
-	} else if (clickedAction == m_windowTileHorizontal_action) {
+	}
+	else if (clickedAction == m_windowTileHorizontal_action) {
 		m_mdi->setGUIOption( CMDIArea::Nothing );
 		m_mdi->myTileHorizontal();
 	}
@@ -295,7 +303,8 @@ void BibleTime::slotToggleToolbar() {
 
 	if (m_viewToolbar_action->isChecked()) {
 		toolBar("mainToolBar")->show();
-	} else {
+	}
+	else {
 		toolBar("mainToolBar")->hide();
 	}
 }
@@ -304,7 +313,8 @@ void BibleTime::slotToggleToolbar() {
 void BibleTime::slotToggleMainIndex() {
 	if (m_viewMainIndex_action->isChecked()) {
 		m_mainIndex->parentWidget()->show();
-	} else {
+	}
+	else {
 		m_mainIndex->parentWidget()->hide();
 	}
 }
@@ -313,7 +323,8 @@ void BibleTime::slotToggleMainIndex() {
 void BibleTime::slotToggleInfoDisplay() {
 	if (m_viewInfoDisplay_action->isChecked()) {
 		m_infoDisplay->show();
-	} else {
+	}
+	else {
 		m_infoDisplay->hide();
 	}
 }
@@ -458,7 +469,8 @@ void BibleTime::loadProfile(CProfile* p) {
 		CDisplayWindow* displayWindow = 0;
 		if (w->writeWindowType() > 0) { //create a write window
 			displayWindow = createWriteDisplayWindow(modules.first(), key, CDisplayWindow::WriteWindowType(w->writeWindowType()) );
-		} else { //create a read window
+		}
+		else { //create a read window
 			displayWindow = createReadDisplayWindow(modules, key);
 		}
 
@@ -495,7 +507,8 @@ void BibleTime::deleteProfile(int ID) {
 void BibleTime::toggleFullscreen() {
 	if (m_windowFullscreen_action->isChecked()) {
 		showFullScreen();
-	} else if (isVisible()) {
+	}
+	else if (isVisible()) {
 		showNormal();
 	}
 

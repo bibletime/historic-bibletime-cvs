@@ -47,7 +47,7 @@ void KStartupLogo::setStatusMessage(const QString& message) {
 }
 
 KStartupLogo::KStartupLogo()
-		: QWidget(0, "startuplogo", /*WStyle_Customize | WStyle_NoBorder*/ WStyle_NoBorder|WStyle_StaysOnTop|WX11BypassWM ) {
+: QWidget(0, "startuplogo", /*WStyle_Customize | WStyle_NoBorder*/ WStyle_NoBorder|WStyle_StaysOnTop|WX11BypassWM ) {
 
 	QPixmap pm;
 	if ( !pm.load(locate("BT_pic","startuplogo.png")) ) {

@@ -149,14 +149,14 @@ class CModuleChooser : public KListView, public CPointers {
 	Q_OBJECT
 public:
 class ModuleCheckBoxItem : virtual public QCheckListItem {
-	public:
+public:
 		ModuleCheckBoxItem(QListViewItem* item, CSwordModuleInfo* module);
 		~ModuleCheckBoxItem();
 		/**
 		* Returns the used module.
 		*/
 		CSwordModuleInfo* const module() const;
-	private:
+private:
 		CSwordModuleInfo* m_module;
 	};
 
@@ -247,14 +247,14 @@ public:
 
 protected: // Protected methods
 class RangeItem : public KListViewItem {
-	public:
+public:
 		RangeItem(QListView*, QListViewItem* afterThis = 0, const QString caption = QString::null, const QString range = QString::null);
 		~RangeItem();
 		const QString& range();
 		const QString caption();
 		void setRange(QString range);
 		void setCaption(const QString);
-	private:
+private:
 		QString m_range;
 	};
 
@@ -429,7 +429,7 @@ protected:
 
 private:
 class ToolTip : public QToolTip {
-	public:
+public:
 		ToolTip(QWidget* parent);
 		virtual ~ToolTip() {}
 		;

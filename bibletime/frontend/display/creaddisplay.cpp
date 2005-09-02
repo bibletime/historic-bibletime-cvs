@@ -26,8 +26,8 @@
 #include <klocale.h>
 
 CReadDisplay::CReadDisplay(CReadWindow* readWindow) :
-		CDisplay(readWindow),
-		m_activeAnchor(QString::null),
+CDisplay(readWindow),
+m_activeAnchor(QString::null),
 m_useMouseTracking(true) {}
 
 CReadDisplay::~CReadDisplay() {}
@@ -58,7 +58,7 @@ void CReadDisplay::print(const CDisplay::TextPart type) {
 	CExportManager mgr(i18n("Print keys"),false, QString::null, parentWindow()->filterOptions(), parentWindow()->displayOptions());
 
 	switch (type) {
-	case Document: {
+		case Document: {
 			if (module->type() == CSwordModuleInfo::Bible) {
 				CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
 
@@ -73,9 +73,11 @@ void CReadDisplay::print(const CDisplay::TextPart type) {
 				}
 
 				mgr.printKey(module, startKey.key(), stopKey.key());
-			} else if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary ) {
+			}
+			else if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary ) {
 				mgr.printKey(module, key->key(), key->key());
-			} else if (module->type() == CSwordModuleInfo::GenericBook) {
+			}
+			else if (module->type() == CSwordModuleInfo::GenericBook) {
 				CSwordTreeKey* tree = dynamic_cast<CSwordTreeKey*>(key);
 
 				CSwordTreeKey startKey(*tree);
@@ -91,13 +93,13 @@ void CReadDisplay::print(const CDisplay::TextPart type) {
 			}
 		};
 
-	case AnchorWithText: {
+		case AnchorWithText: {
 			if (hasActiveAnchor()) {
 				mgr.printByHyperlink( activeAnchor() );
 			};
 		};
 
-	default:
+		default:
 		break;
 	}
 }

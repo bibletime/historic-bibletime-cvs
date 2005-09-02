@@ -11,7 +11,9 @@
  * @author The BibleTime team
  * @version $Id$
  */
-class CSwordCommentaryModuleInfo : public CSwordBibleModuleInfo  {
+
+class CSwordCommentaryModuleInfo : public CSwordBibleModuleInfo {
+
 public:
 	CSwordCommentaryModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
 	~CSwordCommentaryModuleInfo();

@@ -27,7 +27,9 @@
   * @author The BibleTime team
   * @version $Id$
   */
+
 class CSwordModuleSearch: public CPointers {
+
 public:
 	enum scopeType {
 		Scope_NoScope,
@@ -142,9 +144,11 @@ private:
 /** Returns the percent for the given type. */
 inline const int CSwordModuleSearch::getPercent( const PercentType type ) {
 	switch (type) {
-	case currentModule:
+
+		case currentModule:
 		return cms_currentProgress;
-	case allModules:
+
+		case allModules:
 		return cms_overallProgress;
 	};
 
@@ -156,7 +160,8 @@ inline void CSwordModuleSearch::percentUpdate(char percent, void *) {
 
 	if (searcher->cms_module_count > 1) {
 		searcher->cms_overallProgress = (int)(((float)((searcher->cms_module_current - 1) * 100 + searcher->cms_currentProgress)) / searcher->cms_module_count);
-	} else {
+	}
+	else {
 		searcher->cms_overallProgress = searcher->cms_currentProgress;
 	}
 

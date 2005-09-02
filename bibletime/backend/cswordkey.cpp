@@ -37,6 +37,7 @@ const QString CSwordKey::rawText() {
 		//     m_module->module()->SetKey(k);
 		m_module->module()->getKey()->setText( (const char*)key().utf8() );
 	}
+
 	if (key().isNull()) {
 		return QString::null;
 	}
@@ -51,8 +52,10 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
 
 	using namespace sword;
 	SWKey* k = dynamic_cast<sword::SWKey*>(this);
+
 	if (k) {
 		VerseKey* vk_mod = dynamic_cast<VerseKey*>(m_module->module()->getKey());
+
 		if (vk_mod) {
 			vk_mod->Headings(1);
 		}
@@ -63,6 +66,7 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
 			m_module->snap();
 			/* In lexicons make sure that our key (e.g. 123) was successfully set to the module,
 			i.e. the module key contains this key (e.g. 0123 contains 123) */
+
 			if ( strcasecmp(m_module->module()->getKey()->getText(), (const char*)key().utf8())
 					&& !strstr(m_module->module()->getKey()->getText(), (const char*)key().utf8())
 			   ) {
@@ -83,18 +87,23 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
 			QString ret;
 			QChar c;
 			const unsigned int length = text.length();
+
 			for (unsigned int i = 0; i < length; ++i) {
 				c = text.at(i);
+
 				if (c.latin1()) { //normal latin1 character
 					ret.append(c);
-				} else {//unicode character, needs to be escaped
+				}
+				else {//unicode character, needs to be escaped
 					ret.append("&#")
 					.append(c.unicode())
 					.append(";");
 				}
 			};
+
 			return ret;
-		} else {
+		}
+		else {
 			return text;
 		}
 	}
@@ -111,6 +120,7 @@ const QString CSwordKey::strippedText() {
 		//   m_module->module()->SetKey(k);
 		m_module->module()->getKey()->setText( (const char*)key().utf8() );
 	}
+
 	return QString::fromUtf8( m_module->module()->StripText() );
 }
 
@@ -121,14 +131,19 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ) {
 		return 0;
 
 	switch( module->type() ) {
-	case CSwordModuleInfo::Bible://fall through
-	case CSwordModuleInfo::Commentary:
+
+		case CSwordModuleInfo::Bible://fall through
+
+		case CSwordModuleInfo::Commentary:
 		return new CSwordVerseKey( (sword::VerseKey *) ( (sword::SWKey *)(*module->module()) ), module );
-	case CSwordModuleInfo::Lexicon:
+
+		case CSwordModuleInfo::Lexicon:
 		return new CSwordLDKey( (sword::SWKey *)(*module->module()), module);
-	case CSwordModuleInfo::GenericBook:
+
+		case CSwordModuleInfo::GenericBook:
 		return new CSwordTreeKey( (sword::TreeKeyIdx*)((sword::SWKey *)(*module->module())), module );
-	default:
+
+		default:
 		return 0;
 	}
 }

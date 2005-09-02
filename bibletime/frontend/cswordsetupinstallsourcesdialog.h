@@ -10,20 +10,20 @@ class QLineEdit;
 
 namespace InstallationManager {
 
-	class CSwordSetupInstallSourcesDialog : public QDialog  {
+class CSwordSetupInstallSourcesDialog : public QDialog  {
 		Q_OBJECT
 
-	public:
+public:
 		static sword::InstallSource getSource();
 
-	protected:
+protected:
 		CSwordSetupInstallSourcesDialog();
 
-	protected slots:
+protected slots:
 		void slotOk();
 		void slotProtocolChanged();
 
-	private:
+private:
 		QLabel    *m_serverLabel;
 		QLineEdit *m_captionEdit, *m_serverEdit, *m_pathEdit;
 		QComboBox *m_protocolCombo;

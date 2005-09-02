@@ -80,7 +80,8 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 	CSwordVerseKey *vk = dynamic_cast<CSwordVerseKey*>(key);
 	if (vk && vk->isBoundSet()) {
 		text = render->renderKeyRange( QString::fromUtf8(vk->LowerBound()), QString::fromUtf8(vk->UpperBound()), modules );
-	} else { //no range supported
+	}
+	else { //no range supported
 		text = render->renderSingleKey(key->key(), modules);
 	}
 
@@ -222,7 +223,8 @@ const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bo
 				   QString::fromUtf8(vk->UpperBound()),
 				   modules
 			   );
-	} else { //no range supported
+	}
+	else { //no range supported
 		text = render->renderSingleKey(key->key(), modules);
 	}
 
@@ -313,7 +315,8 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 			startKey = QString::fromUtf8((const char*)(vk->LowerBound()) );
 			stopKey = QString::fromUtf8((const char*)(vk->UpperBound()) );
 			tree.append( new CPrinter::KeyTreeItem(startKey, stopKey, module, settings) );
-		} else {
+		}
+		else {
 			startKey = QString::fromUtf8((const char*)*list);
 			tree.append( new CPrinter::KeyTreeItem(startKey, module, settings) );
 		}
@@ -337,7 +340,8 @@ const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& st
 	CPrinter::KeyTree tree;
 	if (startKey != stopKey) {
 		tree.append( new CPrinter::KeyTreeItem(startKey, stopKey, module, settings) );
-	} else {
+	}
+	else {
 		tree.append( new CPrinter::KeyTreeItem(startKey, module, settings) );
 	}
 
@@ -384,13 +388,15 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ) {
 					const QString stopKey =  QString::fromUtf8(element->UpperBound().getText());
 
 					tree.append( new CPrinter::KeyTreeItem(startKey, stopKey, module, settings) );
-				} else if (verses.GetElement(i)) {
+				}
+				else if (verses.GetElement(i)) {
 					const QString key =  QString::fromUtf8(verses.GetElement(i)->getText());
 
 					tree.append( new CPrinter::KeyTreeItem(key, module, settings) );
 				}
 			}
-		} else {
+		}
+		else {
 			tree.append( new CPrinter::KeyTreeItem(keyName, module, settings) );
 		}
 	}
@@ -430,11 +436,11 @@ const bool CExportManager::printKeyList(const QStringList& list,CSwordModuleInfo
 /** Returns the string for the filedialogs to show the correct files. */
 const QString CExportManager::filterString( const Format format ) {
 	switch (format) {
-	case HTML:
+		case HTML:
 		return i18n("*.html *.htm | HTML files\n *.* | All files (*.*)");
-	case Text:
+		case Text:
 		return i18n("*.txt | Text files\n *.* | All files (*.*)");
-	default:
+		default:
 		return i18n("All files (*.*)");
 	};
 }

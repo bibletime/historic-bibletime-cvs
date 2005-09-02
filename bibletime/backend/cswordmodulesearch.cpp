@@ -15,10 +15,10 @@
 CSwordModuleSearch* CSwordModuleSearch::searcher = 0;
 
 CSwordModuleSearch::CSwordModuleSearch() :
-		m_searchedText(QString::null),
-		m_searchOptions(0),
-		m_foundItems(false),
-		m_isSearching(false),
+m_searchedText(QString::null),
+m_searchOptions(0),
+m_foundItems(false),
+m_isSearching(false),
 m_terminateSearch(false) {
 	searcher = this;
 }
@@ -48,12 +48,15 @@ const bool CSwordModuleSearch::startSearch() {
 
 	// for (m_moduleList.first(); m_moduleList.current() && !m_terminateSearch; m_moduleList.next()) {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
 		cms_module_current++;
+
 		if ( (*it)->search(m_searchedText, m_searchOptions, m_searchScope, &CSwordModuleSearch::percentUpdate) ) {
 			foundItems = true;
 		}
 	}
+
 	cms_currentProgress = 100;
 	cms_overallProgress = 100;
 
@@ -77,6 +80,7 @@ void CSwordModuleSearch::setSearchedText( const QString& text ) {
 /** Sets the search scope. */
 void CSwordModuleSearch::setSearchScope( const sword::ListKey& scope ) {
 	m_searchScope.copyFrom( scope );
+
 	if (!strlen(scope.getRangeText())) { //we can't search with an empty search scope, would crash
 		//reset the scope
 		resetSearchScope();
@@ -102,6 +106,7 @@ void CSwordModuleSearch::interruptSearch() {
 
 	//  for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 	ListCSwordModuleInfo::const_iterator end_it = m_moduleList.end();
+
 	for( ListCSwordModuleInfo::const_iterator it = m_moduleList.begin(); it != end_it; ++it) {
 		(*it)->interruptSearch(); //interrupt the current module
 	}

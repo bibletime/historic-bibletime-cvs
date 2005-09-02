@@ -12,7 +12,7 @@
 QMap<QObject*, int> boxes;
 
 CBookKeyChooser::CBookKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name)
-		: CKeyChooser(modules, key, parent,name), m_layout(0) {
+: CKeyChooser(modules, key, parent,name), m_layout(0) {
 
 	setModules(modules, false);
 	m_key = dynamic_cast<CSwordTreeKey*>(key);
@@ -67,7 +67,8 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal) {
 			do {
 				++index;
 				found = (m_key->getLocalName() == sibling);
-			} while (!found && m_key->nextSibling());
+			}
+			while (!found && m_key->nextSibling());
 
 			if (!found) {
 				m_key->key( key );
@@ -88,7 +89,8 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal) {
 
 	if (oldKey.isEmpty()) {
 		m_key->root();
-	} else {
+	}
+	else {
 		//m_key->key(oldKey);
 		m_key->setOffset(oldOffset);
 	}
@@ -220,7 +222,8 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 
 	do {
 		items << QString::fromLocal8Bit(m_key->getLocalName());
-	} while (m_key->nextSibling());
+	}
+	while (m_key->nextSibling());
 
 	if (chooserWidget) {
 		chooserWidget->reset(items,currentItem,false);

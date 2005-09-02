@@ -47,7 +47,7 @@ using namespace sword;
 namespace InfoDisplay {
 
 	CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
-			: QWidget(parent, name) {
+: QWidget(parent, name) {
 		QVBoxLayout* layout = new QVBoxLayout(this);
 		QLabel* headingLabel = new QLabel(i18n("Mag (\"shift\" to lock)"),this);
 		headingLabel->setMargin(5);
@@ -88,28 +88,28 @@ namespace InfoDisplay {
 		ListInfoData::const_iterator end = list.end();
 		for (ListInfoData::const_iterator it = list.begin(); it != end; ++it) {
 			switch ( (*it).first ) {
-			case Lemma:
+				case Lemma:
 				text.append( decodeStrongs( (*it).second ) );
 				continue;
-			case Morph:
+				case Morph:
 				text.append( decodeMorph( (*it).second ) );
 				continue;
-			case CrossReference:
+				case CrossReference:
 				text.append( decodeCrossReference( (*it).second ) );
 				continue;
-			case Footnote:
+				case Footnote:
 				text.append( decodeFootnote( (*it).second ) );
 				continue;
-			case WordTranslation:
+				case WordTranslation:
 				text.append( getWordTranslation( (*it).second ) );
 				continue;
-			case WordGloss:
+				case WordGloss:
 				//text.append( getWordTranslation( (*it).second ) );
 				continue;
-			case Abbreviation:
+				case Abbreviation:
 				text.append( decodeAbbreviation( (*it).second ) );
 				continue;
-			default:
+				default:
 				continue;
 			};
 		}
@@ -211,7 +211,8 @@ namespace InfoDisplay {
 							module,
 							settings
 						);
-				} else {
+				}
+				else {
 					i = new CTextRendering::KeyTreeItem(
 							QString::fromUtf8(key->getText()),
 							QString::fromUtf8(key->getText()),
@@ -224,7 +225,8 @@ namespace InfoDisplay {
 
 				tree.append( i );
 			}
-		} else if (module) {
+		}
+		else if (module) {
 			CTextRendering::KeyTreeItem* i = new CTextRendering::KeyTreeItem(
 												 data.mid((pos == -1) ? 0 : pos+1),
 												 module,
@@ -237,14 +239,14 @@ namespace InfoDisplay {
 		//spanns containing rtl text need dir=rtl on their parent tag to be aligned properly
 		return QString("<div class=\"crossrefinfo\"><h3>%1</h3><div class=\"para\" dir=\"%2\">%3</div></div>")
 			   .arg(i18n("Cross references"))
-			   .arg(module ? ((module->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr" : "rtl") : "")
-					   .arg(renderer.renderKeyTree(tree));
+	   .arg(module ? ((module->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr" : "rtl") : "")
+			   .arg(renderer.renderKeyTree(tree));
 	}
 
 	/*!
 	    \fn CInfoDisplay::decodeFootnote( const QString& data )
 	 */
-const QString CInfoDisplay::decodeFootnote( const QString& data ) {
+	const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 		QStringList list = QStringList::split("/", data);
 		Q_ASSERT(list.count() >= 3);
 		if (!list.count()) {
@@ -337,17 +339,17 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 				// returned which is ok to .isDigit()
 				if (value.at(1).isDigit()) {
 					switch (value.at(0).latin1()) {
-					case 'G':
+						case 'G':
 						module = CBTConfig::get
 									 (CBTConfig::standardGreekMorphLexicon);
 						skipFirstChar = true;
 						break;
-					case 'H':
+						case 'H':
 						module = CBTConfig::get
 									 (CBTConfig::standardHebrewMorphLexicon);
 						skipFirstChar = true;
 						break;
-					default:
+						default:
 						skipFirstChar = false;
 						//TODO: we can't tell here if it's a greek or hebrew moprh code, that's a problem we have to solve
 						//       module = CBTConfig::get(CBTConfig::standardGreekMorphLexicon);

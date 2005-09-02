@@ -42,13 +42,13 @@
 using std::string;
 
 CItemBase::CItemBase(CMainIndex* mainIndex, const Type type)
-		: KListViewItem(mainIndex),
-		m_type(type),
+: KListViewItem(mainIndex),
+m_type(type),
 m_sortingEnabled(true) {}
 
 CItemBase::CItemBase(CItemBase* parentItem, const Type type)
-		: KListViewItem(parentItem),
-		m_type(type),
+: KListViewItem(parentItem),
+m_type(type),
 m_sortingEnabled(true) {}
 
 CItemBase::~CItemBase() {}
@@ -109,7 +109,8 @@ const bool CItemBase::isSortingEnabled() {
 void CItemBase::sortChildItems( int col, bool asc ) {
 	if (!isSortingEnabled()) {
 		return;
-	} else {
+	}
+	else {
 		KListViewItem::sortChildItems( col, asc );
 	}
 }
@@ -118,7 +119,8 @@ void CItemBase::sortChildItems( int col, bool asc ) {
 void CItemBase::sort() {
 	if (!isSortingEnabled()) {
 		return;
-	} else {
+	}
+	else {
 		KListViewItem::sort();
 	}
 }
@@ -150,7 +152,7 @@ void CModuleItem::init() {
 /** Reimplementation to handle text drops on a module. In this case open the searchdialog. In the case of a referebnce open the module at the given position. */
 bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
 	if (CDragDropMgr::canDecode(src)) {
-		if (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark) {
+	if (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark) {
 			CDragDropMgr::Item item = CDragDropMgr::decode(src).first();
 			CSwordModuleInfo* m = CPointers::backend()->findModuleByName( item.bookmarkModule() );
 			if (m && (module()->type() == m->type())) { //it makes only sense
@@ -159,10 +161,12 @@ bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
 			//but we also allow drops from bibles on commentaries and the other way from commentaries
 			else if (m && (module()->type() == CSwordModuleInfo::Bible) && (m->type() == CSwordModuleInfo::Commentary)) {
 				return true;
-			} else if (m && (module()->type() == CSwordModuleInfo::Commentary) && (m->type() == CSwordModuleInfo::Bible)) {
+			}
+			else if (m && (module()->type() == CSwordModuleInfo::Commentary) && (m->type() == CSwordModuleInfo::Bible)) {
 				return true;
 			}
-		} else if(CDragDropMgr::dndType(src) == CDragDropMgr::Item::Text) { //text drop on a module
+		}
+		else if(CDragDropMgr::dndType(src) == CDragDropMgr::Item::Text) { //text drop on a module
 			return true;
 		};
 	}
@@ -190,7 +194,8 @@ void CModuleItem::dropped( QDropEvent* e, QListViewItem* /*after*/) {
 
 				CSearchDialog::openDialog(modules, item.text());
 			}
-		} else if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) { //open the module
+		}
+		else if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) { //open the module
 			CSwordModuleInfo* m = CPointers::backend()->findModuleByName( item.bookmarkModule() );
 			if (m) { //it makes only sense to create a new window for a module with the same type
 				if ((module()->type() == m->type()) ||
@@ -237,15 +242,16 @@ const bool CModuleItem::enableAction( const MenuAction action ) {
 /* ----------------------------------------------*/
 
 CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, const QString& key, const QString& description)
-		: CItemBase(parentItem),
-		m_description(description),
+: CItemBase(parentItem),
+m_description(description),
 m_moduleName(module ? module->name() : QString::null) {
 	if ((module && (module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary))  ) {
 		CSwordVerseKey vk(0);
 		vk = key;
 		vk.setLocale("en");
 		m_key = vk.key(); //the m_key member is always the english key!
-	} else {
+	}
+	else {
 		m_key = key;
 	};
 
@@ -314,7 +320,8 @@ const QString CBookmarkItem::toolTip() {
 			  .arg(description())
 			  .arg(fontPair.second.family())
 			  .arg(k->renderedText());
-	} else {
+	}
+	else {
 		ret = QString::fromLatin1("<b>%1 (%2)</b><br/><small>%3</small><hr>%4")
 			  .arg(key())
 			  .arg(module()->name())
@@ -508,7 +515,8 @@ QPtrList<QListViewItem> CFolderBase::getChildList() {
 
 		do {
 			i = i->nextSibling();
-		} while (i && (i->parent() != this));
+		}
+		while (i && (i->parent() != this));
 	}
 
 	return childs;
@@ -533,9 +541,11 @@ void CTreeFolder::addGroup(const Type type, const QString language) {
 	CTreeFolder* i = 0;
 	if (type == BookmarkFolder) {
 		i = new CBookmarkFolder(this);
-	} else if (type == OldBookmarkFolder) {
+	}
+	else if (type == OldBookmarkFolder) {
 		i = new Bookmarks::OldBookmarksFolder(this);
-	} else {
+	}
+	else {
 		i = new CTreeFolder(this, type, language);
 	}
 	i->init();
@@ -560,38 +570,39 @@ void CTreeFolder::update() {
 void CTreeFolder::init() {
 	if (language() == "*") {
 		switch (type()) {
-		case BibleModuleFolder:
+			case BibleModuleFolder:
 			setText(0,i18n("Bibles"));
 			break;
-		case CommentaryModuleFolder:
+			case CommentaryModuleFolder:
 			setText(0,i18n("Commentaries"));
 			break;
-		case LexiconModuleFolder:
+			case LexiconModuleFolder:
 			setText(0,i18n("Lexicons"));
 			break;
-		case BookModuleFolder:
+			case BookModuleFolder:
 			setText(0,i18n("Books"));
 			break;
-		case DevotionalModuleFolder:
+			case DevotionalModuleFolder:
 			setText(0,i18n("Daily devotionals"));
 			break;
-		case GlossaryModuleFolder:
+			case GlossaryModuleFolder:
 			setText(0,i18n("Glossaries"));
 			break;
-		case BookmarkFolder:
+			case BookmarkFolder:
 			setText(0,i18n("Bookmarks"));
 			break;
-		case OldBookmarkFolder:
+			case OldBookmarkFolder:
 			setText(0,i18n("Old bookmarks"));
 			break;
-		default:
+			default:
 			setText(0, i18n("Unknown"));
 			break;
 		};
-	} else {
+	}
+	else {
 		const CLanguageMgr::Language* const lang = CPointers::languageMgr()->languageForAbbrev( language() );
 
-		setText(0, !language().isEmpty() ? ( lang->isValid() ? lang->translatedName() : language()) : i18n("Unknown language"));
+setText(0, !language().isEmpty() ? ( lang->isValid() ? lang->translatedName() : language()) : i18n("Unknown language"));
 	}
 	initTree();
 	update();
@@ -655,7 +666,8 @@ void CTreeFolder::initTree() {
 		for (lang_it = usedLangs.begin(); lang_it != usedLangs.end(); ++lang_it) {
 			addGroup(/**lang_it,*/ type(), *lang_it);
 		}
-	} else if (usedModules.count() > 0) { //create subitems with the given type and language
+	}
+	else if (usedModules.count() > 0) { //create subitems with the given type and language
 		/*ListCSwordModuleInfo::iterator*/ end_it = usedModules.end();
 		for (ListCSwordModuleInfo::iterator it(usedModules.begin()); it != end_it; ++it) {
 			//     for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
@@ -766,7 +778,7 @@ namespace Bookmarks {
 	*   New class: OldBookmarkFolder
 	*********************/
 
-	OldBookmarksFolder::OldBookmarksFolder(CTreeFolder* folder) : CBookmarkFolder(folder, OldBookmarkFolder) {}
+OldBookmarksFolder::OldBookmarksFolder(CTreeFolder* folder) : CBookmarkFolder(folder, OldBookmarkFolder) {}
 
 	OldBookmarksFolder::~OldBookmarksFolder() {}
 
@@ -810,12 +822,12 @@ namespace Bookmarks {
 
 	// New class SubFolder
 
-	SubFolder::SubFolder(CFolderBase* parentItem, const QString& caption) : CBookmarkFolder(parentItem, BookmarkFolder) {
+SubFolder::SubFolder(CFolderBase* parentItem, const QString& caption) : CBookmarkFolder(parentItem, BookmarkFolder) {
 		m_startupXML = QDomElement();
 		setText( 0, caption );
 	}
 
-	SubFolder::SubFolder(CFolderBase* parentItem, QDomElement& xml ) : CBookmarkFolder(parentItem, BookmarkFolder) {
+SubFolder::SubFolder(CFolderBase* parentItem, QDomElement& xml ) : CBookmarkFolder(parentItem, BookmarkFolder) {
 		m_startupXML = xml;
 	}
 
@@ -880,7 +892,8 @@ namespace Bookmarks {
 			CItemBase* i = 0;
 			if (child.tagName() == "Folder") {
 				i = new Bookmarks::SubFolder(this, child);
-			} else if (child.tagName() == "Bookmark") {
+			}
+			else if (child.tagName() == "Bookmark") {
 				i = new CBookmarkItem(this, child);
 			}
 			i->init();
@@ -1026,7 +1039,8 @@ const bool CBookmarkFolder::loadBookmarksFromXML( const QString& xml ) {
 		CItemBase* i = 0;
 		if (child.tagName() == "Folder") {
 			i = new Bookmarks::SubFolder(this, child);
-		} else if (child.tagName() == "Bookmark") {
+		}
+		else if (child.tagName() == "Bookmark") {
 			i = new CBookmarkItem(this, child);
 		}
 		if (!i) {
@@ -1041,7 +1055,8 @@ const bool CBookmarkFolder::loadBookmarksFromXML( const QString& xml ) {
 
 		if (!child.nextSibling().isNull()) {
 			child = child.nextSibling().toElement();
-		} else {
+		}
+		else {
 			break;
 		}
 	}
@@ -1069,13 +1084,13 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ) {
 /* NEW CLASS */
 
 CGlossaryFolder::CGlossaryFolder(CMainIndex* mainIndex, const Type type, const QString& fromLanguage, const QString& toLanguage)
-		: CTreeFolder(mainIndex, type, fromLanguage) {
+: CTreeFolder(mainIndex, type, fromLanguage) {
 	m_fromLanguage = fromLanguage;
 	m_toLanguage = toLanguage;
 }
 
 CGlossaryFolder::CGlossaryFolder(CFolderBase* item, const Type type, const QString& fromLanguage, const QString& toLanguage)
-		: CTreeFolder(item, type, fromLanguage) {
+: CTreeFolder(item, type, fromLanguage) {
 	m_fromLanguage = fromLanguage;
 	m_toLanguage = toLanguage;
 }
@@ -1133,7 +1148,8 @@ void CGlossaryFolder::initTree() {
 		for (lang_it = usedLangs.begin(); lang_it != usedLangs.end(); ++lang_it) {
 			addGroup(type(), (*lang_it).first, (*lang_it).second);
 		}
-	} else if (usedModules.count() > 0) { //create subitems with the given type and languages
+	}
+	else if (usedModules.count() > 0) { //create subitems with the given type and languages
 		//     for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
 		ListCSwordModuleInfo::iterator end_it = usedModules.end();
 		for (ListCSwordModuleInfo::iterator it(usedModules.begin()); it != end_it; ++it) {
@@ -1147,7 +1163,8 @@ void CGlossaryFolder::initTree() {
 void CGlossaryFolder::init() {
 	if (language() == "*") {
 		setText(0,i18n("Glossaries"));
-	} else {
+	}
+	else {
 		const CLanguageMgr::Language* const fromLang = CPointers::languageMgr()->languageForAbbrev( m_fromLanguage );
 		const CLanguageMgr::Language* const toLang = CPointers::languageMgr()->languageForAbbrev( m_toLanguage );
 

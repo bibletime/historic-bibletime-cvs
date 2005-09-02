@@ -23,7 +23,7 @@
 #include <klocale.h>
 
 CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name )
-		: CKeyChooser(modules, key, parent, name),
+: CKeyChooser(modules, key, parent, name),
 m_key(dynamic_cast<CSwordLDKey*>(key)) {
 
 	setModules(modules, false);
@@ -94,7 +94,8 @@ void CLexiconKeyChooser::refreshContent() {
 	if (m_modules.count() == 1) {
 		m_widget->reset(m_modules.first()->entries(), 0, true);
 		//     qWarning("resetted");
-	} else {
+	}
+	else {
 		typedef std::multimap<unsigned int, QStringList*> EntryMap;
 		EntryMap entryMap;
 		QStringList* entries = 0;

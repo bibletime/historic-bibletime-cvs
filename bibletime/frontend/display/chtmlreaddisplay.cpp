@@ -37,8 +37,8 @@
 using namespace InfoDisplay;
 
 CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget)
-		: KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget),
-		CReadDisplay(readWindow),
+: KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget),
+CReadDisplay(readWindow),
 m_currentAnchorCache(QString::null) {
 	setDNDEnabled(false);
 	setJavaEnabled(false);
@@ -53,29 +53,32 @@ CHTMLReadDisplay::~CHTMLReadDisplay() {}
 
 const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part) {
 	switch (part) {
-	case Document: {
-				if (format == HTMLText) {
+		case Document: {
+			if (format == HTMLText) {
 				return document().toHTML();
-				} else {
-					return htmlDocument().body().innerText().string().latin1();
-				}
+			}
+			else {
+				return htmlDocument().body().innerText().string().latin1();
+			}
 		}
 
-	case SelectedText: {
+		case SelectedText: {
 			if (!hasSelection())
 				return QString::null;
 
 			if (!hasSelection()) {
 				return QString::null;
-			} else if (format == HTMLText) {
+			}
+			else if (format == HTMLText) {
 				DOM::Range range = selection();
 				return range.toHTML().string();
-			} else { //plain text requested
+			}
+			else { //plain text requested
 				return selectedText();
 			}
 		}
 
-	case AnchorOnly: {
+		case AnchorOnly: {
 			QString moduleName;
 			QString keyName;
 			CReferenceManager::Type type;
@@ -84,7 +87,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 			return keyName;
 		}
 
-	case AnchorTextOnly: {
+		case AnchorTextOnly: {
 			QString moduleName;
 			QString keyName;
 			CReferenceManager::Type type;
@@ -99,7 +102,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 			return QString::null;
 		}
 
-	case AnchorWithText: {
+		case AnchorWithText: {
 			QString moduleName;
 			QString keyName;
 			CReferenceManager::Type type;
@@ -132,7 +135,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 			}
 			return QString::null;
 		}
-	default:
+		default:
 		return QString::null;
 	}
 }
@@ -193,9 +196,11 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
 		m_urlWorkaroundData.args = args;
 		m_urlWorkaroundData.module = module;
 		m_urlWorkaroundData.key = key;
-	} else if (!url.isEmpty() && (url.left(1) == "#")) { //anchor
+	}
+	else if (!url.isEmpty() && (url.left(1) == "#")) { //anchor
 		moveToAnchor(url.mid(1));
-	} else if (url.left(7) == "http://") { //open the bowser configured by kdeb
+	}
+	else if (url.left(7) == "http://") { //open the bowser configured by kdeb
 		KApplication::kApplication()->invokeBrowser( url ); //ToDo: Not yet tested
 	}
 }
@@ -226,7 +231,8 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ) {
 
 	if (event->qmouseEvent()->button() == Qt::RightButton) {
 		setActiveAnchor( event->url().string() );
-	} else if (event->qmouseEvent()->button() == Qt::LeftButton) {
+	}
+	else if (event->qmouseEvent()->button() == Qt::LeftButton) {
 		m_dndData.node = event->innerNode();
 		m_dndData.anchor = event->url();
 		m_dndData.mousePressed = true;
@@ -263,7 +269,8 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ) {
 				CDragDropMgr::ItemList dndItems;
 				dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
 				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
-			} else if ((m_dndData.dragType == DNDData::Text) && !m_dndData.selection.isEmpty()) {    // create a new plain text drag!
+			}
+			else if ((m_dndData.dragType == DNDData::Text) && !m_dndData.selection.isEmpty()) {    // create a new plain text drag!
 				CDragDropMgr::ItemList dndItems;
 				dndItems.append( CDragDropMgr::Item(m_dndData.selection) ); //no description!
 				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
@@ -279,7 +286,8 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ) {
 				d->drag();
 			}
 		}
-	} else if (getMouseTracking() && !(e->qmouseEvent()->state() & Qt::ShiftButton == Qt::ShiftButton)) { //no mouse button pressed and tracking enabled
+	}
+	else if (getMouseTracking() && !(e->qmouseEvent()->state() & Qt::ShiftButton == Qt::ShiftButton)) { //no mouse button pressed and tracking enabled
 		DOM::Node node = e->innerNode();
 		//  bool setInfo = false;
 
@@ -338,7 +346,8 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ) {
 						break;
 					}
 				}
-			} while ( !currentNode.isNull() );
+			}
+			while ( !currentNode.isNull() );
 
 			//Code part to show a translation of the hovered word, only works with KDE 3.3
 			/*   if (!infoList.count()) { //translate the text under the mouse, find the lowest node containing the mouse

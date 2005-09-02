@@ -25,23 +25,23 @@ namespace InstallationManager {
 	/**Our own reimplementation to provide status bar updates.
 	  *@author The BibleTime team
 	  */
-	class BTInstallMgr : public QObject, public sword::InstallMgr, public sword::StatusReporter {
+class BTInstallMgr : public QObject, public sword::InstallMgr, public sword::StatusReporter {
 		Q_OBJECT
-	public:
+public:
 		class Tool {
-		public:
+public:
 			class LocalConfig {
-			public:
+public:
 				static const QString swordConfigFilename();
 				static QStringList targetList();
 				static void setTargetList( const QStringList& );
-			private:
+private:
 				LocalConfig() {}
 				;
 			};
 
 			class RemoteConfig {
-			public:
+public:
 				static void initConfig();
 				static const QString configPath();
 				static const QString configFilename();
@@ -56,14 +56,14 @@ namespace InstallationManager {
 				static void removeSource( sword::InstallMgr*, sword::InstallSource* );
 
 
-			private:
+private:
 				RemoteConfig() {}
 				;
 			};
 
 			static CSwordBackend* backend( sword::InstallSource* const );
 
-		private:
+private:
 			Tool() {}
 			;
 		};
@@ -71,7 +71,7 @@ namespace InstallationManager {
 		BTInstallMgr();
 		virtual ~BTInstallMgr();
 
-	protected:
+protected:
 		/* Reimplementations of method in StatusReporter */
 		virtual void statusUpdate(double dltotal, double dlnow);
 		virtual void preStatus(long totalBytes, long completedBytes, const char *message);
@@ -81,7 +81,7 @@ namespace InstallationManager {
 		long m_totalBytes;
 		long m_completedBytes;
 
-	signals: // Signals
+signals: // Signals
 		void completed( const int, const int );
 		/**
 		* Emitted when a new file gets downloaded.

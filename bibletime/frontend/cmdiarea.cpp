@@ -22,9 +22,9 @@
 
 
 CMDIArea::CMDIArea(QWidget *parent, const char *name )
-		: QWorkspace(parent, name),
-		m_guiOption(Nothing),
-		m_childEvent(false),
+: QWorkspace(parent, name),
+m_guiOption(Nothing),
+m_childEvent(false),
 m_appCaption(QString::null) {
 	initView();
 	initConnections();
@@ -90,7 +90,8 @@ void CMDIArea::childEvent( QChildEvent * e ) {
 	if ((e->inserted() || e->removed()) ) {
 		if (e->inserted() && e->child() && e->child()->inherits("CDisplayWindow")) {
 			e->child()->installEventFilter(this); //make sure we catch the events of the new window
-		} else if (e->removed() && e->child() && e->child()->inherits("CDisplayWindow")) {
+		}
+		else if (e->removed() && e->child() && e->child()->inherits("CDisplayWindow")) {
 			e->child()->removeEventFilter(this); //make sure we catch the events of the new window
 		}
 
@@ -165,7 +166,8 @@ void CMDIArea::myTileVertical() {
 	if ((windows.count() == 1) && windows.at(0)) {
 		m_appCaption = windows.at(0)->caption();
 		windows.at(0)/*->parentWidget()*/->showMaximized();
-	} else {
+	}
+	else {
 		QWidget* active = activeWindow();
 		QWorkspace::tile();
 		active->setFocus();
@@ -182,7 +184,8 @@ void CMDIArea::myTileHorizontal() {
 	if ((windows.count() == 1) && windows.at(0)) {
 		m_appCaption = windows.at(0)->caption();
 		windows.at(0)/*->parentWidget()*/->showMaximized();
-	} else {
+	}
+	else {
 
 		QWidget* active = activeWindow();
 		if (active->isMaximized()) {
@@ -228,7 +231,8 @@ void CMDIArea::myCascade() {
 	if ((windows.count() == 1) && windows.at(0)) {
 		m_appCaption = windows.at(0)->caption();
 		windows.at(0)->parentWidget()->showMaximized();
-	} else {
+	}
+	else {
 
 		const int offsetX = 40;
 		const int offsetY = 40;
@@ -313,7 +317,8 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
 		if (o->inherits("CDisplayWindow") && ((w->windowState() & Qt::WindowMinimized) || w->isHidden())) { //window was minimized, trigger a tile/cascade update if necessary
 			triggerWindowUpdate();
 			ret = false;
-		} else if (!o->inherits("CDisplayWindow")) {
+		}
+		else if (!o->inherits("CDisplayWindow")) {
 			qDebug("bad mdi child classname: %s", o->className());
 			o->dumpObjectInfo();
 			o->dumpObjectTree();
@@ -334,16 +339,16 @@ void CMDIArea::triggerWindowUpdate() {
 	}
 
 	switch (m_guiOption) {
-	case autoTileVertical:
+		case autoTileVertical:
 		QTimer::singleShot(0, this, SLOT(myTileVertical()));
 		break;
-	case autoTileHorizontal:
+		case autoTileHorizontal:
 		QTimer::singleShot(0, this, SLOT(myTileHorizontal()));
 		break;
-	case autoCascade:
+		case autoCascade:
 		QTimer::singleShot(0, this, SLOT(myCascade()));
 		break;
-	default:
+		default:
 		qDebug("CMDIArea::triggerWindowUpdate: no known m_guiType");
 		break;
 	}

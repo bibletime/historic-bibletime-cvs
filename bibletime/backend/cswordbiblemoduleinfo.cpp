@@ -16,18 +16,18 @@
 static sword::VerseKey staticKey;
 
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( sword::SWModule* module, CSwordBackend* const usedBackend )
-		: CSwordModuleInfo(module, usedBackend),
-		m_lowerBound(0),
-		m_upperBound(0),
-		m_bookList(0),
-		m_cachedLocale("unknown"),
-		m_hasOT(-1),
+: CSwordModuleInfo(module, usedBackend),
+m_lowerBound(0),
+m_upperBound(0),
+m_bookList(0),
+m_cachedLocale("unknown"),
+m_hasOT(-1),
 m_hasNT(-1) {}
 
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) :
-		CSwordModuleInfo(m),
-		m_lowerBound(0),
-		m_upperBound(0),
+CSwordModuleInfo(m),
+m_lowerBound(0),
+m_upperBound(0),
 m_bookList(0) {
 	if (m.m_bookList) {
 		m_bookList = new QStringList();
@@ -51,19 +51,22 @@ void CSwordBibleModuleInfo::initBounds() {
 	if (m_hasOT == -1) {
 		m_hasOT = hasTestament(OldTestament);
 	}
+
 	if (m_hasNT == -1) {
 		m_hasNT = hasTestament(NewTestament);
 	}
 
 	if (m_hasOT) {
 		m_lowerBound.key("Genesis 1:1");
-	} else {
+	}
+	else {
 		m_lowerBound.key("Matthew 1:1");
 	}
 
 	if (!m_hasNT) {
 		m_upperBound.key("Malachi 4:6");
-	} else {
+	}
+	else {
 		m_upperBound.key("Revelation of John 22:21");
 	}
 }
@@ -84,22 +87,27 @@ QStringList* const CSwordBibleModuleInfo::books() {
 		int max = 1;
 
 		//find out if we have ot and nt, only ot or only nt
+
 		if (m_hasOT>0 && m_hasNT>0) { //both
 			min = 0;
 			max = 1;
-		} else if (m_hasOT>0 && !m_hasNT) { //only OT
+		}
+		else if (m_hasOT>0 && !m_hasNT) { //only OT
 			min = 0;
 			max = 0;
-		} else if (!m_hasOT && m_hasNT>0) { //only NT
+		}
+		else if (!m_hasOT && m_hasNT>0) { //only NT
 			min = 1;
 			max = 1;
-		} else if (!m_hasOT && !m_hasNT) { //somethings wrong here! - no OT and no NT
+		}
+		else if (!m_hasOT && !m_hasNT) { //somethings wrong here! - no OT and no NT
 			qWarning("CSwordBibleModuleInfo (%s) no OT and not NT! Check your config!", module()->Name());
 			min = 0;
 			max = -1;
 		}
 
 		staticKey.setLocale(sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName());
+
 		for (int i = min; i <= max; ++i) {
 			for ( int j = 0; j < staticKey.BMAX[i]; ++j) {
 				//   if (backend()->useICU())
@@ -109,8 +117,10 @@ QStringList* const CSwordBibleModuleInfo::books() {
 				m_bookList->append( QString::fromUtf8(staticKey.books[i][j].name) );
 			}
 		}
+
 		m_cachedLocale = backend()->booknameLanguage();
 	}
+
 	return m_bookList;
 }
 
@@ -120,7 +130,8 @@ const unsigned int CSwordBibleModuleInfo::chapterCount(const unsigned int book) 
 
 	if ( (book >= 1) && book <= (unsigned int)staticKey.BMAX[0] && hasTestament(OldTestament)) {  //Is the book in the old testament?
 		result = (staticKey.books[0][book-1].chapmax);
-	} else if ((book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament) ) { //is the book in the new testament?
+	}
+	else if ((book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament) ) { //is the book in the new testament?
 		result = (staticKey.books[1][book-1-staticKey.BMAX[0]].chapmax);
 	}
 
@@ -137,9 +148,12 @@ const unsigned int CSwordBibleModuleInfo::verseCount( const unsigned int book, c
 	unsigned int result = 0;
 
 	if (book>=1 && (book <= (unsigned int)staticKey.BMAX[0]) && hasTestament(OldTestament) ) { //Is the book in the old testament?
+
 		if (chapter <= chapterCount(book) ) //does the chapter exist?
 			result = (staticKey.books[0][book-1].versemax[chapter-1]);
-	} else if (book>=1 && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament)) { //is the book in the new testament?
+	}
+	else if (book>=1 && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament)) { //is the book in the new testament?
+
 		if (chapter <= chapterCount(book) ) //does the chapter exist?
 			result = staticKey.books[1][book-1-staticKey.BMAX[0]].versemax[chapter-1];
 	}
@@ -160,19 +174,23 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book) {
 
 	//find out if we have ot and nt, only ot or only nt
 	initBounds();
+
 	if ((m_hasOT>0 && m_hasNT>0) || (m_hasOT == m_hasNT == -1)) {
 		min = 0;
 		max = 1;
 		bookNumber = 0;
-	} else if (m_hasOT>0 && !m_hasNT) {
+	}
+	else if (m_hasOT>0 && !m_hasNT) {
 		min = 0;
 		max = 0;
 		bookNumber = 0;
-	} else if (!m_hasOT && m_hasNT>0) {
+	}
+	else if (!m_hasOT && m_hasNT>0) {
 		min = 1;
 		max = 1;
 		bookNumber = staticKey.BMAX[0];
-	} else if (!m_hasOT && !m_hasNT) {
+	}
+	else if (!m_hasOT && !m_hasNT) {
 		min = 0;
 		max = -1; //no loop
 		bookNumber = 0;
@@ -182,6 +200,7 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book) {
 		for ( int j = 0; j < staticKey.BMAX[i] && !found; ++j) {
 			++bookNumber;
 			//    if (book == QString::fromLocal8Bit( staticKey.books[i][j].name) )
+
 			if (book == QString::fromUtf8( staticKey.books[i][j].name) )
 				found = true;
 		}
@@ -201,15 +220,18 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
 
 		if (key.Testament() == 1) { // OT && NT
 			m_hasOT = 1;
-		} else if (key.Testament() == 2) { //no OT
+		}
+		else if (key.Testament() == 2) { //no OT
 			m_hasOT = 0;
 		}
 
 		*module() = sword::BOTTOM;
 		key = module()->KeyText();
+
 		if (key.Testament() == 1) { // only OT, no NT
 			m_hasNT = 0;
-		} else if (key.Testament() == 2) { //has NT
+		}
+		else if (key.Testament() == 2) { //has NT
 			m_hasNT = 1;
 		}
 
@@ -217,12 +239,14 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
 	}
 
 	switch (type) {
-	case OldTestament:
+
+		case OldTestament:
 		return m_hasOT>0;
-	case NewTestament:
+
+		case NewTestament:
 		return m_hasNT>0;
 
-	default:
+		default:
 		return false;
 	}
 }

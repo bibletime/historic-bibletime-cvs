@@ -41,7 +41,9 @@
   * @author The BibleTime team
   * @version $Id$
   */
+
 class CSwordLDKey : public CSwordKey, public sword::SWKey {
+
 public:
 	/**
 	* Constructor of CSwordLDKey

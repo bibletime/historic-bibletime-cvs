@@ -24,6 +24,7 @@ namespace Rendering {
 		Q_ASSERT( !keyName.isEmpty() );
 
 		CSwordModuleInfo* module = modules.first();
+
 		if (modules.count() == 1) {
 			module->module()->setSkipConsecutiveLinks( true ); //skip empty, linked verses
 		}
@@ -38,6 +39,7 @@ namespace Rendering {
 		QString endKey = startKey;
 
 		//check whether there's an intro we have to include
+
 		if (module->type() == CSwordModuleInfo::Bible) {
 			((VerseKey*)(module->module()->getKey()))->Headings(1); //HACK: enable headings for VerseKeys
 
@@ -51,6 +53,7 @@ namespace Rendering {
 
 			QString raw( k1.rawText() );
 			//we need to work around a bug: osis2mod also puts Preverse titles into the chapter intro (verse 0)
+
 			if ((raw.length() == 0) || ((raw.find("<title ") == 0) && (raw.find("</title>")+8 == int(raw.length())) )) {
 				k1.Verse(1);
 			}

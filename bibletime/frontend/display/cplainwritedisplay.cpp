@@ -84,7 +84,8 @@ void CPlainWriteDisplay::setupToolbar(KToolBar* /*bar*/, KActionCollection* /*ac
 void CPlainWriteDisplay::contentsDragEnterEvent( QDragEnterEvent* e ) {
 	if (CDragDropMgr::canDecode(e)) {
 		e->accept(true);
-	} else {
+	}
+	else {
 		e->accept(false);
 		e->ignore();
 	}
@@ -96,7 +97,8 @@ void CPlainWriteDisplay::contentsDragMoveEvent( QDragMoveEvent* e ) {
 		placeCursor(e->pos());
 		ensureCursorVisible();
 		e->accept(true);
-	} else {
+	}
+	else {
 		e->accept(false);
 		e->ignore();
 	}
@@ -111,25 +113,25 @@ void CPlainWriteDisplay::contentsDropEvent( QDropEvent* e ) {
 		CDragDropMgr::ItemList::iterator it;
 		for (it = items.begin(); it != items.end(); ++it) {
 			switch ((*it).type()) {
-			case CDragDropMgr::Item::Bookmark: {
-						CSwordModuleInfo* module = backend()->findModuleByName((*it).bookmarkModule());
-						util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-						key->key( (*it).bookmarkKey() );
+				case CDragDropMgr::Item::Bookmark: {
+					CSwordModuleInfo* module = backend()->findModuleByName((*it).bookmarkModule());
+					util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+					key->key( (*it).bookmarkKey() );
 
-						QString moduleText = key->strippedText();
+					QString moduleText = key->strippedText();
 
-						const QString text = QString::fromLatin1("%1\n(%2, %3)\n").arg(moduleText).arg((*it).bookmarkKey()).arg((*it).bookmarkModule());
+					const QString text = QString::fromLatin1("%1\n(%2, %3)\n").arg(moduleText).arg((*it).bookmarkKey()).arg((*it).bookmarkModule());
 
-						placeCursor( e->pos() );
-						insert( text );
-						break;
-					}
+					placeCursor( e->pos() );
+					insert( text );
+					break;
+				}
 				case CDragDropMgr::Item::Text: {
 					placeCursor( e->pos() );
 					insert( (*it).text() );
 					break;
 				}
-			default:
+				default:
 				break;
 			}
 

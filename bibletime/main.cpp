@@ -43,16 +43,16 @@ BibleTime* bibletime_ptr = 0;
 void myMessageOutput( QtMsgType type, const char *msg ) {
 	//we use this messagehandler to switch debugging off in final releases
 	switch ( type ) {
-	case QtDebugMsg:
+		case QtDebugMsg:
 		if (showDebugMessages) { //only show messages if they are enabled!
 			fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
 		}
 		break;
-	case QtWarningMsg:
+		case QtWarningMsg:
 		//if (showDebugMessages) //comment out for releases so users don't get our debug warnings
 		fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
 		break;
-	case QtFatalMsg:
+		case QtFatalMsg:
 		fprintf( stderr,"(BibleTime %s) _FATAL_: %s\nPlease contact info@bibletime.de and report this bug!",VERSION, msg );
 		abort(); // dump core on purpose
 	}
@@ -205,7 +205,8 @@ int main(int argc, char* argv[]) {
 	if (kapp->isRestored()) {
 		//    qWarning("Restoring BibleTime");
 		RESTORE( BibleTime );
-	} else {
+	}
+	else {
 		const bool showIt = CBTConfig::get
 								(CBTConfig::logo);
 

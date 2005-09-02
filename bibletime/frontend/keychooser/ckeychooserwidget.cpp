@@ -26,7 +26,7 @@ const unsigned int ARROW_HEIGHT = 12;
 const unsigned int MOVER_HEIGHT = 6;
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
-		: QComboBox(rw,parent,name) {
+: QComboBox(rw,parent,name) {
 	setFocusPolicy(QWidget::WheelFocus);
 	if (lineEdit()) {
 		installEventFilter( lineEdit() );
@@ -47,15 +47,19 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ) {
 			emit focusOut( index );
 
 			return false;
-		} else if (f->reason() == QFocusEvent::Popup) {
+		}
+		else if (f->reason() == QFocusEvent::Popup) {
 			return false;
-		} else if (f->reason() == QFocusEvent::ActiveWindow) {
+		}
+		else if (f->reason() == QFocusEvent::ActiveWindow) {
 			emit activated(currentText());
 			return false;
-		} else if (f->reason() == QFocusEvent::Mouse) {
+		}
+		else if (f->reason() == QFocusEvent::Mouse) {
 			emit activated(currentText());
 			return false;
-		} else if (o == this) {
+		}
+		else if (o == this) {
 			emit activated(currentText());
 			return false;
 		}
@@ -75,7 +79,8 @@ void CKCComboBox::wheelEvent( QWheelEvent* e ) {
 		setCurrentItem(current+change);
 		e->accept();
 		emit activated( currentItem() );
-	} else {
+	}
+	else {
 		e->ignore();
 	}
 }
@@ -97,7 +102,8 @@ CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSi
 
 	if (list) {
 		m_list = *list; //deep copy the items of list
-	} else {
+	}
+	else {
 		m_list.clear();
 	}
 
@@ -120,13 +126,16 @@ void CKeyChooserWidget::changeCombo(int i) {
 	if (i > 0) {
 		if (j <= count) {
 			comboBox()->setCurrentItem(j);
-		} else {
+		}
+		else {
 			comboBox()->setCurrentItem(count);
 		}
-	} else if (i < 0) {
+	}
+	else if (i < 0) {
 		if (j>=0) {
 			comboBox()->setCurrentItem(j);
-		} else {
+		}
+		else {
 			comboBox()->setCurrentItem(0);
 		}
 	}
@@ -183,7 +192,8 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit) {
 		btn_fx->setEnabled( true );
 		btn_down->setEnabled( true );
 		setEnabled(false);
-	} else if (!isEnabled()) { //was disabled
+	}
+	else if (!isEnabled()) { //was disabled
 		setEnabled(true);
 		const bool enableButtons = list && (list->count()>=1);
 		btn_up->setEnabled( enableButtons );
@@ -265,7 +275,8 @@ void CKeyChooserWidget::init() {
 	if (m_useNextPrevSignals) {
 		connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );
 		connect(btn_down, SIGNAL(clicked()), SIGNAL(next_requested()) );
-	} else {
+	}
+	else {
 		connect(btn_up, SIGNAL(clicked()), SLOT(previous()) );
 		connect(btn_down, SIGNAL(clicked()), SLOT(next()) );
 	}

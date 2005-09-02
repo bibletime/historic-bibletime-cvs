@@ -40,11 +40,13 @@
 #include <swfilter.h>
 
 using std::string;
+
 using namespace Filters;
+
 using namespace Rendering;
 
 CSwordBackend::CSwordBackend()
-		: sword::SWMgr(0, 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), true) {
+: sword::SWMgr(0, 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), true) {
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
 	m_displays.book = 0;
@@ -58,7 +60,7 @@ CSwordBackend::CSwordBackend()
 }
 
 CSwordBackend::CSwordBackend(const QString& path, const bool augmentHome)
-		: sword::SWMgr(!path.isEmpty() ? (const char*)path.local8Bit() : 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), false, augmentHome) // don't allow module renaming, because we load from a path
+: sword::SWMgr(!path.isEmpty() ? (const char*)path.local8Bit() : 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), false, augmentHome) // don't allow module renaming, because we load from a path
 {
 	qWarning("CSwordBackend::CSwordBackend for %s, using %s", path.latin1(), configPath);
 	m_displays.entry = 0;
@@ -108,21 +110,24 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 				? m_displays.chapter
 				: (m_displays.chapter = new CChapterDisplay)
 			);
-		} else if (!strcmp(curMod->Type(), "Commentaries")) {
+		}
+		else if (!strcmp(curMod->Type(), "Commentaries")) {
 			newModule = new CSwordCommentaryModuleInfo(curMod, this);
 			newModule->module()->Disp(
 				m_displays.entry
 				? m_displays.entry
 				: (m_displays.entry = new CEntryDisplay)
 			);
-		} else if (!strcmp(curMod->Type(), "Lexicons / Dictionaries")) {
+		}
+		else if (!strcmp(curMod->Type(), "Lexicons / Dictionaries")) {
 			newModule = new CSwordLexiconModuleInfo(curMod, this);
 			newModule->module()->Disp(
 				m_displays.entry
 				? m_displays.entry
 				: (m_displays.entry = new CEntryDisplay)
 			);
-		} else if (!strcmp(curMod->Type(), "Generic Books")) {
+		}
+		else if (!strcmp(curMod->Type(), "Generic Books")) {
 			newModule = new CSwordBookModuleInfo(curMod, this);
 			newModule->module()->Disp(
 				m_displays.book
@@ -137,6 +142,7 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 	}
 
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 		// for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		m_moduleDescriptionMap.insert( (*it)->config(CSwordModuleInfo::Description), (*it)->name() );
@@ -146,8 +152,10 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 	//  ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 		//  for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+
 		if ( (*it)->isEncrypted() ) {
 			const QString unlockKey = CBTConfig::getModuleEncryptionKey( (*it)->name() ).latin1();
+
 			if (!unlockKey.isNull()) {
 				setCipherKey( (*it)->name().latin1(), unlockKey.latin1() );
 			}
@@ -170,6 +178,7 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 		if (!m_filters.gbf) {
 			m_filters.gbf = new BT_GBFHTML();
 		}
+
 		module->AddRenderFilter(m_filters.gbf);
 		noDriver = false;
 	}
@@ -178,6 +187,7 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 		if (!m_filters.plain) {
 			m_filters.plain = new sword::PLAINHTML();
 		}
+
 		module->AddRenderFilter(m_filters.plain);
 		noDriver = false;
 	}
@@ -186,6 +196,7 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 		if (!m_filters.thml) {
 			m_filters.thml = new BT_ThMLHTML();
 		}
+
 		module->AddRenderFilter(m_filters.thml);
 		noDriver = false;
 	}
@@ -194,15 +205,18 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 		if (!m_filters.osis) {
 			m_filters.osis = new BT_OSISHTML();
 		}
+
 		module->AddRenderFilter(m_filters.osis);
 		noDriver = false;
 	}
 
 	if (noDriver) { //no driver found
+
 		if ( (moduleDriver == "RawCom") || (moduleDriver == "RawLD") ) {
 			if (!m_filters.plain) {
 				m_filters.plain = new sword::PLAINHTML();
 			}
+
 			module->AddRenderFilter(m_filters.plain);
 			noDriver = false;
 		}
@@ -213,6 +227,7 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 const bool CSwordBackend::shutdownModules() {
 	ListCSwordModuleInfo::iterator it = m_moduleList.begin();
 	ListCSwordModuleInfo::iterator end = m_moduleList.end();
+
 	while (it != end) {
 		CSwordModuleInfo* current = (*it);
 		it = m_moduleList.remove(it);
@@ -236,15 +251,21 @@ const bool CSwordBackend::isOptionEnabled( const CSwordModuleInfo::FilterTypes t
 /** Sets the given options enabled or disabled depending on the second parameter. */
 void CSwordBackend::setOption( const CSwordModuleInfo::FilterTypes type, const int state ) {
 	sword::SWBuf value;
+
 	switch (type) {
-	case CSwordModuleInfo::textualVariants:
+
+		case CSwordModuleInfo::textualVariants:
+
 		if (state == 0) {
 			value = "Primary Reading";
-		} else if (state == 1) {
+		}
+		else if (state == 1) {
 			value = "Secondary Reading";
-		} else {
+		}
+		else {
 			value = "All Readings";
 		}
+
 		break;
 
 		//   case CSwordModuleInfo::transliteration:
@@ -261,10 +282,11 @@ void CSwordBackend::setOption( const CSwordModuleInfo::FilterTypes type, const i
 		//       }
 		//       break;
 
-	default:
+		default:
 		value = state ? "On": "Off";
 		break;
 	};
+
 	if (value.length())
 		setGlobalOption(optionName(type).latin1(), value.c_str());
 }
@@ -304,6 +326,7 @@ CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& de
 	//   if (m_moduleList.count()) {
 	//     for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 		if ( (*it)->config(CSwordModuleInfo::Description) == description ) {
 			ret = *it;
@@ -311,6 +334,7 @@ CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& de
 			//     return (*it);
 		}
 	}
+
 	//  }
 
 	return ret;
@@ -330,6 +354,7 @@ CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name) {
 	CSwordModuleInfo* ret = 0;
 
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 		if ( (*it)->name() == name ) {
 			ret = *it;
@@ -345,6 +370,7 @@ CSwordModuleInfo* const CSwordBackend::findSwordModuleByPointer(const sword::SWM
 	CSwordModuleInfo* ret = 0;
 	//   for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 		if ( (*it)->module() == swmodule ) {
 			ret = *it;
@@ -352,6 +378,7 @@ CSwordModuleInfo* const CSwordBackend::findSwordModuleByPointer(const sword::SWM
 			//     return m_moduleList.current();
 		}
 	}
+
 	//  }
 
 	return ret;
@@ -363,6 +390,7 @@ CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const CSwordModuleInf
 	//  if (module) {
 	//   for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 		if ( (*it)  == module ) {
 			//     return m_moduleList.current();
@@ -370,6 +398,7 @@ CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const CSwordModuleInf
 			break;
 		}
 	}
+
 	//  }
 
 	return ret;
@@ -379,12 +408,15 @@ CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const CSwordModuleInf
 const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& moduleConfig) {
 	sword::SectionMap::iterator section;
 	DIR *dir = opendir(configPath);
+
 	struct dirent *ent;
 
 	bool foundConfig = false;
 	QString modFile;
+
 	if (dir) {    // find and update .conf file
 		rewinddir(dir);
+
 		while ((ent = readdir(dir)) && !foundConfig) {
 			if ((strcmp(ent->d_name, ".")) && (strcmp(ent->d_name, ".."))) {
 				modFile.setLatin1(configPath);
@@ -396,15 +428,19 @@ const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& m
 				foundConfig = ( section != moduleConfig.Sections.end() );
 			}
 		}
+
 		closedir(dir);
-	} else { //try to read mods.conf
+	}
+	else { //try to read mods.conf
 		//moduleConfig = SWConfig( configPath + "/mods.conf" );
 		moduleConfig = sword::SWConfig("");//global config
 		section = config->Sections.find( (const char*)module.local8Bit() );
 		foundConfig = ( section != config->Sections.end() );
 
 		sword::ConfigEntMap::iterator entry;
+
 		if (foundConfig) { //copy module section
+
 			for (entry = (*section).second.begin(); entry != (*section).second.end(); entry++) {
 				moduleConfig.Sections[(*section).first].insert(sword::ConfigEntMap::value_type((*entry).first, (*entry).second));
 			}
@@ -429,108 +465,150 @@ const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& m
 					foundConfig = ( section != moduleConfig.Sections.end() );
 				}
 			}
+
 			closedir(dir);
 		}
 	}
+
 	return foundConfig;
 }
 
 /** Returns the text used for the option given as parameter. */
 const QString CSwordBackend::optionName( const CSwordModuleInfo::FilterTypes option ) {
 	switch (option) {
-	case CSwordModuleInfo::footnotes:
+
+		case CSwordModuleInfo::footnotes:
 		return QString("Footnotes");
-	case CSwordModuleInfo::strongNumbers:
+
+		case CSwordModuleInfo::strongNumbers:
 		return QString("Strong's Numbers");
-	case CSwordModuleInfo::headings:
+
+		case CSwordModuleInfo::headings:
 		return QString("Headings");
-	case CSwordModuleInfo::morphTags:
+
+		case CSwordModuleInfo::morphTags:
 		return QString("Morphological Tags");
-	case CSwordModuleInfo::lemmas:
+
+		case CSwordModuleInfo::lemmas:
 		return QString("Lemmas");
-	case CSwordModuleInfo::hebrewPoints:
+
+		case CSwordModuleInfo::hebrewPoints:
 		return QString("Hebrew Vowel Points");
-	case CSwordModuleInfo::hebrewCantillation:
+
+		case CSwordModuleInfo::hebrewCantillation:
 		return QString("Hebrew Cantillation");
-	case CSwordModuleInfo::greekAccents:
+
+		case CSwordModuleInfo::greekAccents:
 		return QString("Greek Accents");
-	case CSwordModuleInfo::redLetterWords:
+
+		case CSwordModuleInfo::redLetterWords:
 		return QString("Words of Christ in Red");
-	case CSwordModuleInfo::textualVariants:
+
+		case CSwordModuleInfo::textualVariants:
 		return QString("Textual Variants");
-	case CSwordModuleInfo::scriptureReferences:
+
+		case CSwordModuleInfo::scriptureReferences:
 		return QString("Cross-references");
-	case CSwordModuleInfo::morphSegmentation:
+
+		case CSwordModuleInfo::morphSegmentation:
 		return QString("Morph Segmentation");
 		//   case CSwordModuleInfo::transliteration:
 		//    return QString("Transliteration");
 	}
+
 	return QString::null;
 }
 
 /** Returns the translated name of the option given as parameter. */
 const QString CSwordBackend::translatedOptionName(const CSwordModuleInfo::FilterTypes option) {
 	switch (option) {
-	case CSwordModuleInfo::footnotes:
+
+		case CSwordModuleInfo::footnotes:
 		return i18n("Footnotes");
-	case CSwordModuleInfo::strongNumbers:
+
+		case CSwordModuleInfo::strongNumbers:
 		return i18n("Strong's numbers");
-	case CSwordModuleInfo::headings:
+
+		case CSwordModuleInfo::headings:
 		return i18n("Headings");
-	case CSwordModuleInfo::morphTags:
+
+		case CSwordModuleInfo::morphTags:
 		return i18n("Morphological tags");
-	case CSwordModuleInfo::lemmas:
+
+		case CSwordModuleInfo::lemmas:
 		return i18n("Lemmas");
-	case CSwordModuleInfo::hebrewPoints:
+
+		case CSwordModuleInfo::hebrewPoints:
 		return i18n("Hebrew vowel points");
-	case CSwordModuleInfo::hebrewCantillation:
+
+		case CSwordModuleInfo::hebrewCantillation:
 		return i18n("Hebrew cantillation marks");
-	case CSwordModuleInfo::greekAccents:
+
+		case CSwordModuleInfo::greekAccents:
 		return i18n("Greek accents");
-	case CSwordModuleInfo::redLetterWords:
+
+		case CSwordModuleInfo::redLetterWords:
 		return i18n("Red letter words");
-	case CSwordModuleInfo::textualVariants:
+
+		case CSwordModuleInfo::textualVariants:
 		return i18n("Textual variants");
-	case CSwordModuleInfo::scriptureReferences:
+
+		case CSwordModuleInfo::scriptureReferences:
 		return i18n("Scripture cross-references");
-	case CSwordModuleInfo::morphSegmentation:
+
+		case CSwordModuleInfo::morphSegmentation:
 		return i18n("Morph segmentation");
 		//   case CSwordModuleInfo::transliteration:
 		//    return i18n("Transliteration between scripts");
 	}
+
 	return QString::null;
 }
 
 
 const QString CSwordBackend::configOptionName( const CSwordModuleInfo::FilterTypes option ) {
 	switch (option) {
-	case CSwordModuleInfo::footnotes:
+
+		case CSwordModuleInfo::footnotes:
 		return QString("Footnotes");
-	case CSwordModuleInfo::strongNumbers:
+
+		case CSwordModuleInfo::strongNumbers:
 		return QString("Strongs");
-	case CSwordModuleInfo::headings:
+
+		case CSwordModuleInfo::headings:
 		return QString("Headings");
-	case CSwordModuleInfo::morphTags:
+
+		case CSwordModuleInfo::morphTags:
 		return QString("Morph");
-	case CSwordModuleInfo::lemmas:
+
+		case CSwordModuleInfo::lemmas:
 		return QString("Lemma");
-	case CSwordModuleInfo::hebrewPoints:
+
+		case CSwordModuleInfo::hebrewPoints:
 		return QString("HebrewPoints");
-	case CSwordModuleInfo::hebrewCantillation:
+
+		case CSwordModuleInfo::hebrewCantillation:
 		return QString("Cantillation");
-	case CSwordModuleInfo::greekAccents:
+
+		case CSwordModuleInfo::greekAccents:
 		return QString("GreekAccents");
-	case CSwordModuleInfo::redLetterWords:
+
+		case CSwordModuleInfo::redLetterWords:
 		return QString("RedLetterWords");
-	case CSwordModuleInfo::textualVariants:
+
+		case CSwordModuleInfo::textualVariants:
 		return QString("Variants");
-	case CSwordModuleInfo::scriptureReferences:
+
+		case CSwordModuleInfo::scriptureReferences:
 		return QString("Scripref");
-	case CSwordModuleInfo::morphSegmentation:
+
+		case CSwordModuleInfo::morphSegmentation:
 		return QString("MorphSegmentation");
-	default:
+
+		default:
 		return QString::null;
 	}
+
 	return QString::null;
 }
 
@@ -545,6 +623,7 @@ const QString CSwordBackend::booknameLanguage( const QString& language ) {
 
 		//use what sword returns, language may be different
 		QString newLocaleName( sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName()  );
+
 		for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
 			if ( ((*it)->type() == CSwordModuleInfo::Bible) || ((*it)->type() == CSwordModuleInfo::Commentary) ) {
 				//Create a new key, it will get the default bookname language
@@ -563,13 +642,16 @@ void CSwordBackend::reloadModules() {
 	shutdownModules();
 
 	//delete Sword's config to make Sword reload it!
+
 	if (myconfig) { // force reload on config object because we may have changed the paths
 		delete myconfig;
 		config = myconfig = 0;
 		loadConfigDir(configPath);
-	} else if (config) {
+	}
+	else if (config) {
 		config->Load();
 	}
+
 	initModules();
 }
 
@@ -579,6 +661,7 @@ const QStringList CSwordBackend::swordDirList() {
 
 	//return a list of used Sword dirs. Useful for the installer
 	QString configPath = QString("%1/.sword/sword.conf").arg(home);
+
 	if (!QFile(configPath).exists()) {
 		configPath = globalConfPath; //e.g. /etc/sword.conf, /usr/local/etc/sword.conf
 
@@ -602,7 +685,9 @@ const QStringList CSwordBackend::swordDirList() {
 		ret << conf["Install"]["DataPath"].c_str();
 
 		sword::ConfigEntMap group = conf["Install"];
+
 		sword::ConfigEntMap::iterator start = group.equal_range("AugmentPath").first;
+
 		sword::ConfigEntMap::iterator end = group.equal_range("AugmentPath").second;
 
 		for (sword::ConfigEntMap::const_iterator it = start; it != end; ++it) {

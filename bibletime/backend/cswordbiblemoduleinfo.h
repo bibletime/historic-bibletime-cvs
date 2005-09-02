@@ -20,7 +20,9 @@
   * @author The BibleTime team
   * @version $Id$
   */
-class CSwordBibleModuleInfo : public CSwordModuleInfo  {
+
+class CSwordBibleModuleInfo : public CSwordModuleInfo {
+
 public:
 	enum Testament {
 		OldTestament = 1,

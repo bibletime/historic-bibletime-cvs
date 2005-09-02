@@ -8,7 +8,7 @@
 
 //helper function
 void BibleTime::syncAllModulesByType(const CSwordModuleInfo::ModuleType type, const QString& key) {
-    qWarning("Syncing modules by type to key %s", key.latin1());
+	qWarning("Syncing modules by type to key %s", key.latin1());
 
 	QPtrList<QWidget> windows = m_mdi->usableWindowList();
 	for (QWidget* w = windows.first(); w; w = windows.next()) {
@@ -29,23 +29,23 @@ void BibleTime::closeAllModuleWindows() {
 
 void BibleTime::syncAllBibles(QString key) {
 	qWarning("DCOP: syncing all bibles ...");
-    syncAllModulesByType(CSwordModuleInfo::Bible, key);
+	syncAllModulesByType(CSwordModuleInfo::Bible, key);
 }
 
 void BibleTime::syncAllCommentaries(QString key) {
 	qWarning("DCOP: syncing all commentaries ...");
-    syncAllModulesByType(CSwordModuleInfo::Commentary, key);
+	syncAllModulesByType(CSwordModuleInfo::Commentary, key);
 }
 
 void BibleTime::syncAllLexicons(QString key) {
 	qWarning("DCOP: syncing all lexicons ...");
-    syncAllModulesByType(CSwordModuleInfo::Lexicon, key);
+	syncAllModulesByType(CSwordModuleInfo::Lexicon, key);
 }
 
 void BibleTime::syncAllVerseBasedModules(QString key) {
 	qWarning("DCOP: syncing all verse based modules ...");
-    syncAllModulesByType(CSwordModuleInfo::Bible, key);
-    syncAllModulesByType(CSwordModuleInfo::Commentary, key);
+	syncAllModulesByType(CSwordModuleInfo::Bible, key);
+	syncAllModulesByType(CSwordModuleInfo::Commentary, key);
 }
 
 void BibleTime::openWindow(QString moduleName, QString key) {
@@ -60,7 +60,8 @@ void BibleTime::openWindow(QString moduleName, QString key) {
 
 void BibleTime::openDefaultBible(QString key) {
 	qWarning("DCOP: open default bible ...");
-	CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
+	CSwordModuleInfo* mod = CBTConfig::get
+								(CBTConfig::standardBible);
 	if (mod) {
 		openWindow(mod->name(), key);
 	}

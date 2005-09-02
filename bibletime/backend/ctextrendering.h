@@ -22,6 +22,7 @@
 #include <qstring.h>
 
 // class CSwordModuleInfo;
+
 class CSwordKey;
 
 /**
@@ -33,16 +34,22 @@ class CSwordKey;
  * @short Text rendering based on trees
  * @author The BibleTime team
 */
+
 namespace Rendering {
 
 	class CTextRendering {
-	public:
+
+public:
+
 		class KeyTreeItem;
+
 		class KeyTree;
 		typedef util::AutoPtrVector<KeyTreeItem> KeyTreeItemList;
 
 		class KeyTreeItem {
-		public:
+
+public:
+
 			struct Settings {
 				enum KeyRenderingFace {
 					NoKey, //< means no key shown at all
@@ -51,7 +58,8 @@ namespace Rendering {
 					CompleteLong //< means "Genesis 1:1"
 				};
 
-				Settings(const bool highlight = false, KeyRenderingFace keyRendering = SimpleKey) : highlight(highlight), keyRenderingFace(keyRendering) {}
+Settings(const bool highlight = false, KeyRenderingFace keyRendering = SimpleKey) : highlight(highlight), keyRenderingFace(keyRendering) {}
+
 				;
 
 				bool highlight;
@@ -70,6 +78,7 @@ namespace Rendering {
 			inline void setAlternativeContent(const QString& newContent) {
 				m_alternativeContent = newContent;
 			};
+
 			inline const bool hasAlternativeContent() const {
 				return !m_alternativeContent.isNull();
 			};
@@ -77,9 +86,11 @@ namespace Rendering {
 			inline const ListCSwordModuleInfo& modules() const {
 				return m_moduleList;
 			};
+
 			inline const QString& key() const {
 				return m_key;
 			};
+
 			inline const Settings& settings() const {
 				return m_settings;
 			};
@@ -87,7 +98,7 @@ namespace Rendering {
 			inline KeyTree* const childList() const;
 			inline const bool hasChildItems() const;
 
-		protected:
+protected:
 			KeyTreeItem();
 
 			Settings m_settings;
@@ -99,12 +110,14 @@ namespace Rendering {
 			QString m_alternativeContent;
 		};
 
-	class KeyTree : public KeyTreeItemList {
-		public:
+class KeyTree : public KeyTreeItemList {
+
+public:
 			ListCSwordModuleInfo collectModules() const;
 		};
 
 		virtual ~CTextRendering() {}
+
 		;
 
 		const QString renderKeyTree( KeyTree& );
@@ -113,7 +126,7 @@ namespace Rendering {
 
 		const QString renderSingleKey( const QString& key, const ListCSwordModuleInfo&, const KeyTreeItem::Settings& settings = KeyTreeItem::Settings() );
 
-	protected:
+protected:
 		virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 ) = 0;
 		virtual const QString finishText( const QString&, KeyTree& tree ) = 0;
 		virtual void initRendering() = 0;
@@ -121,7 +134,7 @@ namespace Rendering {
 
 	inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() const {
 		if (!m_childList) {
-			m_childList = new KeyTree();
+		m_childList = new KeyTree();
 		}
 
 		return m_childList;
@@ -129,11 +142,11 @@ namespace Rendering {
 
 	inline const bool CTextRendering::KeyTreeItem::hasChildItems() const {
 		if (!m_childList) {
-			return false;
-		}
-
-		return !m_childList->isEmpty();
+		return false;
 	}
+
+	return !m_childList->isEmpty();
+}
 
 }
 

@@ -72,7 +72,8 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text, co
 														) == KMessageBox::No
 		   ) {
 			return false;
-		} else { //either the user chose yes or forceOverwrite is set
+		}
+		else { //either the user chose yes or forceOverwrite is set
 			saveFile.remove();
 		}
 	};
@@ -83,7 +84,8 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text, co
 		textstream << text;
 		saveFile.close();
 		ret = true;
-	} else {
+	}
+	else {
 		KMessageBox::error(0, QString::fromLatin1("<qt>%1<BR><B>%2</B></qt>")
 						   .arg( i18n("The file couldn't be saved.") )
 						   .arg( i18n("Please check permissions etc.")));
@@ -107,36 +109,36 @@ QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ) {
 	QPixmap img;
 
 	switch (module_info->type()) {
-	case CSwordModuleInfo::Bible:
+		case CSwordModuleInfo::Bible:
 		if (module_info->isLocked())
 			img = SmallIcon(CResMgr::modules::bible::icon_locked, 16);
 		else
 			img = SmallIcon(CResMgr::modules::bible::icon_unlocked, 16);
 		break;
 
-	case CSwordModuleInfo::Lexicon:
+		case CSwordModuleInfo::Lexicon:
 		if (module_info->isLocked())
 			img = SmallIcon(CResMgr::modules::lexicon::icon_locked, 16);
 		else
 			img = SmallIcon(CResMgr::modules::lexicon::icon_unlocked, 16);
 		break;
 
-	case CSwordModuleInfo::Commentary:
+		case CSwordModuleInfo::Commentary:
 		if (module_info->isLocked())
 			img = SmallIcon(CResMgr::modules::commentary::icon_locked, 16);
 		else
 			img = SmallIcon(CResMgr::modules::commentary::icon_unlocked, 16);
 		break;
 
-	case CSwordModuleInfo::GenericBook:
+		case CSwordModuleInfo::GenericBook:
 		if (module_info->isLocked())
 			img = SmallIcon(CResMgr::modules::book::icon_locked, 16);
 		else
 			img = SmallIcon(CResMgr::modules::book::icon_unlocked, 16);
 		break;
 
-	case CSwordModuleInfo::Unknown: //fall though to default
-	default:
+		case CSwordModuleInfo::Unknown: //fall though to default
+		default:
 		if (module_info->isLocked())
 			img = SmallIcon(CResMgr::modules::book::icon_locked, 16);
 		else

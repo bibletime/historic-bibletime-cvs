@@ -30,7 +30,7 @@ class CMainIndex : public KListView {
 	Q_OBJECT
 
 class ToolTip : public QToolTip {
-	public:
+public:
 		ToolTip(CMainIndex* parent);
 		virtual ~ToolTip() {}
 		;
@@ -39,7 +39,7 @@ class ToolTip : public QToolTip {
 		*/
 		virtual void maybeTip( const QPoint &pos);
 
-	private:
+private:
 		CMainIndex* m_mainIndex;
 	};
 

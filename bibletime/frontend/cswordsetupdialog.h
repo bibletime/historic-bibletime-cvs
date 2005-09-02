@@ -33,10 +33,10 @@ namespace InstallationManager {
 	 * The Sword configuration dialog of BibleTime
 	  * @author The BibleTime Team
 	  */
-	class CSwordSetupDialog : public KDialogBase, public CPointers  {
+class CSwordSetupDialog : public KDialogBase, public CPointers  {
 		Q_OBJECT
 
-	public:
+public:
 		CSwordSetupDialog(QWidget *parent=0, const char *name=0);
 
 		enum Parts {
@@ -48,7 +48,7 @@ namespace InstallationManager {
 		/** Opens the page which contaisn the given part ID. */
 		const bool showPart( CSwordSetupDialog::Parts ID );
 
-	private:
+private:
 		void initSwordConfig();
 		void initInstall();
 		void initRemove();
@@ -105,7 +105,7 @@ namespace InstallationManager {
 
 		BTInstallMgr* m_currentInstallMgr; //pointer to the current installmgr object so we can access it in the cancel install slot
 
-	private slots:
+private slots:
 		void slot_sourceSelected(const QString &sourceName);
 		void slot_targetSelected(const QString &targetName);
 
@@ -130,7 +130,7 @@ namespace InstallationManager {
 		void slot_swordEditClicked();
 		void slot_swordPathSelected();
 
-	signals: // Signals
+signals: // Signals
 		void signalSwordSetupChanged();
 	};
 

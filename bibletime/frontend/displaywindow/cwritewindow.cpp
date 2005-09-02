@@ -12,7 +12,7 @@
 #include <klocale.h>
 
 CWriteWindow::CWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
-		: CDisplayWindow(modules, parent,name), m_writeDisplay(0) {}
+: CDisplayWindow(modules, parent,name), m_writeDisplay(0) {}
 
 CWriteWindow::~CWriteWindow() {}
 
@@ -82,7 +82,8 @@ void CWriteWindow::applyProfileSettings(CProfileWindow * const settings) {
 
 	if (settings->maximized()) {
 		parentWidget()->showMaximized();
-	} else {
+	}
+	else {
 		const QRect rect = settings->geometry();
 		resize(rect.width(), rect.height());
 		parentWidget()->move(rect.x(), rect.y());
@@ -127,14 +128,14 @@ bool CWriteWindow::queryClose() {
 	//save the text if it has changed
 	if (m_writeDisplay->isModified()) {
 		switch (KMessageBox::warningYesNoCancel( this, i18n("Save text before closing?")) ) {
-		case KMessageBox::Yes: { //save and close
+			case KMessageBox::Yes: { //save and close
 				saveCurrentText();
 				m_writeDisplay->setModified( false );
 				return true;
 			}
-		case KMessageBox::No: //don't save and close
+			case KMessageBox::No: //don't save and close
 			return true;
-		default: // cancel, don't close
+			default: // cancel, don't close
 			return false;
 		}
 	}
@@ -151,11 +152,11 @@ void CWriteWindow::beforeKeyChange(const QString& key) {
 	//If the text changed and we'd do a lookup ask the user if the text should be saved
 	if (modules().first() && displayWidget()->isModified()) {
 		switch (KMessageBox::warningYesNo( this, i18n("Save changed text?")) ) {
-		case KMessageBox::Yes: { //save the changes
+			case KMessageBox::Yes: { //save the changes
 				saveCurrentText( key );
 				break;
 			}
-		default: {// set modified to false so it won't ask again
+			default: {// set modified to false so it won't ask again
 				displayWidget()->setModified(false);
 				break;
 			}

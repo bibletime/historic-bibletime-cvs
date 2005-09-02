@@ -62,7 +62,7 @@ using std::string;
 using std::list;
 
 COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KActionCollection* actionCollection )
-		: KDialogBase(IconList, i18n("Configure BibleTime"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
+: KDialogBase(IconList, i18n("Configure BibleTime"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
 	m_settings.keys.application.actionCollection = actionCollection;
 	setIconListAllVisible(true);
@@ -210,8 +210,8 @@ void COptionsDialog::initLanguages() {
 		layout->addWidget(
 			CToolClass::explanationLabel(page, i18n("Specify a language for names of Bible books"),
 										 i18n("Sword has a number of locales available which can be used to internationalize the \
-											  names of books of the Bible. You can specify which locale to use. If you want to \
-											  create a new locale, see http://www.crosswire.org/sword/develop for details."))
+  names of books of the Bible. You can specify which locale to use. If you want to \
+  create a new locale, see http://www.crosswire.org/sword/develop for details."))
 		);
 
 		m_settings.fonts.swordLocaleCombo = new QComboBox(page);
@@ -241,7 +241,8 @@ void COptionsDialog::initLanguages() {
 
 			if (l->isValid()) {
 				languageNames.append( l->translatedName() );
-			} else {
+			}
+			else {
 				languageNames.append(
 					sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription()
 				);
@@ -259,7 +260,8 @@ void COptionsDialog::initLanguages() {
 		QString currentLanguageName;
 		if ( l->isValid() && languageNames.contains(l->translatedName()) ) { //tranlated language name is in the box
 			currentLanguageName = l->translatedName();
-		} else { //a language like "German Abbrevs" might be the language to set
+		}
+		else { //a language like "German Abbrevs" might be the language to set
 			sword::SWLocale* locale = sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale(
 										  CBTConfig::get
 											  (CBTConfig::language).local8Bit()
@@ -291,8 +293,8 @@ void COptionsDialog::initLanguages() {
 				page,
 				i18n("Select custom fonts per-language"),
 				i18n("Here you find a list of all languages of the installed works. \
-					 You can specify a custom font for each language that needs a special font \
-					 to be displayed correctly.")
+ You can specify a custom font for each language that needs a special font \
+ to be displayed correctly.")
 			)
 		);
 		layout->addSpacing(5);
@@ -317,7 +319,8 @@ void COptionsDialog::initLanguages() {
 		for( QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
 			if ( m_settings.fonts.fontMap[it.key()].first ) { //show font icon
 				m_settings.fonts.usage->insertItem(SmallIcon("fonts"), it.key() );
-			} else { //don't show icon for font
+			}
+			else { //don't show icon for font
 				m_settings.fonts.usage->insertItem(it.key());
 			}
 		}
@@ -455,7 +458,7 @@ void COptionsDialog::initSword() {
 		gridLayout->addMultiCellWidget(
 			CToolClass::explanationLabel(currentTab, i18n("Standard works"),
 										 i18n("Standard works are used when no particular work is specified, \
-											  for example when a hyperlink into a Bible or lexicon was clicked .")),
+  for example when a hyperlink into a Bible or lexicon was clicked .")),
 			0,0,0,-1 /*fill the horizontal space*/
 		);
 
@@ -541,13 +544,13 @@ void COptionsDialog::initSword() {
 			modDescript = (*it)->config(CSwordModuleInfo::Description);
 
 			switch ((*it)->type()) {
-			case CSwordModuleInfo::Bible:
+				case CSwordModuleInfo::Bible:
 				m_settings.swords.standardBible->insertItem(modDescript);
 				break;
-			case CSwordModuleInfo::Commentary:
+				case CSwordModuleInfo::Commentary:
 				m_settings.swords.standardCommentary->insertItem(modDescript);
 				break;
-			case CSwordModuleInfo::Lexicon: {
+				case CSwordModuleInfo::Lexicon: {
 					bool inserted = false;
 					if ((*it)->has(CSwordModuleInfo::HebrewDef)) {
 						m_settings.swords.standardHebrewStrong->insertItem(modDescript);
@@ -576,7 +579,7 @@ void COptionsDialog::initSword() {
 
 					break;
 				}
-			default://unknown type
+				default://unknown type
 				break;
 			}
 		}
@@ -590,28 +593,28 @@ void COptionsDialog::initSword() {
 			//fill the combobox list in the right order (i.e. same order as the CBTConfig::module enum list)
 			CBTConfig::modules moduleType = (CBTConfig::modules)(i);
 			switch (moduleType) {
-			case CBTConfig::standardBible:
+				case CBTConfig::standardBible:
 				comboList.append(m_settings.swords.standardBible);
 				break;
-			case CBTConfig::standardCommentary:
+				case CBTConfig::standardCommentary:
 				comboList.append(m_settings.swords.standardCommentary);
 				break;
-			case CBTConfig::standardLexicon:
+				case CBTConfig::standardLexicon:
 				comboList.append(m_settings.swords.standardLexicon);
 				break;
-			case CBTConfig::standardDailyDevotional:
+				case CBTConfig::standardDailyDevotional:
 				comboList.append(m_settings.swords.standardDailyDevotional);
 				break;
-			case CBTConfig::standardHebrewStrongsLexicon:
+				case CBTConfig::standardHebrewStrongsLexicon:
 				comboList.append(m_settings.swords.standardHebrewStrong);
 				break;
-			case CBTConfig::standardGreekStrongsLexicon:
+				case CBTConfig::standardGreekStrongsLexicon:
 				comboList.append(m_settings.swords.standardGreekStrong);
 				break;
-			case CBTConfig::standardHebrewMorphLexicon:
+				case CBTConfig::standardHebrewMorphLexicon:
 				comboList.append(m_settings.swords.standardHebrewMorph);
 				break;
-			case CBTConfig::standardGreekMorphLexicon:
+				case CBTConfig::standardGreekMorphLexicon:
 				comboList.append(m_settings.swords.standardGreekMorph);
 				break;
 			};
@@ -621,7 +624,8 @@ void COptionsDialog::initSword() {
 											( (CBTConfig::modules)(i) );
 			if (m) {
 				moduleList << m->config(CSwordModuleInfo::Description);
-			} else {
+			}
+			else {
 				moduleList << QString::null;
 			}
 		}
@@ -649,8 +653,8 @@ void COptionsDialog::initSword() {
 
 		layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Text filters"),
 						   i18n("Filters control the appearance of text. \
-								Here you can specify default settings for all filters. \
-								You can change the filter settings in each display window, of course.")) );
+Here you can specify default settings for all filters. \
+You can change the filter settings in each display window, of course.")) );
 
 		layout->addSpacing(5);
 
@@ -768,7 +772,8 @@ void COptionsDialog::saveLanguages() {
 			CLanguageMgr::Language l(it.key(), it.key(), it.key()); //create a temp language
 			CBTConfig::set
 				(&l, it.data());
-		} else {
+		}
+		else {
 			CBTConfig::set
 				(lang, it.data());
 		}
@@ -792,31 +797,31 @@ void COptionsDialog::saveSword() {
 
 		CBTConfig::modules moduleType = (CBTConfig::modules)(i);
 		switch (moduleType) {
-		case CBTConfig::standardBible:
+			case CBTConfig::standardBible:
 			moduleDescription = m_settings.swords.standardBible->currentText();
 			break;
-		case CBTConfig::standardCommentary:
+			case CBTConfig::standardCommentary:
 			moduleDescription = m_settings.swords.standardCommentary->currentText();
 			break;
-		case CBTConfig::standardLexicon:
+			case CBTConfig::standardLexicon:
 			moduleDescription = m_settings.swords.standardLexicon->currentText();
 			break;
-		case CBTConfig::standardDailyDevotional:
+			case CBTConfig::standardDailyDevotional:
 			moduleDescription = m_settings.swords.standardDailyDevotional->currentText();
 			break;
-		case CBTConfig::standardHebrewStrongsLexicon:
+			case CBTConfig::standardHebrewStrongsLexicon:
 			moduleDescription = m_settings.swords.standardHebrewStrong->currentText();
 			break;
-		case CBTConfig::standardGreekStrongsLexicon:
+			case CBTConfig::standardGreekStrongsLexicon:
 			moduleDescription = m_settings.swords.standardGreekStrong->currentText();
 			break;
-		case CBTConfig::standardHebrewMorphLexicon:
+			case CBTConfig::standardHebrewMorphLexicon:
 			moduleDescription = m_settings.swords.standardHebrewMorph->currentText();
 			break;
-		case CBTConfig::standardGreekMorphLexicon:
+			case CBTConfig::standardGreekMorphLexicon:
 			moduleDescription = m_settings.swords.standardGreekMorph->currentText();
 			break;
-		default:
+			default:
 			qWarning("Unhandled module type.");
 		};
 
@@ -833,7 +838,8 @@ void COptionsDialog::saveSword() {
 
 	if (l && l->isValid()) {
 		languageAbbrev = l->abbrev();
-	} else { //it can be the lang abbrev like de_abbrev or the Sword description
+	}
+	else { //it can be the lang abbrev like de_abbrev or the Sword description
 		list <sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
 
 		for (list <sword::SWBuf>::iterator it = locales.begin(); it != locales.end(); it++) {
@@ -887,7 +893,8 @@ void COptionsDialog::useOwnFontClicked( bool isOn ) {
 			m_settings.fonts.usage->currentText(),
 			m_settings.fonts.usage->currentItem()
 		);
-	} else {    //don't show
+	}
+	else {    //don't show
 		m_settings.fonts.usage->changeItem(
 			m_settings.fonts.usage->currentText(),
 			m_settings.fonts.usage->currentItem()
@@ -978,15 +985,20 @@ void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
 	Settings::KeySettings::WindowType* t = 0;
 	if (title == m_settings.keys.application.title) { //Application wide
 		t = &m_settings.keys.application;
-	} else if (title == m_settings.keys.general.title) { // All display windows
+	}
+	else if (title == m_settings.keys.general.title) { // All display windows
 		t = &m_settings.keys.general;
-	} else if (title == m_settings.keys.bible.title) { // Bible windows
+	}
+	else if (title == m_settings.keys.bible.title) { // Bible windows
 		t = &m_settings.keys.bible;
-	} else if (title == m_settings.keys.commentary.title) { // Commentary windows
+	}
+	else if (title == m_settings.keys.commentary.title) { // Commentary windows
 		t = &m_settings.keys.commentary;
-	} else if (title == m_settings.keys.lexicon.title) { // Lexicon windows
+	}
+	else if (title == m_settings.keys.lexicon.title) { // Lexicon windows
 		t = &m_settings.keys.lexicon;
-	} else if (title == m_settings.keys.book.title) { // Book windows
+	}
+	else if (title == m_settings.keys.book.title) { // Book windows
 		t = &m_settings.keys.book;
 	}
 

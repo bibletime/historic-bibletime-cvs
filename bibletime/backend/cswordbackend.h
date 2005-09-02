@@ -22,9 +22,13 @@
 #include <utilstr.h>
 
 using namespace sword;
+
 namespace Rendering {
+
 	class CEntryDisplay;
+
 	class CChapterDisplay;
+
 	class CBookDisplay;
 }
 
@@ -36,12 +40,15 @@ namespace Rendering {
   * @author The BibleTime team
   * @version $Id$
   */
+
 class CSwordBackend : public sword::SWMgr {
+
 public:
 	/** Filter options. Filter options to
 	 * control the text display of modules. Uses int and not bool because not all
 	 * options have just two toggle values.
 	 */
+
 	struct FilterOptions {
 		int footnotes; /**< 0 for disabled, 1 for enabled */
 		int strongNumbers; /**< 0 for disabled, 1 for enabled */
@@ -56,12 +63,15 @@ public:
 		int scriptureReferences; /**< 0 for disabled, 1 for enabled */
 		int morphSegmentation; /**< 0 for disabled, 1 for enabled */
 	};
+
 	/** Control the display of a text.
 	*/
+
 	struct DisplayOptions {
 		int lineBreaks;
 		int verseNumbers;
 	};
+
 	/** The error codes which may be returned by the @ref Load() call.
 	*/
 	enum LoadError { // the values exist to cast from the char return of SWMgr::Load
@@ -207,12 +217,14 @@ protected:
 
 private:
 	// Filters
+
 	struct Filters {
 		sword::SWFilter *gbf;
 		sword::SWFilter *plain;
 		sword::SWFilter *thml;
 		sword::SWFilter *osis;
 	}
+
 	m_filters;
 
 	struct Displays {
@@ -220,6 +232,7 @@ private:
 		Rendering::CEntryDisplay* entry;
 		Rendering::CBookDisplay* book;
 	}
+
 	m_displays;
 
 	ListCSwordModuleInfo m_moduleList;

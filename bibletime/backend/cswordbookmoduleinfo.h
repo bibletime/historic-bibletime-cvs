@@ -12,7 +12,9 @@
 /** Class for generic book support
   * @author The BibleTime team
   */
-class CSwordBookModuleInfo : public CSwordModuleInfo  {
+
+class CSwordBookModuleInfo : public CSwordModuleInfo {
+
 public:
 	/** Constructor.
 	* @param module The module which belongs to this object

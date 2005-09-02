@@ -22,9 +22,9 @@ namespace Printing {
 	 *
 	 * @author The BibleTime team
 	*/
-	class CPrinter : public QObject, public Rendering::CDisplayRendering {
+class CPrinter : public QObject, public Rendering::CDisplayRendering {
 		Q_OBJECT
-	public:
+public:
 		CPrinter(
 			QObject *parent,
 			CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(),
@@ -35,12 +35,12 @@ namespace Printing {
 
 		void printKeyTree( KeyTree& );
 
-	protected:
+protected:
 		virtual const QString entryLink(const KeyTreeItem& item, CSwordModuleInfo* const module);
 		virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
 		virtual const QString finishText(const QString& arg1, KeyTree& tree);
 
-	private:
+private:
 		KHTMLPart* m_htmlPart;
 	};
 

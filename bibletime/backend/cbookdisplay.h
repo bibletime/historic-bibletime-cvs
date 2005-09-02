@@ -26,9 +26,12 @@ namespace Rendering {
 	* @short CEntryDisplay implementation for GenBook modules,
 	* @author The BibleTime team
 	*/
-	class CBookDisplay : public CEntryDisplay  {
-	public: // Public methods
+
+class CBookDisplay : public CEntryDisplay {
+
+public: // Public methods
 		virtual ~CBookDisplay() {}
+
 		;
 
 		/**
@@ -37,7 +40,7 @@ namespace Rendering {
 		*/
 		virtual const QString text( const ListCSwordModuleInfo& modules, const QString& key, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions);
 
-	protected:
+protected:
 		void setupRenderTree(CSwordTreeKey* swordTree, CTextRendering::KeyTree* renderTree, const QString& highlightKey);
 	};
 

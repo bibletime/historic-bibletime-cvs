@@ -19,13 +19,14 @@
 #include <kiconloader.h>
 
 CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, CModuleChooserBar *parent, const char *name )
-		: KToolBarButton(iconName(), id, parent, name),
+: KToolBarButton(iconName(), id, parent, name),
 m_id(id), m_popup(0), m_moduleChooserBar(parent) {
 	m_moduleType = type;
 	m_module = useModule;
 	if (!m_module) {
 		m_hasModule = false;
-	} else {
+	}
+	else {
 		m_hasModule = true;
 	}
 
@@ -45,27 +46,27 @@ CModuleChooserButton::~CModuleChooserButton() {
 /** Returns the icon used for the current status. */
 const QString CModuleChooserButton::iconName() {
 	switch (m_moduleType) {
-	case CSwordModuleInfo::Bible:
+		case CSwordModuleInfo::Bible:
 		if (m_hasModule)
 			return CResMgr::modules::bible::icon_unlocked;
 		else
 			return CResMgr::modules::bible::icon_add;
-	case CSwordModuleInfo::Commentary:
+		case CSwordModuleInfo::Commentary:
 		if (m_hasModule)
 			return CResMgr::modules::commentary::icon_unlocked;
 		else
 			return CResMgr::modules::commentary::icon_add;
-	case CSwordModuleInfo::Lexicon:
+		case CSwordModuleInfo::Lexicon:
 		if (m_hasModule)
 			return CResMgr::modules::lexicon::icon_unlocked;
 		else
 			return CResMgr::modules::lexicon::icon_add;
-	case CSwordModuleInfo::GenericBook:
+		case CSwordModuleInfo::GenericBook:
 		if (m_hasModule)
 			return CResMgr::modules::book::icon_unlocked;
 		else
 			return CResMgr::modules::book::icon_add;
-	default: //return as default the bible icon
+		default: //return as default the bible icon
 		return CResMgr::modules::bible::icon_unlocked;
 	}
 }
@@ -104,7 +105,8 @@ void CModuleChooserButton::moduleChosen( int ID ) {
 			emit sigRemoveButton(m_id);
 			return;
 		}
-	} else {
+	}
+	else {
 		if (!m_hasModule) {
 			emit sigAddButton();
 		}
@@ -138,7 +140,8 @@ void CModuleChooserButton::populateMenu() {
 
 	if (m_module) {
 		m_titleId = m_popup->insertTitle( i18n("Select a work") );
-	} else {
+	}
+	else {
 		m_titleId = m_popup->insertTitle( i18n("Select an additional work") );
 	}
 
@@ -226,7 +229,8 @@ void CModuleChooserButton::populateMenu() {
 	if (module()) {
 		QToolTip::add
 			(this, module()->name());
-	} else {
+	}
+	else {
 		QToolTip::add
 			(this, i18n("No work selected"));
 	}

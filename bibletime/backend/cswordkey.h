@@ -9,6 +9,7 @@
 //Qt includes
 #include <qstring.h>
 //forward declarations
+
 class CSwordModuleInfo;
 
 /** Base class for all keys.
@@ -16,6 +17,7 @@ class CSwordModuleInfo;
  * @author The BibleTime team
  * @version $Id$
  */
+
 class CSwordKey {
 
 protected:
@@ -36,6 +38,7 @@ public:
 	* Public, not protected like the constructor, because CSwordKey pointers may be deleted by all others.
 	*/
 	virtual ~CSwordKey() {}
+
 	;
 
 	//pure virtual functions
@@ -91,16 +94,16 @@ protected:
 
 /** The assignment operator for more easy use of the key classes. */
 inline CSwordKey& CSwordKey::operator = ( const QString& newKey ) {
-	key(newKey);
-	return *this;
-}
+											key(newKey);
+											return *this;
+										}
 
-inline CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
-	if (newModule) {
-		m_module = newModule;
-	}
+										inline CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
+											if (newModule) {
+												m_module = newModule;
+											}
 
-	return m_module;
-}
+											return m_module;
+										}
 
-#endif
+										#endif

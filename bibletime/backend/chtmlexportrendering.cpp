@@ -29,24 +29,27 @@
 namespace Rendering {
 
 	CHTMLExportRendering::CHTMLExportRendering(const CHTMLExportRendering::Settings& settings, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
-			: m_displayOptions(displayOptions),
-			m_filterOptions(filterOptions),
+: m_displayOptions(displayOptions),
+	m_filterOptions(filterOptions),
 	m_settings(settings) {}
 
 	CHTMLExportRendering::~CHTMLExportRendering() {}
 
 	const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
 		//  qDebug("CHTMLExportRendering::renderEntry");
+
 		if (i.hasAlternativeContent()) {
 			QString ret;
 			ret.setLatin1(i.settings().highlight ? "<div class=\"currententry\">" : "<div class=\"entry\">");
 			ret.append(i.getAlternativeContent());
 
 			//   Q_ASSERT(i.hasChildItems());
+
 			if (i.hasChildItems()) {
 				KeyTree const * tree = i.childList();
 
 				const ListCSwordModuleInfo& modules( tree->collectModules() );
+
 				if (modules.count() == 1) { //insert the direction into the sorrounding div
 					ret.insert( 5, QString("dir=\"%1\" ").arg((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr" : "rtl" ));
 				}
@@ -62,19 +65,23 @@ namespace Rendering {
 
 
 		const ListCSwordModuleInfo& modules( i.modules() );
+
 		Q_ASSERT(modules.count() >= 1);
 
 		util::scoped_ptr<CSwordKey> scoped_key( !k ? CSwordKey::createInstance(modules.first()) : 0 );
 
 		CSwordKey* key = k ? k : scoped_key;
+
 		Q_ASSERT(key);
 
 		CSwordVerseKey* myVK = dynamic_cast<CSwordVerseKey*>(key);
+
 		if ( myVK  ) {
 			myVK->Headings(1);
 		}
 
 		QString renderedText( (modules.count() > 1) ? "<tr>" : "" );
+
 		if (modules.count() == 0) {
 			return QString(""); //no module present for rendering
 		}
@@ -84,14 +91,18 @@ namespace Rendering {
 
 		//declarations out of the loop for optimization
 		QString entry;
+
 		QString keyText;
+
 		bool isRTL;
 
 		//taken out of the loop for optimization
 		QString preverseHeading;
+
 		QString langAttr;
 
 		ListCSwordModuleInfo::const_iterator end_modItr = modules.end();
+
 		for (ListCSwordModuleInfo::const_iterator mod_Itr(modules.begin()); mod_Itr != end_modItr; ++mod_Itr) {
 			key->module(*mod_Itr);
 			key->key( i.key() );
@@ -106,7 +117,8 @@ namespace Rendering {
 				.append("\" lang=\"")
 				.append((*mod_Itr)->language()->abbrev())
 				.append("\"");
-			} else {
+			}
+			else {
 				langAttr.setLatin1("xml:lang=\"")
 				.append((*mod_Itr)->module()->Lang())
 				.append("\" lang=\"")
@@ -115,6 +127,7 @@ namespace Rendering {
 			}
 
 			const QString key_renderedText = key->renderedText();
+
 			//   qWarning(key_renderedText.latin1());
 
 			if (m_filterOptions.headings) {
@@ -127,6 +140,7 @@ namespace Rendering {
 					preverseHeading = QString::fromUtf8(it->second.c_str());
 
 					//TODO: Take care of the heading type!
+
 					if (!preverseHeading.isEmpty()) {
 						entry.append("<div ")
 						.append(langAttr)
@@ -138,9 +152,11 @@ namespace Rendering {
 			}
 
 			entry.append(m_displayOptions.lineBreaks  ? "<div "  : "<span ");
+
 			if (modules.count() == 1) { //insert only the class if we're not in a td
 				entry.append( i.settings().highlight  ? "class=\"currententry\" " : "class=\"entry\" " );
 			}
+
 			entry.append(langAttr).append(isRTL ? " dir=\"rtl\"" : " dir=\"ltr\"").append(">");
 
 			//keys should normally be left-to-right, but this doesn't apply in all cases
@@ -163,7 +179,8 @@ namespace Rendering {
 
 			if (modules.count() == 1) {
 				renderedText.append( entry );
-			} else {
+			}
+			else {
 				renderedText.append("<td class=\"")
 				.append(i.settings().highlight ? "currententry" : "entry")
 				.append("\" ")
@@ -202,7 +219,7 @@ namespace Rendering {
 							  : "unknown";
 		settings.pageDirection = (modules.count() == 1)
 								 ? ((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr"  : "rtl")
-										 : QString::null;
+						 : QString::null;
 
 		return tMgr->fillTemplate(i18n("Export"), text, settings);
 	}
@@ -215,4 +232,5 @@ namespace Rendering {
 	}
 
 }
+
 ; //end of namespace "Rendering"

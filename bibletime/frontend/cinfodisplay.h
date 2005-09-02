@@ -29,9 +29,9 @@ namespace InfoDisplay {
 	/**
 	@author The BibleTime team
 	*/
-	class CInfoDisplay : public QWidget {
+class CInfoDisplay : public QWidget {
 		Q_OBJECT
-	public:
+public:
 		enum InfoType {
 			Abbreviation,
 			CrossReference,
@@ -52,7 +52,7 @@ namespace InfoDisplay {
 		void setInfo(const ListInfoData&);
 		void clearInfo();
 
-	protected:
+protected:
 		const QString decodeAbbreviation( const QString& data );
 		const QString decodeCrossReference( const QString& data );
 		const QString decodeFootnote( const QString& data );
@@ -60,7 +60,7 @@ namespace InfoDisplay {
 		const QString decodeMorph( const QString& data );
 		const QString getWordTranslation( const QString& data );
 
-	private:
+private:
 		CReadDisplay* m_htmlPart;
 	};
 

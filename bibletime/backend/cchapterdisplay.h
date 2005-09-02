@@ -21,9 +21,12 @@ namespace Rendering {
 	* at once.
 	* @author The BibleTime team
 	*/
-	class CChapterDisplay : public CEntryDisplay  {
-	public: // Public methods
+
+class CChapterDisplay : public CEntryDisplay {
+
+public: // Public methods
 		virtual ~CChapterDisplay() {}
+
 		;
 
 		/**

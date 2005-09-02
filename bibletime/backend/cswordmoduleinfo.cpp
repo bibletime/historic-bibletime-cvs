@@ -87,9 +87,11 @@ const bool CSwordModuleInfo::unlock(const QString & unlockKey) {
 const bool CSwordModuleInfo::isLocked() {
 	//still works, but the cipherkey is stored in CBTConfig.
 	//Works because it is set in sword on program startup.
+
 	if (isEncrypted() && config(CipherKey).isEmpty()) {
 		return true;
 	}
+
 	return false;
 }
 
@@ -103,9 +105,11 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	//This code is still right, though we do no longer write to the module config files any more
 	sword::ConfigEntMap config = backend()->getConfig()->Sections.find(name().latin1())->second;
 	sword::ConfigEntMap::iterator it = config.find("CipherKey");
+
 	if (it != config.end()) {
-		return true;
+	return true;
 	}
+
 	return false;
 }
 
@@ -117,6 +121,7 @@ const bool CSwordModuleInfo::search(const QString searchedText, const int search
 	//work around Swords thread insafety for Bibles and Commentaries
 	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
 	sword::SWKey * s = dynamic_cast < sword::SWKey * >(key.get());
+
 	if (s) {
 		m_module->SetKey(*s);
 	}
@@ -128,29 +133,35 @@ const bool CSwordModuleInfo::search(const QString searchedText, const int search
 
 	if (searchOptions & CSwordModuleSearch::cluceneIndex) {
 		searchType = -4;  //clucene search
-	} else if (searchOptions & CSwordModuleSearch::entryAttribs) {
+	}
+	else if (searchOptions & CSwordModuleSearch::entryAttribs) {
 		searchType = -3;  //Entry attributes
-	} else if (searchOptions & CSwordModuleSearch::multipleWords) {
+	}
+	else if (searchOptions & CSwordModuleSearch::multipleWords) {
 		searchType = -2;  //multiple words
 
 		if (m_module->hasSearchFramework()
 				&& m_module->isSearchOptimallySupported((const char *)searchedText.utf8(), -4, 0, 0)) {
 			searchType = -4;
 		}
-	} else if (searchOptions & CSwordModuleSearch::exactPhrase) {
+	}
+	else if (searchOptions & CSwordModuleSearch::exactPhrase) {
 		searchType = -1;  //exact phrase
-	} else if (searchOptions & CSwordModuleSearch::regExp) {
+	}
+	else if (searchOptions & CSwordModuleSearch::regExp) {
 		searchType = 0;   //regexp matching
 	}
 
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
 		util::scoped_ptr < sword::SWKey > searchScope(m_searchResult.clone());
 		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
-	} else if (searchOptions & CSwordModuleSearch::useScope) {
+	}
+	else if (searchOptions & CSwordModuleSearch::useScope) {
 		m_searchResult =
 			m_module->search(searchedText.utf8(), searchType, searchFlags,
 							 (type() != Lexicon && type() != GenericBook) ? &scope : 0, 0, percentUpdate);
-	} else {
+	}
+	else {
 		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
 	}
 
@@ -162,6 +173,7 @@ sword::ListKey & CSwordModuleInfo::searchResult(const sword::ListKey * newResult
 	if (newResult) {
 		m_searchResult.copyFrom(*newResult);
 	}
+
 	return m_searchResult;
 }
 
@@ -182,97 +194,130 @@ const sword::SWVersion CSwordModuleInfo::minimumSwordVersion() {
 
 const QString CSwordModuleInfo::config(const CSwordModuleInfo::ConfigEntry entry) const {
 	switch (entry) {
+
 	case AboutInformation: {
-			return getFormattedConfigEntry("About");
+		return getFormattedConfigEntry("About");
 		}
-	case CipherKey: {
+
+		case CipherKey: {
 			if (CBTConfig::getModuleEncryptionKey(name()).isNull()) { //fall back!
 				return QString(m_module->getConfigEntry("CipherKey"));
-			} else {
+			}
+			else {
 				return CBTConfig::getModuleEncryptionKey(name());
 			};
 		}
-	case AbsoluteDataPath: {
+
+		case AbsoluteDataPath: {
 			QString path( getSimpleConfigEntry("AbsoluteDataPath") );
 			path.replace(QRegExp("/./"), "/"); // make /abs/path/./modules/ looking better
 			//make sure we have a trailing slash!
+
 			if (path.right(1) != "/") {
 				path.append('/');
 			}
+
 			return path;
 		}
-	case DataPath: { //make sure we remove the dataFile part if it's a Lexicon
+
+		case DataPath: { //make sure we remove the dataFile part if it's a Lexicon
 			QString path(getSimpleConfigEntry("DataPath"));
+
 			if ((type() == CSwordModuleInfo::GenericBook) || (type() == CSwordModuleInfo::Lexicon)) {
 				int pos = path.findRev("/"); //last slash in the string
+
 				if (pos != -1) {
 					path = path.left(pos + 1); //include the slash
 				}
 			}
+
 			return path;
 		}
-	case Description:
+
+		case Description:
 		return getFormattedConfigEntry("Description");
 
-	case ModuleVersion: {
+		case ModuleVersion: {
 			QString version(getSimpleConfigEntry("Version"));
+
 			if (version.isEmpty()) {
 				version = "1.0";
 			}
+
 			return version;
 		}
-	case MinimumSwordVersion: {
+
+		case MinimumSwordVersion: {
 			const QString minimumVersion(getSimpleConfigEntry("MinimumVersion"));
 			return !minimumVersion.isEmpty()? minimumVersion : QString("0.0");
 		}
-	case TextDir: {
+
+		case TextDir: {
 			const QString dir(getSimpleConfigEntry("Direction"));
 			return !dir.isEmpty()? dir : QString("LtoR");
 		}
-	case DisplayLevel: {
+
+		case DisplayLevel: {
 			const QString level(getSimpleConfigEntry("DisplayLevel"));
 			return !level.isEmpty()? level : QString("1");
 		}
-	case GlossaryFrom: {
+
+		case GlossaryFrom: {
 			if (!category() == Glossary) {
 				return QString::null;
 			};
+
 			const QString lang(getSimpleConfigEntry("GlossaryFrom"));
+
 			return !lang.isEmpty()? lang : QString::null;
 		}
-	case GlossaryTo: {
+
+		case GlossaryTo: {
 			if (!category() == Glossary) {
 				return QString::null;
 			};
+
 			const QString lang(getSimpleConfigEntry("GlossaryTo"));
+
 			return !lang.isEmpty()? lang : QString::null;
 		}
-	case Markup: {
+
+		case Markup: {
 			const QString markup(getSimpleConfigEntry("SourceType"));
 			return !markup.isEmpty()? markup : QString("Unknown");
 		}
-	case DistributionLicense:
+
+		case DistributionLicense:
 		return getSimpleConfigEntry("DistributionLicense");
-	case DistributionSource:
+
+		case DistributionSource:
 		return getSimpleConfigEntry("DistributionSource");
-	case DistributionNotes:
+
+		case DistributionNotes:
 		return getSimpleConfigEntry("DistributionNotes");
-	case TextSource:
+
+		case TextSource:
 		return getSimpleConfigEntry("TextSource");
-	case CopyrightNotes:
+
+		case CopyrightNotes:
 		return getSimpleConfigEntry("CopyrightNotes");
-	case CopyrightHolder:
+
+		case CopyrightHolder:
 		return getSimpleConfigEntry("CopyrightHolder");
-	case CopyrightDate:
+
+		case CopyrightDate:
 		return getSimpleConfigEntry("CopyrightDate");
-	case CopyrightContactName:
+
+		case CopyrightContactName:
 		return getSimpleConfigEntry("CopyrightContactName");
-	case CopyrightContactAddress:
+
+		case CopyrightContactAddress:
 		return getSimpleConfigEntry("CopyrightContactAddress");
-	case CopyrightContactEmail:
+
+		case CopyrightContactEmail:
 		return getSimpleConfigEntry("CopyrightContactEmail");
 
-	default:
+		default:
 		return QString::null;
 	}
 }
@@ -280,44 +325,57 @@ const QString CSwordModuleInfo::config(const CSwordModuleInfo::ConfigEntry entry
 /** Returns true if the module supports the feature given as parameter. */
 const bool CSwordModuleInfo::has(const CSwordModuleInfo::Feature feature) const {
 	switch (feature) {
+
 	case StrongsNumbers:
-		return m_module->getConfig().has("Feature", "StrongsNumber");
-	case GreekDef:
+	return m_module->getConfig().has("Feature", "StrongsNumber");
+
+		case GreekDef:
 		return m_module->getConfig().has("Feature", "GreekDef");
-	case HebrewDef:
+
+		case HebrewDef:
 		return m_module->getConfig().has("Feature", "HebrewDef");
-	case GreekParse:
+
+		case GreekParse:
 		return m_module->getConfig().has("Feature", "GreekParse");
-	case HebrewParse:
+
+		case HebrewParse:
 		return m_module->getConfig().has("Feature", "HebrewParse");
 	}
+
 	return false;
 }
 
 const bool CSwordModuleInfo::has(const CSwordModuleInfo::FilterTypes option) const {
 	//BAD workaround to see if the filter is GBF, OSIS or ThML!
 	const QString name = backend()->configOptionName(option);
+
 	if (m_module->getConfig().has("GlobalOptionFilter", QString("OSIS").append(name).latin1()))
-		return true;
+	return true;
+
 	if (m_module->getConfig().has("GlobalOptionFilter", QString("GBF").append(name).latin1()))
 		return true;
-	if (m_module->getConfig().has("GlobalOptionFilter", QString("ThML").append(name).latin1()))
-		return true;
-	if (m_module->getConfig().has("GlobalOptionFilter", QString("UTF8").append(name).latin1()))
-		return true;
-	if (m_module->getConfig().has("GlobalOptionFilter", name.latin1()))
-		return true;
 
-	return false;
-}
-/** Returns the text direction of the module's text., */
-const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection() {
-	if (config(TextDir) == "RtoL") {
-		return CSwordModuleInfo::RightToLeft;
-	} else {
-		return CSwordModuleInfo::LeftToRight;
-	}
-}
+		if (m_module->getConfig().has("GlobalOptionFilter", QString("ThML").append(name).latin1()))
+			return true;
+
+			if (m_module->getConfig().has("GlobalOptionFilter", QString("UTF8").append(name).latin1()))
+				return true;
+
+				if (m_module->getConfig().has("GlobalOptionFilter", name.latin1()))
+					return true;
+
+					return false;
+				}
+
+				/** Returns the text direction of the module's text., */
+				const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection() {
+					if (config(TextDir) == "RtoL") {
+						return CSwordModuleInfo::RightToLeft;
+					}
+					else {
+						return CSwordModuleInfo::LeftToRight;
+					}
+				}
 
 /** Writes the new text at the given position into the module. This does only work for writable modules. */
 void CSwordModuleInfo::write(CSwordKey * key, const QString & newText) {
@@ -330,6 +388,7 @@ void CSwordModuleInfo::write(CSwordKey * key, const QString & newText) {
 /** Deletes the current entry and removes it from the module. */
 const bool CSwordModuleInfo::deleteEntry(CSwordKey * const key) {
 	module()->KeyText(isUnicode()? (const char *)key->key().utf8() : (const char *)key->key().local8Bit());
+
 	if (module()) {
 		module()->deleteEntry();
 		return true;
@@ -341,13 +400,15 @@ const bool CSwordModuleInfo::deleteEntry(CSwordKey * const key) {
 /** Returns the category of this module. See CSwordModuleInfo::Category for possible values. */
 const CSwordModuleInfo::Category CSwordModuleInfo::category() const {
 	if (m_dataCache.category == CSwordModuleInfo::UnknownCategory) {
-		const QString cat(m_module->getConfigEntry("Category"));
+	const QString cat(m_module->getConfigEntry("Category"));
 
 		if (cat == "Cults / Unorthodox / Questionable Material") {
 			m_dataCache.category = Cult;
-		} else if (cat == "Daily Devotional" || m_module->getConfig().has("Feature", "DailyDevotion")) {
+		}
+		else if (cat == "Daily Devotional" || m_module->getConfig().has("Feature", "DailyDevotion")) {
 			m_dataCache.category = DailyDevotional;
-		} else if (cat == "Glossaries" || m_module->getConfig().has("Feature", "Glossary")) { //alow both
+		}
+		else if (cat == "Glossaries" || m_module->getConfig().has("Feature", "Glossary")) { //alow both
 			m_dataCache.category = Glossary;
 		};
 	}
@@ -382,36 +443,40 @@ QString CSwordModuleInfo::aboutText() const {
 			.arg(language()->translatedName());
 
 	if (m_module->getConfigEntry("Category"))
-		text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
-				.arg(i18n("Category"))
-				.arg(m_module->getConfigEntry("Category"));
+	text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
+			.arg(i18n("Category"))
+			.arg(m_module->getConfigEntry("Category"));
 
 	if (m_module->getConfigEntry("LCSH"))
 		text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
 				.arg(i18n("LCSH"))
 				.arg(m_module->getConfigEntry("LCSH"));
 
-	text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
-			.arg(i18n("Writable"))
-			.arg(isWritable()? i18n("yes") : i18n("no"));
-
-	if (isEncrypted())
 		text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
-				.arg(i18n("Unlock key"))
-				.arg(config(CSwordModuleInfo::CipherKey));
+				.arg(i18n("Writable"))
+				.arg(isWritable()? i18n("yes") : i18n("no"));
 
-	QString options;
-	unsigned int opts;
-	for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts) {
-		if (has(static_cast < CSwordModuleInfo::FilterTypes > (opts))) {
-			if (!options.isEmpty()) {
-				options += QString::fromLatin1(", ");
-			}
-			options += CSwordBackend::translatedOptionName(static_cast < CSwordModuleInfo::FilterTypes > (opts));
-		}
-	}
+		if (isEncrypted())
+			text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
+					.arg(i18n("Unlock key"))
+					.arg(config(CSwordModuleInfo::CipherKey));
+
+			QString options;
+
+			unsigned int opts;
+
+			for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts) {
+				if (has(static_cast < CSwordModuleInfo::FilterTypes > (opts))) {
+						if (!options.isEmpty()) {
+							options += QString::fromLatin1(", ");
+						}
+
+						options += CSwordBackend::translatedOptionName(static_cast < CSwordModuleInfo::FilterTypes > (opts));
+					}
+				}
+
 	if (!options.isEmpty()) {
-		text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
+	text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
 				.arg(i18n("Features"))
 				.arg(options);
 	}
@@ -419,50 +484,73 @@ QString CSwordModuleInfo::aboutText() const {
 	text += "</table><hr>";
 
 	if (category() == Cult) //clearly say the module contains cult/questionable materials
-		text += QString("<br/><b>%1</b><br/><br/>")
-				.arg(i18n("Take care, this work contains cult / questionable material!"));
+	text += QString("<br/><b>%1</b><br/><br/>")
+			.arg(i18n("Take care, this work contains cult / questionable material!"));
 
 	text += QString("<b>%1:</b><br><font size=\"-1\">%2</font>")
 			.arg(i18n("About"))
 			.arg(config(AboutInformation));
 
 	typedef QValueList<CSwordModuleInfo::ConfigEntry> ListConfigEntry;
+
 	ListConfigEntry entries;
+
 	entries.append(DistributionLicense);
+
 	entries.append(DistributionSource);
+
 	entries.append(DistributionNotes);
+
 	entries.append(TextSource);
+
 	entries.append(CopyrightNotes);
+
 	entries.append(CopyrightHolder);
+
 	entries.append(CopyrightDate);
+
 	entries.append(CopyrightContactName);
+
 	entries.append(CopyrightContactAddress);
+
 	entries.append(CopyrightContactEmail);
 
 	typedef QMap<CSwordModuleInfo::ConfigEntry, QString> MapConfigEntry;
+
 	MapConfigEntry entryMap;
+
 	entryMap[DistributionLicense] = i18n("Distribution license");
+
 	entryMap[DistributionSource] = i18n("Distribution source");
+
 	entryMap[DistributionNotes] = i18n("Distribution notes");
+
 	entryMap[TextSource] = i18n("Text source");
+
 	entryMap[CopyrightNotes] = i18n("Copyright notes");
+
 	entryMap[CopyrightHolder] = i18n("Copyright holder");
+
 	entryMap[CopyrightDate] = i18n("Copyright date");
+
 	entryMap[CopyrightContactName] = i18n("Copyright contact name");
+
 	entryMap[CopyrightContactAddress] = i18n("Copyright contact address");
+
 	entryMap[CopyrightContactEmail] = i18n("Copyright contact email");
 
 	text += ("<hr><table>");
 
-	for (ListConfigEntry::iterator it(entries.begin()); it != entries.end(); ++it)  {
+	for (ListConfigEntry::iterator it(entries.begin()); it != entries.end(); ++it) {
 		QString t( config(*it) );
-		if (!t.isEmpty()) {
-			text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
-					.arg(entryMap[*it])
-					.arg(config(*it));
-		}
 
-	}
+			if (!t.isEmpty()) {
+				text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
+						.arg(entryMap[*it])
+						.arg(config(*it));
+			}
+
+		}
 
 
 	text += "</table></font>";
@@ -473,14 +561,16 @@ QString CSwordModuleInfo::aboutText() const {
 /** Returns the language of the module. */
 const CLanguageMgr::Language * const CSwordModuleInfo::language() const {
 	if (!m_dataCache.language) {
-		if (module()) {
+	if (module()) {
 			if (category() == Glossary) {
 				//special handling for glossaries, we use the "from language" as language for the module
 				m_dataCache.language = (CPointers::languageMgr())->languageForAbbrev(config(GlossaryFrom));
-			} else {
+			}
+			else {
 				m_dataCache.language = (CPointers::languageMgr())->languageForAbbrev(module()->Lang());
 			}
-		} else {
+		}
+		else {
 			m_dataCache.language = (CPointers::languageMgr())->defaultLanguage(); //default language
 		}
 	}

@@ -16,6 +16,7 @@ CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 	if ((m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module))) {
 		//    *(m_module->module()) = TOP;
 	}
+
 	SWKey::operator = (" ");
 }
 
@@ -37,6 +38,7 @@ CSwordModuleInfo* const CSwordLDKey::module(CSwordModuleInfo* const newModule) {
 		m_module = newModule;
 		key(oldKey);
 	}
+
 	return m_module;
 }
 
@@ -110,6 +112,6 @@ CSwordLDKey* CSwordLDKey::PreviousEntry() {
 
 /** Assignment operator for more ease of use of this class. */
 CSwordLDKey& CSwordLDKey::operator = (const QString& keyname ) {
-	key(keyname);
-	return *this;
-}
+										 key(keyname);
+										 return *this;
+									 }

@@ -130,16 +130,17 @@ void CBookReadWindow::initToolbars() {
 		action->plug(mainToolBar());
 	}
 
-#if KDE_VERSION_MINOR < 1
+	#if KDE_VERSION_MINOR < 1
 	action->plugAccel( accel() );
-#endif
+	#endif
 }
 
 /** Is called when the action was executed to toggle the tree view. */
 void CBookReadWindow::treeToggled() {
 	if (m_treeAction->isChecked()) {
 		m_treeChooser->show();
-	} else {
+	}
+	else {
 		m_treeChooser->hide();
 	}
 }

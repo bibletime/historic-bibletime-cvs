@@ -44,7 +44,8 @@ void CBibleReadWindow::applyProfileSettings( CProfileWindow* const settings ) {
 		if (result-(int)pow((double)2,i-1)>= 0) { //2^i was added before, so item with index i is set
 			result -= (int)pow((double)2,i-1);
 			displaySettingsButton()->setItemStatus(i,true);
-		} else {
+		}
+		else {
 			displaySettingsButton()->setItemStatus(i,false);
 		}
 	}

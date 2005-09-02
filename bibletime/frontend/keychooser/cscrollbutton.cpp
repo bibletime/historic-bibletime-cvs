@@ -51,11 +51,14 @@ void CScrollButton::mouseMoveEvent( QMouseEvent* e ) {
 
 		if (abs(vchange) < 10) {
 			vchange = (int)((vchange>0 ? 1 : -1) * pow(abs(vchange), 0.3));
-		} else if (abs(vchange) < 30) {
+		}
+		else if (abs(vchange) < 30) {
 			vchange = (int)((vchange>0 ? 1 : -1) * pow(abs(vchange), 0.6));
-		} else if (abs(vchange) < 40) {
+		}
+		else if (abs(vchange) < 40) {
 			vchange = (int)((vchange>0 ? 1 : -1) * pow(abs(vchange), 1.2));
-		} else {
+		}
+		else {
 			vchange = (int)((vchange>0 ? 1 : -1) * pow(abs(vchange), 2.0));
 		}
 
@@ -64,7 +67,8 @@ void CScrollButton::mouseMoveEvent( QMouseEvent* e ) {
 		}
 
 		QCursor::setPos( lock_Point );
-	} else {
+	}
+	else {
 		QToolButton::mouseMoveEvent(e);
 	}
 }
@@ -81,7 +85,8 @@ void CScrollButton::wheelEvent( QWheelEvent* e ) {
 	if (vchange!=0) {//do not emit a change with value 0
 		emit change_requested( vchange );
 		e->accept();
-	} else {
+	}
+	else {
 		e->ignore();
 	}
 }

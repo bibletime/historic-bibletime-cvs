@@ -80,7 +80,8 @@ namespace InstallationManager {
 		if ( i.exists() && i.isWritable() ) { //we can write to the file ourself
 			filename = LocalConfig::swordConfigFilename();
 			directAccess = true;
-		} else if ( !i.exists() && dirInfo.isWritable() ) { // if the file doesn't exist but th eparent is writable for us, create it
+		}
+		else if ( !i.exists() && dirInfo.isWritable() ) { // if the file doesn't exist but th eparent is writable for us, create it
 			filename = LocalConfig::swordConfigFilename();
 			directAccess = true;
 		}
@@ -94,7 +95,8 @@ namespace InstallationManager {
 			if (t.contains( QString("%1/.sword").arg(getenv("HOME")) )) {
 				//we don't want HOME/.sword in the config
 				continue;
-			} else {
+			}
+			else {
 				conf["Install"].insert( std::make_pair(!setDataPath ? SWBuf("DataPath") : SWBuf("AugmentPath"), t.local8Bit()) );
 
 				setDataPath = true;
@@ -116,7 +118,8 @@ namespace InstallationManager {
 		InstallSourceMap::iterator source = mgr->sources.find(name.latin1());
 		if (source != mgr->sources.end()) {
 			return *(source->second);
-		} else { //not found in Sword, may be a local DIR source
+		}
+		else { //not found in Sword, may be a local DIR source
 			SWConfig config(Tool::RemoteConfig::configFilename().latin1());
 			SectionMap::iterator sourcesSection = config.Sections.find("Sources");
 			if (sourcesSection != config.Sections.end()) {
@@ -165,7 +168,8 @@ namespace InstallationManager {
 			}
 
 			config["Sources"].insert( std::make_pair(SWBuf("FTPSource"), is->getConfEnt()) );
-		} else if (!strcmp(is->type, "DIR")) {
+		}
+		else if (!strcmp(is->type, "DIR")) {
 			config["Sources"].insert( std::make_pair(SWBuf("DIRSource"), is->getConfEnt()) );
 		}
 		config.Save();
@@ -243,7 +247,8 @@ namespace InstallationManager {
 		if (RemoteConfig::isRemoteSource(is)) {
 			//     qWarning("## remote backend for %s", is->localShadow.c_str());
 			ret = new CSwordBackend( QString(is->localShadow.c_str()), false );
-		} else {
+		}
+		else {
 			//    qWarning("## local  backend for %s", QString(is->directory.c_str()).latin1());
 			ret = new CSwordBackend( QString(is->directory.c_str()) );
 		}
@@ -256,7 +261,7 @@ namespace InstallationManager {
 		return ret;
 	}
 
-	BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::RemoteConfig::configPath().latin1(), this) { //use this class also as status reporter
+BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::RemoteConfig::configPath().latin1(), this) { //use this class also as status reporter
 	}
 
 	BTInstallMgr::~BTInstallMgr() {
@@ -272,14 +277,16 @@ namespace InstallationManager {
 
 		if (totalPercent > 100) {
 			totalPercent = 100;
-		} else if (totalPercent < 0) {
+		}
+		else if (totalPercent < 0) {
 			totalPercent = 0;
 		}
 
 		int filePercent  = (int)((float)(dlnow) / (float)(dltotal+1) * 100.0);
 		if (filePercent > 100) {
 			filePercent = 100;
-		} else if (filePercent < 0) {
+		}
+		else if (filePercent < 0) {
 			filePercent = 0;
 		}
 

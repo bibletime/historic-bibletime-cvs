@@ -21,7 +21,7 @@
 #include <klocale.h>
 
 CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name )
-		: CKeyChooser(modules, key, parent, name),
+: CKeyChooser(modules, key, parent, name),
 m_key(dynamic_cast<CSwordVerseKey*>(key)) {
 	setModules(modules, false);
 	if (!m_modules.count()) {
@@ -137,7 +137,8 @@ void CBibleKeyChooser::setKey(CSwordKey* key) {
 		w_verse->reset(m_modules.first()->verseCount(m_key->book(), chapter), verse-1, false);
 
 		emit keyChanged(m_key);
-	} else { //reset to Gen.1.1
+	}
+	else { //reset to Gen.1.1
 		w_book->comboBox()->setCurrentItem(0);
 		m_key->book(w_book->comboBox()->currentText());
 

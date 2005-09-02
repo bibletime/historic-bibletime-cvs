@@ -15,18 +15,18 @@ namespace util {
 	*/
 	template<class T>
 	class AutoPtrVector {
-	public:
+public:
 		/** Default constructor.
 		* The default constructor. This creates an empty vector.
 		*/
-		explicit AutoPtrVector() : m_first(0), m_current(0), m_end(0) {}
+explicit AutoPtrVector() : m_first(0), m_current(0), m_end(0) {}
 		;
 
 		/** Copy constructor using deep copy.
 		* This does a deep copy of the passed AutoPtrVector.
 		* @param old The vector to be copied.
 		*/
-		AutoPtrVector(AutoPtrVector& old) : m_first(0), m_current(0), m_end(0) {
+AutoPtrVector(AutoPtrVector& old) : m_first(0), m_current(0), m_end(0) {
 			this->operator=(old); //share the code with the copy operator
 			/*  if (this != &old) {
 			   Item* last = m_first;
@@ -45,26 +45,26 @@ namespace util {
 		};
 
 		AutoPtrVector& operator=(AutoPtrVector& old) {
-			//at first delete all items, then copy old into new items
-			clear();
+									//at first delete all items, then copy old into new items
+									clear();
 
-			if (this != &old) { //only copy if the two pointers are different
-				Item* last = m_first;
-				Item* prev = 0;
+									if (this != &old) { //only copy if the two pointers are different
+										Item* last = m_first;
+										Item* prev = 0;
 
-				for (T* c = old.first(); c; c = old.next()) {
-					last = new Item( new T(*c) );
+										for (T* c = old.first(); c; c = old.next()) {
+											last = new Item( new T(*c) );
 
-					if (prev) {
-						prev->next = last;
-					}
+											if (prev) {
+												prev->next = last;
+											}
 
-					prev = last;
-				}
-			}
+											prev = last;
+										}
+									}
 
-			return *this;
-		};
+									return *this;
+								};
 
 		/** Destructor.
 		* Deletes all the objects which belong to the stored pointers
@@ -83,7 +83,8 @@ namespace util {
 			if (!m_first) { //handle the first item special
 				m_first = new Item( type );
 				m_end = m_first;
-			} else {
+			}
+			else {
 				m_end->next = new Item( type );
 				m_end = m_end->next;
 			}
@@ -112,18 +113,18 @@ namespace util {
 		*/
 		inline T* const next() const {
 			if (m_current && m_current->next) {
-				m_current = m_current->next;
-				return m_current->value;
-			}
+			m_current = m_current->next;
+			return m_current->value;
+		}
 
-			return 0;
-		};
+		return 0;
+	};
 
-		/** Returns if this conainer is empty.
-		*
-		* @return If this vector has items or not. True if there are no items, false if there are any
-		*/
-		inline const bool isEmpty() const {
+	/** Returns if this conainer is empty.
+	*
+	* @return If this vector has items or not. True if there are no items, false if there are any
+	*/
+	inline const bool isEmpty() const {
 			return bool(m_first == 0);
 		};
 
@@ -143,12 +144,12 @@ namespace util {
 			}
 		};
 
-	private:
+private:
 		/**
 		* Our internal helper class to store the pointers in a linked list.
 		*/
 		struct Item {
-			Item(T* t = 0) : value(t), next(0) {}
+Item(T* t = 0) : value(t), next(0) {}
 			;
 
 			T* value;

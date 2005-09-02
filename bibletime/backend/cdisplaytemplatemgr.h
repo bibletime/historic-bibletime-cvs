@@ -27,10 +27,13 @@
  * Manages the display templates used in the filters and display classes.
  * @author The BibleTime team
 */
+
 class CDisplayTemplateMgr {
+
 public:
 	/** Settings which are used to fill the content into the template.
 	*/
+
 	struct Settings {
 		/** Constructor. Constructs the new settings object. The default values are empty.
 		 */
@@ -40,6 +43,7 @@ public:
 			pageCSS_ID = QString::null;
 			pageDirection = QString("ltr");
 		};
+
 		ListCSwordModuleInfo modules; /**< the list of modules */
 		QString title; /**< the title which is used for the new processed HTML page */
 		QString langAbbrev; /**< the language for the HTML page. */
@@ -64,6 +68,7 @@ public:
 	inline static const QString defaultTemplate();
 
 protected:
+
 	friend class CPointers;
 	/** Display template manager constructor. Protected to just allow CPointers to create objects.
 	*/

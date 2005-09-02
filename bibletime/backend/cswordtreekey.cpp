@@ -39,7 +39,8 @@ const bool CSwordTreeKey::key( const char* newKey ) {
 
 	if (newKey) {
 		TreeKeyIdx::operator = (newKey);
-	} else {
+	}
+	else {
 		root();
 	}
 
@@ -67,6 +68,6 @@ CSwordModuleInfo* const CSwordTreeKey::module( CSwordModuleInfo* const newModule
 
 /** Assignment operator. */
 CSwordTreeKey& CSwordTreeKey::operator = (const QString& keyname ) {
-	key(keyname);
-	return *this;
-}
+			key(keyname);
+			return *this;
+		}

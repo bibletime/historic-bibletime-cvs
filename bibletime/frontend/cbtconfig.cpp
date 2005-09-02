@@ -36,11 +36,11 @@ CBTConfig::FontCache* CBTConfig::fontConfigMap = 0;
 
 const QString CBTConfig::getKey( const CBTConfig::strings ID) {
 	switch ( ID ) {
-	case bibletimeVersion:
+		case bibletimeVersion:
 		return "bibletimeVersion";
-	case language:
+		case language:
 		return "language";
-	case displayStyle:
+		case displayStyle:
 		return "displayStyle";
 	}
 	return QString::null;
@@ -48,11 +48,11 @@ const QString CBTConfig::getKey( const CBTConfig::strings ID) {
 
 const QString CBTConfig::getDefault( const CBTConfig::strings ID) {
 	switch ( ID ) {
-	case bibletimeVersion:
+		case bibletimeVersion:
 		return "NOT YET INSTALLED"; // main() will realize this and set the value to VERSION
-	case language:
+		case language:
 		return (KGlobal::locale()->language()).local8Bit();
-	case displayStyle:
+		case displayStyle:
 		return CDisplayTemplateMgr::defaultTemplate();
 	}
 	return QString::null;
@@ -60,21 +60,21 @@ const QString CBTConfig::getDefault( const CBTConfig::strings ID) {
 
 const QString CBTConfig::getKey( const CBTConfig::modules ID) {
 	switch ( ID ) {
-	case standardBible:
+		case standardBible:
 		return "standardBible";
-	case standardCommentary:
+		case standardCommentary:
 		return "standardCommentary";
-	case standardLexicon:
+		case standardLexicon:
 		return "standardLexicon";
-	case standardDailyDevotional:
+		case standardDailyDevotional:
 		return "standardDailyDevotional";
-	case standardHebrewStrongsLexicon:
+		case standardHebrewStrongsLexicon:
 		return "standardHebrewLexicon";
-	case standardGreekStrongsLexicon:
+		case standardGreekStrongsLexicon:
 		return "standardGreekLexicon";
-	case standardHebrewMorphLexicon:
+		case standardHebrewMorphLexicon:
 		return "standardHebrewMorphLexicon";
-	case standardGreekMorphLexicon:
+		case standardGreekMorphLexicon:
 		return "standardGreekMorphLexicon";
 	}
 
@@ -84,22 +84,22 @@ const QString CBTConfig::getKey( const CBTConfig::modules ID) {
 const QString CBTConfig::getDefault( const CBTConfig::modules ID) {
 	//  CSwordBackend* b = CPointers::backend();
 	switch ( ID ) {
-	case standardBible:
+		case standardBible:
 		return "KJV";
-	case standardCommentary:
+		case standardCommentary:
 		return "MHC";
-	case standardLexicon:
+		case standardLexicon:
 		return "ISBE";
-	case standardDailyDevotional:
+		case standardDailyDevotional:
 		return ""; //no default
 
-	case standardHebrewStrongsLexicon:
+		case standardHebrewStrongsLexicon:
 		return "StrongsHebrew";
-	case standardGreekStrongsLexicon:
+		case standardGreekStrongsLexicon:
 		return "StrongsGreek";
-	case standardHebrewMorphLexicon:
+		case standardHebrewMorphLexicon:
 		return "StrongsHebrew";
-	case standardGreekMorphLexicon:
+		case standardGreekMorphLexicon:
 		return "StrongsGreek";
 	}
 
@@ -108,37 +108,37 @@ const QString CBTConfig::getDefault( const CBTConfig::modules ID) {
 
 const QString CBTConfig::getKey( const CBTConfig::bools ID) {
 	switch ( ID ) {
-	case firstSearchDialog:
+		case firstSearchDialog:
 		return "firstSearchDialog";
-	case readOldBookmarks:
+		case readOldBookmarks:
 		return "readOldBookmarks";
 
-	case toolbar:
+		case toolbar:
 		return "toolbar";
-	case mainIndex:
+		case mainIndex:
 		return "mainIndex";
-	case infoDisplay:
+		case infoDisplay:
 		return "infoDisplay";
 
-	case autoTileVertical:
+		case autoTileVertical:
 		return "autoTileVertical";
-	case autoTileHorizontal:
+		case autoTileHorizontal:
 		return "autoTileHorizontal";
-	case autoCascade:
+		case autoCascade:
 		return "autoCascade";
 
-	case lineBreaks:
+		case lineBreaks:
 		return "lineBreaks";
-	case verseNumbers:
+		case verseNumbers:
 		return "verseNumbers";
 
-	case tips:
+		case tips:
 		return "RunOnStart";
-	case logo:
+		case logo:
 		return "logo";
-	case crashedLastTime:
+		case crashedLastTime:
 		return "crashedLastTime";
-	case crashedTwoTimes:
+		case crashedTwoTimes:
 		return "crashedTwoTimes";
 	}
 	return QString::null;
@@ -146,28 +146,28 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID) {
 
 const QString CBTConfig::getKey( const CBTConfig::ints ID) {
 	switch ( ID ) {
-	case footnotes:
+		case footnotes:
 		return "footnotes";
-	case strongNumbers:
+		case strongNumbers:
 		return "strongNumbers";
-	case headings:
+		case headings:
 		return "headings";
-	case morphTags:
+		case morphTags:
 		return "morphTags";
-	case lemmas:
+		case lemmas:
 		return "lemmas";
-	case hebrewPoints:
+		case hebrewPoints:
 		return "hebrewPoints";
-	case hebrewCantillation:
+		case hebrewCantillation:
 		return "hebrewCantillation";
-	case greekAccents:
+		case greekAccents:
 		return "greekAccents";
-	case textualVariants:
+		case textualVariants:
 		return "textualVariants";
 		//     case transliteration:     return "transliteration";
-	case scriptureReferences:
+		case scriptureReferences:
 		return "scriptureReferences";
-	case morphSegmentation:
+		case morphSegmentation:
 		return "morphSegmentation";
 	}
 	return QString::null;
@@ -175,37 +175,37 @@ const QString CBTConfig::getKey( const CBTConfig::ints ID) {
 
 const bool CBTConfig::getDefault( const CBTConfig::bools ID) {
 	switch ( ID ) {
-	case firstSearchDialog:
+		case firstSearchDialog:
 		return true;
-	case readOldBookmarks:
+		case readOldBookmarks:
 		return false;
 
-	case toolbar:
+		case toolbar:
 		return true;
-	case mainIndex:
+		case mainIndex:
 		return true;
-	case infoDisplay:
-		return true;
-
-	case autoTileVertical:
-		return true;
-	case autoTileHorizontal:
-		return false;
-	case autoCascade:
-		return false;
-
-	case lineBreaks:
-		return false;
-	case verseNumbers:
+		case infoDisplay:
 		return true;
 
-	case tips:
+		case autoTileVertical:
 		return true;
-	case logo:
-		return true;
-	case crashedLastTime:
+		case autoTileHorizontal:
 		return false;
-	case crashedTwoTimes:
+		case autoCascade:
+		return false;
+
+		case lineBreaks:
+		return false;
+		case verseNumbers:
+		return true;
+
+		case tips:
+		return true;
+		case logo:
+		return true;
+		case crashedLastTime:
+		return false;
+		case crashedTwoTimes:
 		return false;
 	}
 	return false;
@@ -213,28 +213,28 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID) {
 
 const int CBTConfig::getDefault( const CBTConfig::ints ID) {
 	switch ( ID ) {
-	case footnotes:
+		case footnotes:
 		return true;
-	case strongNumbers:
+		case strongNumbers:
 		return true;
-	case headings:
+		case headings:
 		return true;
-	case morphTags:
+		case morphTags:
 		return true;
-	case lemmas:
+		case lemmas:
 		return true;
-	case hebrewPoints:
+		case hebrewPoints:
 		return true;
-	case hebrewCantillation:
+		case hebrewCantillation:
 		return true;
-	case greekAccents:
+		case greekAccents:
 		return true;
-	case textualVariants:
+		case textualVariants:
 		return false;
 		//     case transliteration:     return 0;
-	case scriptureReferences:
+		case scriptureReferences:
 		return true;
-	case morphSegmentation:
+		case morphSegmentation:
 		return true;
 	}
 	return 0;
@@ -242,9 +242,9 @@ const int CBTConfig::getDefault( const CBTConfig::ints ID) {
 
 const QString CBTConfig::getKey( const CBTConfig::intLists ID) {
 	switch ( ID ) {
-	case leftPaneSplitterSizes:
+		case leftPaneSplitterSizes:
 		return "leftPaneSplitterSizes";
-	case mainSplitterSizes:
+		case mainSplitterSizes:
 		return "mainSplitterSizes";
 	}
 
@@ -253,8 +253,8 @@ const QString CBTConfig::getKey( const CBTConfig::intLists ID) {
 
 const QValueList<int> CBTConfig::getDefault( const CBTConfig::intLists ID) {
 	switch ( ID ) {
-	case leftPaneSplitterSizes: //fall through
-	case mainSplitterSizes: {
+		case leftPaneSplitterSizes: //fall through
+		case mainSplitterSizes: {
 			return QValueList<int>();
 		}
 	}
@@ -264,9 +264,9 @@ const QValueList<int> CBTConfig::getDefault( const CBTConfig::intLists ID) {
 
 const QString CBTConfig::getKey( const CBTConfig::stringLists ID) {
 	switch ( ID ) {
-	case searchCompletionTexts:
+		case searchCompletionTexts:
 		return QString("searchCompletionTexts");
-	case searchTexts:
+		case searchTexts:
 		return QString("searchTexts");
 	}
 	return QString::null;
@@ -274,12 +274,12 @@ const QString CBTConfig::getKey( const CBTConfig::stringLists ID) {
 
 const QStringList CBTConfig::getDefault( const CBTConfig::stringLists ID) {
 	switch ( ID ) {
-	case searchTexts: {
+		case searchTexts: {
 			QStringList list;
 			list.append(QString::null);
 			return list;
 		}
-	case searchCompletionTexts:
+		case searchCompletionTexts:
 		return QStringList();
 	}
 	return QStringList();
@@ -287,7 +287,7 @@ const QStringList CBTConfig::getDefault( const CBTConfig::stringLists ID) {
 
 const QString CBTConfig::getKey( const CBTConfig::stringMaps ID) {
 	switch (ID) {
-	case searchScopes:
+		case searchScopes:
 		return QString("SearchScopes");
 	};
 	return QString::null;
@@ -295,7 +295,7 @@ const QString CBTConfig::getKey( const CBTConfig::stringMaps ID) {
 
 const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID) {
 	switch ( ID ) {
-	case searchScopes: {
+		case searchScopes: {
 			CBTConfig::StringMap map;
 			map.insert(i18n("Old testament"),         QString("Gen - Mal"));
 			map.insert(i18n("Moses/Pentateuch/Torah"),QString("Gen - Deut"));
@@ -322,7 +322,7 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
 
 			return map;
 		};
-	default:
+		default:
 		return CBTConfig::StringMap();
 	}
 
@@ -411,7 +411,7 @@ const CBTConfig::StringMap CBTConfig::get
 	if (config->hasGroup(getKey(ID))) {
 		CBTConfig::StringMap map = config->entryMap(getKey(ID));
 		switch (ID) {
-		case searchScopes: { //make sure we return the scopes in the chosen language. saved keys are in english
+			case searchScopes: { //make sure we return the scopes in the chosen language. saved keys are in english
 				CBTConfig::StringMap::Iterator it;
 				sword::VerseKey vk;
 
@@ -425,7 +425,7 @@ const CBTConfig::StringMap CBTConfig::get
 				};
 				return map;
 			}
-		default:
+			default:
 			return getDefault(ID);
 		}
 	}
@@ -521,7 +521,7 @@ void CBTConfig::set
 	config->setGroup(getKey(ID));
 
 	switch (ID) {
-	case searchScopes: {
+		case searchScopes: {
 			/**
 			* We want to make sure that the search scopes are saved with english key names so loading them
 			* will always work with each locale set.
@@ -543,7 +543,7 @@ void CBTConfig::set
 			}
 			break;
 		}
-	default: {
+		default: {
 			for (CBTConfig::StringMap::ConstIterator it = value.begin(); it != value.end(); ++it) {
 				config->writeEntry(it.key(), it.data());
 			}
@@ -617,35 +617,35 @@ const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults() {
 void CBTConfig::setupAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection) {
 	QString groupName;
 	switch (type) {
-	case allWindows : {
+		case allWindows : {
 			groupName = "Displaywindow shortcuts";
 			break;
 		};
-	case writeWindow : {
+		case writeWindow : {
 			groupName = "Writewindow shortcuts";
 			break;
 		};
-	case readWindow : {
+		case readWindow : {
 			groupName = "Readwindow shortcuts";
 			break;
 		};
-	case bookWindow : {
+		case bookWindow : {
 			groupName = "Book shortcuts";
 			break;
 		};
-	case bibleWindow : {
+		case bibleWindow : {
 			groupName =  "Bible shortcuts";
 			break;
 		};
-	case commentaryWindow : {
+		case commentaryWindow : {
 			groupName = "Commentary shortcuts";
 			break;
 		};
-	case lexiconWindow : {
+		case lexiconWindow : {
 			groupName = "Lexicon shortcuts";
 			break;
 		};
-	case application : {
+		case application : {
 			groupName = "Application shortcuts";
 			break;
 		};
@@ -658,35 +658,35 @@ void CBTConfig::setupAccelSettings(const CBTConfig::keys type, KActionCollection
 void CBTConfig::saveAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection) {
 	QString groupName;
 	switch (type) {
-	case allWindows : {
+		case allWindows : {
 			groupName = "Displaywindow shortcuts";
 			break;
 		};
-	case writeWindow : {
+		case writeWindow : {
 			groupName = "Writewindow shortcuts";
 			break;
 		};
-	case readWindow : {
+		case readWindow : {
 			groupName = "Readwindow shortcuts";
 			break;
 		};
-	case bookWindow : {
+		case bookWindow : {
 			groupName = "Book shortcuts";
 			break;
 		};
-	case bibleWindow : {
+		case bibleWindow : {
 			groupName =  "Bible shortcuts";
 			break;
 		};
-	case commentaryWindow : {
+		case commentaryWindow : {
 			groupName = "Commentary shortcuts";
 			break;
 		};
-	case lexiconWindow : {
+		case lexiconWindow : {
 			groupName = "Lexicon shortcuts";
 			break;
 		};
-	case application : {
+		case application : {
 			groupName = "Application shortcuts";
 			break;
 		};
@@ -727,7 +727,8 @@ KConfig* const CBTConfig::getConfig() {
 	if (KApplication::kApplication()->sessionSaving()) {
 		qWarning("Using session config");
 		//    config = KApplication::kApplication()->sessionConfig();
-	} else if (KApplication::kApplication()->isRestored()) {
+	}
+	else if (KApplication::kApplication()->isRestored()) {
 		qWarning("isRestored(): Using session config");
 	}
 

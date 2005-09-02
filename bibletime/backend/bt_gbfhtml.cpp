@@ -81,6 +81,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	}
 
 	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() );
+
 	if (m && !(m->has(CSwordModuleInfo::lemmas) || m->has(CSwordModuleInfo::morphTags) || m->has(CSwordModuleInfo::strongNumbers))) { //only parse if the module has strongs or lemmas
 		return 1; //WARNING: Return alread here
 	}
@@ -90,11 +91,15 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	QString result;
 
 	QString t = QString::fromUtf8(buf.c_str());
+
 	QRegExp tag("([.,;:]?<W[HGT][^>]*>\\s*)+");
 
 	QStringList list;
+
 	int lastMatchEnd = 0;
+
 	int pos = tag.search(t,0);
+
 	if (pos == -1) { //no strong or morph code found in this text
 		return 1; //WARNING: Return already here
 	}
@@ -113,12 +118,14 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 
 	//now create the necessary HTML in list entries and concat them to the result
 	tag = QRegExp("<W([HGT])([^>]*)>");
+
 	tag.setMinimal(true);
 
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		QString e = (*it); //current entry to process
 
 		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(1) != "<");
+
 		if (!textPresent) {
 			continue;
 		}
@@ -153,6 +160,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 
 				int startPos = 0;
 				QChar c = e[startPos];
+
 				while ((startPos < pos) && (c.isSpace() || c.isPunct())) {
 					++startPos;
 
@@ -162,7 +170,8 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 				e.insert( startPos, rep );
 				tagAttributeStart = startPos + 6; //to point to the start of the attributes
 				pos += rep.length();
-			} else { //add the attribute to the existing tag
+			}
+			else { //add the attribute to the existing tag
 				e.remove(pos, tag.matchedLength());
 
 				if (tagAttributeStart == -1) {
@@ -182,7 +191,8 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 						hasLemmaAttr = !isMorph;
 						hasMorphAttr = isMorph;
 					}
-				} else { //attribute was not yet inserted
+				}
+				else { //attribute was not yet inserted
 					QString attr;
 					attr.setLatin1(isMorph ? "morph" : "lemma").append("=\"").append(value).append("\" ");
 
@@ -225,11 +235,14 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 			buf.append('<');
 			buf.append(token);
 			buf.append('>');
-		} else if (!strncmp(token, "RB", 2)) {
+		}
+		else if (!strncmp(token, "RB", 2)) {
 			myUserData->hasFootnotePreTag = true;
 			buf.append("<span class=\"footnotepre\">");
-		} else if (!strncmp(token, "RF", 2)) {
+		}
+		else if (!strncmp(token, "RF", 2)) {
 			//we use several append calls because appendFormatted slows down filtering, which should be fast
+
 			if (myUserData->hasFootnotePreTag) {
 				//     qWarning("inserted footnotepre end");
 				buf.append("</span>");
@@ -245,9 +258,11 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 			buf.append("\">*</span> ");
 
 			userData->suspendTextPassThru = true;
-		} else if (!strncmp(token, "Rf", 2)) { //end of footnote
+		}
+		else if (!strncmp(token, "Rf", 2)) { //end of footnote
 			userData->suspendTextPassThru = false;
-		} else if (!strncmp(token, "FN", 2)) { //the end </font> tag is inserted in addTokenSubsitute
+		}
+		else if (!strncmp(token, "FN", 2)) { //the end </font> tag is inserted in addTokenSubsitute
 			buf.append("<font face=\"");
 
 			for (i = 2; i < tokenLength; i++) {
@@ -257,9 +272,11 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 			}
 
 			buf.append("\">");
-		} else if (!strncmp(token, "CA", 2)) { // ASCII value
+		}
+		else if (!strncmp(token, "CA", 2)) { // ASCII value
 			buf.append( (char)atoi(&token[2]) );
-		} else {
+		}
+		else {
 			return GBFHTML::handleToken(buf, token, userData);
 		}
 	}

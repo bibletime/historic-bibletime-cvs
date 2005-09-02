@@ -17,8 +17,8 @@
 
 namespace InfoDisplay {
 
-	class CrossRefRendering : public Rendering::CHTMLExportRendering {
-	protected:
+class CrossRefRendering : public Rendering::CHTMLExportRendering {
+protected:
 		friend class CInfoDisplay;
 
 		CrossRefRendering(

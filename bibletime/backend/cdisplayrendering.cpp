@@ -25,7 +25,7 @@
 namespace Rendering {
 
 	CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
-			: CHTMLExportRendering(CHTMLExportRendering::Settings(true), displayOptions, filterOptions) {}
+: CHTMLExportRendering(CHTMLExportRendering::Settings(true), displayOptions, filterOptions) {}
 
 	const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
 		QString linkText;
@@ -33,6 +33,7 @@ namespace Rendering {
 		const bool isBible = module && (module->type() == CSwordModuleInfo::Bible);
 		CSwordVerseKey vk(module); //only valid for bible modules, i.e. isBible == true
 		vk.Headings(true);
+
 		if (isBible) {
 			vk = item.key();
 		}
@@ -42,32 +43,40 @@ namespace Rendering {
 		}
 
 		switch (item.settings().keyRenderingFace) {
-		case KeyTreeItem::Settings::NoKey: {
+
+			case KeyTreeItem::Settings::NoKey: {
 				linkText = QString::null;
 				break; //no key is valid for all modules
 			}
-		case KeyTreeItem::Settings::CompleteShort: {
+
+			case KeyTreeItem::Settings::CompleteShort: {
 				if (isBible) {
 					linkText = QString::fromUtf8(vk.getShortText());
 					break;
 				}
+
 				//fall through for non-Bible modules
 			}
-		case KeyTreeItem::Settings::CompleteLong: {
+
+			case KeyTreeItem::Settings::CompleteLong: {
 				if (isBible) {
 					linkText = vk.key();
 					break;
 				}
+
 				//fall through for non-Bible modules
 			}
-		case KeyTreeItem::Settings::SimpleKey: {
+
+			case KeyTreeItem::Settings::SimpleKey: {
 				if (isBible) {
 					linkText = QString::number(vk.Verse());
 					break;
 				}
+
 				//fall through for non-Bible modules
 			}
-		default: { //default behaviour to return the passed key
+
+			default: { //default behaviour to return the passed key
 				linkText = item.key();
 				break;
 			}
@@ -75,7 +84,8 @@ namespace Rendering {
 
 		if (linkText.isEmpty()) {
 			return QString("<a name=\"").append(keyToHTMLAnchor(item.key())).append("\" />");
-		} else {
+		}
+		else {
 			return QString("<a name=\"").append(keyToHTMLAnchor(item.key())).append("\" ")
 				   .append("href=\"")
 				   .append(CReferenceManager::encodeHyperlink(
@@ -143,12 +153,5 @@ namespace Rendering {
 							  ? lang->abbrev()
 							  : QString::null;
 
-		settings.pageDirection = (modules.count() == 1)
-								 ? ((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr"  : "rtl")
-										 : QString::null;
-
-		return tMgr->fillTemplate(CBTConfig::get
-									  (CBTConfig::displayStyle), oldText, settings);
 	}
-
-};
+}

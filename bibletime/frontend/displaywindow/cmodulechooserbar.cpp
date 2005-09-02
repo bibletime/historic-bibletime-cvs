@@ -6,10 +6,10 @@
 #include <qtimer.h>
 
 CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::ModuleType type, QWidget *parent, const char *name )
-		: KToolBar(parent,name),
-		m_moduleType(type),
-		m_idCounter(0),
-		m_buttonLimit(-1) //-1 means no limit
+: KToolBar(parent,name),
+m_moduleType(type),
+m_idCounter(0),
+m_buttonLimit(-1) //-1 means no limit
 {
 	//insert buttons if useModules != 0
 	//  for (useModules.first(); useModules.current(); useModules.next())   {

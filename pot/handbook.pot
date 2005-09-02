@@ -1287,232 +1287,6 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-start.docbook:1
-#, no-c-format
-msgid "Starting &bibletime;"
-msgstr ""
-
-#. Tag: title
-#: hdbk-start.docbook:3
-#, no-c-format
-msgid "How to start &bibletime;"
-msgstr ""
-
-#. Tag: title
-#: hdbk-start.docbook:5
-#, no-c-format
-msgid "Starting &bibletime; from KDE"
-msgstr ""
-
-#. Tag: para
-#: hdbk-start.docbook:7
-#, no-c-format
-msgid ""
-"&bibletime; is a &kde; program and is integrated with the &kde; desktop. You "
-"can launch &bibletime; from the &kde; Start Menu in the Applications group "
-"with this icon:"
-msgstr ""
-
-#. Tag: phrase
-#: hdbk-start.docbook:13
-#, no-c-format
-msgid "&bibletime; start icon"
-msgstr ""
-
-#. Tag: para
-#: hdbk-start.docbook:17
-#, no-c-format
-msgid ""
-"&bibletime; can also be launched from a terminal command prompt. To launch "
-"&bibletime;, open a terminal window and type:"
-msgstr ""
-
-#. #-#-#-#-#  hdbk-start.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
-#. Tag: screen
-#. #-#-#-#-#  index.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
-#. Tag: keyword
-#: hdbk-start.docbook:19 index.docbook:66
-#, no-c-format
-msgid "bibletime"
-msgstr ""
-
-#. Tag: title
-#: hdbk-start.docbook:24
-#, no-c-format
-msgid "Other window managers"
-msgstr ""
-
-#. Tag: para
-#: hdbk-start.docbook:26
-#, no-c-format
-msgid ""
-"&bibletime; can be used with other window managers such as Gnome, BlackBox "
-"or Sawfish, providing &kde; is already installed on your computer. If your "
-"&kde; is installed in /opt/kde, then the start-up command in a terminal "
-"would be:"
-msgstr ""
-
-#. Tag: screen
-#: hdbk-start.docbook:30
-#, no-c-format
-msgid ""
-"export KDEDIR=/opt/kde  #your KDE directory\n"
-"bibletime"
-msgstr ""
-
-#. Tag: title
-#: hdbk-start.docbook:34
-#, no-c-format
-msgid "Startup customization"
-msgstr ""
-
-#. Tag: para
-#: hdbk-start.docbook:36
-#, no-c-format
-msgid ""
-"From a terminal you can use &bibletime; to open a random verse in the "
-"default bible: <screen>\n"
-"bibletime --open-default-bible \"&lt;random&gt;\"\n"
-"</screen> To open at a given passage like John 3:16, use: <screen>\n"
-"bibletime --open-default-bible \"John 3:16\"\n"
-"</screen> You can also use booknames in your current bookname language."
-msgstr ""
-
-#. Tag: title
-#: hdbk-start.docbook:48
-#, no-c-format
-msgid "Startup sequence"
-msgstr ""
-
-#. Tag: para
-#: hdbk-start.docbook:50
-#, no-c-format
-msgid ""
-"As &bibletime; launches you may see the following screens before the main "
-"&bibletime; window opens:"
-msgstr ""
-
-#. Tag: interface
-#: hdbk-start.docbook:56
-#, no-c-format
-msgid "Bookshelf Manager"
-msgstr ""
-
-#. Tag: para
-#: hdbk-start.docbook:57
-#, no-c-format
-msgid ""
-"<action>Modifies your Bookshelf.</action> This dialog lets you modify your "
-"Bookshelf, add or delete works from your system. It will only be shown if no "
-"default Bookshelf can be found. Please see <link linkend=\"hdbk-op-"
-"bookshelfmanager\">this section</link>for further details. If you start off "
-"with an empty Bookshelf, it will be helpful to install at least one Bible, "
-"Commentary, Lexicon and one Book to get to know &bibletime;'s basic features "
-"quickly."
-msgstr ""
-
-#. Tag: interface
-#: hdbk-start.docbook:66
-#, no-c-format
-msgid "Configure &bibletime; dialog"
-msgstr ""
-
-#. Tag: para
-#: hdbk-start.docbook:67
-#, no-c-format
-msgid ""
-"<action>Customizes &bibletime;.</action> This dialog lets you adapt "
-"&bibletime; to your needs. Please see <link linkend=\"hdbk-config-bt\"> the "
-"detailed description</link> of this dialog."
-msgstr ""
-
-#. Tag: interface
-#: hdbk-start.docbook:73
-#, no-c-format
-msgid "Tip of the Day"
-msgstr ""
-
-#. Tag: para
-#: hdbk-start.docbook:74
-#, no-c-format
-msgid ""
-"These nifty little tips give you helpful hints for working more efficiently "
-"with &bibletime;, and also a few quotations from the Bible."
-msgstr ""
-
-#. Tag: title
-#: index.docbook:21
-#, no-c-format
-msgid "The &bibletime; handbook"
-msgstr ""
-
-#. Tag: author
-#: index.docbook:25
-#, no-c-format
-msgid "<firstname>Fred</firstname> <surname>Saalbach</surname>"
-msgstr ""
-
-#. Tag: author
-#: index.docbook:30
-#, no-c-format
-msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
-msgstr ""
-
-#. Tag: author
-#: index.docbook:35
-#, no-c-format
-msgid "<firstname>Martin</firstname> <surname>Gruner</surname>"
-msgstr ""
-
-#. Tag: trans_comment
-#: index.docbook:42
-#, no-c-format
-msgid "ROLES_OF_TRANSLATORS"
-msgstr ""
-
-#. Tag: holder
-#: index.docbook:46
-#, no-c-format
-msgid "the &bibletime; team"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:50
-#, no-c-format
-msgid "The &bibletime; handbook is part of &bibletime;."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:59
-#, no-c-format
-msgid "&bibletime; is a powerful Bible study tool for &kde;."
-msgstr ""
-
-#. Tag: keyword
-#: index.docbook:65
-#, no-c-format
-msgid "<keyword>KDE</keyword>"
-msgstr ""
-
-#. Tag: keyword
-#: index.docbook:67
-#, no-c-format
-msgid "sword"
-msgstr ""
-
-#. Tag: keyword
-#: index.docbook:68
-#, no-c-format
-msgid "crosswire"
-msgstr ""
-
-#. Tag: keyword
-#: index.docbook:69
-#, no-c-format
-msgid "help dialog"
-msgstr ""
-
-#. Tag: title
 #: hdbk-reference.docbook:2
 #, no-c-format
 msgid "Reference"
@@ -2856,4 +2630,230 @@ msgstr ""
 #: hdbk-reference.docbook:708
 #, no-c-format
 msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
+msgstr ""
+
+#. Tag: title
+#: hdbk-start.docbook:1
+#, no-c-format
+msgid "Starting &bibletime;"
+msgstr ""
+
+#. Tag: title
+#: hdbk-start.docbook:3
+#, no-c-format
+msgid "How to start &bibletime;"
+msgstr ""
+
+#. Tag: title
+#: hdbk-start.docbook:5
+#, no-c-format
+msgid "Starting &bibletime; from KDE"
+msgstr ""
+
+#. Tag: para
+#: hdbk-start.docbook:7
+#, no-c-format
+msgid ""
+"&bibletime; is a &kde; program and is integrated with the &kde; desktop. You "
+"can launch &bibletime; from the &kde; Start Menu in the Applications group "
+"with this icon:"
+msgstr ""
+
+#. Tag: phrase
+#: hdbk-start.docbook:13
+#, no-c-format
+msgid "&bibletime; start icon"
+msgstr ""
+
+#. Tag: para
+#: hdbk-start.docbook:17
+#, no-c-format
+msgid ""
+"&bibletime; can also be launched from a terminal command prompt. To launch "
+"&bibletime;, open a terminal window and type:"
+msgstr ""
+
+#. #-#-#-#-#  hdbk-start.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: screen
+#. #-#-#-#-#  index.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: keyword
+#: hdbk-start.docbook:19 index.docbook:66
+#, no-c-format
+msgid "bibletime"
+msgstr ""
+
+#. Tag: title
+#: hdbk-start.docbook:24
+#, no-c-format
+msgid "Other window managers"
+msgstr ""
+
+#. Tag: para
+#: hdbk-start.docbook:26
+#, no-c-format
+msgid ""
+"&bibletime; can be used with other window managers such as Gnome, BlackBox "
+"or Sawfish, providing &kde; is already installed on your computer. If your "
+"&kde; is installed in /opt/kde, then the start-up command in a terminal "
+"would be:"
+msgstr ""
+
+#. Tag: screen
+#: hdbk-start.docbook:30
+#, no-c-format
+msgid ""
+"export KDEDIR=/opt/kde  #your KDE directory\n"
+"bibletime"
+msgstr ""
+
+#. Tag: title
+#: hdbk-start.docbook:34
+#, no-c-format
+msgid "Startup customization"
+msgstr ""
+
+#. Tag: para
+#: hdbk-start.docbook:36
+#, no-c-format
+msgid ""
+"From a terminal you can use &bibletime; to open a random verse in the "
+"default bible: <screen>\n"
+"bibletime --open-default-bible \"&lt;random&gt;\"\n"
+"</screen> To open at a given passage like John 3:16, use: <screen>\n"
+"bibletime --open-default-bible \"John 3:16\"\n"
+"</screen> You can also use booknames in your current bookname language."
+msgstr ""
+
+#. Tag: title
+#: hdbk-start.docbook:48
+#, no-c-format
+msgid "Startup sequence"
+msgstr ""
+
+#. Tag: para
+#: hdbk-start.docbook:50
+#, no-c-format
+msgid ""
+"As &bibletime; launches you may see the following screens before the main "
+"&bibletime; window opens:"
+msgstr ""
+
+#. Tag: interface
+#: hdbk-start.docbook:56
+#, no-c-format
+msgid "Bookshelf Manager"
+msgstr ""
+
+#. Tag: para
+#: hdbk-start.docbook:57
+#, no-c-format
+msgid ""
+"<action>Modifies your Bookshelf.</action> This dialog lets you modify your "
+"Bookshelf, add or delete works from your system. It will only be shown if no "
+"default Bookshelf can be found. Please see <link linkend=\"hdbk-op-"
+"bookshelfmanager\">this section</link>for further details. If you start off "
+"with an empty Bookshelf, it will be helpful to install at least one Bible, "
+"Commentary, Lexicon and one Book to get to know &bibletime;'s basic features "
+"quickly."
+msgstr ""
+
+#. Tag: interface
+#: hdbk-start.docbook:66
+#, no-c-format
+msgid "Configure &bibletime; dialog"
+msgstr ""
+
+#. Tag: para
+#: hdbk-start.docbook:67
+#, no-c-format
+msgid ""
+"<action>Customizes &bibletime;.</action> This dialog lets you adapt "
+"&bibletime; to your needs. Please see <link linkend=\"hdbk-config-bt\"> the "
+"detailed description</link> of this dialog."
+msgstr ""
+
+#. Tag: interface
+#: hdbk-start.docbook:73
+#, no-c-format
+msgid "Tip of the Day"
+msgstr ""
+
+#. Tag: para
+#: hdbk-start.docbook:74
+#, no-c-format
+msgid ""
+"These nifty little tips give you helpful hints for working more efficiently "
+"with &bibletime;, and also a few quotations from the Bible."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:21
+#, no-c-format
+msgid "The &bibletime; handbook"
+msgstr ""
+
+#. Tag: author
+#: index.docbook:25
+#, no-c-format
+msgid "<firstname>Fred</firstname> <surname>Saalbach</surname>"
+msgstr ""
+
+#. Tag: author
+#: index.docbook:30
+#, no-c-format
+msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
+msgstr ""
+
+#. Tag: author
+#: index.docbook:35
+#, no-c-format
+msgid "<firstname>Martin</firstname> <surname>Gruner</surname>"
+msgstr ""
+
+#. Tag: trans_comment
+#: index.docbook:42
+#, no-c-format
+msgid "ROLES_OF_TRANSLATORS"
+msgstr ""
+
+#. Tag: holder
+#: index.docbook:46
+#, no-c-format
+msgid "the &bibletime; team"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:50
+#, no-c-format
+msgid "The &bibletime; handbook is part of &bibletime;."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:59
+#, no-c-format
+msgid "&bibletime; is a powerful Bible study tool for &kde;."
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:65
+#, no-c-format
+msgid "<keyword>KDE</keyword>"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:67
+#, no-c-format
+msgid "sword"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:68
+#, no-c-format
+msgid "crosswire"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:69
+#, no-c-format
+msgid "help dialog"
 msgstr ""

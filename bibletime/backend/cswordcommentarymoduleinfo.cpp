@@ -5,7 +5,7 @@
 #include <string>
 
 CSwordCommentaryModuleInfo::CSwordCommentaryModuleInfo( sword::SWModule* module, CSwordBackend* const usedBackend)
-		: CSwordBibleModuleInfo(module, usedBackend) {}
+: CSwordBibleModuleInfo(module, usedBackend) {}
 
 CSwordCommentaryModuleInfo::~CSwordCommentaryModuleInfo() {}
 
@@ -18,8 +18,9 @@ CSwordModuleInfo* CSwordCommentaryModuleInfo::clone() {
 const bool CSwordCommentaryModuleInfo::isWritable() const {
 	//  qWarning(module()->getConfigEntry("ModDrv"));
 	//a module is only writable if it's a RawFiles module with writable returning true
+
 	if ( (std::string(module()->getConfigEntry("ModDrv")) == std::string("RawFiles")) && module()->isWritable()) {
-		return true;
+	return true;
 	};
 
 	return false;

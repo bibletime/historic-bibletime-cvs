@@ -34,45 +34,45 @@
 using namespace Rendering;
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo const * mod, const Settings settings )
-		: m_settings( settings ),
-		m_moduleList(),
-		m_key( key ),
-		m_childList( 0 ),
-		m_stopKey( QString::null ),
+: m_settings( settings ),
+m_moduleList(),
+m_key( key ),
+m_childList( 0 ),
+m_stopKey( QString::null ),
 m_alternativeContent( QString::null ) {
 	m_moduleList.append( const_cast<CSwordModuleInfo*>(mod) ); //BAD CODE
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& content, const Settings settings )
-		: m_settings( settings ),
-		m_moduleList(),
-		m_key( QString::null ),
-		m_childList( 0 ),
-		m_stopKey( QString::null ),
+: m_settings( settings ),
+m_moduleList(),
+m_key( QString::null ),
+m_childList( 0 ),
+m_stopKey( QString::null ),
 m_alternativeContent( content ) {}
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, const ListCSwordModuleInfo& mods, const Settings settings )
-		: m_settings( settings ),
-		m_moduleList( mods ),
-		m_key( key ),
-		m_childList( 0 ),
-		m_stopKey( QString::null ),
+: m_settings( settings ),
+m_moduleList( mods ),
+m_key( key ),
+m_childList( 0 ),
+m_stopKey( QString::null ),
 m_alternativeContent( QString::null ) {}
 
 CTextRendering::KeyTreeItem::KeyTreeItem()
-		: m_settings(),
-		m_moduleList(),
-		m_key(QString::null),
-		m_childList(0),
-		m_stopKey(QString::null),
+: m_settings(),
+m_moduleList(),
+m_key(QString::null),
+m_childList(0),
+m_stopKey(QString::null),
 m_alternativeContent(QString::null) {}
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const KeyTreeItem& i)
-		: m_settings( i.m_settings ),
-		m_moduleList( i.m_moduleList ),
-		m_key( i.m_key ),
-		m_childList( 0 ),
-		m_stopKey( i.m_stopKey ),
+: m_settings( i.m_settings ),
+m_moduleList( i.m_moduleList ),
+m_key( i.m_key ),
+m_childList( 0 ),
+m_stopKey( i.m_stopKey ),
 m_alternativeContent( i.m_alternativeContent ) {
 	if (i.hasChildItems()) {
 		m_childList = new KeyTree();
@@ -87,11 +87,11 @@ CTextRendering::KeyTreeItem::~KeyTreeItem() {
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module, const Settings settings)
-		: m_settings( settings ),
-		m_moduleList(),
-		m_key( startKey ),
-		m_childList( 0 ),
-		m_stopKey( stopKey ),
+: m_settings( settings ),
+m_moduleList(),
+m_key( startKey ),
+m_childList( 0 ),
+m_stopKey( stopKey ),
 m_alternativeContent( QString::null ) {
 	Q_ASSERT(module);
 	m_moduleList.append(module);
@@ -115,12 +115,15 @@ m_alternativeContent( QString::null ) {
 
 				ok = start.next(CSwordVerseKey::UseVerse);
 			}
-		} else if (m_key.isEmpty()) {
+		}
+		else if (m_key.isEmpty()) {
 			childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::SimpleKey)) );
 		}
-	} else if ((module->type() == CSwordModuleInfo::Lexicon) || (module->type() == CSwordModuleInfo::Commentary) ) {
+	}
+	else if ((module->type() == CSwordModuleInfo::Lexicon) || (module->type() == CSwordModuleInfo::Commentary) ) {
 		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
-	} else if (module->type() == CSwordModuleInfo::GenericBook) {
+	}
+	else if (module->type() == CSwordModuleInfo::GenericBook) {
 		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
 	}
 
@@ -128,16 +131,20 @@ m_alternativeContent( QString::null ) {
 
 	if (startKey == stopKey) {
 		m_alternativeContent = startKey;
-	} else {
+	}
+	else {
 		sword::VerseKey vk(startKey.utf8(), stopKey.utf8());
+
 		if (vk.LowerBound().Book() != vk.UpperBound().Book()) {
 			m_alternativeContent = QString::fromUtf8(vk.getRangeText());
-		} else if (vk.LowerBound().Chapter() != vk.UpperBound().Chapter()) {
+		}
+		else if (vk.LowerBound().Chapter() != vk.UpperBound().Chapter()) {
 			m_alternativeContent = QString("%1 - %2:%3")
 								   .arg(QString::fromUtf8(vk.LowerBound().getText()))
 								   .arg(vk.UpperBound().Chapter())
 								   .arg(vk.UpperBound().Verse());
-		} else { //only verses differ (same book, same chapter)
+		}
+		else { //only verses differ (same book, same chapter)
 			m_alternativeContent = QString("%1 - %2")
 								   .arg(QString::fromUtf8(vk.LowerBound().getText()))
 								   .arg(vk.UpperBound().Verse());
@@ -160,7 +167,7 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() const {
 	ListCSwordModuleInfo modules;
 
 	for (KeyTreeItem* c = first(); c; c = next()) {
-		Q_ASSERT(c);
+	Q_ASSERT(c);
 
 		ListCSwordModuleInfo childMods = c->modules();
 
@@ -174,6 +181,7 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() const {
 
 		//   for (CSwordModuleInfo* m = childMods.first(); m; m = childMods.next()) {
 		ListCSwordModuleInfo::iterator end_it = childMods.end();
+
 		for (ListCSwordModuleInfo::iterator it(childMods.begin()); it != end_it; ++it) {
 			if (!modules.contains(*it)) {
 				modules.append(*it);
@@ -200,7 +208,8 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 		if (modules.count() == 1) { //this optimizes the rendering, only one key created for all items
 			key->key( c->key() );
 			t.append( renderEntry( *c, key) );
-		} else {
+		}
+		else {
 			t.append( renderEntry( *c ) );
 		}
 	}
@@ -222,9 +231,11 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 	sword::SWKey* sw_stop = dynamic_cast<sword::SWKey*>(upperBound.get());
 
 	Q_ASSERT((*sw_start == *sw_stop) || (*sw_start < *sw_stop));
+
 	if (*sw_start == *sw_stop) { //same key, render single key
 		return renderSingleKey(lowerBound->key(), modules);
-	} else if (*sw_start < *sw_stop) { // Render range
+	}
+	else if (*sw_start < *sw_stop) { // Render range
 		KeyTree tree;
 		KeyTreeItem::Settings settings = keySettings;
 
@@ -237,6 +248,7 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 		//   vk_stop->setLocale("en_US");
 
 		bool ok = true;
+
 		while (ok && ((*vk_start < *vk_stop) || (*vk_start == *vk_stop))) {
 			//make sure the key given by highlightKey gets marked as current key
 			settings.highlight = (!highlightKey.isEmpty() ? (vk_start->key() == highlightKey) : false);

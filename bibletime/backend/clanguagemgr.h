@@ -13,13 +13,17 @@
 /** Manages the anguages of BibleTime and provides functions to work with them.
   * @author The BibleTime team
   */
-class CLanguageMgr  {
+
+class CLanguageMgr {
+
 public:
 	/** Language container.
 	 * This class (Language) contains the information about the chosen language.
 	 */
+
 	class Language {
-	public:
+
+public:
 		/** Default constructor of a language object.
 		 * Uses the abbreviation parameter to lookup the
 		 * language name and to be able to return the name, flag etc.
@@ -50,19 +54,21 @@ public:
 		inline const QString& name() const {
 			return m_englishName;
 		}
+
 		/** The alternative abbreviations which are avalable for this language.
 		 * @return A pointer to the list of alternate abbreviations
 		 */
 		inline const QStringList* const alternativeAbbrevs() const {
 			return m_altAbbrevs;
 		};
+
 		/**
 		  * Returns true if this language object is valid, i.e. has an abbrev and name.
 		  * @return True if the data is valid for this language.
 		  */
 		inline const bool isValid() const;
 
-	private:
+private:
 		QString m_abbrev;
 		QString m_englishName;
 		QString m_translatedName;
@@ -124,6 +130,7 @@ private:
 		unsigned int moduleCount;
 		LangMap availableLanguages;
 	}
+
 	m_availableModulesCache;
 };
 
@@ -135,8 +142,9 @@ inline const bool CLanguageMgr::Language::isValid() const {
 
 inline const QString& CLanguageMgr::Language::abbrev() const {
 	if (m_altAbbrevs && m_abbrev.isEmpty() && m_altAbbrevs->count()) { //no standard abbrev but alternative ones
-		return m_altAbbrevs->first();
+	return m_altAbbrevs->first();
 	};
+
 	return m_abbrev;
 }
 

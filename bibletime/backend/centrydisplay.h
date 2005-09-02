@@ -25,9 +25,12 @@ namespace Rendering {
 	 * @short Display implementation
 	 * @author The BibleTime team
 	 */
-	class CEntryDisplay : public sword::SWDisplay, public CPointers  {
-	public:
+
+class CEntryDisplay : public sword::SWDisplay, public CPointers {
+
+public:
 		virtual ~CEntryDisplay() {}
+
 		;
 
 		/**

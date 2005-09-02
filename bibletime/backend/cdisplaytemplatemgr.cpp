@@ -47,36 +47,45 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	const QString templateName = m_templateMap.contains(name) ? name : defaultTemplate();
 
 	QString displayTypeString;
+
 	if (!settings.pageCSS_ID.isEmpty()) {
 		displayTypeString = settings.pageCSS_ID;
-	} else {
+	}
+	else {
 		if (settings.modules.count()) {
 			switch (settings.modules.first()->type()) {
-			case CSwordModuleInfo::Bible:
+
+				case CSwordModuleInfo::Bible:
 				displayTypeString = "bible";
 				break;
-			case CSwordModuleInfo::GenericBook:
+
+				case CSwordModuleInfo::GenericBook:
 				displayTypeString = "book";
 				break;
 
-			case CSwordModuleInfo::Commentary:
-			case CSwordModuleInfo::Lexicon:
-			default:
+				case CSwordModuleInfo::Commentary:
+
+				case CSwordModuleInfo::Lexicon:
+
+				default:
 				displayTypeString = "singleentry";
 				break;
 			};
-		} else { //use bible as default type if no modules are set
+		}
+		else { //use bible as default type if no modules are set
 			displayTypeString = "bible";
 		};
 	}
 
 	QString newContent = content;
 	const int moduleCount = settings.modules.count();
+
 	if (moduleCount >= 2) {
 		//create header for the modules
 		QString header;
 
 		ListCSwordModuleInfo::iterator end_it = settings.modules.end();
+
 		for (ListCSwordModuleInfo::iterator it(settings.modules.begin()); it != end_it; ++it) {
 			header.append("<th style=\"width:")
 			.append(QString::number(int( 100.0 / (float)moduleCount )))
@@ -101,14 +110,20 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 
 		if (lang->isValid() && CBTConfig::get
 					(lang).first) {
+
 				const QFont f = CBTConfig::get
 									(lang).second;
 
 				QString css("{ ");
+
 				css.append("font-family:").append(f.family()).append(" !important");
+
 				css.append("; font-size:").append(QString::number(f.pointSize())).append("pt !important");
+
 				css.append("; font-weight:").append(f.bold() ? "bold" : "normal !important");
+
 				css.append("; font-style:").append(f.italic() ? "italic" : "normal !important");
+
 				css.append("; }\n");
 
 				langCSS +=
@@ -120,7 +135,9 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 
 	//at first append the font standard settings for all languages without configured font
 	CLanguageMgr::LangMapIterator it( langMap );
+
 	const CLanguageMgr::Language* lang = it.current();
+
 	if (lang && lang->isValid()) {
 		const QFont standardFont = CBTConfig::getDefault(lang); //we just need a dummy lang param
 		langCSS.prepend(
@@ -158,6 +175,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
  */
 void CDisplayTemplateMgr::loadUserTemplates() {
 	QStringList files = KGlobal::dirs()->findAllResources("BT_DisplayTemplates");
+
 	for ( QStringList::iterator it( files.begin() ); it != files.end(); ++it) {
 		qDebug("Found user template %s", (*it).latin1());
 

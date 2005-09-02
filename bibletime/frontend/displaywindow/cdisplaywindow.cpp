@@ -38,15 +38,15 @@
 
 CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
 	switch (modules.first()->type()) {
-	case CSwordModuleInfo::Bible:
+		case CSwordModuleInfo::Bible:
 		return new CBibleReadWindow(modules, parent, name);
-	case CSwordModuleInfo::Commentary:
+		case CSwordModuleInfo::Commentary:
 		return new CCommentaryReadWindow(modules, parent, name);
-	case CSwordModuleInfo::Lexicon:
+		case CSwordModuleInfo::Lexicon:
 		return new CLexiconReadWindow(modules, parent, name);
-	case CSwordModuleInfo::GenericBook:
+		case CSwordModuleInfo::GenericBook:
 		return new CBookReadWindow(modules, parent, name);
-	default:
+		default:
 		qWarning("unknown module type");
 		break;
 	}
@@ -57,25 +57,26 @@ CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CM
 CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const CDisplayWindow::WriteWindowType type, const char* name) {
 	if (type == HTMLWindow) {
 		return new CHTMLWriteWindow(modules, parent, name);
-	} else {
+	}
+	else {
 		return new CPlainWriteWindow(modules, parent, name);
 	};
 	return 0;
 }
 
 CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, const char *name )
-		: KMainWindow(KMainWindow::NoDCOPObject, parent, name, WDestructiveClose),
-		m_mdi(parent),
-		//    m_modules(modules),
-		m_filterOptions(),
-		m_displayOptions(),
-		m_displaySettingsButton(0),
-		m_keyChooser(0),
-		m_swordKey(0),
-		m_isReady(false),
-		m_moduleChooserBar(0),
-		m_mainToolBar(0),
-		m_popupMenu(0),
+: KMainWindow(KMainWindow::NoDCOPObject, parent, name, WDestructiveClose),
+m_mdi(parent),
+//    m_modules(modules),
+m_filterOptions(),
+m_displayOptions(),
+m_displaySettingsButton(0),
+m_keyChooser(0),
+m_swordKey(0),
+m_isReady(false),
+m_moduleChooserBar(0),
+m_mainToolBar(0),
+m_popupMenu(0),
 m_displayWidget(0) {
 	//  qWarning("set modules now");
 	setModules(modules);
@@ -296,7 +297,8 @@ void CDisplayWindow::modulesChanged() {
 
 	if (!modules().count()) {
 		close();
-	} else {
+	}
+	else {
 		if (displaySettingsButton()) {
 			displaySettingsButton()->reset(modules());
 		}
@@ -413,7 +415,8 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 		//    qWarning("using this window");
 		key()->key(keyName);
 		keyChooser()->setKey(key()); //the key chooser does send an update signal
-	} else { //given module not displayed in this window
+	}
+	else { //given module not displayed in this window
 		//if the module is displayed in another display window we assume a wrong drop
 		QWidgetList windows = mdi()->windowList();
 		bool found = false;
@@ -431,7 +434,8 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 		if (found) { //lookup in the window which has the module displayed
 			//     qWarning("using other existing window");
 			dw->lookup(moduleName, keyName);
-		} else { //create a new window for the given module
+		}
+		else { //create a new window for the given module
 			//     qWarning("creating a new window");
 			ListCSwordModuleInfo mList;
 			mList.append(m);
@@ -483,7 +487,8 @@ void CDisplayWindow::setDisplayWidget( CDisplay* newDisplay ) {
 void CDisplayWindow::closeEvent(QCloseEvent* e) {
 	if (!queryClose()) {
 		e->ignore();
-	} else {
+	}
+	else {
 		e->accept();
 	}
 }

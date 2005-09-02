@@ -46,6 +46,7 @@ namespace Rendering {
 
 		// standard of DisplayLevel, display nothing together
 		// if the current key is the root entry don't display anything together!
+
 		if ((displayLevel <= 1) || (key->key().isEmpty() || (key->key() == "/") )) {
 			tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
 
@@ -61,12 +62,15 @@ namespace Rendering {
 		*/
 
 		int possibleLevels = 1; //we start with the default value of displayLevel, which means no entries together
+
 		while( key->parent() && (key->key() != "/") && !key->key().isEmpty() ) {//add parents
 			++possibleLevels;
 		};
+
 		//   key->key(keyName); //set the key to the start position
 
 		key->setOffset( offset );
+
 		while( key->firstChild( )) { //add childs
 			++possibleLevels;
 		};
@@ -87,6 +91,7 @@ namespace Rendering {
 		// at this point we're sure that we can display the required levels toogether
 		// at the moment we're at the lowest level, so we only have to go up!
 		for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
+
 			if ( !key->parent() ) { //something went wrong although we checked before! Be safe and return entry's text
 				tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
 
@@ -98,13 +103,16 @@ namespace Rendering {
 
 		// no we can display all sub levels together! We checked before that this is possible!
 		itemSettings.highlight = (key->key() == keyName);
+
 		tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
 
 		//const bool hasToplevelText = !key->strippedText().isEmpty();
 		key->firstChild(); //go to the first sibling on the same level
+
 		setupRenderTree(key.get(), &tree, keyName);
 
 		const QString renderedText = render.renderKeyTree(tree);
+
 		key->setOffset( offset ); //restore key
 
 		return renderedText;

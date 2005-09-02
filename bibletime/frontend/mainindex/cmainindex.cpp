@@ -54,12 +54,14 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 				InfoDisplay::CInfoDisplay::CrossReference,
 				bookmark->module()->name() + ":" + bookmark->key()
 			);
-		} else {
+		}
+		else {
 			CPointers::infoDisplay()->clearInfo();
 		}
 
 		tip(r, text);
-	} else {
+	}
+	else {
 		CPointers::infoDisplay()->clearInfo();
 	}
 }
@@ -83,13 +85,13 @@ CMainIndex::~CMainIndex() {
 void CMainIndex::addGroup(const CItemBase::Type type, const QString language) {
 	CTreeFolder *i = 0;
 	switch (type) {
-	case CItemBase::BookmarkFolder:
+		case CItemBase::BookmarkFolder:
 		i = new CBookmarkFolder(this);
 		break;
-	case CItemBase::GlossaryModuleFolder:
+		case CItemBase::GlossaryModuleFolder:
 		i = new CGlossaryFolder(this, type, language, QString::null); //we have no second language
 		break;
-	default:
+		default:
 		i = new CTreeFolder(this, type, language);
 		break;
 	}
@@ -189,12 +191,14 @@ void CMainIndex::slotExecuted( QListViewItem* i ) {
 
 	if (ci->isFolder()) {
 		i->setOpen(!i->isOpen());
-	} else if (CModuleItem* m = dynamic_cast<CModuleItem*>(i))  { //clicked on a module
+	}
+	else if (CModuleItem* m = dynamic_cast<CModuleItem*>(i))  { //clicked on a module
 		CSwordModuleInfo* mod = m->module();
 		ListCSwordModuleInfo modules;
 		modules.append(mod);
 		emit createReadDisplayWindow(modules, QString::null);
-	} else if (CBookmarkItem* b = dynamic_cast<CBookmarkItem*>(i) ) { //clicked on a bookmark
+	}
+	else if (CBookmarkItem* b = dynamic_cast<CBookmarkItem*>(i) ) { //clicked on a bookmark
 		if (CSwordModuleInfo* mod = b->module()) {
 			ListCSwordModuleInfo modules;
 			modules.append(mod);
@@ -281,7 +285,8 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
 
 		afterItem->setOpen(true);
 		afterItem->dropped(e); //inserts new items, moving only works on the same level
-	} else if (afterItem && !afterItem->isFolder() && parentItem) {
+	}
+	else if (afterItem && !afterItem->isFolder() && parentItem) {
 		const bool justMoveSelected =
 			(e->source() == viewport())
 			&& m_itemsMovable
@@ -291,19 +296,22 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
 		if (justMoveSelected) {
 			moveSelectedItems = true;
 			removeSelectedItems = false;
-		} else {
+		}
+		else {
 			moveSelectedItems = false;
 			removeSelectedItems = false;
 
 			if (afterItem->acceptDrop(e)) {
 				afterItem->dropped(e, after);
-			} else { //insert in the parent folder and then move the inserted items
+			}
+			else { //insert in the parent folder and then move the inserted items
 				parentItem->dropped(e, after);
 			}
 		}
 
 		parentItem->setOpen(true);
-	} else if (parentItem) { //no after item present, but a parent is there
+	}
+	else if (parentItem) { //no after item present, but a parent is there
 		moveSelectedItems = false;
 		removeSelectedItems = false;
 
@@ -342,32 +350,32 @@ void CMainIndex::emitModulesChosen( ListCSwordModuleInfo modules, QString key ) 
 KAction* const CMainIndex::action( const CItemBase::MenuAction type ) const {
 	switch (type) {
 	case CItemBase::NewFolder:
-		return m_actions.newFolder;
+	return m_actions.newFolder;
 	case CItemBase::ChangeFolder:
-		return m_actions.changeFolder;
+	return m_actions.changeFolder;
 
 	case CItemBase::ChangeBookmark:
-		return m_actions.changeBookmark;
+	return m_actions.changeBookmark;
 	case CItemBase::ImportBookmarks:
-		return m_actions.importBookmarks;
+	return m_actions.importBookmarks;
 	case CItemBase::ExportBookmarks:
-		return m_actions.exportBookmarks;
+	return m_actions.exportBookmarks;
 	case CItemBase::PrintBookmarks:
-		return m_actions.printBookmarks;
+	return m_actions.printBookmarks;
 
 	case CItemBase::DeleteEntries:
-		return m_actions.deleteEntries;
+	return m_actions.deleteEntries;
 
 	case CItemBase::EditModule:
-		return m_actions.editModuleMenu;
+	return m_actions.editModuleMenu;
 	case CItemBase::SearchInModules:
-		return m_actions.searchInModules;
+	return m_actions.searchInModules;
 	case CItemBase::UnlockModule:
-		return m_actions.unlockModule;
+	return m_actions.unlockModule;
 	case CItemBase::AboutModule:
-		return m_actions.aboutModule;
+	return m_actions.aboutModule;
 	default:
-		return 0;
+	return 0;
 	};
 }
 
@@ -378,7 +386,8 @@ void CMainIndex::contextMenu(KListView* /*list*/, QListViewItem* i, const QPoint
 
 	if (items.count() == 0) { //special handling for no selection
 
-	} else if (items.count() == 1) { //special handling for one selected item
+	}
+	else if (items.count() == 1) { //special handling for one selected item
 		CItemBase* item = dynamic_cast<CItemBase*>(i);
 		CItemBase::MenuAction actionType;
 		for (int index = CItemBase::ActionBegin; index <= CItemBase::ActionEnd; ++index) {
@@ -386,7 +395,8 @@ void CMainIndex::contextMenu(KListView* /*list*/, QListViewItem* i, const QPoint
 			if (KAction* a = action(actionType))
 				a->setEnabled( item->enableAction(actionType) );
 		}
-	} else {
+	}
+	else {
 		//first disable all actions
 		CItemBase::MenuAction actionType;
 		for (int index = CItemBase::ActionBegin; index <= CItemBase::ActionEnd; ++index) {
@@ -458,7 +468,8 @@ void CMainIndex::printBookmarks() {
 
 	if (bf) {
 		items = bf->getChildList();
-	} else {
+	}
+	else {
 		items = selectedItems();
 	}
 
@@ -546,7 +557,8 @@ void CMainIndex::startDrag() {
 	for (items.first(); items.current() && m_itemsMovable; items.next()) {
 		if (CItemBase* i = dynamic_cast<CItemBase*>(items.current())) {
 			m_itemsMovable = (m_itemsMovable && i->isMovable());
-		} else {
+		}
+		else {
 			m_itemsMovable = false;
 		}
 	}
@@ -565,10 +577,12 @@ void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ) {
 			}
 			m_autoOpenFolder = i;
 			m_autoOpenTimer.start( 400, true );
-		} else {
+		}
+		else {
 			m_autoOpenFolder = 0;
 		}
-	} else {
+	}
+	else {
 		m_autoOpenFolder = 0;
 	}
 
@@ -603,30 +617,30 @@ void CMainIndex::contentsDragLeaveEvent( QDragLeaveEvent* e ) {
 const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
 	switch (type) {
 	case CItemBase::NewFolder:
-		return false;
+	return false;
 	case CItemBase::ChangeFolder:
-		return false;
+	return false;
 
 	case CItemBase::ChangeBookmark:
-		return false;
+	return false;
 	case CItemBase::ImportBookmarks:
-		return false;
+	return false;
 	case CItemBase::ExportBookmarks:
-		return false;
+	return false;
 	case CItemBase::PrintBookmarks:
-		return true;
+	return true;
 
 	case CItemBase::DeleteEntries:
-		return true;
+	return true;
 
 	case CItemBase::EditModule:
-		return false;
+	return false;
 	case CItemBase::SearchInModules:
-		return true;
+	return true;
 	case CItemBase::UnlockModule:
-		return false;
+	return false;
 	case CItemBase::AboutModule:
-		return false;
+	return false;
 	}
 	return false;
 }

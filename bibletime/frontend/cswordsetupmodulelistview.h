@@ -18,10 +18,10 @@ class CSwordBackend;
 
 namespace InstallationManager {
 
-	class CSwordSetupModuleListView : public KListView {
+class CSwordSetupModuleListView : public KListView {
 		Q_OBJECT
 
-	public:
+public:
 		CSwordSetupModuleListView(QWidget* parent, bool is_remote, sword::InstallSource* installSource = 0);
 		virtual ~CSwordSetupModuleListView();
 
@@ -33,10 +33,10 @@ namespace InstallationManager {
 		virtual QString tooltip(QListViewItem* i, int column) const;
 		virtual bool showTooltip(QListViewItem* i, const QPoint& pos, int column) const;
 
-	protected slots:
+protected slots:
 		void slotItemClicked(QListViewItem*);
 
-	private:
+private:
 		void init();
 
 		CSwordBackend* m_backend;
@@ -49,7 +49,7 @@ namespace InstallationManager {
 		QListViewItem* m_categoryDevotionals;
 		QListViewItem* m_categoryGlossaries;
 
-	signals:
+signals:
 		void selectedModulesChanged();
 	};
 

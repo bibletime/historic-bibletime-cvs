@@ -16,7 +16,7 @@
 
 
 CHTMLWriteWindow::CHTMLWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name)
-		: CPlainWriteWindow(modules, parent, name) {}
+: CPlainWriteWindow(modules, parent, name) {}
 
 CHTMLWriteWindow::~CHTMLWriteWindow() {}
 

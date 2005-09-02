@@ -46,6 +46,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 	ThMLHTML::processText(buf, key, module);
 
 	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() );
+
 	if (m && !(m->has(CSwordModuleInfo::lemmas) || m->has(CSwordModuleInfo::strongNumbers))) { //only parse if the module has strongs or lemmas
 		return 1;
 	}
@@ -58,6 +59,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 	QStringList list;
 	int lastMatchEnd = 0;
 	int pos = tag.search(t,0);
+
 	if (pos == -1) { //no strong or morph code found in this text
 		return 1; //WARNING: Return alread here
 	}
@@ -79,6 +81,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 		QString e( *it );
 
 		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(1) != "<");
+
 		if (!textPresent) {
 			continue;
 		}
@@ -99,15 +102,19 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 			valueClass = QString::null;
 
 			// check 3 attribute/value pairs
+
 			for (int i = 1; i < 6; i += 2) {
 				if (i > 4)
 					i++;
+
 				if (tag.cap(i) == "type") {
 					isMorph   = (tag.cap(i+1) == "morph");
 					isStrongs = (tag.cap(i+1) == "Strongs");
-				} else if (tag.cap(i) == "value") {
+				}
+				else if (tag.cap(i) == "value") {
 					value = tag.cap(i+1);
-				} else if (tag.cap(i) == "class") {
+				}
+				else if (tag.cap(i) == "class") {
 					valueClass = tag.cap(i+1);
 				}
 			}
@@ -142,7 +149,8 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 
 				e.insert( startPos, rep );
 				pos += rep.length();
-			} else { //add the attribute to the existing tag
+			}
+			else { //add the attribute to the existing tag
 				e.remove(pos, tag.matchedLength());
 
 				if ((!isMorph && hasLemmaAttr) || (isMorph && hasMorphAttr)) { //we append another attribute value, e.g. 3000 gets 3000|5000
@@ -158,8 +166,10 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 						hasLemmaAttr = !isMorph;
 						hasMorphAttr = isMorph;
 					}
-				} else { //attribute was not yet inserted
+				}
+				else { //attribute was not yet inserted
 					const int attrPos = e.find(QRegExp("morph=|lemma="), 0);
+
 					if (attrPos >= 0) {
 						QString attr;
 						attr.append(isMorph ? "morph" : "lemma").append("=\"").append(value).append("\" ");
@@ -195,6 +205,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		sword::SWModule* myModule = const_cast<sword::SWModule*>(myUserData->module); //hack to be able to call stuff like Lang()
 
 		if ( tag.getName() && !strcasecmp(tag.getName(), "foreign") ) { // a text part in another language, we have to set the right font
+
 			if (tag.getAttribute("lang")) {
 				const char* abbrev = tag.getAttribute("lang");
 				//const CLanguageMgr::Language* const language = CPointers::languageMgr()->languageForAbbrev( QString::fromLatin1(abbrev) );
@@ -203,13 +214,17 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				buf.append(abbrev);
 				buf.append("\">");
 			}
-		} else if (tag.getName() && !strcasecmp(tag.getName(), "sync")) { //lemmas, morph codes or strongs
+		}
+		else if (tag.getName() && !strcasecmp(tag.getName(), "sync")) { //lemmas, morph codes or strongs
+
 			if (tag.getAttribute("type") && (!strcasecmp(tag.getAttribute("type"), "morph") || !strcasecmp(tag.getAttribute("type"), "Strongs") || !strcasecmp(tag.getAttribute("type"), "lemma"))) { // Morph or Strong
 				buf.append('<');
 				buf.append(token);
 				buf.append('>');
 			}
-		} else if (tag.getName() && !strcasecmp(tag.getName(), "note")) { // <note> tag
+		}
+		else if (tag.getName() && !strcasecmp(tag.getName(), "note")) { // <note> tag
+
 			if (!tag.isEndTag() && !tag.isEmpty()) {
 				//appending is faster than appendFormatted
 				buf.append(" <span class=\"footnote\" note=\"");
@@ -222,13 +237,16 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 				myUserData->suspendTextPassThru = true;
 				myUserData->inFootnoteTag = true;
-			} else if (tag.isEndTag() && !tag.isEmpty()) { //end tag
+			}
+			else if (tag.isEndTag() && !tag.isEmpty()) { //end tag
 				//buf += ")</span>";
 				myUserData->suspendTextPassThru = false;
 				myUserData->inFootnoteTag = false;
 			}
-		} else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a scripRef
+		}
+		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a scripRef
 			//scrip refs which are embeded in footnotes may not be displayed!
+
 			if (!myUserData->inFootnoteTag) {
 				if (tag.isEndTag()) {
 					if (myUserData->inscriptRef) { // like "<scripRef passage="John 3:16">See John 3:16</scripRef>"
@@ -236,9 +254,12 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 						myUserData->inscriptRef = false;
 						myUserData->suspendTextPassThru = false;
-					} else { // like "<scripRef>John 3:16</scripRef>"
+					}
+					else { // like "<scripRef>John 3:16</scripRef>"
+
 						CSwordModuleInfo* mod = CBTConfig::get
 													(CBTConfig::standardBible);
+
 						Q_ASSERT(mod);
 
 						//       buf.append("<span class=\"crossreference\">$$");
@@ -274,6 +295,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						//
 
 						buf.append("<span class=\"crossreference\"><a href=\"");
+
 						buf.append(
 							CReferenceManager::encodeHyperlink(
 								mod->name(),
@@ -281,15 +303,21 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 								CReferenceManager::typeFromModule(mod->type())
 							).utf8()
 						);
+
 						buf.append("\" crossrefs=\"");
+
 						buf.append(myUserData->lastTextNode.c_str());
+
 						buf.append("\">");
+
 						buf.append(myUserData->lastTextNode.c_str());
+
 						buf.append("</a></span>");
 
 						myUserData->suspendTextPassThru = false;
 					}
-				} else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
+				}
+				else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
 					myUserData->inscriptRef = true;
 					myUserData->suspendTextPassThru = false;
 
@@ -298,6 +326,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 					CSwordModuleInfo* mod = CBTConfig::get
 												(CBTConfig::standardBible);
+
 					Q_ASSERT(mod);
 
 					if (mod) {
@@ -309,26 +338,33 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						buf.append("\" crossrefs=\"");
 						buf.append(ref);
 						buf.append("\">");
-					} else {
+					}
+					else {
 						buf.append("<span><a>");
 					}
-				} else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
+				}
+				else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 					myUserData->inscriptRef = false;
 
 					// let's stop text from going to output, the text get's added in the -tag handler
 					myUserData->suspendTextPassThru = true;
 				}
 			}
-		} else if (tag.getName() && !strcasecmp(tag.getName(), "div")) {
+		}
+		else if (tag.getName() && !strcasecmp(tag.getName(), "div")) {
 			if (tag.isEndTag()) {
 				buf.append("</div>");
-			} else if ( tag.getAttribute("class") && !strcasecmp(tag.getAttribute("class"),"sechead") ) {
+			}
+			else if ( tag.getAttribute("class") && !strcasecmp(tag.getAttribute("class"),"sechead") ) {
 				buf.append("<div class=\"sectiontitle\">");
-			} else if (tag.getAttribute("class") && !strcasecmp(tag.getAttribute("class"), "title")) {
+			}
+			else if (tag.getAttribute("class") && !strcasecmp(tag.getAttribute("class"), "title")) {
 				buf.append("<div class=\"booktitle\">");
 			}
-		} else if (tag.getName() && !strcasecmp(tag.getName(), "img") && tag.getAttribute("src")) {
+		}
+		else if (tag.getName() && !strcasecmp(tag.getName(), "img") && tag.getAttribute("src")) {
 			const char* value = tag.getAttribute("src");
+
 			if (value[0] == '/') {
 				value++; //strip the first /
 			}
@@ -338,9 +374,11 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			buf.append('/');
 			buf.append(value);
 			buf.append("\" />");
-		} else { // let unknown token pass thru
+		}
+		else { // let unknown token pass thru
 			return sword::ThMLHTML::handleToken(buf, token, userData);
 		}
 	}
+
 	return true;
 }

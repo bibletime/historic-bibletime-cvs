@@ -22,7 +22,7 @@
 namespace Rendering {
 
 	CPlainTextExportRendering::CPlainTextExportRendering(const CPlainTextExportRendering::Settings& settings, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
-			: CHTMLExportRendering(settings, displayOptions, filterOptions) {}
+: CHTMLExportRendering(settings, displayOptions, filterOptions) {}
 
 	CPlainTextExportRendering::~CPlainTextExportRendering() {}
 
@@ -38,6 +38,7 @@ namespace Rendering {
 		QString entry;
 		//   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
 		ListCSwordModuleInfo::iterator end_it = modules.end();
+
 		for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
 			key->module(*it);
 			key->key( i.key() );

@@ -906,8 +906,8 @@ namespace CResMgr {
 				{
 					using namespace chooseScope;
 					tooltip     = i18n ("Choose a scope from the list. \
-										Select the first item to use no scope, the second one is to use each work's last search result as search scope. \
-										The others are user defined search scopes.");
+Select the first item to use no scope, the second one is to use each work's last search result as search scope. \
+The others are user defined search scopes.");
 				}
 				{
 					using namespace scopeEditor;

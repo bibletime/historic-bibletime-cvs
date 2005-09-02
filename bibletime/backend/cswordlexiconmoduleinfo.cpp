@@ -62,6 +62,7 @@ QStringList* const CSwordLexiconModuleInfo::entries() {
 		bool read = false;
 
 		//Check for buggy modules! They will not be loaded any more.
+
 		if ( name() == QString("ZhEnglish") && QString( config( CSwordModuleInfo::ModuleVersion ) ) == QString("0.5") ) {
 			qWarning("Module ZhEnglish (Version 0.5) is buggy and will not be loaded. Please install a newer version.");
 			return m_entryList;
@@ -79,6 +80,7 @@ QStringList* const CSwordLexiconModuleInfo::entries() {
 			QString mod_ver, prog_ver;
 			s >> mod_ver;
 			s >> prog_ver;
+
 			if ((mod_ver == config(ModuleVersion)) && (prog_ver == CACHE_FORMAT)) {
 				s >> *m_entryList;
 				read = true;
@@ -102,22 +104,28 @@ QStringList* const CSwordLexiconModuleInfo::entries() {
 				if ( is_unicode ) {
 					m_entryList->append(QString::fromUtf8(my_module->KeyText()));
 					//      qWarning("Entry: %s", my_module->KeyText() );
-				} else { //for latin1 modules use fromLatin1 because of speed
+				}
+				else { //for latin1 modules use fromLatin1 because of speed
 					//           m_entryList->append(QString::fromLatin1(my_module->KeyText()));
 					m_entryList->append(QString(my_module->KeyText()));
 				}
+
 				(*my_module)++;
 				i++;
-			} while ( !my_module->Error() );
+			}
+			while ( !my_module->Error() );
 
 			//     qWarning("Reading finished. Module has %d entries.", i );
 
 			(*my_module) = sword::TOP; //back to the first entry
+
 			my_module->setSkipConsecutiveLinks(false);
 
 			if (m_entryList->count()) {
 				m_entryList->first().simplifyWhiteSpace();
+
 				if (m_entryList->first().stripWhiteSpace().isEmpty()) {
+
 					m_entryList->remove
 					( m_entryList->begin() );
 				}
@@ -148,6 +156,7 @@ QStringList* const CSwordLexiconModuleInfo::entries() {
 					f2.close();
 				}
 			}
+
 			// //     qWarning("Writing finished." );
 		}
 	}

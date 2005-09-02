@@ -24,7 +24,7 @@
 #include <klocale.h>
 
 CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
-		: CDisplayWindow(modules,parent,name),
+: CDisplayWindow(modules,parent,name),
 m_displayWidget(0) {
 
 	//   installEventFilter(this);
@@ -142,7 +142,8 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings) {
 	if (settings->maximized()) { //maximize this window
 		// Use parentWidget() to call showMaximized. Otherwise we'd get lot's of X11 errors
 		parentWidget()->showMaximized();
-	} else {
+	}
+	else {
 		const QRect rect = settings->geometry();
 		resize(rect.width(), rect.height());
 		parentWidget()->move(rect.x(), rect.y());

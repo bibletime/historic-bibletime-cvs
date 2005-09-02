@@ -107,15 +107,16 @@ CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow, const C
 	//  qWarning("CDisplay::createWriteInstance");
 	if (type == PlainTextDisplay) {
 		return new CPlainWriteDisplay(writeWindow, parent);
-	} else {
+	}
+	else {
 		return new CHTMLWriteDisplay(writeWindow, parent);
 	};
 }
 
 
 CDisplay::CDisplay(CDisplayWindow* parent) :
-		m_parentWindow(parent),
-		m_connections( new CDisplayConnections( this ) ),
+m_parentWindow(parent),
+m_connections( new CDisplayConnections( this ) ),
 m_popup(0) {}
 
 CDisplay::~CDisplay() {
@@ -136,10 +137,10 @@ const bool CDisplay::save( const CDisplay::TextType format, const CDisplay::Text
 	QString filter = QString::null;
 
 	switch (format) {
-	case HTMLText:
+		case HTMLText:
 		filter = QString("*.html *.htm | ") + i18n("HTML files") + QString("\n *.* | All files (*.*)");
 		break;
-	case PlainText:
+		case PlainText:
 		filter = QString("*.txt | ") + i18n("Text files") + QString("\n *.* | All files (*.*)");
 		break;
 	};

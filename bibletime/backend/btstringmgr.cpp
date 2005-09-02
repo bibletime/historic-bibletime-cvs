@@ -22,8 +22,10 @@ char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
 		strncpy(text, (const char*)QString::fromUtf8(text).upper().utf8(), max);
 
 		return text;
-	} else {
+	}
+	else {
 		char* ret = text;
+
 		while (*text) {
 			*text = toupper(*text);
 			text++;
@@ -54,10 +56,10 @@ const bool BTStringMgr::isUtf8(const char *buf) {
 	register unsigned char c;
 	bool gotone = false;
 
-#define F 0   /* character never appears in text */
-#define T 1   /* character appears in plain ASCII text */
-#define I 2   /* character appears in ISO-8859 text */
-#define X 3   /* character appears in non-ISO extended ASCII (Mac, IBM PC) */
+	#define F 0   /* character never appears in text */
+	#define T 1   /* character appears in plain ASCII text */
+	#define I 2   /* character appears in ISO-8859 text */
+	#define X 3   /* character appears in non-ISO extended ASCII (Mac, IBM PC) */
 
 	static const unsigned char text_chars[256] = {
 				/*                  BEL BS HT LF    FF CR    */
@@ -82,6 +84,7 @@ const bool BTStringMgr::isUtf8(const char *buf) {
 			};
 
 	/* *ulen = 0; */
+
 	for (i = 0; (c = buf[i]); i++) {
 		if ((c & 0x80) == 0) {        /* 0xxxxxxx is plain ASCII */
 			/*
@@ -92,35 +95,45 @@ const bool BTStringMgr::isUtf8(const char *buf) {
 			if (text_chars[c] != T)
 				return false;
 
-		} else if ((c & 0x40) == 0) { /* 10xxxxxx never 1st byte */
+		}
+		else if ((c & 0x40) == 0) { /* 10xxxxxx never 1st byte */
 			return false;
-		} else {                           /* 11xxxxxx begins UTF-8 */
+		}
+		else {                           /* 11xxxxxx begins UTF-8 */
 			int following;
 
 			if ((c & 0x20) == 0) {             /* 110xxxxx */
 				following = 1;
-			} else if ((c & 0x10) == 0) {      /* 1110xxxx */
+			}
+			else if ((c & 0x10) == 0) {      /* 1110xxxx */
 				following = 2;
-			} else if ((c & 0x08) == 0) {      /* 11110xxx */
+			}
+			else if ((c & 0x08) == 0) {      /* 11110xxx */
 				following = 3;
-			} else if ((c & 0x04) == 0) {      /* 111110xx */
+			}
+			else if ((c & 0x04) == 0) {      /* 111110xx */
 				following = 4;
-			} else if ((c & 0x02) == 0) {      /* 1111110x */
+			}
+			else if ((c & 0x02) == 0) {      /* 1111110x */
 				following = 5;
-			} else
+			}
+			else
 				return false;
 
 			for (n = 0; n < following; n++) {
 				i++;
+
 				if (!(c = buf[i]))
 					goto done;
 
 				if ((c & 0x80) == 0 || (c & 0x40))
 					return false;
 			}
+
 			gotone = true;
 		}
 	}
+
 done:
 	return gotone;   /* don't claim it's UTF-8 if it's all 7-bit */
 }

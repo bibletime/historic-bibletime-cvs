@@ -24,14 +24,14 @@ namespace InstallationManager {
 	 * @short Tooltip for InstallationManager listviews
 	 * @author Joachim Ansorg
 	 */
-	class ToolTip : public QToolTip {
-	public:
+class ToolTip : public QToolTip {
+public:
 		/** Constructor which takes the listview to operate on.
 		  * @param listview We operate on this widget to request tooltips from it'd child items.
 		 * @short Constructor.
 		 */
 		ToolTip(CSwordSetupModuleListView* listview)
-				: QToolTip( listview->viewport() ),
+: QToolTip( listview->viewport() ),
 		m_parent( listview ) {}
 
 		/** Reimplementation of QToolTip::maybeTip. It's requested if a new tooltip may be displayed.
@@ -48,7 +48,7 @@ namespace InstallationManager {
 			}
 		}
 
-	protected:
+protected:
 		CSwordSetupModuleListView* m_parent;
 	};
 
@@ -57,7 +57,7 @@ namespace InstallationManager {
 	 * @author Martin Gruner
 	 */
 	CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_remote, sword::InstallSource* installSource)
-			: KListView(parent), m_is_remote( is_remote ) {
+: KListView(parent), m_is_remote( is_remote ) {
 		Q_ASSERT(installSource);
 		new InstallationManager::ToolTip(this);
 		m_backend = installSource ? BTInstallMgr::Tool::backend(installSource) : CPointers::backend();
@@ -73,7 +73,8 @@ namespace InstallationManager {
 
 		if (m_is_remote) {
 			addColumn(i18n("Remote version")); //version
-		} else {
+		}
+		else {
 			addColumn(i18n("Location"));
 		}
 		setColumnAlignment(3, Qt::AlignLeft);
@@ -94,14 +95,14 @@ namespace InstallationManager {
 	}
 
 	void CSwordSetupModuleListView::init() {
-#if QT_VERSION >= 320
+		#if QT_VERSION >= 320
 		m_categoryBible = new QCheckListItem(this, i18n("Bibles"), QCheckListItem::CheckBoxController);
 		m_categoryCommentary = new QCheckListItem(this, i18n("Commentaries"), QCheckListItem::CheckBoxController);
 		m_categoryLexicon = new QCheckListItem(this, i18n("Lexicons"), QCheckListItem::CheckBoxController);
 		m_categoryBook = new QCheckListItem(this, i18n("Books"), QCheckListItem::CheckBoxController);
 		m_categoryDevotionals = new QCheckListItem(this, i18n("Daily Devotionals"), QCheckListItem::CheckBoxController);
 		m_categoryGlossaries = new QCheckListItem(this, i18n("Glossaries"), QCheckListItem::CheckBoxController);
-#else
+		#else
 		//  Qt <= 3.1.x doesn't support the CheckBoxController!, remove the define as soon as we switch to the new Qt
 		m_categoryBible = new QCheckListItem(this, i18n("Bibles"), QCheckListItem::Controller);
 		m_categoryCommentary = new QCheckListItem(this, i18n("Commentaries"), QCheckListItem::Controller);
@@ -109,7 +110,7 @@ namespace InstallationManager {
 		m_categoryBook = new QCheckListItem(this, i18n("Books"), QCheckListItem::Controller);
 		m_categoryDevotionals = new QCheckListItem(this, i18n("Daily Devotionals"), QCheckListItem::Controller);
 		m_categoryGlossaries = new QCheckListItem(this, i18n("Glossaries"), QCheckListItem::Controller);
-#endif
+		#endif
 
 		m_categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 		m_categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
@@ -153,19 +154,19 @@ namespace InstallationManager {
 
 		QListViewItem* parent = 0;
 		switch ( module->type() ) {
-		case CSwordModuleInfo::Bible:
+			case CSwordModuleInfo::Bible:
 			parent = m_categoryBible;
 			break;
-		case CSwordModuleInfo::Commentary:
+			case CSwordModuleInfo::Commentary:
 			parent = m_categoryCommentary;
 			break;
-		case CSwordModuleInfo::Lexicon:
+			case CSwordModuleInfo::Lexicon:
 			parent = m_categoryLexicon;
 			break;
-		case CSwordModuleInfo::GenericBook:
+			case CSwordModuleInfo::GenericBook:
 			parent = m_categoryBook;
 			break;
-		default:
+			default:
 			parent = 0;
 			break;
 		}
@@ -199,12 +200,12 @@ namespace InstallationManager {
 		}
 
 		if (!langFolder) { //not yet there
-#if QT_VERSION >= 320
+			#if QT_VERSION >= 320
 			langFolder = new QCheckListItem(parent, langName, QCheckListItem::CheckBoxController);
-#else
+			#else
 
 			langFolder = new QCheckListItem(parent, langName, QCheckListItem::Controller);
-#endif
+			#endif
 
 			langFolder->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 			langFolder->setOpen(false);
@@ -215,21 +216,24 @@ namespace InstallationManager {
 		QListViewItem* newItem = 0;
 		if (langFolder) {
 			newItem = new QCheckListItem(langFolder, module->name(), QCheckListItem::CheckBox);
-		} else { //shouldn't happen
+		}
+		else { //shouldn't happen
 			newItem = new QCheckListItem(this, module->name(), QCheckListItem::CheckBox);
 		}
 
 		newItem->setPixmap(0, CToolClass::getIconForModule(module));
 		if (m_is_remote) {
 			newItem->setText(1, localVersion.isEmpty() ? i18n("New") : i18n("Updated"));
-		} else {
+		}
+		else {
 			newItem->setText(1, i18n("Installed") );
 		}
 
 		newItem->setText(2, localVersion);
 		if (m_is_remote) {
 			newItem->setText(3, module->config(CSwordModuleInfo::ModuleVersion));
-		} else {
+		}
+		else {
 			newItem->setText(3, module->config(CSwordModuleInfo::AbsoluteDataPath));
 		}
 	}
@@ -265,7 +269,7 @@ namespace InstallationManager {
 		QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>( i );
 
 		if (checkItem && (checkItem->type() == QCheckListItem::CheckBox)) {
-			const QString moduleName = checkItem->text(0);
+		const QString moduleName = checkItem->text(0);
 			CSwordModuleInfo* module = m_backend->findModuleByName(moduleName);
 
 			ret = CToolClass::moduleToolTip(module);

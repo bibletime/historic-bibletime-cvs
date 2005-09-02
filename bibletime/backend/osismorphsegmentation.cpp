@@ -19,11 +19,12 @@ const char oTip[] = "Toggles morph segmentation On and Off if they exist";
 
 const SWBuf choices[3] = {"Off", "On", ""
 						 };
+
 const StringList oValues(&choices[0], &choices[2]);
 
 namespace Filters {
 
-	OSISMorphSegmentation::OSISMorphSegmentation() : sword::SWOptionFilter(oName, oTip, &oValues) {
+OSISMorphSegmentation::OSISMorphSegmentation() : sword::SWOptionFilter(oName, oTip, &oValues) {
 		setOptionValue("Off");
 	}
 
@@ -50,6 +51,7 @@ namespace Filters {
 
 			if (*from == '>') { // process tokens
 				intoken = false;
+
 				if (!strncmp(token.c_str(), "seg ", 4) || !strncmp(token.c_str(), "/seg", 4)) {
 					tag = token;
 
@@ -58,6 +60,7 @@ namespace Filters {
 					}
 
 					if (hide) { //hides start and end tags as long as hide is set
+
 						if (tag.isEndTag()) { //</seg>
 							hide = false;
 						}
@@ -67,8 +70,11 @@ namespace Filters {
 				} //end of seg tag handling
 
 				text.append('<');
+
 				text.append(token);
+
 				text.append('>');
+
 				hide = false;
 
 				continue;
@@ -76,7 +82,8 @@ namespace Filters {
 
 			if (intoken) { //copy token
 				token.append(*from);
-			} else { //copy text which is not inside of a tag
+			}
+			else { //copy text which is not inside of a tag
 				text.append(*from);
 			}
 		}

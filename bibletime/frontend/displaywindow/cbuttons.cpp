@@ -78,7 +78,7 @@
  ************************************************/
 
 CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptions *displaySettings, CSwordBackend::FilterOptions *moduleSettings, const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name )
-		: KToolBarButton(CResMgr::displaywindows::displaySettings::icon, 0, parent, name) {
+: KToolBarButton(CResMgr::displaywindows::displaySettings::icon, 0, parent, name) {
 	//  qWarning("CDisplaySettingsButton::CDisplaySettingsButton");
 	m_displaySettings = displaySettings;
 	m_moduleSettings = moduleSettings;
@@ -100,7 +100,8 @@ void CDisplaySettingsButton::reset(const ListCSwordModuleInfo& useModules) {
 		setEnabled(false);
 		QToolTip::add
 			(this, i18n("Display settings: No options available"));
-	} else {
+	}
+	else {
 		setEnabled(true);
 		QToolTip::add
 			(this, i18n("Display settings"));

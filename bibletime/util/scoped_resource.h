@@ -45,7 +45,7 @@ namespace util {
 		//prohibited operations
 		scoped_resource(const scoped_resource&);
 		scoped_resource& operator=(const scoped_resource&);
-	public:
+public:
 		typedef T resource_type;
 		typedef ReleasePolicy release_type;
 
@@ -56,7 +56,7 @@ namespace util {
 		* @ param rel This is the functor to release the object
 		*/
 		explicit scoped_resource(resource_type res,release_type rel=release_type())
-				: resource(res), release(rel) {}
+: resource(res), release(rel) {}
 
 		/**
 		* The destructor is the main point in this class. It takes care of proper
@@ -87,16 +87,16 @@ namespace util {
 				return resource;
 			}
 
-		/**
-		 * This function provides convenient direct access to the -> operator
-		 * if the underlying resource is a pointer. Only call this function
-		 * if resource_type is a pointer type.
-		 */
-		resource_type operator->() const {
-			return resource;
-		}
+			/**
+			 * This function provides convenient direct access to the -> operator
+			 * if the underlying resource is a pointer. Only call this function
+			 * if resource_type is a pointer type.
+			 */
+			resource_type operator->() const {
+				return resource;
+			}
 
-	};
+		};
 
 	/**
 	* A helper policy for scoped_ptr.
@@ -143,8 +143,8 @@ namespace util {
 	* on objects allocated with new[].
 	*/
 	template<typename T>
-	struct scoped_ptr : public scoped_resource<T*,delete_item> {
-		explicit scoped_ptr(T* p) : scoped_resource<T*,delete_item>(p) {}
+struct scoped_ptr : public scoped_resource<T*,delete_item> {
+explicit scoped_ptr(T* p) : scoped_resource<T*,delete_item>(p) {}
 	}
 	;
 
@@ -162,8 +162,8 @@ namespace util {
 	*
 	*/
 	template<typename T>
-	struct scoped_array : public scoped_resource<T*,delete_array> {
-		explicit scoped_array(T* p) : scoped_resource<T*,delete_array>(p) {}
+struct scoped_array : public scoped_resource<T*,delete_array> {
+explicit scoped_array(T* p) : scoped_resource<T*,delete_array>(p) {}
 	}
 	;
 

@@ -24,7 +24,7 @@ namespace InstallationManager {
 
 
 	CSwordSetupInstallSourcesDialog::CSwordSetupInstallSourcesDialog(/*QWidget *parent*/)
-			: QDialog() {
+: QDialog() {
 
 		QVBoxLayout* mainLayout = new QVBoxLayout( this );
 		mainLayout->setMargin( 10 );
@@ -106,7 +106,8 @@ namespace InstallationManager {
 			if (!fi.exists() || !fi.isReadable()) { //no valid and readable path
 				QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a valid, readable path."), QMessageBox::Retry);
 				return;
-			} else if ( m_pathEdit->text().isEmpty() ) {
+			}
+			else if ( m_pathEdit->text().isEmpty() ) {
 				QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a path."), QMessageBox::Retry);
 
 			}
@@ -119,7 +120,8 @@ namespace InstallationManager {
 		if (m_protocolCombo->currentText() == PROTO_FTP) { //REMOTE
 			m_serverLabel->show();
 			m_serverEdit->show();
-		} else { //LOCAL, no server needed
+		}
+		else { //LOCAL, no server needed
 			m_serverLabel->hide();
 			m_serverEdit->hide();
 
@@ -145,7 +147,8 @@ namespace InstallationManager {
 				if (dlg->m_serverEdit->text().right(1) == "/") { //remove a trailing slash
 					newSource.source  = dlg->m_serverEdit->text().mid(0, dlg->m_serverEdit->text().length()-1).utf8();
 				}
-			} else {
+			}
+			else {
 				newSource.type = "DIR";
 				newSource.source = "local";
 			}

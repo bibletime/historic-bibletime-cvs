@@ -17,8 +17,8 @@
 ////////////
 
 CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent, QListViewItem* after, CSwordTreeKey* key, const QString keyName)
-		: KListViewItem(parent, after),
-		m_key(key),
+: KListViewItem(parent, after),
+m_key(key),
 m_keyName(keyName) {
 	const unsigned long offset = m_key->getOffset();
 
@@ -29,8 +29,8 @@ m_keyName(keyName) {
 };
 
 CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent,CSwordTreeKey* key, const QString keyName)
-		: KListViewItem(parent),
-		m_key(key),
+: KListViewItem(parent),
+m_key(key),
 m_keyName(keyName) {
 	const unsigned int offset = m_key->getOffset();
 
@@ -41,8 +41,8 @@ m_keyName(keyName) {
 };
 
 CBookTreeChooser::TreeItem::TreeItem(QListView* view, QListViewItem* after,CSwordTreeKey* key, const QString keyName)
-		: KListViewItem(view,after),
-		m_key(key),
+: KListViewItem(view,after),
+m_key(key),
 m_keyName(keyName) {
 	const unsigned int offset = m_key->getOffset();
 
@@ -83,12 +83,14 @@ void CBookTreeChooser::TreeItem::createChilds() {
 		do {
 			if (oldItem) {
 				oldItem = new TreeItem(this, oldItem, m_key, m_key->key());
-			} else {
+			}
+			else {
 				oldItem = new TreeItem(this, m_key, m_key->key());
 			}
 
 			//    oldItem->setExpandable( m_key->hasChildren() );
-		} while (m_key->nextSibling());
+		}
+		while (m_key->nextSibling());
 	}
 
 	m_key->setOffset( offset ); //restore the old state
@@ -108,7 +110,7 @@ void CBookTreeChooser::TreeItem::setOpen(bool o) {
 //////////////////////////////////
 
 CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name)
-		: CKeyChooser(modules, key, parent,name),
+: CKeyChooser(modules, key, parent,name),
 m_key( dynamic_cast<CSwordTreeKey*>(key) ) {
 	setModules(modules, false);
 
@@ -169,7 +171,8 @@ void CBookTreeChooser::setKey(CSwordKey* newKey, const bool emitSignal) {
 			i->setOpen(true); //automatically creates childs
 			child = i->firstChild();
 			currentSibling = siblings[++index];
-		} else {
+		}
+		else {
 			child = child->nextSibling();
 		}
 	}
@@ -292,7 +295,8 @@ void CBookTreeChooser::setupTree() {
 		do {
 			//the TreeItem constructor doesn't change the state of the key
 			item = new TreeItem(m_treeView, item, m_key, m_key->key());
-		} while (m_key->nextSibling());
+		}
+		while (m_key->nextSibling());
 	}
 
 	/*   m_key->root();

@@ -15,7 +15,7 @@
 #include <qdom.h>
 
 CDragDropMgr::BTDrag::BTDrag( const QString& xml, QWidget* dragSource, const char* name)
-		: QTextDrag(xml, dragSource, name) {}
+: QTextDrag(xml, dragSource, name) {}
 ;
 
 //static function to see whether we can decode tje given mime type
@@ -32,7 +32,7 @@ bool CDragDropMgr::BTDrag::provides( const char* type ) const {
 
 const char* CDragDropMgr::BTDrag::format( int i ) const {
 	if ( i == 0) { //we support only one format!
-		return "BibleTime/DND";
+	return "BibleTime/DND";
 	};
 	return 0;
 };
@@ -56,17 +56,17 @@ QByteArray CDragDropMgr::BTDrag::encodedData( const char* /*type*/ ) const {
 ///////////////////////////// new class //////////////////////
 
 CDragDropMgr::Item::Item( const QString& text )
-		: m_type(Text),
-		m_bookmarkModuleName(QString::null),
-		m_bookmarkKey(QString::null),
-		m_bookmarkDescription(QString::null),
+: m_type(Text),
+m_bookmarkModuleName(QString::null),
+m_bookmarkKey(QString::null),
+m_bookmarkDescription(QString::null),
 m_text(text) {}
 
 CDragDropMgr::Item::Item( const QString& moduleName, const QString& key, const QString& description  )
-		: m_type(Bookmark),
-		m_bookmarkModuleName(moduleName),
-		m_bookmarkKey(key),
-		m_bookmarkDescription(description),
+: m_type(Bookmark),
+m_bookmarkModuleName(moduleName),
+m_bookmarkKey(key),
+m_bookmarkDescription(description),
 m_text(QString::null) {
 	//we have to make sure the key is saved in it's english representation, so we convert it
 	if (CSwordModuleInfo* mod = CPointers::backend()->findModuleByName( moduleName )) {
@@ -121,7 +121,8 @@ CDragDropMgr::~CDragDropMgr() {}
 const bool CDragDropMgr::canDecode( const QMimeSource* const mime ) {
 	if (CDragDropMgr::BTDrag::canDecode(mime)) {
 		return true;
-	} else if( QTextDrag::canDecode(mime) ) {
+	}
+	else if( QTextDrag::canDecode(mime) ) {
 		qWarning("QTextDrag can decode this mime!");
 		return true;
 	};
@@ -148,7 +149,8 @@ QDragObject* const CDragDropMgr::dragObject( CDragDropMgr::ItemList& items, QWid
 				bookmark.setAttribute("moduleName", item.bookmarkModule());
 
 				content.appendChild(bookmark);
-			} else if (item.type() == Item::Text) { //plain text was dragged
+			}
+			else if (item.type() == Item::Text) { //plain text was dragged
 				//append the XML stuff for plain text
 				QDomElement plainText = doc.createElement("TEXT");
 				plainText.setAttribute("text", item.text());
@@ -174,7 +176,8 @@ CDragDropMgr::ItemList CDragDropMgr::decode( const QMimeSource* const  src) {
 		CDragDropMgr::ItemList dndItems;
 		dndItems.append( Item(text) );
 		return dndItems;
-	} else if (!canDecode(src)) { //if we can't decode it
+	}
+	else if (!canDecode(src)) { //if we can't decode it
 		return CDragDropMgr::ItemList();
 	};
 
@@ -210,7 +213,8 @@ CDragDropMgr::ItemList CDragDropMgr::decode( const QMimeSource* const  src) {
 			const QString description = elem.hasAttribute("description") ? elem.attribute("description") : QString::null;
 
 			dndItems.append( CDragDropMgr::Item(moduleName, key, description) );
-		} else if (elem.tagName() == "TEXT") { //we found a plain text passage!
+		}
+		else if (elem.tagName() == "TEXT") { //we found a plain text passage!
 			const QString text = elem.hasAttribute("text") ? elem.attribute("text") : QString::null;
 			dndItems.append( CDragDropMgr::Item(text) );
 		};
@@ -234,7 +238,8 @@ CDragDropMgr::Item::Type CDragDropMgr::dndType( const QMimeSource* e ) {
 	for( it = dndItems.begin(); it != dndItems.end(); ++it ) {
 		if( type == Item::Unknown) { //if Unknown is set this is the first loop, don't return Unknown
 			type = (*it).type();
-		} else if (type != (*it).type() ) {//items have different type, return Item::Unknown
+		}
+		else if (type != (*it).type() ) {//items have different type, return Item::Unknown
 			return Item::Unknown;
 		};
 	};

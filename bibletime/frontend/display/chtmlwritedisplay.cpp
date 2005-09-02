@@ -19,7 +19,7 @@
 #include <kpopupmenu.h>
 
 CHTMLWriteDisplay::CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent)
-		: CPlainWriteDisplay(parentWindow,parent) {
+: CPlainWriteDisplay(parentWindow,parent) {
 	m_actions.bold = 0;
 	m_actions.italic = 0;
 	m_actions.underline = 0;
@@ -73,9 +73,11 @@ void CHTMLWriteDisplay::slotAlignmentChanged( int a ) {
 
 	if (a & Qt::AlignLeft) {
 		alignLeft = true;
-	} else if ((a & Qt::AlignHCenter) || (a & Qt::AlignCenter)) {
+	}
+	else if ((a & Qt::AlignHCenter) || (a & Qt::AlignCenter)) {
 		alignCenter = true;
-	} else if (a & Qt::AlignRight) {
+	}
+	else if (a & Qt::AlignRight) {
 		alignRight = true;
 	}
 	//  else if (a & Qt::AlignJustify) {

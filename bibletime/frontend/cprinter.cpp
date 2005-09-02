@@ -15,8 +15,8 @@
 namespace Printing {
 
 	CPrinter::CPrinter(QObject */*parent*/, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
-			:  QObject(/*parent*/0),
-			CDisplayRendering(displayOptions, filterOptions),
+:  QObject(/*parent*/0),
+	CDisplayRendering(displayOptions, filterOptions),
 	m_htmlPart(new KHTMLPart(0, 0, this)) {
 		m_filterOptions.footnotes = false;
 		m_filterOptions.scriptureReferences = false;
@@ -54,17 +54,17 @@ namespace Printing {
 			vk = item.key();
 
 			switch (item.settings().keyRenderingFace) {
-			case KeyTreeItem::Settings::CompleteShort:
+				case KeyTreeItem::Settings::CompleteShort:
 				return QString::fromUtf8(vk.getShortText());
 
-			case KeyTreeItem::Settings::CompleteLong:
+				case KeyTreeItem::Settings::CompleteLong:
 				return vk.key();
 
-			case KeyTreeItem::Settings::NoKey:
+				case KeyTreeItem::Settings::NoKey:
 				return QString::null;
 
-			case KeyTreeItem::Settings::SimpleKey: //fall through
-			default:
+				case KeyTreeItem::Settings::SimpleKey: //fall through
+				default:
 				return QString::number(vk.Verse());
 			}
 
@@ -110,7 +110,7 @@ namespace Printing {
 							  : "unknown";
 		settings.pageDirection = (modules.count() == 1)
 								 ? ((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr"  : "rtl")
-										 : QString::null;
+						 : QString::null;
 
 		CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 		return tMgr->fillTemplate(CBTConfig::get

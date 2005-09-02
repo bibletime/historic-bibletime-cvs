@@ -505,7 +505,8 @@ void CSearchResultPage::updatePreview(const QString& key) {
 			settings.keyRenderingFace = CTextRendering::KeyTreeItem::Settings::CompleteShort;
 			text = render.renderKeyRange(startKey, endKey, modules, key, settings);
 			//    qWarning(text.latin1());
-		} else {
+		}
+		else {
 			text = render.renderSingleKey(key, modules, settings);
 		}
 
@@ -537,7 +538,8 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 			}
 			index += repLength;
 		};
-	} else if (searchFlags & CSwordModuleSearch::multipleWords) { //multiple words
+	}
+	else if (searchFlags & CSwordModuleSearch::multipleWords) { //multiple words
 		QStringList words = QStringList::split(" ", searchedText);
 		for ( int wi = 0; (unsigned int)wi < words.count(); ++wi ) { //search for every word in the list
 			QString word = words[ wi ];
@@ -553,7 +555,8 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 				index += length;
 			}
 		}
-	} else { //multiple words or regular expression
+	}
+	else { //multiple words or regular expression
 		//use re as regular expression and replace any occurences
 		QRegExp regExp( searchedText, cs );
 		regExp.setMinimal( true );
@@ -608,7 +611,8 @@ const QString CSearchOptionsPage::searchText() {
 		regexp = regexp.simplifyWhiteSpace();
 		regexp.replace( QRegExp("\\s+"), "|" ); //replace one or more white spaces with regexp's OR marker
 		return regexp;
-	} else if (searchFlags() & CSwordModuleSearch::entryAttribs) { //special treatment neccessary
+	}
+	else if (searchFlags() & CSwordModuleSearch::entryAttribs) { //special treatment neccessary
 		const QString textType = m_textTypeCombo->currentText();
 		if (textType == i18n("Footnotes"))
 			return QString("Footnote//body/") + m_searchTextCombo->currentText() + QString("/");
@@ -838,7 +842,8 @@ const int CSearchOptionsPage::searchFlags() {
 			ret = CSwordModuleSearch::exactPhrase;
 		else                  //entry attribs needed!
 			ret = CSwordModuleSearch::entryAttribs;
-	} else if (m_regexpRadio->isChecked() || m_multipleWordsORRadio->isChecked()) {
+	}
+	else if (m_regexpRadio->isChecked() || m_multipleWordsORRadio->isChecked()) {
 		ret = CSwordModuleSearch::regExp;
 	}
 
@@ -914,9 +919,11 @@ sword::ListKey CSearchOptionsPage::searchScope() {
 const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType() {
 	if (m_rangeChooserCombo->currentItem() == 0) {
 		return CSwordModuleSearch::Scope_NoScope;
-	} else if (m_rangeChooserCombo->currentItem() == 1) {
+	}
+	else if (m_rangeChooserCombo->currentItem() == 1) {
 		return CSwordModuleSearch::Scope_LastSearch;
-	} else {
+	}
+	else {
 		return CSwordModuleSearch::Scope_Bounds;
 	};
 
@@ -925,7 +932,8 @@ const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType() {
 void CSearchOptionsPage::searchTypeSelected(int buttonID) {
 	if (buttonID == m_exactTextRadioID) {
 		return; //do nothing
-	} else if (buttonID == m_regexpRadioID) { //regular expression selected?
+	}
+	else if (buttonID == m_regexpRadioID) { //regular expression selected?
 		QDialog *editorDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor" );
 
 		if ( editorDialog ) {

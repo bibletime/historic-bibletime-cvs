@@ -162,9 +162,9 @@ void CLexiconReadWindow::initToolbars() {
 	if (action) {
 		action->plug(mainToolBar());
 	}
-#if KDE_VERSION_MINOR < 1
+	#if KDE_VERSION_MINOR < 1
 	action->plugAccel( accel() );
-#endif
+	#endif
 
 	Q_ASSERT(m_actions.backInHistory);
 	m_actions.backInHistory->plug( mainToolBar(),0 ); //1st button

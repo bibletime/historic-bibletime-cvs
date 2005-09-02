@@ -16,21 +16,23 @@
 #define CURRENT_SYNTAX_VERSION 2
 
 CProfile::CProfile( const QString& file, const QString& name ):
-		m_name(name.isEmpty() ? i18n("unknown") : name),
-		m_filename(file),
-		m_fullscreen(false),
+m_name(name.isEmpty() ? i18n("unknown") : name),
+m_filename(file),
+m_fullscreen(false),
 m_geometry(10,20,640,480) {
 
 	m_profileWindows.setAutoDelete(true);
 	if (!m_filename.isEmpty() && name.isEmpty()) {
 		loadBasics();
-	} else if (m_filename.isEmpty() && !name.isEmpty()) {
+	}
+	else if (m_filename.isEmpty() && !name.isEmpty()) {
 		m_filename = name;
 		m_filename.replace(QRegExp("\\s=#."),"_");
 		KStandardDirs stdDirs;
 		m_filename = stdDirs.saveLocation("data", "bibletime/sessions/") + m_filename + ".xml";
 		init(m_filename);
-	} else {
+	}
+	else {
 		qWarning("CProfile: empty file name!");
 	}
 }
@@ -103,11 +105,14 @@ QPtrList<CProfileWindow> CProfile::load() {
 		CProfileWindow* p = 0;
 		if (elem.tagName() == "BIBLE") {
 			p = new CProfileWindow(CSwordModuleInfo::Bible);
-		} else if (elem.tagName() == "COMMENTARY") {
+		}
+		else if (elem.tagName() == "COMMENTARY") {
 			p = new CProfileWindow(CSwordModuleInfo::Commentary);
-		} else if (elem.tagName() == "LEXICON") {
+		}
+		else if (elem.tagName() == "LEXICON") {
 			p = new CProfileWindow(CSwordModuleInfo::Lexicon);
-		} else if (elem.tagName() == "BOOK") {
+		}
+		else if (elem.tagName() == "BOOK") {
 			p = new CProfileWindow(CSwordModuleInfo::GenericBook);
 		}
 
@@ -210,19 +215,19 @@ const bool CProfile::save(QPtrList<CProfileWindow> windows) {
 	for (CProfileWindow* p = windows.first(); p; p = windows.next()) {
 		QDomElement window;
 		switch (p->type()) {
-		case CSwordModuleInfo::Bible:
+			case CSwordModuleInfo::Bible:
 			window = doc.createElement("BIBLE");
 			break;
-		case CSwordModuleInfo::Commentary:
+			case CSwordModuleInfo::Commentary:
 			window = doc.createElement("COMMENTARY");
 			break;
-		case CSwordModuleInfo::Lexicon:
+			case CSwordModuleInfo::Lexicon:
 			window = doc.createElement("LEXICON");
 			break;
-		case CSwordModuleInfo::GenericBook:
+			case CSwordModuleInfo::GenericBook:
 			window = doc.createElement("BOOK");
 			break;
-		default:
+			default:
 			break;
 		}
 		if (window.isNull())
@@ -265,7 +270,8 @@ const bool CProfile::save(QPtrList<CProfileWindow> windows) {
 		t.setEncoding(QTextStream::UnicodeUTF8);
 		t << doc.toString();
 		file.close();
-	} else
+	}
+	else
 		ret = false;
 
 	return ret;

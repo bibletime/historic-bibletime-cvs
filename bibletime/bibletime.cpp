@@ -43,19 +43,19 @@
 #include <krandomsequence.h>
 
 BibleTime::BibleTime()
-		: BibleTimeInterface("BibleTimeInterface"),
-		KMainWindow(KMainWindow::NoDCOPObject, 0,0, WType_TopLevel),
-		m_windowActionCollection(0),
-		m_initialized(false),
-		m_moduleList(0),
-		m_progress(0),
-		m_currentProfile(0),
-		m_mainSplitter(0),
-		m_leftPaneSplitter(0),
-		m_mdi(0),
-		m_profileMgr(),
-		m_backend(0),
-		m_printer(0),
+: BibleTimeInterface("BibleTimeInterface"),
+KMainWindow(KMainWindow::NoDCOPObject, 0,0, WType_TopLevel),
+m_windowActionCollection(0),
+m_initialized(false),
+m_moduleList(0),
+m_progress(0),
+m_currentProfile(0),
+m_mainSplitter(0),
+m_leftPaneSplitter(0),
+m_mdi(0),
+m_profileMgr(),
+m_backend(0),
+m_printer(0),
 m_mainIndex(0) {
 	setObjId("BibleTimeInterface");
 	//  m_dcopInterface = new BibleTimeInterface(this);

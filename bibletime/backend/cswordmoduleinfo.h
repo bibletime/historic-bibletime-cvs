@@ -18,9 +18,11 @@
 
 
 class CSwordBackend;
+
 class CSwordKey;
 
 namespace Rendering {
+
 	class CEntryDisplay;
 }
 
@@ -32,7 +34,9 @@ namespace Rendering {
  * @author The BibleTime team
  * @version $Id$
  */
+
 class CSwordModuleInfo {
+
 public:
 	/**
 	 * These are the options which could be supported by modules and by this backend.
@@ -214,6 +218,7 @@ public:
 	virtual const bool snap() {
 		return false;
 	};
+
 	const bool has( const CSwordModuleInfo::Feature ) const;
 	const bool has( const CSwordModuleInfo::FilterTypes  ) const;
 	/**
@@ -253,6 +258,7 @@ public:
 	}
 
 protected:
+
 	friend class CSwordBackend;
 	//  friend class CInfoDisplay;
 
@@ -260,6 +266,7 @@ protected:
 	inline CSwordBackend* backend() const {
 		return m_backend;
 	}
+
 	/*virtual */inline void backend( CSwordBackend* newBackend ) {
 		if (newBackend) {
 			m_backend = newBackend;
@@ -272,6 +279,7 @@ protected:
 private:
 	sword::SWModule* m_module;
 	sword::ListKey m_searchResult;
+
 	mutable struct DataCache {
 		DataCache() {
 			language = 0;
@@ -283,6 +291,7 @@ private:
 		const CLanguageMgr::Language* language;
 		bool hasVersion;
 	}
+
 	m_dataCache;
 
 	CSwordBackend* m_backend;

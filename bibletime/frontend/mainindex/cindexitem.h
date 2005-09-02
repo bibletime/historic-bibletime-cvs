@@ -327,8 +327,8 @@ protected: // Protected methods
 
 
 namespace Bookmarks {
-	class OldBookmarksFolder : public CBookmarkFolder {
-	public:
+class OldBookmarksFolder : public CBookmarkFolder {
+public:
 		OldBookmarksFolder(CTreeFolder* item);
 		virtual ~OldBookmarksFolder();
 		virtual void initTree();
@@ -343,19 +343,19 @@ namespace Bookmarks {
 	};
 
 	class OldBookmarkImport {
-	public:
+public:
 		/**
 		* This function converts the old config based bookmarks into a valid 1.3 XML file, so importing is easy
 		*/
 		static const QString oldBookmarksXML( const QString& configFileName = QString::null );
-	private:
+private:
 		// made provate because we offer one static functions which doesn't need constructor and destructor
 		OldBookmarkImport();
 		virtual ~OldBookmarkImport();
 	};
 
-	class SubFolder : public CBookmarkFolder {
-	public:
+class SubFolder : public CBookmarkFolder {
+public:
 		SubFolder(CFolderBase* parentItem, const QString& caption);
 		SubFolder(CFolderBase* parentItem, QDomElement& xml);
 		virtual ~SubFolder();
@@ -373,7 +373,7 @@ namespace Bookmarks {
 		*/
 		virtual void loadFromXML( QDomElement& element );
 
-	private:
+private:
 		QDomElement m_startupXML;
 	};
 } //end of namespace Bookmarks

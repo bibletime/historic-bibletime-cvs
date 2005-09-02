@@ -15,7 +15,9 @@ using namespace sword;
  * This is the StringManager implementation which works with QString.
  * @author The BibleTime developers
  */
+
 class BTStringMgr : public StringMgr {
+
 public:
 	/** Converts the param to an upper case Utf8 string
 	* @param The text encoded in utf8 which should be turned into an upper case string

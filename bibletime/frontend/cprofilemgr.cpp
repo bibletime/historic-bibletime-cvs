@@ -21,7 +21,8 @@ CProfileMgr::CProfileMgr() : m_startupProfile(0) {
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
 		if ((*it) != "_startup_.xml") {
 			m_profiles.append(new CProfile(m_profilePath + *it));
-		} else {
+		}
+		else {
 			m_startupProfile = new CProfile(m_profilePath + *it);
 		}
 	}
@@ -102,7 +103,8 @@ void CProfileMgr::refresh() {
 			if  (!m_startupProfile) { //don't put this in the if clause above,it doesn't work!
 				m_startupProfile = new CProfile(m_profilePath + *it);
 			}
-		} else if (!profile(p.name())) { //don't have it already
+		}
+		else if (!profile(p.name())) { //don't have it already
 			m_profiles.append(new CProfile(m_profilePath + *it));
 		}
 	}

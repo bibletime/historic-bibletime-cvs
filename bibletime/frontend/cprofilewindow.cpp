@@ -3,13 +3,13 @@
 #include "cprofilewindow.h"
 
 CProfileWindow::CProfileWindow(CSwordModuleInfo::ModuleType type)
-		: m_type(type),
-		m_windowGeometry(),
-		m_moduleList(),
-		m_key(QString::null),
-		m_maximized(false),
-		m_hasFocus(false),
-		m_windowSettings(0),
+: m_type(type),
+m_windowGeometry(),
+m_moduleList(),
+m_key(QString::null),
+m_maximized(false),
+m_hasFocus(false),
+m_windowSettings(0),
 m_writeWindowType(0) {
 	m_scrollbarPos.horizontal = 0;
 	m_scrollbarPos.vertical = 0;
@@ -30,7 +30,7 @@ void CProfileWindow::setGeometry( const QRect& rect ) {
 /** Returns the type of the managed window (bible window, commentary window or lexicon window). */
 const CSwordModuleInfo::ModuleType CProfileWindow::type() const {
 	if (m_type != CSwordModuleInfo::Unknown)
-		return m_type;
+	return m_type;
 	return CSwordModuleInfo::Unknown;
 }
 

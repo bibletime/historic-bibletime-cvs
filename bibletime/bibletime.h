@@ -398,8 +398,8 @@ private:
 	InfoDisplay::CInfoDisplay* m_infoDisplay;
 
 protected: //DCOP interface implementation
-    //helper function
-    void syncAllModulesByType(const CSwordModuleInfo::ModuleType type, const QString& key);
+	//helper function
+	void syncAllModulesByType(const CSwordModuleInfo::ModuleType type, const QString& key);
 
 	//see bibletimeinterface.h for a documentation of these functions
 	virtual void closeAllModuleWindows();

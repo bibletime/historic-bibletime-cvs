@@ -32,7 +32,7 @@ class CDragDropMgr  {
 public:
 	//The class which represents one single drag&drop entry (e.g. a bookmark or a portion of text)
 	class Item {
-	public:
+public:
 		/**
 		* The possible types of Drag&Drop actions.
 		*/
@@ -80,7 +80,7 @@ public:
 		Item(const QString& moduleName, const QString& key, const QString& description);
 		virtual ~Item();
 
-	private:
+private:
 		Type m_type; //the member to save the type of the action
 		QString m_bookmarkModuleName; //the modules which is used by this item, only valid for type() == Bookmark
 		QString m_bookmarkKey; //the key of a bookmark, only valid if type() == Bookmark
@@ -119,7 +119,7 @@ public:
 protected:
 	//The class which represents our XML drag object stuff
 class BTDrag : public QTextDrag {
-	public:
+public:
 		BTDrag( const QString& xml, QWidget* dragSource = 0, const char* name = 0);
 		//reimplemented static publoc function to provide functionality for BibleTime XML drags
 		static bool canDecode( const QMimeSource * e );
@@ -128,7 +128,7 @@ class BTDrag : public QTextDrag {
 
 		virtual QByteArray encodedData( const char* type ) const;
 
-	protected:
+protected:
 		friend class CDragDropMgr;
 		//made protected because the BibleTime classes may not manage the data of BTDrag
 		//    virtual void setText(const QString& text);

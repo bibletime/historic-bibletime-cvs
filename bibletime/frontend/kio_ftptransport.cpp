@@ -14,8 +14,8 @@ namespace InstallationManager {
 	bool finishedDownload = false;
 
 	KIO_FTPTransport::KIO_FTPTransport(const char *host, sword::StatusReporter *statusReporter )
-			: QObject(),
-			sword::FTPTransport(host, statusReporter),
+: QObject(),
+	sword::FTPTransport(host, statusReporter),
 	m_totalSize(-1) {}
 
 
@@ -65,7 +65,8 @@ namespace InstallationManager {
 
 		if (!m_copyResults.contains(progressID)) {
 			return 1; //Error
-		} else if (m_copyResults[progressID] > 0) { //an error occurred
+		}
+		else if (m_copyResults[progressID] > 0) { //an error occurred
 			return 1; //an error occured
 		}
 		return 0;

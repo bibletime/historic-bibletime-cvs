@@ -45,11 +45,11 @@ using namespace sword;
 namespace InstallationManager {
 
 	CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
-			: KDialogBase(IconList, i18n("Bookshelf Manager"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null),
-			m_removeModuleListView(0),
-			m_installModuleListPage(0),
-			m_installModuleListView(0),
-			m_progressDialog(0),
+: KDialogBase(IconList, i18n("Bookshelf Manager"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null),
+	m_removeModuleListView(0),
+	m_installModuleListPage(0),
+	m_installModuleListView(0),
+	m_progressDialog(0),
 	m_refreshedRemoteSources(false) {
 		setIconListAllVisible(true);
 		m_swordSetupChanged = false;
@@ -131,9 +131,9 @@ namespace InstallationManager {
 		QLabel* installLabel = CToolClass::explanationLabel(m_installSourcePage,
 							   i18n("Install/update works - Step 1"),
 							   i18n("Please choose a (local or remote) library and a bookshelf path to install the work(s) to. \
-									After that step click on the connect button.<br/>\
-									<b>WARNING: If you live in a persecuted country and do not wish to risk detection you should NOT use \
-									the module remote installation feature!</b>")
+After that step click on the connect button.<br/>\
+<b>WARNING: If you live in a persecuted country and do not wish to risk detection you should NOT use \
+the module remote installation feature!</b>")
 														   );
 		layout->addMultiCellWidget(installLabel, 0,0,0,2);
 
@@ -249,16 +249,16 @@ namespace InstallationManager {
 	const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID ) {
 		bool ret = false;
 		switch (ID) {
-		case CSwordSetupDialog::Sword:
+			case CSwordSetupDialog::Sword:
 			showPage( pageIndex(m_swordConfigPage) );
 			break;
-		case CSwordSetupDialog::Install:
+			case CSwordSetupDialog::Install:
 			showPage( pageIndex(m_installPage) );
 			break;
-		case CSwordSetupDialog::Remove:
+			case CSwordSetupDialog::Remove:
 			showPage( pageIndex(m_removePage) );
 			break;
-		default:
+			default:
 			break;
 		}
 		return ret;
@@ -294,7 +294,8 @@ namespace InstallationManager {
 
 			if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
 				m_sourceCombo->insertItem( i18n("[Remote]") + " " + *it ); //remote source
-			} else { // local source
+			}
+			else { // local source
 				QFileInfo fi( is.directory.c_str() );
 				if (fi.isDir() && fi.isReadable()) {
 					m_sourceCombo->insertItem( i18n("[Local]") + " " + *it );
@@ -312,7 +313,8 @@ namespace InstallationManager {
 
 				++it2;
 			}
-		} else {
+		}
+		else {
 			list = BTInstallMgr::Tool::LocalConfig::targetList();
 		}
 
@@ -355,7 +357,8 @@ namespace InstallationManager {
 
 		if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
 			url = QString("ftp://%1%2").arg(is.source.c_str()).arg(is.directory.c_str());
-		} else {
+		}
+		else {
 			url = QString("%1").arg(is.directory.c_str());
 		}
 		m_sourceLabel->setText( url );
@@ -396,7 +399,8 @@ namespace InstallationManager {
 
 					if (prefixPath.contains(dataPath)) { //remove module part to get the prefix path
 						prefixPath = prefixPath.remove( prefixPath.find(dataPath), dataPath.length() );
-					} else { //fall back to default Sword config path
+					}
+					else { //fall back to default Sword config path
 						prefixPath = QString::fromLatin1(backend()->prefixPath);
 					}
 
@@ -476,7 +480,8 @@ namespace InstallationManager {
 					m_refreshedRemoteSources = true;
 					success = true;
 					m_progressDialog->progressBar()->setProgress(100); //make sure the dialog closes
-				} else { //an error occurres, the KIO library should display an error message
+				}
+				else { //an error occurres, the KIO library should display an error message
 					qWarning("InstallMgr: refreshRemoteSources returned an error.");
 					m_refreshedRemoteSources = false;
 					success = false;
@@ -663,7 +668,7 @@ namespace InstallationManager {
 		}
 
 		const QString message = i18n("You selected the following works: %1.\n\n\
-									 Do you really want to install them on your system?").arg(moduleList.join(", "));
+ Do you really want to install them on your system?").arg(moduleList.join(", "));
 
 		if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)) {  //Yes was pressed.
 			BTInstallMgr iMgr;
@@ -722,7 +727,8 @@ namespace InstallationManager {
 					if (prefixPath.contains(dataPath)) {
 						prefixPath.remove( prefixPath.find(dataPath), dataPath.length() ); //complicated to work with Qt 3.0
 						//prefixPath = prefixPath.replace(dataPath, ""); //old code working with Qt 3.2
-					} else {
+					}
+					else {
 						prefixPath = QString::fromLatin1(backend()->prefixPath);
 					}
 
@@ -736,7 +742,8 @@ namespace InstallationManager {
 					int status = iMgr.installModule(&lMgr, 0, (*it).latin1(), &is);
 					//         qWarning("status: %d", status);
 					Q_ASSERT(status != -1);
-				} else if (!m_progressDialog->wasCancelled()) { //local source
+				}
+				else if (!m_progressDialog->wasCancelled()) { //local source
 					iMgr.installModule(&lMgr, is.directory.c_str(), (*it).latin1());
 				}
 			}
@@ -780,8 +787,8 @@ namespace InstallationManager {
 				const QFileInfo fi( url.path() );
 				if (!fi.exists() || !fi.isWritable()) {
 					const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, so works \
-									   can not be installed here using BibleTime. \
-									   Do you want to use this directory instead of the previous value?"));
+   can not be installed here using BibleTime. \
+   Do you want to use this directory instead of the previous value?"));
 					if (result == KMessageBox::No) {
 						return;
 					}
@@ -801,8 +808,8 @@ namespace InstallationManager {
 			const QFileInfo fi( url.path() );
 			if (!fi.exists() || !fi.isWritable()) {
 				const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, \
-								   so works can not be installed here using BibleTime. \
-								   Do you want to add it to the list of module directories?"));
+   so works can not be installed here using BibleTime. \
+   Do you want to add it to the list of module directories?"));
 				if (result == KMessageBox::No) {
 					return;
 				}

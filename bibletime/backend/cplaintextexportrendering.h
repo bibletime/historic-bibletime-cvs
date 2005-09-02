@@ -21,8 +21,10 @@ namespace Rendering {
 	 * @short Text rendering as plain text.
 	 * @author The BibleTime team
 	 */
-	class CPlainTextExportRendering : public CHTMLExportRendering {
-	public:
+
+class CPlainTextExportRendering : public CHTMLExportRendering {
+
+public:
 		CPlainTextExportRendering(
 			const Settings& settings,
 			CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(),
@@ -30,7 +32,7 @@ namespace Rendering {
 		);
 		virtual ~CPlainTextExportRendering();
 
-	protected:
+protected:
 		virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
 		virtual const QString finishText( const QString&, KeyTree& tree );
 	};
