@@ -5,30 +5,51 @@
 //frontend includes
 #include "frontend/cmdiarea.h"
 
+//helper function
+void BibleTime::syncAllModulesByType(const CSwordModuleInfo::ModuleType type, const QString& key) {
+    qWarning("Syncing modules by type to key %s", key.latin1());
 
-ASYNC BibleTime::closeAllModuleWindows() {
+	QPtrList<QWidget> windows = m_mdi->usableWindowList();
+	for (QWidget* w = windows.first(); w; w = windows.next()) {
+		CDisplayWindow* d = dynamic_cast<CDisplayWindow*>(w);
+		Q_ASSERT(d);
+
+		if (d->modules().count() && d->modules().first()->type() == type) {
+			d->lookup(key);
+		}
+	}
+}
+
+void BibleTime::closeAllModuleWindows() {
 	qWarning("DCOP: close all windows now...");
+
 	m_mdi->deleteAll();
 }
 
-ASYNC BibleTime::syncAllBibles(QString key) {
+void BibleTime::syncAllBibles(QString key) {
 	qWarning("DCOP: syncing all bibles ...");
+    syncAllModulesByType(CSwordModuleInfo::Bible, key);
 }
 
-ASYNC BibleTime::syncAllCommentaries(QString key) {
+void BibleTime::syncAllCommentaries(QString key) {
 	qWarning("DCOP: syncing all commentaries ...");
+    syncAllModulesByType(CSwordModuleInfo::Commentary, key);
 }
 
-ASYNC BibleTime::syncAllLexicons(QString key) {
+void BibleTime::syncAllLexicons(QString key) {
 	qWarning("DCOP: syncing all lexicons ...");
+    syncAllModulesByType(CSwordModuleInfo::Lexicon, key);
 }
 
-ASYNC BibleTime::syncAllVerseBasedModules(QString key) {
+void BibleTime::syncAllVerseBasedModules(QString key) {
 	qWarning("DCOP: syncing all verse based modules ...");
+    syncAllModulesByType(CSwordModuleInfo::Bible, key);
+    syncAllModulesByType(CSwordModuleInfo::Commentary, key);
 }
 
-ASYNC BibleTime::openWindow(QString moduleName, QString key) {
+void BibleTime::openWindow(QString moduleName, QString key) {
 	qWarning("DCOP: open window for module %s and key %s...", moduleName.latin1(), key.latin1());
+
 	CSwordModuleInfo* module = CPointers::backend()->findModuleByName(moduleName);
 	Q_ASSERT(module);
 	if (module) {
@@ -36,7 +57,7 @@ ASYNC BibleTime::openWindow(QString moduleName, QString key) {
 	}
 }
 
-ASYNC BibleTime::openDefaultBible(QString key) {
+void BibleTime::openDefaultBible(QString key) {
 	qWarning("DCOP: open default bible ...");
 }
 
