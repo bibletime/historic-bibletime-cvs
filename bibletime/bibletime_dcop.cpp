@@ -4,6 +4,7 @@
 
 //frontend includes
 #include "frontend/cmdiarea.h"
+#include "frontend/cbtconfig.h"
 
 //helper function
 void BibleTime::syncAllModulesByType(const CSwordModuleInfo::ModuleType type, const QString& key) {
@@ -59,6 +60,10 @@ void BibleTime::openWindow(QString moduleName, QString key) {
 
 void BibleTime::openDefaultBible(QString key) {
 	qWarning("DCOP: open default bible ...");
+	CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
+	if (mod) {
+		openWindow(mod->name(), key);
+	}
 }
 
 QStringList BibleTime::searchInOpenModules(QString searchText) {
