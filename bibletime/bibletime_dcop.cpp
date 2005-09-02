@@ -14,7 +14,7 @@ void BibleTime::syncAllModulesByType(const CSwordModuleInfo::ModuleType type, co
 		CDisplayWindow* d = dynamic_cast<CDisplayWindow*>(w);
 		Q_ASSERT(d);
 
-		if (d->modules().count() && d->modules().first()->type() == type) {
+		if (d && d->modules().count() && d->modules().first()->type() == type) {
 			d->lookup(key);
 		}
 	}

@@ -46,7 +46,7 @@ public:
 	*/
 	void setGUIOption( const MDIOption& newOption );
 	/**
-	* This works around a problem/limitation in QWorkspace. QWorkspace sets every time the  
+	* This works around a problem/limitation in QWorkspace. QWorkspace sets every time the
 	* application caption on its on way. This confuses BibleTime - wrong captions are generated.
 	* This function returns the right caption (using the MDI child).
 	*/
@@ -56,6 +56,7 @@ public:
 	* Forces an update of the currently chosen window arrangement.
 	*/
 	void triggerWindowUpdate();
+	QPtrList<QWidget> usableWindowList();
 
 public slots:
 	/**
@@ -100,7 +101,6 @@ protected: // Protected methods
 	* Initializes the view of the MDI area
 	*/
 	void initView();
-	QPtrList<QWidget> usableWindowList();
 	bool eventFilter( QObject *o, QEvent *e );
 
 signals: // Signals

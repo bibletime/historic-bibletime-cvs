@@ -73,7 +73,7 @@ class QSplitter;
 
 /**
   * @page frontend The structure of the frontend
-  * 
+  *
   * <p>
   * The frontend contains the classes which interact with the user. For example the main index,
   * the display windows, the searchdialog or the other parts.
@@ -398,6 +398,9 @@ private:
 	InfoDisplay::CInfoDisplay* m_infoDisplay;
 
 protected: //DCOP interface implementation
+    //helper function
+    void syncAllModulesByType(const CSwordModuleInfo::ModuleType type, const QString& key);
+
 	//see bibletimeinterface.h for a documentation of these functions
 	virtual void closeAllModuleWindows();
 	virtual void syncAllBibles(QString key);
@@ -408,6 +411,7 @@ protected: //DCOP interface implementation
 	virtual void openDefaultBible(QString key);
 	virtual QStringList searchInOpenModules(QString searchText);
 	virtual QStringList searchIndefaultBible(QString searchText);
+
 private:
 	DCOPObject* m_dcopInterface;
 };
