@@ -8,9 +8,7 @@
 //Qt includes
 #include <qwidget.h>
 
-CWriteDisplay::CWriteDisplay( CWriteWindow* writeWindow ) : CDisplay(writeWindow) {
-}
+CWriteDisplay::CWriteDisplay( CWriteWindow* writeWindow ) : CDisplay(writeWindow) {}
 
-CWriteDisplay::~CWriteDisplay(){
-}
+CWriteDisplay::~CWriteDisplay() {}
 

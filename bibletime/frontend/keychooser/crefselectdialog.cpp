@@ -17,8 +17,8 @@
 
 //CRefSelectDialog::CRefSelectDialog(QWidget *parent)
 //  : KDialogBase(parent, "Refenences",
-//		true, i18n("Refenence selector"),
-//		KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok, true),
+//  true, i18n("Refenence selector"),
+//  KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok, true),
 //  m_oldPos(0,0)
 //
 //{

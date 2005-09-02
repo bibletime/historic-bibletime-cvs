@@ -23,69 +23,69 @@ class QProgressDialog;
   */
 class CExportManager : CPointers {
 public:
-  /** The format the export actions should have
+	/** The format the export actions should have
 	*/
 	enum Format {
-    HTML,
-    Text
-  };
-  
-  CExportManager(const QString& caption, const bool showProgress = true, const QString& progressLabel = QString::null, const CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults());
-	
-  const bool saveKey(CSwordKey* key, const Format format, const bool addText);
-  const bool saveKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);
-  const bool saveKeyList(QPtrList<CSwordKey>& list, const Format format, const bool addText );
+		HTML,
+		Text
+	};
 
-  const bool copyKey(CSwordKey* key, const Format format, const bool addText);
-  const bool copyKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);
-  const bool copyKeyList(QPtrList<CSwordKey>& list, const Format format, const bool addText );  
+	CExportManager(const QString& caption, const bool showProgress = true, const QString& progressLabel = QString::null, const CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults());
 
-  const bool printKey(CSwordKey* key, const QString& description = QString::null);
-  const bool printByHyperlink(const QString& hyperlink);  
-  const bool printKeyList(sword::ListKey* list, CSwordModuleInfo* module);
-  const bool printKeyList(const QStringList& list,CSwordModuleInfo* module);  
-  const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null );
+	const bool saveKey(CSwordKey* key, const Format format, const bool addText);
+	const bool saveKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);
+	const bool saveKeyList(QPtrList<CSwordKey>& list, const Format format, const bool addText );
+
+	const bool copyKey(CSwordKey* key, const Format format, const bool addText);
+	const bool copyKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);
+	const bool copyKeyList(QPtrList<CSwordKey>& list, const Format format, const bool addText );
+
+	const bool printKey(CSwordKey* key, const QString& description = QString::null);
+	const bool printByHyperlink(const QString& hyperlink);
+	const bool printKeyList(sword::ListKey* list, CSwordModuleInfo* module);
+	const bool printKeyList(const QStringList& list,CSwordModuleInfo* module);
+	const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null );
 
 protected: // Protected methods
-  /**
-  * Returns the string for the filedialogs to show the correct files.
-  */
-  const QString filterString( const Format format );
-  /**
-  * Returns a filename to save a file.
-  */
-  const QString getSaveFileName(const Format format);
-  /**
-  * Returns a string containing the linebreak for the current format.
-  */
-  const QString lineBreak( const Format format );
+	/**
+	* Returns the string for the filedialogs to show the correct files.
+	*/
+	const QString filterString( const Format format );
+	/**
+	* Returns a filename to save a file.
+	*/
+	const QString getSaveFileName(const Format format);
+	/**
+	* Returns a string containing the linebreak for the current format.
+	*/
+	const QString lineBreak( const Format format );
 
 private:
-  QString m_caption;
-  QString m_progressLabel;
-  bool m_showProgress;
-  CSwordBackend::FilterOptions m_filterOptions;
-  CSwordBackend::DisplayOptions m_displayOptions;
+	QString m_caption;
+	QString m_progressLabel;
+	bool m_showProgress;
+	CSwordBackend::FilterOptions m_filterOptions;
+	CSwordBackend::DisplayOptions m_displayOptions;
 
-  QProgressDialog* m_progressDialog;
-  
-  /**
-  * Creates the progress dialog with the correct settings.
-  */  
-  QProgressDialog* const progressDialog();
-  /**
-  * Returns the CSS string used in HTML pages.
-  */
-  void setProgressRange( const int item );
-  /**
-  * Increments the progress by one item.
-  */
-  inline void incProgress();
-  const bool progressWasCancelled();
-  /**
-  * Closes the progress dialog immediatly.
-  */
-  void closeProgressDialog();
+	QProgressDialog* m_progressDialog;
+
+	/**
+	* Creates the progress dialog with the correct settings.
+	*/
+	QProgressDialog* const progressDialog();
+	/**
+	* Returns the CSS string used in HTML pages.
+	*/
+	void setProgressRange( const int item );
+	/**
+	* Increments the progress by one item.
+	*/
+	inline void incProgress();
+	const bool progressWasCancelled();
+	/**
+	* Closes the progress dialog immediatly.
+	*/
+	void closeProgressDialog();
 };
 
 #endif

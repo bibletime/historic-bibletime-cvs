@@ -17,34 +17,34 @@ public:
 	/** Constructor.
 	* @param module The module which belongs to this object
 	* @param backend The parent backend for this book module.
-	*/	
+	*/
 	CSwordBookModuleInfo( sword::SWModule* module, CSwordBackend* const backend = CPointers::backend() );
 	/** Copy constructor.
 	* Copy constructor to copy the passed parameter.
 	* @param module The module which should be copied.
 	*/
-	CSwordBookModuleInfo( const CSwordBookModuleInfo& module );	
+	CSwordBookModuleInfo( const CSwordBookModuleInfo& module );
 	/** Destructor.
 	*/
 	~CSwordBookModuleInfo();
-  /**
-  * Returns the type of the module.
-  */
-  virtual const CSwordModuleInfo::ModuleType type() const;
-  /**
-  * Returns the maximal depth of sections and subsections.
-  */
-  const int depth();
-  /**
-  * @return A treekey filled with the structure of this module. Don't delete the returned key because it's casted from the module object.
-  */
-  sword::TreeKeyIdx* const tree() const;
+	/**
+	* Returns the type of the module.
+	*/
+	virtual const CSwordModuleInfo::ModuleType type() const;
+	/**
+	* Returns the maximal depth of sections and subsections.
+	*/
+	const int depth();
+	/**
+	* @return A treekey filled with the structure of this module. Don't delete the returned key because it's casted from the module object.
+	*/
+	sword::TreeKeyIdx* const tree() const;
 
 private:
-  /**
-  * A recursive helper function to help computng the module depth!
-  */
-  void computeDepth(sword::TreeKeyIdx* key, int level = 0 );	
+	/**
+	* A recursive helper function to help computng the module depth!
+	*/
+	void computeDepth(sword::TreeKeyIdx* key, int level = 0 );
 	int m_depth;
 };
 

@@ -15,42 +15,42 @@ class QLabel;
  */
 class KStartupLogo : public QWidget {
 public:
-  /**
-  * Create the splash screen and show it on the screen.
-  * Use hideSplash, raiseSplash and lowerSplash() to control the visibility on screen.
-  */	
+	/**
+	* Create the splash screen and show it on the screen.
+	* Use hideSplash, raiseSplash and lowerSplash() to control the visibility on screen.
+	*/
 	static void createSplash();
-  /**
-  * Show the splash screen on the users desktop.
-  */		
+	/**
+	* Show the splash screen on the users desktop.
+	*/
 	static void showSplash();
-  /**
-  * Hides the splash screen.
-  */		
+	/**
+	* Hides the splash screen.
+	*/
 	static void hideSplash();
-  /**
-  * Delete the splash screen if it exists.
-  */	
-	static void deleteSplash();		
-  /**
-  * Sets the text status message in the splash screen.
-  */	
+	/**
+	* Delete the splash screen if it exists.
+	*/
+	static void deleteSplash();
+	/**
+	* Sets the text status message in the splash screen.
+	*/
 	static void setStatusMessage(const QString& message);
-  /**
-  * Makes the splashscreen the toplevel window.
-  */
-  static void raiseSplash();
-  /**
-  * Lowers the splash screen one window down,
-  * so it's possible to make it not to hide tip windows or other startup stuff.
-  */
-  static void lowerSplash();
+	/**
+	* Makes the splashscreen the toplevel window.
+	*/
+	static void raiseSplash();
+	/**
+	* Lowers the splash screen one window down,
+	* so it's possible to make it not to hide tip windows or other startup stuff.
+	*/
+	static void lowerSplash();
 
 private:
 	KStartupLogo();
-  void setText(const QString text);
-  QLabel* textLabel;
-	
+	void setText(const QString text);
+	QLabel* textLabel;
+
 	static KStartupLogo* startupLogo;
 };
 

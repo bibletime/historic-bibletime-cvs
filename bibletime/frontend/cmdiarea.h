@@ -18,11 +18,11 @@ class CSwordModuleInfo;
 class CSwordKey;
 
 /** The MDI widget we use in BibleTime.
-	* Enhances QWorkspace.
+ * Enhances QWorkspace.
   * @author The BibleTime Team
   */
 class CMDIArea : public QWorkspace, public CPointers  {
-   Q_OBJECT
+	Q_OBJECT
 
 public:
 	/**
@@ -33,87 +33,87 @@ public:
 		autoTileHorizontal,
 		autoCascade,
 		Nothing
-	};	
+	};
 	CMDIArea(QWidget *parent, const char *name = 0 );
-  /**
-  */
-  void readSettings();
-  /**
-  */
-  void saveSettings();
-  /**
-  * Enable / disable autoCascading
-  */
-  void setGUIOption( const MDIOption& newOption );
-  /**
-  * This works around a problem/limitation in QWorkspace. QWorkspace sets every time the 	
-  * application caption on its on way. This confuses BibleTime - wrong captions are generated.
+	/**
+	*/
+	void readSettings();
+	/**
+	*/
+	void saveSettings();
+	/**
+	* Enable / disable autoCascading
+	*/
+	void setGUIOption( const MDIOption& newOption );
+	/**
+	* This works around a problem/limitation in QWorkspace. QWorkspace sets every time the  
+	* application caption on its on way. This confuses BibleTime - wrong captions are generated.
 	* This function returns the right caption (using the MDI child).
 	*/
-  inline const QString currentApplicationCaption() const;
-  void emitWindowCaptionChanged();
-  /**
+	inline const QString currentApplicationCaption() const;
+	void emitWindowCaptionChanged();
+	/**
 	* Forces an update of the currently chosen window arrangement.
 	*/
 	void triggerWindowUpdate();
 
 public slots:
-  /**
-  * Called whan a client window was activated
-  */
+	/**
+	* Called whan a client window was activated
+	*/
 	void slotClientActivated(QWidget* client);
-  /**
-  * Deletes all the presenters in the MDI area.
-  */
-  void deleteAll();
-  /** Our own cascade version which, if only one window is left, shows this maximized.  
- 	* Also necessary for autoCasacde feature
- 	*/
-  void myCascade();
-  /** Our own cascade version which, if only one window is left, shows this maximized.
- 	* Also necessary for autoTile feature
- 	*/
-  void myTileVertical();
+	/**
+	* Deletes all the presenters in the MDI area.
+	*/
+	void deleteAll();
+	/** Our own cascade version which, if only one window is left, shows this maximized.
+	* Also necessary for autoCasacde feature
+	*/
+	void myCascade();
+	/** Our own cascade version which, if only one window is left, shows this maximized.
+	* Also necessary for autoTile feature
+	*/
+	void myTileVertical();
 	/** Horizontal tile function
 	* This function was taken from Qt's MDI example.
 	*/
 	void myTileHorizontal();
 	/**
-  * Emits the signal to create a new display window in the MDI area.
-  */
-  inline void emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName );
+	 * Emits the signal to create a new display window in the MDI area.
+	 */
+	inline void emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName );
 
 protected: // Protected methods
-  /**
-  * Used to make use of the fixedGUIOption part.
-  */
-  virtual void childEvent (QChildEvent * e);
-  /**
-  * Reimplementation
-  */
-  virtual void resizeEvent(QResizeEvent* e);
-  /**
-  * Initializes the connectiosn to SIGNALS
-  */
-  void initConnections();
-  /**
-  * Initializes the view of the MDI area
-  */
-  void initView();
-  QPtrList<QWidget> usableWindowList();
+	/**
+	* Used to make use of the fixedGUIOption part.
+	*/
+	virtual void childEvent (QChildEvent * e);
+	/**
+	* Reimplementation
+	*/
+	virtual void resizeEvent(QResizeEvent* e);
+	/**
+	* Initializes the connectiosn to SIGNALS
+	*/
+	void initConnections();
+	/**
+	* Initializes the view of the MDI area
+	*/
+	void initView();
+	QPtrList<QWidget> usableWindowList();
 	bool eventFilter( QObject *o, QEvent *e );
-			
+
 signals: // Signals
-  /**
-  * Emits a signal to set the acption of the toplevel widget.
-  */
-  void sigSetToplevelCaption(const QString&);
-  /**
-  * Is emitted when the last presenter was closed.
-  */
-  void sigLastPresenterClosed();
-  void createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& keyName);
-	
+	/**
+	* Emits a signal to set the acption of the toplevel widget.
+	*/
+	void sigSetToplevelCaption(const QString&);
+	/**
+	* Is emitted when the last presenter was closed.
+	*/
+	void sigLastPresenterClosed();
+	void createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& keyName);
+
 private:
 	MDIOption m_guiOption;
 	bool m_childEvent;
@@ -127,7 +127,7 @@ inline const QString CMDIArea::currentApplicationCaption() const {
 
 /** Emits the signal to create a new display window in the MDI area. */
 inline void CMDIArea::emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName ) {
-  emit createReadDisplayWindow(modules, keyName);
+	emit createReadDisplayWindow(modules, keyName);
 }
 
 

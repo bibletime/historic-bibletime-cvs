@@ -12,22 +12,23 @@ class QMouseEvent;
   * @author The BibleTime team
   */
 class CScrollButton : public QToolButton  {
-   Q_OBJECT
+	Q_OBJECT
 public:
 	/**
 	* The constructor
 	*/
 	CScrollButton(QWidget *parent=0, const char *name=0);
-  const bool isLocked() const;
-	
+	const bool isLocked() const;
+
 signals:
 	/**
 	* is emitted when the button enters locked state
 	*/
-	void lock();
+	void lock()
+		;
 	/**
 	* is emitted when the button leaves locked state
-	*/	
+	*/
 	void unlock();
 	/**
 	* indicates a change the user made by moving the mouse
@@ -56,21 +57,21 @@ protected:
 	* @return the lock point
 	*/
 	const QPoint get_lock_Point() const;
-  /**
-  * If the wheel of the mouse is used while the mouse stays over our scrollbutton the content is
+	/**
+	* If the wheel of the mouse is used while the mouse stays over our scrollbutton the content is
 	* scrolled like the mouse was pressed and moved.
 	*/
-  virtual void wheelEvent( QWheelEvent* e );
-	
+	virtual void wheelEvent( QWheelEvent* e );
+
 private:
 	/**
 	* Indicates whether the button is in locked state or not
 	*/
-  bool m_isLocked;
+	bool m_isLocked;
 	/**
 	* stores the lock point
-	*/	
-	QPoint lock_Point;	
+	*/
+	QPoint lock_Point;
 };
 
 #endif

@@ -3,22 +3,19 @@
 #include "cprofilewindow.h"
 
 CProfileWindow::CProfileWindow(CSwordModuleInfo::ModuleType type)
-	: m_type(type),
-    m_windowGeometry(),
-    m_moduleList(),
-    m_key(QString::null),
-	  m_maximized(false),
-	  m_hasFocus(false),
-    m_windowSettings(0),
-    m_writeWindowType(0)
-{
-  m_scrollbarPos.horizontal = 0;
-  m_scrollbarPos.vertical = 0;
+		: m_type(type),
+		m_windowGeometry(),
+		m_moduleList(),
+		m_key(QString::null),
+		m_maximized(false),
+		m_hasFocus(false),
+		m_windowSettings(0),
+m_writeWindowType(0) {
+	m_scrollbarPos.horizontal = 0;
+	m_scrollbarPos.vertical = 0;
 }
 
-CProfileWindow::~CProfileWindow(){
-
-}
+CProfileWindow::~CProfileWindow() {}
 
 /** Returns the size of the window including the x,y coordinates. */
 const QRect& CProfileWindow::geometry() const {
@@ -26,7 +23,7 @@ const QRect& CProfileWindow::geometry() const {
 }
 
 /** Sets the size of the window. */
-void CProfileWindow::setGeometry( const QRect& rect ){
+void CProfileWindow::setGeometry( const QRect& rect ) {
 	m_windowGeometry = rect;
 }
 
@@ -34,11 +31,11 @@ void CProfileWindow::setGeometry( const QRect& rect ){
 const CSwordModuleInfo::ModuleType CProfileWindow::type() const {
 	if (m_type != CSwordModuleInfo::Unknown)
 		return m_type;
-  return CSwordModuleInfo::Unknown;
+	return CSwordModuleInfo::Unknown;
 }
 
 /** Sets the modules. */
-void CProfileWindow::setModules( const QStringList& modules ){
+void CProfileWindow::setModules( const QStringList& modules ) {
 	m_moduleList = modules; //copy module pointers into our own list
 }
 
@@ -53,13 +50,13 @@ const QString& CProfileWindow::key() const {
 }
 
 /** Set the key used in the modules. */
-void CProfileWindow::setKey( const QString& key ){
+void CProfileWindow::setKey( const QString& key ) {
 	m_key = key;
 }
 
 /** Sets the current position of the scrollbars. */
 void CProfileWindow::setScrollbarPositions(const int& horizontal, const int& vertical) {
-//	m_scrollbarPos = {x,y};
+	// m_scrollbarPos = {x,y};
 	m_scrollbarPos.horizontal = horizontal;
 	m_scrollbarPos.vertical = vertical;
 }
@@ -70,7 +67,7 @@ const CProfileWindow::ScrollbarPos& CProfileWindow::scrollbarPositions() const {
 }
 
 /** Sets the type of the used modules. */
-void CProfileWindow::setType(const CSwordModuleInfo::ModuleType& type){
+void CProfileWindow::setType(const CSwordModuleInfo::ModuleType& type) {
 	m_type = type;
 }
 
@@ -80,7 +77,7 @@ const bool& CProfileWindow::maximized() const {
 }
 
 /** Sets the windows maximized state to true or false. */
-void CProfileWindow::setMaximized( const bool& maximized ){
+void CProfileWindow::setMaximized( const bool& maximized ) {
 	m_maximized = maximized;
 }
 
@@ -90,7 +87,7 @@ const bool& CProfileWindow::hasFocus() const {
 }
 
 /** Sets the windows maximized state to true or false. */
-void CProfileWindow::setFocus( const bool& hasFocus ){
+void CProfileWindow::setFocus( const bool& hasFocus ) {
 	m_hasFocus = hasFocus;
 }
 
@@ -100,16 +97,16 @@ const int& CProfileWindow::windowSettings() const {
 }
 
 /** Sets the window specific settings. */
-void CProfileWindow::setWindowSettings( const int& settings ){
+void CProfileWindow::setWindowSettings( const int& settings ) {
 	m_windowSettings = settings;
 }
 
 /** Tells this profile window to represent a write window. */
-void CProfileWindow::setWriteWindowType( const int& writeWindowType ){
-  m_writeWindowType = writeWindowType;
+void CProfileWindow::setWriteWindowType( const int& writeWindowType ) {
+	m_writeWindowType = writeWindowType;
 }
 
 /** Returns whether this profile window represents a write window. */
 const int& CProfileWindow::writeWindowType() const {
-  return m_writeWindowType;
+	return m_writeWindowType;
 }

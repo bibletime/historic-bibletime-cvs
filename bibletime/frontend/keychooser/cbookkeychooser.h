@@ -20,7 +20,9 @@ class CSwordKey;
 class CSwordBookModuleInfo;
 class CSwordTreeKey;
 
-namespace sword { class TreeKeyIdx; }
+namespace sword {
+	class TreeKeyIdx;
+}
 
 class QHBoxLayout;
 
@@ -28,58 +30,58 @@ class QHBoxLayout;
   * @author The BibleTime team
   */
 class CBookKeyChooser : public CKeyChooser  {
-   Q_OBJECT
-public: 
+	Q_OBJECT
+public:
 	CBookKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 	~CBookKeyChooser();
-  /**
-  * Refreshes the content.
-  */
-  virtual void refreshContent();
-  /**
-  * Sets another module to this keychooser
-  */
-  virtual void setModules(const ListCSwordModuleInfo& modules, const bool refresh = false);
-  /**
-  * Returns the key of this kechooser.
-  */
-  virtual CSwordKey* const key();
-  /**
-  * Sets a new key to this keychooser
-  */
-  virtual void setKey(CSwordKey*);
-  /**
-  * Sets a new key to this keychooser
-  */
-  void setKey(CSwordKey*, const bool emitSignal);
+	/**
+	* Refreshes the content.
+	*/
+	virtual void refreshContent();
+	/**
+	* Sets another module to this keychooser
+	*/
+	virtual void setModules(const ListCSwordModuleInfo& modules, const bool refresh = false);
+	/**
+	* Returns the key of this kechooser.
+	*/
+	virtual CSwordKey* const key();
+	/**
+	* Sets a new key to this keychooser
+	*/
+	virtual void setKey(CSwordKey*);
+	/**
+	* Sets a new key to this keychooser
+	*/
+	void setKey(CSwordKey*, const bool emitSignal);
 
 
 public slots: // Public slots
-  /**
-  * Updates the keychoosers for the given key but emit no signal.
-  */
-  void updateKey(CSwordKey*);
+	/**
+	* Updates the keychoosers for the given key but emit no signal.
+	*/
+	void updateKey(CSwordKey*);
 
 protected: // Protected methods
-  /**
-  * Fills the combo given by depth with the items from the key having depth "depth".
+	/**
+	* Fills the combo given by depth with the items from the key having depth "depth".
 	* The parent sibling is given by key.
 	*/
-  void setupCombo(const QString key, const int depth, const int currentItem);
-  /** No descriptions */
-  virtual void adjustFont();
+	void setupCombo(const QString key, const int depth, const int currentItem);
+	/** No descriptions */
+	virtual void adjustFont();
 
 protected slots:
-  /**
-  * A keychooser changed. Update and emit a signal if necessary.
-  */
-  void keyChooserChanged(int);
-  //is called when a keychooser widget wants to jump to the next/previous key
-//  void nextEntry();
-//  void previousEntry();
+	/**
+	* A keychooser changed. Update and emit a signal if necessary.
+	*/
+	void keyChooserChanged(int);
+	//is called when a keychooser widget wants to jump to the next/previous key
+	//  void nextEntry();
+	//  void previousEntry();
 
 private:
-	QPtrList<CKeyChooserWidget> m_chooserWidgets;	
+	QPtrList<CKeyChooserWidget> m_chooserWidgets;
 	QPtrList<CSwordBookModuleInfo> m_modules;
 	CSwordTreeKey *m_key;
 	QHBoxLayout* m_layout;

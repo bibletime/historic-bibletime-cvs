@@ -14,19 +14,19 @@ class QWidget;
 
 class CReadDisplay :  public CDisplay {
 public:
-  /**
-  * Returns true if the display has an active anchor.
-  */
-  const bool hasActiveAnchor();
-  /**
-  * Returns the current active anchor.
-  */
-  const QString& activeAnchor();
-  /**
-  * Moves the widget to the given anchor.
-  */
-  virtual void moveToAnchor( const QString& ) = 0;
-  virtual void print(const CDisplay::TextPart);
+	/**
+	* Returns true if the display has an active anchor.
+	*/
+	const bool hasActiveAnchor();
+	/**
+	* Returns the current active anchor.
+	*/
+	const QString& activeAnchor();
+	/**
+	* Moves the widget to the given anchor.
+	*/
+	virtual void moveToAnchor( const QString& ) = 0;
+	virtual void print(const CDisplay::TextPart);
 
 	void setMouseTracking(const bool trackingEnabled) {
 		m_useMouseTracking = trackingEnabled;
@@ -37,24 +37,24 @@ public:
 
 protected: // Protected methods
 	friend class CDisplay;
- 	friend class CHTMLReadDisplay;
- 	friend class CHTMLReadDisplayView;
+	friend class CHTMLReadDisplay;
+	friend class CHTMLReadDisplayView;
 
 	CReadDisplay( CReadWindow* readWindow );
 	~CReadDisplay();
 
-  /**
-  * Sets the current anchor to the parameter.
-  */
-  void setActiveAnchor( const QString& );
+	/**
+	* Sets the current anchor to the parameter.
+	*/
+	void setActiveAnchor( const QString& );
 
 private: // Public attributes
-  /**
-  * The member which hols the current anchor.
-  */
+	/**
+	* The member which hols the current anchor.
+	*/
 
-  QString m_activeAnchor;
-	
+	QString m_activeAnchor;
+
 	bool m_useMouseTracking;
 };
 

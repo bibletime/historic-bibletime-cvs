@@ -19,14 +19,13 @@
 *
 * @author Joachim Ansorg
 */
-class BibleTimeInterface : virtual public DCOPObject
-{
+class BibleTimeInterface : virtual public DCOPObject {
 	//This K_DCOP line is required so that the k_dcop: and ASYNC are processed.
-  K_DCOP
+	K_DCOP
 
 public:
- 	BibleTimeInterface(QCString id) : DCOPObject(id) {}
-	
+	BibleTimeInterface(QCString id) : DCOPObject(id) {}
+
 k_dcop:
 	/** Sync all open Bible windows to the key.
 	*/

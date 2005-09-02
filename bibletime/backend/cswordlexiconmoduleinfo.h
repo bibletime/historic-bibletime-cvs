@@ -15,7 +15,7 @@
  * @version $Id$
  */
 class CSwordLexiconModuleInfo : public CSwordModuleInfo {
-public: 
+public:
 	/**
 	* The standard constructor fot this object.
 	* A default constructor doesn't exist. Use this one.
@@ -27,26 +27,26 @@ public:
 	CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo& m );
 	/** Reimplementation to return a valid clone.
 	*/
-  virtual CSwordModuleInfo* clone();
+	virtual CSwordModuleInfo* clone();
 	/** Destructor.
-	*/  
-	virtual ~CSwordLexiconModuleInfo();	
-  /**
- 	* Returns the entries of the module.
- 	* This function returns the entries of the modules represented by this object.
- 	* If this function is called for the first time the list is load from disk and stored in a list which cahes it.
- 	* If the function is called again, the cached list is returned so we have a major speed improvement.
- 	* @return The list of lexicon entries
- 	*/
-  QStringList* const entries();
-  /**
-  * Reimplementation, to return the right type for this lexicon.
-  */
-  virtual const CSwordModuleInfo::ModuleType type() const;
-  /**
-  * Jumps to the closest entry in the module.
-  */
-  const bool snap();
+	*/
+	virtual ~CSwordLexiconModuleInfo();
+	/**
+	* Returns the entries of the module.
+	* This function returns the entries of the modules represented by this object.
+	* If this function is called for the first time the list is load from disk and stored in a list which cahes it.
+	* If the function is called again, the cached list is returned so we have a major speed improvement.
+	* @return The list of lexicon entries
+	*/
+	QStringList* const entries();
+	/**
+	* Reimplementation, to return the right type for this lexicon.
+	*/
+	virtual const CSwordModuleInfo::ModuleType type() const;
+	/**
+	* Jumps to the closest entry in the module.
+	*/
+	const bool snap();
 
 private:
 	/**

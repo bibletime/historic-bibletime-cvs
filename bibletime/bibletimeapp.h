@@ -13,7 +13,7 @@
   * @author The BibleTime team
   */
 class BibleTimeApp : public KApplication, public CPointers {
-public: 
+public:
 	BibleTimeApp();
 	virtual ~BibleTimeApp();
 

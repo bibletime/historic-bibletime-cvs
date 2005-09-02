@@ -21,59 +21,58 @@
 #include <klocale.h>
 
 CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name )
-	: CKeyChooser(modules, key, parent, name),
-		m_key(dynamic_cast<CSwordVerseKey*>(key))
-{
+		: CKeyChooser(modules, key, parent, name),
+m_key(dynamic_cast<CSwordVerseKey*>(key)) {
 	setModules(modules, false);
 	if (!m_modules.count()) {
 		qWarning("CBibleKeyChooser: module is not a Bible or commentary!");
-    m_key = 0;
+		m_key = 0;
 		return;
 	}
 
 	QHBoxLayout* layout = new QHBoxLayout(this);
-  layout->setDirection( QBoxLayout::LeftToRight );
-		
-	w_book = new CKeyChooserWidget(m_modules.first()->books(),false,this);	
+	layout->setDirection( QBoxLayout::LeftToRight );
+
+	w_book = new CKeyChooserWidget(m_modules.first()->books(),false,this);
 	w_book->setToolTips(
-    CResMgr::displaywindows::bibleWindow::bookList::tooltip,
-    CResMgr::displaywindows::bibleWindow::nextBook::tooltip,
-    CResMgr::displaywindows::general::scrollButton::tooltip,
-    CResMgr::displaywindows::bibleWindow::previousBook::tooltip
-  );
-	
-  w_chapter = new CKeyChooserWidget( m_modules.first()->chapterCount(w_book->comboBox()->currentText()),true,this);		
-	w_chapter->setToolTips(
-    CResMgr::displaywindows::bibleWindow::chapterList::tooltip,
-    CResMgr::displaywindows::bibleWindow::nextChapter::tooltip,
-    CResMgr::displaywindows::general::scrollButton::tooltip,
-    CResMgr::displaywindows::bibleWindow::previousChapter::tooltip
-  );
-	
-  w_verse = new CKeyChooserWidget( 
-		m_modules.first()->verseCount(w_book->comboBox()->currentText(),1), //init with verses of 1st chapter
-		true,
-		this
+		CResMgr::displaywindows::bibleWindow::bookList::tooltip,
+		CResMgr::displaywindows::bibleWindow::nextBook::tooltip,
+		CResMgr::displaywindows::general::scrollButton::tooltip,
+		CResMgr::displaywindows::bibleWindow::previousBook::tooltip
 	);
+
+	w_chapter = new CKeyChooserWidget( m_modules.first()->chapterCount(w_book->comboBox()->currentText()),true,this);
+	w_chapter->setToolTips(
+		CResMgr::displaywindows::bibleWindow::chapterList::tooltip,
+		CResMgr::displaywindows::bibleWindow::nextChapter::tooltip,
+		CResMgr::displaywindows::general::scrollButton::tooltip,
+		CResMgr::displaywindows::bibleWindow::previousChapter::tooltip
+	);
+
+	w_verse = new CKeyChooserWidget(
+				  m_modules.first()->verseCount(w_book->comboBox()->currentText(),1), //init with verses of 1st chapter
+				  true,
+				  this
+			  );
 	w_verse->setToolTips(
-    CResMgr::displaywindows::bibleWindow::verseList::tooltip,
-    CResMgr::displaywindows::bibleWindow::nextVerse::tooltip,
-    CResMgr::displaywindows::general::scrollButton::tooltip,
-    CResMgr::displaywindows::bibleWindow::previousVerse::tooltip
-  );
+		CResMgr::displaywindows::bibleWindow::verseList::tooltip,
+		CResMgr::displaywindows::bibleWindow::nextVerse::tooltip,
+		CResMgr::displaywindows::general::scrollButton::tooltip,
+		CResMgr::displaywindows::bibleWindow::previousVerse::tooltip
+	);
 
 	QWidget::setTabOrder(w_book, w_chapter);
 	QWidget::setTabOrder(w_chapter, w_verse);
 	QWidget::setTabOrder(w_verse, 0);
-		
+
 	layout->addWidget(w_book,0);
 	layout->addWidget(w_chapter,0);
 	layout->addWidget(w_verse,0);
 
 	/* Book connections */
 	connect(w_book,SIGNAL(changed(int))       ,SLOT(bookChanged(int)));
-	connect(w_book,SIGNAL(focusOut(int))      ,SLOT(bookFocusOut(int)));	
-	
+	connect(w_book,SIGNAL(focusOut(int))      ,SLOT(bookFocusOut(int)));
+
 	/* Chapter Connections */
 	connect(w_chapter,SIGNAL(changed(int))    ,SLOT(chapterChanged(int)));
 	connect(w_chapter,SIGNAL(next_requested()),SLOT(chapterNextRequested()));
@@ -91,29 +90,29 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	setKey(m_key); //set the key without changing it, setKey(key()) would change it
 }
 
-CSwordKey* const CBibleKeyChooser::key(){
+CSwordKey* const CBibleKeyChooser::key() {
 	if (m_key) {
-    const int chapter =  w_chapter->comboBox()->currentText().toInt();
-    const int verse = w_verse->comboBox()->currentText().toInt();
-		
+		const int chapter =  w_chapter->comboBox()->currentText().toInt();
+		const int verse = w_verse->comboBox()->currentText().toInt();
+
 		m_key->Headings(1);
 		m_key->book(w_book->comboBox()->currentText());
 		m_key->Chapter((chapter < 0) ? 0 : chapter);
 		m_key->Verse((verse < 0) ? 0 : verse);
 	}
-	
+
 	return m_key;
 }
 
-void CBibleKeyChooser::setKey(CSwordKey* key){
+void CBibleKeyChooser::setKey(CSwordKey* key) {
 	Q_ASSERT(dynamic_cast<CSwordVerseKey*>(key));
 	if (dynamic_cast<CSwordVerseKey*>(key) == 0) {
 		return;
 	}
-	
+
 	m_key = dynamic_cast<CSwordVerseKey*>(key);
 	emit (beforeKeyChange(m_key->key())); //required to make direct setKey calls work from the outside
-	
+
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 
@@ -121,7 +120,7 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 	const int count = w_book->comboBox()->count();
 	const QString desiredBook = m_key->book();
 	bool bookIsValid = false;
-	
+
 	for (int i = 0; i < count; ++i) {
 		if (w_book->comboBox()->text(i) == desiredBook) {
 			bookIsValid = true;
@@ -137,40 +136,39 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 		w_chapter->reset(m_modules.first()->chapterCount(m_key->book()), chapter-1, false);
 		w_verse->reset(m_modules.first()->verseCount(m_key->book(), chapter), verse-1, false);
 
-    emit keyChanged(m_key);
-	}
-	else { //reset to Gen.1.1
+		emit keyChanged(m_key);
+	} else { //reset to Gen.1.1
 		w_book->comboBox()->setCurrentItem(0);
 		m_key->book(w_book->comboBox()->currentText());
-		
-   	w_chapter->comboBox()->setCurrentItem(0);
- 		m_key->Chapter(1);
 
-    w_verse->comboBox()->setCurrentItem(0);
- 		m_key->Verse(1);
-		
+		w_chapter->comboBox()->setCurrentItem(0);
+		m_key->Chapter(1);
+
+		w_verse->comboBox()->setCurrentItem(0);
+		m_key->Verse(1);
+
 		emit keyChanged(m_key);
 	}
 }
 
-void CBibleKeyChooser::chapterNextRequested(void){
+void CBibleKeyChooser::chapterNextRequested(void) {
 	if (!isUpdatesEnabled())
 		return;
 
 	setUpdatesEnabled(false);
-	
+
 	if (m_key) {
 		emit beforeKeyChange(m_key->key());
 	}
 	if (m_key->next(CSwordVerseKey::UseChapter)) {
 		setKey(m_key);
 	}
-	
+
 	setUpdatesEnabled(true);
 }
 
 /**  */
-void CBibleKeyChooser::chapterPrevRequested(void){
+void CBibleKeyChooser::chapterPrevRequested(void) {
 	if (!isUpdatesEnabled())
 		return;
 
@@ -186,10 +184,10 @@ void CBibleKeyChooser::chapterPrevRequested(void){
 }
 
 /**  */
-void CBibleKeyChooser::verseNextRequested(void){
+void CBibleKeyChooser::verseNextRequested(void) {
 	if (!isUpdatesEnabled())
 		return;
-	
+
 	setUpdatesEnabled(false);
 	if (m_key) {
 		emit beforeKeyChange(m_key->key());
@@ -201,11 +199,11 @@ void CBibleKeyChooser::verseNextRequested(void){
 }
 
 /**  */
-void CBibleKeyChooser::versePrevRequested(void){
+void CBibleKeyChooser::versePrevRequested(void) {
 	if (!isUpdatesEnabled())
 		return;
-	
-	setUpdatesEnabled(false);	
+
+	setUpdatesEnabled(false);
 	if (m_key) {
 		emit beforeKeyChange(m_key->key());
 	}
@@ -216,9 +214,9 @@ void CBibleKeyChooser::versePrevRequested(void){
 	setUpdatesEnabled(true);
 }
 
-void CBibleKeyChooser::bookChanged(int /*i*/){
-//	qWarning("CBibleKeyChooser::bookChanged(int /*i*/)");
- 	Q_ASSERT(m_key);
+void CBibleKeyChooser::bookChanged(int /*i*/) {
+	// qWarning("CBibleKeyChooser::bookChanged(int /*i*/)");
+	Q_ASSERT(m_key);
 
 	if (!isUpdatesEnabled())
 		return;
@@ -234,12 +232,12 @@ void CBibleKeyChooser::bookChanged(int /*i*/){
 	setUpdatesEnabled(true);
 }
 
-void CBibleKeyChooser::chapterChanged(int /*i*/){
-//	qWarning("CBibleKeyChooser::chapterChanged(int /*i*/)");
+void CBibleKeyChooser::chapterChanged(int /*i*/) {
+	// qWarning("CBibleKeyChooser::chapterChanged(int /*i*/)");
 	if (!isUpdatesEnabled())
 		return;
-	
-	setUpdatesEnabled(false);		
+
+	setUpdatesEnabled(false);
 	if (m_key) {
 		emit beforeKeyChange(m_key->key());
 	}
@@ -252,68 +250,68 @@ void CBibleKeyChooser::chapterChanged(int /*i*/){
 	setUpdatesEnabled(true);
 }
 
-void CBibleKeyChooser::verseChanged(int/* i*/){
-// 	qWarning("CBibleKeyChooser::verseChanged(%d", i);
+void CBibleKeyChooser::verseChanged(int/* i*/) {
+	//  qWarning("CBibleKeyChooser::verseChanged(%d", i);
 	if (!isUpdatesEnabled())
-		return;	
-	
-	setUpdatesEnabled(false);			
+		return;
+
+	setUpdatesEnabled(false);
 
 	if (m_key->Verse() != w_verse->comboBox()->currentText().toInt()) {
 		m_key->Verse( w_verse->comboBox()->currentText().toInt() );
 		setKey( m_key );
 	}
-	
-	setUpdatesEnabled(true);	
+
+	setUpdatesEnabled(true);
 }
 
 /** Reimplementation */
-QSize CBibleKeyChooser::sizeHint(){
-  return QSize( w_book->sizeHint().width() + w_chapter->sizeHint().width() + w_verse->sizeHint().width(), w_book->sizeHint().height());
+QSize CBibleKeyChooser::sizeHint() {
+	return QSize( w_book->sizeHint().width() + w_chapter->sizeHint().width() + w_verse->sizeHint().width(), w_book->sizeHint().height());
 }
 
 /** Reimplementation. */
 void CBibleKeyChooser::refreshContent() {
 	Q_ASSERT(m_modules.count() && m_modules.first());
-  if (!m_modules.count() || !m_modules.first()) {
-    return;
-   }
+	if (!m_modules.count() || !m_modules.first()) {
+		return;
+	}
 
-  w_book->reset( m_modules.first()->books(), w_book->comboBox()->currentItem(), false);
+	w_book->reset( m_modules.first()->books(), w_book->comboBox()->currentItem(), false);
 	setKey(m_key);
 }
 
 /** Sets te module and refreshes the combos */
-void CBibleKeyChooser::setModules(const ListCSwordModuleInfo& modules, const bool refresh){
-  m_modules.clear();
+void CBibleKeyChooser::setModules(const ListCSwordModuleInfo& modules, const bool refresh) {
+	m_modules.clear();
 
-//   for (modules.first(); modules.current(); modules.next()) {
+	//   for (modules.first(); modules.current(); modules.next()) {
 	ListCSwordModuleInfo::const_iterator end_it = modules.end();
 	for (ListCSwordModuleInfo::const_iterator it(modules.begin()); it != end_it; ++it) {
-    if ((*it)->type() == CSwordModuleInfo::Bible || (*it)->type() == CSwordModuleInfo::Commentary) {
-      if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(*it)) {
-        m_modules.append(bible);
-      }
-    }
-  }
+		if ((*it)->type() == CSwordModuleInfo::Bible || (*it)->type() == CSwordModuleInfo::Commentary) {
+			if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(*it)) {
+				m_modules.append(bible);
+			}
+		}
+	}
 
-  if (refresh) {
-    refreshContent();
+	if (refresh) {
+		refreshContent();
 	}
 }
 
 /** called when the book combo lost the focus with reason == tab @param the new book */
-void CBibleKeyChooser::bookFocusOut(int /*index*/){
+void CBibleKeyChooser::bookFocusOut(int /*index*/) {
 	if (!isUpdatesEnabled()) {
 		return;
 	}
-		
+
 	setUpdatesEnabled(false);
-	
+
 	m_key->book( w_book->comboBox()->currentText() );
 	const int chapterCount = m_modules.first()->chapterCount( m_modules.first()->bookNumber(m_key->book()));
 	w_chapter->reset( chapterCount, m_key->Chapter()-1, false);
-			
+
 	const int verseCount = m_modules.first()->verseCount(m_modules.first()->bookNumber(m_key->book()),m_key->Chapter());
 	w_verse->reset(verseCount,m_key->Verse()-1,false);
 
@@ -321,23 +319,22 @@ void CBibleKeyChooser::bookFocusOut(int /*index*/){
 }
 
 /** called when the chapter combo lost the focus with reason == tab @param the new chapter */
-void CBibleKeyChooser::chapterFocusOut(int /*index*/){
+void CBibleKeyChooser::chapterFocusOut(int /*index*/) {
 	const int chapter = w_chapter->comboBox()->currentText().toInt();
 	m_key->Chapter( chapter );
 	w_verse->reset(m_modules.first()->verseCount(m_modules.first()->bookNumber(m_key->book()),chapter), 0, false);
 }
 
 /** called when the verse combo lost the focus with reason == tab @param the new verse */
-void CBibleKeyChooser::verseFocusOut(int /*index*/){
+void CBibleKeyChooser::verseFocusOut(int /*index*/) {
 	m_key->Verse( w_verse->comboBox()->currentText().toInt() );
-	setKey( m_key );	
+	setKey( m_key );
 }
 
 /** No descriptions */
-void CBibleKeyChooser::updateKey(CSwordKey* /*key*/){
-}
+void CBibleKeyChooser::updateKey(CSwordKey* /*key*/) {}
 
 /** No descriptions */
-void CBibleKeyChooser::adjustFont(){
-//#warning implement a suitable solution. must be based on locales, not on module->isUnicode. Maybe just do nothing? =)
+void CBibleKeyChooser::adjustFont() {
+	//#warning implement a suitable solution. must be based on locales, not on module->isUnicode. Maybe just do nothing? =)
 }

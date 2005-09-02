@@ -22,8 +22,8 @@ namespace InfoDisplay {
 		friend class CInfoDisplay;
 
 		CrossRefRendering(
-		    CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(),
-		    CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
+			CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(),
+			CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
 		);
 
 		virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* module );

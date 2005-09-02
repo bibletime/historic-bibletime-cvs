@@ -1,7 +1,16 @@
+2005-08-24 Joachim Ansorg <info@bibletime.info>
+  * Bugfix: More Drag&Drop fixes
+
+2005-08-24 Joachim Ansorg <info@bibletime.info>
+  * Bugfix: Copyright infos for a module is now displayed as valid text
+  * Bugfix: Larger fontsize for the display styles "Default" and "Green"
+
+2005-08-18 Joachim Ansorg <info@bibletime.info>
+  * Bugfix: Bookmark drag&drop should work now
+
 2005-08-01 Joachim Ansorg <info@bibletime.info>
-  * New feature: Display templates can now be stored in $KDEDIR/share/apps/bibletime/display-templates/
-  * Fixes for the ThML filter (missing default Bible)
-  * Compile fixes for KDE 3.1, not yet tested
+  * New feature: Display templates can now be stored in $KDEDIR/share/apps/bibletime/display-templates/ and
+    $HOME/.kde/share/apps/bibletime/display-templates/
 
 2005-07-16 Joachim Ansorg <info@bibletime.info>
   * BibleTime 1.5
@@ -13,7 +22,7 @@
   * Most of the bugs reported for rc1 are fixed
   * Major handbook update
   * Display windows scroll now to the right position after they opened and
-    after a resize 
+    after a resize
 
 2005-06-10 Joachim Ansorg <info@bibletime.info>
   * API doc updates (BibleTime.DoxyFile)
@@ -108,7 +117,7 @@
 2002-06-02 Martin Gruner <mg.pub@gmx.net>
 	* Moved the english docs to bibletime/docs, and the pot file to bibletime/pot.
 	  Created a new package bibletime-i18n-de for German docs, with the folders docs/ and po/.
-	  Revised gen_am.sh file to suit the new arrangement, and it does at least run and create all the 
+	  Revised gen_am.sh file to suit the new arrangement, and it does at least run and create all the
 	  necessary Makefile.am files for English and German.
 
 2002-05-03  Martin <mg.pub@gmx.net>
@@ -146,7 +155,7 @@
 		- Fullscreen mode of the main application window
 		- Improved commentary editor: Ask if the text should be saved if the window or BibleTime should be closed
 			if the changed text was not saved before.
-		
+
 2001-11-24 Fred Saalbach <saalbach@sybercom.net>
 	* Moved documentation to bibletime-docs - includes .po files, handbook, etc.
 	* This will reduce the size of the main program and allow more flexibility
@@ -196,7 +205,7 @@
 	* Changed the direction of the spin boxes
 		and of the scrollbutton in the presenters
 	* Updated QWorkspace to the one of Qt 2.2.4
-	
+
 2001-02-07 Joachim Ansorg <jansorg@gmx.de>
 	* Fixed bugs in the groupmanager, searchdialog and presenters
 
@@ -206,7 +215,7 @@
 
 2001-02-03 Joachim Ansorg <jansorg@gmx.de>
 	* Added Makefile system to create and install the handbook
-	* Fred added his really nice handbook in .docbook format	
+	* Fred added his really nice handbook in .docbook format
 	* Improved printing dialog: Now the styles are saved and restored correctly, needs some tweaking
 	*	Fixed some bugs in the printing system, removed the range specifiers of the printing dialog
 
@@ -216,10 +225,10 @@
 	* Fixed some bug in CStyleEditorDialog
 	* Fixed some bug in the printing system
 	* Improved CBiblePresenter and CPrinterDialog
-	
+
 2001-01-30 Joachim Ansorg <jansorg@gmx.de>
 	* Updated ToDo
-	
+
 2001-01-27 Joachim Ansorg <jansorg@gmx.de>
 	* Fixed the graphical search analysis, it should now work 99%
 
@@ -243,13 +252,13 @@
 	* Improved the BibleTime icons
 
 2001-01-01 Joachim Ansorg <jansorg@gmx.de>
-	
+
 	A BLESSED NEW YEAR!
-	
+
 	-Added the command line option --debug to enable debug messages
 2000-12-29 Joachim Ansorg <jansorg@gmx.de>
 	*Changed behaviour if a book, chapter or verse was changed in the Bible-keychooser
-	
+
 
 2000-12-29 Joachim Ansorg <jansorg@gmx.de>
 	* Changed iconname so it will be found
@@ -282,13 +291,13 @@
 2000-12-03 Jochim Ansorg <jansorg@gmx.de>
 	* Changed the latin1() calls of QString to (const char*) ... local8Bit()
 	* Changed QTextView a little bit: Do not set contents pos to 0,0 in QTexView::setText(), the result is a fester displaying of the texts
-	* Changed the optionsdialog to display the language name and not the abbrevation	
+	* Changed the optionsdialog to display the language name and not the abbrevation
 
 2000-11-28	Joachim Ansorg <jansorg@gmx.de>
 	*  You can now switch between different book translations on runtime!
 	* Improved "context sensitive" presenter refresh (e.g. if footnotes are enabled only presenters with modules having them will be refreshed)
 	* Fixed some memory leaks.
-	
+
 2000-11-04	Joachim Ansorg <jansorg@gmx.de>
 	* Solved some bugs
 	* Updated ceditwidget.cpp so saving HTML is correct, loading is still incomplete
@@ -299,7 +308,7 @@
 2000-10-30	Joachim Ansorg <jansorg@gmx.de>
 	* Added sources and headers of QTextView, QTextBrowser and QRichText
 	* Added signal wordHighlighted in QTextView
-	
+
 2000-10-29	Joachim Ansorg <jansorg@gmx.de>
 	* Removed the toggle toolbar/footnotes/strongs bugs
 	* Removed the bug Troy found (deletion of the searchresult)
@@ -347,7 +356,7 @@
 
 1999-12-20 	Joachim Ansorg <Jockel123@gmx.de>
 	*The fontmanagement dialog is now grayed out if there's no entry in the list
-	
+
 1999-12-20 	Birger Langkjer <birger.langkjer@image.dk>
 	*Updated danish translation
 
@@ -356,13 +365,13 @@
 	systems without KFontManager
 	*Added files global.h and global.cpp which should contain global functions
 	*Fixed some typos in the german translation
-	
+
 1999-12-18 	Joachim Ansorg <Jockel123@gmx.de>
 	*Added Apply-Button in the optionsdialog
-	
+
 1999-12-17 	Joachim Ansorg <Jockel123@gmx.de>
 	*Tried to fix the charset problem in ktipoftheday.cpp
-	*Updated AUTHORS list	
+	*Updated AUTHORS list
 
 1999-12-16 	Joachim Ansorg <Jockel123@gmx.de>
 	*Updated Michal's Czech translation
@@ -383,7 +392,7 @@
 1999-11-27 	Joachim Ansorg <Jockel123@gmx.de>
 	*Removed unused images
 	*BibleTime 0.2
-	
+
 1999-11-26 	Joachim Ansorg <Jockel123@gmx.de>
 	*Finished the whole german handbook
 	*Removed the own filters (plainhtml, rwphtml and gbfhtml),use (newer) filters of SWORD version
@@ -392,7 +401,7 @@
 1999-11-25 	Joachim Ansorg <Jockel123@gmx.de>
 	*Updated ToDo and Readme
 	*Caption of mainwindow now contains the current chapter and verse
-	
+
 1999-11-24 	Joachim Ansorg <Jockel123@gmx.de>
 	*Made some labels in the printer-optionsdialog bigger to fit french translation
 	*ResizeEvent in SearchScopeDialog
@@ -423,7 +432,7 @@
 1999-11-03 	Joachim Ansorg <Jockel123@gmx.de>
 	*Updated authors list
 	*Thorsten added the new printer dialog - it works now
-	
+
 1999-11-03 	Joachim Ansorg <Jockel123@gmx.de>
 	*Added optimized paint function committed in the KDevelop mailing list by Vladimir Dvorak
 	 Thanks Vladimir!
@@ -432,7 +441,7 @@
 1999-11-01 	Joachim Ansorg <Jockel123@gmx.de>
 	*Updated handbook - Jeff's work is really great!
 	*You can now use more than 31 tips in a tipdatabase
-	
+
 1999-10-23 	Joachim Ansorg <Jockel123@gmx.de>
 	*Renamed members in BibleTimeView: tTabView to treeTabView and sTabView to browserTabView
 	 We need this because sTabView and tTabView are confusing
@@ -441,7 +450,7 @@
 	*Updated API documentation
 	*Fixed BUG: Now the recentText part in BibleTimeView is saved correctly again
 	*Noticed that KDE 1.1.2 has the calcScrollBars bug solved, no we use only our own function in KDE version before 1.1.2
-	
+
 1999-10-21 	Joachim Ansorg <Jockel123@gmx.de>
 	*Bugfix: Key acelelerators are now saved after changing and restored on new startup
 	*Updated API documentation
@@ -450,7 +459,7 @@
 1999-10-19 	Joachim Ansorg <Jockel123@gmx.de>
 	*Fixed a bug in CDocBrowser: If you lookup some text, the module wasn't highlighted
 	*Added own submenu for the lookup part in CDocBrowser
-	
+
 1999-10-18 	Joachim Ansorg <Jockel123@gmx.de>
 	*BibleTime needs now the upcoming SWORD 1.45
 
@@ -467,18 +476,18 @@
 	*Commented out the first lines of BibleTimeMgr to get BibleTime to compile without modifications of SWORD.
 	 Please uncomment these lines to make use of the PLAINFootnotes option filter. Make the declarations in the header
 	 file to protected on which the compiler complains about.
-	
+
 1999-10-14 	Joachim Ansorg <Jockel123@gmx.de>
 	*Implemented context sensitive enabling and disabling of the edit menu entries
 	*Updated KWrite sourcen to the newest one shipped with KDevelop
 	*Added Class CKNewAccel - provides disabling and enabling of accels by reeourceentry like ID_FILE_PRINT
-	
+
 1999-10-13 	Joachim Ansorg <Jockel123@gmx.de>
 	*Added refreshing of the list in CDocBrowser
 	*BibleTime does not load an empty HTML file
 	 (e.g. when you load a file via a HREf module and the server is unknown -> KFM returns an empty file)
 	*Improved a little bit the internet support
-	
+
 1999-10-12 	Joachim Ansorg <Jockel123@gmx.de>
 	*Implemented functions in linkmanager. Implemented the link management in CDocBrowser::showURL.
 	 Needs some work: We have to decide if the file is local or remote and downloda it first
@@ -523,14 +532,14 @@
 
 1999-09-29	Joachim Ansorg <Jockel123@gmx.de>
 	*Implemented more features of font-auto-switching, needs still work
-	
+
 1999-09-28	Joachim Ansorg <Jockel123@gmx.de>
 	*Implemented simple switching between fonts - will work on it
 	*Implemented signal BibleTimeDoc::sigSetBibleFont(const QString)
 	 Implemented slot BibleTimeView::slotSetBibleFont(const QString)
 	 These signal and the slot will be used in the near future for switching of fonts.
 	*Connected the signal and the slot in BibleTimeApp::initView
-	
+
 1999-09-25	Joachim Ansorg <Jockel123@gmx.de>
 	*On print the printerdialog is shown before the QT-dilaog. But printing
 	 doesn't work at the moment.
@@ -541,14 +550,14 @@
   *Integrated the startuplogo in the aboutdialog. It's now displayed in the upper left corner of the box.
   *The class KStartupLogo looks now for the size of the startuplogo and resize the widget in the right way if the size have changed.
   *CDocBrowserColor: Made some hardcoded texts to i18n("")
-  	 	
+
 1999-09-19	Joachim Ansorg <Jockel123@gmx.de>
 	*Reorganized the icons:
 	 There are now two directories: pics and toolbar. pics contains the directory mini/
 	 which contains the mini icons. Mini icons are named with a trailing mini-.
 	 The directory toolbar contains the icons which are only used in the toolbar.
 	 This should be the new standard we use.
-	
+
 1999-09-19	Joachim Ansorg <Jockel123@gmx.de>
 	*Changed names and install paths of some icon
 	*Added some needed icons we forgot
@@ -557,10 +566,10 @@
 	 accels in the menus
 	*rendered Footnotes are now displayed in dark red, too
   *Cleaned up DCocBrowser
-	
-1999-09-18	Joachim Ansorg <Jockel123@gmx.de>	
+
+1999-09-18	Joachim Ansorg <Jockel123@gmx.de>
 	*Optimized a little bit the paintText function of CChartWidget
-	
+
 1999-09-17	Joachim Ansorg <Jockel123@gmx.de>
 	*Changed a little bit the GBFHTML filter:
 	 Anotations are now displayed in dark red
@@ -574,31 +583,31 @@
 1999-09-14	Joachim Ansorg <Jockel123@gmx.de>
 	*Change the GBFHTML filter a little bit
 	 It displays now the word explained in a footnote formatted as bold
-	
+
 1999-09-14	Joachim Ansorg <Jockel123@gmx.de>
 	*Updated program version to 0.2
-	
+
 1999-09-12	Joachim Ansorg <Jockel123@gmx.de>
 	*Added some tips to the tipdatabase
 	*Added class KStartupLogo to display a picture on startup
-	
+
 1999-09-10	Joachim Ansorg <Jockel123@gmx.de>
 	*Rewrite of the Searchanalysis, it's now up to 63 times faster
 	*Text in the CChartWidget is now painted rotated (90)
-	
+
 1999-09-05	Joachim Ansorg <Jockel123@gmx.de>
 	*Added analysis of searchresults -> needs still some work
 	*updated de.po translation errors
 	*updated homepage
-	
+
 1999-09-04	Joachim Ansorg <Jockel123@gmx.de>
 	*created sub folders: gfx and printing
 	*Added CPrinterDialog of KHexedit 0.81 -> isn't used at the moment
-	
+
 1999-09-02	Joachim Ansorg <Jockel123@gmx.de>
 	*Added classes for searchanalysis and a ChartWidget
   *Updated configure.in - it checks now for headers and the SWORD lib in two steps
-	
+
 1999-08-30	Joachim Ansorg <Jockel123@gmx.de>
 	*Changed and corrected some GUI errors
 

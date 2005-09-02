@@ -22,103 +22,105 @@ class CHTMLReadDisplayView;
   * @author The BibleTime team
   */
 class CHTMLReadDisplay : public KHTMLPart, public CReadDisplay {
-  Q_OBJECT
+	Q_OBJECT
 public:
-  //reimplemented functions from CDisplay
-  /**
-  * Returns the right text part in the specified format.
-  */
-  virtual const QString text( const CDisplay::TextType format = CDisplay::HTMLText, const CDisplay::TextPart part = CDisplay::Document );
-  /**
-  * Sets the new text for this display widget.
-  */
-  virtual void setText( const QString& newText );
-  virtual const bool hasSelection();
-  /**
-  * Reimplementation.
-  */
-  virtual QScrollView* view();
-  virtual void selectAll();
-  virtual void moveToAnchor( const QString& anchor );
-	
+	//reimplemented functions from CDisplay
+	/**
+	* Returns the right text part in the specified format.
+	*/
+	virtual const QString text( const CDisplay::TextType format = CDisplay::HTMLText, const CDisplay::TextPart part = CDisplay::Document );
+	/**
+	* Sets the new text for this display widget.
+	*/
+	virtual void setText( const QString& newText );
+	virtual const bool hasSelection();
+	/**
+	* Reimplementation.
+	*/
+	virtual QScrollView* view();
+	virtual void selectAll();
+	virtual void moveToAnchor( const QString& anchor );
+
 	virtual void zoomIn();
 	virtual void zoomOut();
 
 protected:
 	friend class CDisplay;
- 	CHTMLReadDisplay( CReadWindow* readWindow, QWidget* parent = 0 );
+	CHTMLReadDisplay( CReadWindow* readWindow, QWidget* parent = 0 );
 	virtual ~CHTMLReadDisplay();
 
 	virtual void urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args);
-  /**
-  * Reimplementation.
-  */
-  virtual void khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event );
+	/**
+	* Reimplementation.
+	*/
+	virtual void khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event );
 	virtual void khtmlMousePressEvent( khtml::MousePressEvent* event );
 	virtual void khtmlMouseMoveEvent( khtml::MouseMoveEvent* e );
 
- 	struct DNDData {
-  	bool mousePressed;
-   	bool isDragging;
-    DOM::Node node;
-    DOM::DOMString anchor;
-    QString selection;
-    QPoint startPos;
-    enum DragType {
+	struct DNDData {
+		bool mousePressed;
+		bool isDragging;
+		DOM::Node node;
+		DOM::DOMString anchor;
+		QString selection;
+		QPoint startPos;
+		enum DragType {
 			Link,
-      Text
-    } dragType;
- 	} m_dndData;
+			Text
+		} dragType;
+	}
+	m_dndData;
 
 private:
-	CHTMLReadDisplayView* m_view;	
- 	struct URLWorkaroundData {
-    bool doWorkaround;
-    QString url;
-    int button;
-    int state;
-    QString target;
-    KParts::URLArgs args;
+	CHTMLReadDisplayView* m_view;
+	struct URLWorkaroundData {
+		bool doWorkaround;
+		QString url;
+		int button;
+		int state;
+		QString target;
+		KParts::URLArgs args;
 
-    QString module;
-    QString key;
- 	} m_urlWorkaroundData;
-	
+		QString module;
+		QString key;
+	}
+	m_urlWorkaroundData;
+
 	DOM::Node m_previousEventNode;
 	QString m_currentAnchorCache;
-	
+
 protected slots:
 	void slotGoToAnchor();
 };
 
 class CHTMLReadDisplayView : public KHTMLView, public CPointers {
-  Q_OBJECT
+	Q_OBJECT
 protected: // Protected methods
 	friend class CHTMLReadDisplay;
 
 
-  CHTMLReadDisplayView(CHTMLReadDisplay* display, QWidget* parent);
-  /**
-  * Reimplementation from QScrollView. Sets the right slots
-  */
-  virtual void polish();
-  /**
-  * Reimplementatiob from QScrollView.
-  */
-  virtual void contentsDropEvent( QDropEvent* );
-  /**
-  * Reimplementatiob from QScrollView.
-  */
-  virtual void contentsDragEnterEvent( QDragEnterEvent* );
+	CHTMLReadDisplayView(CHTMLReadDisplay* display, QWidget* parent);
+	/**
+	* Reimplementation from QScrollView. Sets the right slots
+	*/
+	virtual void polish();
+	/**
+	* Reimplementatiob from QScrollView.
+	*/
+	virtual void contentsDropEvent( QDropEvent* );
+	/**
+	* Reimplementatiob from QScrollView.
+	*/
+	virtual void contentsDragEnterEvent( QDragEnterEvent* );
 
 protected slots: // Protected slots
-  /**
-  * Opens the popupmenu at the given position.
-  */
-  void popupMenu( const QString&, const QPoint& );
+	/**
+	* Opens the popupmenu at the given position.
+	*/
+	void popupMenu( const QString&, const QPoint& );
 
 private:
-  CHTMLReadDisplay* m_display;
+	CHTMLReadDisplay* m_display;
 };
 
 #endif

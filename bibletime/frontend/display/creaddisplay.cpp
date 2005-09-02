@@ -25,86 +25,80 @@
 //KDE includes
 #include <klocale.h>
 
-CReadDisplay::CReadDisplay(CReadWindow* readWindow) : 
-	CDisplay(readWindow), 
-	m_activeAnchor(QString::null), 
-	m_useMouseTracking(true) 
-{
+CReadDisplay::CReadDisplay(CReadWindow* readWindow) :
+		CDisplay(readWindow),
+		m_activeAnchor(QString::null),
+m_useMouseTracking(true) {}
 
-}
-
-CReadDisplay::~CReadDisplay(){
-}
+CReadDisplay::~CReadDisplay() {}
 
 /** Returns the current active anchor. */
-const QString& CReadDisplay::activeAnchor(){
-  return m_activeAnchor;
+const QString& CReadDisplay::activeAnchor() {
+	return m_activeAnchor;
 }
 
 /** Sets the current anchor to the parameter. */
-void CReadDisplay::setActiveAnchor( const QString& anchor ){
-  m_activeAnchor = anchor;
+void CReadDisplay::setActiveAnchor( const QString& anchor ) {
+	m_activeAnchor = anchor;
 }
 
 
 /** Returns true if the display has an active anchor. */
-const bool CReadDisplay::hasActiveAnchor(){
-  return !activeAnchor().isEmpty();
+const bool CReadDisplay::hasActiveAnchor() {
+	return !activeAnchor().isEmpty();
 }
 
 
-void CReadDisplay::print(const CDisplay::TextPart type){
-  CDisplayWindow* window = parentWindow();
-  CSwordKey* const key = window->key();
-  CSwordModuleInfo* module = key->module();
+void CReadDisplay::print(const CDisplay::TextPart type) {
+	CDisplayWindow* window = parentWindow();
+	CSwordKey* const key = window->key();
+	CSwordModuleInfo* module = key->module();
 
-  
-  CExportManager mgr(i18n("Print keys"),false, QString::null, parentWindow()->filterOptions(), parentWindow()->displayOptions());
-        
-  switch (type) {
-		case Document: {
+
+	CExportManager mgr(i18n("Print keys"),false, QString::null, parentWindow()->filterOptions(), parentWindow()->displayOptions());
+
+	switch (type) {
+	case Document: {
 			if (module->type() == CSwordModuleInfo::Bible) {
-   			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
+				CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
 
-      	CSwordVerseKey startKey(*vk);
-				startKey.Verse(1);	
-				
-    		CSwordVerseKey stopKey(*vk);
-				
+				CSwordVerseKey startKey(*vk);
+				startKey.Verse(1);
+
+				CSwordVerseKey stopKey(*vk);
+
 				CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module);
 				if (bible) {
 					stopKey.Verse( bible->verseCount( bible->bookNumber(startKey.book()), startKey.Chapter() ) );
 				}
-				
+
 				mgr.printKey(module, startKey.key(), stopKey.key());
-  		}
-    	else if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary ) {
-    		mgr.printKey(module, key->key(), key->key());
-      }
-      else if (module->type() == CSwordModuleInfo::GenericBook) {
-   			CSwordTreeKey* tree = dynamic_cast<CSwordTreeKey*>(key);
+			} else if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary ) {
+				mgr.printKey(module, key->key(), key->key());
+			} else if (module->type() == CSwordModuleInfo::GenericBook) {
+				CSwordTreeKey* tree = dynamic_cast<CSwordTreeKey*>(key);
 
-        CSwordTreeKey startKey(*tree);
-//        while (startKey.previousSibling()) { // go to first sibling on this level!
-//        }
+				CSwordTreeKey startKey(*tree);
+				//        while (startKey.previousSibling()) { // go to first sibling on this level!
+				//        }
 
-    		CSwordTreeKey stopKey(*tree);
-//				if (CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(module)) {
-//          while ( stopKey.nextSibling() ) { //go to last displayed sibling!
-//          }
-//        }
+				CSwordTreeKey stopKey(*tree);
+				//    if (CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(module)) {
+				//          while ( stopKey.nextSibling() ) { //go to last displayed sibling!
+				//          }
+				//        }
 				mgr.printKey(module, startKey.key(), stopKey.key());
-      }
-    };
+			}
+		};
 
-    case AnchorWithText: {
-      if (hasActiveAnchor()) {
+	case AnchorWithText: {
+			if (hasActiveAnchor()) {
 				mgr.printByHyperlink( activeAnchor() );
-      };
-    };
+			};
+		};
 
-    default:
-    	break;
+	default:
+		break;
 	}
 }
 

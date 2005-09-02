@@ -20,21 +20,22 @@ class CSwordModuleInfo;
 
 namespace Rendering {
 
-/**
- * The reimplementation of SWDisplay to fit our needs.
- * @short Display implementation
- * @author The BibleTime team
- */
-class CEntryDisplay : public sword::SWDisplay, public CPointers  {
-public:
-  virtual ~CEntryDisplay() {};
-  
-  /**
-  * Returns the rendered text using the modules in the list and using the key parameter.
-  * The displayoptions and filter options are used, too.
-  */
-  virtual const QString text( const ListCSwordModuleInfo& modules, const QString& key, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions);
-};
+	/**
+	 * The reimplementation of SWDisplay to fit our needs.
+	 * @short Display implementation
+	 * @author The BibleTime team
+	 */
+	class CEntryDisplay : public sword::SWDisplay, public CPointers  {
+	public:
+		virtual ~CEntryDisplay() {}
+		;
+
+		/**
+		* Returns the rendered text using the modules in the list and using the key parameter.
+		* The displayoptions and filter options are used, too.
+		*/
+		virtual const QString text( const ListCSwordModuleInfo& modules, const QString& key, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions);
+	};
 
 
 }

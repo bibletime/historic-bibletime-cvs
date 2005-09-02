@@ -26,44 +26,43 @@ class CReadDisplay;
 
 namespace InfoDisplay {
 
-/**
-@author The BibleTime team
-*/
-class CInfoDisplay : public QWidget
-{
-  Q_OBJECT
-public:
-	enum InfoType {
-		Abbreviation,
-		CrossReference,
-		Footnote,
-		Lemma,
-		Morph,
-		WordTranslation,
-		WordGloss
+	/**
+	@author The BibleTime team
+	*/
+	class CInfoDisplay : public QWidget {
+		Q_OBJECT
+	public:
+		enum InfoType {
+			Abbreviation,
+			CrossReference,
+			Footnote,
+			Lemma,
+			Morph,
+			WordTranslation,
+			WordGloss
+		};
+
+		typedef QPair<InfoType, QString> InfoData;
+		typedef QValueList<InfoData> ListInfoData;
+
+		CInfoDisplay(QWidget *parent = 0, const char *name = 0);
+		virtual ~CInfoDisplay();
+
+		void setInfo(const InfoType, const QString& data);
+		void setInfo(const ListInfoData&);
+		void clearInfo();
+
+	protected:
+		const QString decodeAbbreviation( const QString& data );
+		const QString decodeCrossReference( const QString& data );
+		const QString decodeFootnote( const QString& data );
+		const QString decodeStrongs( const QString& data );
+		const QString decodeMorph( const QString& data );
+		const QString getWordTranslation( const QString& data );
+
+	private:
+		CReadDisplay* m_htmlPart;
 	};
-
-	typedef QPair<InfoType, QString> InfoData;
-	typedef QValueList<InfoData> ListInfoData;
-		
-  CInfoDisplay(QWidget *parent = 0, const char *name = 0);
-  virtual ~CInfoDisplay();
-  
-	void setInfo(const InfoType, const QString& data);
-	void setInfo(const ListInfoData&);
-	void clearInfo();
-
-protected:
-	const QString decodeAbbreviation( const QString& data );
-  const QString decodeCrossReference( const QString& data );
-  const QString decodeFootnote( const QString& data );
-	const QString decodeStrongs( const QString& data );
-	const QString decodeMorph( const QString& data );
-	const QString getWordTranslation( const QString& data );
- 
-private:
-	CReadDisplay* m_htmlPart;
-};
 
 } //end of InfoDisplay namespace
 

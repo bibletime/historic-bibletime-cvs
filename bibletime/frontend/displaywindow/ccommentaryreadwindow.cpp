@@ -20,10 +20,9 @@
 #include <klocale.h>
 #include <kpopupmenu.h>
 
-CCommentaryReadWindow::CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name) : CLexiconReadWindow(modules, parent,name) {
-}
+CCommentaryReadWindow::CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name) : CLexiconReadWindow(modules, parent,name) {}
 
-void CCommentaryReadWindow::insertKeyboardActions( KActionCollection* const a ){
+void CCommentaryReadWindow::insertKeyboardActions( KActionCollection* const a ) {
 	new KAction(
 		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
 		a, "nextBook"
@@ -51,42 +50,42 @@ void CCommentaryReadWindow::insertKeyboardActions( KActionCollection* const a ){
 }
 
 void CCommentaryReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
-  CLexiconReadWindow::applyProfileSettings(profileWindow);
-  if (profileWindow->windowSettings())
-    m_syncButton->setChecked(true);
+	CLexiconReadWindow::applyProfileSettings(profileWindow);
+	if (profileWindow->windowSettings())
+		m_syncButton->setChecked(true);
 };
 
 void CCommentaryReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
-  CLexiconReadWindow::storeProfileSettings(profileWindow);
-  profileWindow->setWindowSettings( m_syncButton->isChecked() );
+	CLexiconReadWindow::storeProfileSettings(profileWindow);
+	profileWindow->setWindowSettings( m_syncButton->isChecked() );
 };
 
-void CCommentaryReadWindow::initToolbars(){
+void CCommentaryReadWindow::initToolbars() {
 	CLexiconReadWindow::initToolbars();
-	
+
 	m_syncButton = new KToggleAction(i18n("Sync with active Bible"),
-		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
-		CResMgr::displaywindows::commentaryWindow::syncWindow::accel,
-		actionCollection(),
-		CResMgr::displaywindows::commentaryWindow::syncWindow::actionName
-	);
-	m_syncButton->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip); 
-  m_syncButton->plug(mainToolBar());
+									 CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
+									 CResMgr::displaywindows::commentaryWindow::syncWindow::accel,
+									 actionCollection(),
+									 CResMgr::displaywindows::commentaryWindow::syncWindow::actionName
+									);
+	m_syncButton->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip);
+	m_syncButton->plug(mainToolBar());
 }
 
 /** Reimplementation to handle the keychooser refresh. */
-void CCommentaryReadWindow::reload(){
-  CLexiconReadWindow::reload();
+void CCommentaryReadWindow::reload() {
+	CLexiconReadWindow::reload();
 
 	//refresh the book lists
-  verseKey()->setLocale( backend()->booknameLanguage().latin1() );
-  keyChooser()->refreshContent();
+	verseKey()->setLocale( backend()->booknameLanguage().latin1() );
+	keyChooser()->refreshContent();
 }
 
 /** rapper around key() to return the right type of key. */
-CSwordVerseKey* CCommentaryReadWindow::verseKey(){
+CSwordVerseKey* CCommentaryReadWindow::verseKey() {
 	CSwordVerseKey* k = dynamic_cast<CSwordVerseKey*>(CDisplayWindow::key());
- 	Q_ASSERT(k);
+	Q_ASSERT(k);
 	return k;
 }
 
@@ -95,7 +94,7 @@ void CCommentaryReadWindow::initActions() {
 	//cleanup, not a clean oo-solution
 	actionCollection()->action("nextEntry")->setEnabled(false);
 	actionCollection()->action("previousEntry")->setEnabled(false);
-	
+
 	new KAction(
 		i18n("Next book"),
 		CResMgr::displaywindows::bibleWindow::nextBook::accel,
@@ -137,37 +136,37 @@ void CCommentaryReadWindow::initActions() {
 }
 
 /** Moves to the next book. */
-void CCommentaryReadWindow::nextBook(){
+void CCommentaryReadWindow::nextBook() {
 	if (verseKey()->next(CSwordVerseKey::UseBook))
 		keyChooser()->setKey(key());
 }
 
 /** Moves one book behind. */
-void CCommentaryReadWindow::previousBook(){
+void CCommentaryReadWindow::previousBook() {
 	if (verseKey()->previous(CSwordVerseKey::UseBook))
 		keyChooser()->setKey(key());
 }
 
 /** Moves to the next book. */
-void CCommentaryReadWindow::nextChapter(){
+void CCommentaryReadWindow::nextChapter() {
 	if (verseKey()->next(CSwordVerseKey::UseChapter))
 		keyChooser()->setKey(key());
 }
 
 /** Moves one book behind. */
-void CCommentaryReadWindow::previousChapter(){
+void CCommentaryReadWindow::previousChapter() {
 	if (verseKey()->previous(CSwordVerseKey::UseChapter))
 		keyChooser()->setKey(key());
 }
 
 /** Moves to the next book. */
-void CCommentaryReadWindow::nextVerse(){
+void CCommentaryReadWindow::nextVerse() {
 	if (verseKey()->next(CSwordVerseKey::UseVerse))
 		keyChooser()->setKey(key());
 }
 
 /** Moves one book behind. */
-void CCommentaryReadWindow::previousVerse(){
+void CCommentaryReadWindow::previousVerse() {
 	if (verseKey()->previous(CSwordVerseKey::UseVerse))
 		keyChooser()->setKey(key());
 }

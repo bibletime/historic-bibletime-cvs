@@ -20,9 +20,9 @@ class KPopupMenu;
   */
 // class CTransliterationButton : public KToolBarButton  {
 //    Q_OBJECT
-// public: 
-// 	CTransliterationButton(CSwordBackend::FilterOptions* displayOptions, QWidget *parent, const char *name=0);
-// 	~CTransliterationButton();
+// public:
+//  CTransliterationButton(CSwordBackend::FilterOptions* displayOptions, QWidget *parent, const char *name=0);
+//  ~CTransliterationButton();
 //   /**
 //   * Setup the menu entries.
 //   */
@@ -31,14 +31,14 @@ class KPopupMenu;
 //   * Resets the buttons with the list of used modules.
 //   */
 //   void reset( ListCSwordModuleInfo& modules );
-// 
+//
 // protected slots: // Protected slots
 //   void optionSelected(int);
-// 
+//
 // private:
 //   KPopupMenu* m_popup;
 //   CSwordBackend::FilterOptions* m_filterOptions;
-// 
+//
 // signals:
 //   void sigChanged();
 // };
@@ -47,26 +47,26 @@ class KPopupMenu;
   * @author The BibleTime team
   */
 class CDisplaySettingsButton : public KToolBarButton  {
-   Q_OBJECT
+	Q_OBJECT
 public:
 	CDisplaySettingsButton(CSwordBackend::DisplayOptions *displaySettings, CSwordBackend::FilterOptions *settings, const ListCSwordModuleInfo& useModules, QWidget *parent=0, const char *name=0);
 	void reset(const ListCSwordModuleInfo& useModules);
-  /**
-  * Sets the item at position pos to the satet given as 2nd paramter.
-  */
-  void setItemStatus( const int pos, const bool checked );
-  /**
-  * Returns the number of usable menu items in the setttings menu.
-  */
-  const int menuItemCount();
-  /**
-  * Returns the status of the item at position "index"
-  */
-  const bool itemStatus( const int index );
-  /**
-  * Sets the status to changed. The signal changed will be emitted.
-  */
-  void setChanged();
+	/**
+	* Sets the item at position pos to the satet given as 2nd paramter.
+	*/
+	void setItemStatus( const int pos, const bool checked );
+	/**
+	* Returns the number of usable menu items in the setttings menu.
+	*/
+	const int menuItemCount();
+	/**
+	* Returns the status of the item at position "index"
+	*/
+	const bool itemStatus( const int index );
+	/**
+	* Sets the status to changed. The signal changed will be emitted.
+	*/
+	void setChanged();
 
 signals:
 	void sigChanged(void);
@@ -84,9 +84,9 @@ protected:
 
 	KPopupMenu* m_popup;
 
-  int populateMenu();
+	int populateMenu();
 	bool isOptionAvailable( const CSwordModuleInfo::FilterTypes option);
-  int addMenuEntry( const QString name, const int* option, const bool available);
+	int addMenuEntry( const QString name, const int* option, const bool available);
 };
 
 #endif

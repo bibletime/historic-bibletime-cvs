@@ -1,7 +1,7 @@
 //
 // C++ Interface: cdisplaytemplatemgr
 //
-// Description: 
+// Description:
 //
 //
 // Author: The BibleTime team <info@bibletime.info>, (C) 2004
@@ -27,13 +27,13 @@
  * Manages the display templates used in the filters and display classes.
  * @author The BibleTime team
 */
-class CDisplayTemplateMgr{
+class CDisplayTemplateMgr {
 public:
 	/** Settings which are used to fill the content into the template.
 	*/
 	struct Settings {
 		/** Constructor. Constructs the new settings object. The default values are empty.
-		 */	
+		 */
 		Settings() {
 			title = QString::null;
 			langAbbrev = QString::null;
@@ -72,9 +72,9 @@ protected:
 	*/
 	~CDisplayTemplateMgr();
 
-  void loadUserTemplates();
+	void loadUserTemplates();
 
-private:	
+private:
 	void init();
 	QMap<QString, QString> m_templateMap;
 };

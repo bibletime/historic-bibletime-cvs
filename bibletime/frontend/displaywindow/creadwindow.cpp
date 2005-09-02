@@ -24,15 +24,14 @@
 #include <klocale.h>
 
 CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
-	: CDisplayWindow(modules,parent,name),
-		m_displayWidget(0)
-{
- 	
-//  	installEventFilter(this);
+		: CDisplayWindow(modules,parent,name),
+m_displayWidget(0) {
+
+	//   installEventFilter(this);
 }
 
 CReadWindow::~CReadWindow() {
-// 	qWarning("destructor of CReadWindow");
+	//  qWarning("destructor of CReadWindow");
 }
 
 /** Returns the display widget of this window. */
@@ -45,7 +44,7 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ) {
 	CDisplayWindow::setDisplayWidget(newDisplay);
 	if (m_displayWidget) {
 		disconnect(m_displayWidget->connectionsProxy(), SIGNAL(referenceClicked(const QString&, const QString&)), this, SLOT(lookup(const QString&, const QString&)));
-		
+
 		disconnect(m_displayWidget->connectionsProxy(), SIGNAL(referenceDropped(const QString&)), this, SLOT(lookup(const QString&)));
 	}
 
@@ -56,7 +55,7 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ) {
 		this,
 		SLOT(lookup(const QString&, const QString&))
 	);
-	
+
 	connect(
 		m_displayWidget->connectionsProxy(),
 		SIGNAL(referenceDropped(const QString&)),
@@ -71,13 +70,13 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 
 	using namespace Rendering;
 
- 	Q_ASSERT(isReady() && newKey && modules().first());
+	Q_ASSERT(isReady() && newKey && modules().first());
 	if (!isReady() || !newKey || !modules().first()) {
 		return;
 	}
 
 	Q_ASSERT(modules().first()->getDisplay());
-	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
+	if (CEntryDisplay* display = modules().first()->getDisplay()) { //do we have a display object?
 		displayWidget()->setText(
 			display->text(
 				modules(),
@@ -87,15 +86,15 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 			)
 		);
 	}
-	
+
 	if (key() != newKey) {
 		key()->key(newKey->key());
 	}
 
-	setCaption( windowCaption() );	
+	setCaption( windowCaption() );
 
-// 	qDebug("[CReadWindow::lookup] Moving to anchor %s", CDisplayRendering::keyToHTMLAnchor(key()->key()).latin1());
-	
+	//  qDebug("[CReadWindow::lookup] Moving to anchor %s", CDisplayRendering::keyToHTMLAnchor(key()->key()).latin1());
+
 	displayWidget()->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key()->key()) );
 }
 
@@ -108,7 +107,7 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings) {
 	rect.setHeight(height());
 	settings->setGeometry(rect);
 
-	//	settings->setScrollbarPositions( m_htmlWidget->view()->horizontalScrollBar()->value(), m_htmlWidget->view()->verticalScrollBar()->value() );
+	// settings->setScrollbarPositions( m_htmlWidget->view()->horizontalScrollBar()->value(), m_htmlWidget->view()->verticalScrollBar()->value() );
 	settings->setType(modules().first()->type());
 	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
 	settings->setFocus( (this == mdi()->activeWindow()) ); //set property to true if this window is the active one.
@@ -127,7 +126,7 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings) {
 	}
 
 	QStringList mods;
-	
+
 	ListCSwordModuleInfo allMods = modules();
 	ListCSwordModuleInfo::iterator end_it = allMods.end();
 	for (ListCSwordModuleInfo::iterator it(allMods.begin()); it != end_it; ++it) {
@@ -143,8 +142,7 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings) {
 	if (settings->maximized()) { //maximize this window
 		// Use parentWidget() to call showMaximized. Otherwise we'd get lot's of X11 errors
 		parentWidget()->showMaximized();
-	}
-	else {
+	} else {
 		const QRect rect = settings->geometry();
 		resize(rect.width(), rect.height());
 		parentWidget()->move(rect.x(), rect.y());
@@ -153,8 +151,7 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings) {
 	setUpdatesEnabled(true);
 }
 
-void CReadWindow::insertKeyboardActions( KActionCollection* const ){
-}
+void CReadWindow::insertKeyboardActions( KActionCollection* const ) {}
 
 /** No descriptions */
 void CReadWindow::copyDisplayedText() {
@@ -167,7 +164,7 @@ void CReadWindow::copyDisplayedText() {
     \fn CReadWindow::resizeEvent(QResizeEvent* e)
  */
 void CReadWindow::resizeEvent(QResizeEvent* /*e*/) {
-// 	qWarning("resizeEvent...");
+	//  qWarning("resizeEvent...");
 	displayWidget()->moveToAnchor(
 		Rendering::CDisplayRendering::keyToHTMLAnchor(key()->key())
 	);
