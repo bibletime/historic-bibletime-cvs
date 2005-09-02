@@ -29,34 +29,34 @@
 
 namespace InstallationManager {
 
-class BTInstallMgr;
+    class BTInstallMgr;
 
-/**
-This is a reimplementation of Sword's FTP transport class which uses KDE's network functions.
- 
-@author The BibleTime team
-*/
-class KIO_FTPTransport : public QObject, public sword::FTPTransport {
-	Q_OBJECT
-public:
-	KIO_FTPTransport(const char *host, sword::StatusReporter *statusReporter = 0);
-	virtual ~KIO_FTPTransport();
-	virtual char getURL(const char *destPath, const char *sourceURL);
-	virtual std::vector<struct ftpparse> getDirList(const char *dirURL);
-	
-protected slots:
-	void slotCopyResult(KIO::Job*);
-// 	void slotCopyPercent(KIO::Job*, unsigned long);
-	void slotTotalSize(KIO::Job *, KIO::filesize_t);
-	void slotCopyProgress(KIO::Job *, KIO::filesize_t);
-	void slotDirListingCanceled();
-	
-private:
-	QMap<int, int> m_copyResults;
-	QMap<int, std::vector< struct ftpparse > > m_dirListResults;
-	bool m_listingCancelled;
-	int m_totalSize; //size of currently downloaded file
-};
+    /**
+    This is a reimplementation of Sword's FTP transport class which uses KDE's network functions.
+     
+    @author The BibleTime team
+    */
+    class KIO_FTPTransport : public QObject, public sword::FTPTransport {
+        Q_OBJECT
+    public:
+        KIO_FTPTransport(const char *host, sword::StatusReporter *statusReporter = 0);
+        virtual ~KIO_FTPTransport();
+        virtual char getURL(const char *destPath, const char *sourceURL);
+        virtual std::vector<struct ftpparse> getDirList(const char *dirURL);
+
+    protected slots:
+        void slotCopyResult(KIO::Job*);
+        //  void slotCopyPercent(KIO::Job*, unsigned long);
+        void slotTotalSize(KIO::Job *, KIO::filesize_t);
+        void slotCopyProgress(KIO::Job *, KIO::filesize_t);
+        void slotDirListingCanceled();
+
+    private:
+        QMap<int, int> m_copyResults;
+        QMap<int, std::vector< struct ftpparse > > m_dirListResults;
+        bool m_listingCancelled;
+        int m_totalSize; //size of currently downloaded file
+    };
 
 };
 

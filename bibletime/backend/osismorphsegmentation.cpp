@@ -1,7 +1,7 @@
 /******************************************************************************
  *
- * osisfootnotes -	SWFilter descendant to hide or show footnotes
- *			in an OSIS module.
+ * osisfootnotes - SWFilter descendant to hide or show footnotes
+ *   in an OSIS module.
  */
 
 
@@ -17,72 +17,71 @@
 const char oName[] = "Morph segmentation";
 const char oTip[] = "Toggles morph segmentation On and Off if they exist";
 
-const SWBuf choices[3] = {"Off", "On", ""};
+const SWBuf choices[3] = {"Off", "On", ""
+                         };
 const StringList oValues(&choices[0], &choices[2]);
 
 namespace Filters {
 
-OSISMorphSegmentation::OSISMorphSegmentation() : sword::SWOptionFilter(oName, oTip, &oValues) {
-	setOptionValue("Off");	
-}
+    OSISMorphSegmentation::OSISMorphSegmentation() : sword::SWOptionFilter(oName, oTip, &oValues) {
+        setOptionValue("Off");
+    }
 
 
-OSISMorphSegmentation::~OSISMorphSegmentation() {
-}
+    OSISMorphSegmentation::~OSISMorphSegmentation() {}
 
 
-char OSISMorphSegmentation::processText(SWBuf &text, const SWKey */*key*/, const SWModule */*module*/) {
-	SWBuf token;
-	bool intoken    = false;
-	bool hide       = false;
+    char OSISMorphSegmentation::processText(SWBuf &text, const SWKey */*key*/, const SWModule */*module*/) {
+        SWBuf token;
+        bool intoken    = false;
+        bool hide       = false;
 
-	SWBuf orig( text );
-	const char *from = orig.c_str();
-	
-	XMLTag tag;
+        SWBuf orig( text );
+        const char *from = orig.c_str();
 
-	for (text = ""; *from; ++from) {
-		if (*from == '<') {
-			intoken = true;
-			token = "";
-			continue;
-		}
+        XMLTag tag;
 
-		if (*from == '>') {	// process tokens
-			intoken = false;
-			if (!strncmp(token.c_str(), "seg ", 4) || !strncmp(token.c_str(), "/seg", 4)) {
-				tag = token;
-				
-				if (!tag.isEndTag() && tag.getAttribute("type") && !strcmp("morph", tag.getAttribute("type"))) {  //<seg type="morph"> start tag
-					hide = !option; //only hide if option is Off
-				}
+        for (text = ""; *from; ++from) {
+            if (*from == '<') {
+                intoken = true;
+                token = "";
+                continue;
+            }
 
-				if (hide) { //hides start and end tags as long as hide is set
-					if (tag.isEndTag()) { //</seg>
-						hide = false;
-					}
-					
-					continue; //leave out the current token
-				}
-			} //end of seg tag handling
+            if (*from == '>') { // process tokens
+                intoken = false;
+                if (!strncmp(token.c_str(), "seg ", 4) || !strncmp(token.c_str(), "/seg", 4)) {
+                    tag = token;
 
-			text.append('<');
-			text.append(token);
-			text.append('>');
-			hide = false;
+                    if (!tag.isEndTag() && tag.getAttribute("type") && !strcmp("morph", tag.getAttribute("type"))) {  //<seg type="morph"> start tag
+                        hide = !option; //only hide if option is Off
+                    }
 
- 			continue;
-		} //end of intoken part
+                    if (hide) { //hides start and end tags as long as hide is set
+                        if (tag.isEndTag()) { //</seg>
+                            hide = false;
+                        }
 
-		if (intoken) { //copy token
-			token.append(*from);
-		}
-		else { //copy text which is not inside of a tag
-			text.append(*from);
-		}
-	}
+                        continue; //leave out the current token
+                    }
+                } //end of seg tag handling
 
-	return 0;
-}
+                text.append('<');
+                text.append(token);
+                text.append('>');
+                hide = false;
+
+                continue;
+            } //end of intoken part
+
+            if (intoken) { //copy token
+                token.append(*from);
+            } else { //copy text which is not inside of a tag
+                text.append(*from);
+            }
+        }
+
+        return 0;
+    }
 
 }

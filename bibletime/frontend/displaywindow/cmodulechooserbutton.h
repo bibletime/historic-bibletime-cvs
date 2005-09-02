@@ -23,46 +23,46 @@ class CModuleChooserBar;
   * @author The BibleTime team
   */
 class CModuleChooserButton : public KToolBarButton, public CPointers  {
-   Q_OBJECT
-public: 
-	CModuleChooserButton(CSwordModuleInfo* useModule, CSwordModuleInfo::ModuleType type, const int id, CModuleChooserBar *parent, const char *name = 0 );
-	~CModuleChooserButton();
-	
-  CSwordModuleInfo* module();
-  /**
-  * Returns the id used for this button.
-  */
-  int getId() const;
+    Q_OBJECT
+public:
+    CModuleChooserButton(CSwordModuleInfo* useModule, CSwordModuleInfo::ModuleType type, const int id, CModuleChooserBar *parent, const char *name = 0 );
+    ~CModuleChooserButton();
+
+    CSwordModuleInfo* module();
+    /**
+    * Returns the id used for this button.
+    */
+    int getId() const;
     void updateMenuItems();
 
 protected: // Protected methods
-  void populateMenu();
-	
+    void populateMenu();
+
 private:
-  /**
-  * Returns the icon used for the current status.
-  */
-  const QString iconName();
-	
-	bool m_hasModule;
-  int m_id;
-  int m_noneId;
-	int m_titleId;
-	CSwordModuleInfo::ModuleType m_moduleType;
-	CSwordModuleInfo* m_module;
+    /**
+    * Returns the icon used for the current status.
+    */
+    const QString iconName();
 
-	KPopupMenu* m_popup;
-	QPtrList<KPopupMenu> m_submenus;
+    bool m_hasModule;
+    int m_id;
+    int m_noneId;
+    int m_titleId;
+    CSwordModuleInfo::ModuleType m_moduleType;
+    CSwordModuleInfo* m_module;
 
-	CModuleChooserBar* m_moduleChooserBar;
-	
+    KPopupMenu* m_popup;
+    QPtrList<KPopupMenu> m_submenus;
+
+    CModuleChooserBar* m_moduleChooserBar;
+
 
 private slots:
-	void moduleChosen(int ID );
+    void moduleChosen(int ID );
 
 signals:
-	void sigRemoveButton(const int ID);
-	void sigAddButton();
-  void sigChanged();
+    void sigRemoveButton(const int ID);
+    void sigAddButton();
+    void sigChanged();
 };
 #endif

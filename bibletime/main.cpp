@@ -44,7 +44,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
     //we use this messagehandler to switch debugging off in final releases
     switch ( type ) {
     case QtDebugMsg:
-        if (showDebugMessages) {	//only show messages if they are enabled!
+        if (showDebugMessages) { //only show messages if they are enabled!
             fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
         }
         break;
@@ -54,7 +54,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
         break;
     case QtFatalMsg:
         fprintf( stderr,"(BibleTime %s) _FATAL_: %s\nPlease contact info@bibletime.de and report this bug!",VERSION, msg );
-        abort();	// dump core on purpose
+        abort(); // dump core on purpose
     }
 }
 
@@ -160,7 +160,7 @@ int main(int argc, char* argv[]) {
     ************************************************/
     //highcolor icons, startlogo for BT <= 1.4
     aboutData.addCredit("David Blue", I18N_NOOP("High contrast template"), "davidslists@gmx.net");
-    aboutData.addCredit("Tim Brodie", 	  I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
+    aboutData.addCredit("Tim Brodie",    I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
     aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
     //Sponsored many years the www.bibletime.de domain!
     aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founder of the Sword project"), "scribe@crosswire.org", "http://www.crosswire.org/");   //Started the Sword project
@@ -172,11 +172,11 @@ int main(int argc, char* argv[]) {
     // Language codes iso639-1, iso639-2 and SIL language codes
     aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
     //Smaller frontend enhancements
-    aboutData.addCredit("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
+    aboutData.addCredit("Chris Kujawa",  I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
     //Smaller searchdialog enhancements
-    aboutData.addCredit("Mark Lybarger", 	I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com","");
+    aboutData.addCredit("Mark Lybarger",  I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com","");
     //Smaller frontend enhancements
-    aboutData.addCredit("Luke Mauldin", 	I18N_NOOP("Frontend"), "lukeskyfly@txk.net", "");
+    aboutData.addCredit("Luke Mauldin",  I18N_NOOP("Frontend"), "lukeskyfly@txk.net", "");
     // handbook documentation
     aboutData.addCredit("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
     // comitted search in default bible, opened modules, other smaller things
@@ -207,7 +207,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (kapp->isRestored()) {
-        //  		qWarning("Restoring BibleTime");
+        //    qWarning("Restoring BibleTime");
         RESTORE( BibleTime );
     } else {
         const bool showIt = CBTConfig::get

@@ -27,112 +27,112 @@ class KProgressDialog;
 
 namespace InstallationManager {
 
-class CSwordSetupModuleListView;
+    class CSwordSetupModuleListView;
 
-/**
-	* The Sword configuration dialog of BibleTime
-  * @author The BibleTime Team
-  */
-class CSwordSetupDialog : public KDialogBase, public CPointers  {
-   Q_OBJECT
+    /**
+     * The Sword configuration dialog of BibleTime
+      * @author The BibleTime Team
+      */
+    class CSwordSetupDialog : public KDialogBase, public CPointers  {
+        Q_OBJECT
 
-public:
-	CSwordSetupDialog(QWidget *parent=0, const char *name=0);
+    public:
+        CSwordSetupDialog(QWidget *parent=0, const char *name=0);
 
-  enum Parts {
-		Sword,
-		Install,
-		Remove
-  };
+        enum Parts {
+            Sword,
+            Install,
+            Remove
+        };
 
-  /** Opens the page which contaisn the given part ID. */
-  const bool showPart( CSwordSetupDialog::Parts ID );
+        /** Opens the page which contaisn the given part ID. */
+        const bool showPart( CSwordSetupDialog::Parts ID );
 
-private:
-  void initSwordConfig();
-  void initInstall();
-	void initRemove();
-	
-	void writeSwordConfig();
+    private:
+        void initSwordConfig();
+        void initInstall();
+        void initRemove();
 
-	void setupSwordPathListBox();
-	void populateInstallCombos();
+        void writeSwordConfig();
 
-	const QString currentInstallSource();
+        void setupSwordPathListBox();
+        void populateInstallCombos();
 
-  QFrame* m_swordConfigPage;
-  QListView* m_swordPathListBox;
-  QPushButton* m_swordEditPathButton;
-  QPushButton* m_swordAddPathButton;
-  QPushButton* m_swordRemovePathButton;
-  QStringList m_swordPathList;
-	bool m_swordSetupChanged;
+        const QString currentInstallSource();
 
-  QFrame* m_removePage;
+        QFrame* m_swordConfigPage;
+        QListView* m_swordPathListBox;
+        QPushButton* m_swordEditPathButton;
+        QPushButton* m_swordAddPathButton;
+        QPushButton* m_swordRemovePathButton;
+        QStringList m_swordPathList;
+        bool m_swordSetupChanged;
 
-  QFrame* m_installPage;
-	QWidgetStack* m_installWidgetStack;
+        QFrame* m_removePage;
 
-	QString source;
-  QString target;
+        QFrame* m_installPage;
+        QWidgetStack* m_installWidgetStack;
 
-	QLabel* m_sourceLabel;
-	QLabel* m_targetLabel;
-	QComboBox* m_sourceCombo;
-	QComboBox* m_targetCombo;
+        QString source;
+        QString target;
 
-	QMap<QString, QString> m_targetMap;
+        QLabel* m_sourceLabel;
+        QLabel* m_targetLabel;
+        QComboBox* m_sourceCombo;
+        QComboBox* m_targetCombo;
 
-	CSwordSetupModuleListView* m_removeModuleListView;
-	QPushButton* m_removeRemoveButton;
+        QMap<QString, QString> m_targetMap;
 
-	const bool refreshRemoteModuleCache( const QString& sourceName );
-  void populateRemoveModuleListView();
-  void populateInstallModuleListView(const QString& sourceName);
+        CSwordSetupModuleListView* m_removeModuleListView;
+        QPushButton* m_removeRemoveButton;
 
-//install module stuff
-  QPushButton* m_installBackButton;
-  QPushButton* m_installContinueButton;
+        const bool refreshRemoteModuleCache( const QString& sourceName );
+        void populateRemoveModuleListView();
+        void populateInstallModuleListView(const QString& sourceName);
 
-  QWidget* m_installModuleListPage;
-  QWidget* m_installSourcePage;
+        //install module stuff
+        QPushButton* m_installBackButton;
+        QPushButton* m_installContinueButton;
 
- 	CSwordSetupModuleListView* m_installModuleListView;
-  KProgressDialog* m_progressDialog;
-  QString m_installingModule;
-  bool m_refreshedRemoteSources;
-	unsigned int m_installedModuleCount;
+        QWidget* m_installModuleListPage;
+        QWidget* m_installSourcePage;
 
-	BTInstallMgr* m_currentInstallMgr; //pointer to the current installmgr object so we can access it in the cancel install slot
+        CSwordSetupModuleListView* m_installModuleListView;
+        KProgressDialog* m_progressDialog;
+        QString m_installingModule;
+        bool m_refreshedRemoteSources;
+        unsigned int m_installedModuleCount;
 
-private slots:
-  void slot_sourceSelected(const QString &sourceName);
-  void slot_targetSelected(const QString &targetName);
+        BTInstallMgr* m_currentInstallMgr; //pointer to the current installmgr object so we can access it in the cancel install slot
 
-	void slot_doRemoveModules();
+    private slots:
+        void slot_sourceSelected(const QString &sourceName);
+        void slot_targetSelected(const QString &targetName);
 
-	void slotOk();
-		
-  void slot_connectToSource();
-	void slot_moduleRefreshProgressCancelClicked();
-	void slot_moduleRefreshCompleted(const int, const int);
-	
-	void slot_installAddSource();
-	void slot_installDeleteSource();
-  void slot_installModules();
-	void slot_installModulesChanged();
-	void slot_installProgressCancelClicked();
-  void slot_showInstallSourcePage();
+        void slot_doRemoveModules();
 
-  void installCompleted( const int, const int );
-  void slot_swordRemoveClicked();
-  void slot_swordAddClicked();
-  void slot_swordEditClicked();
-  void slot_swordPathSelected();
+        void slotOk();
 
-signals: // Signals
-  void signalSwordSetupChanged();
-};
+        void slot_connectToSource();
+        void slot_moduleRefreshProgressCancelClicked();
+        void slot_moduleRefreshCompleted(const int, const int);
+
+        void slot_installAddSource();
+        void slot_installDeleteSource();
+        void slot_installModules();
+        void slot_installModulesChanged();
+        void slot_installProgressCancelClicked();
+        void slot_showInstallSourcePage();
+
+        void installCompleted( const int, const int );
+        void slot_swordRemoveClicked();
+        void slot_swordAddClicked();
+        void slot_swordEditClicked();
+        void slot_swordPathSelected();
+
+    signals: // Signals
+        void signalSwordSetupChanged();
+    };
 
 }
 

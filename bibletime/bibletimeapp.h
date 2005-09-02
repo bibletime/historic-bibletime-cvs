@@ -16,6 +16,9 @@ class BibleTimeApp : public KApplication, public CPointers {
 public: 
 	BibleTimeApp();
 	virtual ~BibleTimeApp();
+
+protected:
+	void initDCOP();
 };
 
 #endif

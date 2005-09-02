@@ -13,22 +13,22 @@
  */
 class CSwordCommentaryModuleInfo : public CSwordBibleModuleInfo  {
 public:
-	CSwordCommentaryModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
-	~CSwordCommentaryModuleInfo();
-	/** Reimplementation to return the commentary type.
-	*/
-  virtual const CSwordModuleInfo::ModuleType type() const;
-  /** Reimplementation to clone the current object.
-  */
-  virtual CSwordModuleInfo* clone();
-  /**
-  * Returns true if this module may be written by the write display windows.
-  */
-  virtual const bool isWritable() const;
+    CSwordCommentaryModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
+    ~CSwordCommentaryModuleInfo();
+    /** Reimplementation to return the commentary type.
+    */
+    virtual const CSwordModuleInfo::ModuleType type() const;
+    /** Reimplementation to clone the current object.
+    */
+    virtual CSwordModuleInfo* clone();
+    /**
+    * Returns true if this module may be written by the write display windows.
+    */
+    virtual const bool isWritable() const;
 };
 
-inline const CSwordModuleInfo::ModuleType CSwordCommentaryModuleInfo::type() const{
-	return CSwordModuleInfo::Commentary;
+inline const CSwordModuleInfo::ModuleType CSwordCommentaryModuleInfo::type() const {
+    return CSwordModuleInfo::Commentary;
 }
 
 #endif

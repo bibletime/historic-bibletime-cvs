@@ -250,9 +250,9 @@ void CMainIndex::initTree() {
 void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* after) {
     CItemBase* const parentItem = dynamic_cast<CItemBase*>(parent);
     CItemBase* const afterItem  = dynamic_cast<CItemBase*>(after);
-    CItemBase* const onItem 	= dynamic_cast<CItemBase*>(itemAt( contentsToViewport(e->pos()) ));
+    CItemBase* const onItem  = dynamic_cast<CItemBase*>(itemAt( contentsToViewport(e->pos()) ));
 
-    // 	if (onItem) qWarning("item is %s", onItem->text(0).latin1());
+    //  if (onItem) qWarning("item is %s", onItem->text(0).latin1());
     //     if (parent) qWarning("parent is %s", parent->text(0).latin1());
     //     if (after)  qWarning("after is %s", after->text(0).latin1());
 
@@ -467,9 +467,9 @@ void CMainIndex::unlockModule() {
                             &ok);
         if (ok) {
             /*const bool ret =*/ i->module()->unlock( unlockKey );
-            //  		if ( !ret ) { // an error occured
+            //    if ( !ret ) { // an error occured
             //
-            //  		}
+            //    }
         }
     }
 }
@@ -483,7 +483,7 @@ void CMainIndex::aboutModule() {
 
 /** Reimplementation to support the items dragEnter and dragLeave functions. */
 void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ) {
-    // 	qWarning("void CMainIndex:: drag move event ( QDragLeaveEvent* e )");
+    //  qWarning("void CMainIndex:: drag move event ( QDragLeaveEvent* e )");
     KListView::contentsDragMoveEvent(event);
 
     CItemBase* i = dynamic_cast<CItemBase*>( itemAt( contentsToViewport(event->pos())) );

@@ -17,33 +17,32 @@ class KHTMLPart;
 
 namespace Printing {
 
-/**
- * The CPrinter class manages the print item queue and the printing of them to the printer.
- *
- * @author The BibleTime team
-*/
-class CPrinter : public QObject, public Rendering::CDisplayRendering
-{
-	Q_OBJECT
-public:
-	CPrinter(
-		QObject *parent,
-		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
-		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
-	);
+    /**
+     * The CPrinter class manages the print item queue and the printing of them to the printer.
+     *
+     * @author The BibleTime team
+    */
+    class CPrinter : public QObject, public Rendering::CDisplayRendering {
+        Q_OBJECT
+    public:
+        CPrinter(
+            QObject *parent,
+            CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(),
+            CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
+        );
 
-	virtual ~CPrinter();
-	
-	void printKeyTree( KeyTree& );
+        virtual ~CPrinter();
 
-protected:
-	virtual const QString entryLink(const KeyTreeItem& item, CSwordModuleInfo* const module);
-	virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
-	virtual const QString finishText(const QString& arg1, KeyTree& tree);
+        void printKeyTree( KeyTree& );
 
-private:
-	KHTMLPart* m_htmlPart;
-};
+    protected:
+        virtual const QString entryLink(const KeyTreeItem& item, CSwordModuleInfo* const module);
+        virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
+        virtual const QString finishText(const QString& arg1, KeyTree& tree);
+
+    private:
+        KHTMLPart* m_htmlPart;
+    };
 
 }
 

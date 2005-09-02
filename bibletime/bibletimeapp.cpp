@@ -6,7 +6,12 @@
 
 #include "util/cresmgr.h"
 
+//KDE includes
+#include <dcopclient.h>
+
 BibleTimeApp::BibleTimeApp(){
+	initDCOP();
+
   CResMgr::init_i18n();
 }
 
@@ -19,4 +24,14 @@ BibleTimeApp::~BibleTimeApp(){
 	deleteDisplayTemplateMgr();
 	deleteLanguageMgr();
 	deleteBackend();
+}
+
+void BibleTimeApp::initDCOP(){
+	const bool dcopOk = dcopClient()->attach();
+	Q_ASSERT(dcopOk);
+	
+	if (dcopOk) {
+		const QCString appId = dcopClient()->registerAs(kapp->name(), false);
+// 		dcopClient()->setDefaultObject("BibleTimeInterface");
+	}
 }

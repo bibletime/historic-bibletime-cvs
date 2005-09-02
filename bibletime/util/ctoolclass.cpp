@@ -26,205 +26,203 @@
 
 
 QString CToolClass::locatehtml(const QString &filename) {
-  QString path = locate("html", KGlobal::locale()->language() + '/' + filename);
-  if (path.isNull())
-		path = locate("html", "default/" + filename);
-  if (path.isNull())
-		path = locate("html", "en/" + filename);
-  return path;
+    QString path = locate("html", KGlobal::locale()->language() + '/' + filename);
+    if (path.isNull())
+        path = locate("html", "default/" + filename);
+    if (path.isNull())
+        path = locate("html", "en/" + filename);
+    return path;
 }
 
 /** Converts HTML text to plain text */
 QString CToolClass::htmlToText(const QString& html) {
-  QString newText = html;
-  // convert some tags we need in code
-	newText.replace( QRegExp(" "),"#SPACE#" );
-	newText.replace( QRegExp("<br/?>\\s*"), "<br/>\n" );
- 	newText.replace( QRegExp("#SPACE#")," " );
+    QString newText = html;
+    // convert some tags we need in code
+    newText.replace( QRegExp(" "),"#SPACE#" );
+    newText.replace( QRegExp("<br/?>\\s*"), "<br/>\n" );
+    newText.replace( QRegExp("#SPACE#")," " );
 
-  QRegExp re("<.+>");
-  re.setMinimal(true);
-  newText.replace( re,"" );
-	return newText;	
+    QRegExp re("<.+>");
+    re.setMinimal(true);
+    newText.replace( re,"" );
+    return newText;
 }
 
 /** Converts text to HTML (\n to <BR>) */
-QString CToolClass::textToHTML(const QString& text){
-	QString newText = text;
-	newText.replace( QRegExp("<BR>\n"),"#NEWLINE#" );
-	newText.replace( QRegExp("\n"),"<BR>\n" );
-	newText.replace( QRegExp("#NEWLINE#"),"<BR>\n");	
-	return newText;
+QString CToolClass::textToHTML(const QString& text) {
+    QString newText = text;
+    newText.replace( QRegExp("<BR>\n"),"#NEWLINE#" );
+    newText.replace( QRegExp("\n"),"<BR>\n" );
+    newText.replace( QRegExp("#NEWLINE#"),"<BR>\n");
+    return newText;
 }
 
 /** Creates the file filename and put text into the file.
  */
-bool CToolClass::savePlainFile( const QString& filename, const QString& text, const bool& forceOverwrite, const QTextStream::Encoding& fileEncoding){
-	QFile saveFile(filename);
-	bool ret;
+bool CToolClass::savePlainFile( const QString& filename, const QString& text, const bool& forceOverwrite, const QTextStream::Encoding& fileEncoding) {
+    QFile saveFile(filename);
+    bool ret;
 
-	if (saveFile.exists()) {
-		if (!forceOverwrite && KMessageBox::warningYesNo(0,
-				  QString::fromLatin1("<qt><B>%1</B><BR>%2</qt>")
-					  .arg( i18n("The file already exists.") )
-					  .arg( i18n("Do you want to overwrite it?")
-          )
-        ) == KMessageBox::No
-		) {
-			return false;
-    }
-		else { //either the user chose yes or forceOverwrite is set
-			saveFile.remove();
-    }
-	};
+    if (saveFile.exists()) {
+        if (!forceOverwrite && KMessageBox::warningYesNo(0,
+                QString::fromLatin1("<qt><b>%1</b><br>%2</qt>")
+                .arg( i18n("The file already exists.") )
+                .arg( i18n("Do you want to overwrite it?")
+                    )
+                                                        ) == KMessageBox::No
+           ) {
+            return false;
+        } else { //either the user chose yes or forceOverwrite is set
+            saveFile.remove();
+        }
+    };
 
-	if ( saveFile.open(IO_ReadWrite) ) {
-		QTextStream textstream( &saveFile );
-		textstream.setEncoding(fileEncoding);
-		textstream << text;
-		saveFile.close();
-		ret = true;
-	}
-	else {
-		KMessageBox::error(0, QString::fromLatin1("<qt>%1<BR><B>%2</B></qt>")
-			.arg( i18n("The file couldn't be saved.") )
-			.arg( i18n("Please check permissions etc.")));
-		saveFile.close();
-		ret = false;
-	}
-	return ret;
+    if ( saveFile.open(IO_ReadWrite) ) {
+        QTextStream textstream( &saveFile );
+        textstream.setEncoding(fileEncoding);
+        textstream << text;
+        saveFile.close();
+        ret = true;
+    } else {
+        KMessageBox::error(0, QString::fromLatin1("<qt>%1<BR><B>%2</B></qt>")
+                           .arg( i18n("The file couldn't be saved.") )
+                           .arg( i18n("Please check permissions etc.")));
+        saveFile.close();
+        ret = false;
+    }
+    return ret;
 }
 
 
 /** Returns the icon used for the module given as aparameter. */
-QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ){
-  if (!module_info)
-  	return SmallIcon(CResMgr::modules::book::icon_locked, 16);
+QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ) {
+    if (!module_info)
+        return SmallIcon(CResMgr::modules::book::icon_locked, 16);
 
-  if (module_info->category() == CSwordModuleInfo::Cult) {
-    return SmallIcon("stop.png", 16);
-  };
-   
-   
-  QPixmap img;
-  
- 	switch (module_info->type()){
- 	  case CSwordModuleInfo::Bible:
- 	    if (module_info->isLocked())
- 	      img = SmallIcon(CResMgr::modules::bible::icon_locked, 16);
- 	    else
- 	      img = SmallIcon(CResMgr::modules::bible::icon_unlocked, 16);
-      break;
-  
- 	  case CSwordModuleInfo::Lexicon:
- 	    if (module_info->isLocked())
- 	      img = SmallIcon(CResMgr::modules::lexicon::icon_locked, 16);
- 	    else
- 	      img = SmallIcon(CResMgr::modules::lexicon::icon_unlocked, 16);
-      break;
- 	
- 	  case CSwordModuleInfo::Commentary:
- 	    if (module_info->isLocked())
- 	      img = SmallIcon(CResMgr::modules::commentary::icon_locked, 16);
- 	    else
- 	      img = SmallIcon(CResMgr::modules::commentary::icon_unlocked, 16);
-      break;
- 	
- 	  case CSwordModuleInfo::GenericBook:
- 	    if (module_info->isLocked())
- 	      img = SmallIcon(CResMgr::modules::book::icon_locked, 16);
- 	    else
- 	      img = SmallIcon(CResMgr::modules::book::icon_unlocked, 16);
-      break;
- 	
- 	  case CSwordModuleInfo::Unknown: //fall though to default
- 	  default:
- 	    if (module_info->isLocked())
- 	      img = SmallIcon(CResMgr::modules::book::icon_locked, 16);
- 	    else
- 	      img = SmallIcon(CResMgr::modules::book::icon_unlocked, 16);
-      break;
- 	}
+    if (module_info->category() == CSwordModuleInfo::Cult) {
+        return SmallIcon("stop.png", 16);
+    };
 
-  
-  return img;
+
+    QPixmap img;
+
+    switch (module_info->type()) {
+    case CSwordModuleInfo::Bible:
+        if (module_info->isLocked())
+            img = SmallIcon(CResMgr::modules::bible::icon_locked, 16);
+        else
+            img = SmallIcon(CResMgr::modules::bible::icon_unlocked, 16);
+        break;
+
+    case CSwordModuleInfo::Lexicon:
+        if (module_info->isLocked())
+            img = SmallIcon(CResMgr::modules::lexicon::icon_locked, 16);
+        else
+            img = SmallIcon(CResMgr::modules::lexicon::icon_unlocked, 16);
+        break;
+
+    case CSwordModuleInfo::Commentary:
+        if (module_info->isLocked())
+            img = SmallIcon(CResMgr::modules::commentary::icon_locked, 16);
+        else
+            img = SmallIcon(CResMgr::modules::commentary::icon_unlocked, 16);
+        break;
+
+    case CSwordModuleInfo::GenericBook:
+        if (module_info->isLocked())
+            img = SmallIcon(CResMgr::modules::book::icon_locked, 16);
+        else
+            img = SmallIcon(CResMgr::modules::book::icon_unlocked, 16);
+        break;
+
+    case CSwordModuleInfo::Unknown: //fall though to default
+    default:
+        if (module_info->isLocked())
+            img = SmallIcon(CResMgr::modules::book::icon_locked, 16);
+        else
+            img = SmallIcon(CResMgr::modules::book::icon_unlocked, 16);
+        break;
+    }
+
+
+    return img;
 }
 
-QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, const QString& text ){
-  QLabel* label = new QLabel( QString::fromLatin1("<B>%1</B><BR>%2").arg(heading).arg(text),parent );
-  label->setAutoResize(true);
-  label->setMargin(1);
-  label->setFrameStyle(QFrame::Box | QFrame::Plain);
-  return label;
+QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, const QString& text ) {
+    QLabel* label = new QLabel( QString::fromLatin1("<b>%1</b><br/>%2").arg(heading).arg(text),parent );
+    label->setAutoResize(true);
+    label->setMargin(1);
+    label->setFrameStyle(QFrame::Box | QFrame::Plain);
+    return label;
 }
 
 /** No descriptions */
-bool CToolClass::inHTMLTag(int pos, QString & text){
- int i1=text.findRev("<",pos);
- int i2=text.findRev(">",pos);
- int i3=text.find(">",pos);
- int i4=text.find("<",pos);
+bool CToolClass::inHTMLTag(int pos, QString & text) {
+    int i1=text.findRev("<",pos);
+    int i2=text.findRev(">",pos);
+    int i3=text.find(">",pos);
+    int i4=text.find("<",pos);
 
 
-//	if ((i1>0) && (i2==-1))  //we're in th first html tag
-//		i2=i1; // not ncessary, just for explanation
+    // if ((i1>0) && (i2==-1))  //we're in th first html tag
+    //  i2=i1; // not ncessary, just for explanation
 
-	if ((i3>0) && (i4==-1))  //we're in the last html tag
-	  i4=i3+1;
+    if ((i3>0) && (i4==-1))  //we're in the last html tag
+        i4=i3+1;
 
-//  qWarning("%d > %d && %d < %d",i1,i2,i3,i4);
+    //  qWarning("%d > %d && %d < %d",i1,i2,i3,i4);
 
- if ( (i1>i2) && (i3<i4) )
-    return true; //yes, we're in a tag
+    if ( (i1>i2) && (i3<i4) )
+        return true; //yes, we're in a tag
 
-  return false;
+    return false;
 }
 
 QString CToolClass::moduleToolTip(CSwordModuleInfo* module) {
-	Q_ASSERT(module);
-	if (!module) {
-		return QString::null;
-	}
+    Q_ASSERT(module);
+    if (!module) {
+        return QString::null;
+    }
 
-	QString text;
-	
-	text = QString("<b>%1</b> ").arg( module->name() )
-		+ ((module->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<small><b>%1</b></small><br>").arg(i18n("Take care, this work contains cult / questionable material!")) : QString::null);
+    QString text;
 
-	text += QString("<small>(") + module->config(CSwordModuleInfo::Description) + QString(")</small><hr>");
+    text = QString("<b>%1</b> ").arg( module->name() )
+           + ((module->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<small><b>%1</b></small><br>").arg(i18n("Take care, this work contains cult / questionable material!")) : QString::null);
 
-	text += i18n("Language") + QString(": %1<br>").arg( module->language()->translatedName() );
+    text += QString("<small>(") + module->config(CSwordModuleInfo::Description) + QString(")</small><hr>");
 
-	if (module->isEncrypted()) {
-		text += i18n("Unlock key") + QString(": %1<br>")
-			.arg(!module->config(CSwordModuleInfo::CipherKey).isEmpty() ? module->config(CSwordModuleInfo::CipherKey) : QString("<font COLOR=\"red\">%1</font>").arg(i18n("not set")));
-	}
+    text += i18n("Language") + QString(": %1<br>").arg( module->language()->translatedName() );
 
-	if (module->hasVersion()) {
-		text += i18n("Version") + QString(": %1<br>").arg( module->config(CSwordModuleInfo::ModuleVersion) );
-	}
-	
-	QString options;
-	unsigned int opts;
-	for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts){
-		if (module->has( static_cast<CSwordModuleInfo::FilterTypes>(opts) )) {
-			if (!options.isEmpty()) {
-				options += QString::fromLatin1(", ");
-			}
+    if (module->isEncrypted()) {
+        text += i18n("Unlock key") + QString(": %1<br>")
+                .arg(!module->config(CSwordModuleInfo::CipherKey).isEmpty() ? module->config(CSwordModuleInfo::CipherKey) : QString("<font COLOR=\"red\">%1</font>").arg(i18n("not set")));
+    }
 
-			options += CSwordBackend::translatedOptionName(
-				static_cast<CSwordModuleInfo::FilterTypes>(opts)
-			);
-		}
-	}
+    if (module->hasVersion()) {
+        text += i18n("Version") + QString(": %1<br>").arg( module->config(CSwordModuleInfo::ModuleVersion) );
+    }
 
-	if (!options.isEmpty()) {
-		text += i18n("Options") + QString::fromLatin1(": <small>") + options + QString("</small>");
-	}
-	
-	if (text.right(4) == QString::fromLatin1("<br>")) {
-		text = text.left(text.length()-4);
-	}
-	
-	return text;
+    QString options;
+    unsigned int opts;
+    for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts) {
+        if (module->has( static_cast<CSwordModuleInfo::FilterTypes>(opts) )) {
+            if (!options.isEmpty()) {
+                options += QString::fromLatin1(", ");
+            }
+
+            options += CSwordBackend::translatedOptionName(
+                           static_cast<CSwordModuleInfo::FilterTypes>(opts)
+                       );
+        }
+    }
+
+    if (!options.isEmpty()) {
+        text += i18n("Options") + QString::fromLatin1(": <small>") + options + QString("</small>");
+    }
+
+    if (text.right(4) == QString::fromLatin1("<br>")) {
+        text = text.left(text.length()-4);
+    }
+
+    return text;
 }

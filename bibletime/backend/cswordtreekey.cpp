@@ -3,75 +3,70 @@
 #include "cswordtreekey.h"
 #include "cswordbookmoduleinfo.h"
 
-CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : CSwordKey(k), TreeKeyIdx(k) {
-  
-}
+CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : CSwordKey(k), TreeKeyIdx(k) {}
 
-CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : CSwordKey(module), TreeKeyIdx(*k) {
-  
-}
+CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : CSwordKey(module), TreeKeyIdx(*k) {}
 
 CSwordTreeKey* CSwordTreeKey::copy() const {
-	return new CSwordTreeKey(*this);
+    return new CSwordTreeKey(*this);
 }
 
 /** Sets the key of this instance */
 const QString CSwordTreeKey::key() const {
-//   return QString::fromLocal8Bit( getFullName() ); //don't use fromUtf8
-	return QString::fromUtf8( getFullName() ); //don't use fromUtf8
+    //   return QString::fromLocal8Bit( getFullName() ); //don't use fromUtf8
+    return QString::fromUtf8( getFullName() ); //don't use fromUtf8
 }
 
-const bool CSwordTreeKey::key( const QString& newKey ){
-//   if (newKey.isEmpty()) {
-//     root();
-//   }
-//   else {
-//     TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!
-// 	}
+const bool CSwordTreeKey::key( const QString& newKey ) {
+    //   if (newKey.isEmpty()) {
+    //     root();
+    //   }
+    //   else {
+    //     TreeKeyIdx::operator = ((const char*)newKey.local8Bit());  //don't use Utf8! Doesn't work with umlauts!
+    //  }
 
-	return key( (const char*)newKey.local8Bit() );
+    return key( (const char*)newKey.local8Bit() );
 
-//   if (Error()) {
-//  		root();
-//  	}
-// 
-//  	return !Error();
+    //   if (Error()) {
+    //    root();
+    //   }
+    //
+    //   return !Error();
 }
 
-const bool CSwordTreeKey::key( const char* newKey ){
-	Q_ASSERT(newKey);
-	
-	if (newKey) {
-		TreeKeyIdx::operator = (newKey);
-	}
-	else {
-		root();
-	}
+const bool CSwordTreeKey::key( const char* newKey ) {
+    Q_ASSERT(newKey);
 
-	return !Error();
+    if (newKey) {
+        TreeKeyIdx::operator = (newKey);
+    } else {
+        root();
+    }
+
+    return !Error();
 }
 
 CSwordModuleInfo* const CSwordTreeKey::module( CSwordModuleInfo* const newModule ) {
-	if (newModule && (newModule != m_module) && (newModule->type() == CSwordModuleInfo::GenericBook) ) {
-		m_module = newModule;
+    if (newModule && (newModule != m_module) && (newModule->type() == CSwordModuleInfo::GenericBook) ) {
+        m_module = newModule;
 
- 		const QString oldKey = key();
-		
-		CSwordBookModuleInfo* newBook = dynamic_cast<CSwordBookModuleInfo*>(newModule);
-		copyFrom( *(newBook->tree()) );
+        const QString oldKey = key();
 
- 		key(oldKey); //try to restore our old key
-		
-		//set the key to the root node
- 		root();
-		firstChild();
-	}
-	
-	return m_module;
+        CSwordBookModuleInfo* newBook = dynamic_cast<CSwordBookModuleInfo*>(newModule);
+        copyFrom( *(newBook->tree()) );
+
+        key(oldKey); //try to restore our old key
+
+        //set the key to the root node
+        root();
+        firstChild();
+    }
+
+    return m_module;
 }
 
 /** Assignment operator. */
-CSwordTreeKey& CSwordTreeKey::operator = (const QString& keyname ){
-  key(keyname);
-  return *this;
+CSwordTreeKey& CSwordTreeKey::operator = (const QString& keyname ) {
+    key(keyname);
+    return *this;
 }

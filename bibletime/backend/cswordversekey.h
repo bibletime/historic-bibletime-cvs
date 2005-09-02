@@ -37,70 +37,70 @@
  */
 class CSwordVerseKey : public CSwordKey, public sword::VerseKey {
 public:
-	enum JumpType {
-		UseBook,
-		UseChapter,
-		UseVerse
-	};
+    enum JumpType {
+        UseBook,
+        UseChapter,
+        UseVerse
+    };
 
-	/**
-	* Constructor of this class.
-	*
-	* This function will construct a versekey with the current module position
-	* and it will setup the m_module members.
-	*
-	*/
-	CSwordVerseKey( CSwordModuleInfo* const module );
-  /**
-  * Copy constructor.
-  */
-  CSwordVerseKey( const CSwordVerseKey& k );
-  /**
-  * VerseKey based constructor.
-  */
-  CSwordVerseKey( const sword::VerseKey* const k, CSwordModuleInfo* const module );
-  /**
-  * Clones this object.
-  */
-  virtual CSwordKey* copy() const;
-  /**
-  * Set/get the key. If the parameter is not set (means equal to QString::null)
-  * the used key is returned. Otherwise the key is set and the new on ei returned.
-  */
-  virtual const QString key() const;
-  /**
-  * Set the current key.
-  */
-  virtual const bool key( const QString& );
-  /**
-  * Set/get the key. If the parameter is not set (means equal to QString::null)
-  * the used key is returned. Otherwise the key is set and the new on ei returned.
-  */
-	virtual const bool key( const char* key );
-	
-	/**
-	* Jumps to the next entry of the given type
-	*/
-	const bool next( const JumpType type );
-	/**
-	* Jumps to the previous entry of the given type
-	*/
-	const bool previous ( const JumpType type );	
-  /**
-  * This functions returns the current book as localised text, not as book numer.
-  *
-  * Use "char Book()" to retrieve the book number of the current book.
-  * @return The name of the current book
-  */
-  const QString book(const QString& newBook = QString::null);
-  /**
-  * Sets the module for this key
-  */
-  virtual CSwordModuleInfo* const module( CSwordModuleInfo* const newModule = 0 );
-  /**
-	* Assignment operator for more ease of use.
-	*/
-  virtual CSwordVerseKey& operator = (const QString& keyname);
+    /**
+    * Constructor of this class.
+    *
+    * This function will construct a versekey with the current module position
+    * and it will setup the m_module members.
+    *
+    */
+    CSwordVerseKey( CSwordModuleInfo* const module );
+    /**
+    * Copy constructor.
+    */
+    CSwordVerseKey( const CSwordVerseKey& k );
+    /**
+    * VerseKey based constructor.
+    */
+    CSwordVerseKey( const sword::VerseKey* const k, CSwordModuleInfo* const module );
+    /**
+    * Clones this object.
+    */
+    virtual CSwordKey* copy() const;
+    /**
+    * Set/get the key. If the parameter is not set (means equal to QString::null)
+    * the used key is returned. Otherwise the key is set and the new on ei returned.
+    */
+    virtual const QString key() const;
+    /**
+    * Set the current key.
+    */
+    virtual const bool key( const QString& );
+    /**
+    * Set/get the key. If the parameter is not set (means equal to QString::null)
+    * the used key is returned. Otherwise the key is set and the new on ei returned.
+    */
+    virtual const bool key( const char* key );
+
+    /**
+    * Jumps to the next entry of the given type
+    */
+    const bool next( const JumpType type );
+    /**
+    * Jumps to the previous entry of the given type
+    */
+    const bool previous ( const JumpType type );
+    /**
+    * This functions returns the current book as localised text, not as book numer.
+    *
+    * Use "char Book()" to retrieve the book number of the current book.
+    * @return The name of the current book
+    */
+    const QString book(const QString& newBook = QString::null);
+    /**
+    * Sets the module for this key
+    */
+    virtual CSwordModuleInfo* const module( CSwordModuleInfo* const newModule = 0 );
+    /**
+    * Assignment operator for more ease of use.
+    */
+    virtual CSwordVerseKey& operator = (const QString& keyname);
 };
 
 #endif

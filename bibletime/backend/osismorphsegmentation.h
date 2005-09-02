@@ -3,9 +3,9 @@
  * $Id$
  *
  * Copyright 1998 CrossWire Bible Society (http://www.crosswire.org)
- *	CrossWire Bible Society
- *	P. O. Box 2528
- *	Tempe, AZ  85280-2528
+ * CrossWire Bible Society
+ * P. O. Box 2528
+ * Tempe, AZ  85280-2528
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -27,15 +27,15 @@ using namespace sword;
 
 namespace Filters {
 
-/** This Filter shows/hides headings in a OSIS text
- */
-class OSISMorphSegmentation : public SWOptionFilter {
-public:
-	OSISMorphSegmentation();
-	virtual ~OSISMorphSegmentation();
-	
-	virtual char processText(SWBuf &text, const SWKey *key = 0, const SWModule *module = 0);
-};
+    /** This Filter shows/hides headings in a OSIS text
+     */
+    class OSISMorphSegmentation : public SWOptionFilter {
+    public:
+        OSISMorphSegmentation();
+        virtual ~OSISMorphSegmentation();
+
+        virtual char processText(SWBuf &text, const SWKey *key = 0, const SWModule *module = 0);
+    };
 
 }
 

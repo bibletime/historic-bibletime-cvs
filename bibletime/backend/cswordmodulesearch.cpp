@@ -15,123 +15,122 @@
 CSwordModuleSearch* CSwordModuleSearch::searcher = 0;
 
 CSwordModuleSearch::CSwordModuleSearch() :
-	m_searchedText(QString::null),
-	m_searchOptions(0),
-	m_foundItems(false),
-	m_isSearching(false),
-	m_terminateSearch(false)
-{
-	searcher = this;
+        m_searchedText(QString::null),
+        m_searchOptions(0),
+        m_foundItems(false),
+        m_isSearching(false),
+m_terminateSearch(false) {
+    searcher = this;
 }
 
-CSwordModuleSearch::~CSwordModuleSearch(){
-	searcher = 0;
+CSwordModuleSearch::~CSwordModuleSearch() {
+    searcher = 0;
 }
 
 /** This function sets the modules which should be searched. */
 void CSwordModuleSearch::setModules( const ListCSwordModuleInfo& list ) {
-	m_moduleList = list;
+    m_moduleList = list;
 }
 
 /** Starts the search for the search text. */
 const bool CSwordModuleSearch::startSearch() {
-	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );	
-	m_foundItems			= false;
-	m_terminateSearch = false;
-	m_isSearching 		= true;		
-		
-	cms_currentProgress = 0;
-	cms_overallProgress = 0;
-	cms_module_current = 0;
-	cms_module_count = m_moduleList.count();
-	
-	bool foundItems = false;
-	
-//	for (m_moduleList.first(); m_moduleList.current() && !m_terminateSearch; m_moduleList.next()) {
-	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
-	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
-		cms_module_current++;
-		if ( (*it)->search(m_searchedText, m_searchOptions, m_searchScope, &CSwordModuleSearch::percentUpdate) ) {
-			foundItems = true;
-		}
-	}
-	cms_currentProgress = 100;
-	cms_overallProgress = 100;
-	
-	m_foundItems = foundItems;		
-	m_isSearching = false;
-	m_terminateSearch = false;
+    backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
+    m_foundItems   = false;
+    m_terminateSearch = false;
+    m_isSearching   = true;
 
-  m_finishedSig.activate();		
-	return true;
+    cms_currentProgress = 0;
+    cms_overallProgress = 0;
+    cms_module_current = 0;
+    cms_module_count = m_moduleList.count();
+
+    bool foundItems = false;
+
+    // for (m_moduleList.first(); m_moduleList.current() && !m_terminateSearch; m_moduleList.next()) {
+    ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+    for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
+        cms_module_current++;
+        if ( (*it)->search(m_searchedText, m_searchOptions, m_searchScope, &CSwordModuleSearch::percentUpdate) ) {
+            foundItems = true;
+        }
+    }
+    cms_currentProgress = 100;
+    cms_overallProgress = 100;
+
+    m_foundItems = foundItems;
+    m_isSearching = false;
+    m_terminateSearch = false;
+
+    m_finishedSig.activate();
+    return true;
 }
 
-void CSwordModuleSearch::startSearchThread(){
-	startSearch();
+void CSwordModuleSearch::startSearchThread() {
+    startSearch();
 }
 
 /** Sets the text which should be search in the modules. */
-void CSwordModuleSearch::setSearchedText( const QString& text ){
-	m_searchedText = text;
+void CSwordModuleSearch::setSearchedText( const QString& text ) {
+    m_searchedText = text;
 }
 
 /** Sets the search scope. */
 void CSwordModuleSearch::setSearchScope( const sword::ListKey& scope ) {
-  m_searchScope.copyFrom( scope );
-  if (!strlen(scope.getRangeText())) { //we can't search with an empty search scope, would crash
-    //reset the scope
-    resetSearchScope();
-    
-    //disable searching with a scope!
-  //  if (m_searchOptions | useScope) {
-//      qWarning("using the scope!");
-      //set back the scope flag
-   // }
-  }
+    m_searchScope.copyFrom( scope );
+    if (!strlen(scope.getRangeText())) { //we can't search with an empty search scope, would crash
+        //reset the scope
+        resetSearchScope();
+
+        //disable searching with a scope!
+        //  if (m_searchOptions | useScope) {
+        //      qWarning("using the scope!");
+        //set back the scope flag
+        // }
+    }
 }
 
 /** Sets the search scope back. */
 void CSwordModuleSearch::resetSearchScope() {
-	m_searchScope.ClearList();
+    m_searchScope.ClearList();
 }
 
 /** Interrupts the current search. */
 void CSwordModuleSearch::interruptSearch() {
-	if (m_isSearching) {
-		m_terminateSearch = true; //no other modules will be searched
-	}
-	
-// 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-	ListCSwordModuleInfo::const_iterator end_it = m_moduleList.end();
-	for( ListCSwordModuleInfo::const_iterator it = m_moduleList.begin(); it != end_it; ++it) {
-		(*it)->interruptSearch(); //interrupt the current module
-	}
+    if (m_isSearching) {
+        m_terminateSearch = true; //no other modules will be searched
+    }
+
+    //  for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+    ListCSwordModuleInfo::const_iterator end_it = m_moduleList.end();
+    for( ListCSwordModuleInfo::const_iterator it = m_moduleList.begin(); it != end_it; ++it) {
+        (*it)->interruptSearch(); //interrupt the current module
+    }
 }
 
 /** Returns true if in the last search the searcher found items, if no items were found return false. */
 const bool CSwordModuleSearch::foundItems() const {
-	return m_foundItems;
+    return m_foundItems;
 }
 
 /** Sets the options for this search. Options include theflags and search types of the Sword searc interface. */
-void CSwordModuleSearch::setSearchOptions( const int options ){
-	m_searchOptions = options;
+void CSwordModuleSearch::setSearchOptions( const int options ) {
+    m_searchOptions = options;
 }
 
 /** Returns a copy of the used search scope. */
 const sword::ListKey& CSwordModuleSearch::scope() const {
-	return m_searchScope;
+    return m_searchScope;
 }
 
 void CSwordModuleSearch::connectPercentUpdate( QObject *receiver, const char *member ) {
-	m_updateSig.connect(receiver, member);
+    m_updateSig.connect(receiver, member);
 }
 
 void CSwordModuleSearch::connectFinished( QObject *receiver, const char *member ) {
-	m_finishedSig.connect(receiver, member);
+    m_finishedSig.connect(receiver, member);
 }
 
 /** Should be called when the search finished. */
-void CSwordModuleSearch::searchFinished(){
-	m_finishedSig.activate();	
+void CSwordModuleSearch::searchFinished() {
+    m_finishedSig.activate();
 }

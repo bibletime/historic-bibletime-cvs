@@ -678,222 +678,222 @@ const QString& CTreeFolder::language() const {
 /* --------------------------------------------------*/
 
 namespace Bookmarks {
-/* --------------------------------------------------------------------------*/
-/* ---------- new class: CBookmarkFolder::OldBookmarkImport -----------------*/
-/* --------------------------------------------------------------------------*/
-const QString OldBookmarkImport::oldBookmarksXML( const QString& configFileName ) {
-    QString fileName = (configFileName.isEmpty()) ? "bt-groupmanager" : configFileName;
-    KConfig* config = new KSimpleConfig( fileName );
+    /* --------------------------------------------------------------------------*/
+    /* ---------- new class: CBookmarkFolder::OldBookmarkImport -----------------*/
+    /* --------------------------------------------------------------------------*/
+    const QString OldBookmarkImport::oldBookmarksXML( const QString& configFileName ) {
+        QString fileName = (configFileName.isEmpty()) ? "bt-groupmanager" : configFileName;
+        KConfig* config = new KSimpleConfig( fileName );
 
-    KConfigGroupSaver groupSaver(config, configFileName.isEmpty() ? "Groupmanager" : "Bookmarks");
+        KConfigGroupSaver groupSaver(config, configFileName.isEmpty() ? "Groupmanager" : "Bookmarks");
 
-    QDomDocument doc("DOC");
-    doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+        QDomDocument doc("DOC");
+        doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
 
-    QDomElement content = doc.createElement("SwordBookmarks");
-    content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
-    doc.appendChild(content);
+        QDomElement content = doc.createElement("SwordBookmarks");
+        content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
+        doc.appendChild(content);
 
-    //first create the bookmark groups in the XML document, then add the bookmarks to each parent
-    QMap<int, QDomElement> parentMap; //maps parent ids to dom elements
+        //first create the bookmark groups in the XML document, then add the bookmarks to each parent
+        QMap<int, QDomElement> parentMap; //maps parent ids to dom elements
 
 
-    QStringList	groupList = config->readListEntry("Groups");
-    QValueList<int>	parentList = config->readIntListEntry("Group parents");
+        QStringList groupList = config->readListEntry("Groups");
+        QValueList<int> parentList = config->readIntListEntry("Group parents");
 
-    QStringList::Iterator it_groups = groupList.begin();
-    QValueList<int>::Iterator it_parents = parentList.begin();
+        QStringList::Iterator it_groups = groupList.begin();
+        QValueList<int>::Iterator it_parents = parentList.begin();
 
-    int parentIDCounter = 0;
-    while ( (it_groups != groupList.end()) && (it_parents != parentList.end()) ) {
-        QDomElement parentElement = (*it_parents == -1) ? content : parentMap[*it_parents];
-        if (parentElement.isNull()) {
-            qWarning("EMPTY PARENT FOUND!");
-            parentElement = content;
+        int parentIDCounter = 0;
+        while ( (it_groups != groupList.end()) && (it_parents != parentList.end()) ) {
+            QDomElement parentElement = (*it_parents == -1) ? content : parentMap[*it_parents];
+            if (parentElement.isNull()) {
+                qWarning("EMPTY PARENT FOUND!");
+                parentElement = content;
+            };
+
+            QDomElement elem = doc.createElement("Folder");
+            elem.setAttribute("caption", (*it_groups));
+            parentMap.insert(parentIDCounter, elem);
+
+            parentElement.appendChild( elem );
+
+
+            ++it_parents;
+            ++it_groups;
+            ++parentIDCounter;
+        }
+
+        //groups are now read in, create now the bookmarks
+        parentList  = config->readIntListEntry("Bookmark parents");
+        QStringList bookmarkList        = config->readListEntry("Bookmarks");
+        QStringList bookmarkModulesList    = config->readListEntry("Bookmark modules");
+        QStringList bookmarkDescriptionsList  = config->readListEntry("Bookmark descriptions");
+
+        it_parents  = parentList.begin();
+        QStringList::Iterator it_bookmarks    = bookmarkList.begin();
+        QStringList::Iterator it_modules     = bookmarkModulesList.begin();
+        QStringList::Iterator it_descriptions = bookmarkDescriptionsList.begin();
+
+        while ( it_bookmarks != bookmarkList.end()
+                && it_parents != parentList.end()
+                && it_modules != bookmarkModulesList.end()
+              ) {
+            QDomElement parentElement = ((*it_parents) == -1) ? content : parentMap[(*it_parents)];
+            if (parentElement.isNull()) {
+                qWarning("EMPTY PARENT FOUND!");
+                parentElement = content;
+            };
+            QDomElement elem = doc.createElement("Bookmark");
+
+            elem.setAttribute("key", *it_bookmarks);
+            elem.setAttribute("description", *it_descriptions);
+            elem.setAttribute("modulename", *it_modules);
+
+            CSwordModuleInfo* m = CPointers::backend()->findModuleByName( *it_modules );
+            elem.setAttribute("moduledescription", m ? m->config(CSwordModuleInfo::Description) : QString::null);
+
+            parentElement.appendChild( elem );
+
+
+            ++it_parents;
+            ++it_modules;
+            ++it_descriptions;
+            ++it_bookmarks;
         };
 
-        QDomElement elem = doc.createElement("Folder");
-        elem.setAttribute("caption", (*it_groups));
-        parentMap.insert(parentIDCounter, elem);
-
-        parentElement.appendChild( elem );
-
-
-        ++it_parents;
-        ++it_groups;
-        ++parentIDCounter;
-    }
-
-    //groups are now read in, create now the bookmarks
-    parentList 	= config->readIntListEntry("Bookmark parents");
-    QStringList	bookmarkList 							= config->readListEntry("Bookmarks");
-    QStringList	bookmarkModulesList 			= config->readListEntry("Bookmark modules");
-    QStringList	bookmarkDescriptionsList 	= config->readListEntry("Bookmark descriptions");
-
-    it_parents  = parentList.begin();
-    QStringList::Iterator it_bookmarks 	  = bookmarkList.begin();
-    QStringList::Iterator it_modules 		  = bookmarkModulesList.begin();
-    QStringList::Iterator it_descriptions	= bookmarkDescriptionsList.begin();
-
-    while ( it_bookmarks != bookmarkList.end()
-            && it_parents != parentList.end()
-            && it_modules != bookmarkModulesList.end()
-          ) {
-        QDomElement parentElement = ((*it_parents) == -1) ? content : parentMap[(*it_parents)];
-        if (parentElement.isNull()) {
-            qWarning("EMPTY PARENT FOUND!");
-            parentElement = content;
-        };
-        QDomElement elem = doc.createElement("Bookmark");
-
-        elem.setAttribute("key", *it_bookmarks);
-        elem.setAttribute("description", *it_descriptions);
-        elem.setAttribute("modulename", *it_modules);
-
-        CSwordModuleInfo* m = CPointers::backend()->findModuleByName( *it_modules );
-        elem.setAttribute("moduledescription", m ? m->config(CSwordModuleInfo::Description) : QString::null);
-
-        parentElement.appendChild( elem );
-
-
-        ++it_parents;
-        ++it_modules;
-        ++it_descriptions;
-        ++it_bookmarks;
+        return doc.toString();
     };
 
-    return doc.toString();
-};
+    /********************
+    *   New class: OldBookmarkFolder
+    *********************/
 
-/********************
-*   New class: OldBookmarkFolder
-*********************/
+    OldBookmarksFolder::OldBookmarksFolder(CTreeFolder* folder) : CBookmarkFolder(folder, OldBookmarkFolder) {}
 
-OldBookmarksFolder::OldBookmarksFolder(CTreeFolder* folder) : CBookmarkFolder(folder, OldBookmarkFolder) {}
+    OldBookmarksFolder::~OldBookmarksFolder() {}
 
-OldBookmarksFolder::~OldBookmarksFolder() {}
-
-/** Reimplementation to handle special bookmark tree. */
-void OldBookmarksFolder::initTree() {
-    // Import the bookmarks of the previous BibleTime versions
-    if (!CBTConfig::get
-                ( CBTConfig::readOldBookmarks )) { //if we havn't yet loaded the old bookmarks
-            loadBookmarksFromXML( Bookmarks::OldBookmarkImport::oldBookmarksXML() );
-        }
-}
-
-
-QDomElement OldBookmarksFolder::saveToXML( QDomDocument& doc ) {
-    QDomElement elem = doc.createElement("Folder");
-    elem.setAttribute("caption", text(0));
-
-    // Append the XML nodes of all child items
-    CItemBase* i = dynamic_cast<CItemBase*>(firstChild());
-    while( i ) {
-        if (i->parent() == this) {
-            QDomElement newElem = i->saveToXML( doc );
-            if (!newElem.isNull()) {
-                elem.appendChild( newElem ); //append to this folder
+    /** Reimplementation to handle special bookmark tree. */
+    void OldBookmarksFolder::initTree() {
+        // Import the bookmarks of the previous BibleTime versions
+        if (!CBTConfig::get
+                    ( CBTConfig::readOldBookmarks )) { //if we havn't yet loaded the old bookmarks
+                loadBookmarksFromXML( Bookmarks::OldBookmarkImport::oldBookmarksXML() );
             }
-        }
-        i = dynamic_cast<CItemBase*>( i->nextSibling() );
     }
 
-    // Save to config, that we imported the old bookmarks and that we have them on disk
-    CBTConfig::set
-        ( CBTConfig::readOldBookmarks, true );
 
-    return elem;
-}
+    QDomElement OldBookmarksFolder::saveToXML( QDomDocument& doc ) {
+        QDomElement elem = doc.createElement("Folder");
+        elem.setAttribute("caption", text(0));
 
-void OldBookmarksFolder::loadFromXML( QDomElement& /*element*/ ) {
-    //this function is empty because the folder imports the old 1.2 bookmarks from the bt-groupmanager config file
-}
-
-
-// New class SubFolder
-
-SubFolder::SubFolder(CFolderBase* parentItem, const QString& caption) : CBookmarkFolder(parentItem, BookmarkFolder) {
-    m_startupXML = QDomElement();
-    setText( 0, caption );
-}
-
-SubFolder::SubFolder(CFolderBase* parentItem, QDomElement& xml ) : CBookmarkFolder(parentItem, BookmarkFolder) {
-    m_startupXML = xml;
-}
-
-SubFolder::~SubFolder() {}
-
-void SubFolder::init() {
-    CFolderBase::init();
-    if (!m_startupXML.isNull())
-        loadFromXML(m_startupXML);
-
-    setDropEnabled(true);
-    setRenameEnabled(0,true);
-}
-
-/** Reimplementation from  CItemBase. */
-const bool SubFolder::enableAction(const MenuAction action) {
-    if (action == ChangeFolder || action == NewFolder || action == DeleteEntries || action == ImportBookmarks )
-        return true;
-
-    if (action == ExportBookmarks || action == ImportBookmarks )
-        return true; //not yet implemented
-
-    if ((action == PrintBookmarks) && childCount())
-        return true;
-
-    return false;
-}
-
-/** Returns the XML code which represents the content of this folder. */
-QDomElement SubFolder::saveToXML( QDomDocument& doc ) {
-    /**
-    * Save all subitems (bookmarks and folders) to the XML file.
-    * We get the XML code for the items by calling their own saveToXML implementations.
-    */
-    QDomElement elem = doc.createElement("Folder");
-    elem.setAttribute("caption", text(0));
-
-    //append the XML nodes of all child items
-    CItemBase* i = dynamic_cast<CItemBase*>(firstChild());
-    while( i ) {
-        if (i->parent() == this) {
-            QDomElement newElem = i->saveToXML( doc );
-            if (!newElem.isNull()) {
-                elem.appendChild( newElem ); //append to this folder
+        // Append the XML nodes of all child items
+        CItemBase* i = dynamic_cast<CItemBase*>(firstChild());
+        while( i ) {
+            if (i->parent() == this) {
+                QDomElement newElem = i->saveToXML( doc );
+                if (!newElem.isNull()) {
+                    elem.appendChild( newElem ); //append to this folder
+                }
             }
+            i = dynamic_cast<CItemBase*>( i->nextSibling() );
         }
-        i = dynamic_cast<CItemBase*>( i->nextSibling() );
+
+        // Save to config, that we imported the old bookmarks and that we have them on disk
+        CBTConfig::set
+            ( CBTConfig::readOldBookmarks, true );
+
+        return elem;
     }
-    return elem;
-}
 
-/** Loads the content of this folder from the XML code passed as argument to this function. */
-void SubFolder::loadFromXML( QDomElement& elem ) {
-    //get the caption and restore all child items!
-    if (elem.hasAttribute("caption"))
-        setText(0, elem.attribute("caption"));
+    void OldBookmarksFolder::loadFromXML( QDomElement& /*element*/ ) {
+        //this function is empty because the folder imports the old 1.2 bookmarks from the bt-groupmanager config file
+    }
 
-    //restore all child items
-    QDomElement child = elem.firstChild().toElement();
-    CItemBase* oldItem = 0;
-    while ( !child.isNull() && child.parentNode() == elem ) {
-        CItemBase* i = 0;
-        if (child.tagName() == "Folder") {
-            i = new Bookmarks::SubFolder(this, child);
-        } else if (child.tagName() == "Bookmark") {
-            i = new CBookmarkItem(this, child);
+
+    // New class SubFolder
+
+    SubFolder::SubFolder(CFolderBase* parentItem, const QString& caption) : CBookmarkFolder(parentItem, BookmarkFolder) {
+        m_startupXML = QDomElement();
+        setText( 0, caption );
+    }
+
+    SubFolder::SubFolder(CFolderBase* parentItem, QDomElement& xml ) : CBookmarkFolder(parentItem, BookmarkFolder) {
+        m_startupXML = xml;
+    }
+
+    SubFolder::~SubFolder() {}
+
+    void SubFolder::init() {
+        CFolderBase::init();
+        if (!m_startupXML.isNull())
+            loadFromXML(m_startupXML);
+
+        setDropEnabled(true);
+        setRenameEnabled(0,true);
+    }
+
+    /** Reimplementation from  CItemBase. */
+    const bool SubFolder::enableAction(const MenuAction action) {
+        if (action == ChangeFolder || action == NewFolder || action == DeleteEntries || action == ImportBookmarks )
+            return true;
+
+        if (action == ExportBookmarks || action == ImportBookmarks )
+            return true; //not yet implemented
+
+        if ((action == PrintBookmarks) && childCount())
+            return true;
+
+        return false;
+    }
+
+    /** Returns the XML code which represents the content of this folder. */
+    QDomElement SubFolder::saveToXML( QDomDocument& doc ) {
+        /**
+        * Save all subitems (bookmarks and folders) to the XML file.
+        * We get the XML code for the items by calling their own saveToXML implementations.
+        */
+        QDomElement elem = doc.createElement("Folder");
+        elem.setAttribute("caption", text(0));
+
+        //append the XML nodes of all child items
+        CItemBase* i = dynamic_cast<CItemBase*>(firstChild());
+        while( i ) {
+            if (i->parent() == this) {
+                QDomElement newElem = i->saveToXML( doc );
+                if (!newElem.isNull()) {
+                    elem.appendChild( newElem ); //append to this folder
+                }
+            }
+            i = dynamic_cast<CItemBase*>( i->nextSibling() );
         }
-        i->init();
-        if (oldItem)
-            i->moveAfter(oldItem);
-        oldItem = i;
-
-        child = child.nextSibling().toElement();
+        return elem;
     }
-}
+
+    /** Loads the content of this folder from the XML code passed as argument to this function. */
+    void SubFolder::loadFromXML( QDomElement& elem ) {
+        //get the caption and restore all child items!
+        if (elem.hasAttribute("caption"))
+            setText(0, elem.attribute("caption"));
+
+        //restore all child items
+        QDomElement child = elem.firstChild().toElement();
+        CItemBase* oldItem = 0;
+        while ( !child.isNull() && child.parentNode() == elem ) {
+            CItemBase* i = 0;
+            if (child.tagName() == "Folder") {
+                i = new Bookmarks::SubFolder(this, child);
+            } else if (child.tagName() == "Bookmark") {
+                i = new CBookmarkItem(this, child);
+            }
+            i->init();
+            if (oldItem)
+                i->moveAfter(oldItem);
+            oldItem = i;
+
+            child = child.nextSibling().toElement();
+        }
+    }
 };
 
 

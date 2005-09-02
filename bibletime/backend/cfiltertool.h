@@ -14,23 +14,23 @@
   */
 
 // class CFilterTool : public CPointers  {
-// public: 
-// 	CFilterTool();
-// 	virtual ~CFilterTool();
-// 
+// public:
+//  CFilterTool();
+//  virtual ~CFilterTool();
+//
 // protected: // Protected methods
-//   /** 
-// 	* updates the filter specific settings like colors
-// 	* the variables are used in the inherited filters
-// 	* in HandleToken()
-// 	*/
+//   /**
+//  * updates the filter specific settings like colors
+//  * the variables are used in the inherited filters
+//  * in HandleToken()
+//  */
 //   void updateSettings();
-//   /** 
-// 	* This filter converts the RWP #Gen 1:1|
-// 	* style bible references to HTML
-// 	*/
+//   /**
+//  * This filter converts the RWP #Gen 1:1|
+//  * style bible references to HTML
+//  */
 //   char ProcessRWPRefs(sword::SWBuf & buf, sword::SWModule* const module);
-//   /** 
+//   /**
 //   * parses the verse reference ref and returns it.
 //   */
 //   const sword::SWBuf thmlRefEnd();
@@ -46,7 +46,7 @@
 //   * Parses the verse reference ref and returns it.
 //   */
 //   const sword::SWBuf parseSimpleRef(const sword::SWBuf& ref, const char* lang = 0);
-// 
+//
 // private:
 //   QString m_standardBible;
 // };
