@@ -449,7 +449,7 @@ void CDisplayWindow::lookup( const QString& keyName ) {
 	*/
 	Q_ASSERT(modules().first());
 
-	//  qWarning("looking up %s", keyName.latin1());
+	qWarning("looking up %s", keyName.latin1());
 	lookup(modules().first()->name(), keyName);
 }
 

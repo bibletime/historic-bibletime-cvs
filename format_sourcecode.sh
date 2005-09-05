@@ -13,7 +13,7 @@
 echo "Formatting source code files...";
 for f in $(find . -name \*.cpp -or -name \*.h); do
 	echo "	$f";
-	astyle --style=java -t -T -N --indent-cases --convert-tabs --brackets=break-closing-headers $f;
+	astyle --style=java -t -T --indent-cases --brackets=break-closing-headers $f;
 	#Fix that line\\ntext is turned into line\n\\t\t\ttext
 	perl -e 'undef $/; my $t=<>; $t =~ s/\\\n\t+/\\\n/g; print $t;' < $f > $f.new;
 	rm -f $f.orig;

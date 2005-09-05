@@ -194,16 +194,18 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() const {
 }
 
 const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
+	qWarning("initRendering");
 	initRendering();
 
 	ListCSwordModuleInfo modules = tree.collectModules();
-	QString t = QString::null;
+	QString t;
 
 	//optimization for entries with the same key
 	util::scoped_ptr<CSwordKey> key(
 		(modules.count() == 1) ? CSwordKey::createInstance(modules.first()) : 0
 	);
 
+	qWarning("render loop");
 	for (KeyTreeItem* c = tree.first(); c; c = tree.next()) {
 		if (modules.count() == 1) { //this optimizes the rendering, only one key created for all items
 			key->key( c->key() );
@@ -214,6 +216,7 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 		}
 	}
 
+	qWarning("finishText");
 	return finishText(t, tree);
 }
 

@@ -23,6 +23,7 @@ namespace Rendering {
 		Q_ASSERT( modules.count() >= 1 );
 		Q_ASSERT( !keyName.isEmpty() );
 
+		qWarning("CChapterDisplay");
 		CSwordModuleInfo* module = modules.first();
 
 		if (modules.count() == 1) {
@@ -39,8 +40,10 @@ namespace Rendering {
 		QString endKey = startKey;
 
 		//check whether there's an intro we have to include
+		Q_ASSERT(module->type() == CSwordModuleInfo::Bible);
 
 		if (module->type() == CSwordModuleInfo::Bible) {
+			qWarning("Bible");
 			((VerseKey*)(module->module()->getKey()))->Headings(1); //HACK: enable headings for VerseKeys
 
 			CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module);
@@ -65,6 +68,8 @@ namespace Rendering {
 		}
 
 		CDisplayRendering render(displayOptions, filterOptions);
+		qWarning("Rendering now");
+		printf("Text: %s\n", render.renderKeyRange( startKey, endKey, modules, keyName, settings ).latin1());
 		return render.renderKeyRange( startKey, endKey, modules, keyName, settings );
 	}
 

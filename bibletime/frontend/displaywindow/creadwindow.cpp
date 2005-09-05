@@ -76,7 +76,8 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 	}
 
 	Q_ASSERT(modules().first()->getDisplay());
-	if (CEntryDisplay* display = modules().first()->getDisplay()) { //do we have a display object?
+	CEntryDisplay* display = modules().first()->getDisplay();
+	if (display) { //do we have a display object?
 		displayWidget()->setText(
 			display->text(
 				modules(),
