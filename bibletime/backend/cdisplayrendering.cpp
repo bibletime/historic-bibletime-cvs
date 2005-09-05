@@ -137,13 +137,11 @@ namespace Rendering {
 		  pos = text.find(re, endPos);
 		 }
 		*/
-		qWarning("get lang");
 		const CLanguageMgr::Language* const lang =
 			(modules.count() >= 1)
 			? modules.first()->language()
 			: CPointers::languageMgr()->defaultLanguage();
 
-		qWarning("got lang");
 		CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 
 		Q_ASSERT(modules.count() >= 1);
