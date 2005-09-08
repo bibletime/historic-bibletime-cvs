@@ -410,10 +410,10 @@ protected: //DCOP interface implementation
 	virtual void openWindow(QString moduleName, QString key);
 	virtual void openDefaultBible(QString key);
 	virtual QStringList searchInOpenModules(QString searchText);
-	virtual QStringList searchIndefaultBible(QString searchText);
+	virtual QStringList searchInDefaultBible(QString searchText);
 
 private:
-	DCOPObject* m_dcopInterface;
+// 	DCOPObject* m_dcopInterface;
 };
 
 #endif

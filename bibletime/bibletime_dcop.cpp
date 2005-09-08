@@ -76,7 +76,7 @@ QStringList BibleTime::searchInOpenModules(QString searchText) {
 	dlg->startSearch();
 }
 
-QStringList BibleTime::searchIndefaultBible(QString searchText) {
+QStringList BibleTime::searchInDefaultBible(QString searchText) {
 	qDebug("DCOP: search in default bible ...");
 	CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
 	mod->search(searchText, CSwordModuleSearch::multipleWords, sword::ListKey());

@@ -53,7 +53,7 @@ k_dcop:
 	virtual QStringList searchInOpenModules(QString searchText) = 0;
 	/** Search in the default Bible module and return the search result.
 	*/
-	virtual QStringList searchIndefaultBible(QString searchText) = 0;
+	virtual QStringList searchInDefaultBible(QString searchText) = 0;
 };
 
 #endif
