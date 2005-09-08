@@ -120,7 +120,7 @@ const bool CSwordModuleInfo::search(const QString searchedText, const int search
 
 	//work around Swords thread insafety for Bibles and Commentaries
 	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
-	sword::SWKey * s = dynamic_cast < sword::SWKey * >(key.get());
+	sword::SWKey* s = dynamic_cast < sword::SWKey * >(key.get());
 
 	if (s) {
 		m_module->SetKey(*s);
@@ -151,6 +151,10 @@ const bool CSwordModuleInfo::search(const QString searchedText, const int search
 	else if (searchOptions & CSwordModuleSearch::regExp) {
 		searchType = 0;   //regexp matching
 	}
+
+// 	if (!percentUpdate) {
+// 		percentUpdate =
+// 	}
 
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
 		util::scoped_ptr < sword::SWKey > searchScope(m_searchResult.clone());

@@ -58,7 +58,6 @@ m_backend(0),
 m_printer(0),
 m_mainIndex(0) {
 	setObjId("BibleTimeInterface");
-	//  m_dcopInterface = new BibleTimeInterface(this);
 	setHelpMenuEnabled(false);
 
 	initBackends();

@@ -48,6 +48,8 @@ public:
 protected:
 	friend class CSearchAnalysis;
 	friend class CSearchResultPage;
+	friend class BibleTime;
+
 	/**
 	* Only interesting for the class members! Useful to get the searched text etc.
 	*/
@@ -125,7 +127,7 @@ protected slots:
 	*/
 	void slotShowPage(QWidget* page);
 	/**
-	* Reimplementation. 
+	* Reimplementation.
 	*/
 	virtual void slotClose();
 	/**

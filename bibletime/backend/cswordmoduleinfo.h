@@ -12,6 +12,7 @@
 
 //Sword includes
 #include <listkey.h>
+#include <swsearchable.h>
 #include <swmodule.h>
 #include <swversion.h>
 #include <swdisp.h>
@@ -181,7 +182,7 @@ public:
 	* This function does start the Sword functions to search in the module and it does
 	* overwrite the variable containing the last search result.
 	*/
-	virtual const bool search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percent)(char, void*));
+	virtual const bool search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percent)(char, void*) = &sword::SWSearchable::nullPercent);
 	/**
 	* Returns the last search result for this module.
 	* The last result is cleared by @ref search

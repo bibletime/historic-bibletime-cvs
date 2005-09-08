@@ -1,8 +1,9 @@
 2005-08-24 Joachim Ansorg <info@bibletime.info>
   * Bugfix: More Drag&Drop fixes
+  * Bugfix: Some compilers complained about a missing namespace declaration in the backend code
 
 2005-08-24 Joachim Ansorg <info@bibletime.info>
-  * Bugfix: Copyright infos for a module is now displayed as valid text
+  * Bugfix: Copyright infos for a module is now displayed as correctly enocoded text
   * Bugfix: Larger fontsize for the display styles "Default" and "Green"
 
 2005-08-18 Joachim Ansorg <info@bibletime.info>
