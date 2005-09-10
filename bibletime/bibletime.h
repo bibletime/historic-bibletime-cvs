@@ -409,11 +409,9 @@ protected: //DCOP interface implementation
 	virtual void syncAllVerseBasedModules(QString key);
 	virtual void openWindow(QString moduleName, QString key);
 	virtual void openDefaultBible(QString key);
-	virtual QStringList searchInOpenModules(QString searchText);
-	virtual QStringList searchInDefaultBible(QString searchText);
-
-private:
-// 	DCOPObject* m_dcopInterface;
+	virtual QStringList searchInModule(const QString& module, const QString& searchText);
+	virtual QStringList searchInOpenModules(const QString& searchText);
+	virtual QStringList searchInDefaultBible(const QString& searchText);
 };
 
 #endif

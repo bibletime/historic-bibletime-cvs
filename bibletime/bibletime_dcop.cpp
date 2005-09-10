@@ -1,11 +1,15 @@
 /********* Read the file LICENSE for license details. *********/
 
+//BibleTime includes
 #include "bibletime.h"
 
 //frontend includes
 #include "frontend/cmdiarea.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/searchdialog/csearchdialog.h"
+
+//Sword includes
+#include <versekey.h>
 
 //helper function
 void BibleTime::syncAllModulesByType(const CSwordModuleInfo::ModuleType type, const QString& key) {
@@ -68,28 +72,59 @@ void BibleTime::openDefaultBible(QString key) {
 	}
 }
 
-QStringList BibleTime::searchInOpenModules(QString searchText) {
-	qDebug("DCOP: search in open modules ...");
-	slotSearchModules(); //opens the search dialog with the currently open modules
-	CSearchDialog* dlg = CSearchDialog::getSearchDialog();
-	dlg->setSearchText(searchText);
-	dlg->startSearch();
-}
-
-QStringList BibleTime::searchInDefaultBible(QString searchText) {
-	qDebug("DCOP: search in default bible ...");
-	CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
-	mod->search(searchText, CSwordModuleSearch::multipleWords, sword::ListKey());
-
-	sword::ListKey result = mod->searchResult();
+QStringList BibleTime::searchInModule(const QString& moduleName, const QString& searchText) {
+	qDebug("DCOP: searchInModule %s ...", moduleName.latin1());
 	QStringList ret;
+	CSwordModuleInfo* mod = CPointers::backend()->findModuleByName(moduleName);
 
-	for ( int i = 0; i < result.Count(); ++i ) {
-		sword::SWKey* key = result.getElement(i);
-		Q_ASSERT(key);
+	Q_ASSERT(mod);
+	if (mod) {
+		mod->search(searchText, CSwordModuleSearch::multipleWords, sword::ListKey());
 
-		ret << QString::fromUtf8( key->getText() );
+		sword::ListKey result = mod->searchResult();
+		const QString lead = QString("[%1] ").arg(moduleName);;
+		for ( int i = 0; i < result.Count(); ++i ) {
+			sword::SWKey* key = result.getElement(i);
+			Q_ASSERT(key);
+
+
+			if (mod->type() == CSwordModuleInfo::Bible || mod->type() == CSwordModuleInfo::Commentary) {
+				sword::VerseKey vk(key->getText());
+				ret << lead + QString::fromUtf8( vk.getOSISRef() );
+			}
+			else {
+				ret << lead + QString::fromUtf8( key->getText() );
+			}
+		}
 	}
 
 	return ret;
+
+}
+
+QStringList BibleTime::searchInOpenModules(const QString& searchText) {
+	qDebug("DCOP: search in open modules ...");
+	QStringList ret;
+
+	QWidgetList windows = m_mdi->windowList();
+	for ( int i = 0; i < static_cast<int>(windows.count()); ++i ) {
+		CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.at(i));
+		if (w) {
+			ListCSwordModuleInfo windowModules = w->modules();
+
+			ListCSwordModuleInfo::iterator end_it = windowModules.end();
+			for (ListCSwordModuleInfo::iterator it(windowModules.begin()); it != end_it; ++it) {
+				ret += searchInModule((*it)->name(), searchText);
+			};
+		};
+	};
+
+	return ret;
+}
+
+QStringList BibleTime::searchInDefaultBible(const QString& searchText) {
+	qDebug("DCOP: search in default bible ...");
+
+	CSwordModuleInfo* bible = CBTConfig::get(CBTConfig::standardBible);
+	return searchInModule(bible->name(), searchText);
 }

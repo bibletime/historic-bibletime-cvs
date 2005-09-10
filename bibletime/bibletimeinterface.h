@@ -24,7 +24,7 @@ class BibleTimeInterface : virtual public DCOPObject {
 	K_DCOP
 
 public:
-BibleTimeInterface(QCString id) : DCOPObject(id) {}
+	BibleTimeInterface(QCString id) : DCOPObject(id) {}
 
 k_dcop:
 	/** Sync all open Bible windows to the key.
@@ -48,12 +48,19 @@ k_dcop:
 	/** Close all open windows.
 	*/
 	virtual void closeAllModuleWindows() = 0;
+	/** Seach the searchText in the specified module. The search result will be in the form
+	*    [modulename] osis_ref_of_the_found_key
+	* For example [KJV] Gen.1.1
+	*/
+	virtual QStringList searchInModule(const QString& moduleName, const QString& searchText) = 0;
 	/** Search in all open modules and return the search result.
+	* The result is in the same format as searchInModule
 	*/
-	virtual QStringList searchInOpenModules(QString searchText) = 0;
+	virtual QStringList searchInOpenModules(const QString& searchText) = 0;
 	/** Search in the default Bible module and return the search result.
+	* The result is in the same format as searchInModule
 	*/
-	virtual QStringList searchInDefaultBible(QString searchText) = 0;
+	virtual QStringList searchInDefaultBible(const QString& searchText) = 0;
 };
 
 #endif
