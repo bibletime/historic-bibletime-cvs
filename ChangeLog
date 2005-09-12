@@ -1,6 +1,11 @@
+2005-09-12 Joachim Ansorg <info@bibletime.info>
+  * BibleTime 1.5.1
+  * BibleTime-i18n package 1.5.1
+
 2005-09-10 Joachim Ansorg <info@bibletime.info>
   * New feature: DCOP interface to control BibleTime. The available commands are avilable by calling "dcop bibletime BibleTimeInterface". To read the DCOP documentation please have a look at the file bibletime/bibletimeinterface.h
   * Bugfix: The bookshelf manager didn't work with KDE systems which were configured to use a double click
+  * Bugfix: A trailing slash in the hostname prevented the bookshelf manager to connect to that remote host
 
 2005-08-24 Joachim Ansorg <info@bibletime.info>
   * Bugfix: More Drag&Drop fixes

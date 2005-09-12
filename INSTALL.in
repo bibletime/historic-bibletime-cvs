@@ -5,8 +5,12 @@ These are the installation instructions for BibleTime @VERSION@.
 Sometimes it is difficult to compile BibleTime from source code, but it's possible. Don't hesitate to ask for support at info@bibletime.info. In that case, please include your system configuration details.
 
 BibleTime @VERSION@ requires:
-	-KDE >= 3.0 (at least the libraries (kdelibs) and the base package (kdebase))
+	-KDE >= 3.3 (at least the libraries (kdelibs) and the base package (kdebase))
+		KDE 3.0, 3.1 and 3.2 are not officially supported any more because
+		we don't have any of these versions available. We're interested to keep working
+		with those versions if we receive testing / compiling logs.
 	-SWORD 1.5.8
+
 
 If you don't have the sources already, please browse to www.bibletime.info to see
 a list of required packages with their download URLs.
@@ -20,14 +24,16 @@ and text modules can be found in the project documentation at http://www.bibleti
 
 Compile BibleTime @VERSION@:
 ---------------------------
+cd ~
+tar -xjf bibletime-@VERSION.tar.bz2
 cd ~/bibletime-@VERSION@	# Move to your source directory
-kde-config --prefix		# Displays your KDE directory (optional)
+kde-config --prefix			# Displays your KDE directory (optional)
 
 export QTDIR=<QT source directory>
 export KDEDIR=<KDE directory (where KDE is installed)>
 export PATH=$KDEDIR/bin:$PATH
 ./configure --prefix=<your KDE dir> # create makefiles
-make			# compile BibleTime
+make	# compile BibleTime
 su -c "make install"	# change to "root user" and install BibleTime
 
 
@@ -35,10 +41,9 @@ su -c "make install"	# change to "root user" and install BibleTime
 	useful make options
 ---------------------------
 make clean		# Removes binaries from the directory
-			# where BibleTime was compiled, but not the source
+				# where BibleTime was compiled, but not the source
 
-make uninstall		# Removes BibleTime from your system
-
+make uninstall	# Removes BibleTime from your system
 
 
 If something is missing in this file please post to info@bibletime.info, the contact adress for BibleTime.
@@ -96,7 +101,7 @@ The simplest way to compile this package is:
      documentation.
 
   4. You can remove the program binaries and object files from the
-     source code directory by typing `make clean'.  
+     source code directory by typing `make clean'.
 
 Compilers and Options
 =====================
