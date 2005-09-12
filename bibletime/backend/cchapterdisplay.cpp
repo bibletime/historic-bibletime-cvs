@@ -42,7 +42,6 @@ namespace Rendering {
 		Q_ASSERT(module->type() == CSwordModuleInfo::Bible);
 
 		if (module->type() == CSwordModuleInfo::Bible) {
-			qWarning("Bible");
 			((VerseKey*)(module->module()->getKey()))->Headings(1); //HACK: enable headings for VerseKeys
 
 			CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module);

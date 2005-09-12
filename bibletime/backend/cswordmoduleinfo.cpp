@@ -152,9 +152,9 @@ const bool CSwordModuleInfo::search(const QString searchedText, const int search
 		searchType = 0;   //regexp matching
 	}
 
-// 	if (!percentUpdate) {
-// 		percentUpdate =
-// 	}
+	// 	if (!percentUpdate) {
+	// 		percentUpdate =
+	// 	}
 
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
 		util::scoped_ptr < sword::SWKey > searchScope(m_searchResult.clone());

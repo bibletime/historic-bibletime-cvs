@@ -3,13 +3,13 @@
 
 
 KDE_OPTIONS = noautodist
-EXTRA_DIST = i_bible_add.png i_bible.png i_bibletime.png i_book_add.png i_book.png i_cascade_auto.png i_cascade.png i_commentary_add.png i_commentary.png i_configureaccels.png i_configuredisplay.png i_configurefonts.png i_configure.png i_configurestart.png i_configuresword.png i_configuretoolbars.png i_contents.png i_delete.png i_editdelete.png i_exit.png i_fileclose.png i_fileprint.png i_find.png i_fullscreen.png i_go.png i_ktip.png i_lexicon_add.png i_lexicon.png i_pencil.png i_sidetree.png i_sync.png i_tile_auto.png i_tile.png ss_configfonts.png ss_configtoolbar.png ss_mainterms.png ss_searchanal.png ss_searchopts.png 
+EXTRA_DIST = i_bible.png i_bible_add.png i_bibletime.png i_book.png i_book_add.png i_cascade.png i_cascade_auto.png i_commentary.png i_commentary_add.png i_configure.png i_configureaccels.png i_configuredisplay.png i_configurefonts.png i_configurestart.png i_configuresword.png i_configuretoolbars.png i_contents.png i_delete.png i_editdelete.png i_exit.png i_fileclose.png i_fileprint.png i_find.png i_fullscreen.png i_go.png i_ktip.png i_lexicon.png i_lexicon_add.png i_pencil.png i_sidetree.png i_sync.png i_tile.png i_tile_auto.png ss_configfonts.png ss_configtoolbar.png ss_mainterms.png ss_searchanal.png ss_searchopts.png 
 
 
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in  i_bible_add.png i_bible.png i_bibletime.png i_book_add.png i_book.png i_cascade_auto.png i_cascade.png i_commentary_add.png i_commentary.png i_configureaccels.png i_configuredisplay.png i_configurefonts.png i_configure.png i_configurestart.png i_configuresword.png i_configuretoolbars.png i_contents.png i_delete.png i_editdelete.png i_exit.png i_fileclose.png i_fileprint.png i_find.png i_fullscreen.png i_go.png i_ktip.png i_lexicon_add.png i_lexicon.png i_pencil.png i_sidetree.png i_sync.png i_tile_auto.png i_tile.png ss_configfonts.png ss_configtoolbar.png ss_mainterms.png ss_searchanal.png ss_searchopts.png; do \
+	for file in  i_bible.png i_bible_add.png i_bibletime.png i_book.png i_book_add.png i_cascade.png i_cascade_auto.png i_commentary.png i_commentary_add.png i_configure.png i_configureaccels.png i_configuredisplay.png i_configurefonts.png i_configurestart.png i_configuresword.png i_configuretoolbars.png i_contents.png i_delete.png i_editdelete.png i_exit.png i_fileclose.png i_fileprint.png i_find.png i_fullscreen.png i_go.png i_ktip.png i_lexicon.png i_lexicon_add.png i_pencil.png i_sidetree.png i_sync.png i_tile.png i_tile_auto.png ss_configfonts.png ss_configtoolbar.png ss_mainterms.png ss_searchanal.png ss_searchopts.png; do \
 	  $(INSTALL_DATA) $(srcdir)/$$file $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook; \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
 	done;
@@ -17,7 +17,7 @@ install-data-local:
 	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/en/bibletime
 
 uninstall-local:
-	for file in  i_bible_add.png i_bible.png i_bibletime.png i_book_add.png i_book.png i_cascade_auto.png i_cascade.png i_commentary_add.png i_commentary.png i_configureaccels.png i_configuredisplay.png i_configurefonts.png i_configure.png i_configurestart.png i_configuresword.png i_configuretoolbars.png i_contents.png i_delete.png i_editdelete.png i_exit.png i_fileclose.png i_fileprint.png i_find.png i_fullscreen.png i_go.png i_ktip.png i_lexicon_add.png i_lexicon.png i_pencil.png i_sidetree.png i_sync.png i_tile_auto.png i_tile.png ss_configfonts.png ss_configtoolbar.png ss_mainterms.png ss_searchanal.png ss_searchopts.png; do \
+	for file in  i_bible.png i_bible_add.png i_bibletime.png i_book.png i_book_add.png i_cascade.png i_cascade_auto.png i_commentary.png i_commentary_add.png i_configure.png i_configureaccels.png i_configuredisplay.png i_configurefonts.png i_configurestart.png i_configuresword.png i_configuretoolbars.png i_contents.png i_delete.png i_editdelete.png i_exit.png i_fileclose.png i_fileprint.png i_find.png i_fullscreen.png i_go.png i_ktip.png i_lexicon.png i_lexicon_add.png i_pencil.png i_sidetree.png i_sync.png i_tile.png i_tile_auto.png ss_configfonts.png ss_configtoolbar.png ss_mainterms.png ss_searchanal.png ss_searchopts.png; do \
 	  echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
 	  rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
 	done;

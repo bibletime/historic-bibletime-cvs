@@ -30,7 +30,6 @@ protected:
 
 	//Empty virtuaual destructor
 	virtual ~CPointers() {}
-	;
 
 	/** Set the backend.
 	* @param backend Pointer to the new application-wide Sword backend

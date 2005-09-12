@@ -24,7 +24,7 @@ class BibleTimeInterface : virtual public DCOPObject {
 	K_DCOP
 
 public:
-	BibleTimeInterface(QCString id) : DCOPObject(id) {}
+BibleTimeInterface(QCString id) : DCOPObject(id) {}
 
 k_dcop:
 	/** Sync all open Bible windows to the key.

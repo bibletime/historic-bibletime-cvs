@@ -44,7 +44,6 @@ CDisplayTemplateMgr::~CDisplayTemplateMgr() {}
     \fn CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content )
  */
 const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& content, Settings& settings ) {
-	qWarning("fillTemplate");
 	const QString templateName = m_templateMap.contains(name) ? name : defaultTemplate();
 
 	QString displayTypeString;
@@ -151,14 +150,14 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	}
 
 	//  qWarning("Outputing unformated text");
-// 	QString t = QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
-// 				.replace("#TITLE#", settings.title)
-// 				.replace("#LANG_ABBREV#", settings.langAbbrev.isEmpty() ? QString("en") : settings.langAbbrev)
-// 				.replace("#DISPLAYTYPE#", displayTypeString)
-// 				.replace("#LANG_CSS#", langCSS)
-// 				.replace("#PAGE_DIRECTION#", settings.pageDirection)
-// 				.replace("#CONTENT#", newContent);
-// 	printf("%s\n\n", t.latin1());
+	// 	QString t = QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
+	// 				.replace("#TITLE#", settings.title)
+	// 				.replace("#LANG_ABBREV#", settings.langAbbrev.isEmpty() ? QString("en") : settings.langAbbrev)
+	// 				.replace("#DISPLAYTYPE#", displayTypeString)
+	// 				.replace("#LANG_CSS#", langCSS)
+	// 				.replace("#PAGE_DIRECTION#", settings.pageDirection)
+	// 				.replace("#CONTENT#", newContent);
+	// 	printf("%s\n\n", t.latin1());
 
 	return QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
 		   .replace("#TITLE#", settings.title)
@@ -174,7 +173,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
     \fn CDisplayTemplateMgr::loadUserTemplates
  */
 void CDisplayTemplateMgr::loadUserTemplates() {
-	qWarning("Loading user templates");
+	qDebug("Loading user templates");
 	QStringList files = KGlobal::dirs()->findAllResources("BT_DisplayTemplates");
 
 	for ( QStringList::iterator it( files.begin() ); it != files.end(); ++it) {

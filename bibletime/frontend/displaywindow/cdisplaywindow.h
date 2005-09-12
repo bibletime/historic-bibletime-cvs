@@ -215,8 +215,6 @@ protected:
 	*/
 	KPopupMenu* const popup();
 	virtual void closeEvent(QCloseEvent* e);
-	virtual void showEvent(QShowEvent* e);
-	//  virtual void polish();
 
 protected slots:
 	virtual void modulesChanged();
@@ -224,10 +222,6 @@ protected slots:
 	* Lookup the current key. Used to refresh the display.
 	*/
 	void lookup();
-	/**
-	* Reimplementation from QWidget. Used to initialize things before this widget is shown.
-	*/
-	//   virtual void polish();
 	virtual void updatePopupMenu();
 
 	void slotSearchInModules();

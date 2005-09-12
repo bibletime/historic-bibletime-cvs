@@ -190,7 +190,7 @@ void BibleTime::slotWindowMenuAboutToShow() {
 /** This slot is connected with the windowAutoTile_action object */
 void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ) {
 	/* If a toggle action was clicked we see if it checked ot unchecked and
-	* enable/disable the simple cascade and tile options accordingly 
+	* enable/disable the simple cascade and tile options accordingly
 	*/
 	m_windowTileVertical_action->setEnabled( m_windowManualMode_action->isChecked() );
 	m_windowTileHorizontal_action->setEnabled( m_windowManualMode_action->isChecked() );
@@ -290,6 +290,7 @@ void BibleTime::slotWindowMenuActivated() {
 	Q_ASSERT(action);
 	if (action) {
 		QWidget* const window = action->getUserData();
+		Q_ASSERT(window);
 		if ( window ) {
 			window->setFocus();
 		}

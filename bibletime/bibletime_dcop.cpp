@@ -82,7 +82,8 @@ QStringList BibleTime::searchInModule(const QString& moduleName, const QString& 
 		mod->search(searchText, CSwordModuleSearch::multipleWords, sword::ListKey());
 
 		sword::ListKey result = mod->searchResult();
-		const QString lead = QString("[%1] ").arg(moduleName);;
+		const QString lead = QString("[%1] ").arg(moduleName);
+		;
 		for ( int i = 0; i < result.Count(); ++i ) {
 			sword::SWKey* key = result.getElement(i);
 			Q_ASSERT(key);
@@ -125,6 +126,7 @@ QStringList BibleTime::searchInOpenModules(const QString& searchText) {
 QStringList BibleTime::searchInDefaultBible(const QString& searchText) {
 	qDebug("DCOP: search in default bible ...");
 
-	CSwordModuleInfo* bible = CBTConfig::get(CBTConfig::standardBible);
+	CSwordModuleInfo* bible = CBTConfig::get
+								  (CBTConfig::standardBible);
 	return searchInModule(bible->name(), searchText);
 }

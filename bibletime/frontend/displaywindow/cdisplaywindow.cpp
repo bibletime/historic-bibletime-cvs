@@ -449,7 +449,7 @@ void CDisplayWindow::lookup( const QString& keyName ) {
 	*/
 	Q_ASSERT(modules().first());
 
-	qWarning("looking up %s", keyName.latin1());
+	qDebug("CDisplayWindow::lookup: %s", keyName.latin1());
 	lookup(modules().first()->name(), keyName);
 }
 
@@ -495,13 +495,4 @@ void CDisplayWindow::closeEvent(QCloseEvent* e) {
 
 void CDisplayWindow::slotSearchInModules() {
 	CSearchDialog::openDialog(modules());
-}
-
-
-/*!
-    \fn CDisplayWindow::polish()
- */
-void CDisplayWindow::showEvent(QShowEvent* e) {
-	KMainWindow::showEvent(e);
-	//  init(QString::null);
 }

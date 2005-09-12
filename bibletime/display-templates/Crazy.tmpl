@@ -6,7 +6,7 @@
 	<meta name="GENERATOR" content="BibleTime - www.bibletime.info" />
 	<meta name="AUTHOR" content="BibleTime - www.bibletime.info" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
+
 	<style type="text/css">
 /* <![CDATA[ */
 
@@ -16,7 +16,7 @@ body {
 	padding:1em;
 	background-color:inherit
 }
-* { 
+* {
 	background-color:inherit; /* To work around a KDE 3.2 bug / problem */
 }
 
@@ -31,15 +31,15 @@ body {
 }
 
 /* The table contains the Bible verses, each verse on an own row, each Bible module in an own column */
-#content > table { 
+#content > table {
 	margin:0;
 	padding:3px;
 	border-spacing:0;
 	vertical-align:top;
 }
 /* The heading contains the name of the module and may contain additional information like the display keys */
-#content > table th { 
-	text-shadow:black 1px 1px 5px;
+#content > table th {
+	text-shadow:black 1px 1px 3px;
 	font-size:1.3em;
 	background-color:#F0F0F0;
 	padding:8px;
@@ -57,15 +57,15 @@ body {
 a { color:#FF0004; }
 a:hover { }
 
-/* An entry is the generic element used for all content items. 
+/* An entry is the generic element used for all content items.
  In Bibles an entry contains a verse, in commentaries the comment to a verse range,
  in lexicons an simple item and in book the text of an item with other .entry elements as childs.
- 
+
  If just one module is chosen, all entries are put together in one sourrounding table column. In this case the elements div and span may have the class "entry". If it's a div each entry should be on it's own line. span.entry should not add a linebreak.
- 
+
  If more than one module (Bibles) was chosen, the entry class applies to "td" elements, one column for a verse
  */
-.entry { 
+.entry {
 	padding:0.3em;
 	line-height:1.6em;
 }
@@ -102,7 +102,7 @@ div.currententry { }
 span.currententry { }
 
 /* You may use this to format the space between two columns */
-td.entry + td.entry { 
+td.entry + td.entry {
 	margin:0;
 }
 
@@ -152,8 +152,8 @@ td.entry + td.entry {
 #bible .crossreference:before { }
 #bible .crossreference:after { }
 
-/* Alternative reading as defined in the OSIS specs. The information about the alternative text is displayed in the info display. It's 
-often a good idea to format this the same as footnotes 
+/* Alternative reading as defined in the OSIS specs. The information about the alternative text is displayed in the info display. It's
+often a good idea to format this the same as footnotes
 The text which is the alternative of the displayed text is available in the attribute "alternative"
 so something like .alternative:before { content:"'"attr(alternative); } is possible
 */
@@ -167,7 +167,7 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 /* A title within the text. This is the formatting which applies to a title of a section, as you can find them in Bibles */
 .sectiontitle {
 	 padding:0.3em;
-	 text-shadow:gray 0px 0px 6px;
+	 text-shadow:gray 0px 0px 3px;
 	 font-size:1.3em;
 	 font-weight:bold;
 	 text-transform:uppercase;
