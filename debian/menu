@@ -1,8 +1,0 @@
-?package(bibletime):\
-    needs=X11\
-    hints="KDE"\
-	kderemove="1"\
-    section=Apps/Tools\
-    title="BibleTime"\
-    icon="/usr/share/pixmaps/bibletime.xpm"\
-    command=/usr/bin/bibletime
