@@ -39,8 +39,6 @@ EXTRA_DIST += $(btadmindir)/libtool.m4.in
 EXTRA_DIST += $(btadmindir)/nmcheck
 EXTRA_DIST += $(btadmindir)/cvs.sh
 
-include debian/Makefile.am
-
 # not a GNU package. You can remove this line, if 
 # have all needed files, that a GNU package needs
 AUTOMAKE_OPTIONS = 1.6 foreign dist-bzip2
