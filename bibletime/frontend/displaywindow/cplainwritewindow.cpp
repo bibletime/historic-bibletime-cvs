@@ -27,7 +27,6 @@ CPlainWriteWindow::~CPlainWriteWindow() {}
 void CPlainWriteWindow::initView() {
 	//  qWarning("CPlainWriteWindow::initView()");
 	setDisplayWidget( CDisplay::createWriteInstance(this) );
-	//  Q_ASSERT(displayWidget());
 	setCentralWidget( displayWidget()->view() );
 
 	setMainToolBar( new KToolBar(this) );
@@ -150,41 +149,7 @@ const bool CPlainWriteWindow::syncAllowed() const {
 }
 
 void CPlainWriteWindow::initActions() {
-	/*  CWriteWindow::initKeyboardActions();
-	 
-	 CBTConfig::setupAccel( CBTConfig::writeWindow, accel() );
-	  insertKeyboardActions( accel() );
-	 
-	  accel()->readSettings();*/
-	//accel()->setSlot("Copy", displayWidget()->connectionsProxy(), SLOT(copySelection()));
-
-	/*
-	 accel()->setSlot("Next book", this, SLOT(nextBook()));
-	  accel()->setSlot("Previous book", this, SLOT(previousBook()));
-	  accel()->setSlot("Next chapter", this, SLOT(nextChapter()));
-	  accel()->setSlot("Previous chapter", this, SLOT(previousChapter()));
-	  accel()->setSlot("Next verse", this, SLOT(nextVerse()));
-	  accel()->setSlot("Previous verse", this, SLOT(previousVerse()));
-	*/
 }
 
-// void CPlainWriteWindow::insertKeyboardActions( KAccel* const a ) {
-//   a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel,        0, "");
-//  a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel,    0, "");
-//  a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel,     0, "");
-//  a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
-//  a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel,       0, "");
-//  a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel,   0, "");
-//
-//  a->insert("Save text",   i18n("Save text"),   "", CResMgr::displaywindows::writeWindow::saveText::accel,   0, "");
-// }
 void CPlainWriteWindow::insertKeyboardActions( KActionCollection* const ) {
-	/*  new KAction(
-	  i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
-	  a, "nextBook"
-	 );*/
 }
-
-//void CPlainWriteWindow::setupPopupMenu() {
-// qWarning("Plain wite window: setup popup menu");
-//}

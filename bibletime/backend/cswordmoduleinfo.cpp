@@ -353,33 +353,38 @@ const bool CSwordModuleInfo::has(const CSwordModuleInfo::FilterTypes option) con
 	//BAD workaround to see if the filter is GBF, OSIS or ThML!
 	const QString name = backend()->configOptionName(option);
 
-	if (m_module->getConfig().has("GlobalOptionFilter", QString("OSIS").append(name).latin1()))
-	return true;
-
-	if (m_module->getConfig().has("GlobalOptionFilter", QString("GBF").append(name).latin1()))
+	if (m_module->getConfig().has("GlobalOptionFilter", QString("OSIS").append(name).latin1())) {
 		return true;
+	}
 
-		if (m_module->getConfig().has("GlobalOptionFilter", QString("ThML").append(name).latin1()))
-			return true;
+	if (m_module->getConfig().has("GlobalOptionFilter", QString("GBF").append(name).latin1())) {
+		return true;
+	}
 
-			if (m_module->getConfig().has("GlobalOptionFilter", QString("UTF8").append(name).latin1()))
-				return true;
+	if (m_module->getConfig().has("GlobalOptionFilter", QString("ThML").append(name).latin1())) {
+		return true;
+	}
 
-				if (m_module->getConfig().has("GlobalOptionFilter", name.latin1()))
-					return true;
+	if (m_module->getConfig().has("GlobalOptionFilter", QString("UTF8").append(name).latin1())) {
+		return true;
+	}
 
-					return false;
-				}
+	if (m_module->getConfig().has("GlobalOptionFilter", name.latin1())) {
+		return true;
+	}
 
-				/** Returns the text direction of the module's text., */
-				const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection() {
-					if (config(TextDir) == "RtoL") {
-						return CSwordModuleInfo::RightToLeft;
-					}
-					else {
-						return CSwordModuleInfo::LeftToRight;
-					}
-				}
+	return false;
+}
+
+/** Returns the text direction of the module's text., */
+const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection() {
+	if (config(TextDir) == "RtoL") {
+		return CSwordModuleInfo::RightToLeft;
+	}
+	else {
+		return CSwordModuleInfo::LeftToRight;
+	}
+}
 
 /** Writes the new text at the given position into the module. This does only work for writable modules. */
 void CSwordModuleInfo::write(CSwordKey * key, const QString & newText) {

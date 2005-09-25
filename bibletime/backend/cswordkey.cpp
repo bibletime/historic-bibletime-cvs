@@ -33,8 +33,7 @@ const QString CSwordKey::rawText() {
 		return QString::null;
 	}
 
-	if (/*sword::SWKey* k =*/ dynamic_cast<sword::SWKey*>(this)) {
-		//     m_module->module()->SetKey(k);
+	if (dynamic_cast<sword::SWKey*>(this)) {
 		m_module->module()->getKey()->setText( (const char*)key().utf8() );
 	}
 
@@ -42,16 +41,18 @@ const QString CSwordKey::rawText() {
 		return QString::null;
 	}
 
-	return QString::fromUtf8(m_module->module()->getRawEntry());
+// 	qWarning("rawText: %s", m_module->module()->getRawEntry());
+	return QString::fromUtf8( m_module->module()->getRawEntry() );
 }
 
 const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
+	Q_ASSERT(m_module);
 	if (!m_module) {
 		return QString::null;
 	}
 
 	using namespace sword;
-	SWKey* k = dynamic_cast<sword::SWKey*>(this);
+	SWKey* const k = dynamic_cast<SWKey*>(this);
 
 	if (k) {
 		VerseKey* vk_mod = dynamic_cast<VerseKey*>(m_module->module()->getKey());
@@ -70,13 +71,13 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
 			if ( strcasecmp(m_module->module()->getKey()->getText(), (const char*)key().utf8())
 					&& !strstr(m_module->module()->getKey()->getText(), (const char*)key().utf8())
 			   ) {
-				qWarning("return an empty key for %s", m_module->module()->getKey()->getText());
+				qDebug("return an empty key for %s", m_module->module()->getKey()->getText());
 				return QString::null;
 			}
 		}
 	}
 
-
+	Q_ASSERT(!key().isNull());
 	if (!key().isNull()) { //we have valid text
 		const QString text = QString::fromUtf8( m_module->module()->RenderText() );
 
@@ -99,7 +100,7 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
 					.append(c.unicode())
 					.append(";");
 				}
-			};
+			}
 
 			return ret;
 		}
@@ -127,8 +128,9 @@ const QString CSwordKey::strippedText() {
 
 /** This will create a proper key object from a given module */
 CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ) {
-	if (!module)
+	if (!module) {
 		return 0;
+	}
 
 	switch( module->type() ) {
 

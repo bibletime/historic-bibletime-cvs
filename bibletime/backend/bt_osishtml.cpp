@@ -190,10 +190,10 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					/*     //get the refList value of the right entry attribute
 					     AttributeList notes = myModule->getEntryAttributes()["Footnote"];
 					     bool foundNote = false;
-					     
+
 					     SWBuf id( tag.getAttribute("osisID") );
 					     SWBuf refList;
-					     
+
 					     for (AttributeList::iterator list_it = notes.begin(); (list_it != notes.end()) && !foundNote; ++list_it ) {
 					      for (AttributeValue::iterator val_it = list_it->second.begin(); (val_it != list_it->second.end()) && !foundNote; ++val_it ) {
 					       if ((val_it->first == "osisID") && (val_it->second == id)) {
@@ -202,12 +202,12 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					       }
 					      }
 					     }
-					 
+
 					     if (refList.length()) {
 					      buf.append(" <span class=\"crossreference\" crossrefs=\"");
 					      buf.append(refList.c_str());
 					      buf.append("\"> ");
-					       
+
 					           myUserData->noteType = BT_UserData::CrossReference;
 					     }
 					     else {
@@ -222,7 +222,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				     */
 				else if (type == "strongsMarkup") {
 					/**
-					* leave strong's markup notes out, in the future we'll probably have 
+					* leave strong's markup notes out, in the future we'll probably have
 					* different option filters to turn different note types on or off
 					*/
 
@@ -284,9 +284,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					//If the osisRef is something like "ModuleID:key comes here" then the
 					// modulename is given, so we'll use that one
 					CSwordModuleInfo* mod = CPointers::backend()->findSwordModuleByPointer(myModule);
-
-					if (mod->type() != CSwordModuleInfo::Bible
-							&& mod->type() != CSwordModuleInfo::Commentary) {
+					Q_ASSERT(mod);
+					if (!mod || (mod->type() != CSwordModuleInfo::Bible
+							&& mod->type() != CSwordModuleInfo::Commentary)) {
 
 						mod = CBTConfig::get
 								  ( CBTConfig::standardBible );
@@ -333,7 +333,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 			/*   if (!myUserData->inCrossrefNote && !tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
 			        const char* ref = tag.getAttribute("osisRef");
-			    
+
 			    buf.append("<span class=\"crossreference\" crossrefs=\"");
 			    buf.append(ref);
 			    buf.append("\">");

@@ -185,17 +185,16 @@ void COptionsDialog::initDisplay() {
 	);
 	layout->addWidget(m_settings.displayStyle.stylePreview->view());
 
-	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
-	m_settings.displayStyle.styleChooser->insertStringList( tMgr->availableTemplates() );
+	m_settings.displayStyle.styleChooser->insertStringList(
+		CPointers::displayTemplateManager()->availableTemplates()
+	);
 
-	int i = m_settings.displayStyle.styleChooser->listBox()->index(
-				m_settings.displayStyle.styleChooser->listBox()->findItem(
-					CBTConfig::get
-						(CBTConfig::displayStyle),
-						Qt::CaseSensitive
-					)
-				);
-	m_settings.displayStyle.styleChooser->setCurrentItem( i );
+	for (int i = 0; i < m_settings.displayStyle.styleChooser->count(); ++i) {
+		if ( m_settings.displayStyle.styleChooser->text(i) == CBTConfig::get(CBTConfig::displayStyle) ) {
+			m_settings.displayStyle.styleChooser->setCurrentItem( i );
+			break;
+		}
+	}
 
 	updateStylePreview(); //render it
 }

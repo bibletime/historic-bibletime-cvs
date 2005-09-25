@@ -1,3 +1,9 @@
+2005-09-25 Joachim Ansorg <info@bibletime.info>
+  * Bugfix: Crash on FedoraCore4 if the settings dialog has been closed
+
+2005-09-16 Joachim Ansorg <info@bibletime.info>
+  * Bugfix: ThML modules like the ISV crashed BibleTime if the default Bible couldn't be found
+
 2005-09-12 Joachim Ansorg <info@bibletime.info>
   * BibleTime 1.5.1
   * BibleTime-i18n package 1.5.1
