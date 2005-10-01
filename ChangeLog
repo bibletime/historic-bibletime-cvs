@@ -1,3 +1,6 @@
+2005-10-01 Joachim Ansorg <info@bibletime.info>
+  * Bugfix: Fix for the key parsing where only a partial reference was given
+
 2005-09-25 Joachim Ansorg <info@bibletime.info>
   * Bugfix: Crash on FedoraCore4 if the settings dialog has been closed
 

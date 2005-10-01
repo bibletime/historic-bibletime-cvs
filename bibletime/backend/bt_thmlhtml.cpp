@@ -260,19 +260,27 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
 						Q_ASSERT(mod);
 						if (mod) {
+							CReferenceManager::ParseOptions options;
+							options.refBase = QString::fromUtf8(myUserData->key->getText());
+							options.refDestinationModule = QString(mod->name());
+							options.sourceLanguage = myModule->Lang();
+ 							options.destinationLanguage = QString("en");
+
+							const QString completeRef = CReferenceManager::parseVerseReference(QString::fromUtf8(myUserData->lastTextNode), options);
+
 							buf.append("<span class=\"crossreference\"><a href=\"");
 
 							buf.append(
 								CReferenceManager::encodeHyperlink(
 									mod->name(),
-									QString(myUserData->lastTextNode),
+									completeRef,
 									CReferenceManager::typeFromModule(mod->type())
 								).utf8()
 							);
 
 							buf.append("\" crossrefs=\"");
 
-							buf.append(myUserData->lastTextNode.c_str());
+							buf.append((const char*)completeRef.utf8());
 
 							buf.append("\">");
 
@@ -291,19 +299,29 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					const char* ref = tag.getAttribute("passage");
 					Q_ASSERT(ref);
 
-					CSwordModuleInfo* mod = CBTConfig::get
-												(CBTConfig::standardBible);
-
+					CSwordModuleInfo* mod = CBTConfig::get(CBTConfig::standardBible);
 					Q_ASSERT(mod);
+
+					CReferenceManager::ParseOptions options;
+					options.refBase = QString::fromUtf8(myUserData->key->getText());
+					options.refDestinationModule = QString(mod->name());
+					options.sourceLanguage = myModule->Lang();
+					options.destinationLanguage = QString("en");
+
+					const QString completeRef = CReferenceManager::parseVerseReference(QString::fromUtf8(ref), options);
 
 					if (mod) {
 						buf.append("<span class=\"crossreference\">");
 						buf.append("<a href=\"");
 						buf.append(
-							CReferenceManager::encodeHyperlink(mod->name(), QString(ref), CReferenceManager::typeFromModule(mod->type())).utf8()
+ 							CReferenceManager::encodeHyperlink(
+ 								mod->name(),
+ 								completeRef,
+ 								CReferenceManager::typeFromModule(mod->type())
+							).utf8()
 						);
 						buf.append("\" crossrefs=\"");
-						buf.append(ref);
+						buf.append((const char*)completeRef.utf8());
 						buf.append("\">");
 					}
 					else {

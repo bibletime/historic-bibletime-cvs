@@ -88,32 +88,22 @@ const QString CReferenceManager::encodeHyperlink( const QString moduleName, cons
 			case Bible: //bibles or commentary keys need parsing
 
 			case Commentary: {
-				CSwordVerseKey vk(0);
-				//make sure we parse the scripref in the module's language!
-				CSwordModuleInfo* mod = CPointers::backend()->findModuleByName(moduleName);
-				StringList locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
-				StringList::iterator it = std::find(locales.begin(), locales.end(), mod->module()->Lang());
+/*  				CSwordModuleInfo* mod = CPointers::backend()->findModuleByName(moduleName);
 
-				if (it != locales.end()) {
-					vk.setLocale(mod->module()->Lang());
-				}
+  				ParseOptions options;
+  				options.refDestinationModule = mod->name();
+  				options.refBase =
+  				options.sourceLanguage = mod->module()->Lang();
+  				options.destinationLanguage = "en";
 
-				vk = key;
-
-				if (vk.Error()) { //an error occured
-					vk.setLocale( CPointers::backend()->booknameLanguage().latin1() ); //try to use the default locale as fall back
-					vk = key;
-				}
-
-				vk.setLocale("en");
-
-				ret.append( vk.key() ); //we add the english key, so drag and drop will work in all cases
+				ret.append( parseVerseReference(key, options) ); //we add the english key, so drag and drop will work in all cases*/
+				ret.append(key);
 				break;
 			}
 
 			default:
-			ret.append( key ); //use the standard key, no parsing required
-			break;
+				ret.append( key ); //use the standard key, no parsing required
+				break;
 		}
 	}
 
@@ -350,18 +340,58 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 }
 
 /** Parses the given verse references using the given language and the module.*/
-const QString CReferenceManager::parseVerseReference( const QString ref, const QString& lang, const QString newLang) {
-	CSwordVerseKey key(0);
+const QString CReferenceManager::parseVerseReference( const QString& ref, const CReferenceManager::ParseOptions& options) {
+	qWarning("parsing %s in %s using %s as base, source lang %s, dest lang %s", ref.latin1(), options.refDestinationModule.latin1(), options.refBase.latin1(), options.sourceLanguage.latin1(), options.destinationLanguage.latin1());
 
-	if (!lang.isEmpty()) {
-		key.setLocale( lang.latin1() );
+	CSwordModuleInfo* const mod = CPointers::backend()->findModuleByName(options.refDestinationModule);
+	Q_ASSERT(mod);
+
+	if (!mod || (mod->type() != CSwordModuleInfo::Bible || mod->type() != CSwordModuleInfo::Commentary)) {
+		//parsing of non-verse based references is not supported
+		return ref;
 	}
 
-	key.key(ref);
+	QString sourceLanguage = options.sourceLanguage;
+	QString destinationLanguage = options.destinationLanguage;
 
-	if (!lang.isEmpty() && lang != newLang) {
-		key.setLocale(newLang.latin1());
+ 	StringList locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
+ 	if (std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //sourceLanguage not available
+		sourceLanguage = "en_US";
+ 	}
+
+ 	if (std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //destination not available
+		destinationLanguage = "en_US";
+ 	}
+
+	QString ret;
+	QStringList refList = QStringList::split(";", ref);
+
+	CSwordVerseKey baseKey(0);
+	baseKey.key( options.refBase );
+	baseKey.setLocale( sourceLanguage.latin1() );
+
+	CSwordVerseKey dummy(0);
+	dummy.setLocale( sourceLanguage.latin1() );
+
+	for (QStringList::iterator it = refList.begin(); it != refList.end(); it++) {
+		ListKey lk = dummy.ParseVerseList((const char*)(*it).utf8(), (const char*)baseKey.key().utf8(), true);
+		Q_ASSERT(lk.getElement(0));
+
+		if (dynamic_cast<VerseKey*>(lk.getElement(0))) {
+			VerseKey* k = dynamic_cast<VerseKey*>(lk.getElement(0));
+			Q_ASSERT(k);
+ 			k->setLocale( destinationLanguage.latin1() );
+			ret.append( QString::fromUtf8(k->getRangeText()) ).append("; ");
+		}
+		else {
+			VerseKey vk;
+ 			vk = lk.getElement(0)->getText();
+ 			vk.setLocale( destinationLanguage.latin1() );
+			ret.append( QString::fromUtf8(vk.getText()) ).append("; ");
+		}
+
+
 	}
 
-	return key.key();
+	return ret;
 }

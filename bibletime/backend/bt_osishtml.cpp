@@ -283,15 +283,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					//find out the mod, using the current module makes sense if it's a bible or commentary because the refs link into a bible by default.
 					//If the osisRef is something like "ModuleID:key comes here" then the
 					// modulename is given, so we'll use that one
+
 					CSwordModuleInfo* mod = CPointers::backend()->findSwordModuleByPointer(myModule);
 					Q_ASSERT(mod);
 					if (!mod || (mod->type() != CSwordModuleInfo::Bible
 							&& mod->type() != CSwordModuleInfo::Commentary)) {
 
-						mod = CBTConfig::get
-								  ( CBTConfig::standardBible );
-
-						//       qWarning("setting standard bible module");
+						mod = CBTConfig::get( CBTConfig::standardBible );
 					}
 
 					Q_ASSERT(mod);
@@ -303,24 +301,27 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						QString newModuleName = ref.left(pos);
 						hrefRef = ref.mid(pos+1);
 
-						/*      qWarning("found mod-key with mod=%s and key=%s",
-						       newModuleName.latin1(), ref.latin1()
-						      );
-						*/
-
 						if (CPointers::backend()->findModuleByName(newModuleName)) {
 							mod = CPointers::backend()->findModuleByName(newModuleName);
 						}
 					}
 
+					CReferenceManager::ParseOptions options;
+					options.refBase = QString::fromUtf8(myUserData->key->getText());
+					options.refDestinationModule = QString(mod->name());
+					options.sourceLanguage = myModule->Lang();
+					options.destinationLanguage = QString("en");
+
 					buf.append("<a href=\"");
 					buf.append( //create the hyperlink with key and mod
 						CReferenceManager::encodeHyperlink(
-							mod->name(), hrefRef, CReferenceManager::typeFromModule(mod->type())
+							mod->name(),
+							CReferenceManager::parseVerseReference(hrefRef, options),
+							CReferenceManager::typeFromModule(mod->type())
 						).utf8()
 					);
 					buf.append("\" crossrefs=\"");
-					buf.append((const char*)ref.utf8()); //ref must contains the osisRef module marker if there was any
+					buf.append((const char*)CReferenceManager::parseVerseReference(ref, options).utf8()); //ref must contains the osisRef module marker if there was any
 					buf.append("\">");
 				}
 			}

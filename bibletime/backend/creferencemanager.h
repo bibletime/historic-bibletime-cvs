@@ -77,12 +77,26 @@ public:
 	* @return The ReferenceManager type
 	*/
 	static CReferenceManager::Type typeFromModule( const CSwordModuleInfo::ModuleType type );
+
+
+	struct ParseOptions {
+		QString refDestinationModule;
+		QString refBase; /* only valid for verse based destination modules*/
+		QString sourceLanguage; /* only valid for verse based destination modules*/
+		QString destinationLanguage; /* only valid for verse based destination modules*/
+
+		ParseOptions() {
+			destinationLanguage = "en";
+		};
+	};
+
 	/** Parses the given verse references using the given language and the module.
-	* @param ref The verse refernce
+	* @param moduleName The name of the module to use. Required for the language checking before parsing the key.
+	* @param ref The verse reference.
 	* @param lang The language of the verse reference
 	* @param newLang The language of the reference, which will be returned. For example: If BibleTime using an english environment parses a spanish ref (lang=es) the returned ref should be in english (newLang=en), because his english standard module only understands en.
 	*/
-	static const QString parseVerseReference( const QString ref, const QString& lang = QString::null, const QString newLang = "en");
+	static const QString parseVerseReference( const QString& ref, const ParseOptions& options);
 };
 
 #endif
