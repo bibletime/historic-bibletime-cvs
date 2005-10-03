@@ -309,7 +309,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					CReferenceManager::ParseOptions options;
 					options.refBase = QString::fromUtf8(myUserData->key->getText());
 					options.refDestinationModule = QString(mod->name());
-					options.sourceLanguage = myModule->Lang();
+					options.sourceLanguage = QString(myModule->Lang());
 					options.destinationLanguage = QString("en");
 
 					buf.append("<a href=\"");
@@ -321,7 +321,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						).utf8()
 					);
 					buf.append("\" crossrefs=\"");
-					buf.append((const char*)CReferenceManager::parseVerseReference(ref, options).utf8()); //ref must contains the osisRef module marker if there was any
+					buf.append((const char*)CReferenceManager::parseVerseReference(ref, options).utf8()); //ref must contain the osisRef module marker if there was any
 					buf.append("\">");
 				}
 			}

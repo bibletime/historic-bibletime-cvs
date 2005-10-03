@@ -261,38 +261,48 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						Q_ASSERT(mod);
 						if (mod) {
 							CReferenceManager::ParseOptions options;
-							options.refBase = QString::fromUtf8(myUserData->key->getText());
+							options.refBase = QString::fromUtf8(myUserData->key->getText()); //current module key
 							options.refDestinationModule = QString(mod->name());
-							options.sourceLanguage = myModule->Lang();
+							options.sourceLanguage = QString(myModule->Lang());
  							options.destinationLanguage = QString("en");
 
-							const QString completeRef = CReferenceManager::parseVerseReference(QString::fromUtf8(myUserData->lastTextNode), options);
+							//it's ok to split the reference, because to descriptive text is given
+							bool insertSemicolon = false;
+							buf.append("<span class=\"crossreference\">");
+							QStringList refs = QStringList::split(";", QString::fromUtf8(myUserData->lastTextNode.c_str()));
+							for (QStringList::iterator it(refs.begin()); it != refs.end(); ++it) {
+								const QString completeRef( CReferenceManager::parseVerseReference((*it), options) );
 
-							buf.append("<span class=\"crossreference\"><a href=\"");
+ 								if (insertSemicolon) { //prepend a ref divider if we're after the first one
+									buf.append("; ");
+ 								}
 
-							buf.append(
-								CReferenceManager::encodeHyperlink(
-									mod->name(),
-									completeRef,
-									CReferenceManager::typeFromModule(mod->type())
-								).utf8()
-							);
+								buf.append("<a href=\"");
+								buf.append(
+									CReferenceManager::encodeHyperlink(
+										mod->name(),
+										completeRef,
+										CReferenceManager::typeFromModule(mod->type())
+									).utf8()
+								);
 
-							buf.append("\" crossrefs=\"");
+								buf.append("\" crossrefs=\"");
+								buf.append((const char*)completeRef.utf8());
+								buf.append("\">");
 
-							buf.append((const char*)completeRef.utf8());
+								buf.append((const char*)(*it).utf8());
 
-							buf.append("\">");
+								buf.append("</a>");
 
-							buf.append(myUserData->lastTextNode.c_str());
-
-							buf.append("</a></span>");
+								insertSemicolon = true;
+							}
+							buf.append("</span>"); //crossref end
 						}
 
 						myUserData->suspendTextPassThru = false;
 					}
 				}
-				else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
+				else if (tag.getAttribute("passage") ) { //the passage was given as a parameter value
 					myUserData->inscriptRef = true;
 					myUserData->suspendTextPassThru = false;
 

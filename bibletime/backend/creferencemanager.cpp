@@ -341,14 +341,18 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 
 /** Parses the given verse references using the given language and the module.*/
 const QString CReferenceManager::parseVerseReference( const QString& ref, const CReferenceManager::ParseOptions& options) {
-	qWarning("parsing %s in %s using %s as base, source lang %s, dest lang %s", ref.latin1(), options.refDestinationModule.latin1(), options.refBase.latin1(), options.sourceLanguage.latin1(), options.destinationLanguage.latin1());
+	qDebug("Parsing '%s' in '%s' using '%s' as base, source lang '%s', dest lang '%s'", ref.latin1(), options.refDestinationModule.latin1(), options.refBase.latin1(), options.sourceLanguage.latin1(), options.destinationLanguage.latin1());
 
 	CSwordModuleInfo* const mod = CPointers::backend()->findModuleByName(options.refDestinationModule);
 	Q_ASSERT(mod);
 
-	if (!mod || (mod->type() != CSwordModuleInfo::Bible || mod->type() != CSwordModuleInfo::Commentary)) {
+	if (!mod) {
 		//parsing of non-verse based references is not supported
 		return ref;
+	}
+
+	if ((mod->type() != CSwordModuleInfo::Bible) && (mod->type() != CSwordModuleInfo::Commentary)) {
+		qDebug("CReferenceManager: Only verse based modules are supported as ref destination module");
 	}
 
 	QString sourceLanguage = options.sourceLanguage;

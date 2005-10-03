@@ -1,3 +1,8 @@
+2005-10-03 Joachim Ansorg <info@bibletime.info>
+  * Bugfix: Fix for bookshelf manager where the "Install works" button was always greyed out
+  * Bugfix: Another fix to reference parsing
+  * Feature: Refs in ThML modules (e.g. TSK) are now splitted if it doesn't alter content
+
 2005-10-01 Joachim Ansorg <info@bibletime.info>
   * Bugfix: Fix for the key parsing where only a partial reference was given
 
