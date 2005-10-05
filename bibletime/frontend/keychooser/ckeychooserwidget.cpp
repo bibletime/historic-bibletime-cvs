@@ -297,14 +297,13 @@ void CKeyChooserWidget::init() {
 /** Is called when the return key was presed in the combobox. */
 void CKeyChooserWidget::slotReturnPressed( /*const QString& text*/) {
 	Q_ASSERT(comboBox()->lineEdit());
-	//  qWarning("return pressed");
+	qWarning("return pressed");
 
 	QString text = comboBox()->lineEdit()->text();
-	for (int index=0; index < comboBox()->count(); index++) {
+	for (int index = 0; index < comboBox()->count(); ++index) {
 		if (comboBox()->text(index) == text) {
-			if (text != oldKey) { //if the key has changed
-				emit changed(index);
-			}
+//			emit changed(index);
+			emit focusOut(index); // a workaround because focusOut is not checked, the slot connected to changed to check
 			break;
 		}
 	}
@@ -312,7 +311,7 @@ void CKeyChooserWidget::slotReturnPressed( /*const QString& text*/) {
 
 /** Is called when the current item of the combo box was changed. */
 void CKeyChooserWidget::slotComboChanged(int index) {
-	//  qWarning("CKeyChooserWidget::slotComboChanged(int index)");
+	qWarning("CKeyChooserWidget::slotComboChanged(int index)");
 	if (!isUpdatesEnabled()) {
 		return;
 	}
