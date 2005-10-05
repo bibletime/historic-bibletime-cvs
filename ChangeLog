@@ -1,3 +1,6 @@
+2005-10-05 Joachim Ansorg <info@bibletime.info>
+  * Bugfix: One more parsing fix
+
 2005-10-03 Joachim Ansorg <info@bibletime.info>
   * Bugfix: Fix for bookshelf manager where the "Install works" button was always greyed out
   * Bugfix: Another fix to reference parsing

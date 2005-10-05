@@ -378,22 +378,28 @@ const QString CReferenceManager::parseVerseReference( const QString& ref, const 
 	dummy.setLocale( sourceLanguage.latin1() );
 
 	for (QStringList::iterator it = refList.begin(); it != refList.end(); it++) {
+		//The listkey may contain more than one item, because a ref lik "Gen 1:3,5" is parsed into two single refs
 		ListKey lk = dummy.ParseVerseList((const char*)(*it).utf8(), (const char*)baseKey.key().utf8(), true);
 		Q_ASSERT(lk.getElement(0));
-
-		if (dynamic_cast<VerseKey*>(lk.getElement(0))) {
-			VerseKey* k = dynamic_cast<VerseKey*>(lk.getElement(0));
-			Q_ASSERT(k);
- 			k->setLocale( destinationLanguage.latin1() );
-			ret.append( QString::fromUtf8(k->getRangeText()) ).append("; ");
-		}
-		else {
-			VerseKey vk;
- 			vk = lk.getElement(0)->getText();
- 			vk.setLocale( destinationLanguage.latin1() );
-			ret.append( QString::fromUtf8(vk.getText()) ).append("; ");
+		if (!lk.getElement(0)) {
+			ret.append( *it ); //don't change the original
+			continue;
 		}
 
+		for (int i = 0; i < lk.Count(); ++i) {
+			if (dynamic_cast<VerseKey*>(lk.getElement(i))) { // a range
+				VerseKey* k = dynamic_cast<VerseKey*>(lk.getElement(i));
+				Q_ASSERT(k);
+				k->setLocale( destinationLanguage.latin1() );
+				ret.append( QString::fromUtf8(k->getRangeText()) ).append("; ");
+			}
+			else { // a single ref
+				VerseKey vk;
+				vk = lk.getElement(i)->getText();
+				vk.setLocale( destinationLanguage.latin1() );
+				ret.append( QString::fromUtf8(vk.getText()) ).append("; ");
+			}
+		}
 
 	}
 
