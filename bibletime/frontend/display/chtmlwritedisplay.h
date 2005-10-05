@@ -27,6 +27,10 @@ class CHTMLWriteDisplay : public CPlainWriteDisplay  {
 	Q_OBJECT
 public:
 	/**
+	* Sets the new text for this display widget.
+	*/
+	virtual void setText( const QString& newText );
+	/**
 	* Returns the text of this edit widget.
 	*/
 	virtual const QString plainText();

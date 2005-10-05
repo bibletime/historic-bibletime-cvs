@@ -23,16 +23,21 @@ CHTMLWriteDisplay::CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent
 	m_actions.bold = 0;
 	m_actions.italic = 0;
 	m_actions.underline = 0;
-
 	m_actions.selectAll = 0;
 
 	setTextFormat(Qt::RichText);
 	setAcceptDrops(true);
 	viewport()->setAcceptDrops(true);
-
 }
 
 CHTMLWriteDisplay::~CHTMLWriteDisplay() {}
+
+void CHTMLWriteDisplay::setText( const QString& newText ) {
+	QString text = newText;
+// 	text.replace("\n<br/><!-- BT newline -->\n", "\n");
+
+	QTextEdit::setText(text);
+}
 
 const QString CHTMLWriteDisplay::plainText() {
 	return QTextEdit::text();

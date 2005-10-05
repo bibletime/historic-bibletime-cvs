@@ -769,12 +769,10 @@ void COptionsDialog::saveLanguages() {
 		const CLanguageMgr::Language* const lang = languageMgr()->languageForTranslatedName(it.key());
 		if (!lang->isValid()) { //we probably use a language, for which we have only the abbrev
 			CLanguageMgr::Language l(it.key(), it.key(), it.key()); //create a temp language
-			CBTConfig::set
-				(&l, it.data());
+			CBTConfig::set(&l, it.data());
 		}
 		else {
-			CBTConfig::set
-				(lang, it.data());
+			CBTConfig::set(lang, it.data());
 		}
 	}
 }

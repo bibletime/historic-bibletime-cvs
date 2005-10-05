@@ -15,7 +15,6 @@
 #include <klocale.h>
 
 CPlainWriteDisplay::CPlainWriteDisplay(CWriteWindow* parentWindow, QWidget* parent) : QTextEdit(parentWindow ? parentWindow : parent), CWriteDisplay(parentWindow) {
-	//  qWarning("constructor of CPlainWriteDisplay");
 	setTextFormat(Qt::PlainText);
 	setAcceptDrops(true);
 	viewport()->setAcceptDrops(true);
@@ -32,24 +31,29 @@ void CPlainWriteDisplay::selectAll() {
 }
 
 void CPlainWriteDisplay::setText( const QString& newText ) {
-	QTextEdit::setText(newText);
-};
+	//make sure the text has been converted to show \n instead of <br/>
+	QString text = newText;
+// 	text.replace("\n<br /><!-- BT newline -->\n", "\n");
+	text.replace("<br />", "\n"); //inserted by BT or the Qt textedit widget
+
+	QTextEdit::setText(text);
+}
 
 const bool CPlainWriteDisplay::hasSelection() {
 	return hasSelectedText();
-};
+}
 
 QWidget* CPlainWriteDisplay::view() {
-	qWarning("CPlainWriteDisplay::view()");
+	qDebug("CPlainWriteDisplay::view()");
 	return this;
-};
+}
 
 const QString CPlainWriteDisplay::text( const CDisplay::TextType /*format*/, const CDisplay::TextPart /*part*/) {
 	return QString::null;
-};
+}
 
-void CPlainWriteDisplay::print( const CDisplay::TextPart ) {}
-;
+void CPlainWriteDisplay::print( const CDisplay::TextPart ) {
+}
 
 /** Sets the current status of the edit widget. */
 void CPlainWriteDisplay::setModified( const bool modified ) {
@@ -64,7 +68,12 @@ const bool CPlainWriteDisplay::isModified() const {
 
 /** Returns the text of this edit widget. */
 const QString CPlainWriteDisplay::plainText() {
-	return QTextEdit::text();
+	QString ret = QTextEdit::text();
+
+	//in plain text mode the text just contains newlines, convert them into <br/> before we return the text for display in a HTML widget
+	ret.replace("\n", "<br />");
+
+	return ret;
 }
 
 /** Reimplementation from QTextEdit. Provides an popup menu for the given position. */
@@ -134,7 +143,6 @@ void CPlainWriteDisplay::contentsDropEvent( QDropEvent* e ) {
 				default:
 				break;
 			}
-
-		};
+		}
 	}
 }
