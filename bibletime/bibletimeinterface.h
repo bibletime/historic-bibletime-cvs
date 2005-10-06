@@ -48,6 +48,19 @@ k_dcop:
 	/** Close all open windows.
 	*/
 	virtual void closeAllModuleWindows() = 0;
+	/** Returns the reference used in the current window.
+	* The format of the returned reference is
+	*	[Module] [Type] OSIS_Reference,
+	* wtih type one of BIBLE/COMMENTARY/BOOK/LEXICON/UNSUPPORTED
+	* If the type is BIBLE or COMMENTARY the reference is an OSIS ref
+	* in the other cases it's the key name, for books /Chapter/Subsection
+	* for Lexicons just the plain key, e.g. "ADAM".
+	* e.g.
+	*		[KJV] [BIBLE]	Gen.1.1
+	* 		[MHC] [COMMENTARY]  Gen.1.1
+	* 		[ISBE] [LEXICON]  REDEMPTION
+	*/
+	virtual QString getCurrentReference() = 0;
 	/** Seach the searchText in the specified module. The search result will be in the form
 	*    [modulename] osis_ref_of_the_found_key
 	* For example [KJV] Gen.1.1

@@ -124,9 +124,50 @@ QStringList BibleTime::searchInOpenModules(const QString& searchText) {
 }
 
 QStringList BibleTime::searchInDefaultBible(const QString& searchText) {
-	qDebug("DCOP: search in default bible ...");
-
 	CSwordModuleInfo* bible = CBTConfig::get
 								  (CBTConfig::standardBible);
 	return searchInModule(bible->name(), searchText);
+}
+
+QString BibleTime::getCurrentReference() {
+	qDebug("BibleTime::getCurrentReference");
+	QString ret = QString::null;
+
+	CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(m_mdi->activeWindow());
+	Q_ASSERT(w);
+
+	if (w) {
+		QString modType;
+		Q_ASSERT(w->modules().first());
+		switch (w->modules().first()->type()) {
+			case CSwordModuleInfo::Bible:
+				modType = "BIBLE";
+				break;
+			case CSwordModuleInfo::Commentary:
+				modType = "COMMENTARY";
+				break;
+			case CSwordModuleInfo::GenericBook:
+				modType = "BOOK";
+				break;
+			case CSwordModuleInfo::Lexicon:
+				modType = "LEXICON";
+				break;
+			default:
+				modType = "UNSUPPORTED";
+				break;
+		}
+
+		ret.append("[").append(w->modules().first()->name()).append("] ");
+		ret.append("[").append(modType).append("] ");
+
+		CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>( w->key() );
+		if (vk) {
+			ret.append( vk->getOSISRef() );
+		}
+		else {
+			ret.append( w->key()->key() );
+		}
+	}
+
+	return ret;
 }
