@@ -43,6 +43,7 @@ public:
 
 	virtual void zoomIn();
 	virtual void zoomOut();
+	virtual void openFindTextDialog();
 
 protected:
 	friend class CDisplay;

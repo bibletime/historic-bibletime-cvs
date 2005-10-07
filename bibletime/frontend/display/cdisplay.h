@@ -97,9 +97,8 @@ public:
 	QPopupMenu* const installedPopup();
 
 	virtual void zoomIn() {}
-	;
 	virtual void zoomOut() {}
-	;
+	virtual void openFindTextDialog() {}
 
 protected:
 	/**
@@ -151,6 +150,8 @@ public slots:
 	void zoomIn();
 	void zoomOut();
 
+	void openFindTextDialog();
+
 signals:
 	void referenceClicked(const QString& module, const QString& key);
 	void referenceDropped(const QString& key);
@@ -162,8 +163,7 @@ private:
 	struct {
 		QString module;
 		QString key;
-	}
-	m_referenceClickedCache;
+	} m_referenceClickedCache;
 };
 
 #endif

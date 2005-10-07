@@ -60,6 +60,8 @@ protected:
 
 	struct {
 		KAction* selectAll;
+		KAction* findText;
+
 		KActionMenu* copyMenu;
 		struct {
 			KAction* referenceOnly;

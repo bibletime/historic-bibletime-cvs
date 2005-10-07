@@ -71,7 +71,7 @@ namespace CResMgr {
 				QString tooltip;
 
 				const QString icon        = "find";
-				const KShortcut accel     = Qt::CTRL + Qt::Key_F;
+				const KShortcut accel     = Qt::CTRL + Qt::Key_O;
 				const char* actionName    = "mainindex_search_action";
 			}
 			namespace searchdefaultbible {
@@ -355,9 +355,9 @@ namespace CResMgr {
 	namespace workspace {}
 
 	namespace displaywindows {
-		namespace transliteration {
+/*		namespace transliteration {
 			const QString icon = "bt_displaytranslit";
-		}
+		}*/
 		namespace displaySettings {
 			const QString icon = "bt_displayconfig";
 		}
@@ -365,7 +365,6 @@ namespace CResMgr {
 		namespace general {
 			namespace scrollButton {
 				QString tooltip;
-
 			}
 
 			namespace search {

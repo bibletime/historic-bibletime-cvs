@@ -134,8 +134,9 @@ void CDisplayWindow::insertKeyboardActions( KActionCollection* const a ) {
 	KStdAction::zoomIn(0, 0, a, "zoomIn"); //no slot
 	KStdAction::zoomOut(0, 0, a, "zoomOut"); //no slot
 	KStdAction::close(0, 0, a, "closeWindow"); //no slot
-	KStdAction::selectAll(0,0, a, "selectAll");
-	KStdAction::copy(0,0, a, "copySelectedText");
+	KStdAction::selectAll(0, 0, a, "selectAll");
+	KStdAction::copy(0, 0, a, "copySelectedText");
+	KStdAction::find(0, 0, a, "findText");
 
 	new KToolBarPopupAction(
 		i18n("Back in history"),
@@ -181,6 +182,11 @@ void CDisplayWindow::initActions() {
 	KStdAction::copy(
 		displayWidget()->connectionsProxy(), SLOT(copySelection()),
 		actionCollection(), "copySelectedText"
+	);
+
+	KStdAction::find(
+		displayWidget()->connectionsProxy(), SLOT(openFindTextDialog()),
+		actionCollection(), "findText"
 	);
 
 	new KToolBarPopupAction(

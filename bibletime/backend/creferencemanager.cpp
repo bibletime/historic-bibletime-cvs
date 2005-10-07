@@ -341,7 +341,6 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 
 /** Parses the given verse references using the given language and the module.*/
 const QString CReferenceManager::parseVerseReference( const QString& ref, const CReferenceManager::ParseOptions& options) {
-	qDebug("Parsing '%s' in '%s' using '%s' as base, source lang '%s', dest lang '%s'", ref.latin1(), options.refDestinationModule.latin1(), options.refBase.latin1(), options.sourceLanguage.latin1(), options.destinationLanguage.latin1());
 
 	CSwordModuleInfo* const mod = CPointers::backend()->findModuleByName(options.refDestinationModule);
 	Q_ASSERT(mod);
@@ -359,29 +358,41 @@ const QString CReferenceManager::parseVerseReference( const QString& ref, const 
 	QString destinationLanguage = options.destinationLanguage;
 
  	StringList locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
- 	if (std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //sourceLanguage not available
+ 	if (options.sourceLanguage == "en" || std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //sourceLanguage not available
 		sourceLanguage = "en_US";
  	}
 
- 	if (std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //destination not available
+ 	if (options.destinationLanguage == "en" || std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //destination not available
 		destinationLanguage = "en_US";
  	}
+
 
 	QString ret;
 	QStringList refList = QStringList::split(";", ref);
 
 	CSwordVerseKey baseKey(0);
-	baseKey.key( options.refBase );
 	baseKey.setLocale( sourceLanguage.latin1() );
+	baseKey.key( options.refBase ); //probably in the sourceLanguage
+ 	baseKey.setLocale( "en_US" ); //english works in all environments as base
 
-	CSwordVerseKey dummy(0);
-	dummy.setLocale( sourceLanguage.latin1() );
+// 	CSwordVerseKey dummy(0);
+	//We have to workaround a Sword bug, we have to set the default locale to the same as the sourceLanguage !
+	const QString oldLocaleName = CPointers::backend()->booknameLanguage();
+	CPointers::backend()->booknameLanguage(sourceLanguage);
+
+	VerseKey dummy;
+ 	dummy.setLocale( sourceLanguage.latin1() );
+ 	Q_ASSERT( !strcmp(dummy.getLocale(), sourceLanguage.latin1()) );
+
+	qDebug("Parsing '%s' in '%s' using '%s' as base, source lang '%s', dest lang '%s'", ref.latin1(), options.refDestinationModule.latin1(), baseKey.key().latin1(), sourceLanguage.latin1(), destinationLanguage.latin1());
 
 	for (QStringList::iterator it = refList.begin(); it != refList.end(); it++) {
 		//The listkey may contain more than one item, because a ref lik "Gen 1:3,5" is parsed into two single refs
 		ListKey lk = dummy.ParseVerseList((const char*)(*it).utf8(), (const char*)baseKey.key().utf8(), true);
-		Q_ASSERT(lk.getElement(0));
-		if (!lk.getElement(0)) {
+		Q_ASSERT(!dummy.Error());
+
+		Q_ASSERT(lk.Count());
+		if (!lk.Count()) {
 			ret.append( *it ); //don't change the original
 			continue;
 		}
@@ -390,18 +401,24 @@ const QString CReferenceManager::parseVerseReference( const QString& ref, const 
 			if (dynamic_cast<VerseKey*>(lk.getElement(i))) { // a range
 				VerseKey* k = dynamic_cast<VerseKey*>(lk.getElement(i));
 				Q_ASSERT(k);
-				k->setLocale( destinationLanguage.latin1() );
+ 				k->setLocale( destinationLanguage.latin1() );
+
 				ret.append( QString::fromUtf8(k->getRangeText()) ).append("; ");
 			}
 			else { // a single ref
 				VerseKey vk;
+ 				vk.setLocale( sourceLanguage.latin1() );
 				vk = lk.getElement(i)->getText();
 				vk.setLocale( destinationLanguage.latin1() );
+
 				ret.append( QString::fromUtf8(vk.getText()) ).append("; ");
 			}
 		}
 
 	}
+
+	CPointers::backend()->booknameLanguage(oldLocaleName);
+	qDebug("    %s", ret.latin1());
 
 	return ret;
 }

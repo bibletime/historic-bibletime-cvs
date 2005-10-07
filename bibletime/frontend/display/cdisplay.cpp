@@ -56,7 +56,7 @@ void CDisplayConnections::copyAll() {
 
 /** No descriptions */
 void CDisplayConnections::copySelection() {
-	//  qWarning("copyign the selected text");
+	qWarning("copyign the selected text");
 	m_display->copy(CDisplay::PlainText, CDisplay::SelectedText);
 }
 
@@ -94,6 +94,10 @@ void CDisplayConnections::zoomIn() {
 
 void CDisplayConnections::zoomOut() {
 	m_display->zoomOut();
+}
+
+void CDisplayConnections::openFindTextDialog() {
+	m_display->openFindTextDialog();
 }
 
 

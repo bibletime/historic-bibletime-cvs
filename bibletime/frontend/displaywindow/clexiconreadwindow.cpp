@@ -84,6 +84,9 @@ void CLexiconReadWindow::initActions() {
 	m_actions.selectAll = actionCollection()->action("selectAll");
 	Q_ASSERT(m_actions.selectAll);
 
+	m_actions.findText = actionCollection()->action("findText");
+	Q_ASSERT(m_actions.findText);
+
 	m_actions.copy.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
 
 	m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection(), "copyEntryWithText");
@@ -179,6 +182,7 @@ void CLexiconReadWindow::setupPopupMenu() {
 
 
 	//   m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
+	m_actions.findText->plug(popup());
 	m_actions.selectAll->plug(popup());
 
 	(new KActionSeparator(this))->plug( popup() );

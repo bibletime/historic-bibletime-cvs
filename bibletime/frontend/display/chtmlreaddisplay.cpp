@@ -63,9 +63,6 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 		}
 
 		case SelectedText: {
-			if (!hasSelection())
-				return QString::null;
-
 			if (!hasSelection()) {
 				return QString::null;
 			}
@@ -351,12 +348,12 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ) {
 
 			//Code part to show a translation of the hovered word, only works with KDE 3.3
 			/*   if (!infoList.count()) { //translate the text under the mouse, find the lowest node containing the mouse
-			   
+
 			    DOM::Node node = nonSharedNodeUnderMouse();
-			 
+
 			    if (!node.isNull() && node.nodeName().string() == "#text") {
 			      infoList.append( qMakePair(
-			       CInfoDisplay::WordTranslation, 
+			       CInfoDisplay::WordTranslation,
 			       node.nodeValue().string()
 			      )
 			     );
@@ -447,4 +444,8 @@ void CHTMLReadDisplay::zoomIn() {
 void CHTMLReadDisplay::zoomOut() {
 	//  qWarning("zooming out");
 	setZoomFactor( (int)((float)zoomFactor()*(1.0/1.1)) );
+}
+
+void CHTMLReadDisplay::openFindTextDialog() {
+	findText();
 }

@@ -1,3 +1,11 @@
+2005-10-07 Joachim Ansorg <info@bibletime.info>
+  * New feature: The display windows now have a search dialog to search in the displayed text
+    (also activated by CTRL+F)
+  * Bugfix: Changed key accel of "Search open works" to CTRL + O,
+    because the standard action used CTRL + F, which we use in the new feature above.
+    Changed the settings in hdbk-reference as well.
+  * Bugfix: Hopefully the last fix for the parsing. We have to work around a Sword parsing problem.
+
 2005-10-05 Joachim Ansorg <info@bibletime.info>
   * Bugfix: Enter in a keychooser did not change the display under special circuamstance
   * Buffix: Newlines entered in the plain text editor were not displayed in the HTML editor or the read display window

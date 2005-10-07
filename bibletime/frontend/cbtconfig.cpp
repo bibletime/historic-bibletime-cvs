@@ -302,14 +302,14 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
 			map.insert(i18n("History"),               QString("Jos - Est"));
 			map.insert(i18n("Prophets"),              QString("Isa - Mal"));
 			map.insert(i18n("New testament"),         QString("Mat - Rev"));
-			map.insert(i18n("Gospels"),             QString("Mat - Joh"));
+			map.insert(i18n("Gospels"),               QString("Mat - Joh"));
 			map.insert(i18n("Letters/Epistles"),      QString("Rom - Jude"));
-			map.insert(i18n("Paul's Epistles"),      QString("Rom - Phile"));
+			map.insert(i18n("Paul's Epistles"),       QString("Rom - Phile"));
 
 			//make the list to the current bookname language!
 			CBTConfig::StringMap::Iterator it;
 			sword::VerseKey vk;
-			vk.setLocale("en");
+			vk.setLocale("en_US");
 
 			for (it = map.begin(); it != map.end(); ++it) {
 				sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);

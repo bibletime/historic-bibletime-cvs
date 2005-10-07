@@ -45,6 +45,7 @@ protected: // Protected methods
 	* Returns the display widget of this window.
 	*/
 	virtual CReadDisplay* const displayWidget();
+	virtual void resizeEvent(QResizeEvent* e);
 
 protected slots:
 	virtual void lookup( CSwordKey* );
@@ -55,8 +56,6 @@ protected slots:
 
 private:
 	CReadDisplay* m_displayWidget;
-protected:
-	virtual void resizeEvent(QResizeEvent* e);
 };
 
 #endif

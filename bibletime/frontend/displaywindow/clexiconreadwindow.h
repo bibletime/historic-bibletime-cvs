@@ -54,6 +54,8 @@ protected:
 		KToolBarPopupAction* forwardInHistory;
 
 		KAction* selectAll;
+		KAction* findText;
+
 		KActionMenu* copyMenu;
 		struct {
 			KAction* reference;

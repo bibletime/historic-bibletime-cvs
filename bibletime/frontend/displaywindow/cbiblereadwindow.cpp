@@ -115,6 +115,7 @@ void CBibleReadWindow::insertKeyboardActions( KActionCollection* const a ) {
 
 void CBibleReadWindow::initActions() {
 	CLexiconReadWindow::initActions(); //make sure the predefined actions are available
+
 	//cleanup, not a clean oo-solution
 	actionCollection()->action("nextEntry")->setEnabled(false);
 	actionCollection()->action("previousEntry")->setEnabled(false);
@@ -158,6 +159,10 @@ void CBibleReadWindow::initActions() {
 
 	m_actions.selectAll = actionCollection()->action("selectAll");
 	Q_ASSERT(m_actions.selectAll);
+
+	m_actions.findText = actionCollection()->action("findText");
+	Q_ASSERT(m_actions.findText);
+
 
 	m_actions.copy.referenceOnly = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
 
@@ -205,6 +210,7 @@ void CBibleReadWindow::initView() {
 void CBibleReadWindow::setupPopupMenu() {
 	popup()->insertTitle(CToolClass::getIconForModule(modules().first()), i18n("Bible window"));
 
+	m_actions.findText->plug(popup());
 	m_actions.selectAll->plug(popup());
 
 	(new KActionSeparator(this))->plug( popup() );
