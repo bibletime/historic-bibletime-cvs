@@ -28,11 +28,8 @@ namespace Rendering {
 	*/
 
 class CBookDisplay : public CEntryDisplay {
-
 public: // Public methods
 		virtual ~CBookDisplay() {}
-
-		;
 
 		/**
 		* Returns the rendered text using the modules in the list and using the key parameter.
@@ -43,7 +40,6 @@ public: // Public methods
 protected:
 		void setupRenderTree(CSwordTreeKey* swordTree, CTextRendering::KeyTree* renderTree, const QString& highlightKey);
 	};
-
 };
 
 #endif

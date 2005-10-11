@@ -1,3 +1,6 @@
+2005-10-11 Joachim Ansorg <info@bibletime.info>
+  * New feature: Added new method called getModulesOfType to our DCOP interface.
+
 2005-10-07 Joachim Ansorg <info@bibletime.info>
   * New feature: The display windows now have a search dialog to search in the displayed text
     (also activated by CTRL+F)

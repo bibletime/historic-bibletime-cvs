@@ -27,8 +27,6 @@ class CChapterDisplay : public CEntryDisplay {
 public: // Public methods
 		virtual ~CChapterDisplay() {}
 
-		;
-
 		/**
 		* Returns the rendered text using the modules in the list and using the key parameter.
 		* The displayoptions and filter options are used, too.

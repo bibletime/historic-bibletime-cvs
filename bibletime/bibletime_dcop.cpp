@@ -32,28 +32,28 @@ void BibleTime::closeAllModuleWindows() {
 	m_mdi->deleteAll();
 }
 
-void BibleTime::syncAllBibles(QString key) {
+void BibleTime::syncAllBibles(const QString& key) {
 	qDebug("DCOP: syncing all bibles ...");
 	syncAllModulesByType(CSwordModuleInfo::Bible, key);
 }
 
-void BibleTime::syncAllCommentaries(QString key) {
+void BibleTime::syncAllCommentaries(const QString& key) {
 	qDebug("DCOP: syncing all commentaries ...");
 	syncAllModulesByType(CSwordModuleInfo::Commentary, key);
 }
 
-void BibleTime::syncAllLexicons(QString key) {
+void BibleTime::syncAllLexicons(const QString& key) {
 	qDebug("DCOP: syncing all lexicons ...");
 	syncAllModulesByType(CSwordModuleInfo::Lexicon, key);
 }
 
-void BibleTime::syncAllVerseBasedModules(QString key) {
+void BibleTime::syncAllVerseBasedModules(const QString& key) {
 	qDebug("DCOP: syncing all verse based modules ...");
 	syncAllModulesByType(CSwordModuleInfo::Bible, key);
 	syncAllModulesByType(CSwordModuleInfo::Commentary, key);
 }
 
-void BibleTime::openWindow(QString moduleName, QString key) {
+void BibleTime::openWindow(const QString& moduleName, const QString& key) {
 	qDebug("DCOP: open window for module %s and key %s...", moduleName.latin1(), key.latin1());
 
 	CSwordModuleInfo* module = CPointers::backend()->findModuleByName(moduleName);
@@ -63,7 +63,7 @@ void BibleTime::openWindow(QString moduleName, QString key) {
 	}
 }
 
-void BibleTime::openDefaultBible(QString key) {
+void BibleTime::openDefaultBible(const QString& key) {
 	qDebug("DCOP: open default bible ...");
 	CSwordModuleInfo* mod = CBTConfig::get
 								(CBTConfig::standardBible);
@@ -166,6 +166,34 @@ QString BibleTime::getCurrentReference() {
 		}
 		else {
 			ret.append( w->key()->key() );
+		}
+	}
+
+	return ret;
+}
+
+QStringList BibleTime::getModulesOfType(const QString& type) {
+	QStringList ret;
+
+	CSwordModuleInfo::ModuleType modType;
+	if (type == "BIBLES") {
+		modType = CSwordModuleInfo::Bible;
+	}
+	else if (type == "COMMENTARIES") {
+		modType = CSwordModuleInfo::Commentary;
+	}
+	else if (type == "LEXICONS") {
+		modType = CSwordModuleInfo::Lexicon;
+
+	}
+	else if (type == "BOOKS") {
+		modType = CSwordModuleInfo::GenericBook;
+	}
+
+	ListCSwordModuleInfo modList = CPointers::backend()->moduleList();
+	for (ListCSwordModuleInfo::iterator it( modList.begin() ); it != modList.end(); ++it) {
+		if ((*it)->type() == modType) {
+			ret.append( (*it)->name() );
 		}
 	}
 

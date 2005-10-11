@@ -403,16 +403,17 @@ protected: //DCOP interface implementation
 
 	//see bibletimeinterface.h for a documentation of these functions
 	virtual void closeAllModuleWindows();
-	virtual void syncAllBibles(QString key);
-	virtual void syncAllCommentaries(QString key);
-	virtual void syncAllLexicons(QString key);
-	virtual void syncAllVerseBasedModules(QString key);
-	virtual void openWindow(QString moduleName, QString key);
-	virtual void openDefaultBible(QString key);
+	virtual void syncAllBibles(const QString& key);
+	virtual void syncAllCommentaries(const QString& key);
+	virtual void syncAllLexicons(const QString& key);
+	virtual void syncAllVerseBasedModules(const QString& key);
+	virtual void openWindow(const QString& moduleName, const QString& key);
+	virtual void openDefaultBible(const QString& key);
 	virtual QString getCurrentReference();
 	virtual QStringList searchInModule(const QString& module, const QString& searchText);
 	virtual QStringList searchInOpenModules(const QString& searchText);
 	virtual QStringList searchInDefaultBible(const QString& searchText);
+	virtual QStringList getModulesOfType(const QString& type);
 };
 
 #endif

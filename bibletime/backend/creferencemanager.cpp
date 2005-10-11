@@ -352,17 +352,18 @@ const QString CReferenceManager::parseVerseReference( const QString& ref, const 
 
 	if ((mod->type() != CSwordModuleInfo::Bible) && (mod->type() != CSwordModuleInfo::Commentary)) {
 		qDebug("CReferenceManager: Only verse based modules are supported as ref destination module");
+		return QString::null;
 	}
 
 	QString sourceLanguage = options.sourceLanguage;
 	QString destinationLanguage = options.destinationLanguage;
 
  	StringList locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
- 	if (options.sourceLanguage == "en" || std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //sourceLanguage not available
+ 	if (/*options.sourceLanguage == "en" ||*/ std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //sourceLanguage not available
 		sourceLanguage = "en_US";
  	}
 
- 	if (options.destinationLanguage == "en" || std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //destination not available
+ 	if (/*options.destinationLanguage == "en" ||*/ std::find(locales.begin(), locales.end(), sourceLanguage) == locales.end()) { //destination not available
 		destinationLanguage = "en_US";
  	}
 
@@ -384,7 +385,7 @@ const QString CReferenceManager::parseVerseReference( const QString& ref, const 
  	dummy.setLocale( sourceLanguage.latin1() );
  	Q_ASSERT( !strcmp(dummy.getLocale(), sourceLanguage.latin1()) );
 
-	qDebug("Parsing '%s' in '%s' using '%s' as base, source lang '%s', dest lang '%s'", ref.latin1(), options.refDestinationModule.latin1(), baseKey.key().latin1(), sourceLanguage.latin1(), destinationLanguage.latin1());
+// 	qDebug("Parsing '%s' in '%s' using '%s' as base, source lang '%s', dest lang '%s'", ref.latin1(), options.refDestinationModule.latin1(), baseKey.key().latin1(), sourceLanguage.latin1(), destinationLanguage.latin1());
 
 	for (QStringList::iterator it = refList.begin(); it != refList.end(); it++) {
 		//The listkey may contain more than one item, because a ref lik "Gen 1:3,5" is parsed into two single refs
@@ -418,7 +419,7 @@ const QString CReferenceManager::parseVerseReference( const QString& ref, const 
 	}
 
 	CPointers::backend()->booknameLanguage(oldLocaleName);
-	qDebug("    %s", ret.latin1());
+// 	qDebug("    %s", ret.latin1());
 
 	return ret;
 }
