@@ -349,14 +349,9 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
   <entry><keycombo action="simul">&Ctrl;<keycap>C</keycap> </keycombo></entry>
   <entry>Copy. This copies the selected text to the clipboard.</entry>
 </row>
-
-
 <row>
-  <entry><keycombo action="simul">&Ctrl;<keycap>O</keycap> </keycombo></entry>
-  <entry><link linkend="hdbk-reference-menus-search-openworks"><menuchoice>
-	<guimenu>Search</guimenu>
-  <guimenuitem>Search in open work(s)</guimenuitem></menuchoice></link> equivalent;
-	opens the search dialog to search in all currently opened works.</entry>
+  <entry><keycombo action="simul">&Ctrl;<keycap>F</keycap> </keycombo></entry>
+  <entry>Search. This lets you search within the text of a read window.</entry>
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;<keycap>J</keycap> </keycombo></entry>
@@ -378,6 +373,13 @@ in &bibletime; (as it always shows the hotkey), or you can look it up in
 	<guimenu>Window</guimenu>
   <guimenuitem>Tile horizontally</guimenuitem></menuchoice></link> equivalent;
 	tiles all open windows horizontally.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;<keycap>O</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-search-openworks"><menuchoice>
+	<guimenu>Search</guimenu>
+  <guimenuitem>Search in open work(s)</guimenuitem></menuchoice></link> equivalent;
+	opens the search dialog to search in all currently opened works.</entry>
 </row>
 <row>
   <entry><keycombo action="simul">&Ctrl;<keycap>Q</keycap> </keycombo></entry>
