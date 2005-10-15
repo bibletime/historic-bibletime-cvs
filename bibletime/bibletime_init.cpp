@@ -72,8 +72,6 @@ void BibleTime::initView() {
 	bookshelfLabel->setMargin(5);
 
 	m_mainIndex = new CMainIndex(vBox);
-	m_mainIndex->initTree();
-	m_mainIndex->setFocusPolicy(WheelFocus);
 
 	m_infoDisplay = new CInfoDisplay(m_leftPaneSplitter);
 	CPointers::setInfoDisplay(m_infoDisplay);

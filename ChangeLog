@@ -1,3 +1,7 @@
+2005-10-15 Joachim Ansorg <info@bibletime.info>
+  * New feature: Remember open groups in the bookshelf on next startup
+  * New feature: Remember selected item of the bookshelf on next startup
+
 2005-10-11 Joachim Ansorg <info@bibletime.info>
   * New feature: Added new method called getModulesOfType to our DCOP interface.
 

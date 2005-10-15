@@ -175,7 +175,7 @@ QString BibleTime::getCurrentReference() {
 QStringList BibleTime::getModulesOfType(const QString& type) {
 	QStringList ret;
 
-	CSwordModuleInfo::ModuleType modType;
+	CSwordModuleInfo::ModuleType modType = CSwordModuleInfo::Unknown;
 	if (type == "BIBLES") {
 		modType = CSwordModuleInfo::Bible;
 	}

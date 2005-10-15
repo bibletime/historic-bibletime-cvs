@@ -98,7 +98,7 @@ dialog. Both can be accessed under <guimenu>Settings</guimenu> in the main menu.
 				<row><entry><ulink url="http://www.nongnu.org/freefont/">FreeFont</ulink></entry>
 				<entry>A new free unicode font initiative.</entry></row>
 				
-				<row><entry><ulink url="ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS">Crossire's font directory</ulink></entry>
+				<row><entry><ulink url="ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS">Crosswire's font directory</ulink></entry>
 				<entry>Several fonts available from the Crosswire Bible Society Ftp site.</entry></row>
 	
 				<row><entry><ulink url="ftp://ftp.netscape.com/pub/communicator/extras/fonts/windows/">Bitstream CyberBit</ulink></entry>

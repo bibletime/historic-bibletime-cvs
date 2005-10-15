@@ -21,6 +21,7 @@
 #include <qlistview.h>
 #include <qdragobject.h>
 #include <qinputdialog.h>
+#include <qregexp.h>
 
 //KDE includes
 #include <klocale.h>
@@ -71,9 +72,11 @@ CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
 m_searchDialog(0), m_toolTip(0), m_itemsMovable(false), m_autoOpenFolder(0), m_autoOpenTimer(this) {
 	initView();
 	initConnections();
+	//initTree() is called in polish()
 }
 
 CMainIndex::~CMainIndex() {
+	saveSettings();
 	saveBookmarks();
 
 	m_toolTip->remove
@@ -115,6 +118,7 @@ void CMainIndex::initView() {
 
 	setBackgroundMode(PaletteBase);
 	setFullWidth(true);
+	setFocusPolicy(WheelFocus);
 
 	setAcceptDrops( true );
 	setDragEnabled( true );
@@ -709,4 +713,118 @@ void CMainIndex::saveBookmarks() {
 
 		++it;
 	}
+}
+
+void CMainIndex::readSettings() {
+ 	qDebug("CMainIndex::readSettings");
+	QStringList openGroups = CBTConfig::get(CBTConfig::bookshelfOpenGroups);
+	for (QStringList::Iterator it( openGroups.begin() ); it != openGroups.end(); ++it) {
+		QStringList path = QStringList::split("/", (*it)); //e.g. with items parent, child
+		QListViewItem* item = firstChild(); //begin on the top for each item
+		Q_ASSERT(item);
+		unsigned int index = 1;
+
+		for (QStringList::Iterator p_it( path.begin() ); p_it != path.end(); ++p_it) {
+			QString itemName = (*p_it).replace("\\/", "/");
+
+			while (item && (item->text(0) != itemName)) {
+				item = item->nextSibling();
+			}
+
+			if (item && (item->text(0) == itemName)) {
+				if (index < path.count()) { //don't call firstChild on the right, i.e. last item of the list
+					item = item->firstChild();
+				}
+
+				++index;
+			}
+		}
+
+		if (item) {
+			item->setOpen(true);
+		}
+	}
+
+	//restore the content position
+// 	setContentsPos(
+// 		CBTConfig::get(CBTConfig::bookshelfContentsX),
+// 		CBTConfig::get(CBTConfig::bookshelfContentsY)
+// 	);
+// 	horizontalScrollBar()->setValue(CBTConfig::get(CBTConfig::bookshelfContentsX));
+// 	verticalScrollBar()->setValue(CBTConfig::get(CBTConfig::bookshelfContentsY));
+
+
+	//restore the selected item
+	QStringList path = QStringList::split("/", CBTConfig::get(CBTConfig::bookshelfCurrentItem));
+	QListViewItem* item = firstChild();
+	Q_ASSERT(item);
+	unsigned int index = 1;
+	for (QStringList::iterator it( path.begin() ); it != path.end(); ++it) {
+		//search for the current caption and go down to it's childs
+		while (item && (item->text(0) != (*it)) ) {
+			item = item->nextSibling();
+		}
+
+		if (item && ((*it) == item->text(0))) {
+			if (index == path.count()) { //last item reached
+				setCurrentItem( item );
+				setSelected( item, true );
+				break;//for loop
+			}
+			else {
+				item = item->firstChild();
+			}
+
+			index++;
+		}
+	}
+}
+
+void CMainIndex::saveSettings() {
+	//save the complete names of all open groups to the settings file (e.g. Bibles/German/,Bookmarks/Jeuss Christ
+	QStringList openGroups;
+
+	QListViewItemIterator it( this );
+	while ( it.current() ) {
+		if ( it.current()->isOpen() ) { //is a group and open
+			//it.current()'s full name needs to be added to the list
+			QListViewItem* i = it.current();
+			QString fullName = i->text(0);
+			while (i->parent()) {
+				i = i->parent();
+				fullName.prepend("/").prepend( i->text(0).replace("/", "\\/")); // parent / child
+			}
+			openGroups << fullName;
+		}
+
+		++it;
+	}
+
+	CBTConfig::set(CBTConfig::bookshelfOpenGroups, openGroups);
+
+	//now save the position of the scrollbars
+// 	CBTConfig::set(CBTConfig::bookshelfContentsX,
+// 		horizontalScrollBar() ? horizontalScrollBar()->value() : 0);
+// 	CBTConfig::set(CBTConfig::bookshelfContentsY,
+// 		verticalScrollBar() ? verticalScrollBar()->value() : 0);
+
+	//save the currently selected item
+	QListViewItem* item = currentItem();
+	QString path;
+	while (item) {
+		path.prepend( item->text(0) + "/" );
+		item = item->parent();
+	}
+	CBTConfig::set(CBTConfig::bookshelfCurrentItem, path);
+}
+
+
+/*!
+    \fn CMainIndex::polish()
+ */
+void CMainIndex::polish()
+{
+	KListView::polish();
+	initTree();
+	readSettings();
 }

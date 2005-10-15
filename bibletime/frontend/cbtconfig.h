@@ -28,7 +28,8 @@ public:
 	enum strings {
 		bibletimeVersion,
 		language,
-		displayStyle
+		displayStyle,
+		bookshelfCurrentItem
 	};
 	enum modules {
 		standardBible = 0, //just to make sure, default is IMHO 0, so that's redundant here
@@ -71,9 +72,10 @@ public:
 		hebrewCantillation,
 		greekAccents,
 		textualVariants,
-		//     transliteration,
 		scriptureReferences,
-		morphSegmentation
+		morphSegmentation,
+		bookshelfContentsX,
+		bookshelfContentsY,
 	};
 	enum intLists {
 		leftPaneSplitterSizes,
@@ -81,7 +83,8 @@ public:
 	};
 	enum stringLists {
 		searchCompletionTexts,
-		searchTexts
+		searchTexts,
+		bookshelfOpenGroups
 	};
 	enum keys {
 		allWindows,

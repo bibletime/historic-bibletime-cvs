@@ -42,6 +42,8 @@ const QString CBTConfig::getKey( const CBTConfig::strings ID) {
 		return "language";
 		case displayStyle:
 		return "displayStyle";
+		case bookshelfCurrentItem:
+		return "bookshelfCurrentItem";
 	}
 	return QString::null;
 }
@@ -54,6 +56,8 @@ const QString CBTConfig::getDefault( const CBTConfig::strings ID) {
 		return (KGlobal::locale()->language()).local8Bit();
 		case displayStyle:
 		return CDisplayTemplateMgr::defaultTemplate();
+		case bookshelfCurrentItem:
+		return QString();
 	}
 	return QString::null;
 }
@@ -164,11 +168,14 @@ const QString CBTConfig::getKey( const CBTConfig::ints ID) {
 		return "greekAccents";
 		case textualVariants:
 		return "textualVariants";
-		//     case transliteration:     return "transliteration";
 		case scriptureReferences:
 		return "scriptureReferences";
 		case morphSegmentation:
 		return "morphSegmentation";
+		case bookshelfContentsX:
+		return "bookshelfContentsX";
+		case bookshelfContentsY:
+		return "bookshelfContentsY";
 	}
 	return QString::null;
 }
@@ -214,28 +221,31 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID) {
 const int CBTConfig::getDefault( const CBTConfig::ints ID) {
 	switch ( ID ) {
 		case footnotes:
-		return true;
+		return int(true);
 		case strongNumbers:
-		return true;
+		return int(true);
 		case headings:
-		return true;
+		return int(true);
 		case morphTags:
-		return true;
+		return int(true);
 		case lemmas:
-		return true;
+		return int(true);
 		case hebrewPoints:
-		return true;
+		return int(true);
 		case hebrewCantillation:
-		return true;
+		return int(true);
 		case greekAccents:
-		return true;
+		return int(true);
 		case textualVariants:
-		return false;
-		//     case transliteration:     return 0;
+		return int(false);
 		case scriptureReferences:
-		return true;
+		return int(true);
 		case morphSegmentation:
-		return true;
+		return int(true);
+		case bookshelfContentsX:
+		return 0;
+		case bookshelfContentsY:
+		return 0;
 	}
 	return 0;
 }
@@ -268,6 +278,8 @@ const QString CBTConfig::getKey( const CBTConfig::stringLists ID) {
 		return QString("searchCompletionTexts");
 		case searchTexts:
 		return QString("searchTexts");
+		case bookshelfOpenGroups:
+		return QString("bookshelfOpenGroups");
 	}
 	return QString::null;
 }
@@ -280,6 +292,8 @@ const QStringList CBTConfig::getDefault( const CBTConfig::stringLists ID) {
 			return list;
 		}
 		case searchCompletionTexts:
+		return QStringList();
+		case bookshelfOpenGroups:
 		return QStringList();
 	}
 	return QStringList();

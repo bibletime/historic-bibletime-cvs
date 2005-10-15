@@ -29,17 +29,16 @@ class CSearchDialog;
 class CMainIndex : public KListView {
 	Q_OBJECT
 
-class ToolTip : public QToolTip {
-public:
+	class ToolTip : public QToolTip {
+	public:
 		ToolTip(CMainIndex* parent);
 		virtual ~ToolTip() {}
-		;
 		/**
 		* Displays a tooltip for position p using the getToolTip() function of CGroupManagerItem
 		*/
 		virtual void maybeTip( const QPoint &pos);
 
-private:
+	private:
 		CMainIndex* m_mainIndex;
 	};
 
@@ -52,11 +51,11 @@ public:
 	*/
 	void emitModulesChosen( ListCSwordModuleInfo modules, QString key );
 	/**
-	* Saves the bookmarks to disk 
+	* Saves the bookmarks to disk
 	*/
 	void saveBookmarks();
 	/**
-	* Reloads the main index's Sword dependend things like modules 
+	* Reloads the main index's Sword dependend things like modules
 	*/
 	void reloadSword();
 
@@ -97,6 +96,13 @@ protected: // Protected methods
 	virtual void contentsDragMoveEvent( QDragMoveEvent* event );
 	virtual void contentsDragLeaveEvent( QDragLeaveEvent* e );
 	QRect drawItemHighlighter(QPainter* painter, QListViewItem * item );
+    /** Read settings like open groups or scrollbar position and restore them
+    */
+    void readSettings();
+    /** Save settings like roups close/open status to the settings file.
+    */
+    void saveSettings();
+    virtual void polish();
 
 protected slots: // Protected slots
 	/**
