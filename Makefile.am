@@ -1,3 +1,4 @@
+KDE_OPTIONS = noautodist
 SUBDIRS = bibletime pot docs .
 
 EXTRA_DIST = \

@@ -7,9 +7,9 @@ Sometimes it is difficult to compile BibleTime from source code, but it's possib
 BibleTime @VERSION@ requires:
 	-KDE >= 3.3 (at least the libraries (kdelibs) and the base package (kdebase))
 		KDE 3.0, 3.1 and 3.2 are not officially supported any more because
-		we don't have any of these versions available. We're interested to keep working
-		with those versions if we receive testing / compiling logs.
-	-SWORD 1.5.8
+		we don't have any of these versions available for testing. We're interested to keep working
+		with those versions if we receive testing / compiling reports from our users.
+	-SWORD 1.5.8, which is available from http://www.crpsswire.org/sword/.
 
 
 If you don't have the sources already, please browse to www.bibletime.info to see
@@ -28,13 +28,9 @@ cd ~
 tar -xjf bibletime-@VERSION.tar.bz2
 cd ~/bibletime-@VERSION@	# Move to your source directory
 kde-config --prefix			# Displays your KDE directory (optional)
-
-export QTDIR=<QT source directory>
-export KDEDIR=<KDE directory (where KDE is installed)>
-export PATH=$KDEDIR/bin:$PATH
 ./configure --prefix=<your KDE dir> # create makefiles
-make	# compile BibleTime
-su -c "make install"	# change to "root user" and install BibleTime
+make						# compile BibleTime
+su -c "make install"		# change to "root user" and install BibleTime
 
 
 ---------------------------
