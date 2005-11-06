@@ -268,7 +268,7 @@ msgstr ""
 #. Tag: ulink
 #: hdbk-config.docbook:101
 #, no-c-format
-msgid "Crossire's font directory"
+msgid "Crosswire's font directory"
 msgstr ""
 
 #. Tag: entry
@@ -431,7 +431,7 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-intro.docbook:1 hdbk-reference.docbook:481
+#: hdbk-intro.docbook:1 hdbk-reference.docbook:483
 #, no-c-format
 msgid "Introduction"
 msgstr ""
@@ -1419,7 +1419,7 @@ msgstr ""
 #: hdbk-reference.docbook:78
 #, no-c-format
 msgid ""
-"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>F</keycap></keycombo></"
+"<shortcut><keycombo action=\"simul\">&Ctrl;<keycap>O</keycap></keycombo></"
 "shortcut> <guimenu> <inlinemediaobject><imageobject> <imagedata fileref="
 "\"i_find.png\" format=\"PNG\"/></imageobject></inlinemediaobject> Search</"
 "guimenu> <guimenuitem>Search in open work(s)</guimenuitem>"
@@ -1931,13 +1931,70 @@ msgid "Copy. This copies the selected text to the clipboard."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:355
+#: hdbk-reference.docbook:353
 #, no-c-format
 msgid "&Ctrl;<keycap>F</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:356
+#: hdbk-reference.docbook:354
+#, no-c-format
+msgid "Search. This lets you search within the text of a read window."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:357
+#, no-c-format
+msgid "&Ctrl;<keycap>J</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:358
+#, no-c-format
+msgid ""
+"<link linkend=\"hdbk-reference-menus-window-cascade\"><menuchoice> "
+"<guimenu>Window</guimenu> <guimenuitem>Cascade</guimenuitem></menuchoice></"
+"link> equivalent; cascades all open windows."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:364
+#, no-c-format
+msgid "&Ctrl;<keycap>G</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:365
+#, no-c-format
+msgid ""
+"<link linkend=\"hdbk-reference-menus-window-tile-vertically\"><menuchoice> "
+"<guimenu>Window</guimenu> <guimenuitem>Tile vertically</guimenuitem></"
+"menuchoice></link> equivalent; tiles all open windows vertically."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:371
+#, no-c-format
+msgid "&Ctrl;<keycap>H</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:372
+#, no-c-format
+msgid ""
+"<link linkend=\"hdbk-reference-menus-window-tile-horizontally\"><menuchoice> "
+"<guimenu>Window</guimenu> <guimenuitem>Tile horizontally</guimenuitem></"
+"menuchoice></link> equivalent; tiles all open windows horizontally."
+msgstr ""
+
+#. Tag: keycombo
+#: hdbk-reference.docbook:378
+#, no-c-format
+msgid "&Ctrl;<keycap>O</keycap>"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-reference.docbook:379
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-search-openworks\"><menuchoice> "
@@ -1947,58 +2004,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:362
-#, no-c-format
-msgid "&Ctrl;<keycap>J</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:363
-#, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-window-cascade\"><menuchoice> "
-"<guimenu>Window</guimenu> <guimenuitem>Cascade</guimenuitem></menuchoice></"
-"link> equivalent; cascades all open windows."
-msgstr ""
-
-#. Tag: keycombo
-#: hdbk-reference.docbook:369
-#, no-c-format
-msgid "&Ctrl;<keycap>G</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:370
-#, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-window-tile-vertically\"><menuchoice> "
-"<guimenu>Window</guimenu> <guimenuitem>Tile vertically</guimenuitem></"
-"menuchoice></link> equivalent; tiles all open windows vertically."
-msgstr ""
-
-#. Tag: keycombo
-#: hdbk-reference.docbook:376
-#, no-c-format
-msgid "&Ctrl;<keycap>H</keycap>"
-msgstr ""
-
-#. Tag: entry
-#: hdbk-reference.docbook:377
-#, no-c-format
-msgid ""
-"<link linkend=\"hdbk-reference-menus-window-tile-horizontally\"><menuchoice> "
-"<guimenu>Window</guimenu> <guimenuitem>Tile horizontally</guimenuitem></"
-"menuchoice></link> equivalent; tiles all open windows horizontally."
-msgstr ""
-
-#. Tag: keycombo
-#: hdbk-reference.docbook:383
+#: hdbk-reference.docbook:385
 #, no-c-format
 msgid "&Ctrl;<keycap>Q</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:384
+#: hdbk-reference.docbook:386
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-file-quit\"><menuchoice> <guimenu>File</"
@@ -2007,61 +2019,61 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:390
+#: hdbk-reference.docbook:392
 #, no-c-format
 msgid "&Ctrl;<keycap>W</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:391
+#: hdbk-reference.docbook:393
 #, no-c-format
 msgid "Closes the current window."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:394
+#: hdbk-reference.docbook:396
 #, no-c-format
 msgid "&Ctrl;<keycap>X</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:395
+#: hdbk-reference.docbook:397
 #, no-c-format
 msgid "Moves a bible or commentary read window to the next chapter."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:398
+#: hdbk-reference.docbook:400
 #, no-c-format
 msgid "&Ctrl;<keycap>Y</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:399
+#: hdbk-reference.docbook:401
 #, no-c-format
 msgid "Moves a bible or commentary read window to the next book."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:402
+#: hdbk-reference.docbook:404
 #, no-c-format
 msgid "&Ctrl;<keycap>V</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:403
+#: hdbk-reference.docbook:405
 #, no-c-format
 msgid "Moves a read window to the next verse or entry."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:408
+#: hdbk-reference.docbook:410
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>F</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:409
+#: hdbk-reference.docbook:411
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-window-fullscreen\"><menuchoice> "
@@ -2070,49 +2082,49 @@ msgid ""
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:415
+#: hdbk-reference.docbook:417
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>X</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:416
+#: hdbk-reference.docbook:418
 #, no-c-format
 msgid "Moves a bible or commentary read window to the previous chapter."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:419
+#: hdbk-reference.docbook:421
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>Y</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:420
+#: hdbk-reference.docbook:422
 #, no-c-format
 msgid "Moves a bible or commentary read window to the previous book."
 msgstr ""
 
 #. Tag: keycombo
-#: hdbk-reference.docbook:423
+#: hdbk-reference.docbook:425
 #, no-c-format
 msgid "&Ctrl;&Shift;<keycap>V</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:424
+#: hdbk-reference.docbook:426
 #, no-c-format
 msgid "Moves a read window to the previous verse or entry."
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:428
+#: hdbk-reference.docbook:430
 #, no-c-format
 msgid "<keycap>F1</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:429
+#: hdbk-reference.docbook:431
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Handbook</guimenuitem></"
@@ -2120,13 +2132,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:435
+#: hdbk-reference.docbook:437
 #, no-c-format
 msgid "<keycap>F2</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:436
+#: hdbk-reference.docbook:438
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>BibleStudy Howto</"
@@ -2134,13 +2146,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:442
+#: hdbk-reference.docbook:444
 #, no-c-format
 msgid "<keycap>F3</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:443
+#: hdbk-reference.docbook:445
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Help</guimenu> <guimenuitem>Daily tip</guimenuitem></"
@@ -2148,13 +2160,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:449
+#: hdbk-reference.docbook:451
 #, no-c-format
 msgid "<keycap>F4</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:450
+#: hdbk-reference.docbook:452
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-settings-bookshelf_manager"
@@ -2163,13 +2175,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:456
+#: hdbk-reference.docbook:458
 #, no-c-format
 msgid "<keycap>F8</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:457
+#: hdbk-reference.docbook:459
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-view-showbookshelf\"><menuchoice> "
@@ -2178,13 +2190,13 @@ msgid ""
 msgstr ""
 
 #. Tag: keycap
-#: hdbk-reference.docbook:463
+#: hdbk-reference.docbook:465
 #, no-c-format
 msgid "<keycap>F9</keycap>"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-reference.docbook:464
+#: hdbk-reference.docbook:466
 #, no-c-format
 msgid ""
 "<link linkend=\"hdbk-reference-menus-view-showmag\"><menuchoice> "
@@ -2193,13 +2205,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:478
+#: hdbk-reference.docbook:480
 #, no-c-format
 msgid "GCC Regular Expression Reference"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:483
+#: hdbk-reference.docbook:485
 #, no-c-format
 msgid ""
 "Regular expression searches provide a way to do simple or complex searches "
@@ -2217,7 +2229,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:499
+#: hdbk-reference.docbook:501
 #, no-c-format
 msgid ""
 "The power of Regular Expressions lies in the patterns (or templates) used to "
@@ -2229,7 +2241,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:508
+#: hdbk-reference.docbook:510
 #, no-c-format
 msgid ""
 "Example: the pattern \"i. love\\.\" will find sentences that end with "
@@ -2242,13 +2254,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:520
+#: hdbk-reference.docbook:522
 #, no-c-format
 msgid "Special characters"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:523
+#: hdbk-reference.docbook:525
 #, no-c-format
 msgid ""
 ". The period matches any character. See <link linkend=\"period\">details</"
@@ -2256,7 +2268,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:525
+#: hdbk-reference.docbook:527
 #, no-c-format
 msgid ""
 "* The asterisk matches 0 or more characters of the preceding: set, character "
@@ -2264,7 +2276,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:528
+#: hdbk-reference.docbook:530
 #, no-c-format
 msgid ""
 "+ The plus sign matches 1 or more characters of the preceding: set, "
@@ -2272,7 +2284,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:531
+#: hdbk-reference.docbook:533
 #, no-c-format
 msgid ""
 "? The question mark matches 0 or 1 character of the preceding: set, "
@@ -2281,7 +2293,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:534
+#: hdbk-reference.docbook:536
 #, no-c-format
 msgid ""
 "[ ] Square brackets match any one of the characters specified inside [ ]. "
@@ -2289,7 +2301,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:536
+#: hdbk-reference.docbook:538
 #, no-c-format
 msgid ""
 "^ A caret as the first character inside [ ] means NOT. See <link linkend="
@@ -2297,7 +2309,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:538
+#: hdbk-reference.docbook:540
 #, no-c-format
 msgid ""
 "^ A caret beginning of a pattern anchors the beginning of a line. See <link "
@@ -2305,7 +2317,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:540
+#: hdbk-reference.docbook:542
 #, no-c-format
 msgid ""
 "$ A dollar at the end of a pattern anchors the end of a line. See <link "
@@ -2313,14 +2325,14 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:542
+#: hdbk-reference.docbook:544
 #, no-c-format
 msgid ""
 "| A vertical bar means logical OR. See <link linkend=\"bar\">details</link>"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:544
+#: hdbk-reference.docbook:546
 #, no-c-format
 msgid ""
 "( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</"
@@ -2328,7 +2340,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:546
+#: hdbk-reference.docbook:548
 #, no-c-format
 msgid ""
 "\\ A backslash can be used prior to any special character to match that "
@@ -2336,7 +2348,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:548
+#: hdbk-reference.docbook:550
 #, no-c-format
 msgid ""
 "\\ A backslash can be used prior to an ordinary character to make it a "
@@ -2344,13 +2356,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:553
+#: hdbk-reference.docbook:555
 #, no-c-format
 msgid "The period ."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:555
+#: hdbk-reference.docbook:557
 #, no-c-format
 msgid ""
 "The Period \".\" will match any single character even a space or other non-"
@@ -2367,13 +2379,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:568
+#: hdbk-reference.docbook:570
 #, no-c-format
 msgid "The asterisk *"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:570
+#: hdbk-reference.docbook:572
 #, no-c-format
 msgid ""
 "The asterisk matches zero or more characters of the preceding: set, "
@@ -2386,13 +2398,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:582
+#: hdbk-reference.docbook:584
 #, no-c-format
 msgid "The plus sign +"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:583
+#: hdbk-reference.docbook:585
 #, no-c-format
 msgid ""
 "The Plus Sign matches one or more characters of the preceding: set, "
@@ -2404,13 +2416,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:592
+#: hdbk-reference.docbook:594
 #, no-c-format
 msgid "The question mark ?"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:593
+#: hdbk-reference.docbook:595
 #, no-c-format
 msgid ""
 "The Question Mark matches zero or one character of the preceding: set, "
@@ -2421,13 +2433,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:601
+#: hdbk-reference.docbook:603
 #, no-c-format
 msgid "The square brackets [ ]"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:602
+#: hdbk-reference.docbook:604
 #, no-c-format
 msgid ""
 "The Square Brackets enclose a set of characters that can match. The period, "
@@ -2448,13 +2460,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:623
+#: hdbk-reference.docbook:625
 #, no-c-format
 msgid "The caret first in square brackets [^xxx]"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:624
+#: hdbk-reference.docbook:626
 #, no-c-format
 msgid ""
 "If the Caret is the first character after the left bracket it means NOT. "
@@ -2464,13 +2476,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:631
+#: hdbk-reference.docbook:633
 #, no-c-format
 msgid "The caret as start of line anchor ^xxx"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:632
+#: hdbk-reference.docbook:634
 #, no-c-format
 msgid ""
 "If the Caret is the first character in a pattern it anchors the pattern to "
@@ -2484,7 +2496,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:642
+#: hdbk-reference.docbook:644
 #, no-c-format
 msgid ""
 "(Because of unfiltered formatting characters in some texts, this feature "
@@ -2494,13 +2506,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:650
+#: hdbk-reference.docbook:652
 #, no-c-format
 msgid "The dollar sign as end of line anchor xxx$"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:651
+#: hdbk-reference.docbook:653
 #, no-c-format
 msgid ""
 "If the Dollar Sign is the last character in a pattern it anchors the pattern "
@@ -2509,7 +2521,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:657
+#: hdbk-reference.docbook:659
 #, no-c-format
 msgid ""
 "(If you encounter the problem with unfiltered formatting characters that we "
@@ -2517,13 +2529,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:663
+#: hdbk-reference.docbook:665
 #, no-c-format
 msgid "The vertical bar |"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:664
+#: hdbk-reference.docbook:666
 #, no-c-format
 msgid ""
 "The Vertical Bar between patterns means OR. <emphasis>John|Peter</emphasis> "
@@ -2535,25 +2547,25 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:673
+#: hdbk-reference.docbook:675
 #, no-c-format
 msgid "The parentheses ( )"
 msgstr ""
 
 #. Tag: emphasis
-#: hdbk-reference.docbook:674
+#: hdbk-reference.docbook:676
 #, no-c-format
 msgid "The use of Parentheses ( ) is not supported!"
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:679
+#: hdbk-reference.docbook:681
 #, no-c-format
 msgid "The backslash prior to a special character \\*"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:680
+#: hdbk-reference.docbook:682
 #, no-c-format
 msgid ""
 "The Backslash prior to a special character indicates that the character is "
@@ -2563,13 +2575,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-reference.docbook:688
+#: hdbk-reference.docbook:690
 #, no-c-format
 msgid "The backslash prior to an ordinary character \\s"
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:690
+#: hdbk-reference.docbook:692
 #, no-c-format
 msgid ""
 "The Backslash prior to an ordinary character indicates that the character is "
@@ -2577,7 +2589,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:695
+#: hdbk-reference.docbook:697
 #, no-c-format
 msgid ""
 "\\b if used outside [ ] means word boundary. If used inside [ ], it means "
@@ -2587,7 +2599,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:699
+#: hdbk-reference.docbook:701
 #, no-c-format
 msgid ""
 "\\B means non-word boundary. <emphasis>\\Brighteous\\B</emphasis> matches "
@@ -2597,37 +2609,37 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:703
+#: hdbk-reference.docbook:705
 #, no-c-format
 msgid "\\d means digit; same as [0-9]."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:704
+#: hdbk-reference.docbook:706
 #, no-c-format
 msgid "\\D means non-digit, same as [^0-9]."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:705
+#: hdbk-reference.docbook:707
 #, no-c-format
 msgid "\\s means whitespace character."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:706
+#: hdbk-reference.docbook:708
 #, no-c-format
 msgid "\\S means no whitespace character."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:707
+#: hdbk-reference.docbook:709
 #, no-c-format
 msgid "\\w means alphanumeric; same as [a-zA-Z0-9_]."
 msgstr ""
 
 #. Tag: para
-#: hdbk-reference.docbook:708
+#: hdbk-reference.docbook:710
 #, no-c-format
 msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
 msgstr ""

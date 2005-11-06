@@ -51,6 +51,8 @@ protected:
 private:
 	KToggleAction* m_syncButton;
 	CSwordVerseKey* verseKey();
+protected:
+    virtual void setupPopupMenu();
 };
 
 #endif

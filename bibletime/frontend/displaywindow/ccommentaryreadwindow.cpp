@@ -174,3 +174,13 @@ void CCommentaryReadWindow::previousVerse() {
 const bool CCommentaryReadWindow::syncAllowed() const {
 	return m_syncButton->isChecked();
 }
+
+
+/*!
+    \fn CCommentaryReadWindow::setupPopupMenu()
+ */
+void CCommentaryReadWindow::setupPopupMenu() {
+	CLexiconReadWindow::updatePopupMenu();
+	popup()->changeTitle(0, i18n("Commentary window"));
+
+}

@@ -276,16 +276,21 @@ QPtrList<QWidget> CMDIArea::usableWindowList() {
 }
 
 bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
+	Q_ASSERT(o);
+	Q_ASSERT(e);
+
 	QWidget* w = dynamic_cast<QWidget*>( o );
 	bool ret = QWorkspace::eventFilter(o,e);
 
-	if ( w && (e->type() == QEvent::WindowStateChange) ) {
-		if (o->inherits("CDisplayWindow") && ((w->windowState() & Qt::WindowMinimized) || w->isHidden())) { //window was minimized, trigger a tile/cascade update if necessary
+ 	if ( w && (e->type() == QEvent::WindowStateChange) ) {
+ 		if (o->inherits("CDisplayWindow") && ((w->windowState() & Qt::WindowMinimized) || w->isHidden())) { //window was minimized, trigger a tile/cascade update if necessary
+/*	if (w && o->inherits("CDisplayWindow")){
+		if ((e->type() == QEvent::ShowMinimized) || (e->type() == QEvent::Hide)) {*/
 			triggerWindowUpdate();
 			ret = false;
 		}
-		else if (!o->inherits("CDisplayWindow")) {
-			qDebug("bad mdi child classname: %s", o->className());
+		else if (!o->inherits("CDisplayWindow")){
+			qDebug("CMDIArea: bad mdi child classname: %s", o->className());
 			o->dumpObjectInfo();
 			o->dumpObjectTree();
 		}
@@ -299,6 +304,7 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
     \fn CMDIArea::triggerWindowUpdate()
  */
 void CMDIArea::triggerWindowUpdate() {
+	qWarning("triggerWindowUpfdate");
 	if (isUpdatesEnabled() && usableWindowList().count() ) {
 		switch (m_guiOption) {
 			case autoTileVertical:

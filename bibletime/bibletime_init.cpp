@@ -52,6 +52,7 @@
 #include <ktoolbar.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
+#include <kdeversion.h>
 
 //Sword includes
 #include <swlog.h>
