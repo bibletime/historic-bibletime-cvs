@@ -159,11 +159,19 @@ void BibleTime::slotWindowMenuAboutToShow() {
 		slotUpdateWindowArrangementActions(0); //update the window tile/cascade states
 		m_windowCloseAll_action->setEnabled( true );
 	}
-
+	
+#if QT_VERSION >= 0x030200
 	QPtrList<KAction>::iterator end = m_windowOpenWindowsList.end();
 	for (QPtrList<KAction>::iterator it = m_windowOpenWindowsList.begin(); it != end; ++it ) {
 		(*it)->unplugAll();
 	}
+#else
+	QPtrListIterator<KAction> it(m_windowOpenWindowsList);
+	while (it.current() != 0){
+		it.current()->unplugAll();
+		++it;
+	}
+#endif
 	m_windowOpenWindowsList.setAutoDelete(true);
 	m_windowOpenWindowsList.clear();
 

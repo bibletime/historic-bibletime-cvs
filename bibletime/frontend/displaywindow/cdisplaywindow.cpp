@@ -33,6 +33,7 @@
 //Qt includes
 
 //KDE includes
+#include <kdeversion.h>
 #include <kaccel.h>
 #include <klocale.h>
 
@@ -65,7 +66,11 @@ CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, 
 }
 
 CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, const char *name )
+#if KDE_VERSION >= 0x030200
 : KMainWindow(KMainWindow::NoDCOPObject, parent, name, WDestructiveClose),
+#else
+: KMainWindow(parent, name, WDestructiveClose),
+#endif
 m_mdi(parent),
 //    m_modules(modules),
 m_filterOptions(),

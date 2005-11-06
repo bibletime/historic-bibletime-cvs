@@ -94,7 +94,7 @@ namespace InstallationManager {
     }
 
     void CSwordSetupModuleListView::init() {
-#if QT_VERSION >= 320
+#if QT_VERSION >= 0x030200
         m_categoryBible = new QCheckListItem(this, i18n("Bibles"), QCheckListItem::CheckBoxController);
         m_categoryCommentary = new QCheckListItem(this, i18n("Commentaries"), QCheckListItem::CheckBoxController);
         m_categoryLexicon = new QCheckListItem(this, i18n("Lexicons"), QCheckListItem::CheckBoxController);
@@ -200,7 +200,7 @@ namespace InstallationManager {
         }
 
         if (!langFolder) { //not yet there
-#if QT_VERSION >= 320
+#if QT_VERSION >= 0x030200
             langFolder = new QCheckListItem(parent, langName, QCheckListItem::CheckBoxController);
 #else
 

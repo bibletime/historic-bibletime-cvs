@@ -15,6 +15,9 @@
 #include "util/cpointers.h"
 #include "util/scoped_resource.h"
 
+//We will need to reference this in the Qt includes
+#include <kdeversion.h>
+
 //Qt includes
 #include <qcursor.h>
 #include <qscrollview.h>
@@ -23,6 +26,10 @@
 #include <qpopupmenu.h>
 #include <qlayout.h>
 #include <qtimer.h>
+#if KDE_VERSION < 0x030300
+//We will need to show the error message.
+#include <qmessagebox.h>
+#endif
 
 //KDE includes
 #include <kapplication.h>
@@ -447,5 +454,14 @@ void CHTMLReadDisplay::zoomOut() {
 }
 
 void CHTMLReadDisplay::openFindTextDialog() {
+#if KDE_VERSION >= 0x030300
 	findText();
+#else
+	QMessageBox::information(0, "Not Supported",
+	"This copy of BibleTime was built against a version of KDE older\n"
+	"than 3.3 (probably due to your distro), so this search feature\n"
+	"does not work.\n\n"
+	"This is a known issue.  If we do not have a fix for the next\n"
+	"version of BibleTime, we will remove the option.");
+#endif
 }

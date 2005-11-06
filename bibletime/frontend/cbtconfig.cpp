@@ -16,8 +16,13 @@
 #include <qmap.h>
 
 //KDE includes
+#include <kdeversion.h>
 #include <kapplication.h>
+#if KDE_VERSION >= 0x030200
 #include <kactioncollection.h>
+#else
+#include <kaction.h>
+#endif
 #include <kconfig.h>
 #include <kcharsets.h>
 #include <kglobal.h>

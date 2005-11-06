@@ -143,7 +143,7 @@ int main(int argc, char* argv[]) {
 	*    Active developers (sorted by last name)   *
 	************************************************/
 	// Project coordination
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "junkmail@joachim.ansorgs.de", "http://joachim.ansorgs.de");
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "nospam@joachim-ansorg.de", "http://www.joachim-ansorg.de/");
 	// Second main developer
 	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
 	// artwork

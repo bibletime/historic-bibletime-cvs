@@ -19,6 +19,10 @@
 #include <qtimer.h>
 #include <qevent.h>
 #include <qtimer.h>
+#if QT_VERSION < 0x030200
+//We need this to close all windows with Qt < 3.2
+#include <qwidgetlist.h>
+#endif
 
 
 CMDIArea::CMDIArea(QWidget *parent, const char *name )
@@ -116,7 +120,15 @@ void CMDIArea::readSettings() {}
 
 /** Deletes all the presenters in the MDI area. */
 void CMDIArea::deleteAll() {
+#if QT_VERSION >= 0x030200
 	closeAllWindows();
+#else
+	QWidgetListIt it(windowList());
+	while (it.current() != 0){
+		it.current()->close();
+		++it;
+	}
+#endif
 }
 
 /** Enable / disable autoCascading */
@@ -282,10 +294,9 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
 	QWidget* w = dynamic_cast<QWidget*>( o );
 	bool ret = QWorkspace::eventFilter(o,e);
 
+#if QT_VERSION >= 0x030300
  	if ( w && (e->type() == QEvent::WindowStateChange) ) {
  		if (o->inherits("CDisplayWindow") && ((w->windowState() & Qt::WindowMinimized) || w->isHidden())) { //window was minimized, trigger a tile/cascade update if necessary
-/*	if (w && o->inherits("CDisplayWindow")){
-		if ((e->type() == QEvent::ShowMinimized) || (e->type() == QEvent::Hide)) {*/
 			triggerWindowUpdate();
 			ret = false;
 		}
@@ -295,7 +306,20 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
 			o->dumpObjectTree();
 		}
 	}
-
+#else
+	if (w && o->inherits("CDisplayWindow")){
+		if ((e->type() == QEvent::ShowMinimized) ||
+			(e->type() == QEvent::Hide)){
+			triggerWindowUpdate();
+			ret = false;
+		}
+	}
+	else if (!o->inherits("CDisplayWindow")){
+		qDebug("bad mdi child classname: %s", o->className());
+		o->dumpObjectInfo();
+		o->dumpObjectTree();
+	}
+#endif
 	return ret; // standard event processing
 }
 
@@ -304,7 +328,8 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
     \fn CMDIArea::triggerWindowUpdate()
  */
 void CMDIArea::triggerWindowUpdate() {
-	qWarning("triggerWindowUpfdate");
+	qDebug("CMDIArea::triggerWindowUpfdate");
+
 	if (isUpdatesEnabled() && usableWindowList().count() ) {
 		switch (m_guiOption) {
 			case autoTileVertical:

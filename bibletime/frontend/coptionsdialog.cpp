@@ -968,11 +968,31 @@ void COptionsDialog::slotKeyChooserTypeChanged(const QString& title) {
 	list.append(m_settings.keys.book.keyChooser);
 
 	//commit all changes in the keychoosers
+#if QT_VERSION >= 0x030200
 	for (KeyChooserList::iterator it(list.begin()); it != list.end(); ++it) {
 		if (*it) { //the list may contain NULL pointers
 			(*it)->commitChanges();
 		}
 	}
+#else
+	//Normally we know a QPtrListIterator is done when it.current() == 0
+	//but now a value can actually be zero, which would be
+	//indistinguishable from the end condition.
+	//Therefore, more complex logic is needed.
+	QPtrListIterator<KKeyChooser> it(list);
+	if (!it.isEmpty()){
+		while (!it.atLast()){
+			if (it.current()){
+				it.current()->commitChanges();
+			}
+			++it;
+		}
+		//We still have the last item to process.
+		if (it.current()){
+			it.current()->commitChanges();
+		}
+	}
+#endif
 	/* Delete all the keychoosers in the list,
 	* the keychoosers are set to NULL, because they are QGuardedPtr
 	*/

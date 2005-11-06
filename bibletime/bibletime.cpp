@@ -32,6 +32,7 @@
 #include <qsplitter.h>
 
 //KDE includes
+#include <kdeversion.h>
 #include <kaction.h>
 #include <kapplication.h>
 #include <kconfig.h>
@@ -44,7 +45,11 @@
 
 BibleTime::BibleTime()
 : BibleTimeInterface("BibleTimeInterface"),
+#if KDE_VERSION >= 0x030200
 KMainWindow(KMainWindow::NoDCOPObject, 0,0, WType_TopLevel),
+#else
+KMainWindow(0,0, WType_TopLevel),
+#endif
 m_windowActionCollection(0),
 m_initialized(false),
 m_moduleList(0),
