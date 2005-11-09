@@ -43,6 +43,14 @@ BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() {
 
 	addTokenSubstitute("seg type=\"morph\"", "<span class=\"morphSegmentation\">");
 	addTokenSubstitute("/seg", "</span>");
+
+	#OSIS tables: <table> and </table> are the same in HTML
+	addTokenSubstitute("<row>", "<tr>");
+	addTokenSubstitute("</row>", "</tr>");
+
+	addTokenSubstitute("<cell>", "<td>");
+	addTokenSubstitute("</cell>", "</td>");
+
 }
 
 bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {

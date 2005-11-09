@@ -1,3 +1,6 @@
+2005-11-09 Martin Gruner <mg.pub@gmx.net>
+  * Added support for OSIS tables
+
 2005-11-06 Joachim Ansorg <info@bibletime.info>
   * BibleTime 1.5.3
   * Bugfix: Changed popup title in commentary windows to "Commentary window" instead of
