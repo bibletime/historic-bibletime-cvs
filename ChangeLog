@@ -1,13 +1,16 @@
+2005-11-13 Joachim Ansorg <info@bibletime.info>
+  * BibleTime 1.5.3
+  * Patch: Applied patches by Jeremy Erickson to compile with KDE 3.0-3.3.
+
 2005-11-09 Martin Gruner <mg.pub@gmx.net>
   * Added support for OSIS tables
 
 2005-11-06 Joachim Ansorg <info@bibletime.info>
-  * BibleTime 1.5.3
   * Bugfix: Changed popup title in commentary windows to "Commentary window" instead of
   	"Lexicon window"
-  * Bugfix: Applied patch by Jeremy Erickson to CMDIArea to compile with Qt 3.2
+  * Patch: Applied patch by Jeremy Erickson to CMDIArea to compile with Qt 3.2
 
-2005-10-16 Joachim Ansorg <info@bibletime.info>
+2005-10-24 Joachim Ansorg <info@bibletime.info>
   * Bugfix: Allow download of locked modules
 
 2005-10-16 Joachim Ansorg <info@bibletime.info>

@@ -141,7 +141,9 @@
       <automaticHeaderCompletion>true</automaticHeaderCompletion>
       <headerCompletionDelay>250</headerCompletionDelay>
     </codecompletion>
-    <references/>
+    <references>
+      <pcs>Sword 1</pcs>
+    </references>
     <creategettersetter>
       <prefixGet/>
       <prefixSet>set</prefixSet>
