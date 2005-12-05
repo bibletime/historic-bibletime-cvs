@@ -45,12 +45,12 @@ BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() {
 	addTokenSubstitute("/seg", "</span>");
 
 	// OSIS tables
-	addTokenSubstitute("<table>", "<table>");
-	addTokenSubstitute("</table>", "</table>");
-	addTokenSubstitute("<row>", "<tr>");
-	addTokenSubstitute("</row>", "</tr>");
-	addTokenSubstitute("<cell>", "<td>");
-	addTokenSubstitute("</cell>", "</td>");
+	addTokenSubstitute("table", "<table>");
+	addTokenSubstitute("/table", "</table>");
+	addTokenSubstitute("row", "<tr>");
+	addTokenSubstitute("/row", "</tr>");
+	addTokenSubstitute("cell", "<td>");
+	addTokenSubstitute("/cell", "</td>");
 
 }
 
