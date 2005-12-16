@@ -30,3 +30,4 @@ stamp-h1
 subdirs
 BibleTime.kdevelop.pcs
 Doxyfile
+.autoconf_trace
