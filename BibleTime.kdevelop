@@ -11,7 +11,7 @@
       <part>kdevdistpart</part>
     </ignoreparts>
     <version>1.5.1</version>
-    <description/>
+    <description></description>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
@@ -29,9 +29,7 @@
       <programargs/>
       <terminal>false</terminal>
       <autocompile>true</autocompile>
-      <envvars>
-        <envvar value="0" name="MALLOC_CHECK_" />
-      </envvars>
+      <envvars/>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
     </run>
@@ -53,6 +51,20 @@
     <configurations>
       <default>
         <envvars/>
+        <configargs></configargs>
+        <builddir></builddir>
+        <topsourcedir></topsourcedir>
+        <cppflags></cppflags>
+        <ldflags></ldflags>
+        <ccompiler>kdevgccoptions</ccompiler>
+        <cxxcompiler>kdevgppoptions</cxxcompiler>
+        <f77compiler>kdevpgf77options</f77compiler>
+        <ccompilerbinary></ccompilerbinary>
+        <cxxcompilerbinary></cxxcompilerbinary>
+        <f77compilerbinary></f77compilerbinary>
+        <cflags></cflags>
+        <cxxflags></cxxflags>
+        <f77flags></f77flags>
       </default>
     </configurations>
   </kdevautoproject>
@@ -60,14 +72,14 @@
     <general>
       <dbgshell>libtool</dbgshell>
       <programargs>--debug</programargs>
-      <gdbpath>/usr/bin</gdbpath>
+      <gdbpath></gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -145,7 +157,7 @@
     </codecompletion>
     <references/>
     <creategettersetter>
-      <prefixGet/>
+      <prefixGet></prefixGet>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
@@ -181,7 +193,7 @@
     <customTagfilePath/>
   </ctagspart>
   <kdevvisualadvance>
-    <emulator/>
+    <emulator>VisualBoyAdvance</emulator>
     <binary/>
     <addOptions/>
     <terminal>false</terminal>

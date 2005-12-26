@@ -29,6 +29,7 @@
 #include <qtooltip.h>
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
+#include <qgrid.h>
 
 #include <qheader.h>
 #include <qgroupbox.h>
@@ -44,6 +45,7 @@
 #include <ksqueezedtextlabel.h>
 #include <kparts/componentfactory.h> //KParts
 #include <kregexpeditorinterface.h>
+#include <ktextedit.h>
 
 /********************************************
 ************  ModuleResultList **************
@@ -605,29 +607,6 @@ CSearchOptionsPage::~CSearchOptionsPage() {
 
 /** Returns the search text set in this page. */
 const QString CSearchOptionsPage::searchText() {
-	// we emulate OR by RegExp
-	if (m_multipleWordsORRadio->isChecked()) {
-		QString regexp(m_searchTextCombo->currentText());
-		regexp = regexp.simplifyWhiteSpace();
-		regexp.replace( QRegExp("\\s+"), "|" ); //replace one or more white spaces with regexp's OR marker
-		return regexp;
-	}
-	else if (searchFlags() & CSwordModuleSearch::entryAttribs) { //special treatment neccessary
-		const QString textType = m_textTypeCombo->currentText();
-		if (textType == i18n("Footnotes"))
-			return QString("Footnote//body/") + m_searchTextCombo->currentText() + QString("/");
-
-		if (textType == i18n("Headings"))
-			return QString("Heading///") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
-
-		if (textType == i18n("Strong's numbers"))
-			return QString("Word//Lemma/") + m_searchTextCombo->currentText() + QString("/"); // e.g. Word//Strongs/G1234/
-
-		if (textType == i18n("Morph codes"))
-			return QString("Word//Morph/") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
-	}
-
-	//in all other cases:
 	return m_searchTextCombo->currentText();
 }
 
@@ -657,23 +636,42 @@ void CSearchOptionsPage::initView() {
 	grid->setSpacing(3);
 
 	{
-		QGroupBox* box1 = new QGroupBox(2, Qt::Horizontal , i18n("Main search parameters"), this);
+		QGroupBox* box1 = new QGroupBox(1, Qt::Horizontal , i18n("Main search parameters"), this);
 		grid->addMultiCellWidget(box1, 0,1,0,2);
 
-		m_modulesLabel = new QLabel(box1);
+		QHBox* hbox1 = new QHBox(box1);
+		hbox1->setSpacing(3);
+		m_modulesLabel = new QLabel(hbox1);
 		m_modulesLabel->setTextFormat(Qt::RichText);
 		m_modulesLabel->setAlignment( AlignLeft | WordBreak );
 
-		m_chooseModulesButton = new QPushButton(i18n("Choose work(s)"), box1);
+		m_chooseModulesButton = new QPushButton(i18n("Choose work(s)"), hbox1);
 		connect(m_chooseModulesButton, SIGNAL(clicked()),
 				this, SLOT(chooseModules()));
 		QToolTip::add
 			(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
+		
+		QGrid* grid2 = new QGrid(2, box1);
+		grid2->setSpacing(3);
+		QLabel* label2 = new QLabel(grid2);
+		label2->setText(i18n("Search scope:"));
+		
+		QHBox* hbox2 = new QHBox(grid2);
+		hbox2->setSpacing(3);
+		m_rangeChooserCombo = new KComboBox(hbox2);
+		m_rangeChooserCombo->setMaximumWidth( 150 );
+		QToolTip::add
+			(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
+		refreshRanges();
 
+		m_chooseRangeButton = new QPushButton(i18n("Setup"), hbox2);
+		connect(m_chooseRangeButton, SIGNAL(clicked()),
+				this, SLOT(setupRanges()));
 
-		QLabel* label = new QLabel(box1);
+		QLabel* label = new QLabel(grid2);
 		label->setText(i18n("Search text:"));
-		m_searchTextCombo = new KHistoryCombo(box1);
+		
+		m_searchTextCombo = new KHistoryCombo(grid2);
 		label->setAutoResize(true);
 
 		m_searchTextCombo->setInsertionPolicy( QComboBox::AtBottom );
@@ -689,87 +687,31 @@ void CSearchOptionsPage::initView() {
 
 		QToolTip::add
 			(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
-
 	}
 
 	{
-		QButtonGroup* group  = new QButtonGroup(5, Vertical,i18n("Search type"), this);
-
-		m_multipleWordsRadio = new QRadioButton(i18n("Multiple words (AND)"), group);
-		m_multipleWordsRadio->setChecked( true );
-		QToolTip::add
-			(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::tooltip);
-
-		m_multipleWordsRadioID = group->id( m_multipleWordsRadio);
-
-		m_multipleWordsORRadio =  new QRadioButton(i18n("Multiple words (OR)"), group);
-		QToolTip::add
-			(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::tooltip);
-
-
-		m_exactTextRadio = new QRadioButton(i18n("Exact"), group);
-		QToolTip::add
-			(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::tooltip);
-
-		m_exactTextRadioID = group->id( m_exactTextRadio);
-
-		m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
-		QToolTip::add
-			(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::tooltip);
-
-		m_regexpRadioID = group->id( m_regexpRadio );
-
-		grid->addMultiCellWidget(group, 4,5,0,0);
-
-		connect( group, SIGNAL( clicked(int) ), this, SLOT( searchTypeSelected(int) ) );
+		QGroupBox* box2 = new QGroupBox(1, Qt::Horizontal , i18n("Search syntax"), this);
+		grid->addMultiCellWidget(box2, 2, 10, 0, 2);
+		// FIXME - add syntax explanation here
+		KTextEdit* syntaxEdit = new KTextEdit(box2);
+		syntaxEdit->setReadOnly(true);
+		syntaxEdit->setFrameShape(QFrame::NoFrame);
+		syntaxEdit->setText(i18n(
+			"Enter search terms separated by spaces.  By default the search "
+			"function will return results that match any of the search terms."
+			" To search for all the terms separate the terms by AND.\n\n"
+			"To search types other than the main text, enter the type followed "
+			"by : then the search term.  For example, 'strong:H8077'.\n\n"
+			"Types:\n"
+			"heading - searches headings\n"
+			"footnote - searches footnotes\n"
+			"strong - searches Strong's numbers\n"
+			"morph - searches Morphology entries"));
 	}
-
 	{
-		QGroupBox* group2 = new QGroupBox(2, Qt::Vertical, i18n("Search options"), this);
-
-		m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive"), group2);
-		QToolTip::add
-			(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::tooltip);
-
-
-		QHBox* limitTextBox = new QHBox(group2);
-		limitTextBox->setSpacing(5);
-		new QLabel(i18n("Text type"), limitTextBox);
-		m_textTypeCombo = new KComboBox(limitTextBox);
-		m_textTypeCombo->setEditable(false);
-		m_textTypeCombo->insertItem(i18n("Main text"));
-		m_textTypeCombo->insertItem(i18n("Footnotes"));
-		m_textTypeCombo->insertItem(i18n("Headings"));
-		m_textTypeCombo->insertItem(i18n("Strong's numbers"));
-		m_textTypeCombo->insertItem(i18n("Morph codes"));
-		m_textTypeCombo->setMaximumWidth( 150 );
-
-		connect(m_textTypeCombo, SIGNAL( activated(int) ), this, SLOT( textTypeSelected() ) );
-
-		grid->addWidget(group2, 4,2);
-	}
-
-	{
-		QGroupBox* box2 = new QGroupBox(2, Qt::Horizontal , i18n("Search scope"), this);
-		grid->addWidget(box2, 5,2);
-
-		m_rangeChooserCombo = new KComboBox(box2);
-		m_rangeChooserCombo->setMaximumWidth( 150 );
-		QToolTip::add
-			(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
-
-		refreshRanges();
-
-		m_chooseRangeButton = new QPushButton(i18n("Setup"), box2);
-		connect(m_chooseRangeButton, SIGNAL(clicked()),
-				this, SLOT(setupRanges()));
-
-		grid->setRowStretch(8,5);
-	}
-
-	{
-		QGroupBox* box3 = new QGroupBox(2, Qt::Horizontal , i18n("Search progress"), this);
-		grid->addMultiCellWidget(box3, 9,10,0,2);
+	// FIXME - remove this
+		QGroupBox* box3 = new QGroupBox(2, Qt::Horizontal , i18n("Search progress")/*, this*/);
+//		grid->addMultiCellWidget(box3, 9,10,0,2);
 
 
 		new QLabel(i18n("Current work:"), box3);
@@ -835,26 +777,13 @@ void CSearchOptionsPage::setOverallProgress( const int progress ) {
 
 /** Return the selected search type,. */
 const int CSearchOptionsPage::searchFlags() {
+	// FIXME - remove this due to new index search
 	int ret = CSwordModuleSearch::multipleWords; //"multiple words" is standard
-
-	if (m_exactTextRadio->isChecked()) {
-		if (m_textTypeCombo->currentItem() == 0) //ok, only main Text selected > exactPhrase will work
-			ret = CSwordModuleSearch::exactPhrase;
-		else                  //entry attribs needed!
-			ret = CSwordModuleSearch::entryAttribs;
-	}
-	else if (m_regexpRadio->isChecked() || m_multipleWordsORRadio->isChecked()) {
-		ret = CSwordModuleSearch::regExp;
-	}
-
-	if (m_caseSensitiveBox->isChecked())
-		ret |= CSwordModuleSearch::caseSensitive;
 	return ret;
 }
 
 /** Sets all options back to the default. */
 void CSearchOptionsPage::reset() {
-	m_multipleWordsRadio->setChecked(true);
 	m_rangeChooserCombo->setCurrentItem(0); //no scope
 	m_searchTextCombo->clearEdit();
 }
@@ -929,35 +858,3 @@ const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType() {
 
 	return CSwordModuleSearch::Scope_NoScope;
 }
-void CSearchOptionsPage::searchTypeSelected(int buttonID) {
-	if (buttonID == m_exactTextRadioID) {
-		return; //do nothing
-	}
-	else if (buttonID == m_regexpRadioID) { //regular expression selected?
-		QDialog *editorDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor" );
-
-		if ( editorDialog ) {
-			// kdeutils was installed, so the dialog was found fetch the editor interface
-			KRegExpEditorInterface *editor = static_cast<KRegExpEditorInterface *>( editorDialog->qt_cast( "KRegExpEditorInterface" ) );
-			Q_ASSERT( editor ); // This should not fail!
-
-			// now use the editor.
-			editor->setRegExp( searchText() );
-
-			// Finally exec the dialog
-			if (editorDialog->exec() == QDialog::Accepted) {
-				m_searchTextCombo->setCurrentText( editor->regExp() );
-			}
-		}
-	}//else if
-	m_textTypeCombo->setCurrentItem(0); //only main text search supported;
-};
-
-void CSearchOptionsPage::textTypeSelected() {
-	if (m_textTypeCombo->currentItem() == 0) { //Main text selected; do nothing
-		return;
-	}
-	m_exactTextRadio->setChecked(true); //all other types only work with this setting
-
-};
-

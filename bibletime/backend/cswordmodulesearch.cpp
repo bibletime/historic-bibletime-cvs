@@ -51,8 +51,7 @@ const bool CSwordModuleSearch::startSearch() {
 
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
 		cms_module_current++;
-
-		if ( (*it)->search(m_searchedText, m_searchOptions, m_searchScope, &CSwordModuleSearch::percentUpdate) ) {
+		if ( (*it)->searchIndexed(m_searchedText, m_searchOptions, m_searchScope) ) {
 			foundItems = true;
 		}
 	}
@@ -138,4 +137,27 @@ void CSwordModuleSearch::connectFinished( QObject *receiver, const char *member 
 /** Should be called when the search finished. */
 void CSwordModuleSearch::searchFinished() {
 	m_finishedSig.activate();
+}
+
+const bool CSwordModuleSearch::modulesHaveIndicies( const ListCSwordModuleInfo& modules )
+{
+	bool hasIndicies = true;
+	ListCSwordModuleInfo::const_iterator end_it = modules.end();
+	for( ListCSwordModuleInfo::const_iterator it = modules.begin(); it != end_it; ++it) {
+		if (!(*it)->hasIndex()) {
+			hasIndicies = false;
+			break;
+		}
+	}
+	return hasIndicies;
+}
+
+void CSwordModuleSearch::indexModules( const ListCSwordModuleInfo& modules)
+{
+	ListCSwordModuleInfo::const_iterator end_it = modules.end();
+	for( ListCSwordModuleInfo::const_iterator it = modules.begin(); it != end_it; ++it) {
+		if (!(*it)->hasIndex()) {
+			(*it)->buildIndex();
+		}
+	}
 }

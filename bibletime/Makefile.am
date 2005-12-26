@@ -19,6 +19,7 @@ $(LIB_KFILE) \
 $(LIB_KHTML) \
 $(LIB_X11) \
 $(LIB_SWORD) \
+$(LIB_CLUCENE) \
 $(LIBSOCKET)
 
 SUBDIRS = display-templates backend frontend xml pics util

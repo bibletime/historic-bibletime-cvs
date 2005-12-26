@@ -12,7 +12,7 @@ bibletime.lsm.in bibletime.lsm \
 configure.in.in configure.in \
 bibletime.desktop.in bibletime.desktop \
 Makefile.cvs autogen.sh \
-bibletime.m4 sword.m4
+bibletime.m4 sword.m4 clucene.m4
 
 btadmindir = $(top_srcdir)/admin
 
@@ -40,12 +40,13 @@ EXTRA_DIST += $(btadmindir)/libtool.m4.in
 EXTRA_DIST += $(btadmindir)/nmcheck
 EXTRA_DIST += $(btadmindir)/cvs.sh
 
+
 # not a GNU package. You can remove this line, if 
 # have all needed files, that a GNU package needs
 AUTOMAKE_OPTIONS = 1.6 foreign dist-bzip2
 
-$(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in sword.m4 bibletime.m4
-	@cd $(top_srcdir) && cat admin/acinclude.m4.in admin/libtool.m4.in sword.m4 bibletime.m4 > acinclude.m4
+$(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in sword.m4 bibletime.m4 clucene.m4
+	@cd $(top_srcdir) && cat admin/acinclude.m4.in admin/libtool.m4.in sword.m4 bibletime.m4 clucene.m4 > acinclude.m4
 $(top_srcdir)/configure.in: $(top_srcdir)/configure.files $(shell test -f $(top_srcdir)/configure.files && cat $(top_srcdir)/configure.files)
 	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.in
 $(top_srcdir)/subdirs:

@@ -197,7 +197,7 @@ public:
 
 public slots: // Public slots
 	/**
-	* Resets the current löist of modules and the displayed list of found entries.
+	* Resets the current lï¿½st of modules and the displayed list of found entries.
 	*/
 	void reset();
 
@@ -280,18 +280,7 @@ private:
 
 	KComboBox* m_rangeChooserCombo;
 	QPushButton* m_chooseRangeButton;
-	QRadioButton* m_multipleWordsRadio;
-	QRadioButton* m_multipleWordsORRadio;
-	QRadioButton* m_exactTextRadio;
-	QRadioButton* m_regexpRadio;
-
-	int m_multipleWordsRadioID;
-	int m_exactTextRadioID;
-	int m_regexpRadioID;
-
-	KComboBox* m_textTypeCombo;
-
-	QCheckBox* m_caseSensitiveBox;
+	
 	KProgress* m_currentProgressBar;
 	KProgress* m_overallProgressBar;
 
@@ -337,12 +326,6 @@ public slots: // Public slots
 
 protected slots: // Protected slots
 	void setupRanges();
-	/**
-	* Launches RegExpEditor
-	*/
-	void searchTypeSelected(int buttonID);
-
-	void textTypeSelected();
 
 signals:
 	void sigSetSearchButtonStatus(bool);

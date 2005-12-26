@@ -23,6 +23,7 @@
 #include <qpushbutton.h>
 #include <qheader.h>
 #include <qregexp.h>
+#include <qmessagebox.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -103,6 +104,24 @@ void CSearchDialog::startSearch() {
 
 	if (searchText.isEmpty()) {
 		return;
+	}
+
+	// check that we have the indicies we need for searching
+	if (!m_searcher.modulesHaveIndicies( modules() ) )	{
+		int result = QMessageBox::question(this, i18n("Missing indicies"),
+			i18n("One or more modules need indexing before they can be searched. "
+			"This could take a long time. Proceed with indexing?"),
+			QMessageBox::Yes | QMessageBox::Default,
+			QMessageBox::No | QMessageBox::Escape);
+		if (result == QMessageBox::Yes) {
+			// FIXME - add a proper progress dialog for indexing
+			m_searcher.indexModules( modules() );
+			QMessageBox::information(this, i18n("Finished"), i18n("Indexing complete."),
+				QMessageBox::Ok);
+		}
+		else {
+			return;
+		}
 	}
 
 	m_searchResultPage->reset();

@@ -22,6 +22,7 @@ AM_CONFIG_HEADER([config.h]) dnl at the distribution this done
 
 dnl Checks for programs.
 AC_CHECK_COMPILERS
+CXXFLAGS="$CXXFLAGS $USE_EXCEPTIONS"
 AC_ENABLE_SHARED(no)
 AC_ENABLE_STATIC(yes)
 KDE_PROG_LIBTOOL
@@ -41,6 +42,7 @@ dnl everything to compile and run a KDE program is already checked
 CPPFLAGS="$CPPFLAGS -DQT_NO_ASCII_CAST -DQT_NO_COMPAT -DQT_CLEAN_NAMESPACE -Wall -I\$(top_srcdir)/ -I\$(top_srcdir)/bibletime"
 AC_CHECK_STATIC_LINKING(ac_use_static)
 AC_CHECK_SWORD(1.5.8, [$ac_use_static])
+AC_CHECK_CLUCENE([$ac_use_static])
 
 dnl Chek for the used distribution
 AC_CHECK_DISTRIBUTION

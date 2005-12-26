@@ -178,11 +178,31 @@ public:
 	*/
 	inline const bool hasVersion() const;
 	/**
+	* Returns true if the module's index has been built.
+	*/
+	virtual const bool hasIndex();
+	/**
+	* Returns the path to this module's index
+	*/
+	virtual const QString getIndex() const;
+	/**
+	* Builds a search index for this module
+   * @return true if the index build was successful
+   */
+	virtual void buildIndex();
+
+	/**
 	* Returns true if something was found, otherwise return false.
 	* This function does start the Sword functions to search in the module and it does
 	* overwrite the variable containing the last search result.
 	*/
 	virtual const bool search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percent)(char, void*) = &sword::SWSearchable::nullPercent);
+	/**
+	* Returns true if something was found, otherwise return false.
+	* This function uses CLucene to perform and index based search.  It also 
+	* overwrites the variable containing the last search result.
+	*/
+	virtual const bool searchIndexed(const QString searchedText, const int searchOptions, sword::ListKey scope);
 	/**
 	* Returns the last search result for this module.
 	* The last result is cleared by @ref search
@@ -280,6 +300,13 @@ protected:
 private:
 	sword::SWModule* m_module;
 	sword::ListKey m_searchResult;
+
+	// conversion buffers for wide char <-> utf8
+	enum {
+		MAX_CONV_SIZE = 2047
+   };
+	wchar_t m_wcharBuffer[MAX_CONV_SIZE + 1];
+	char m_utfBuffer[MAX_CONV_SIZE + 1];
 
 	mutable struct DataCache {
 		DataCache() {

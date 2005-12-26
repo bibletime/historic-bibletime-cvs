@@ -20,9 +20,12 @@
 
 //Qt includes
 #include <qregexp.h>
+#include <qdir.h>
 
 //KDE includes
 #include <klocale.h>
+#include <kglobal.h>
+#include <kstandarddirs.h>
 
 //Sword includes
 #include <swbuf.h>
@@ -31,6 +34,20 @@
 #include <versekey.h>
 #include <swconfig.h>
 #include <rtfhtml.h>
+
+//Lucence includes
+#include "CLucene.h"
+#include "CLucene/util/Reader.h"
+#include "CLucene/util/Misc.h"
+#include "CLucene/util/dirent.h"
+using namespace std;
+using namespace lucene::index;
+using namespace lucene::analysis;
+using namespace lucene::util;
+using namespace lucene::store;
+using namespace lucene::document;
+using namespace lucene::queryParser;
+using namespace lucene::search;
 
 using std::string;
 
@@ -111,6 +128,126 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	}
 
 	return false;
+}
+
+const bool CSwordModuleInfo::hasIndex()
+{
+	return IndexReader::indexExists(getIndex().ascii());
+}
+
+const QString CSwordModuleInfo::getIndex() const
+{
+	return (KGlobal::dirs()->saveLocation("data", "bibletime/indices/")) +
+		name().ascii();
+}
+
+void CSwordModuleInfo::buildIndex()
+{
+	IndexWriter* writer = NULL;
+	lucene::analysis::standard::StandardAnalyzer an;
+
+	QString index = getIndex();
+	
+	if (IndexReader::indexExists(index.ascii())){
+		if (IndexReader::isLocked(index.ascii()) ){
+			IndexReader::unlock(index.ascii());
+		}
+		writer = new IndexWriter(index.ascii(), &an, false);
+	}else{
+		writer = new IndexWriter(index.ascii(), &an, true);
+	}
+	writer->setMaxFieldLength(IndexWriter::DEFAULT_MAX_FIELD_LENGTH);
+
+	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
+		Document* doc = new Document();
+		// index the key
+		lucene_utf8towcs(m_wcharBuffer, m_module->getKey()->getText(), MAX_CONV_SIZE);
+		doc->add(*Field::Text(_T("key"), m_wcharBuffer));
+		// index the main text
+		lucene_utf8towcs(m_wcharBuffer, m_module->StripText(), MAX_CONV_SIZE);
+		doc->add(*Field::Text(_T("content"), m_wcharBuffer));
+		// index attributes
+		AttributeList::iterator attListI;
+		AttributeValue::iterator attValueI;
+		// Footnotes
+		for (attListI = m_module->getEntryAttributes()["Footnote"].begin();
+			attListI != m_module->getEntryAttributes()["Footnote"].end();
+			attListI++) {
+				lucene_utf8towcs(m_wcharBuffer, attListI->second["body"], MAX_CONV_SIZE);
+				doc->add(*Field::Text(_T("footnote"), m_wcharBuffer));
+		} // for attListI
+		
+		// Headings
+		for (attValueI = m_module->getEntryAttributes()["Heading"]["Preverse"].begin();
+			attValueI != m_module->getEntryAttributes()["Heading"]["Preverse"].end();
+			attValueI++) {
+			lucene_utf8towcs(m_wcharBuffer, attValueI->second, MAX_CONV_SIZE);
+			doc->add(*Field::Text(_T("heading"), m_wcharBuffer));
+		} // for attValueI
+
+		// Strongs/Morphs
+		for (attListI = m_module->getEntryAttributes()["Word"].begin();
+			attListI != m_module->getEntryAttributes()["Word"].end();
+			attListI++) {
+			// for each attribute
+			if (attListI->second["LemmaClass"] == "strong") {
+				lucene_utf8towcs(m_wcharBuffer, attListI->second["Lemma"], MAX_CONV_SIZE);
+				doc->add(*Field::Text(_T("strong"), m_wcharBuffer));
+			}
+			if (attListI->second.find("Morph") != attListI->second.end()) {
+				lucene_utf8towcs(m_wcharBuffer, attListI->second["Morph"], MAX_CONV_SIZE);
+				doc->add(*Field::Text(_T("morph"), m_wcharBuffer));
+			}
+		} // for attListI
+		writer->addDocument(doc);
+		delete doc;
+	}
+
+	writer->optimize();
+	writer->close();
+	if (writer) delete writer;
+}
+
+const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int searchOptions, sword::ListKey scope)
+{
+	// work around Swords thread insafety for Bibles and Commentaries
+	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
+	sword::SWKey* s = dynamic_cast < sword::SWKey * >(key.get());
+
+	if (s) {
+		m_module->SetKey(*s);
+	}
+
+	m_searchResult.ClearList();
+	standard::StandardAnalyzer analyzer;
+	IndexSearcher searcher(getIndex().ascii());
+	lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
+	Query* q = QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer);
+
+	Hits* h = searcher.search(q);
+	for (int i=0; i < h->length(); i++) {
+		Document* doc = &h->doc(i);
+		lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
+		SWKey* swKey = new SWKey(m_utfBuffer);
+		// limit results based on scope
+		if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
+			for (int j = 0; j < scope.Count(); j++) {
+				VerseKey* vkey = dynamic_cast<VerseKey*>(scope.getElement(j));
+				if (vkey->LowerBound().compare(*swKey) <= 0 &&
+					vkey->UpperBound().compare(*swKey) >= 0){
+					m_searchResult.add(*swKey);
+				}
+			}
+		}
+		else {
+			// no scope, give me all buffers
+			m_searchResult.add(*swKey);
+		}
+	}
+	delete h;
+	delete q;
+
+	return (m_searchResult.Count() > 0);
 }
 
 /** Returns true if something was found, otherwise return false. */
