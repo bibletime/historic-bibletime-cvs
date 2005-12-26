@@ -118,9 +118,9 @@ public:
 	void connectFinished( QObject * receiver, const char * member );
 	void searchFinished();
 	/**
-	* Returns true if all of the specified modules have indicies already built.
+	* Returns true if all of the specified modules have indices already built.
 	*/
-	const bool modulesHaveIndicies( const ListCSwordModuleInfo& );
+	const bool modulesHaveIndices( const ListCSwordModuleInfo& );
 	/**
 	* Indexes the specified modules if there is no existing index for the module.
 	*/

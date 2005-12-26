@@ -106,9 +106,9 @@ void CSearchDialog::startSearch() {
 		return;
 	}
 
-	// check that we have the indicies we need for searching
-	if (!m_searcher.modulesHaveIndicies( modules() ) )	{
-		int result = QMessageBox::question(this, i18n("Missing indicies"),
+	// check that we have the indices we need for searching
+	if (!m_searcher.modulesHaveIndices( modules() ) )	{
+		int result = QMessageBox::question(this, i18n("Missing indices"),
 			i18n("One or more modules need indexing before they can be searched. "
 			"This could take a long time. Proceed with indexing?"),
 			QMessageBox::Yes | QMessageBox::Default,

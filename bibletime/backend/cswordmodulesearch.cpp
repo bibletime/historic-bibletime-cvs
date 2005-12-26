@@ -139,17 +139,17 @@ void CSwordModuleSearch::searchFinished() {
 	m_finishedSig.activate();
 }
 
-const bool CSwordModuleSearch::modulesHaveIndicies( const ListCSwordModuleInfo& modules )
+const bool CSwordModuleSearch::modulesHaveIndices( const ListCSwordModuleInfo& modules )
 {
-	bool hasIndicies = true;
+	bool hasIndices = true;
 	ListCSwordModuleInfo::const_iterator end_it = modules.end();
 	for( ListCSwordModuleInfo::const_iterator it = modules.begin(); it != end_it; ++it) {
 		if (!(*it)->hasIndex()) {
-			hasIndicies = false;
+			hasIndices = false;
 			break;
 		}
 	}
-	return hasIndicies;
+	return hasIndices;
 }
 
 void CSwordModuleSearch::indexModules( const ListCSwordModuleInfo& modules)
