@@ -118,46 +118,10 @@ protected:
 	int m_searchOptions;
 
 	bool m_foundItems;
-// 	bool m_isSearching;
-// 	bool m_terminateSearch;
-
-// 	int cms_currentProgress;
-// 	int cms_overallProgress;
-// 	int cms_module_count;
-// 	int cms_module_current;
 
 private:
  	QSignal m_finishedSig;
 	static CSwordModuleSearch* searcher;
 };
-
-/** Returns the percent for the given type. */
-/*inline const int CSwordModuleSearch::getPercent( const PercentType type ) {
-	switch (type) {
-
-		case currentModule:
-		return cms_currentProgress;
-
-		case allModules:
-		return cms_overallProgress;
-	};
-
-	return 0;
-}
-
-inline void CSwordModuleSearch::percentUpdate(char percent, void *) {
-	searcher->cms_currentProgress = (int)percent;
-
-	if (searcher->cms_module_count > 1) {
-		searcher->cms_overallProgress = (int)(((float)((searcher->cms_module_current - 1) * 100 + searcher->cms_currentProgress)) / searcher->cms_module_count);
-	}
-	else {
-		searcher->cms_overallProgress = searcher->cms_currentProgress;
-	}
-
-	searcher->m_updateSig.activate();
-}*/
-
-
 
 #endif

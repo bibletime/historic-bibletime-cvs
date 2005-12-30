@@ -35,29 +35,18 @@ const bool CSwordModuleSearch::startSearch() {
 	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
 	m_foundItems   = false;
 
-// 	cms_currentProgress = 0;
-// 	cms_overallProgress = 0;
-// 	cms_module_current = 0;
-// 	cms_module_count = m_moduleList.count();
-
 	bool foundItems = false;
 
 	// for (m_moduleList.first(); m_moduleList.current() && !m_terminateSearch; m_moduleList.next()) {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
 
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
-// 		cms_module_current++;
 		if ( (*it)->searchIndexed(m_searchedText, m_searchOptions, m_searchScope) ) {
 			foundItems = true;
 		}
 	}
 
-// 	cms_currentProgress = 100;
-// 	cms_overallProgress = 100;
-
 	m_foundItems = foundItems;
-// 	m_isSearching = false;
-// 	m_terminateSearch = false;
 
 	m_finishedSig.activate();
 	return true;

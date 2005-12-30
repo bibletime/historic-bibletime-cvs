@@ -26,6 +26,8 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
+#include <kprogress.h>
+#include <kapplication.h>
 
 //Sword includes
 #include <swbuf.h>
@@ -158,6 +160,13 @@ void CSwordModuleInfo::buildIndex()
 	}
 	writer->setMaxFieldLength(IndexWriter::DEFAULT_MAX_FIELD_LENGTH);
 
+	long verseIndex, verseHighIndex = 1;
+	*m_module = BOTTOM;
+	verseHighIndex = m_module->Index();
+
+	KProgressDialog* progressDialog = new KProgressDialog(0, "progressDialog", i18n("Index creation"), (i18n("Creating index for module %1")).arg( name() ) );
+	progressDialog->setAllowCancel( false );
+
 	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
 		Document* doc = new Document();
 		// index the key
@@ -201,7 +210,15 @@ void CSwordModuleInfo::buildIndex()
 		} // for attListI
 		writer->addDocument(doc);
 		delete doc;
+		verseIndex = m_module->Index();
+
+		if (verseIndex % 100 == 0){
+			progressDialog->progressBar()->setProgress( (int)((float)100*verseIndex/verseHighIndex) );
+			KApplication::kApplication()->processEvents(1);
+		}
 	}
+
+	delete progressDialog;
 
 	writer->optimize();
 	writer->close();
