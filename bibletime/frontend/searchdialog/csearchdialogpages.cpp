@@ -3,6 +3,8 @@
 #include "csearchdialogpages.h"
 
 #include "csearchdialog.h"
+#include "csearchanalysis.h"
+#include "crangechooser.h"
 
 #include "backend/cswordversekey.h"
 #include "backend/cswordmoduleinfo.h"
@@ -21,6 +23,8 @@
 //Qt includes
 #include <qlayout.h>
 #include <qhbox.h>
+#include <qvbox.h>
+#include <qvgroupbox.h>
 #include <qlabel.h>
 #include <qlistview.h>
 #include <qpushbutton.h>
@@ -29,7 +33,6 @@
 #include <qtooltip.h>
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
-#include <qgrid.h>
 
 #include <qheader.h>
 #include <qgroupbox.h>
@@ -46,6 +49,8 @@
 #include <kparts/componentfactory.h> //KParts
 #include <kregexpeditorinterface.h>
 #include <ktextedit.h>
+#include <kiconloader.h>
+#include <kmessagebox.h>
 
 /********************************************
 ************  ModuleResultList **************
@@ -61,7 +66,7 @@ CSearchResultView::~CSearchResultView() {}
 
 /** Initializes the view of this widget. */
 void CSearchResultView::initView() {
-	addColumn(i18n("Found items"));
+	addColumn(i18n("Results"));
 	setFullWidth(true);
 	setSorting(-1);
 	setDragEnabled(true);
@@ -411,27 +416,28 @@ CSearchResultPage::~CSearchResultPage() {}
 
 /** Initializes the view of this widget. */
 void CSearchResultPage::initView() {
-	QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
-	QSplitter* splitter = new QSplitter(Vertical, this);
-	mainLayout->addWidget(splitter);
+	QBoxLayout* layout = new QBoxLayout ( this, QBoxLayout::Down, 0 );
+	QVGroupBox* vGroupBox = new QVGroupBox(i18n("Search result"), this);
+	layout->addWidget(vGroupBox);
 
-	QSplitter* hSplitter = new QSplitter(Horizontal, splitter);
-	m_moduleListBox = new CModuleResultView(hSplitter);
-	m_resultListBox = new CSearchResultView(hSplitter);
-	hSplitter->setResizeMode(m_moduleListBox, QSplitter::FollowSizeHint);
-	hSplitter->setResizeMode(m_resultListBox, QSplitter::Stretch);
+	QSplitter* hSplitter = new QSplitter(Horizontal, vGroupBox);
+	QSplitter* vSplitter = new QSplitter(Vertical, hSplitter);
 
-	m_previewDisplay = CDisplay::createReadInstance(0, splitter);
+	m_moduleListBox = new CModuleResultView(vSplitter);
+	m_previewDisplay = CDisplay::createReadInstance(0, vSplitter);
 
+	QVBox* vBox = new QVBox(hSplitter);
+	m_resultListBox = new CSearchResultView(vBox);
+	vSplitter->setResizeMode(m_moduleListBox, QSplitter::FollowSizeHint);
+	vSplitter->setResizeMode(m_previewDisplay->view(), QSplitter::Stretch);
+
+//   	hSplitter->setResizeMode(vSplitter, QSplitter::Stretch);
+//   	hSplitter->setResizeMode(m_resultListBox, QSplitter::FollowSizeHint);
 	m_moduleListBox->resize(m_moduleListBox->sizeHint());
-	splitter->setResizeMode(hSplitter, QSplitter::KeepSize);
-	splitter->setResizeMode(m_previewDisplay->view(), QSplitter::Stretch);
 
-	m_analyseButton = new QPushButton(i18n("Show search analysis"), this);
+	m_analyseButton = new QPushButton(i18n("Analyze search"), vBox);
 	connect(m_analyseButton, SIGNAL(clicked()), SLOT(showAnalysis()));
-	mainLayout->addSpacing(5);
-	mainLayout->addWidget(m_analyseButton);
 }
 
 /** Sets the modules which contain the result of each. */
@@ -632,97 +638,81 @@ void CSearchOptionsPage::setSearchText(const QString& text) {
 
 /** Initializes this page. */
 void CSearchOptionsPage::initView() {
-	QGridLayout* grid = new QGridLayout(this,11,3);
-	grid->setSpacing(3);
 
-	{
-		QGroupBox* box1 = new QGroupBox(1, Qt::Horizontal , i18n("Main search parameters"), this);
-		grid->addMultiCellWidget(box1, 0,1,0,2);
+	QVBoxLayout* layout = new QVBoxLayout ( this, QBoxLayout::Down, 0 );
+	QVGroupBox* vBox = new QVGroupBox(i18n("Search parameters"), this);
+	layout->addWidget(vBox);
 
-		QHBox* hbox1 = new QHBox(box1);
-		hbox1->setSpacing(3);
-		m_modulesLabel = new QLabel(hbox1);
-		m_modulesLabel->setTextFormat(Qt::RichText);
-		m_modulesLabel->setAlignment( AlignLeft | WordBreak );
+	QWidget* insideFrame = new QWidget( vBox );
 
-		m_chooseModulesButton = new QPushButton(i18n("Choose work(s)"), hbox1);
-		connect(m_chooseModulesButton, SIGNAL(clicked()),
-				this, SLOT(chooseModules()));
-		QToolTip::add
-			(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
-		
-		QGrid* grid2 = new QGrid(2, box1);
-		grid2->setSpacing(3);
-		QLabel* label2 = new QLabel(grid2);
-		label2->setText(i18n("Search scope:"));
-		
-		QHBox* hbox2 = new QHBox(grid2);
-		hbox2->setSpacing(3);
-		m_rangeChooserCombo = new KComboBox(hbox2);
-		m_rangeChooserCombo->setMaximumWidth( 150 );
-		QToolTip::add
-			(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
-		refreshRanges();
+	QBoxLayout* vLayout = new QBoxLayout( insideFrame, QBoxLayout::Down);
+	vLayout->setSpacing( 3 );
 
-		m_chooseRangeButton = new QPushButton(i18n("Setup"), hbox2);
-		connect(m_chooseRangeButton, SIGNAL(clicked()),
-				this, SLOT(setupRanges()));
+	QHBoxLayout* hBox0 = new QHBoxLayout( vLayout );
 
-		QLabel* label = new QLabel(grid2);
-		label->setText(i18n("Search text:"));
-		
-		m_searchTextCombo = new KHistoryCombo(grid2);
-		label->setAutoResize(true);
+	QLabel* label = new QLabel(insideFrame);
+	hBox0->addWidget(label);
+	label->setText(i18n("Search for:"));
+	
+	m_searchTextCombo = new KHistoryCombo(insideFrame);
+	hBox0->addWidget(m_searchTextCombo);
+	hBox0->setStretchFactor(m_searchTextCombo, 10);
+	label->setAutoResize(true);
+	m_searchTextCombo->setInsertionPolicy( QComboBox::AtBottom );
+	m_searchTextCombo->setMaxCount(25);
+	m_searchTextCombo->setDuplicatesEnabled(false);
+	m_searchTextCombo->setFocusPolicy(QWidget::WheelFocus);
+	connect( m_searchTextCombo, SIGNAL(activated( const QString& )),
+				m_searchTextCombo, SLOT( addToHistory( const QString& ))
+			);
+	connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),
+				m_searchTextCombo, SLOT(addToHistory(const QString&))
+			);
+	QToolTip::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
 
-		m_searchTextCombo->setInsertionPolicy( QComboBox::AtBottom );
-		m_searchTextCombo->setMaxCount(25);
-		m_searchTextCombo->setDuplicatesEnabled(false);
-		m_searchTextCombo->setFocusPolicy(QWidget::WheelFocus);
-		connect( m_searchTextCombo, SIGNAL(activated( const QString& )),
-				 m_searchTextCombo, SLOT( addToHistory( const QString& ))
-			   );
-		connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),
-				 m_searchTextCombo, SLOT(addToHistory(const QString&))
-			   );
+	QPushButton* syntaxButton = new QPushButton(SmallIcon( "contexthelp"), "", insideFrame);
+	hBox0->addWidget( syntaxButton );
+	connect( syntaxButton, SIGNAL(clicked()), this, SLOT(syntaxHelp()));
 
-		QToolTip::add
-			(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
-	}
+	QHBoxLayout* hBox1 = new QHBoxLayout(vLayout);
 
-	{
-		QGroupBox* box2 = new QGroupBox(1, Qt::Horizontal , i18n("Search syntax"), this);
-		grid->addMultiCellWidget(box2, 2, 10, 0, 2);
-		// FIXME - add syntax explanation here
-		KTextEdit* syntaxEdit = new KTextEdit(box2);
-		syntaxEdit->setReadOnly(true);
-		syntaxEdit->setFrameShape(QFrame::NoFrame);
-		syntaxEdit->setText(i18n(
-			"Enter search terms separated by spaces.  By default the search "
-			"function will return results that match any of the search terms."
-			" To search for all the terms separate the terms by AND.\n\n"
-			"To search types other than the main text, enter the type followed "
-			"by : then the search term.  For example, 'strong:H8077'.\n\n"
-			"Types:\n"
-			"heading - searches headings\n"
-			"footnote - searches footnotes\n"
-			"strong - searches Strong's numbers\n"
-			"morph - searches Morphology entries"));
-	}
-	{
-	// FIXME - remove this
-		QGroupBox* box3 = new QGroupBox(2, Qt::Horizontal , i18n("Search progress")/*, this*/);
-//		grid->addMultiCellWidget(box3, 9,10,0,2);
+	m_modulesLabel = new QLabel(insideFrame);
+	hBox1->addWidget(m_modulesLabel);
+	hBox1->setStretchFactor( m_modulesLabel, 5);
+	hBox1->addStretch();
+	m_modulesLabel->setTextFormat(Qt::RichText);
+	m_modulesLabel->setAlignment( AlignLeft | WordBreak );
 
+	m_chooseModulesButton = new QPushButton(SmallIcon("wizard"), i18n("Choose"), insideFrame);
+	hBox1->addWidget(m_chooseModulesButton);
+	connect(m_chooseModulesButton, SIGNAL(clicked()),
+			this, SLOT(chooseModules()));
+	QToolTip::add
+		(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
+	
 
-		new QLabel(i18n("Current work:"), box3);
-		m_currentProgressBar = new KProgress(box3);
+	QHBoxLayout* hBox2 = new QHBoxLayout(vLayout);
 
-		new QLabel(i18n("All works:"), box3);
-		m_overallProgressBar = new KProgress(box3);
+	QLabel* label2 = new QLabel(insideFrame);
+	label2->setText(i18n("Search scope:"));
+	hBox2->addWidget(label2);
+	hBox2->addStretch();
+	
+	m_rangeChooserCombo = new KComboBox(insideFrame);
+	hBox2->addWidget(m_rangeChooserCombo);
 
-		//set the initial focus
-		m_searchTextCombo->setFocus();
-	}
+	m_rangeChooserCombo->setMaximumWidth( 150 );
+	QToolTip::add
+		(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
+	refreshRanges();
+
+	m_chooseRangeButton = new QPushButton(SmallIcon("configure"), i18n("Setup"), insideFrame);
+	hBox2->addWidget(m_chooseRangeButton);
+	connect(m_chooseRangeButton, SIGNAL(clicked()),
+			this, SLOT(setupRanges()));
+
+	//set the initial focus
+	m_searchTextCombo->setFocus();
 }
 
 /** Sets the modules used by the search. */
@@ -757,22 +747,6 @@ void CSearchOptionsPage::chooseModules() {
 /** Returns the list of used modules. */
 const ListCSwordModuleInfo CSearchOptionsPage::modules() {
 	return m_modules;
-}
-
-/** Prepares the stuff which is required for a search, e.g. setting back the percentage bars. */
-void CSearchOptionsPage::prepareSearch() {
-	m_overallProgressBar->setProgress(0);
-	m_currentProgressBar->setProgress(0);
-}
-
-/** Sets the value for the "curret module" progress bar. */
-void CSearchOptionsPage::setCurrentModuleProgress( const int progress ) {
-	m_currentProgressBar->setProgress(progress);
-}
-
-/** Sets the progress for the "all modules" bar. */
-void CSearchOptionsPage::setOverallProgress( const int progress ) {
-	m_overallProgressBar->setProgress(progress);
 }
 
 /** Return the selected search type,. */
@@ -815,6 +789,26 @@ void CSearchOptionsPage::setupRanges() {
 
 	refreshRanges();
 }
+
+/** No descriptions */
+void CSearchOptionsPage::syntaxHelp() {
+	QString syntax = i18n (
+			"<p>Enter search terms separated by spaces.  By default the search "
+			"function will return results that match any of the search terms. "
+			"To search for all the terms separate the terms by AND.</p>"
+			"<p>To search types other than the main text, enter the type followed "
+			"by \":\", and then the search term.  For example, 'strong:H8077'.</p>"
+			"<p>Types:<br><table>"
+			"<tr><td>heading:</td><td>searches headings</td></tr>"
+			"<tr><td>footnote:</td><td>searches footnotes</td></tr>"
+			"<tr><td>strong:</td><td>searches Strong's Numbers</td></tr>"
+			"<tr><td>morph:</td><td>searches Morphology entries</td></tr></table>"
+			"For more help see: <a href=\"http://lucene.apache.org/java/docs/queryparsersyntax.html\">"
+			"http://lucene.apache.org/java/docs/queryparsersyntax.html</a></p>");
+
+	KMessageBox::about( this, syntax, i18n("Basic Syntax Introduction"));
+}
+
 
 /** refreshes the listof ranges and the range combobox. */
 void CSearchOptionsPage::refreshRanges() {

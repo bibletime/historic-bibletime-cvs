@@ -88,33 +88,18 @@ public:
 	*/
 	void resetSearchScope();
 	/**
-	* Interrupts the current search.
-	*/
-	void interruptSearch();
-	/**
 	* @return "true" if in the last search the searcher found items, if no items were found return "false"
 	*/
 	const bool foundItems() const;
-	/**
-	* This functions starts the search: First it creates a new thread for the search and it calles the the
-	* function to start the search.
-	*/
-	void startSearchThread();
 	/**
 	* Sets the options for this search. Options include the
 	* flags and search types of the Sword searc interface.
 	*/
 	void setSearchOptions( const int options );
 	/**
-	* Returns the percent for the given type.
-	*/
-	inline const int getPercent( const PercentType type );
-	inline static void percentUpdate(char percent, void *p);
-	/**
 	* Returns a copy of the used search scope.
 	*/
 	const sword::ListKey& scope() const;
-	void connectPercentUpdate( QObject * receiver, const char * member );
 	void connectFinished( QObject * receiver, const char * member );
 	void searchFinished();
 	/**
@@ -133,23 +118,21 @@ protected:
 	int m_searchOptions;
 
 	bool m_foundItems;
-	bool m_isSearching;
-	bool m_terminateSearch;
+// 	bool m_isSearching;
+// 	bool m_terminateSearch;
 
-	int cms_currentProgress;
-	int cms_overallProgress;
-	int cms_module_count;
-	int cms_module_current;
+// 	int cms_currentProgress;
+// 	int cms_overallProgress;
+// 	int cms_module_count;
+// 	int cms_module_current;
 
 private:
-	QSignal m_updateSig;
-	QSignal m_finishedSig;
-
+ 	QSignal m_finishedSig;
 	static CSwordModuleSearch* searcher;
 };
 
 /** Returns the percent for the given type. */
-inline const int CSwordModuleSearch::getPercent( const PercentType type ) {
+/*inline const int CSwordModuleSearch::getPercent( const PercentType type ) {
 	switch (type) {
 
 		case currentModule:
@@ -173,7 +156,7 @@ inline void CSwordModuleSearch::percentUpdate(char percent, void *) {
 	}
 
 	searcher->m_updateSig.activate();
-}
+}*/
 
 
 

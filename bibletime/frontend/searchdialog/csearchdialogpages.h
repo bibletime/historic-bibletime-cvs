@@ -252,10 +252,6 @@ public:
 	*/
 	const ListCSwordModuleInfo modules();
 	/**
-	* Prepares the stuff which is required for a search, e.g. setting back the percentage bars.
-	*/
-	void prepareSearch();
-	/**
 	* Return the selected search type,.
 	*/
 	const int searchFlags();
@@ -281,9 +277,6 @@ private:
 	KComboBox* m_rangeChooserCombo;
 	QPushButton* m_chooseRangeButton;
 	
-	KProgress* m_currentProgressBar;
-	KProgress* m_overallProgressBar;
-
 protected: // Protected methods
 	/**
 	* Initializes this page.
@@ -304,14 +297,6 @@ public slots: // Public slots
 	*/
 	void setModules( ListCSwordModuleInfo modules );
 	/**
-	* Sets the progress for the "all modules" bar.
-	*/
-	void setOverallProgress( const int );
-	/**
-	* Sets the value for the "curret module" progress bar.
-	*/
-	void setCurrentModuleProgress( const int );
-	/**
 	* Reimplementation.
 	*/
 	void aboutToShow();
@@ -326,6 +311,7 @@ public slots: // Public slots
 
 protected slots: // Protected slots
 	void setupRanges();
+	void syntaxHelp();
 
 signals:
 	void sigSetSearchButtonStatus(bool);
