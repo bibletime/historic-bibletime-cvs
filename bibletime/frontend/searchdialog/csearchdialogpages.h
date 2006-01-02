@@ -10,6 +10,7 @@
 
 //Qt includes
 #include <qwidget.h>
+#include <qvgroupbox.h>
 
 //KDE includes
 #include <klistview.h>
@@ -185,7 +186,7 @@ signals: // Signals
 /** The page of the search dialog which contains the search result part.
   * @author The BibleTime team
   */
-class CSearchResultPage : public QWidget  {
+class CSearchResultPage : public QVGroupBox  {
 	Q_OBJECT
 public:
 	CSearchResultPage(QWidget *parent=0, const char *name=0);
@@ -234,7 +235,7 @@ protected slots: // Protected slots
 
 };
 
-class CSearchOptionsPage : public QWidget  {
+class CSearchOptionsPage : public QVGroupBox  {
 	Q_OBJECT
 public:
 	CSearchOptionsPage(QWidget *parent=0, const char *name=0);

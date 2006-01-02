@@ -92,15 +92,13 @@ void CSearchDialog::startSearch() {
 	// check that we have the indices we need for searching
 	if (!m_searcher.modulesHaveIndices( modules() ) )	{
 		int result = QMessageBox::question(this, i18n("Missing indices"),
-			i18n("One or more modules need indexing before they can be searched. "
+			i18n("One or more modules need indexing before they can be searched.\n"
 			"This could take a long time. Proceed with indexing?"),
 			QMessageBox::Yes | QMessageBox::Default,
 			QMessageBox::No | QMessageBox::Escape);
 		if (result == QMessageBox::Yes) {
 			// FIXME - add a proper progress dialog for indexing
 			m_searcher.indexModules( modules() );
-			QMessageBox::information(this, i18n("Finished"), i18n("Indexing complete."),
-				QMessageBox::Ok);
 		}
 		else {
 			return;
@@ -179,13 +177,11 @@ void CSearchDialog::initView() {
 	setButtonTip(User1, CResMgr::searchdialog::searchButton::tooltip);
 
  	QVBoxLayout* box = new QVBoxLayout ( plainPage() );
-// addHBoxPage(i18n("Search &options"));
-// 	m_index.optionsPage = pageIndex(box);
+	box->setSpacing(3);
+
 	m_searchOptionsPage = new CSearchOptionsPage(plainPage());
  	box->addWidget( m_searchOptionsPage );
 
-// 	box = addHBoxPage(i18n("Search &result"));
-// 	m_index.resultPage = pageIndex(box);
 	m_searchResultPage = new CSearchResultPage(plainPage());
 	box->addWidget( m_searchResultPage );
 }

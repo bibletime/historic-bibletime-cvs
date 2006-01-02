@@ -28,6 +28,7 @@
 #include <kstandarddirs.h>
 #include <kprogress.h>
 #include <kapplication.h>
+#include <kconfig.h>
 
 //Sword includes
 #include <swbuf.h>
@@ -52,6 +53,8 @@ using namespace lucene::queryParser;
 using namespace lucene::search;
 
 using std::string;
+
+#define INDEX_VERSION "1"
 
 CSwordModuleInfo::CSwordModuleInfo(sword::SWModule * module, CSwordBackend * const usedBackend) {
 	m_module = module;
@@ -132,29 +135,42 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	return false;
 }
 
-const bool CSwordModuleInfo::hasIndex()
-{
-	return IndexReader::indexExists(getIndex().ascii());
-}
-
-const QString CSwordModuleInfo::getIndex() const
+const QString CSwordModuleInfo::getIndexLocation() const
 {
 	return (KGlobal::dirs()->saveLocation("data", "bibletime/indices/")) +
 		name().ascii();
 }
+
+const bool CSwordModuleInfo::hasIndex()
+{	//first check if the index version and module version are ok
+	KConfig* indexconfig = new KConfig( getIndexLocation() + QString("/bibletime-index.conf") );
+	if (hasVersion()){
+		if (indexconfig->readEntry("module-version") != QString(config(CSwordModuleInfo::ModuleVersion)) ){
+			return false;
+		}
+	}
+	if (indexconfig->readEntry("index-version") != QString( INDEX_VERSION )){
+		return false;
+	}
+	delete indexconfig;
+
+	//then check if the index is there
+	return IndexReader::indexExists(getIndexLocation().ascii());
+}
+
 
 void CSwordModuleInfo::buildIndex()
 {
 	IndexWriter* writer = NULL;
 	lucene::analysis::standard::StandardAnalyzer an;
 
-	QString index = getIndex();
+	QString index = getIndexLocation();
 	
 	if (IndexReader::indexExists(index.ascii())){
 		if (IndexReader::isLocked(index.ascii()) ){
 			IndexReader::unlock(index.ascii());
 		}
-		writer = new IndexWriter(index.ascii(), &an, false);
+		writer = new IndexWriter(index.ascii(), &an, true); //always create a new index
 	}else{
 		writer = new IndexWriter(index.ascii(), &an, true);
 	}
@@ -223,6 +239,14 @@ void CSwordModuleInfo::buildIndex()
 	writer->optimize();
 	writer->close();
 	if (writer) delete writer;
+
+	KConfig* indexconfig = new KConfig( getIndexLocation() + QString("/bibletime-index.conf") );
+	if (hasVersion()){
+		indexconfig->writeEntry("module-version", config(CSwordModuleInfo::ModuleVersion) );
+	}
+	indexconfig->writeEntry("index-version", INDEX_VERSION);
+	delete indexconfig;
+
 }
 
 const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int searchOptions, sword::ListKey scope)
@@ -237,7 +261,7 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 
 	m_searchResult.ClearList();
 	standard::StandardAnalyzer analyzer;
-	IndexSearcher searcher(getIndex().ascii());
+	IndexSearcher searcher(getIndexLocation().ascii());
 	lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
 	Query* q = QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer);
 

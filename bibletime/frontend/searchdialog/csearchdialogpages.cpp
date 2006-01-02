@@ -67,7 +67,6 @@ CSearchResultView::~CSearchResultView() {}
 /** Initializes the view of this widget. */
 void CSearchResultView::initView() {
 	addColumn(i18n("Results"));
-	setFullWidth(true);
 	setSorting(-1);
 	setDragEnabled(true);
 	setSelectionModeExt(KListView::Extended);
@@ -272,7 +271,7 @@ CModuleResultView::~CModuleResultView() {}
 /** Initializes this widget. */
 void CModuleResultView::initView() {
 	addColumn(i18n("Work"));
-	addColumn(i18n("Found items"));
+	addColumn(i18n("Hits"));
 
 	//  setFullWidth(true);
 	setSorting(0, true);
@@ -407,7 +406,8 @@ void CModuleResultView::printResult() {
 **********  CSearchDialogResultPage *********
 ********************************************/
 
-CSearchResultPage::CSearchResultPage(QWidget *parent, const char *name ) : QWidget(parent,name) {
+CSearchResultPage::CSearchResultPage(QWidget *parent, const char *name ) : 
+		QVGroupBox(i18n("Search results"),parent,name) {
 	initView();
 	initConnections();
 }
@@ -417,27 +417,25 @@ CSearchResultPage::~CSearchResultPage() {}
 /** Initializes the view of this widget. */
 void CSearchResultPage::initView() {
 
-	QBoxLayout* layout = new QBoxLayout ( this, QBoxLayout::Down, 0 );
-	QVGroupBox* vGroupBox = new QVGroupBox(i18n("Search result"), this);
-	layout->addWidget(vGroupBox);
+	QWidget* insideFrame = new QWidget( this );
+	QGridLayout* gridLayout = new QGridLayout(insideFrame, 3, 2);
+	gridLayout->setSpacing( 3 );
+	gridLayout->setRowStretch( 1, 5);
+	gridLayout->setColStretch( 1, 5);
 
-	QSplitter* hSplitter = new QSplitter(Horizontal, vGroupBox);
-	QSplitter* vSplitter = new QSplitter(Vertical, hSplitter);
+	m_moduleListBox = new CModuleResultView(insideFrame);
+	m_moduleListBox->setFixedHeight( 100 );
+	gridLayout->addWidget(m_moduleListBox, 0, 0);
 
-	m_moduleListBox = new CModuleResultView(vSplitter);
-	m_previewDisplay = CDisplay::createReadInstance(0, vSplitter);
+	m_resultListBox = new CSearchResultView(insideFrame);
+	gridLayout->addWidget(m_resultListBox, 1, 0);
 
-	QVBox* vBox = new QVBox(hSplitter);
-	m_resultListBox = new CSearchResultView(vBox);
-	vSplitter->setResizeMode(m_moduleListBox, QSplitter::FollowSizeHint);
-	vSplitter->setResizeMode(m_previewDisplay->view(), QSplitter::Stretch);
-
-//   	hSplitter->setResizeMode(vSplitter, QSplitter::Stretch);
-//   	hSplitter->setResizeMode(m_resultListBox, QSplitter::FollowSizeHint);
-	m_moduleListBox->resize(m_moduleListBox->sizeHint());
-
-	m_analyseButton = new QPushButton(i18n("Analyze search"), vBox);
+	m_analyseButton = new QPushButton(i18n("Analyze search"), insideFrame);
 	connect(m_analyseButton, SIGNAL(clicked()), SLOT(showAnalysis()));
+	gridLayout->addWidget(m_analyseButton, 2, 0);
+
+	m_previewDisplay = CDisplay::createReadInstance(0, insideFrame);
+	gridLayout->addMultiCellWidget(m_previewDisplay->view(), 0, 2, 1, 1);
 }
 
 /** Sets the modules which contain the result of each. */
@@ -602,7 +600,8 @@ void CSearchResultPage::showAnalysis() {
 
 /*************************/
 
-CSearchOptionsPage::CSearchOptionsPage(QWidget *parent, const char *name ) : QWidget(parent,name) {
+CSearchOptionsPage::CSearchOptionsPage(QWidget *parent, const char *name ) : 
+		QVGroupBox(i18n("Search parameters"),parent,name) {
 	initView();
 	readSettings();
 }
@@ -639,12 +638,9 @@ void CSearchOptionsPage::setSearchText(const QString& text) {
 /** Initializes this page. */
 void CSearchOptionsPage::initView() {
 
-	QVBoxLayout* layout = new QVBoxLayout ( this, QBoxLayout::Down, 0 );
-	QVGroupBox* vBox = new QVGroupBox(i18n("Search parameters"), this);
-	layout->addWidget(vBox);
+	this->setSizePolicy( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed) );
 
-	QWidget* insideFrame = new QWidget( vBox );
-
+	QWidget* insideFrame = new QWidget( this );
 	QBoxLayout* vLayout = new QBoxLayout( insideFrame, QBoxLayout::Down);
 	vLayout->setSpacing( 3 );
 
