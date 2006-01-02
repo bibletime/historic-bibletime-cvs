@@ -141,7 +141,8 @@ const QString CSwordModuleInfo::getIndexLocation() const
 		name().ascii();
 }
 
-const bool CSwordModuleInfo::hasIndex()
+const bool CSwordModuleInfo::hasIndex() //this will return true only 
+		//if the index exists and has correct version information for both index and module
 {	//first check if the index version and module version are ok
 	KConfig* indexconfig = new KConfig( getIndexLocation() + QString("/bibletime-index.conf") );
 	if (hasVersion()){
