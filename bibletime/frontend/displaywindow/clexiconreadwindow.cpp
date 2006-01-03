@@ -86,6 +86,8 @@ void CLexiconReadWindow::initActions() {
 
 	m_actions.findText = actionCollection()->action("findText");
 	Q_ASSERT(m_actions.findText);
+	
+	m_actions.findStrongs = new KAction(i18n("Strong's Search"), KShortcut(0),this, SLOT(openSearchStrongsDialog()), actionCollection(), "findStrongs");	
 
 	m_actions.copy.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
 
@@ -180,11 +182,13 @@ void CLexiconReadWindow::initToolbars() {
 void CLexiconReadWindow::setupPopupMenu() {
 	popup()->insertTitle(CToolClass::getIconForModule(modules().first()), i18n("Lexicon window"));
 
-
 	//   m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
 	m_actions.findText->plug(popup());
+	m_actions.findStrongs->plug(popup());
+	
 	m_actions.selectAll->plug(popup());
 
+	
 	(new KActionSeparator(this))->plug( popup() );
 
 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::lexiconWindow::copyMenu::icon, actionCollection());

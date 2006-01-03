@@ -13,6 +13,7 @@
 #include "frontend/cprofilewindow.h"
 #include "frontend/displaywindow/cmodulechooserbar.h"
 #include "frontend/keychooser/ckeychooser.h"
+#include "frontend/searchdialog/csearchdialog.h"
 
 #include "util/cresmgr.h"
 
@@ -170,4 +171,19 @@ void CReadWindow::resizeEvent(QResizeEvent* /*e*/) {
 	displayWidget()->moveToAnchor(
 		Rendering::CDisplayRendering::keyToHTMLAnchor(key()->key())
 	);
+}
+
+void CReadWindow::openSearchStrongsDialog() {
+	qWarning("looking for lemma %s",  displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma].latin1() );
+	QString searchText = QString::null;
+	//ListCSwordModuleInfo modules;
+	
+	if (displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma] != QString::null) {
+		searchText.append("strong:").append(displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma]);
+		
+//		modules.append(CBTConfig::get(CBTConfig::standardGreekStrongsLexicon));
+//		modules.append(CBTConfig::get(CBTConfig::standardHebrewStrongsLexicon));
+	}
+	
+	CSearchDialog::openDialog( modules(), searchText, 0 );
 }

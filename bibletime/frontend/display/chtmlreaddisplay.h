@@ -44,6 +44,10 @@ public:
 	virtual void zoomIn();
 	virtual void zoomOut();
 	virtual void openFindTextDialog();
+	
+	virtual QMap<CDisplay::NodeInfoType, QString> getCurrentNodeInfo() {
+		return m_nodeInfo;
+	}
 
 protected:
 	friend class CDisplay;
@@ -72,6 +76,8 @@ protected:
 	}
 	m_dndData;
 
+	QMap<NodeInfoType, QString> m_nodeInfo;
+		
 private:
 	CHTMLReadDisplayView* m_view;
 	struct URLWorkaroundData {

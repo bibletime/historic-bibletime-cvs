@@ -9,6 +9,7 @@
 //Qt includes
 #include <qobject.h>
 #include <qstring.h>
+#include <qmap.h>
 
 
 class CDisplayConnections;
@@ -100,6 +101,15 @@ public:
 	virtual void zoomOut() {}
 	virtual void openFindTextDialog() {}
 
+	enum NodeInfoType {
+		Lemma
+	};
+	
+	
+	virtual QMap<NodeInfoType, QString> getCurrentNodeInfo() {
+		return QMap<NodeInfoType, QString>();
+	}
+	
 protected:
 	/**
 	* Used when a reference was dropped onto the widget.

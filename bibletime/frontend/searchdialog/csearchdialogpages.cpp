@@ -720,6 +720,10 @@ void CSearchOptionsPage::setModules( ListCSwordModuleInfo modules ) {
 
 	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
 		//ToDo:  Check for containsRef compat
+		if (*it == 0) { //don't operate on null modules.
+			continue;
+		}
+		
 		if ( !m_modules.contains(*it) ) {
 			m_modules.append( *it );
 			t.append( (*it)->name() );

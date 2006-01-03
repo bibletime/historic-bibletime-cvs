@@ -234,6 +234,22 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ) {
 	m_dndData.isDragging = false;
 
 	if (event->qmouseEvent()->button() == Qt::RightButton) {
+		DOM::Node tmpNode = event->innerNode();
+		DOM::Node attr;
+		m_nodeInfo[CDisplay::Lemma] = QString::null;
+
+		do {
+			if (!tmpNode.isNull() && (tmpNode.nodeType() == 
+						  DOM::Node::ELEMENT_NODE) && tmpNode.hasAttributes()) {
+				attr = tmpNode.attributes().getNamedItem("lemma");
+				if (!attr.isNull()) {
+					m_nodeInfo[ CDisplay::Lemma ] = attr.nodeValue().string();
+					break;
+				}
+			}
+			tmpNode = tmpNode.parentNode();
+		} while ( !tmpNode.isNull() );
+		
 		setActiveAnchor( event->url().string() );
 	}
 	else if (event->qmouseEvent()->button() == Qt::LeftButton) {

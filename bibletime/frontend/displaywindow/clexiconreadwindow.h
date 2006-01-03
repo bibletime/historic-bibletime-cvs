@@ -55,6 +55,7 @@ protected:
 
 		KAction* selectAll;
 		KAction* findText;
+		KAction* findStrongs;
 
 		KActionMenu* copyMenu;
 		struct {

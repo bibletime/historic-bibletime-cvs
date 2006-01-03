@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
 		VERSION,
 		I18N_NOOP("Bible study tool for KDE"),
 		KAboutData::License_GPL_V2,
-		I18N_NOOP("(c)1999-2005, The BibleTime Team"),
+		I18N_NOOP("(c)1999-2006, The BibleTime Team"),
 		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE.\n\nWe are looking for developers and translators.\nIf you'd like to join our team, please send an email to info@bibletime.info."),
 		"http://www.bibletime.info/",
 		"info@bibletime.info"

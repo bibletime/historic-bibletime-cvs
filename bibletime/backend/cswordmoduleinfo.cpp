@@ -160,10 +160,13 @@ const bool CSwordModuleInfo::hasIndex() //this will return true only
 }
 
 
-void CSwordModuleInfo::buildIndex()
-{
+void CSwordModuleInfo::buildIndex() {
+	//Without this we don't get strongs, lemmas, etc
+	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
+		
 	IndexWriter* writer = NULL;
 	lucene::analysis::standard::StandardAnalyzer an;
+	//lucene::analysis::SimpleAnalyzer an;
 
 	QString index = getIndexLocation();
 	
@@ -171,30 +174,58 @@ void CSwordModuleInfo::buildIndex()
 		if (IndexReader::isLocked(index.ascii()) ){
 			IndexReader::unlock(index.ascii());
 		}
-		writer = new IndexWriter(index.ascii(), &an, true); //always create a new index
-	}else{
-		writer = new IndexWriter(index.ascii(), &an, true);
-	}
+	//	writer = new IndexWriter(index.ascii(), &an, true); //always create a new index
+	} //else{
+	writer = new IndexWriter(index.ascii(), &an, true);
+	//}
 	writer->setMaxFieldLength(IndexWriter::DEFAULT_MAX_FIELD_LENGTH);
+	writer->setUseCompoundFile(true);
+	writer->setMinMergeDocs(2000);
 
+	
+	
 	long verseIndex, verseLowIndex, verseHighIndex = 1;
 	*m_module = sword::TOP;
 	verseLowIndex = m_module->Index();
 	*m_module = sword::BOTTOM;
 	verseHighIndex = m_module->Index();
 
+	bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
+	
 	KProgressDialog* progressDialog = new KProgressDialog(0, "progressDialog", i18n("Index creation"), 
 		(i18n("Creating index for %1")).arg( name() ) );
 	progressDialog->setAllowCancel( false );
 
+	int keyPos = 1;
 	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
 		Document* doc = new Document();
 		// index the key
-		lucene_utf8towcs(m_wcharBuffer, m_module->getKey()->getText(), MAX_CONV_SIZE);
-		doc->add(*Field::Text(_T("key"), m_wcharBuffer));
+		// we have to be sure to insert the english key into the index, otherwise we'd be in trouble if the
+		//language changes
+		QString key = QString::fromUtf8(m_module->getKey()->getText());
+		if (isVerseModule) {
+			VerseKey vk( m_module->getKey()->getText() );
+			vk.setLocale("en_US");
+			key = QString::fromUtf8(vk.getText());
+		}
+		//qWarning("key is %s", key.latin1());
+		lucene_utf8towcs(m_wcharBuffer, (const char*)key.utf8(), MAX_CONV_SIZE);
+		doc->add(*Field::UnIndexed(_T("key"), m_wcharBuffer));
+
+		/*keyPos++;
+		lucene_utf8towcs(m_wcharBuffer, (const char*)QString::number(keyPos).utf8(), MAX_CONV_SIZE);
+		doc->add (* new Field (_T("sortIndex"), m_wcharBuffer, false, true, false)); //unstored, indexed, untokenized
+		*/
+		
+// 		lucene_utf8towcs(m_wcharBuffer, m_module->getKey()->getText(), MAX_CONV_SIZE);
+// 		doc->add(*new SortField(_T("key"), m_wcharBuffer));
+
 		// index the main text
 		lucene_utf8towcs(m_wcharBuffer, m_module->StripText(), MAX_CONV_SIZE);
-		doc->add(*Field::Text(_T("content"), m_wcharBuffer));
+		//doc->add(*Field::Indexed(_T("content"), m_wcharBuffer));
+		doc->add(*Field::UnStored(_T("content"), m_wcharBuffer));
+		//doc->add(*(new Field(_T("content"), m_wcharBuffer, false, true, true))); //don't store, index, tokenize
+
 		// index attributes
 		AttributeList::iterator attListI;
 		AttributeValue::iterator attValueI;
@@ -203,7 +234,8 @@ void CSwordModuleInfo::buildIndex()
 			attListI != m_module->getEntryAttributes()["Footnote"].end();
 			attListI++) {
 				lucene_utf8towcs(m_wcharBuffer, attListI->second["body"], MAX_CONV_SIZE);
-				doc->add(*Field::Text(_T("footnote"), m_wcharBuffer));
+				doc->add(*Field::UnStored(_T("footnote"), m_wcharBuffer));
+				//doc->add(*(new Field(_T("footnote"), m_wcharBuffer, false, true, true)));
 		} // for attListI
 		
 		// Headings
@@ -211,7 +243,7 @@ void CSwordModuleInfo::buildIndex()
 			attValueI != m_module->getEntryAttributes()["Heading"]["Preverse"].end();
 			attValueI++) {
 			lucene_utf8towcs(m_wcharBuffer, attValueI->second, MAX_CONV_SIZE);
-			doc->add(*Field::Text(_T("heading"), m_wcharBuffer));
+			doc->add(*Field::UnStored(_T("heading"), m_wcharBuffer));
 		} // for attValueI
 
 		// Strongs/Morphs
@@ -221,13 +253,16 @@ void CSwordModuleInfo::buildIndex()
 			// for each attribute
 			if (attListI->second["LemmaClass"] == "strong") {
 				lucene_utf8towcs(m_wcharBuffer, attListI->second["Lemma"], MAX_CONV_SIZE);
-				doc->add(*Field::Text(_T("strong"), m_wcharBuffer));
+				doc->add(*Field::UnStored(_T("strong"), m_wcharBuffer));
+				//qWarning("Adding strong %s", attListI->second["Lemma"].c_str());
 			}
 			if (attListI->second.find("Morph") != attListI->second.end()) {
 				lucene_utf8towcs(m_wcharBuffer, attListI->second["Morph"], MAX_CONV_SIZE);
-				doc->add(*Field::Text(_T("morph"), m_wcharBuffer));
+				doc->add(*Field::UnStored(_T("morph"), m_wcharBuffer));
 			}
 		} // for attListI
+		
+		
 		writer->addDocument(doc);
 		delete doc;
 		verseIndex = m_module->Index();
@@ -265,30 +300,42 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 
 	m_searchResult.ClearList();
 	standard::StandardAnalyzer analyzer;
+	//SimpleAnalyzer analyzer;
 	IndexSearcher searcher(getIndexLocation().ascii());
 	lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
 	Query* q = QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer);
 
-	Hits* h = searcher.search(q);
-	for (int i=0; i < h->length(); i++) {
-		Document* doc = &h->doc(i);
-		lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
-		SWKey* swKey = new SWKey(m_utfBuffer);
+	//Hits* h = searcher.search(q, 0, new Sort(_T("searchIndex")));
+	Hits* h = 0;
+	try {
+		h = searcher.search(q);
+		//h = searcher.search(q, Sort::INDEXORDER); //Should return keys in the right order, doesn't work properly with CLucene 0.9.10
+		for (int i=0; i < h->length(); i++) {
+			Document* doc = &h->doc(i);
+			lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
+			//SWKey* swKey = new SWKey(m_utfBuffer);
+			SWKey* swKey = module()->CreateKey();
+			swKey->setText(m_utfBuffer);
+			
 		// limit results based on scope
-		if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
-			for (int j = 0; j < scope.Count(); j++) {
-				VerseKey* vkey = dynamic_cast<VerseKey*>(scope.getElement(j));
-				if (vkey->LowerBound().compare(*swKey) <= 0 &&
-					vkey->UpperBound().compare(*swKey) >= 0){
-					m_searchResult.add(*swKey);
+			if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
+				for (int j = 0; j < scope.Count(); j++) {
+					VerseKey* vkey = dynamic_cast<VerseKey*>(scope.getElement(j));
+					if (vkey->LowerBound().compare(*swKey) <= 0 && vkey->UpperBound().compare(*swKey) >= 0){
+						m_searchResult.add(*swKey);
+					}
 				}
 			}
-		}
-		else {
+			else {
 			// no scope, give me all buffers
-			m_searchResult.add(*swKey);
-		}
+				m_searchResult.add(*swKey);
+			}
+		}	
 	}
+	catch (...) {
+		return false;
+	}
+	
 	delete h;
 	delete q;
 

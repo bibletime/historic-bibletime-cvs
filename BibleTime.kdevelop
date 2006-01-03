@@ -8,6 +8,7 @@
     <ignoreparts>
       <part>kdevfilegroups</part>
       <part>kdevfilelist</part>
+      <part>kdevrbdebugger</part>
       <part>kdevdistpart</part>
     </ignoreparts>
     <version>1.5.1</version>
