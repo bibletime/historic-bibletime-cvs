@@ -177,11 +177,14 @@ void CSwordModuleInfo::buildIndex()
 	}
 	writer->setMaxFieldLength(IndexWriter::DEFAULT_MAX_FIELD_LENGTH);
 
-	long verseIndex, verseHighIndex = 1;
-	*m_module = BOTTOM;
+	long verseIndex, verseLowIndex, verseHighIndex = 1;
+	*m_module = sword::TOP;
+	verseLowIndex = m_module->Index();
+	*m_module = sword::BOTTOM;
 	verseHighIndex = m_module->Index();
 
-	KProgressDialog* progressDialog = new KProgressDialog(0, "progressDialog", i18n("Index creation"), (i18n("Creating index for module %1")).arg( name() ) );
+	KProgressDialog* progressDialog = new KProgressDialog(0, "progressDialog", i18n("Index creation"), 
+		(i18n("Creating index for %1")).arg( name() ) );
 	progressDialog->setAllowCancel( false );
 
 	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
@@ -229,8 +232,8 @@ void CSwordModuleInfo::buildIndex()
 		delete doc;
 		verseIndex = m_module->Index();
 
-		if (verseIndex % 100 == 0){
-			progressDialog->progressBar()->setProgress( (int)((float)100*verseIndex/verseHighIndex) );
+		if (verseIndex % 200 == 0){
+			progressDialog->progressBar()->setProgress( (100*(verseIndex-verseLowIndex))/(verseHighIndex-verseLowIndex) );
 			KApplication::kApplication()->processEvents(1);
 		}
 	}
