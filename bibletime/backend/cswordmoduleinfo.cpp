@@ -193,7 +193,7 @@ void CSwordModuleInfo::buildIndex() {
 	bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
 	
 	KProgressDialog* progressDialog = new KProgressDialog(0, "progressDialog", i18n("Index creation"), 
-		(i18n("Creating index for %1")).arg( name() ) );
+		(i18n("Creating index for %1")+"...").arg( name() ) );
 	progressDialog->setAllowCancel( false );
 
 	int keyPos = 1;
@@ -273,11 +273,13 @@ void CSwordModuleInfo::buildIndex() {
 		}
 	}
 
-	delete progressDialog;
-
+	progressDialog->setLabel( i18n("Optimizing index")+"...");
+	KApplication::kApplication()->processEvents(1);
 	writer->optimize();
 	writer->close();
 	if (writer) delete writer;
+
+	delete progressDialog;
 
 	KConfig* indexconfig = new KConfig( getIndexLocation() + QString("/bibletime-index.conf") );
 	if (hasVersion()){
