@@ -158,8 +158,10 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("David Blue", I18N_NOOP("High contrast template"), "davidslists@gmx.net");
 	aboutData.addCredit("Tim Brodie",    I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
 	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
-	//Sponsored many years the www.bibletime.de domain!
+	//GUI improvements
+	aboutData.addCredit("Jim Campbell",   I18N_NOOP("GUI"), "jdc.email@gmail.com", "http://www.crosswire.org/");   //Started the Sword project
 	aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founder of the Sword project"), "scribe@crosswire.org", "http://www.crosswire.org/");   //Started the Sword project
+	//Sponsored many years the www.bibletime.de domain!
 	aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Sponsored our internet domain for many years"), "tom@theta-consulting.de", "");
 	//He provided us with the Bible Study HowTo
 	aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible Study HowTo"), "ncc@ncchampton.org", "");
@@ -167,6 +169,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Nikolay Igotti", I18N_NOOP("Search dialog enhancements"), "olonho@hotmail.com", "");
 	// Language codes iso639-1, iso639-2 and SIL language codes
 	aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
+	//Indexed search, gui improvements
+	aboutData.addCredit("Lee Carpenter",  I18N_NOOP("GUI, instant search"),"Lee Carpenter <elc@carpie.net>", "http://www.carpie.net");
 	//Smaller frontend enhancements
 	aboutData.addCredit("Chris Kujawa",  I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
 	//Smaller searchdialog enhancements

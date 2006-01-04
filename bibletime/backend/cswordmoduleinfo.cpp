@@ -163,26 +163,20 @@ const bool CSwordModuleInfo::hasIndex() //this will return true only
 void CSwordModuleInfo::buildIndex() {
 	//Without this we don't get strongs, lemmas, etc
 	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
-		
-	IndexWriter* writer = NULL;
+	
 	lucene::analysis::standard::StandardAnalyzer an;
-	//lucene::analysis::SimpleAnalyzer an;
-
 	QString index = getIndexLocation();
 	
 	if (IndexReader::indexExists(index.ascii())){
 		if (IndexReader::isLocked(index.ascii()) ){
 			IndexReader::unlock(index.ascii());
 		}
-	//	writer = new IndexWriter(index.ascii(), &an, true); //always create a new index
-	} //else{
-	writer = new IndexWriter(index.ascii(), &an, true);
-	//}
+	}
+	
+	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
 	writer->setMaxFieldLength(IndexWriter::DEFAULT_MAX_FIELD_LENGTH);
 	writer->setUseCompoundFile(true);
 	writer->setMinMergeDocs(2000);
-
-	
 	
 	long verseIndex, verseLowIndex, verseHighIndex = 1;
 	*m_module = sword::TOP;
@@ -196,9 +190,9 @@ void CSwordModuleInfo::buildIndex() {
 		(i18n("Creating index for %1")+"...").arg( name() ) );
 	progressDialog->setAllowCancel( false );
 
-	int keyPos = 1;
 	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
 		Document* doc = new Document();
+		
 		// index the key
 		// we have to be sure to insert the english key into the index, otherwise we'd be in trouble if the
 		//language changes
@@ -212,19 +206,9 @@ void CSwordModuleInfo::buildIndex() {
 		lucene_utf8towcs(m_wcharBuffer, (const char*)key.utf8(), MAX_CONV_SIZE);
 		doc->add(*Field::UnIndexed(_T("key"), m_wcharBuffer));
 
-		/*keyPos++;
-		lucene_utf8towcs(m_wcharBuffer, (const char*)QString::number(keyPos).utf8(), MAX_CONV_SIZE);
-		doc->add (* new Field (_T("sortIndex"), m_wcharBuffer, false, true, false)); //unstored, indexed, untokenized
-		*/
-		
-// 		lucene_utf8towcs(m_wcharBuffer, m_module->getKey()->getText(), MAX_CONV_SIZE);
-// 		doc->add(*new SortField(_T("key"), m_wcharBuffer));
-
 		// index the main text
 		lucene_utf8towcs(m_wcharBuffer, m_module->StripText(), MAX_CONV_SIZE);
-		//doc->add(*Field::Indexed(_T("content"), m_wcharBuffer));
 		doc->add(*Field::UnStored(_T("content"), m_wcharBuffer));
-		//doc->add(*(new Field(_T("content"), m_wcharBuffer, false, true, true))); //don't store, index, tokenize
 
 		// index attributes
 		AttributeList::iterator attListI;
@@ -235,7 +219,6 @@ void CSwordModuleInfo::buildIndex() {
 			attListI++) {
 				lucene_utf8towcs(m_wcharBuffer, attListI->second["body"], MAX_CONV_SIZE);
 				doc->add(*Field::UnStored(_T("footnote"), m_wcharBuffer));
-				//doc->add(*(new Field(_T("footnote"), m_wcharBuffer, false, true, true)));
 		} // for attListI
 		
 		// Headings
@@ -277,17 +260,16 @@ void CSwordModuleInfo::buildIndex() {
 	KApplication::kApplication()->processEvents(1);
 	writer->optimize();
 	writer->close();
-	if (writer) delete writer;
+	//if (writer) delete writer;
 
 	delete progressDialog;
 
-	KConfig* indexconfig = new KConfig( getIndexLocation() + QString("/bibletime-index.conf") );
+	util::scoped_ptr<KConfig> indexconfig( new KConfig( getIndexLocation() + QString("/bibletime-index.conf") ) );
 	if (hasVersion()){
 		indexconfig->writeEntry("module-version", config(CSwordModuleInfo::ModuleVersion) );
 	}
 	indexconfig->writeEntry("index-version", INDEX_VERSION);
-	delete indexconfig;
-
+	//delete indexconfig;
 }
 
 const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int searchOptions, sword::ListKey scope)
@@ -302,20 +284,17 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 
 	m_searchResult.ClearList();
 	standard::StandardAnalyzer analyzer;
-	//SimpleAnalyzer analyzer;
 	IndexSearcher searcher(getIndexLocation().ascii());
 	lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
-	Query* q = QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer);
-
-	//Hits* h = searcher.search(q, 0, new Sort(_T("searchIndex")));
-	Hits* h = 0;
+	util::scoped_ptr<Query> q( QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer) );
+	
 	try {
-		h = searcher.search(q);
+		util::scoped_ptr<Hits> h( searcher.search(q) );
 		//h = searcher.search(q, Sort::INDEXORDER); //Should return keys in the right order, doesn't work properly with CLucene 0.9.10
 		for (int i=0; i < h->length(); i++) {
 			Document* doc = &h->doc(i);
 			lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
-			//SWKey* swKey = new SWKey(m_utfBuffer);
+			
 			SWKey* swKey = module()->CreateKey();
 			swKey->setText(m_utfBuffer);
 			
@@ -338,8 +317,8 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 		return false;
 	}
 	
-	delete h;
-	delete q;
+	//delete h;
+	//delete q;
 
 	return (m_searchResult.Count() > 0);
 }
