@@ -5,11 +5,18 @@ libsearchdialog_a_METASOURCES = AUTO
 noinst_LIBRARIES = libsearchdialog.a
 
 libsearchdialog_a_SOURCES = \
-csearchdialog.cpp \
+searchoptionsform.cpp  \
+searchoptionsform.ui   \
+searchresultsform.cpp  \
+searchresultsform.ui   \
+csearchdialog.cpp      \
 csearchdialogpages.cpp \
-csearchanalysis.cpp \
-cmodulechooser.cpp \
-crangechooser.cpp
+csearchanalysis.cpp    \
+cmodulechooser.cpp     \
+crangechooser.cpp      \
+cmoduleresultview.cpp  \
+csearchresultview.cpp
+	 
 
 all_headers = \
 csearchdialog.h \
@@ -20,4 +27,5 @@ crangechooser.h
 
 
 EXTRA_DIST = $(libsearchdialog_a_SOURCES) $(all_headers)
+
 

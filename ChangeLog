@@ -1,3 +1,6 @@
+2006-01-18 Lee Carpenter <lcarpenter@users.sourceforge.net>
+  * Converted search dialog to use Designer .ui templates for layout.
+
 2006-01-02 Martin Gruner <mgruner@crosswire.org>
   * Search dialog UI cleanups
   * Added index version tracking

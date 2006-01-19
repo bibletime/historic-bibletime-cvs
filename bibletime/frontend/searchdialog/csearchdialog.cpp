@@ -176,14 +176,24 @@ void CSearchDialog::setSearchText( const QString searchText ) {
 void CSearchDialog::initView() {
 	setButtonTip(User1, CResMgr::searchdialog::searchButton::tooltip);
 
- 	QVBoxLayout* box = new QVBoxLayout ( plainPage() );
-	box->setSpacing(3);
+   QVBoxLayout *box = new QVBoxLayout( plainPage(), 0, spacingHint() );
 
 	m_searchOptionsPage = new CSearchOptionsPage(plainPage());
- 	box->addWidget( m_searchOptionsPage );
+	box->addWidget( m_searchOptionsPage );
 
 	m_searchResultPage = new CSearchResultPage(plainPage());
 	box->addWidget( m_searchResultPage );
+
+	// The dialog doesn't resize properly if the minimum size of the
+	// plain page is lower than the minimumsize of our two widgets.
+	// You can resize the dialog, but it just starts covering up the
+	// button bar and the two widgets instead of stopping at the
+	// minimum size.  The following code sets the minimum with some
+	// margin.  If you know of a better way to do this, do it!
+	int w = m_searchOptionsPage->minimumWidth();
+	int h = m_searchOptionsPage->minimumHeight() +
+		m_searchResultPage->minimumHeight();
+   plainPage()->setMinimumSize(w+10, h+100);
 }
 
 void CSearchDialog::searchFinished() {

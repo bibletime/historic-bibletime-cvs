@@ -7,6 +7,8 @@
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordbackend.h"
 #include "backend/cswordmodulesearch.h"
+#include "searchoptionsform.h"
+#include "searchresultsform.h"
 
 //Qt includes
 #include <qwidget.h>
@@ -30,163 +32,11 @@ class KPopupMenu;
 
 class CReadDisplay;
 
-class CModuleResultView : public KListView {
-	Q_OBJECT
-public:
-	CModuleResultView(QWidget* parent);
-	~CModuleResultView();
-	/**
-	* Setups the tree using the given list of modules.
-	*/
-	void setupTree( ListCSwordModuleInfo modules );
-	/**
-	* Returns the currently active module.
-	*/
-	CSwordModuleInfo* const activeModule();
-
-protected: // Protected methods
-	/**
-	* Initializes this widget.
-	*/
-	void initView();
-	/**
-	* Initializes the connections of this widget
-	*/
-	void initConnections();
-
-protected slots: // Protected slots
-	/**
-	* Is executed when an item was selected in the list.
-	*/
-	void executed( QListViewItem* );
-	/**
-	* Copies the whole search result with the text into the clipboard.
-	*/
-	void copyResultWithText();
-	/**
-	* Copies the whole search result into the clipboard.
-	*/
-	void copyResult();
-	/**
-	* This slot opens the popup menu at the given position
-	*/
-	void showPopup(KListView*, QListViewItem*, const QPoint&);
-	/**
-	* Appends the whole search result to the printer queue.
-	*/
-	void printResult();
-	/**
-	* Saves the search result with it's text.
-	*/
-	void saveResultWithText();
-	/**
-	* Saves the search result keys.
-	*/
-	void saveResult();
-
-signals:
-	void moduleSelected(CSwordModuleInfo*);
-	void moduleChanged();
-
-private:
-	struct {
-		KActionMenu* saveMenu;
-		struct {
-			KAction* result;
-			KAction* resultWithText;
-		}
-		save;
-
-		KActionMenu* printMenu;
-		struct {
-			KAction* result;
-		}
-		print;
-
-		KActionMenu* copyMenu;
-		struct {
-			KAction* result;
-			KAction* resultWithText;
-		}
-		copy;
-
-	}
-	m_actions;
-	KPopupMenu* m_popup;
-};
-
-class CSearchResultView  : public KListView {
-	Q_OBJECT
-public:
-	CSearchResultView(QWidget* parent);
-	virtual ~CSearchResultView();
-	/** Returns the module which is currently used. */
-	CSwordModuleInfo* const module();
-
-protected: // Protected methods
-	/**
-	* Initializes the view of this widget.
-	*/
-	void initView();
-	void initConnections();
-	virtual QDragObject* dragObject();
-
-public slots: // Public slots
-	void saveItems();
-	/**
-	* Setups the list with the given module.
-	*/
-	void setupTree(CSwordModuleInfo*);
-	void copyItemsWithText();
-	void copyItems();
-	void saveItemsWithText();
-	/**
-	* Reimplementation to show the popup menu.
-	*/
-	virtual void showPopup(KListView*, QListViewItem* i, const QPoint& point);
-
-protected slots: // Protected slots
-	void printItems();
-	/**
-	* Is connected to the signal executed, which is emitted when a mew item was chosen.
-	*/
-	void executed(QListViewItem*);
-
-private:
-	struct {
-		KActionMenu* saveMenu;
-		struct {
-			KAction* result;
-			KAction* resultWithText;
-		}
-		save;
-
-		KActionMenu* printMenu;
-		struct {
-			KAction* result;
-		}
-		print;
-
-		KActionMenu* copyMenu;
-		struct {
-			KAction* result;
-			KAction* resultWithText;
-		}
-		copy;
-	}
-	m_actions;
-	KPopupMenu* m_popup;
-	CSwordModuleInfo* m_module;
-
-signals: // Signals
-	void keySelected(const QString&);
-};
-
 
 /** The page of the search dialog which contains the search result part.
   * @author The BibleTime team
   */
-class CSearchResultPage : public QVGroupBox  {
+class CSearchResultPage : public SearchResultsForm {
 	Q_OBJECT
 public:
 	CSearchResultPage(QWidget *parent=0, const char *name=0);
@@ -195,6 +45,9 @@ public:
 	* Sets the modules which contain the result of each.
 	*/
 	void setSearchResult(ListCSwordModuleInfo modules);
+	
+	QSize sizeHint() const { return baseSize(); }
+	QSize minimumSizeHint() const { return minimumSize(); }
 
 public slots: // Public slots
 	/**
@@ -217,11 +70,8 @@ protected: // Protected methods
 	const QString highlightSearchedText(const QString& content, const QString& searchedText, const int searchFlags);
 
 private:
-	CModuleResultView* m_moduleListBox;
-	CSearchResultView* m_resultListBox;
 	CReadDisplay* m_previewDisplay;
 	ListCSwordModuleInfo m_modules;
-	QPushButton* m_analyseButton;
 
 protected slots: // Protected slots
 	/**
@@ -235,7 +85,7 @@ protected slots: // Protected slots
 
 };
 
-class CSearchOptionsPage : public QVGroupBox  {
+class CSearchOptionsPage : public SearchOptionsForm  {
 	Q_OBJECT
 public:
 	CSearchOptionsPage(QWidget *parent=0, const char *name=0);
@@ -269,15 +119,11 @@ public:
 	*/
 	const CSwordModuleSearch::scopeType scopeType();
 
-private:
-	QLabel* m_modulesLabel;
-	KHistoryCombo* m_searchTextCombo;
-	QPushButton* m_chooseModulesButton;
-	ListCSwordModuleInfo m_modules;
+	QSize sizeHint() const { return baseSize(); }
+	QSize minimumSizeHint() const { return minimumSize(); }
 
-	KComboBox* m_rangeChooserCombo;
-	QPushButton* m_chooseRangeButton;
-	
+private:
+	ListCSwordModuleInfo m_modules;
 protected: // Protected methods
 	/**
 	* Initializes this page.
