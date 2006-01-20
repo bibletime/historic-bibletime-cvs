@@ -32,6 +32,84 @@ class KPopupMenu;
 
 class CReadDisplay;
 
+/**
+* This class is used to keep track of the text strongs results.
+* It only keeps track of one instance of a strongs text result.
+*
+*    The functions of the class are:
+*       - Store an instance of a strongs text result.
+*       - Each strongs text result will contain a list of verses (keyNames).
+*       - The number of verses (keyNames) is returned by keyCount().
+*       - The text for the strongs text result is returned by keyText().
+*       - The list of verses (keyNames) is returned by getKeyList() [as QStringList].
+*
+*   To add a new verse to a strongs text result use addKeyName.
+*/
+class StrongsResult
+   {
+   public:
+      StrongsResult() : text("") { keyNameList.clear(); }
+      StrongsResult(const QString& text, const QString &keyName)
+         : text(text)
+         { keyNameList.clear(); keyNameList.append(keyName); }
+
+      QString keyText() const { return text; }
+      int keyCount() const { return keyNameList.count(); }
+      void addKeyName(const QString& keyName) { keyNameList.append(keyName); }
+      QStringList* getKeyList() { return &keyNameList; }
+
+      /* ????
+      bool operator==(const StrongsResult &l, const StrongsResult &r)
+         { return (l.keyText() == r.keyText()); }
+
+      bool operator<(const StrongsResult &l, const StrongsResult &r)
+         { return (l->keyText() < r->keyText()); }
+
+      bool operator>(const StrongsResult &l, const StrongsResult &r)
+         { return (l->keyText() > r->keyText()); }
+      */
+   private:
+      QString text;
+      QStringList keyNameList;
+   };
+
+typedef QValueList<StrongsResult> StrongsResultList;
+
+/**
+* This class is used to keep track of the text strongs results.
+* It keeps track of all instances of all strongs text results.
+* This class makes use of the above class StrongsResult.
+*
+*    The functions of the class are:
+*       - Store an instance of a strongs text result.
+*       - Each strongs text result will contain a list of verses (keyNames).
+*       - The number of verses (keyNames) is returned by keyCount().
+*       - The text for the strongs text result is returned by keyText().
+*       - The list of verses (keyNames) is returned by getKeyList() [as QStringList].
+*
+*   To add a new verse to a strongs text result use addKeyName.
+*/
+class StrongsResultClass
+   {
+   public:
+      StrongsResultClass(CSwordModuleInfo* module, const QString& strongsNumber)
+         : srModule(module), lemmaText(strongsNumber)
+         { initStrongsResults(); }
+
+      QString keyText(int index) const { return srList[index].keyText(); }
+      int keyCount(int index) const { return srList[index].keyCount(); }
+      QStringList* getKeyList(int index) { return srList[index].getKeyList(); }
+      int Count() const { return srList.count(); }
+
+   private:
+      void initStrongsResults(void);
+      QString getStrongsNumberText(const QString& verseContent, int *startIndex);
+
+      StrongsResultList srList;
+      CSwordModuleInfo* srModule;
+      QString lemmaText;
+   };
+
 
 /** The page of the search dialog which contains the search result part.
   * @author The BibleTime team

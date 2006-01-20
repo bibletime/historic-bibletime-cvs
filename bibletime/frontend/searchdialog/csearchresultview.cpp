@@ -97,6 +97,36 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m) {
 	executed(currentItem());
 }
 
+void CSearchResultView::setupStrongsTree(CSwordModuleInfo* m, QStringList* vList)
+{
+   clear();
+   if (!m) {
+      return;
+   }
+
+   m_module = m;
+
+   if (vList->count() <= 0)
+      return;
+
+   setUpdatesEnabled(false);
+
+   KListViewItem* oldItem = 0;
+   KListViewItem* item = 0;
+
+   for ( QStringList::Iterator it = vList->begin(); it != vList->end(); ++it )
+      {
+      item = new KListViewItem(this, oldItem);
+      item->setText(0, (*it));
+      oldItem = item;
+      }
+
+   setUpdatesEnabled(true);
+
+   setSelected(firstChild(), true);
+   executed(currentItem());
+}
+
 /** Is connected to the signal executed, which is emitted when a mew item was chosen. */
 void CSearchResultView::executed(QListViewItem* item) {
 	//  Q_ASSERT(item);

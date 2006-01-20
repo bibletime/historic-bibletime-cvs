@@ -5,6 +5,7 @@
 
 //BibleTime includes
 #include "backend/cswordmoduleinfo.h"
+#include "csearchdialogpages.h"
 
 //Qt includes
 
@@ -35,7 +36,7 @@ public:
 	/**
 	* Setups the tree using the given list of modules.
 	*/
-	void setupTree( ListCSwordModuleInfo modules );
+	void setupTree( ListCSwordModuleInfo modules, const QString& searchedText );
 	/**
 	* Returns the currently active module.
 	*/
@@ -50,6 +51,8 @@ protected: // Protected methods
 	* Initializes the connections of this widget
 	*/
 	void initConnections();
+
+   void setupStrongsResults(CSwordModuleInfo* module, QListViewItem* parent, const QString& searchedText);
 
 protected slots: // Protected slots
 	/**
@@ -84,6 +87,7 @@ protected slots: // Protected slots
 signals:
 	void moduleSelected(CSwordModuleInfo*);
 	void moduleChanged();
+   void strongsSelected(CSwordModuleInfo*, QStringList*);
 
 private:
 	struct {
@@ -110,6 +114,7 @@ private:
 	}
 	m_actions;
 	KPopupMenu* m_popup;
+   StrongsResultClass* strongsResults;
 };
 
 

@@ -24,6 +24,7 @@ CModuleResultView::CModuleResultView(QWidget* parent, const char* name) :
 	KListView(parent, name) {
 	initView();
 	initConnections();
+   strongsResults = NULL;
 };
 
 CModuleResultView::~CModuleResultView() {}
@@ -75,12 +76,16 @@ void CModuleResultView::initConnections() {
 }
 
 /** Setups the tree using the given list of modules. */
-void CModuleResultView::setupTree( ListCSwordModuleInfo modules ) {
+void CModuleResultView::setupTree( ListCSwordModuleInfo modules, const QString& searchedText ) {
 	clear();
 	QListViewItem* item = 0;
 	QListViewItem* oldItem = 0;
 	sword::ListKey result;
 
+   if (strongsResults) {
+      delete(strongsResults);
+      strongsResults = NULL;
+      }
 	ListCSwordModuleInfo::iterator end_it = modules.end();
 	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
 		//   for (modules.first(); modules.current(); modules.next()) {
@@ -89,27 +94,78 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules ) {
 		item = new KListViewItem(this, (*it)->name(), QString::number(result.Count()) );
 		item->setPixmap(0,CToolClass::getIconForModule(*it) );
 		oldItem = item;
+      if (searchedText.find("strong:", 0) == 0) {
+         QString sNumber;
+         sNumber = searchedText.right(searchedText.length() - 7);
+         setupStrongsResults((*it), item, sNumber);
+         item->setOpen(TRUE);
+      }
 	};
 
 	setSelected(currentItem(), true);
 	executed(currentItem());
 }
 
+void CModuleResultView::setupStrongsResults(CSwordModuleInfo* module, QListViewItem* parent,
+                                            const QString& sNumber)
+   {
+   QString lText;
+   KListViewItem* item = 0;
+
+   strongsResults = new StrongsResultClass(module, sNumber);
+
+   for (int cnt = 0; cnt < strongsResults->Count(); cnt++)
+      {
+      lText = strongsResults->keyText(cnt);
+      item = new KListViewItem(parent, lText, QString::number(strongsResults->keyCount(cnt)));
+      item->setText(0, lText);
+      }
+   }
+
 
 /** Is executed when an item was selected in the list. */
 void CModuleResultView::executed( QListViewItem* i ) {
+   QString itemText, lText;
+
 	if (CSwordModuleInfo* m = CPointers::backend()->findModuleByName(i->text(0))) {
 		emit moduleChanged();
 		emit moduleSelected(m);
+      return;
 	}
+   if (!strongsResults)
+      return;
+
+   itemText = i->text(0);
+   for (int cnt = 0; cnt < strongsResults->Count(); cnt++)
+      {
+      lText = strongsResults->keyText(cnt);
+      if (lText == itemText)
+         {
+         //clear the verses list
+         emit moduleChanged();
+         emit strongsSelected(activeModule(), strongsResults->getKeyList(cnt));
+         return;
+         }
+      }
 }
 
 /** Returns the currently active module. */
 CSwordModuleInfo* const CModuleResultView::activeModule() {
 	Q_ASSERT(currentItem());
-	if (currentItem())
-		return CPointers::backend()->findModuleByName(currentItem()->text(0));
-	return 0;
+   QListViewItem* item = currentItem();
+
+   if (item == NULL)
+      return 0;
+
+   // we need to find the parent most node because that is the node
+   // that is the module name.
+   while (item->parent())
+      item = item->parent();
+
+   if (item)
+      return CPointers::backend()->findModuleByName(item->text(0));
+
+   return 0;
 }
 
 /** No descriptions */

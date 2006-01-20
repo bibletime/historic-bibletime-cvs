@@ -1,3 +1,6 @@
+2006-01-19 Lee Carpenter <lcarpenter@users.sourceforge.net>
+  * Applied Jim Campbell's patches to add Strong's highlighting in search results.
+
 2006-01-18 Lee Carpenter <lcarpenter@users.sourceforge.net>
   * Converted search dialog to use Designer .ui templates for layout.
 

@@ -48,6 +48,7 @@ public slots: // Public slots
 	* Setups the list with the given module.
 	*/
 	void setupTree(CSwordModuleInfo*);
+   void setupStrongsTree(CSwordModuleInfo*, QStringList*);
 	void copyItemsWithText();
 	void copyItems();
 	void saveItemsWithText();

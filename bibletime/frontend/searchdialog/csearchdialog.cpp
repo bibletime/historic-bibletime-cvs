@@ -94,9 +94,14 @@ void CSearchDialog::startSearch() {
 		int result = QMessageBox::question(this, i18n("Missing indices"),
 			i18n("One or more modules need indexing before they can be searched.\n"
 			"This could take a long time. Proceed with indexing?"),
-			QMessageBox::Yes | QMessageBox::Default,
-			QMessageBox::No | QMessageBox::Escape);
-		if (result == QMessageBox::Yes) {
+      	QMessageBox::Yes | QMessageBox::Default,
+         QMessageBox::No | QMessageBox::Escape);
+      // The result is 0 for Yes/Ok and 1 for No/Cancel.
+      // It does not seem to matter what the two button constants are.
+      // I have tried Yes/No, Ok/Cancel and they both show a Yes/No dialog with
+      // Yes on the left and No on the right.  When Yes is clicked the result is 0,
+      // when No is clicked the result is 1.
+		if (result == 0) {
 			// FIXME - add a proper progress dialog for indexing
 			m_searcher.indexModules( modules() );
 		}

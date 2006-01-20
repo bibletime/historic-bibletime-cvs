@@ -30,6 +30,97 @@
 #include <kiconloader.h>
 #include <kmessagebox.h>
 
+
+/********************************************
+************  StrongsResultList *************
+********************************************/
+void StrongsResultClass::initStrongsResults(void)
+   {
+   using namespace Rendering;
+   CDisplayRendering render;
+   ListCSwordModuleInfo modules;
+   CTextRendering::KeyTreeItem::Settings settings;
+   QString rText, lText, key;
+   bool found;
+   int sIndex;
+   int count;
+   int index;
+   QString text;
+
+   modules.append(srModule);
+   sword::ListKey& result = srModule->searchResult();
+
+   count = result.Count();
+   if (!count)
+      return;
+
+   srList.clear();
+
+   for (index = 0; index < count; index++)
+      {
+      key = QString::fromUtf8(result.GetElement(index)->getText());
+      text = render.renderSingleKey(key, modules, settings);
+      sIndex = 0;
+      while ((rText = getStrongsNumberText(text, &sIndex)) != "")
+         {
+         StrongsResultList::iterator it;
+         found = FALSE;
+         for ( it = srList.begin(); it != srList.end(); ++it )
+            {
+            lText = (*it).keyText();
+            if (lText == rText)
+               {
+               found = TRUE;
+               (*it).addKeyName(key);
+               break;
+               }
+            }
+         if (found == FALSE)
+            srList.append( StrongsResult(rText, key) );
+         }
+      }
+   //qHeapSort(srList);
+   }
+
+QString StrongsResultClass::getStrongsNumberText(const QString& verseContent, int *startIndex)
+   {
+   // get the strongs text
+   int idx1, idx2, index;
+   QString sNumber, strongsText;
+   const bool cs = CSwordModuleSearch::caseSensitive;
+
+   if (*startIndex == 0)
+      index = verseContent.find("<body", 0);
+   else
+      index = *startIndex;
+   // find all the "lemma=" inside the the content
+   while((index = verseContent.find("lemma=", index, cs)) != -1)
+      {
+      // get the strongs number after the lemma and compare it with the
+      // strongs number we are looking for
+      idx1 = verseContent.find("\"", index) + 1;
+      idx2 = verseContent.find("\"", idx1 + 1);
+      sNumber = verseContent.mid(idx1, idx2 - idx1);
+      if (sNumber.find(lemmaText) >= 0)
+         {
+         // strongs number is found now we need to get the text of this node
+         // search right until the ">" is found.  Get the text from here to
+         // the next "<".
+         index = verseContent.find(">", index, cs) + 1;
+         idx2  = verseContent.find("<", index, cs);
+         strongsText = verseContent.mid(index, idx2 - index);
+         index = idx2;
+         *startIndex = index;
+         return(strongsText);
+         }
+      else
+         {
+         index += 6; // 6 is the length of "lemma="
+         }
+      }
+   return("");
+   }
+
 /********************************************
 **********  CSearchDialogResultPage *********
 ********************************************/
@@ -51,10 +142,11 @@ void CSearchResultPage::initView() {
 
 /** Sets the modules which contain the result of each. */
 void CSearchResultPage::setSearchResult(ListCSwordModuleInfo modules) {
+   const QString searchedText = CSearchDialog::getSearchDialog()->searchText();
 	reset(); //clear current modules
 
 	m_modules = modules;
-	m_moduleListBox->setupTree(modules);
+	m_moduleListBox->setupTree(modules, searchedText);
 
 	//have a Bible or commentary in the modules?
 	bool enable = false;
@@ -141,8 +233,33 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 	const QString rep2("</span>");
 	const unsigned int repLength = rep1.length() + rep1.length();
 
-
-	if (searchFlags & CSwordModuleSearch::exactPhrase) { //exact phrase matching
+   if (searchedText.find("strong:", 0) == 0)
+      {
+      int idx1, idx2;
+      QString sNumber, lemmaText;
+      const QString rep3("style=\"background-color:#FFFF66;\" ");
+      const unsigned int rep3Length = rep3.length();
+      // get the strongs number from the search text
+      sNumber = searchedText.right(searchedText.length() - 7);
+      // find all the "lemma=" inside the the content
+      while((index = ret.find("lemma=", index, cs)) != -1)
+         {
+         // get the strongs number after the lemma and compare it with the
+         // strongs number we are looking for
+         idx1 = ret.find("\"", index) + 1;
+         idx2 = ret.find("\"", idx1 + 1);
+         lemmaText = ret.mid(idx1, idx2 - idx1);
+         if (lemmaText.find(sNumber) >= 0)
+            {
+            // strongs number is found now we need to highlight it
+            // I believe the easiest way is to insert rep3 just before "lemma="
+            ret = ret.insert(index, rep3);
+            index += rep3Length;
+            }
+         index += 6; // 6 is the length of "lemma="
+         }
+      }
+	else if (searchFlags & CSwordModuleSearch::exactPhrase) { //exact phrase matching
 		while ( (index = ret.find(searchedText, index, cs)) != -1 ) {
 			if (!CToolClass::inHTMLTag(index, ret)) {
 				ret = ret.insert( index+length, rep2 );
@@ -198,6 +315,9 @@ void CSearchResultPage::initConnections() {
 	connect(m_moduleListBox, SIGNAL(moduleChanged()),
 			m_previewDisplay->connectionsProxy(), SLOT(clear()));
 	connect(m_analyseButton, SIGNAL(clicked()), SLOT(showAnalysis()));
+   // connect the strongs list
+   connect(m_moduleListBox, SIGNAL(strongsSelected(CSwordModuleInfo*, QStringList*)),
+         m_resultListBox, SLOT(setupStrongsTree(CSwordModuleInfo*, QStringList*)));
 }
 
 /** Shows a dialog with the search analysis of the current search. */
@@ -232,7 +352,9 @@ void CSearchOptionsPage::setSearchText(const QString& text) {
 			found = true;
 		}
 	}
-
+   // This is needed because in the for loop i is incremented before the comparison (++i)
+   // As a result the index i is actually one greater than expected.
+   i--;
 	if (!found) {
 		i = 0;
 		m_searchTextCombo->insertItem( text,0 );
