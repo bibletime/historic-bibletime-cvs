@@ -1,3 +1,6 @@
+2006-01-22 Lee Carpenter <lcarpenter@users.sourceforge.net>
+  * Added a page to the Bookshelf Manager to add/delete search indices.
+
 2006-01-19 Lee Carpenter <lcarpenter@users.sourceforge.net>
   * Applied Jim Campbell's patches to add Strong's highlighting in search results.
 

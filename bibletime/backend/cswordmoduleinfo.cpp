@@ -134,11 +134,14 @@ const bool CSwordModuleInfo::isEncrypted() const {
 
 	return false;
 }
+const QString CSwordModuleInfo::getBaseIndexLocation()
+{
+	return (KGlobal::dirs()->saveLocation("data", "bibletime/indices/"));
+}
 
 const QString CSwordModuleInfo::getIndexLocation() const
 {
-	return (KGlobal::dirs()->saveLocation("data", "bibletime/indices/")) +
-		name().ascii();
+	 return getBaseIndexLocation() + name().ascii();
 }
 
 const bool CSwordModuleInfo::hasIndex() //this will return true only 
@@ -187,7 +190,7 @@ void CSwordModuleInfo::buildIndex() {
 	bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
 	
 	KProgressDialog* progressDialog = new KProgressDialog(0, "progressDialog", i18n("Index creation"), 
-		(i18n("Creating index for %1")+"...").arg( name() ) );
+		(i18n("Creating index for %1")+"...").arg( name() ), true );
 	progressDialog->setAllowCancel( false );
 
 	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
@@ -245,7 +248,6 @@ void CSwordModuleInfo::buildIndex() {
 			}
 		} // for attListI
 		
-		
 		writer->addDocument(doc);
 		delete doc;
 		verseIndex = m_module->Index();
@@ -260,7 +262,6 @@ void CSwordModuleInfo::buildIndex() {
 	KApplication::kApplication()->processEvents(1);
 	writer->optimize();
 	writer->close();
-	//if (writer) delete writer;
 
 	delete progressDialog;
 
@@ -269,7 +270,20 @@ void CSwordModuleInfo::buildIndex() {
 		indexconfig->writeEntry("module-version", config(CSwordModuleInfo::ModuleVersion) );
 	}
 	indexconfig->writeEntry("index-version", INDEX_VERSION);
-	//delete indexconfig;
+}
+
+void CSwordModuleInfo::deleteIndex()
+{
+	lucene::analysis::standard::StandardAnalyzer an;
+	QString index = getIndexLocation();
+	
+	if (IndexReader::indexExists(index.ascii())){
+		if (IndexReader::isLocked(index.ascii()) ){
+			IndexReader::unlock(index.ascii());
+		}
+	}
+	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
+	writer->close();
 }
 
 const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int searchOptions, sword::ListKey scope)
@@ -295,7 +309,7 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 			Document* doc = &h->doc(i);
 			lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
 			
-			SWKey* swKey = module()->CreateKey();
+			util::scoped_ptr<SWKey> swKey(module()->CreateKey());
 			swKey->setText(m_utfBuffer);
 			
 		// limit results based on scope
@@ -317,9 +331,6 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 		return false;
 	}
 	
-	//delete h;
-	//delete q;
-
 	return (m_searchResult.Count() > 0);
 }
 

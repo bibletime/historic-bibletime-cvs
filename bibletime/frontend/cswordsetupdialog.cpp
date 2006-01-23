@@ -8,6 +8,8 @@
 #include "backend/cswordmoduleinfo.h"
 // #include "btinstallmgr.h"
 
+#include "cmanageindiceswidget.h"
+
 #include "util/cresmgr.h"
 #include "util/ctoolclass.h"
 #include "util/scoped_resource.h"
@@ -57,6 +59,7 @@ namespace InstallationManager {
 		initSwordConfig();
 		initInstall();
 		initRemove();
+		initManageIndices();
 	}
 
 	void CSwordSetupDialog::initSwordConfig() {
@@ -222,6 +225,17 @@ the module remote installation feature!</b>")
 				this, SLOT(slot_doRemoveModules()));
 
 		populateRemoveModuleListView();
+	}
+
+	void CSwordSetupDialog::initManageIndices()
+	{
+		QFrame* page = m_manageIndiciesPage = addPage(i18n("Manage search indicies"),
+			QString::null, SmallIcon("filefind",32));
+
+		page->setMinimumSize(500,400);
+		QVBoxLayout* box = new QVBoxLayout(page, 4, 4);
+		CManageIndicesWidget* mi = new CManageIndicesWidget(page);
+		box->addWidget(mi);
 	}
 
 	void CSwordSetupDialog::slotOk() {

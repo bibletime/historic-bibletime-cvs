@@ -52,6 +52,7 @@ private:
 		void initSwordConfig();
 		void initInstall();
 		void initRemove();
+		void initManageIndices();
 
 		void writeSwordConfig();
 
@@ -69,6 +70,7 @@ private:
 		bool m_swordSetupChanged;
 
 		QFrame* m_removePage;
+		QFrame* m_manageIndiciesPage;
 
 		QFrame* m_installPage;
 		QWidgetStack* m_installWidgetStack;

@@ -3,6 +3,7 @@ libfrontend_a_METASOURCES = AUTO
 noinst_LIBRARIES = libfrontend.a
 
 libfrontend_a_SOURCES = btinstallmgr.cpp cbtconfig.cpp cinputdialog.cpp \
+	manageindicesform.ui manageindicesform.cpp cmanageindiceswidget.cpp \
 	coptionsdialog.cpp cswordsetupdialog.cpp cprofilemgr.cpp cprofile.cpp cprofilewindow.cpp \
 	cexportmanager.cpp cmdiarea.cpp kstartuplogo.cpp cdragdropmgr.cpp cinfodisplay.cpp \
 	cprinter.cpp crossrefrendering.cpp kio_ftptransport.cpp cswordsetupmodulelistview.cpp \
@@ -13,6 +14,7 @@ btinstallmgr.h \
 cbtconfig.h \
 cinputdialog.h \
 coptionsdialog.h \
+cmanageindiceswidget.h \
 cswordsetupdialog.h \
 cprofilemgr.h \
 cprofile.h \

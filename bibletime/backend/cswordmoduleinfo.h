@@ -127,6 +127,11 @@ public:
 	};
 
 	/**
+	* Returns the base directory for search indices
+	*/
+	static const QString getBaseIndexLocation();
+
+	/**
 	* Returns the config entry which is pecified by the parameter.
 	*/
 	const QString config( const CSwordModuleInfo::ConfigEntry entry ) const;
@@ -187,9 +192,12 @@ public:
 	virtual const QString getIndexLocation() const;
 	/**
 	* Builds a search index for this module
-   * @return true if the index build was successful
    */
 	virtual void buildIndex();
+	/**
+	* Removes search index for this module
+	*/
+	virtual void deleteIndex();
 
 	/**
 	* Returns true if something was found, otherwise return false.
