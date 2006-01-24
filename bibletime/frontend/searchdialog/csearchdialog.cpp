@@ -101,7 +101,7 @@ void CSearchDialog::startSearch() {
       // I have tried Yes/No, Ok/Cancel and they both show a Yes/No dialog with
       // Yes on the left and No on the right.  When Yes is clicked the result is 0,
       // when No is clicked the result is 1.
-		if (result == 0) {
+		if ( (result == QMessageBox::Yes) or (result == QMessageBox::Default) ) {
 			// FIXME - add a proper progress dialog for indexing
 			m_searcher.indexModules( modules() );
 		}
