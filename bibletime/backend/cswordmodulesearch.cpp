@@ -115,7 +115,7 @@ const bool CSwordModuleSearch::modulesHaveIndices( const ListCSwordModuleInfo& m
 	return hasIndices;
 }
 
-void CSwordModuleSearch::indexModules( const ListCSwordModuleInfo& modules)
+/*void CSwordModuleSearch::indexModules( const ListCSwordModuleInfo& modules)
 {
 	ListCSwordModuleInfo::const_iterator end_it = modules.end();
 	for( ListCSwordModuleInfo::const_iterator it = modules.begin(); it != end_it; ++it) {
@@ -123,4 +123,4 @@ void CSwordModuleSearch::indexModules( const ListCSwordModuleInfo& modules)
 			(*it)->buildIndex();
 		}
 	}
-}
+}*/

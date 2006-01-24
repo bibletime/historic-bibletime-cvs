@@ -21,13 +21,12 @@
 //Qt includes
 #include <qregexp.h>
 #include <qdir.h>
+#include <qvariant.h>
 
 //KDE includes
 #include <klocale.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
-#include <kprogress.h>
-#include <kapplication.h>
 #include <kconfig.h>
 
 //Sword includes
@@ -43,6 +42,7 @@
 #include "CLucene/util/Reader.h"
 #include "CLucene/util/Misc.h"
 #include "CLucene/util/dirent.h"
+
 using namespace std;
 using namespace lucene::index;
 using namespace lucene::analysis;
@@ -189,10 +189,12 @@ void CSwordModuleInfo::buildIndex() {
 
 	bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
 	
-	KProgressDialog* progressDialog = new KProgressDialog(0, "progressDialog", i18n("Index creation"), 
-		(i18n("Creating index for %1")+"...").arg( name() ), true );
-	progressDialog->setAllowCancel( false );
+	/*KProgressDialog* progressDialog = new KProgressDialog(0, "progressDialog", i18n("Index creation"),
+			(i18n("Creating index for %1")+"...").arg( name() ), true );
+	progressDialog->setAllowCancel( false );*/
 
+	m_indexingProgress.setValue( QVariant((int)0) );
+	
 	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
 		Document* doc = new Document();
 		
@@ -253,17 +255,19 @@ void CSwordModuleInfo::buildIndex() {
 		verseIndex = m_module->Index();
 
 		if (verseIndex % 200 == 0){
-			progressDialog->progressBar()->setProgress( (100*(verseIndex-verseLowIndex))/(verseHighIndex-verseLowIndex) );
-			KApplication::kApplication()->processEvents(1);
+			//progressDialog->progressBar()->setProgress( (100*(verseIndex-verseLowIndex))/(verseHighIndex-verseLowIndex) );
+			//KApplication::kApplication()->processEvents(1);
+			m_indexingProgress.setValue( QVariant((int)((100*(verseIndex-verseLowIndex))/(verseHighIndex-verseLowIndex))) );
+			m_indexingProgress.activate();
 		}
 	}
 
-	progressDialog->setLabel( i18n("Optimizing index")+"...");
-	KApplication::kApplication()->processEvents(1);
+	//progressDialog->setLabel( i18n("Optimizing index")+"...");
+	//KApplication::kApplication()->processEvents(1);
 	writer->optimize();
 	writer->close();
 
-	delete progressDialog;
+//	delete progressDialog;
 
 	util::scoped_ptr<KConfig> indexconfig( new KConfig( getIndexLocation() + QString("/bibletime-index.conf") ) );
 	if (hasVersion()){
@@ -297,12 +301,13 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 	}
 
 	m_searchResult.ClearList();
-	standard::StandardAnalyzer analyzer;
-	IndexSearcher searcher(getIndexLocation().ascii());
-	lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
-	util::scoped_ptr<Query> q( QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer) );
 	
 	try {
+		standard::StandardAnalyzer analyzer;
+		IndexSearcher searcher(getIndexLocation().ascii());
+		lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
+		util::scoped_ptr<Query> q( QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer) );
+
 		util::scoped_ptr<Hits> h( searcher.search(q) );
 		//h = searcher.search(q, Sort::INDEXORDER); //Should return keys in the right order, doesn't work properly with CLucene 0.9.10
 		for (int i=0; i < h->length(); i++) {
@@ -333,6 +338,20 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 	
 	return (m_searchResult.Count() > 0);
 }
+
+void CSwordModuleInfo::connectIndexingFinished(QObject* receiver, const char* slot) {
+	m_indexingFinished.connect(receiver, slot);
+}
+
+void CSwordModuleInfo::connectIndexingProgress(QObject* receiver, const char* slot) {
+	m_indexingProgress.connect(receiver, slot);
+}
+
+void CSwordModuleInfo::disconnectIndexingSignals(QObject* receiver) {
+	m_indexingProgress.disconnect(receiver);
+	m_indexingFinished.disconnect(receiver);
+}
+
 
 /** Returns true if something was found, otherwise return false. */
 const bool CSwordModuleInfo::search(const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percentUpdate) (char, void *)) {

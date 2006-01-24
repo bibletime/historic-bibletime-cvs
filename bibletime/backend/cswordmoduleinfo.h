@@ -9,6 +9,7 @@
 //Qt includes
 #include <qstring.h>
 #include <qvaluelist.h>
+#include <qsignal.h>
 
 //Sword includes
 #include <listkey.h>
@@ -182,6 +183,7 @@ public:
 	* @return true if this module has a version number and false if it doesn't have one.
 	*/
 	inline const bool hasVersion() const;
+	
 	/**
 	* Returns true if the module's index has been built.
 	*/
@@ -198,7 +200,10 @@ public:
 	* Removes search index for this module
 	*/
 	virtual void deleteIndex();
-
+	void connectIndexingFinished(QObject* receiver, const char* slot);
+	void connectIndexingProgress(QObject* receiver, const char* slot);
+	void disconnectIndexingSignals(QObject* receiver);
+	
 	/**
 	* Returns true if something was found, otherwise return false.
 	* This function does start the Sword functions to search in the module and it does
@@ -331,6 +336,9 @@ private:
 	m_dataCache;
 
 	CSwordBackend* m_backend;
+
+	QSignal m_indexingFinished;
+	QSignal m_indexingProgress;
 };
 
 // typedef QPtrList<CSwordModuleInfo> ListCSwordModuleInfo;

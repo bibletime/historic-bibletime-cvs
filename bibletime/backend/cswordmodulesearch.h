@@ -109,8 +109,9 @@ public:
 	/**
 	* Indexes the specified modules if there is no existing index for the module.
 	*/
-	void indexModules( const ListCSwordModuleInfo& );
-protected:
+//	void indexModules( const ListCSwordModuleInfo& );
+
+	protected:
 	QString m_searchedText;
 	sword::ListKey m_searchScope;
 	ListCSwordModuleInfo m_moduleList;
