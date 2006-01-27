@@ -1,3 +1,6 @@
+2006-01-26 Lee Carpenter <lcarpenter@users.sourceforge.net>
+  * Added an index size field to the 'Manage search indices' page.
+
 2006-01-22 Lee Carpenter <lcarpenter@users.sourceforge.net>
   * Added a page to the Bookshelf Manager to add/delete search indices.
 

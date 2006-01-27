@@ -6,6 +6,8 @@
 #include "manageindicesform.h"
 
 #include <qwidget.h>
+
+class QCheckListItem;
 /**
 * This class encapsulates the "Manage search indices" page of the Bookshelf
 * Manager.  It allows for creation and deletion of search indicies for each
@@ -30,6 +32,11 @@ protected:
 	* Populates the module list with installed modules and orphaned indices
 	*/
 	void populateModuleList();
+
+	// member variables
+	QCheckListItem* m_modsWithIndices;
+	QCheckListItem* m_modsWithoutIndices;
+	QCheckListItem* m_orphanedIndices;
 	
 public slots:
 	/**

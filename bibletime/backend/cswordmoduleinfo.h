@@ -200,6 +200,10 @@ public:
 	* Removes search index for this module
 	*/
 	virtual void deleteIndex();
+	/**
+	* Returns index size
+	*/
+	virtual unsigned long indexSize();
 	void connectIndexingFinished(QObject* receiver, const char* slot);
 	void connectIndexingProgress(QObject* receiver, const char* slot);
 	void disconnectIndexingSignals(QObject* receiver);

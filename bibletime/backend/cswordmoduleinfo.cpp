@@ -22,6 +22,7 @@
 #include <qregexp.h>
 #include <qdir.h>
 #include <qvariant.h>
+#include <qfileinfo.h>
 
 //KDE includes
 #include <klocale.h>
@@ -288,6 +289,21 @@ void CSwordModuleInfo::deleteIndex()
 	}
 	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
 	writer->close();
+}
+
+unsigned long CSwordModuleInfo::indexSize()
+{
+	QDir index(getIndexLocation());
+	index.setFilter(QDir::Files);
+	unsigned long size = 0;
+	const QFileInfoList* infoList = index.entryInfoList();
+	QFileInfoListIterator it(*infoList);
+	QFileInfo* info;
+	while ((info = it.current())!= NULL) {
+		++it;
+		size += info->size();
+	}
+	return size;
 }
 
 const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int searchOptions, sword::ListKey scope)

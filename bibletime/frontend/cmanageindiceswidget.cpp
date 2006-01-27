@@ -16,6 +16,7 @@
 #include <qpushbutton.h>
 #include <qdir.h>
 #include <qlistview.h>
+#include <qfileinfo.h>
 
 //KDE includes
 #include <klocale.h>
@@ -43,9 +44,10 @@ void CManageIndicesWidget::initView()
 
 	// configure the list view
 	m_moduleList->addColumn(i18n("Module"));
-	m_moduleList->addColumn(i18n("Has Index"));
+	m_moduleList->addColumn(i18n("Index size"));
 	m_moduleList->setRootIsDecorated(true);
 	m_moduleList->setColumnWidth(0, 150);
+	m_moduleList->setColumnAlignment(1, Qt::AlignRight);
 
 	// icons for our buttons
 	m_createIndicesButton->setIconSet(SmallIcon("folder_new", 16));
@@ -62,36 +64,56 @@ void CManageIndicesWidget::populateModuleList()
 	m_moduleList->clear();
 		
 	// populate installed modules
-	QCheckListItem* top = new QCheckListItem(m_moduleList, i18n("Installed Modules"),
+	m_modsWithIndices = new QCheckListItem(m_moduleList, i18n("Modules with indices"),
 		QCheckListItem::CheckBoxController);
-	top->setOpen(true);
+	m_modsWithIndices->setOpen(true);
+
+	m_modsWithoutIndices = new QCheckListItem(m_moduleList, i18n("Modules without indices"),
+		QCheckListItem::CheckBoxController);
+	m_modsWithoutIndices->setOpen(true);
 
 	ListCSwordModuleInfo& modules = CPointers::backend()->moduleList();
 	ListCSwordModuleInfo::iterator end_it = modules.end();
 	for (ListCSwordModuleInfo::iterator it = modules.begin(); it != end_it; ++it) {
-		QCheckListItem* item = new QCheckListItem(top, (*it)->name(),
-			QCheckListItem::CheckBox);
+		QCheckListItem* item = NULL;
 		if ((*it)->hasIndex()) {
-			item->setText(1, i18n("Yes"));
+			item = new QCheckListItem(m_modsWithIndices, (*it)->name(),
+				QCheckListItem::CheckBox);
+			item->setText(1, QString("%1 K").arg((*it)->indexSize() / 1024));
 		}
 		else {
-			item->setText(1, i18n("No"));
+			item = new QCheckListItem(m_modsWithoutIndices, (*it)->name(),
+				QCheckListItem::CheckBox);
+			item->setText(1, i18n("0 K"));
 		}
 	}
 	
 	// populate orphaned modules
-	QCheckListItem* orphaned = new QCheckListItem(m_moduleList, i18n("Orphaned Modules"),
+	m_orphanedIndices = new QCheckListItem(m_moduleList, i18n("Orphaned Indices"),
 		QCheckListItem::CheckBoxController);
-	orphaned->setOpen(true);
+	m_orphanedIndices->setOpen(true);
 
 	QDir dir(CSwordModuleInfo::getBaseIndexLocation());
 	dir.setFilter(QDir::Dirs);
 	for (unsigned int i = 0; i < dir.count(); i++) {
 		if (dir[i] != "." && dir[i] != ".." &&
 			CPointers::backend()->findModuleByName(dir[i]) == NULL) {
-			QCheckListItem* oitem = new QCheckListItem(orphaned, dir[i],
+			QCheckListItem* oitem = new QCheckListItem(m_orphanedIndices, dir[i],
 				QCheckListItem::CheckBox);
-			oitem->setText(1, i18n("Yes"));
+			// get size
+			QDir index(dir.path() + "/" + dir[i]);
+			index.setFilter(QDir::Files);
+			unsigned long size = 0;
+			const QFileInfoList* infoList = index.entryInfoList();
+			if (infoList) {
+				QFileInfoListIterator it(*infoList);
+				QFileInfo* info;
+				while ((info = it.current())!= NULL) {
+					++it;
+					size += info->size();
+				}
+			}
+			oitem->setText(1, QString("%1 K").arg(size / 1024));
 		}
 	}
 }
@@ -99,8 +121,7 @@ void CManageIndicesWidget::populateModuleList()
 /** Creates indices for selected modules if no index currently exists */
 void CManageIndicesWidget::createIndices()
 {
-	QCheckListItem* top = (QCheckListItem*)m_moduleList->firstChild();
-
+	QCheckListItem* top = m_modsWithoutIndices;
 	bool indicesCreated = false;
 	QCheckListItem* item = (QCheckListItem*)top->firstChild();
 	while (item) {
@@ -124,7 +145,7 @@ void CManageIndicesWidget::createIndices()
 void CManageIndicesWidget::deleteIndices()
 {
 	// delete installed module indices
-	QCheckListItem* top = (QCheckListItem*)m_moduleList->firstChild();
+	QCheckListItem* top = m_modsWithIndices;
 	bool indicesDeleted = false;
 	QCheckListItem* item = (QCheckListItem*)top->firstChild();
 	while (item) {
@@ -140,7 +161,7 @@ void CManageIndicesWidget::deleteIndices()
 	}
 
 	// delete orphaned indices
-	top = (QCheckListItem*)top->nextSibling();
+	top = m_orphanedIndices;
 	if (top) {
 		QCheckListItem* item = (QCheckListItem*)top->firstChild();
 		while (item) {
