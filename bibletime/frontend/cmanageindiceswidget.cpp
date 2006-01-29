@@ -2,6 +2,8 @@
 
 #include "cmanageindiceswidget.h"
 
+#include "cmoduleindexdialog.h"
+
 #include "util/ctoolclass.h"
 #include "util/cresmgr.h"
 #include "util/cpointers.h"
@@ -122,23 +124,31 @@ void CManageIndicesWidget::populateModuleList()
 void CManageIndicesWidget::createIndices()
 {
 	QCheckListItem* top = m_modsWithoutIndices;
-	bool indicesCreated = false;
+	//bool indicesCreated = false;
 	QCheckListItem* item = (QCheckListItem*)top->firstChild();
+
+	ListCSwordModuleInfo moduleList;
 	while (item) {
 		if (item->isOn()) {
 			CSwordModuleInfo* module =
 				CPointers::backend()->findModuleByName(item->text().utf8());
-			if (module && !module->hasIndex()) {
-				module->buildIndex();
-				indicesCreated = true;
+
+			
+			if (module /*&& !module->hasIndex()*/) {
+				moduleList.append( module );
+				//module->buildIndex();
+				//indicesCreated = true;
 			}
 		}
 		item = (QCheckListItem*)item->nextSibling();
 	}
 
-	if (indicesCreated) {
+	//Shows the progress dialog
+	CModuleIndexDialog::getInstance()->indexAllModules( moduleList );
+	
+	//if (indicesCreated) {
 		populateModuleList();
-	}
+	//}
 }
 
 /** Deletes indices for selected modules and selected orphans */
