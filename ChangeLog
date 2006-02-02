@@ -1,3 +1,6 @@
+2006-02-01 Lee Carpenter <lcarpenter@users.sourceforge.net>
+  * Applied Jim Campbell's updates to the Strong's search feature.
+
 2006-01-26 Lee Carpenter <lcarpenter@users.sourceforge.net>
   * Added an index size field to the 'Manage search indices' page.
 

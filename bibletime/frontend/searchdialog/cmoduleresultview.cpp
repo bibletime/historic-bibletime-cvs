@@ -94,9 +94,23 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules, const QString& 
 		item = new KListViewItem(this, (*it)->name(), QString::number(result.Count()) );
 		item->setPixmap(0,CToolClass::getIconForModule(*it) );
 		oldItem = item;
-      if (searchedText.find("strong:", 0) == 0) {
+      //----------------------------------------------------------------------
+      // we need to make a decision here.  Either don't show any Strong's
+      // number translations, or show the first one in the search text, or
+      // figure out how to show them all.
+      // I choose option number 2 at this time.
+      //----------------------------------------------------------------------
+      int sstIndex, sTokenIndex; // strong search text index for finding "strong:"
+      if ((sstIndex = searchedText.find("strong:", 0)) != -1) {
          QString sNumber;
-         sNumber = searchedText.right(searchedText.length() - 7);
+         //--------------------------------------------------
+         // get the strongs number from the search text
+         //--------------------------------------------------
+         // first find the first space after "strong:"
+         //    this should indicate a change in search token
+         sstIndex = sstIndex + 7;
+         sTokenIndex = searchedText.find(" ", sstIndex);
+         sNumber = searchedText.mid(sstIndex, sTokenIndex - sstIndex);
          setupStrongsResults((*it), item, sNumber);
          item->setOpen(TRUE);
       }

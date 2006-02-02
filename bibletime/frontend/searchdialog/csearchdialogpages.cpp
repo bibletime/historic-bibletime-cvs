@@ -232,34 +232,51 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 	const QString rep1("<span style=\"background-color:#FFFF66;\">");
 	const QString rep2("</span>");
 	const unsigned int repLength = rep1.length() + rep1.length();
+   int sstIndex; // strong search text index for finding "strong:"
 
-   if (searchedText.find("strong:", 0) == 0)
+   //---------------------------------------------------------------------
+   // find the strongs search lemma and highlight it
+   //---------------------------------------------------------------------
+   // search the searched text for "strong:" until it is not found anymore
+   sstIndex = 0;
+   while ((sstIndex = searchedText.find("strong:", sstIndex)) != -1)
       {
-      int idx1, idx2;
+      int idx1, idx2, sTokenIndex;
       QString sNumber, lemmaText;
       const QString rep3("style=\"background-color:#FFFF66;\" ");
       const unsigned int rep3Length = rep3.length();
+      int strongIndex = index;
+      //--------------------------------------------------
       // get the strongs number from the search text
-      sNumber = searchedText.right(searchedText.length() - 7);
+      //--------------------------------------------------
+      // first find the first space after "strong:"
+      //    this should indicate a change in search token
+      sstIndex = sstIndex + 7;
+      sTokenIndex = searchedText.find(" ", sstIndex);
+      sNumber = searchedText.mid(sstIndex, sTokenIndex - sstIndex);
       // find all the "lemma=" inside the the content
-      while((index = ret.find("lemma=", index, cs)) != -1)
+      while((strongIndex = ret.find("lemma=", strongIndex, cs)) != -1)
          {
          // get the strongs number after the lemma and compare it with the
          // strongs number we are looking for
-         idx1 = ret.find("\"", index) + 1;
+         idx1 = ret.find("\"", strongIndex) + 1;
          idx2 = ret.find("\"", idx1 + 1);
          lemmaText = ret.mid(idx1, idx2 - idx1);
          if (lemmaText.find(sNumber) >= 0)
             {
             // strongs number is found now we need to highlight it
             // I believe the easiest way is to insert rep3 just before "lemma="
-            ret = ret.insert(index, rep3);
-            index += rep3Length;
+            ret = ret.insert(strongIndex, rep3);
+            strongIndex += rep3Length;
             }
-         index += 6; // 6 is the length of "lemma="
+         strongIndex += 6; // 6 is the length of "lemma="
          }
       }
-	else if (searchFlags & CSwordModuleSearch::exactPhrase) { //exact phrase matching
+   //---------------------------------------------------------------------
+   // now that the strong: stuff is out of the way continue with
+   // other search options
+   //---------------------------------------------------------------------
+	if (searchFlags & CSwordModuleSearch::exactPhrase) { //exact phrase matching
 		while ( (index = ret.find(searchedText, index, cs)) != -1 ) {
 			if (!CToolClass::inHTMLTag(index, ret)) {
 				ret = ret.insert( index+length, rep2 );
