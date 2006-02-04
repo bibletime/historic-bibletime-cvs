@@ -213,13 +213,13 @@ public:
 	* This function does start the Sword functions to search in the module and it does
 	* overwrite the variable containing the last search result.
 	*/
-	virtual const bool search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percent)(char, void*) = &sword::SWSearchable::nullPercent);
+	//virtual const bool search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percent)(char, void*) = &sword::SWSearchable::nullPercent);
 	/**
 	* Returns true if something was found, otherwise return false.
 	* This function uses CLucene to perform and index based search.  It also 
 	* overwrites the variable containing the last search result.
 	*/
-	virtual const bool searchIndexed(const QString searchedText, const int searchOptions, sword::ListKey scope);
+	virtual const bool searchIndexed(const QString searchedText/*, const int searchOptions*/, sword::ListKey& scope);
 	/**
 	* Returns the last search result for this module.
 	* The last result is cleared by @ref search
@@ -228,7 +228,7 @@ public:
 	/**
 	* This interupts the search if this module is being searched.
 	*/
-	virtual void interruptSearch();
+// 	virtual void interruptSearch();
 	/**
 	* Clears the last search result.
 	* This does immediately clean the last search result,

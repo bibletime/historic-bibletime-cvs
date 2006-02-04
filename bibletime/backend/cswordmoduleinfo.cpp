@@ -306,7 +306,7 @@ unsigned long CSwordModuleInfo::indexSize()
 	return size;
 }
 
-const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int searchOptions, sword::ListKey scope)
+const bool CSwordModuleInfo::searchIndexed(const QString searchedText,/* const int searchOptions,*/ sword::ListKey& scope)
 {
 	// work around Swords thread insafety for Bibles and Commentaries
 	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
@@ -326,15 +326,20 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 
 		util::scoped_ptr<Hits> h( searcher.search(q) );
 		//h = searcher.search(q, Sort::INDEXORDER); //Should return keys in the right order, doesn't work properly with CLucene 0.9.10
-		for (int i=0; i < h->length(); i++) {
-			Document* doc = &h->doc(i);
+
+		const bool useScope = (scope.Count() > 0);
+		Document* doc = 0;
+		util::scoped_ptr<SWKey> swKey( module()->CreateKey() );
+		
+		for (int i = 0; i < h->length(); ++i) {
+			doc = &h->doc(i);
 			lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
 			
-			util::scoped_ptr<SWKey> swKey(module()->CreateKey());
 			swKey->setText(m_utfBuffer);
 			
-		// limit results based on scope
-			if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
+		    // limit results based on scope
+			//if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
+			if (useScope) {
 				for (int j = 0; j < scope.Count(); j++) {
 					VerseKey* vkey = dynamic_cast<VerseKey*>(scope.getElement(j));
 					if (vkey->LowerBound().compare(*swKey) <= 0 && vkey->UpperBound().compare(*swKey) >= 0){
@@ -342,13 +347,13 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText, const int
 					}
 				}
 			}
-			else {
-			// no scope, give me all buffers
+			else { // no scope, give me all buffers
 				m_searchResult.add(*swKey);
 			}
 		}	
 	}
 	catch (...) {
+		qWarning("CLucene exception");
 		return false;
 	}
 	
@@ -370,63 +375,63 @@ void CSwordModuleInfo::disconnectIndexingSignals(QObject* receiver) {
 
 
 /** Returns true if something was found, otherwise return false. */
-const bool CSwordModuleInfo::search(const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percentUpdate) (char, void *)) {
-	int searchType = 0;
-	int searchFlags = REG_ICASE;
-
-	//work around Swords thread insafety for Bibles and Commentaries
-	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
-	sword::SWKey* s = dynamic_cast < sword::SWKey * >(key.get());
-
-	if (s) {
-		m_module->SetKey(*s);
-	}
-
-	//setup variables required for Sword
-	if (searchOptions & CSwordModuleSearch::caseSensitive) {
-		searchFlags = 0;
-	}
-
-	if (searchOptions & CSwordModuleSearch::cluceneIndex) {
-		searchType = -4;  //clucene search
-	}
-	else if (searchOptions & CSwordModuleSearch::entryAttribs) {
-		searchType = -3;  //Entry attributes
-	}
-	else if (searchOptions & CSwordModuleSearch::multipleWords) {
-		searchType = -2;  //multiple words
-
-		if (m_module->hasSearchFramework()
-				&& m_module->isSearchOptimallySupported((const char *)searchedText.utf8(), -4, 0, 0)) {
-			searchType = -4;
-		}
-	}
-	else if (searchOptions & CSwordModuleSearch::exactPhrase) {
-		searchType = -1;  //exact phrase
-	}
-	else if (searchOptions & CSwordModuleSearch::regExp) {
-		searchType = 0;   //regexp matching
-	}
-
-	// 	if (!percentUpdate) {
-	// 		percentUpdate =
-	// 	}
-
-	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
-		util::scoped_ptr < sword::SWKey > searchScope(m_searchResult.clone());
-		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
-	}
-	else if (searchOptions & CSwordModuleSearch::useScope) {
-		m_searchResult =
-			m_module->search(searchedText.utf8(), searchType, searchFlags,
-							 (type() != Lexicon && type() != GenericBook) ? &scope : 0, 0, percentUpdate);
-	}
-	else {
-		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
-	}
-
-	return (m_searchResult.Count() > 0);
-}
+// const bool CSwordModuleInfo::search(const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percentUpdate) (char, void *)) {
+// 	int searchType = 0;
+// 	int searchFlags = REG_ICASE;
+// 
+// 	//work around Swords thread insafety for Bibles and Commentaries
+// 	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
+// 	sword::SWKey* s = dynamic_cast < sword::SWKey * >(key.get());
+// 
+// 	if (s) {
+// 		m_module->SetKey(*s);
+// 	}
+// 
+// 	//setup variables required for Sword
+// 	if (searchOptions & CSwordModuleSearch::caseSensitive) {
+// 		searchFlags = 0;
+// 	}
+// 
+// 	if (searchOptions & CSwordModuleSearch::cluceneIndex) {
+// 		searchType = -4;  //clucene search
+// 	}
+// 	else if (searchOptions & CSwordModuleSearch::entryAttribs) {
+// 		searchType = -3;  //Entry attributes
+// 	}
+// 	else if (searchOptions & CSwordModuleSearch::multipleWords) {
+// 		searchType = -2;  //multiple words
+// 
+// 		if (m_module->hasSearchFramework()
+// 				&& m_module->isSearchOptimallySupported((const char *)searchedText.utf8(), -4, 0, 0)) {
+// 			searchType = -4;
+// 		}
+// 	}
+// 	else if (searchOptions & CSwordModuleSearch::exactPhrase) {
+// 		searchType = -1;  //exact phrase
+// 	}
+// 	else if (searchOptions & CSwordModuleSearch::regExp) {
+// 		searchType = 0;   //regexp matching
+// 	}
+// 
+// 	// 	if (!percentUpdate) {
+// 	// 		percentUpdate =
+// 	// 	}
+// 
+// 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
+// 		util::scoped_ptr < sword::SWKey > searchScope(m_searchResult.clone());
+// 		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
+// 	}
+// 	else if (searchOptions & CSwordModuleSearch::useScope) {
+// 		m_searchResult =
+// 			m_module->search(searchedText.utf8(), searchType, searchFlags,
+// 							 (type() != Lexicon && type() != GenericBook) ? &scope : 0, 0, percentUpdate);
+// 	}
+// 	else {
+// 		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
+// 	}
+// 
+// 	return (m_searchResult.Count() > 0);
+// }
 
 /** Returns the last search result for this module. */
 sword::ListKey & CSwordModuleInfo::searchResult(const sword::ListKey * newResult) {
@@ -443,9 +448,9 @@ void CSwordModuleInfo::clearSearchResult() {
 }
 
 /** This interupts the search if this module is being searched. */
-void CSwordModuleInfo::interruptSearch() {
-	m_module->terminateSearch = true;
-}
+// void CSwordModuleInfo::interruptSearch() {
+// 	m_module->terminateSearch = true;
+// }
 
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
 const sword::SWVersion CSwordModuleInfo::minimumSwordVersion() {

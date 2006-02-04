@@ -31,12 +31,12 @@
 class CSwordModuleSearch: public CPointers {
 
 public:
-	enum scopeType {
+	/*enum scopeType {
 		Scope_NoScope,
-		Scope_LastSearch,
+	//	Scope_LastSearch,
 		Scope_Bounds
-	};
-	enum searchOptions {
+};*/
+	/*enum searchOptions {
 		exactPhrase  = 0x000000001,
 		multipleWords = 0x000000002,
 		regExp    = 0x000000004,
@@ -44,22 +44,23 @@ public:
 		cluceneIndex  = 0x000000010,
 
 		caseSensitive = 0x000000020,
-		useLastResult = 0x000000040,
+		//useLastResult = 0x000000040,
 		useScope    = 0x000000080
-	};
-	enum PercentType {
+};*/
+	/*enum PercentType {
 		currentModule,
 		allModules
-	};
+};*/
+	
 	/**
 	* This is used to show the selection in the searchscope dialog
 	*/
-	enum SearchScope   { NoScope, LastSearch, Bounds };
+	//enum SearchScope   { NoScope, LastSearch, Bounds };
 
 	/** This is used to so show the selection of the searchdialog
 	*
 	*/
-	enum SearchType   { MultiWord, ExactPhrase, RegEx };
+	//enum SearchType   { MultiWord, ExactPhrase, RegEx };
 
 
 	CSwordModuleSearch();
@@ -95,13 +96,15 @@ public:
 	* Sets the options for this search. Options include the
 	* flags and search types of the Sword searc interface.
 	*/
-	void setSearchOptions( const int options );
+//	void setSearchOptions( const int options );
 	/**
 	* Returns a copy of the used search scope.
 	*/
-	const sword::ListKey& scope() const;
+	const sword::ListKey& searchScope() const;
+
 	void connectFinished( QObject * receiver, const char * member );
 	void searchFinished();
+
 	/**
 	* Returns true if all of the specified modules have indices already built.
 	*/
@@ -111,7 +114,7 @@ public:
 	*/
 //	void indexModules( const ListCSwordModuleInfo& );
 
-	protected:
+protected:
 	QString m_searchedText;
 	sword::ListKey m_searchScope;
 	ListCSwordModuleInfo m_moduleList;

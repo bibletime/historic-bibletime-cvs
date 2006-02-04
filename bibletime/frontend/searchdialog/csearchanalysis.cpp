@@ -523,19 +523,21 @@ void CSearchAnalysis::saveAsHTML() {
 
 	key.key("Genesis 1:1");
 
-	if (CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) { //a search scope was used
-		sword::ListKey verses = CSearchDialog::getSearchDialog()->searchScope();
-		for (int i = 0; i < verses.Count(); ++i) {
-			VerseRange += QString::fromUtf8(verses.GetElement(i)->getRangeText()) + "<BR>";
-		}
-	}
+	//TODO: Check This
+// 	if (CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) { //a search scope was used
+// 		sword::ListKey verses = CSearchDialog::getSearchDialog()->searchScope();
+// 		for (int i = 0; i < verses.Count(); ++i) {
+// 			VerseRange += QString::fromUtf8(verses.GetElement(i)->getRangeText()) + "<BR>";
+// 		}
+// 	}
 
 	CSearchAnalysisItem* analysisItem = m_canvasItemList.find( key.book() );
 
 	QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + metaEncoding + "</head>\n<body>\n";
 	text += "<table>\n<tr><th>" + i18n("Search text :") + "</th><th>" + CSearchDialog::getSearchDialog()->searchText() + "</th></tr>\n";
-	text += QString("<tr><th>") + i18n("Search type :") + QString("</th><th>") + /*m_searchText->getSearchTypeString() +*/ "</th></tr>\n";
-	text += QString("<tr><th>") + i18n("Search scope:") + "</th><th>" + ((CSearchDialog::getSearchDialog()->searchScopeType() !=  CSwordModuleSearch::Scope_NoScope) ? VerseRange : i18n("No search scope")) + "</th></tr>\n</table>\n<br>\n";
+	//text += QString("<tr><th>") + i18n("Search type :") + QString("</th><th>") + /*m_searchText->getSearchTypeString() +*/ "</th></tr>\n";
+	//TODO: Fix this
+	//text += QString("<tr><th>") + i18n("Search scope:") + "</th><th>" + ((CSearchDialog::getSearchDialog()->searchScopeType() !=  CSwordModuleSearch::Scope_NoScope) ? VerseRange : i18n("No search scope")) + "</th></tr>\n</table>\n<br>\n";
 
 
 	tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";

@@ -10,6 +10,7 @@
 
 //Sword includes
 #include <versekey.h>
+#include <listkey.h>
 
 //helper function
 void BibleTime::syncAllModulesByType(const CSwordModuleInfo::ModuleType type, const QString& key) {
@@ -77,9 +78,12 @@ QStringList BibleTime::searchInModule(const QString& moduleName, const QString& 
 	QStringList ret;
 	CSwordModuleInfo* mod = CPointers::backend()->findModuleByName(moduleName);
 
+	//TODO: Check this
 	Q_ASSERT(mod);
 	if (mod) {
-		mod->search(searchText, CSwordModuleSearch::multipleWords, sword::ListKey());
+		//mod->search(searchText, CSwordModuleSearch::multipleWords, sword::ListKey());
+		sword::ListKey scope;
+		mod->searchIndexed( searchText, scope );
 
 		sword::ListKey result = mod->searchResult();
 		const QString lead = QString("[%1] ").arg(moduleName);

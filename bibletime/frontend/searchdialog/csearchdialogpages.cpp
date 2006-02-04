@@ -82,27 +82,28 @@ void StrongsResultClass::initStrongsResults(void)
    //qHeapSort(srList);
    }
 
-QString StrongsResultClass::getStrongsNumberText(const QString& verseContent, int *startIndex)
-   {
+QString StrongsResultClass::getStrongsNumberText(const QString& verseContent, int *startIndex) {
    // get the strongs text
    int idx1, idx2, index;
    QString sNumber, strongsText;
-   const bool cs = CSwordModuleSearch::caseSensitive;
+   //const bool cs = CSwordModuleSearch::caseSensitive;
+   const bool cs = false;
 
-   if (*startIndex == 0)
+   if (*startIndex == 0) {
       index = verseContent.find("<body", 0);
-   else
+   }
+   else {
       index = *startIndex;
+   }
+   
    // find all the "lemma=" inside the the content
-   while((index = verseContent.find("lemma=", index, cs)) != -1)
-      {
+   while((index = verseContent.find("lemma=", index, cs)) != -1) {
       // get the strongs number after the lemma and compare it with the
       // strongs number we are looking for
       idx1 = verseContent.find("\"", index) + 1;
       idx2 = verseContent.find("\"", idx1 + 1);
       sNumber = verseContent.mid(idx1, idx2 - idx1);
-      if (sNumber.find(lemmaText) >= 0)
-         {
+      if (sNumber.find(lemmaText) >= 0) {
          // strongs number is found now we need to get the text of this node
          // search right until the ">" is found.  Get the text from here to
          // the next "<".
@@ -111,15 +112,15 @@ QString StrongsResultClass::getStrongsNumberText(const QString& verseContent, in
          strongsText = verseContent.mid(index, idx2 - index);
          index = idx2;
          *startIndex = index;
+		 
          return(strongsText);
-         }
-      else
-         {
+	  }
+      else {
          index += 6; // 6 is the length of "lemma="
-         }
-      }
-   return("");
+	  }
    }
+   return QString::null;
+}
 
 /********************************************
 **********  CSearchDialogResultPage *********
@@ -178,12 +179,14 @@ void CSearchResultPage::reset() {
 void CSearchResultPage::updatePreview(const QString& key) {
 	using namespace Rendering;
 
-	if ( CSwordModuleInfo* module = m_moduleListBox->activeModule() ) {
+	CSwordModuleInfo* module = m_moduleListBox->activeModule();
+	if ( module ) {
 		const QString searchedText = CSearchDialog::getSearchDialog()->searchText();
-		const int searchFlags = CSearchDialog::getSearchDialog()->searchFlags();
+		//const int searchFlags = CSearchDialog::getSearchDialog()->searchFlags();
 
 		QString text;
 		CDisplayRendering render;
+
 		ListCSwordModuleInfo modules;
 		modules.append(module);
 
@@ -215,16 +218,17 @@ void CSearchResultPage::updatePreview(const QString& key) {
 			text = render.renderSingleKey(key, modules, settings);
 		}
 
-		m_previewDisplay->setText( highlightSearchedText(text, searchedText, searchFlags) );
+		m_previewDisplay->setText( highlightSearchedText(text, searchedText/*, searchFlags*/) );
 		m_previewDisplay->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key) );
 	}
 }
 
-const QString CSearchResultPage::highlightSearchedText(const QString& content, const QString& searchedText, const int searchFlags) {
+const QString CSearchResultPage::highlightSearchedText(const QString& content, const QString& searchedText/*, const int searchFlags*/) {
 	QString ret = content;
 
-	const bool cs = (searchFlags & CSwordModuleSearch::caseSensitive);
-
+	//const bool cs = (searchFlags & CSwordModuleSearch::caseSensitive);
+	const bool cs = false;
+	
 	//   int index = 0;
 	int index = ret.find("<body", 0);
 	int length = searchedText.length();
@@ -232,7 +236,7 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 	const QString rep1("<span style=\"background-color:#FFFF66;\">");
 	const QString rep2("</span>");
 	const unsigned int repLength = rep1.length() + rep1.length();
-   int sstIndex; // strong search text index for finding "strong:"
+   	int sstIndex; // strong search text index for finding "strong:"
 
    //---------------------------------------------------------------------
    // find the strongs search lemma and highlight it
@@ -276,7 +280,7 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
    // now that the strong: stuff is out of the way continue with
    // other search options
    //---------------------------------------------------------------------
-	if (searchFlags & CSwordModuleSearch::exactPhrase) { //exact phrase matching
+/*	if (searchFlags & CSwordModuleSearch::exactPhrase) { //exact phrase matching
 		while ( (index = ret.find(searchedText, index, cs)) != -1 ) {
 			if (!CToolClass::inHTMLTag(index, ret)) {
 				ret = ret.insert( index+length, rep2 );
@@ -286,7 +290,7 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 			index += repLength;
 		};
 	}
-	else if (searchFlags & CSwordModuleSearch::multipleWords) { //multiple words
+	else if (searchFlags & CSwordModuleSearch::multipleWords) { //multiple words*/
 		QStringList words = QStringList::split(" ", searchedText);
 		for ( int wi = 0; (unsigned int)wi < words.count(); ++wi ) { //search for every word in the list
 			QString word = words[ wi ];
@@ -302,21 +306,21 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 				index += length;
 			}
 		}
-	}
-	else { //multiple words or regular expression
-		//use re as regular expression and replace any occurences
-		QRegExp regExp( searchedText, cs );
-		regExp.setMinimal( true );
-
-		while ( (index = regExp.search(ret, index)) != -1 ) {
-			if (!CToolClass::inHTMLTag(index, ret)) {
-				ret = ret.insert( index + regExp.matchedLength(), rep2 );
-				ret = ret.insert( index, rep1 );
-				index += regExp.matchedLength() + repLength;
-			}
-			index += length;
-		}
-	}
+// 	}
+// 	else { //multiple words or regular expression
+// 		//use re as regular expression and replace any occurences
+// 		QRegExp regExp( searchedText, cs );
+// 		regExp.setMinimal( true );
+// 
+// 		while ( (index = regExp.search(ret, index)) != -1 ) {
+// 			if (!CToolClass::inHTMLTag(index, ret)) {
+// 				ret = ret.insert( index + regExp.matchedLength(), rep2 );
+// 				ret = ret.insert( index, rep1 );
+// 				index += regExp.matchedLength() + repLength;
+// 			}
+// 			index += length;
+// 		}
+// 	}
 
 	//   qWarning("\n\n\n%s", ret.latin1());
 
@@ -452,11 +456,11 @@ const ListCSwordModuleInfo CSearchOptionsPage::modules() {
 }
 
 /** Return the selected search type,. */
-const int CSearchOptionsPage::searchFlags() {
-	// FIXME - remove this due to new index search
-	int ret = CSwordModuleSearch::multipleWords; //"multiple words" is standard
-	return ret;
-}
+// const int CSearchOptionsPage::searchFlags() {
+// 	// FIXME - remove this due to new index search
+// 	int ret = CSwordModuleSearch::multipleWords; //"multiple words" is standard
+// 	return ret;
+// }
 
 /** Sets all options back to the default. */
 void CSearchOptionsPage::reset() {
@@ -517,7 +521,7 @@ void CSearchOptionsPage::refreshRanges() {
 	//the first two options are fixed, the others can be edited using the "Setup ranges" button.
 	m_rangeChooserCombo->clear();
 	m_rangeChooserCombo->insertItem(i18n("No search scope"));
-	m_rangeChooserCombo->insertItem(i18n("Last search result"));
+	//m_rangeChooserCombo->insertItem(i18n("Last search result"));
 
 	//insert the user-defined ranges
 	CBTConfig::StringMap map = CBTConfig::get
@@ -530,27 +534,37 @@ void CSearchOptionsPage::refreshRanges() {
 
 /** Returns the selected search scope if a search scope was selected. */
 sword::ListKey CSearchOptionsPage::searchScope() {
-	if (m_rangeChooserCombo->currentItem() > 1) { //neither "No Scope" nor "Last search result"
-		CBTConfig::StringMap map = CBTConfig::get
-									   (CBTConfig::searchScopes);
+	if (m_rangeChooserCombo->currentItem() > 0) { //is not "no scope"
+		CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
+		
 		QString scope = map[ m_rangeChooserCombo->currentText() ];
-		if (!scope.isEmpty())
+		if (!scope.isEmpty()) {
 			return sword::VerseKey().ParseVerseList( (const char*)scope.utf8(), "Genesis 1:1", true);
-	};
+		}
+	}
+	
 	return sword::ListKey();
 }
 
 /** Returns the selected scope type. */
-const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType() {
-	if (m_rangeChooserCombo->currentItem() == 0) {
-		return CSwordModuleSearch::Scope_NoScope;
-	}
-	else if (m_rangeChooserCombo->currentItem() == 1) {
-		return CSwordModuleSearch::Scope_LastSearch;
-	}
-	else {
-		return CSwordModuleSearch::Scope_Bounds;
-	};
+// const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType() {
+// 	if (m_rangeChooserCombo->currentItem() == 0) {
+// 		return CSwordModuleSearch::Scope_NoScope;
+// 	}
+// 	else if (m_rangeChooserCombo->currentItem() == 1) {
+// 		return CSwordModuleSearch::Scope_LastSearch;
+// 	}
+// 	else {
+// 		return CSwordModuleSearch::Scope_Bounds;
+// 	};
+// 
+// 	return CSwordModuleSearch::Scope_NoScope;
+// }
 
-	return CSwordModuleSearch::Scope_NoScope;
+
+/*!
+    \fn CSearchOptionsPage::hasSearchScope()
+ */
+bool CSearchOptionsPage::hasSearchScope() {
+	return (searchScope().Count() > 0);
 }

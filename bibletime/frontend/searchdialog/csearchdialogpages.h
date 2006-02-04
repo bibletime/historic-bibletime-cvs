@@ -145,7 +145,7 @@ protected: // Protected methods
 	/**
 	* This function highlights the searched text in the content using the search type given by search flags
 	*/
-	const QString highlightSearchedText(const QString& content, const QString& searchedText, const int searchFlags);
+	const QString highlightSearchedText(const QString& content, const QString& searchedText/*, const int searchFlags*/);
 
 private:
 	CReadDisplay* m_previewDisplay;
@@ -183,7 +183,7 @@ public:
 	/**
 	* Return the selected search type,.
 	*/
-	const int searchFlags();
+//	const int searchFlags();
 	/**
 	* Sets all options back to the default.
 	*/
@@ -195,13 +195,15 @@ public:
 	/**
 	* Returns the selected scope type.
 	*/
-	const CSwordModuleSearch::scopeType scopeType();
+	//const CSwordModuleSearch::scopeType scopeType();
 
 	QSize sizeHint() const { return baseSize(); }
 	QSize minimumSizeHint() const { return minimumSize(); }
+    bool hasSearchScope();
 
 private:
 	ListCSwordModuleInfo m_modules;
+	
 protected: // Protected methods
 	/**
 	* Initializes this page.

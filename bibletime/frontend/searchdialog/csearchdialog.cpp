@@ -113,22 +113,29 @@ void CSearchDialog::startSearch() {
 
 	m_searchResultPage->reset();
 
-	int searchFlags = m_searchOptionsPage->searchFlags();
+//	const int searchFlags = m_searchOptionsPage->searchFlags();
 
-	const CSwordModuleSearch::scopeType scopeType = m_searchOptionsPage->scopeType();
-	if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
-		searchFlags |= CSwordModuleSearch::useLastResult;
-	}
-	else if ( (scopeType == CSwordModuleSearch::Scope_Bounds)
-			  && strlen(m_searchOptionsPage->searchScope().getRangeText())) {
-		//we need the scope flag and a valid scope!
-		searchFlags |= CSwordModuleSearch::useScope;
+//	const CSwordModuleSearch::scopeType scopeType = m_searchOptionsPage->scopeType();
+// 	if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
+// 		searchFlags |= CSwordModuleSearch::useLastResult;
+// 	}
+// 	else if ( (scopeType == CSwordModuleSearch::Scope_Bounds)
+// 			  && strlen(m_searchOptionsPage->searchScope().getRangeText())) {
+// 		//we need the scope flag and a valid scope!
+// 		searchFlags |= CSwordModuleSearch::useScope;
+// 		m_searcher.setSearchScope( m_searchOptionsPage->searchScope() );
+// 	}
+
+	if (m_searchOptionsPage->hasSearchScope()) {
 		m_searcher.setSearchScope( m_searchOptionsPage->searchScope() );
+	}
+	else {
+		m_searcher.resetSearchScope();
 	}
 
 	m_searcher.setModules( modules() );
 	m_searcher.setSearchedText(searchText);
-	m_searcher.setSearchOptions(searchFlags);
+//	m_searcher.setSearchOptions(searchFlags);
 
 	m_searcher.startSearch();
 }
@@ -164,14 +171,14 @@ sword::ListKey CSearchDialog::searchScope() {
 };
 
 /** Returns true if the search used a scope, otherwise false. */
-const CSwordModuleSearch::scopeType CSearchDialog::searchScopeType() const {
-	return m_searchOptionsPage->scopeType();
-}
+// const CSwordModuleSearch::scopeType CSearchDialog::searchScopeType() const {
+// 	return m_searchOptionsPage->scopeType();
+// }
 
 /** Returns true if the search used a scope, otherwise false. */
-const int CSearchDialog::searchFlags() const {
-	return m_searchOptionsPage->searchFlags();
-}
+// const int CSearchDialog::searchFlags() const {
+// 	return m_searchOptionsPage->searchFlags();
+// }
 
 /** Returns the search text which is used for the search. */
 void CSearchDialog::setSearchText( const QString searchText ) {

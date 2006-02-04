@@ -41,7 +41,7 @@ const bool CSwordModuleSearch::startSearch() {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
 
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
-		if ( (*it)->searchIndexed(m_searchedText, m_searchOptions, m_searchScope) ) {
+		if ( (*it)->searchIndexed(m_searchedText/*, m_searchOptions*/, m_searchScope) ) {
 			foundItems = true;
 		}
 	}
@@ -84,12 +84,12 @@ const bool CSwordModuleSearch::foundItems() const {
 }
 
 /** Sets the options for this search. Options include theflags and search types of the Sword searc interface. */
-void CSwordModuleSearch::setSearchOptions( const int options ) {
-	m_searchOptions = options;
-}
+// void CSwordModuleSearch::setSearchOptions( const int options ) {
+// 	m_searchOptions = options;
+// }
 
 /** Returns a copy of the used search scope. */
-const sword::ListKey& CSwordModuleSearch::scope() const {
+const sword::ListKey& CSwordModuleSearch::searchScope() const {
 	return m_searchScope;
 }
 

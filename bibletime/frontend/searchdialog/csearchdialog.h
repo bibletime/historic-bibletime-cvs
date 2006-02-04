@@ -88,11 +88,11 @@ protected:
 	/**
 	* Returns true if the search used a scope, otherwise false.
 	*/
-	const CSwordModuleSearch::scopeType searchScopeType() const;
+	//const CSwordModuleSearch::scopeType searchScopeType() const;
 	/**
 	* Returns they type of search which is set
 	*/
-	const int searchFlags() const;
+// 	const int searchFlags() const;
 	/**
 	* Resets the parts to the default.
 	*/
