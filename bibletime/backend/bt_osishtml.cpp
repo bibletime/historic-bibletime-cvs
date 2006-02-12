@@ -195,6 +195,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				if (type == "crossReference") { //note containing cross references
 					myUserData->inCrossrefNote = true;
 					myUserData->noteType = BT_UserData::CrossReference;
+					myUserData->swordFootnote++; // cross refs count as notes, too
 
 					/*     //get the refList value of the right entry attribute
 					     AttributeList notes = myModule->getEntryAttributes()["Footnote"];
@@ -243,6 +244,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					//       buf.append(" <span class=\"alternative\">");
 					myUserData->noteType = BT_UserData::Alternative;
 					myUserData->suspendTextPassThru = true;
+					myUserData->swordFootnote++; // count as notes, too
 				}
 				else {
 					//           qWarning("found note in %s", myUserData->key->getShortText());
