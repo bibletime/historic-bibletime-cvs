@@ -167,23 +167,18 @@ void CReadWindow::copyDisplayedText() {
     \fn CReadWindow::resizeEvent(QResizeEvent* e)
  */
 void CReadWindow::resizeEvent(QResizeEvent* /*e*/) {
-	//  qWarning("resizeEvent...");
 	displayWidget()->moveToAnchor(
 		Rendering::CDisplayRendering::keyToHTMLAnchor(key()->key())
 	);
 }
 
 void CReadWindow::openSearchStrongsDialog() {
-	qWarning("looking for lemma %s",  displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma].latin1() );
+//	qWarning("looking for lemma %s",  displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma].latin1() );
 	QString searchText = QString::null;
-	//ListCSwordModuleInfo modules;
 	
 	if (displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma] != QString::null) {
-		searchText.append("strong:").append(displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma]);
-		
-//		modules.append(CBTConfig::get(CBTConfig::standardGreekStrongsLexicon));
-//		modules.append(CBTConfig::get(CBTConfig::standardHebrewStrongsLexicon));
+		searchText.append("strong:").append(displayWidget()->getCurrentNodeInfo() [CDisplay::Lemma]);
 	}
 	
-	CSearchDialog::openDialog( modules(), searchText, 0 );
+	Search::CSearchDialog::openDialog( modules(), searchText, 0 );
 }

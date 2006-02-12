@@ -10,7 +10,7 @@
 #include <kio/jobclasses.h>
 #include <kio/job.h>
 
-namespace InstallationManager {
+namespace BookshelfManager {
 	bool finishedDownload = false;
 
 	KIO_FTPTransport::KIO_FTPTransport(const char *host, sword::StatusReporter *statusReporter )

@@ -76,12 +76,12 @@
                         <property name="orientation">
                             <enum>Vertical</enum>
                         </property>
-                        <widget class="CModuleResultView">
+                        <widget class="Search::Result::CModuleResultView">
                             <property name="name">
                                 <cstring>m_moduleListBox</cstring>
                             </property>
                         </widget>
-                        <widget class="CSearchResultView">
+                        <widget class="Search::Result::CSearchResultView">
                             <property name="name">
                                 <cstring>m_resultListBox</cstring>
                             </property>
@@ -151,7 +151,7 @@
 </widget>
 <customwidgets>
     <customwidget>
-        <class>CModuleResultView</class>
+        <class>Search::Result::CModuleResultView</class>
         <header location="local">cmoduleresultview.h</header>
         <sizehint>
             <width>50</width>
@@ -167,7 +167,7 @@
         <pixmap>image0</pixmap>
     </customwidget>
     <customwidget>
-        <class>CSearchResultView</class>
+        <class>Search::Result::CSearchResultView</class>
         <header location="local">csearchresultview.h</header>
         <sizehint>
             <width>50</width>

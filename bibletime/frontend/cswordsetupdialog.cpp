@@ -44,7 +44,7 @@
 
 using namespace sword;
 
-namespace InstallationManager {
+namespace BookshelfManager {
 
 	CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
 : KDialogBase(IconList, i18n("Bookshelf Manager"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null),

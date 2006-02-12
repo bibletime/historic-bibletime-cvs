@@ -7,6 +7,7 @@
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordbackend.h"
 #include "backend/cswordmodulesearch.h"
+
 #include "searchoptionsform.h"
 #include "searchresultsform.h"
 
@@ -32,6 +33,9 @@ class KPopupMenu;
 
 class CReadDisplay;
 
+namespace Search {
+	namespace Result {
+		
 /**
 * This class is used to keep track of the text strongs results.
 * It only keeps track of one instance of a strongs text result.
@@ -162,7 +166,10 @@ protected slots: // Protected slots
 	void showAnalysis();
 
 };
-
+	} //end of namespace Search::Result
+	
+	namespace Options {
+		
 class CSearchOptionsPage : public SearchOptionsForm  {
 	Q_OBJECT
 public:
@@ -243,5 +250,8 @@ protected slots: // Protected slots
 signals:
 	void sigSetSearchButtonStatus(bool);
 };
+
+	} //end of namespace Search::Options
+} //end of namespace Search
 
 #endif

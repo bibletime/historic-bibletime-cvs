@@ -16,6 +16,10 @@
 #include <kaction.h>
 #include <kpopupmenu.h>
 
+
+namespace Search {
+	namespace Result {
+
 /********************************************
 ************  ModuleResultList **************
 ********************************************/
@@ -24,7 +28,7 @@ CModuleResultView::CModuleResultView(QWidget* parent, const char* name) :
 	KListView(parent, name) {
 	initView();
 	initConnections();
-   strongsResults = NULL;
+   strongsResults = 0;
 };
 
 CModuleResultView::~CModuleResultView() {}
@@ -34,7 +38,8 @@ CModuleResultView::~CModuleResultView() {}
 void CModuleResultView::initView() {
 	addColumn(i18n("Work"));
 	addColumn(i18n("Hits"));
-
+	setFullWidth(true);
+	
 	//  setFullWidth(true);
 	setSorting(0, true);
 	setSorting(1, true);
@@ -82,10 +87,13 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules, const QString& 
 	QListViewItem* oldItem = 0;
 	sword::ListKey result;
 
-   if (strongsResults) {
-      delete(strongsResults);
-      strongsResults = NULL;
-      }
+	if (strongsResults) {
+      delete strongsResults;
+      strongsResults = 0;
+    }
+
+	bool strongsAvailable = false;
+	  
 	ListCSwordModuleInfo::iterator end_it = modules.end();
 	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
 		//   for (modules.first(); modules.current(); modules.next()) {
@@ -111,30 +119,35 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules, const QString& 
          sstIndex = sstIndex + 7;
          sTokenIndex = searchedText.find(" ", sstIndex);
          sNumber = searchedText.mid(sstIndex, sTokenIndex - sstIndex);
+		 
          setupStrongsResults((*it), item, sNumber);
-         item->setOpen(TRUE);
+		 
+         item->setOpen(true);
+		 strongsAvailable = true;
       }
 	};
 
+	//Allow to hide the module strongs if there are any available
+	setRootIsDecorated( strongsAvailable );
+	
 	setSelected(currentItem(), true);
 	executed(currentItem());
 }
 
 void CModuleResultView::setupStrongsResults(CSwordModuleInfo* module, QListViewItem* parent,
-                                            const QString& sNumber)
-   {
-   QString lText;
-   KListViewItem* item = 0;
-
-   strongsResults = new StrongsResultClass(module, sNumber);
-
-   for (int cnt = 0; cnt < strongsResults->Count(); cnt++)
-      {
-      lText = strongsResults->keyText(cnt);
-      item = new KListViewItem(parent, lText, QString::number(strongsResults->keyCount(cnt)));
-      item->setText(0, lText);
-      }
-   }
+                                            const QString& sNumber) {
+	QString lText;
+	KListViewItem* item = 0;
+	
+	strongsResults = new StrongsResultClass(module, sNumber);
+	
+	for (int cnt = 0; cnt < strongsResults->Count(); cnt++) {
+		lText = strongsResults->keyText(cnt);
+		
+		item = new KListViewItem(parent, lText, QString::number(strongsResults->keyCount(cnt)));
+		item->setText(0, lText);
+	}
+}
 
 
 /** Is executed when an item was selected in the list. */
@@ -146,38 +159,41 @@ void CModuleResultView::executed( QListViewItem* i ) {
 		emit moduleSelected(m);
       return;
 	}
-   if (!strongsResults)
+	
+	if (!strongsResults) {
       return;
+	}
 
    itemText = i->text(0);
-   for (int cnt = 0; cnt < strongsResults->Count(); cnt++)
-      {
+   for (int cnt = 0; cnt < strongsResults->Count(); cnt++) {
       lText = strongsResults->keyText(cnt);
-      if (lText == itemText)
-         {
+      if (lText == itemText) {
          //clear the verses list
-         emit moduleChanged();
-         emit strongsSelected(activeModule(), strongsResults->getKeyList(cnt));
-         return;
-         }
-      }
+         	emit moduleChanged();
+         	emit strongsSelected(activeModule(), strongsResults->getKeyList(cnt));
+         	return;
+		}
+	}
 }
 
 /** Returns the currently active module. */
 CSwordModuleInfo* const CModuleResultView::activeModule() {
-	Q_ASSERT(currentItem());
+   Q_ASSERT(currentItem());
+   
    QListViewItem* item = currentItem();
-
-   if (item == NULL)
+   if (!item) {
       return 0;
+   }
 
    // we need to find the parent most node because that is the node
    // that is the module name.
-   while (item->parent())
+   while (item->parent()) {
       item = item->parent();
+   }
 
-   if (item)
+   if (item) {
       return CPointers::backend()->findModuleByName(item->text(0));
+   }
 
    return 0;
 }
@@ -233,3 +249,5 @@ void CModuleResultView::printResult() {
 	};
 }
 
+	} //end of namespace Search.Result
+} //end of namespace Search

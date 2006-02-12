@@ -27,12 +27,15 @@ class KPopupMenu;
 
 class CReadDisplay;
 
-
+namespace Search {
+	namespace Result {
+		
 class CModuleResultView : public KListView {
 	Q_OBJECT
 public:
 	CModuleResultView(QWidget* parent, const char* name = 0);
 	~CModuleResultView();
+	
 	/**
 	* Setups the tree using the given list of modules.
 	*/
@@ -111,11 +114,13 @@ private:
 		}
 		copy;
 
-	}
-	m_actions;
+	} m_actions;
+	
 	KPopupMenu* m_popup;
-   StrongsResultClass* strongsResults;
+	StrongsResultClass* strongsResults;
 };
 
+	} //end of namespace Search::Result
+} //end of namespace Search
 
 #endif

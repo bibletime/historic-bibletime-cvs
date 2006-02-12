@@ -36,6 +36,8 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
+namespace Search {
+
 static CSearchDialog* m_staticDialog = 0;
 
 void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString& searchText, QWidget* parentDialog) {
@@ -191,10 +193,10 @@ void CSearchDialog::initView() {
 
    QVBoxLayout *box = new QVBoxLayout( plainPage(), 0, spacingHint() );
 
-	m_searchOptionsPage = new CSearchOptionsPage(plainPage());
+   m_searchOptionsPage = new Options::CSearchOptionsPage(plainPage());
 	box->addWidget( m_searchOptionsPage );
 
-	m_searchResultPage = new CSearchResultPage(plainPage());
+	m_searchResultPage = new Result::CSearchResultPage(plainPage());
 	box->addWidget( m_searchResultPage );
 
 	// The dialog doesn't resize properly if the minimum size of the
@@ -240,3 +242,5 @@ void CSearchDialog::slotClose() {
 	delayedDestruct();
 	m_staticDialog = 0;
 }
+
+} //end of namespace Search

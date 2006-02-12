@@ -18,7 +18,7 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
-namespace InstallationManager {
+namespace BookshelfManager {
 
 	typedef QPtrList<sword::InstallSource> InstallSourceList;
 

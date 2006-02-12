@@ -6,8 +6,6 @@
 //BibleTime includes
 #include "backend/cswordmoduleinfo.h"
 
-//Qt includes
-
 //KDE includes
 #include <klistview.h>
 
@@ -25,6 +23,9 @@ class KProgress;
 class KPopupMenu;
 
 class CReadDisplay;
+
+namespace Search {
+	namespace Result {
 
 class CSearchResultView  : public KListView {
 	Q_OBJECT
@@ -87,6 +88,7 @@ private:
 		copy;
 	}
 	m_actions;
+	
 	KPopupMenu* m_popup;
 	CSwordModuleInfo* m_module;
 
@@ -94,6 +96,8 @@ signals: // Signals
 	void keySelected(const QString&);
 };
 
+	} //end of namespace Result
+} //end of namespace Search
 
 #endif
 

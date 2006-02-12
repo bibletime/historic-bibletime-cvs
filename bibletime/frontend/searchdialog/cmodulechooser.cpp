@@ -32,6 +32,9 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
+namespace Search {
+	namespace Options {
+	
 /****************************/
 /****************************/
 /****************************/
@@ -57,10 +60,9 @@ CSwordModuleInfo* const CModuleChooser::ModuleCheckBoxItem::module() const {
 CModuleChooser::CModuleChooser(QWidget* parent) : KListView(parent) {
 	initView();
 	initTree();
-};
+}
 
 CModuleChooser::~CModuleChooser() {}
-;
 
 void CModuleChooser::show() {
 	KListView::show();
@@ -74,7 +76,7 @@ void CModuleChooser::show() {
 			};
 		}
 	}
-};
+}
 
 /** Initializes this widget and the childs of it. */
 void CModuleChooser::initView() {
@@ -287,3 +289,6 @@ void CModuleChooserDialog::slotOk() {
 
 	KDialogBase::slotOk();
 }
+
+	} //end of namespace Search::Options
+} //end of namespace Search

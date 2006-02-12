@@ -87,7 +87,13 @@ void CLexiconReadWindow::initActions() {
 	m_actions.findText = actionCollection()->action("findText");
 	Q_ASSERT(m_actions.findText);
 	
-	m_actions.findStrongs = new KAction(i18n("Strong's Search"), KShortcut(0),this, SLOT(openSearchStrongsDialog()), actionCollection(), "findStrongs");	
+	//m_actions.findStrongs = new KAction(i18n("Strong's Search"), KShortcut(0),this, SLOT(openSearchStrongsDialog()), actionCollection(), "findStrongs");
+	m_actions.findStrongs = new KAction(
+		i18n("Strong's Search"),
+		CResMgr::displaywindows::general::findStrongs::accel,
+		this, SLOT(openSearchStrongsDialog()),
+		actionCollection(),
+		CResMgr::displaywindows::general::findStrongs::actionName);
 
 	m_actions.copy.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
 

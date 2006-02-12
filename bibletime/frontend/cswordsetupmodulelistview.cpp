@@ -18,7 +18,7 @@
 
 using namespace sword;
 
-namespace InstallationManager {
+namespace BookshelfManager {
 
     /** Tooltip implementation for QListView widgets.
      * @short Tooltip for InstallationManager listviews
@@ -59,7 +59,7 @@ namespace InstallationManager {
     CSwordSetupModuleListView::CSwordSetupModuleListView(QWidget *parent, bool is_remote, sword::InstallSource* installSource)
             : KListView(parent), m_is_remote( is_remote ) {
         Q_ASSERT(installSource);
-        new InstallationManager::ToolTip(this);
+        new BookshelfManager::ToolTip(this);
         m_backend = installSource ? BTInstallMgr::Tool::backend(installSource) : CPointers::backend();
 
         addColumn(i18n("Name"));

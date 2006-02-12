@@ -31,12 +31,15 @@
 #include <kmessagebox.h>
 
 
+namespace Search {
+	namespace Result {
+
 /********************************************
-************  StrongsResultList *************
+************  StrongsResulClass *************
 ********************************************/
-void StrongsResultClass::initStrongsResults(void)
-   {
+void StrongsResultClass::initStrongsResults(void) {
    using namespace Rendering;
+   
    CDisplayRendering render;
    ListCSwordModuleInfo modules;
    CTextRendering::KeyTreeItem::Settings settings;
@@ -343,11 +346,15 @@ void CSearchResultPage::initConnections() {
 
 /** Shows a dialog with the search analysis of the current search. */
 void CSearchResultPage::showAnalysis() {
-	CSearchAnalysisDialog dlg(m_modules, this);
+	Analysis::CSearchAnalysisDialog dlg(m_modules, this);
 	dlg.exec();
 }
 
-/*************************/
+	} //end of namespace Search.Result
+
+	/*************************/
+
+	namespace Options {
 
 CSearchOptionsPage::CSearchOptionsPage(QWidget *parent, const char *name ) :
 	SearchOptionsForm(parent,name) {
@@ -546,25 +553,12 @@ sword::ListKey CSearchOptionsPage::searchScope() {
 	return sword::ListKey();
 }
 
-/** Returns the selected scope type. */
-// const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType() {
-// 	if (m_rangeChooserCombo->currentItem() == 0) {
-// 		return CSwordModuleSearch::Scope_NoScope;
-// 	}
-// 	else if (m_rangeChooserCombo->currentItem() == 1) {
-// 		return CSwordModuleSearch::Scope_LastSearch;
-// 	}
-// 	else {
-// 		return CSwordModuleSearch::Scope_Bounds;
-// 	};
-// 
-// 	return CSwordModuleSearch::Scope_NoScope;
-// }
-
-
 /*!
     \fn CSearchOptionsPage::hasSearchScope()
  */
 bool CSearchOptionsPage::hasSearchScope() {
 	return (searchScope().Count() > 0);
 }
+
+	} //end of namespace Options
+} //end of namespace Search

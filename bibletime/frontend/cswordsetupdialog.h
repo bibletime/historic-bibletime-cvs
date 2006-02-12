@@ -25,7 +25,7 @@ class QListView;
 
 class KProgressDialog;
 
-namespace InstallationManager {
+namespace BookshelfManager {
 
 	class CSwordSetupModuleListView;
 

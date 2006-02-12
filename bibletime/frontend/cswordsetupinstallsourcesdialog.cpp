@@ -17,7 +17,7 @@
 #include <klocale.h>
 #include <kdirselectdialog.h>
 
-namespace InstallationManager {
+namespace BookshelfManager {
 
 	const QString PROTO_FILE( i18n("Local") ); //Local path
 	const QString PROTO_FTP( i18n("Remote") ); //Remote path

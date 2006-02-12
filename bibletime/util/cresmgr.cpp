@@ -389,6 +389,14 @@ namespace CResMgr {
 				const KShortcut accel     = Qt::ALT + Qt::Key_Right;
 				const char* actionName    = "window_history_forward_action";
 			}
+			namespace findStrongs {
+				QString tooltip;
+
+				const QString icon        = "bt_findstrongs";
+				const KShortcut accel     = KShortcut(0);
+				const char* actionName    = "window_find_strongs_action";
+			}
+
 		}
 		namespace bibleWindow {
 			namespace bookList {
@@ -405,7 +413,6 @@ namespace CResMgr {
 
 				const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_Y;
 			}
-
 
 			namespace chapterList {
 				QString tooltip;
@@ -975,6 +982,10 @@ The others are user defined search scopes.");
 						using namespace forwardInHistory;
 						tooltip = i18n ("Go forward one item in the display history.") ;
 
+					}
+					{
+						using namespace findStrongs;
+						tooltip = i18n ("Show all occurences of the Strong number currently under the mouse cursor.") ;
 					}
 				}
 				using namespace bibleWindow;

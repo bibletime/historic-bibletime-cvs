@@ -192,7 +192,7 @@ void CModuleItem::dropped( QDropEvent* e, QListViewItem* /*after*/) {
 				ListCSwordModuleInfo modules;
 				modules.append(module());
 
-				CSearchDialog::openDialog(modules, item.text());
+				Search::CSearchDialog::openDialog(modules, item.text());
 			}
 		}
 		else if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) { //open the module

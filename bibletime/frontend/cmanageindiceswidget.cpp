@@ -25,6 +25,8 @@
 #include <klistview.h>
 #include <kiconloader.h>
 
+namespace BookshelfManager {
+
 /** Constructor */
 CManageIndicesWidget::CManageIndicesWidget(QWidget* parent, const char* name) :
 	ManageIndicesForm(parent, name) {
@@ -200,4 +202,6 @@ void CManageIndicesWidget::deleteIndices()
 	if (indicesDeleted) {
 		populateModuleList();
 	}
+}
+
 }

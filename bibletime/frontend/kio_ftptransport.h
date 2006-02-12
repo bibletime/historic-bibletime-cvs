@@ -27,7 +27,7 @@
 #include <vector>
 
 
-namespace InstallationManager {
+namespace BookshelfManager {
 
 	class BTInstallMgr;
 

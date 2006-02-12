@@ -26,18 +26,21 @@
 #include <kdialogbase.h>
 #include <klistview.h>
 
+namespace Search {
+	namespace Options {
+	
 class CModuleChooser : public KListView, public CPointers {
 	Q_OBJECT
 public:
-class ModuleCheckBoxItem : virtual public QCheckListItem {
-public:
+	class ModuleCheckBoxItem : virtual public QCheckListItem {
+	public:
 		ModuleCheckBoxItem(QListViewItem* item, CSwordModuleInfo* module);
 		~ModuleCheckBoxItem();
 		/**
 		* Returns the used module.
 		*/
 		CSwordModuleInfo* const module() const;
-private:
+	private:
 		CSwordModuleInfo* m_module;
 	};
 
@@ -98,4 +101,8 @@ protected slots: // Protected slots
 private:
 	CModuleChooser* m_moduleChooser;
 };
+
+	} //end of namespace Search.Options
+} //end of namespace Search
+
 #endif 

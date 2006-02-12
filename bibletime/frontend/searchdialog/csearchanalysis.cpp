@@ -33,6 +33,9 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
+namespace Search {
+	namespace Analysis {
+	
 const int SPACE_BETWEEN_PARTS = 5;
 const int RIGHT_BORDER = 15;
 const int LEFT_BORDER = 15;
@@ -583,3 +586,5 @@ void CSearchAnalysis::saveAsHTML() {
 	CToolClass::savePlainFile(file, text, false, QTextStream::UnicodeUTF8);
 }
  
+	} //end of namespace Search::Analysis
+} //end of namespace Search

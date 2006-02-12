@@ -526,7 +526,7 @@ void CMainIndex::searchInModules() {
 		}
 	}
 
-	CSearchDialog::openDialog(modules, QString::null);
+	Search::CSearchDialog::openDialog(modules, QString::null);
 }
 
 /** Unlocks the current module. */

@@ -101,7 +101,7 @@ void BibleTime::slotSettingsChanged() {
 
 /** Opens the sword setup dialog of BibleTime. */
 void BibleTime::slotSwordSetupDialog() {
-	InstallationManager::CSwordSetupDialog *dlg = new InstallationManager::CSwordSetupDialog(this, "CSwordSetupDialog");
+	BookshelfManager::CSwordSetupDialog *dlg = new BookshelfManager::CSwordSetupDialog(this, "CSwordSetupDialog");
 	connect(dlg, SIGNAL(signalSwordSetupChanged()), SLOT(slotSwordSetupChanged()) );
 
 	dlg->exec();
@@ -362,7 +362,7 @@ void BibleTime::slotSearchModules() {
 		};
 	};
 
-	CSearchDialog::openDialog(modules, QString::null);
+	Search::CSearchDialog::openDialog(modules, QString::null);
 }
 
 /* Search default Bible slot
@@ -376,7 +376,7 @@ void BibleTime::slotSearchDefaultBible() {
 		module.append(bible);
 	}
 
-	CSearchDialog::openDialog(module, QString::null);
+	Search::CSearchDialog::openDialog(module, QString::null);
 }
 
 void BibleTime::openOnlineHelp_Handbook() {

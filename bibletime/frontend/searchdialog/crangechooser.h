@@ -32,7 +32,9 @@ class CSearchAnalysisView;
 
 class QTextEdit;
 
-
+namespace Search {
+	namespace Options {
+	
 class CRangeChooserDialog : public KDialogBase {
 	Q_OBJECT
 public:
@@ -88,5 +90,8 @@ private:
 	QPushButton* m_newRangeButton;
 	QPushButton* m_deleteRangeButton;
 };
+
+	} //end of namespace Search.Options
+} //end of namespace Search
 
 #endif

@@ -32,31 +32,33 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
+namespace Search {
+	namespace Options {
+
 /****************************/
 CRangeChooserDialog::RangeItem::RangeItem(QListView* view, QListViewItem* afterThis, const QString caption, const QString range) : KListViewItem(view, afterThis) {
 	setCaption(caption);
 	setRange(range);
-};
+}
 
 CRangeChooserDialog::RangeItem::~RangeItem() {}
-;
 
 const QString& CRangeChooserDialog::RangeItem::range() {
 	//  qWarning("ange is %s", (const char*)m_range.utf8());
 	return m_range;
-};
+}
 
 void CRangeChooserDialog::RangeItem::setRange(QString newRange) {
 	m_range = newRange;
-};
+}
 
 const QString CRangeChooserDialog::RangeItem::caption() {
 	return text(0);
-};
+}
 
 void CRangeChooserDialog::RangeItem::setCaption(const QString newCaption) {
 	setText(0, newCaption);
-};
+}
 
 
 /**************************/
@@ -77,10 +79,9 @@ CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(
 	   ) {
 		nameChanged(i->caption());
 	}
-};
+}
 
 CRangeChooserDialog::~CRangeChooserDialog() {}
-;
 
 /** Initializes the view of this object. */
 void CRangeChooserDialog::initView() {
@@ -273,3 +274,5 @@ void CRangeChooserDialog::slotDefault() {
 	KDialogBase::slotDefault();
 }
  
+	} //end of namespace Search::Options
+} //end of namespace Search

@@ -163,7 +163,12 @@ void CBibleReadWindow::initActions() {
 	m_actions.findText = actionCollection()->action("findText");
 	Q_ASSERT(m_actions.findText);
 
-	m_actions.findStrongs = new KAction(i18n("Strong's Search"), KShortcut(0), this, SLOT(openSearchStrongsDialog()), actionCollection(), "findStrongs");
+	m_actions.findStrongs = new KAction(
+		i18n("Strong's Search"),
+		CResMgr::displaywindows::general::findStrongs::accel,
+		this, SLOT(openSearchStrongsDialog()),
+		actionCollection(),
+		CResMgr::displaywindows::general::findStrongs::actionName);
 
 	m_actions.copy.referenceOnly = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
 
@@ -214,8 +219,7 @@ void CBibleReadWindow::setupPopupMenu() {
 	m_actions.findText->plug(popup());
 	m_actions.findStrongs->plug(popup());
 	m_actions.selectAll->plug(popup());
-	
-	
+		
 	(new KActionSeparator(this))->plug( popup() );
 
 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::bibleWindow::copyMenu::icon, popup());
@@ -255,45 +259,51 @@ void CBibleReadWindow::updatePopupMenu() {
 
 /** Moves to the next book. */
 void CBibleReadWindow::nextBook() {
-	if (verseKey()->next(CSwordVerseKey::UseBook))
+	if (verseKey()->next(CSwordVerseKey::UseBook)) {
 		keyChooser()->setKey(key());
+	}
 }
 
 /** Moves one book behind. */
 void CBibleReadWindow::previousBook() {
-	if (verseKey()->previous(CSwordVerseKey::UseBook))
+	if (verseKey()->previous(CSwordVerseKey::UseBook)) {
 		keyChooser()->setKey(key());
+	}
 }
 
 /** Moves to the next book. */
 void CBibleReadWindow::nextChapter() {
-	if (verseKey()->next(CSwordVerseKey::UseChapter))
+	if (verseKey()->next(CSwordVerseKey::UseChapter)) {
 		keyChooser()->setKey(key());
+	}
 }
 
 /** Moves one book behind. */
 void CBibleReadWindow::previousChapter() {
-	if (verseKey()->previous(CSwordVerseKey::UseChapter))
+	if (verseKey()->previous(CSwordVerseKey::UseChapter)) {
 		keyChooser()->setKey(key());
+	}
 }
 
 /** Moves to the next book. */
 void CBibleReadWindow::nextVerse() {
-	if (verseKey()->next(CSwordVerseKey::UseVerse))
+	if (verseKey()->next(CSwordVerseKey::UseVerse)) {
 		keyChooser()->setKey(key());
+	}
 }
 
 /** Moves one book behind. */
 void CBibleReadWindow::previousVerse() {
-	if (verseKey()->previous(CSwordVerseKey::UseVerse))
+	if (verseKey()->previous(CSwordVerseKey::UseVerse)) {
 		keyChooser()->setKey(key());
+	}
 }
 
 /** rapper around key() to return the right type of key. */
 CSwordVerseKey* CBibleReadWindow::verseKey() {
-	//  qWarning("CBibleReadWindow::key()");
 	CSwordVerseKey* k = dynamic_cast<CSwordVerseKey*>(CDisplayWindow::key());
 	Q_ASSERT(k);
+	
 	return k;
 }
 
@@ -356,7 +366,7 @@ void CBibleReadWindow::reload() {
 	CLexiconReadWindow::reload();
 
 	//refresh the book lists
-	qDebug("lang is %s",backend()->booknameLanguage().latin1());
+// 	qDebug("lang is %s",backend()->booknameLanguage().latin1());
 	verseKey()->setLocale( backend()->booknameLanguage().latin1() );
 	keyChooser()->refreshContent();
 

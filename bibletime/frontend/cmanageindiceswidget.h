@@ -8,6 +8,9 @@
 #include <qwidget.h>
 
 class QCheckListItem;
+
+namespace BookshelfManager {
+	
 /**
 * This class encapsulates the "Manage search indices" page of the Bookshelf
 * Manager.  It allows for creation and deletion of search indicies for each
@@ -48,5 +51,7 @@ public slots:
 	*/
 	void deleteIndices();
 };
+
+}
 
 #endif

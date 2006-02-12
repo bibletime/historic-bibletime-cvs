@@ -371,6 +371,13 @@ namespace workspace {}
 				extern const char* actionName;
 			}
 
+			namespace findStrongs {
+				extern QString tooltip;
+
+				extern const QString icon;
+				extern const KShortcut accel;
+				extern const char* actionName;
+			}
 		}
 
 		namespace bibleWindow {
@@ -418,7 +425,7 @@ namespace workspace {}
 
 				extern const KShortcut accel;
 			}
-
+			
 			namespace copyMenu {
 				extern const QString icon;
 			}

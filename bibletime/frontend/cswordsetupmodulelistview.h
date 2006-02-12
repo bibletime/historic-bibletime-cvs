@@ -16,7 +16,7 @@
 class CSwordModuleInfo;
 class CSwordBackend;
 
-namespace InstallationManager {
+namespace BookshelfManager {
 
 class CSwordSetupModuleListView : public KListView {
 		Q_OBJECT

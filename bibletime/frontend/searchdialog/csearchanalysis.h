@@ -4,6 +4,7 @@
 #define CSEARCHANALYSIS_H
 
 //BibleTime includes
+
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordbackend.h"
 #include "backend/cswordmodulesearch.h"
@@ -25,41 +26,21 @@
 #include <kdialogbase.h>
 #include <klistview.h>
 
-//forward declarations
-class CSearchAnalysisItem;
-class CSearchAnalysisLegendItem;
-class CSearchAnalysis;
-class CSearchAnalysisView; 
 
 class QTextEdit;
 
+namespace Search {
+	namespace Analysis {
 
-
-class CSearchAnalysisDialog : public KDialogBase  {
-	Q_OBJECT
-public:
-	CSearchAnalysisDialog(ListCSwordModuleInfo modules, QWidget* parentDialog);
-	~CSearchAnalysisDialog();
-
-protected: // Protected methods
-	/**
-	* Initializes the widgets SIGNAL and SLOT connections,.
-	*/
-	void initConnections();
-	/**
-	* Initializes this dialog.
-	*/
-	void initView();
-
-private:
-	CSearchAnalysis* m_analysis;
-	CSearchAnalysisView* m_analysisView;
-};
+//forward declarations
+class CSearchAnalysisItem;
+class CSearchAnalysisLegendItem;
+class CSearchAnalysisView;
 
 /**
  * CSearchDialogAnaylsis shows the graphical analysis of the search result.
-  * @author The BibleTime Team
-  */
+ * @author The BibleTime Team
+ */
 class CSearchAnalysis : public QCanvas {
 	Q_OBJECT
 public:
@@ -106,6 +87,29 @@ private:
 
 public slots: // Public slots
 	void saveAsHTML();
+};
+
+
+class CSearchAnalysisDialog : public KDialogBase  {
+	Q_OBJECT
+public:
+	CSearchAnalysisDialog(ListCSwordModuleInfo modules, QWidget* parentDialog);
+	~CSearchAnalysisDialog();
+
+protected: // Protected methods
+	/**
+	 * Initializes the widgets SIGNAL and SLOT connections,.
+	 */
+	void initConnections();
+	
+	/**
+	 * Initializes this dialog.
+	 */
+	void initView();
+
+private:
+	CSearchAnalysis* m_analysis;
+	CSearchAnalysisView* m_analysisView;
 };
 
 
@@ -189,8 +193,8 @@ protected:
 	virtual void resizeEvent(QResizeEvent* e);
 
 private:
-class ToolTip : public QToolTip {
-public:
+	class ToolTip : public QToolTip {
+	public:
 		ToolTip(QWidget* parent);
 		virtual ~ToolTip() {}
 		;
@@ -199,7 +203,11 @@ public:
 		*/
 		virtual void maybeTip(const QPoint &pos);
 	};
+	
 	ToolTip* m_toolTip;
 };
+
+	} //end of namespace Search::Analysis
+} //end of namespace Search
 
 #endif

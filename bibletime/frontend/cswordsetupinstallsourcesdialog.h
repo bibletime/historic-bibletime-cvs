@@ -8,7 +8,7 @@ class QLabel;
 class QComboBox;
 class QLineEdit;
 
-namespace InstallationManager {
+namespace BookshelfManager {
 
 class CSwordSetupInstallSourcesDialog : public QDialog  {
 		Q_OBJECT

@@ -526,8 +526,8 @@ void BibleTime::initBackends() {
 			case CSwordBackend::NoSwordConfig: //mods.d or mods.conf missing
 			{
 				KStartupLogo::hideSplash();
-				InstallationManager::CSwordSetupDialog dlg;
-				dlg.showPart( InstallationManager::CSwordSetupDialog::Sword );
+				BookshelfManager::CSwordSetupDialog dlg;
+				dlg.showPart( BookshelfManager::CSwordSetupDialog::Sword );
 				dlg.exec();
 				break;
 			}
@@ -535,8 +535,8 @@ void BibleTime::initBackends() {
 			case CSwordBackend::NoModules: //no modules installed, but config exists
 			{
 				KStartupLogo::hideSplash();
-				InstallationManager::CSwordSetupDialog dlg;
-				dlg.showPart( InstallationManager::CSwordSetupDialog::Install );
+				BookshelfManager::CSwordSetupDialog dlg;
+				dlg.showPart( BookshelfManager::CSwordSetupDialog::Install );
 				dlg.exec();
 				break;
 			}
@@ -544,8 +544,8 @@ void BibleTime::initBackends() {
 			default: //unknown error
 			{
 				KStartupLogo::hideSplash();
-				InstallationManager::CSwordSetupDialog dlg;
-				dlg.showPart( InstallationManager::CSwordSetupDialog::Sword );
+				BookshelfManager::CSwordSetupDialog dlg;
+				dlg.showPart( BookshelfManager::CSwordSetupDialog::Sword );
 				dlg.exec();
 				break;
 			}

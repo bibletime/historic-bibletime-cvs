@@ -5,6 +5,7 @@
 
 //BibleTime includes
 #include "csearchdialogpages.h"
+#include "csearchanalysis.h"
 
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordbackend.h"
@@ -30,10 +31,10 @@
 class QLineEdit;
 class QTextEdit;
 
+namespace Search {
 /**
   *@author The BibleTime team
   */
-
 class CSearchDialog : public KDialogBase  {
 	Q_OBJECT
 
@@ -41,8 +42,8 @@ public:
 	static void openDialog(const ListCSwordModuleInfo modules, const QString& searchText = QString::null, QWidget* parentDialog = 0);
 
 protected:
-	friend class CSearchAnalysis;
-	friend class CSearchResultPage;
+	friend class Analysis::CSearchAnalysis;
+	friend class Result::CSearchResultPage;
 	friend class BibleTime;
 
 	/**
@@ -115,11 +116,13 @@ protected slots:
 	virtual void slotClose();
 
 private:
- 	CSearchResultPage* m_searchResultPage;
- 	CSearchOptionsPage* m_searchOptionsPage;
+	Result::CSearchResultPage* m_searchResultPage;
+	Options::CSearchOptionsPage* m_searchOptionsPage;
+	
 	CSwordModuleSearch m_searcher;
 };
 
+	namespace Options {
 class CModuleChooser : public KListView, public CPointers {
 	Q_OBJECT
 public:
@@ -190,7 +193,10 @@ protected slots: // Protected slots
 	virtual void slotOk();
 
 private:
-	CModuleChooser* m_moduleChooser;
+	Options::CModuleChooser* m_moduleChooser;
 };
+
+	} //end of namespace Search::Options
+} //end of namespace Search
 
 #endif

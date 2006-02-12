@@ -161,8 +161,7 @@ Item(T* t = 0) : value(t), next(0) {}
 		mutable Item* m_end;
 	};
 
-}
-; //end of namespace
+} //end of namespace
 
 
 #endif

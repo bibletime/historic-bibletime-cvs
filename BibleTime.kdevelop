@@ -8,11 +8,10 @@
     <ignoreparts>
       <part>kdevfilegroups</part>
       <part>kdevfilelist</part>
-      <part>kdevrbdebugger</part>
       <part>kdevdistpart</part>
     </ignoreparts>
     <version>1.5.1</version>
-    <description/>
+    <description></description>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
@@ -73,14 +72,14 @@
     <general>
       <dbgshell>libtool</dbgshell>
       <programargs>--debug</programargs>
-      <gdbpath/>
+      <gdbpath></gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -158,7 +157,7 @@
     </codecompletion>
     <references/>
     <creategettersetter>
-      <prefixGet/>
+      <prefixGet></prefixGet>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
@@ -168,7 +167,7 @@
     <qt>
       <used>true</used>
       <version>3</version>
-      <root/>
+      <root></root>
     </qt>
   </kdevcppsupport>
   <kdevfilecreate>
@@ -190,8 +189,8 @@
     <revertoptions>-C</revertoptions>
   </kdevcvsservice>
   <ctagspart>
-    <customArguments/>
-    <customTagfilePath/>
+    <customArguments></customArguments>
+    <customTagfilePath></customTagfilePath>
   </ctagspart>
   <kdevvisualadvance>
     <emulator>VisualBoyAdvance</emulator>

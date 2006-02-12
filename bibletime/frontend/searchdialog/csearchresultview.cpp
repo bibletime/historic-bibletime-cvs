@@ -16,19 +16,22 @@
 #include <kaction.h>
 #include <kpopupmenu.h>
 
+namespace Search {
+	namespace Result {
 
 CSearchResultView::CSearchResultView(QWidget* parent, const char* name) :
 	KListView(parent, name), m_module(0) {
 	initView();
 	initConnections();
-};
+}
 
 CSearchResultView::~CSearchResultView() {}
-;
 
 /** Initializes the view of this widget. */
 void CSearchResultView::initView() {
 	addColumn(i18n("Results"));
+	setFullWidth(true);
+	
 	setSorting(-1);
 	setDragEnabled(true);
 	setSelectionModeExt(KListView::Extended);
@@ -70,6 +73,7 @@ void CSearchResultView::initConnections() {
 /** Setups the list with the given module. */
 void CSearchResultView::setupTree(CSwordModuleInfo* m) {
 	clear();
+	
 	if (!m) {
 		return;
 	}
@@ -100,12 +104,13 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m) {
 void CSearchResultView::setupStrongsTree(CSwordModuleInfo* m, QStringList* vList)
 {
    clear();
+   
    if (!m) {
       return;
    }
 
    m_module = m;
-
+   
    if (vList->count() <= 0)
       return;
 
@@ -114,13 +119,13 @@ void CSearchResultView::setupStrongsTree(CSwordModuleInfo* m, QStringList* vList
    KListViewItem* oldItem = 0;
    KListViewItem* item = 0;
 
-   for ( QStringList::Iterator it = vList->begin(); it != vList->end(); ++it )
-      {
+   for ( QStringList::Iterator it = vList->begin(); it != vList->end(); ++it ) {
       item = new KListViewItem(this, oldItem);
       item->setText(0, (*it));
       oldItem = item;
-      }
+   }
 
+   
    setUpdatesEnabled(true);
 
    setSelected(firstChild(), true);
@@ -246,5 +251,8 @@ QDragObject* CSearchResultView::dragObject() {
 	};
 
 	return CDragDropMgr::dragObject(dndItems, viewport());
-};
+}
+
+	} //end of namespace Search::Result
+} //end of namespace
 

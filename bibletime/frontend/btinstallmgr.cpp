@@ -27,7 +27,7 @@
 
 using namespace sword;
 
-namespace InstallationManager {
+namespace BookshelfManager {
 
 	const QString BTInstallMgr::Tool::LocalConfig::swordConfigFilename() {
 		//  Q_ASSERT( CPointers::backend()->sysconfig );
