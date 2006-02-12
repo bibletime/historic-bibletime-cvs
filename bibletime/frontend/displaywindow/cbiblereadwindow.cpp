@@ -165,6 +165,7 @@ void CBibleReadWindow::initActions() {
 
 	m_actions.findStrongs = new KAction(
 		i18n("Strong's Search"),
+		CResMgr::displaywindows::general::findStrongs::icon,
 		CResMgr::displaywindows::general::findStrongs::accel,
 		this, SLOT(openSearchStrongsDialog()),
 		actionCollection(),

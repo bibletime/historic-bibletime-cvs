@@ -90,6 +90,7 @@ void CLexiconReadWindow::initActions() {
 	//m_actions.findStrongs = new KAction(i18n("Strong's Search"), KShortcut(0),this, SLOT(openSearchStrongsDialog()), actionCollection(), "findStrongs");
 	m_actions.findStrongs = new KAction(
 		i18n("Strong's Search"),
+		CResMgr::displaywindows::general::findStrongs::icon,
 		CResMgr::displaywindows::general::findStrongs::accel,
 		this, SLOT(openSearchStrongsDialog()),
 		actionCollection(),

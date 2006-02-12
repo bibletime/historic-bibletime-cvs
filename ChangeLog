@@ -1,3 +1,9 @@
+2006-02-01 Joachim Ansorg <info@bibletime.info>
+  * Several smaller fixes to the searchdialog gui
+  * Moved searchdialog classes into several namespaces (Search::*)
+  * Added the icon for the "Search Strong's Number" option
+  * Bumped version number to 1.5.95, i.e. a 1.6pre version
+
 2006-02-01 Lee Carpenter <lcarpenter@users.sourceforge.net>
   * Applied Jim Campbell's updates to the Strong's search feature.
 
