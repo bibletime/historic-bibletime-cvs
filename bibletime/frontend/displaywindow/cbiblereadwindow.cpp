@@ -29,8 +29,9 @@
 #include <klocale.h>
 #include <kpopupmenu.h>
 
+using namespace Profile;
+
 CBibleReadWindow::CBibleReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CLexiconReadWindow(moduleList, parent,name) {
-	//  m_transliterationButton = 0;
 }
 
 CBibleReadWindow::~CBibleReadWindow() {}

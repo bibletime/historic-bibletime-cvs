@@ -23,11 +23,11 @@ public:
 	/**
 	* Store the settings of this window in the given CProfileWindow object.
 	*/
-	virtual void storeProfileSettings( CProfileWindow* );
+	virtual void storeProfileSettings( Profile::CProfileWindow* );
 	/**
 	* Store the settings of this window in the given profile window.
 	*/
-	virtual void applyProfileSettings( CProfileWindow* );
+	virtual void applyProfileSettings( Profile::CProfileWindow* );
 
 	virtual const bool syncAllowed() const;
 

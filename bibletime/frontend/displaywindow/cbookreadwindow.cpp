@@ -22,6 +22,8 @@
 #include <klocale.h>
 #include <kdeversion.h>
 
+using namespace Profile;
+
 CBookReadWindow::CBookReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name) : CLexiconReadWindow(modules, parent, name) {}
 
 CBookReadWindow::~CBookReadWindow() {}

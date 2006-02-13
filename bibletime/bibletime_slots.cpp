@@ -52,6 +52,8 @@
 //Sword includes
 #include <versekey.h>
 
+using namespace Profile;
+
 /* An action which stores a user defined pointer to a widget.
  * @author Joachim Ansorg
  */

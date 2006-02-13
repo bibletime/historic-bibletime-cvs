@@ -30,11 +30,11 @@ public:
 	/**
 	* Store the settings of this window in the given CProfileWindow object.
 	*/
-	virtual void storeProfileSettings( CProfileWindow* const settings );
+	virtual void storeProfileSettings( Profile::CProfileWindow* const settings );
 	/**
 	* Store the settings of this window in the given profile window.
 	*/
-	virtual void applyProfileSettings( CProfileWindow* const settings );
+	virtual void applyProfileSettings( Profile::CProfileWindow* const settings );
 	/**
 	* Reimplementation.
 	*/

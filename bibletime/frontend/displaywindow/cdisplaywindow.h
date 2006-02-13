@@ -13,6 +13,8 @@
 #include "backend/cswordtreekey.h"
 #include "backend/cswordldkey.h"
 
+#include "frontend/cprofilewindow.h"
+
 //Qt includes
 #include <qwidget.h>
 
@@ -20,17 +22,17 @@
 #include <kmainwindow.h>
 
 
+//Forward declarations
 class CMDIArea;
 class CReadWindow;
 class CWriteWindow;
 class CMDIArea;
-class CProfileWindow;
-class KAccel;
 class CDisplaySettingsButton;
 class CDisplay;
 class CKeyChooser;
 class CModuleChooserBar;
 class CDisplaySettingsButton;
+class KAccel;
 class KToolBar;
 class KPopupMenu;
 
@@ -66,11 +68,11 @@ public:
 	/**
 	* Store the settings of this window in the given CProfileWindow object.
 	*/
-	virtual void storeProfileSettings( CProfileWindow* profileWindow ) = 0;
+	virtual void storeProfileSettings( Profile::CProfileWindow* profileWindow ) = 0;
 	/**
 	* Store the settings of this window in the given profile window.
 	*/
-	virtual void applyProfileSettings( CProfileWindow* profileWindow ) = 0;
+	virtual void applyProfileSettings( Profile::CProfileWindow* profileWindow ) = 0;
 	/**
 	* Set the window caption.
 	*/

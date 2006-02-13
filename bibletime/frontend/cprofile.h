@@ -8,6 +8,8 @@
 //Qt includes
 #include <qptrlist.h>
 
+namespace Profile {
+
 /** Manages one profile file. Provides functions to save and restore settings of the available display windows.
   * @author The BibleTime team
   */
@@ -76,5 +78,7 @@ private:
 	bool m_fullscreen;
 	QRect m_geometry;
 };
+
+} //end of namespace Profile
 
 #endif

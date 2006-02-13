@@ -10,6 +10,8 @@
 //KDE includes
 #include <kstandarddirs.h>
 
+namespace Profile {
+
 CProfileMgr::CProfileMgr() : m_startupProfile(0) {
 	m_profiles.setAutoDelete(true);
 
@@ -109,3 +111,5 @@ void CProfileMgr::refresh() {
 		}
 	}
 }
+
+} //end of namespace Profile

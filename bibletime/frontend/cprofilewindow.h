@@ -12,6 +12,8 @@
 #include <qstringlist.h>
 #include <qptrlist.h>
 
+namespace Profile {
+
 /** Contains the settings for one window saved in the profile.
   * @author The BibleTime team
   */
@@ -108,6 +110,8 @@ private:
 	int m_windowSettings;
 	int m_writeWindowType;
 };
+
+} //end of namespace Profile
 
 #endif
 

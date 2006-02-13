@@ -43,6 +43,8 @@
 #include <ktoolbar.h>
 #include <krandomsequence.h>
 
+using namespace Profile;
+
 BibleTime::BibleTime()
 : BibleTimeInterface("BibleTimeInterface"),
 #if KDE_VERSION >= 0x030200

@@ -8,11 +8,11 @@
 //Qt includes
 #include <qstring.h>
 
+namespace Profile {
 /** The manager for profiles.
  * Provides functions to create, delete, save and load profiles.
-  * @author The BibleTime team
-  */
-
+ * @author The BibleTime team
+ */
 class CProfileMgr {
 public:
 	CProfileMgr();
@@ -54,5 +54,7 @@ protected:
 	QString m_profilePath;
 	CProfile* m_startupProfile;
 };
+
+} //end of namespace Profile
 
 #endif

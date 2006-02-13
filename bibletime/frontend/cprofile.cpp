@@ -15,6 +15,8 @@
 
 #define CURRENT_SYNTAX_VERSION 2
 
+namespace Profile {
+
 CProfile::CProfile( const QString& file, const QString& name ):
 m_name(name.isEmpty() ? i18n("unknown") : name),
 m_filename(file),
@@ -367,3 +369,5 @@ const QRect CProfile::geometry() {
 void CProfile::setGeometry( const QRect rect ) {
 	m_geometry = rect;
 }
+
+} //end of namespace Profile

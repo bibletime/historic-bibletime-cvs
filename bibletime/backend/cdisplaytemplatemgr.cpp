@@ -149,15 +149,15 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 		);
 	}
 
-	  qWarning("Outputing unformated text");
-	 	QString t = QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
-	 				.replace("#TITLE#", settings.title)
-	 				.replace("#LANG_ABBREV#", settings.langAbbrev.isEmpty() ? QString("en") : settings.langAbbrev)
-	 				.replace("#DISPLAYTYPE#", displayTypeString)
-	 				.replace("#LANG_CSS#", langCSS)
-	 				.replace("#PAGE_DIRECTION#", settings.pageDirection)
-	 				.replace("#CONTENT#", newContent);
-	 	printf("%s\n\n", t.latin1());
+// 	  qWarning("Outputing unformated text");
+// 	 	QString t = QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
+// 	 				.replace("#TITLE#", settings.title)
+// 	 				.replace("#LANG_ABBREV#", settings.langAbbrev.isEmpty() ? QString("en") : settings.langAbbrev)
+// 	 				.replace("#DISPLAYTYPE#", displayTypeString)
+// 	 				.replace("#LANG_CSS#", langCSS)
+// 	 				.replace("#PAGE_DIRECTION#", settings.pageDirection)
+// 	 				.replace("#CONTENT#", newContent);
+// 	 	printf("%s\n\n", t.latin1());
 
 	return QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
 		   .replace("#TITLE#", settings.title)

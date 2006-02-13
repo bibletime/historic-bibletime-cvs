@@ -14,6 +14,7 @@
 #include <kaction.h>
 #include <klocale.h>
 
+using namespace Profile;
 
 CHTMLWriteWindow::CHTMLWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name)
 : CPlainWriteWindow(modules, parent, name) {}

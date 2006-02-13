@@ -11,6 +11,8 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 
+using namespace Profile;
+
 CWriteWindow::CWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
 : CDisplayWindow(modules, parent,name), m_writeDisplay(0) {}
 

@@ -58,6 +58,7 @@
 #include <swlog.h>
 
 using namespace InfoDisplay;
+using namespace Profile;
 
 /**Initializes the view of this widget*/
 void BibleTime::initView() {

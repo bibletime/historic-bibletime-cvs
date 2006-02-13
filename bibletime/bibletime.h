@@ -8,6 +8,7 @@
 
 //Frontend includes
 #include "frontend/cprofilemgr.h"
+#include "frontend/cprofile.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
 
 //Backend includes
@@ -18,7 +19,6 @@
 
 //forward: BT classes
 class CMDIArea;
-class CProfile;
 class CDisplayWindow;
 class CMainIndex;
 
@@ -155,11 +155,11 @@ public:
 	/**
 	* Apply the settings given by the profile p
 	*/
-	void applyProfileSettings( CProfile* p );
+	void applyProfileSettings( Profile::CProfile* p );
 	/**
 	* Stores the settings of the mainwindow in the profile p
 	*/
-	void storeProfileSettings( CProfile* p );
+	void storeProfileSettings( Profile::CProfile* p );
 
 public slots:
 	/**
@@ -299,7 +299,7 @@ protected slots:
 	/**
 	* Saves the current settings into the currently activatred profile.
 	*/
-	void saveProfile(CProfile* p);
+	void saveProfile(Profile::CProfile* p);
 	/**
 	* Deletes the chosen session from the menu and from disk.
 	*/
@@ -311,7 +311,7 @@ protected slots:
 	/**
 	* Loads the profile with the menu ID id
 	*/
-	void loadProfile(CProfile* p);
+	void loadProfile(Profile::CProfile* p);
 	/**
 	* Toggles between normal and fullscreen mode.
 	*/
@@ -384,12 +384,12 @@ private:
 	ListCSwordModuleInfo* m_moduleList;
 	QProgressDialog* m_progress;
 
-	CProfile* m_currentProfile;
+	Profile::CProfile* m_currentProfile;
 	QSplitter* m_mainSplitter;
 	QSplitter* m_leftPaneSplitter;
 	CMDIArea* m_mdi;
 
-	CProfileMgr m_profileMgr;
+	Profile::CProfileMgr m_profileMgr;
 	CSwordBackend* m_backend;
 	Printing::CPrinter* m_printer;
 

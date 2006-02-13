@@ -16,6 +16,8 @@
 #include <kaccel.h>
 #include <klocale.h>
 
+using namespace Profile;
+
 CPlainWriteWindow::CPlainWriteWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CWriteWindow(moduleList, parent, name) {
 	setKey( CSwordKey::createInstance(moduleList.first()) );
 }

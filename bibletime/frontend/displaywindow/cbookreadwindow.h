@@ -26,11 +26,11 @@ public:
 	/**
 	* Store the settings of this window in the given CProfileWindow object.
 	*/
-	virtual void storeProfileSettings( CProfileWindow* profileWindow );
+	virtual void storeProfileSettings( Profile::CProfileWindow* profileWindow );
 	/**
 	* Store the settings of this window in the given profile window.
 	*/
-	virtual void applyProfileSettings( CProfileWindow* profileWindow );
+	virtual void applyProfileSettings( Profile::CProfileWindow* profileWindow );
 
 protected:
 	virtual void initActions();

@@ -37,6 +37,8 @@
 #include <kaccel.h>
 #include <klocale.h>
 
+using namespace Profile;
+
 CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
 	switch (modules.first()->type()) {
 		case CSwordModuleInfo::Bible:

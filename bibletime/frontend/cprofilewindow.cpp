@@ -2,6 +2,8 @@
 
 #include "cprofilewindow.h"
 
+namespace Profile {
+
 CProfileWindow::CProfileWindow(CSwordModuleInfo::ModuleType type)
 : m_type(type),
 m_windowGeometry(),
@@ -110,3 +112,5 @@ void CProfileWindow::setWriteWindowType( const int& writeWindowType ) {
 const int& CProfileWindow::writeWindowType() const {
 	return m_writeWindowType;
 }
+
+} //end of namespace Profile

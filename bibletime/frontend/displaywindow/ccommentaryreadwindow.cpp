@@ -20,6 +20,8 @@
 #include <klocale.h>
 #include <kpopupmenu.h>
 
+using namespace Profile;
+
 CCommentaryReadWindow::CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name) : CLexiconReadWindow(modules, parent,name) {}
 
 void CCommentaryReadWindow::insertKeyboardActions( KActionCollection* const a ) {

@@ -24,6 +24,8 @@
 #include <kstdaccel.h>
 #include <klocale.h>
 
+using namespace Profile;
+
 CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
 : CDisplayWindow(modules,parent,name),
 m_displayWidget(0) {
