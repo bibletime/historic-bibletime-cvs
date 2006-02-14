@@ -48,6 +48,8 @@ void CModuleIndexDialog::indexAllModules( const ListCSwordModuleInfo& modules ) 
 		(*it)->connectIndexingProgress(this, SLOT(slotModuleProgress(int)));
 
 		progress->setLabel(i18n("Creating index for work %1").arg((*it)->name()));
+		qDebug("Building index for work %s", (*it)->name().latin1());
+		
 		(*it)->buildIndex();
 
 		m_currentModuleIndex++;
@@ -79,7 +81,7 @@ void CModuleIndexDialog::indexUnindexedModules( const ListCSwordModuleInfo& modu
     \fn CModuleIndexDialog::slotModuleProgress( int percentage )
  */
 void CModuleIndexDialog::slotModuleProgress( int percentage ) {
-	qDebug("progress %d", percentage);
+//	qDebug("progress %d", percentage);
 	
 	progress->progressBar()->setProgress( m_currentModuleIndex * 100 + percentage );
 	KApplication::kApplication()->processEvents(1);

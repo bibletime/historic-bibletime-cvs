@@ -377,7 +377,7 @@ const QString CReferenceManager::parseVerseReference( const QString& ref, const 
  	baseKey.setLocale( "en_US" ); //english works in all environments as base
 
 // 	CSwordVerseKey dummy(0);
-	//We have to workaround a Sword bug, we have to set the default locale to the same as the sourceLanguage !
+	//HACK: We have to workaround a Sword bug, we have to set the default locale to the same as the sourceLanguage !
 	const QString oldLocaleName = CPointers::backend()->booknameLanguage();
 	CPointers::backend()->booknameLanguage(sourceLanguage);
 

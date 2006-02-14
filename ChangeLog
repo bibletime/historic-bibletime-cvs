@@ -1,4 +1,8 @@
-2006-02-01 Joachim Ansorg <info@bibletime.info>
+2006-02-14 Joachim Ansorg <info@bibletime.info>
+  * Search window: The result count in the module list are sortable now
+  * The "Strong's search" items in the context menus of display windows are disabled now if there's no number to search for
+    
+2006-02-10 Joachim Ansorg <info@bibletime.info>
   * Several smaller fixes to the searchdialog gui
   * Moved searchdialog classes into several namespaces (Search::*)
   * Added the icon for the "Search Strong's Number" option

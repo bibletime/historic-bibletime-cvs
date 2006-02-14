@@ -219,8 +219,8 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 
 const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& highlightKey, const KeyTreeItem::Settings& keySettings ) {
 
-	//  CSwordModuleInfo* module = modules.getFirst();
 	CSwordModuleInfo* module = modules.first();
+	
 	util::scoped_ptr<CSwordKey> lowerBound( CSwordKey::createInstance(module) );
 	lowerBound->key(start);
 
@@ -241,18 +241,17 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 
 		CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(lowerBound.get());
 		Q_ASSERT(vk_start);
-		//   vk_start->setLocale("en_US");
 
 		CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(upperBound.get());
 		Q_ASSERT(vk_stop);
-		//   vk_stop->setLocale("en_US");
 
 		bool ok = true;
-
 		while (ok && ((*vk_start < *vk_stop) || (*vk_start == *vk_stop))) {
 			//make sure the key given by highlightKey gets marked as current key
 			settings.highlight = (!highlightKey.isEmpty() ? (vk_start->key() == highlightKey) : false);
 
+			/*TODO: We need to take care of linked verses if we render one or (esp) more modules
+			If the verses 2,3,4,5 are linked to 1, it should be displayed as one entry with the caption 1-5 */
 			tree.append( new KeyTreeItem(vk_start->key(), modules, settings) );
 
 			ok = vk_start->next(CSwordVerseKey::UseVerse);

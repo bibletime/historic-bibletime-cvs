@@ -219,6 +219,18 @@ void CLexiconReadWindow::setupPopupMenu() {
 
 /** Reimplemented. */
 void CLexiconReadWindow::updatePopupMenu() {
+	//enable the action depending on the supported module features
+/*	bool hasStrongs = false;
+	ListCSwordModuleInfo mods = modules();
+	for (ListCSwordModuleInfo::iterator it = mods.begin(); it != mods.end(); ++it) {
+		if ( (*it)->has( CSwordModuleInfo::strongNumbers ) ) {
+			hasStrongs = true;
+			break;
+		}
+	}
+	m_actions.findStrongs->setEnabled( hasStrongs );*/
+	m_actions.findStrongs->setEnabled( displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma] != QString::null );
+	
 	m_actions.copy.reference->setEnabled( displayWidget()->hasActiveAnchor() );
 	m_actions.copy.selectedText->setEnabled( displayWidget()->hasSelection() );
 

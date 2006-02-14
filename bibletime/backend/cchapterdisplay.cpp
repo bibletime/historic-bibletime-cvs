@@ -53,8 +53,8 @@ namespace Rendering {
 			k1.Verse(0);
 
 			QString raw( k1.rawText() );
-			//we need to work around a bug: osis2mod also puts Preverse titles into the chapter intro (verse 0)
-
+			
+			//HACK: we need to work around a bug: osis2mod also puts Preverse titles into the chapter intro (verse 0)
 			if ((raw.length() == 0) || ((raw.find("<title ") == 0) && (raw.find("</title>")+8 == int(raw.length())) )) {
 				k1.Verse(1);
 			}

@@ -112,12 +112,12 @@ public:
 		Markup  /**< The markup of this module */
 	};
 	enum Feature {
-		StrongsNumbers, /**< Use for Bibles which have embedded strong numbers */
+		//StrongsNumbers, /**< Use for Bibles which have embedded strong numbers */
 		GreekDef,
 		HebrewDef,
 		GreekParse,
 		HebrewParse,
-		featureMin = StrongsNumbers,
+		featureMin = GreekDef,
 		featureMax = HebrewParse
 	};
 	enum Category {

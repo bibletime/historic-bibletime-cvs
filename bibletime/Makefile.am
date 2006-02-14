@@ -8,6 +8,7 @@ bibletime_LDADD   = \
 ./frontend/mainindex/libmainindex.a \
 ./frontend/searchdialog/libsearchdialog.a \
 ./frontend/libfrontend.a \
+./frontend/util/libfrontendutil.a \
 ./backend/libbackend.a \
 ./util/libutil.a \
 -lXext \

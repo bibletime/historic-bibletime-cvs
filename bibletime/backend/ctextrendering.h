@@ -47,8 +47,7 @@ public:
 		typedef util::AutoPtrVector<KeyTreeItem> KeyTreeItemList;
 
 		class KeyTreeItem {
-
-public:
+		public:
 
 			struct Settings {
 				enum KeyRenderingFace {
@@ -58,9 +57,7 @@ public:
 					CompleteLong //< means "Genesis 1:1"
 				};
 
-Settings(const bool highlight = false, KeyRenderingFace keyRendering = SimpleKey) : highlight(highlight), keyRenderingFace(keyRendering) {}
-
-				;
+				Settings(const bool highlight = false, KeyRenderingFace keyRendering = SimpleKey) : highlight(highlight), keyRenderingFace(keyRendering) {}
 
 				bool highlight;
 				KeyRenderingFace keyRenderingFace;
@@ -98,7 +95,7 @@ Settings(const bool highlight = false, KeyRenderingFace keyRendering = SimpleKey
 			inline KeyTree* const childList() const;
 			inline const bool hasChildItems() const;
 
-protected:
+		protected:
 			KeyTreeItem();
 
 			Settings m_settings;
@@ -110,15 +107,12 @@ protected:
 			QString m_alternativeContent;
 		};
 
-class KeyTree : public KeyTreeItemList {
-
-public:
+		class KeyTree : public KeyTreeItemList {		
+		public:
 			ListCSwordModuleInfo collectModules() const;
 		};
 
 		virtual ~CTextRendering() {}
-
-		;
 
 		const QString renderKeyTree( KeyTree& );
 
@@ -126,7 +120,7 @@ public:
 
 		const QString renderSingleKey( const QString& key, const ListCSwordModuleInfo&, const KeyTreeItem::Settings& settings = KeyTreeItem::Settings() );
 
-protected:
+	protected:
 		virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 ) = 0;
 		virtual const QString finishText( const QString&, KeyTree& tree ) = 0;
 		virtual void initRendering() = 0;
@@ -134,7 +128,7 @@ protected:
 
 	inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() const {
 		if (!m_childList) {
-		m_childList = new KeyTree();
+			m_childList = new KeyTree();
 		}
 
 		return m_childList;
@@ -142,11 +136,11 @@ protected:
 
 	inline const bool CTextRendering::KeyTreeItem::hasChildItems() const {
 		if (!m_childList) {
-		return false;
-	}
+			return false;
+		}
 
-	return !m_childList->isEmpty();
-}
+		return !m_childList->isEmpty();
+	}
 
 }
 

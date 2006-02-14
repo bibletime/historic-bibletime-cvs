@@ -82,8 +82,9 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m) {
 
 	sword::ListKey& result = m->searchResult();
 	const int count = result.Count();
-	if (!count)
+	if (!count) {
 		return;
+	}
 
 	setUpdatesEnabled(false);
 
@@ -92,6 +93,7 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m) {
 	for (int index = 0; index < count; index++) {
 		item = new KListViewItem(this, oldItem);
 		item->setText(0, QString::fromUtf8(result.GetElement(index)->getText()));
+		
 		oldItem = item;
 	}
 
@@ -101,18 +103,17 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m) {
 	executed(currentItem());
 }
 
-void CSearchResultView::setupStrongsTree(CSwordModuleInfo* m, QStringList* vList)
-{
+void CSearchResultView::setupStrongsTree(CSwordModuleInfo* m, QStringList* vList) {
    clear();
-   
    if (!m) {
       return;
    }
 
    m_module = m;
-   
-   if (vList->count() <= 0)
+
+   if (vList->count() <= 0) {
       return;
+   }
 
    setUpdatesEnabled(false);
 
@@ -122,9 +123,9 @@ void CSearchResultView::setupStrongsTree(CSwordModuleInfo* m, QStringList* vList
    for ( QStringList::Iterator it = vList->begin(); it != vList->end(); ++it ) {
       item = new KListViewItem(this, oldItem);
       item->setText(0, (*it));
+	  
       oldItem = item;
    }
-
    
    setUpdatesEnabled(true);
 

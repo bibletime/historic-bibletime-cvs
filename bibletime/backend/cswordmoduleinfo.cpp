@@ -180,7 +180,7 @@ void CSwordModuleInfo::buildIndex() {
 	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
 	writer->setMaxFieldLength(IndexWriter::DEFAULT_MAX_FIELD_LENGTH);
 	writer->setUseCompoundFile(true);
-	writer->setMinMergeDocs(2000);
+	writer->setMinMergeDocs(2100);
 	
 	long verseIndex, verseLowIndex, verseHighIndex = 1;
 	*m_module = sword::TOP;
@@ -258,7 +258,13 @@ void CSwordModuleInfo::buildIndex() {
 		if (verseIndex % 200 == 0){
 			//progressDialog->progressBar()->setProgress( (100*(verseIndex-verseLowIndex))/(verseHighIndex-verseLowIndex) );
 			//KApplication::kApplication()->processEvents(1);
-			m_indexingProgress.setValue( QVariant((int)((100*(verseIndex-verseLowIndex))/(verseHighIndex-verseLowIndex))) );
+			if (verseHighIndex == verseLowIndex) { //prevent division by zero
+				m_indexingProgress.setValue( QVariant(0) );
+			}
+			else {
+				m_indexingProgress.setValue( QVariant((int)((100*(verseIndex-verseLowIndex))/(verseHighIndex-verseLowIndex))) );
+			}
+			
 			m_indexingProgress.activate();
 		}
 	}
@@ -591,8 +597,8 @@ const QString CSwordModuleInfo::config(const CSwordModuleInfo::ConfigEntry entry
 const bool CSwordModuleInfo::has(const CSwordModuleInfo::Feature feature) const {
 	switch (feature) {
 
-	case StrongsNumbers:
-	return m_module->getConfig().has("Feature", "StrongsNumber");
+// 		case StrongsNumbers:
+// 		return m_module->getConfig().has("Feature", "StrongsNumber");
 
 		case GreekDef:
 		return m_module->getConfig().has("Feature", "GreekDef");

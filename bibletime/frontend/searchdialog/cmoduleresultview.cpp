@@ -4,6 +4,7 @@
 
 #include "backend/cswordmoduleinfo.h"
 
+#include "frontend/util/csortlistviewitem.h"
 #include "frontend/cexportmanager.h"
 
 #include "util/cresmgr.h"
@@ -83,8 +84,9 @@ void CModuleResultView::initConnections() {
 /** Setups the tree using the given list of modules. */
 void CModuleResultView::setupTree( ListCSwordModuleInfo modules, const QString& searchedText ) {
 	clear();
-	QListViewItem* item = 0;
-	QListViewItem* oldItem = 0;
+	
+	util::CSortListViewItem* item = 0;
+	util::CSortListViewItem* oldItem = 0;
 	sword::ListKey result;
 
 	if (strongsResults) {
@@ -99,7 +101,9 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules, const QString& 
 		//   for (modules.first(); modules.current(); modules.next()) {
 		result = (*it)->searchResult();
 
-		item = new KListViewItem(this, (*it)->name(), QString::number(result.Count()) );
+		item = new util::CSortListViewItem(this, (*it)->name(), QString::number(result.Count()) );
+		item->setColumnSorting(1, util::CSortListViewItem::Number);
+				
 		item->setPixmap(0,CToolClass::getIconForModule(*it) );
 		oldItem = item;
       //----------------------------------------------------------------------
@@ -137,15 +141,15 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules, const QString& 
 void CModuleResultView::setupStrongsResults(CSwordModuleInfo* module, QListViewItem* parent,
                                             const QString& sNumber) {
 	QString lText;
-	KListViewItem* item = 0;
+	util::CSortListViewItem* item = 0;
 	
 	strongsResults = new StrongsResultClass(module, sNumber);
 	
-	for (int cnt = 0; cnt < strongsResults->Count(); cnt++) {
+	for (int cnt = 0; cnt < strongsResults->Count(); ++cnt) {
 		lText = strongsResults->keyText(cnt);
 		
-		item = new KListViewItem(parent, lText, QString::number(strongsResults->keyCount(cnt)));
-		item->setText(0, lText);
+		item = new util::CSortListViewItem(parent, lText, QString::number(strongsResults->keyCount(cnt)));
+		item->setColumnSorting(1, util::CSortListViewItem::Number);
 	}
 }
 

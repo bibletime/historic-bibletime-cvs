@@ -614,9 +614,9 @@ const QString CSwordBackend::configOptionName( const CSwordModuleInfo::FilterTyp
 
 const QString CSwordBackend::booknameLanguage( const QString& language ) {
 	if (!language.isEmpty()) {
-		qDebug("setting language %s", language.latin1());
+//		qDebug("setting language %s", language.latin1());
 		sword::LocaleMgr::getSystemLocaleMgr()->setDefaultLocaleName( language.latin1() );
-		qDebug("got language %s", sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName() );
+//		qDebug("got language %s", sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName() );
 
 		//refresh the locale of all Bible and commentary modules!
 		const ListCSwordModuleInfo::iterator end_it = m_moduleList.end();

@@ -172,6 +172,7 @@ void CBibleReadWindow::initActions() {
 		actionCollection(),
 		CResMgr::displaywindows::general::findStrongs::actionName);
 
+
 	m_actions.copy.referenceOnly = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
 
 	m_actions.copy.referenceTextOnly = new KAction(i18n("Text of reference"), KShortcut(0),displayWidget()->connectionsProxy(), SLOT(copyAnchorTextOnly()), actionCollection(), "copyTextOfReference");
@@ -247,8 +248,22 @@ void CBibleReadWindow::setupPopupMenu() {
 
 /** Reimplemented. */
 void CBibleReadWindow::updatePopupMenu() {
-	// qWarning("CBibleReadWindow::updatePopupMenu()");
+	qWarning("CBibleReadWindow::updatePopupMenu()");
 
+	//enable the action depending on the supported module features
+// 	bool hasStrongs = false;
+// 	ListCSwordModuleInfo mods = modules();
+// 	for (ListCSwordModuleInfo::iterator it = mods.begin(); it != mods.end(); ++it) {
+// 		if ( (*it)->has( CSwordModuleInfo::strongNumbers ) ) {
+// 			hasStrongs = true;
+// 			break;
+// 		}
+// 	}
+// 	
+// 	m_actions.findStrongs->setEnabled( hasStrongs );
+	m_actions.findStrongs->setEnabled( displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma] != QString::null );
+
+	
 	m_actions.copy.referenceOnly->setEnabled( displayWidget()->hasActiveAnchor() );
 	m_actions.copy.referenceTextOnly->setEnabled( displayWidget()->hasActiveAnchor() );
 	m_actions.copy.referenceAndText->setEnabled( displayWidget()->hasActiveAnchor() );

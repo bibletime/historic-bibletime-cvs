@@ -49,33 +49,46 @@ namespace Search {
 *
 *   To add a new verse to a strongs text result use addKeyName.
 */
-class StrongsResult
-   {
-   public:
-      StrongsResult() : text("") { keyNameList.clear(); }
-      StrongsResult(const QString& text, const QString &keyName)
-         : text(text)
-         { keyNameList.clear(); keyNameList.append(keyName); }
+class StrongsResult {
+public:
+   StrongsResult() /*: text(QString::null)*/ {
+	   	//keyNameList.clear();
+   }
+   
+   StrongsResult(const QString& text, const QString &keyName)
+	   : text(text)
+    {
+		//keyNameList.clear();
+		keyNameList.append(keyName);
+	}
 
-      QString keyText() const { return text; }
-      int keyCount() const { return keyNameList.count(); }
-      void addKeyName(const QString& keyName) { keyNameList.append(keyName); }
-      QStringList* getKeyList() { return &keyNameList; }
+	QString keyText() const {
+		return text;
+	}
+	int keyCount() const {
+		return keyNameList.count();
+	}
+	void addKeyName(const QString& keyName) {
+		keyNameList.append(keyName);
+	}
+	QStringList* getKeyList() {
+		return & keyNameList;
+	}
 
-      /* ????
-      bool operator==(const StrongsResult &l, const StrongsResult &r)
-         { return (l.keyText() == r.keyText()); }
+	/* ????
+	bool operator==(const StrongsResult &l, const StrongsResult &r)
+		{ return (l.keyText() == r.keyText()); }
 
-      bool operator<(const StrongsResult &l, const StrongsResult &r)
-         { return (l->keyText() < r->keyText()); }
+	bool operator<(const StrongsResult &l, const StrongsResult &r)
+		{ return (l->keyText() < r->keyText()); }
 
-      bool operator>(const StrongsResult &l, const StrongsResult &r)
-         { return (l->keyText() > r->keyText()); }
-      */
-   private:
-      QString text;
-      QStringList keyNameList;
-   };
+	bool operator>(const StrongsResult &l, const StrongsResult &r)
+		{ return (l->keyText() > r->keyText()); }
+	*/
+private:
+	QString text;
+	QStringList keyNameList;
+};
 
 typedef QValueList<StrongsResult> StrongsResultList;
 
@@ -93,26 +106,35 @@ typedef QValueList<StrongsResult> StrongsResultList;
 *
 *   To add a new verse to a strongs text result use addKeyName.
 */
-class StrongsResultClass
-   {
-   public:
-      StrongsResultClass(CSwordModuleInfo* module, const QString& strongsNumber)
-         : srModule(module), lemmaText(strongsNumber)
-         { initStrongsResults(); }
+class StrongsResultClass {
+public:
+	StrongsResultClass(CSwordModuleInfo* module, const QString& strongsNumber)
+		: srModule(module), lemmaText(strongsNumber)
+	{
+		initStrongsResults();
+	}
 
-      QString keyText(int index) const { return srList[index].keyText(); }
-      int keyCount(int index) const { return srList[index].keyCount(); }
-      QStringList* getKeyList(int index) { return srList[index].getKeyList(); }
-      int Count() const { return srList.count(); }
+	QString keyText(int index) const {
+		return srList[index].keyText();
+	}
+	int keyCount(int index) const {
+		return srList[index].keyCount();
+	}
+	QStringList* getKeyList(int index) {
+		return srList[index].getKeyList();
+	}
+	int Count() const {
+		return srList.count();
+	}
 
-   private:
-      void initStrongsResults(void);
-      QString getStrongsNumberText(const QString& verseContent, int *startIndex);
+private:
+	void initStrongsResults(void);
+	QString getStrongsNumberText(const QString& verseContent, int *startIndex);
 
-      StrongsResultList srList;
-      CSwordModuleInfo* srModule;
-      QString lemmaText;
-   };
+	StrongsResultList srList;
+	CSwordModuleInfo* srModule;
+	QString lemmaText;
+};
 
 
 /** The page of the search dialog which contains the search result part.

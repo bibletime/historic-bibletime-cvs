@@ -42,8 +42,7 @@ void CManageIndicesWidget::initView()
 	QVBoxLayout* box = new QVBoxLayout(m_labelFrame, 0, 0);
 	QLabel* mainLabel = CToolClass::explanationLabel(m_labelFrame,
 		i18n("Manage module search indices"),
-		i18n("You can use the list below to create and/or delete search indices for your"
-		"Sword modules."));
+		i18n("You can use the list below to create and/or delete search indices for your installed works."));
 	box->addWidget(mainLabel);
 
 	// configure the list view
@@ -63,8 +62,7 @@ void CManageIndicesWidget::initView()
 }
 
 /** Populates the module list with installed modules and orphaned indices */
-void CManageIndicesWidget::populateModuleList()
-{
+void CManageIndicesWidget::populateModuleList() {
 	m_moduleList->clear();
 		
 	// populate installed modules
@@ -101,13 +99,14 @@ void CManageIndicesWidget::populateModuleList()
 	dir.setFilter(QDir::Dirs);
 	for (unsigned int i = 0; i < dir.count(); i++) {
 		if (dir[i] != "." && dir[i] != ".." &&
-			CPointers::backend()->findModuleByName(dir[i]) == NULL) {
+			CPointers::backend()->findModuleByName( dir[i]) == 0 ) {
 			QCheckListItem* oitem = new QCheckListItem(m_orphanedIndices, dir[i],
 				QCheckListItem::CheckBox);
 			// get size
 			QDir index(dir.path() + "/" + dir[i]);
 			index.setFilter(QDir::Files);
 			unsigned long size = 0;
+			
 			const QFileInfoList* infoList = index.entryInfoList();
 			if (infoList) {
 				QFileInfoListIterator it(*infoList);

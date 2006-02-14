@@ -32,5 +32,5 @@ cswordsetupinstallsourcesdialog.h
 
 EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
 
-SUBDIRS = searchdialog mainindex keychooser displaywindow display
+SUBDIRS = util searchdialog mainindex keychooser displaywindow display
 noinst_HEADERS = cmoduleindexdialog.h
