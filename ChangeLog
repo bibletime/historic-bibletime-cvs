@@ -1,3 +1,6 @@
+2006-02-14 Martin Gruner <mgruner@crosswire.org>
+  * Extended index logic to allow for additional indexes per module in future
+
 2006-02-14 Joachim Ansorg <info@bibletime.info>
   * Search window: The result count in the module list are sortable now
   * The "Strong's search" items in the context menus of display windows are disabled now if there's no number to search for

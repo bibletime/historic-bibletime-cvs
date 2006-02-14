@@ -191,7 +191,7 @@ public:
 	/**
 	* Returns the path to this module's index
 	*/
-	virtual const QString getIndexLocation() const;
+	virtual const QString getStandardIndexLocation() const;
 	/**
 	* Builds a search index for this module
    */
