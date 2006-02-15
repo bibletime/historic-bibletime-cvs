@@ -82,12 +82,12 @@ void CManageIndicesWidget::populateModuleList() {
 		if ((*it)->hasIndex()) {
 			item = new QCheckListItem(m_modsWithIndices, (*it)->name(),
 				QCheckListItem::CheckBox);
-			item->setText(1, QString("%1 K").arg((*it)->indexSize() / 1024));
+			item->setText(1, QString("%1 ").arg((*it)->indexSize() / 1024) + i18n("KiB"));
 		}
 		else {
 			item = new QCheckListItem(m_modsWithoutIndices, (*it)->name(),
 				QCheckListItem::CheckBox);
-			item->setText(1, i18n("0 K"));
+			item->setText(1, QString("0 ") + i18n("KiB"));
 		}
 	}
 	
@@ -96,7 +96,7 @@ void CManageIndicesWidget::populateModuleList() {
 		QCheckListItem::CheckBoxController);
 	m_orphanedIndices->setOpen(true);
 
-	QDir dir(CSwordModuleInfo::getBaseIndexLocation());
+	QDir dir(CSwordModuleInfo::getGlobalBaseIndexLocation());
 	dir.setFilter(QDir::Dirs);
 	
 	for (unsigned int i = 0; i < dir.count(); i++) {
@@ -104,8 +104,8 @@ void CManageIndicesWidget::populateModuleList() {
 			CPointers::backend()->findModuleByName( dir[i]) == 0 ) {
 			QCheckListItem* oitem = new QCheckListItem(m_orphanedIndices, dir[i],
 				QCheckListItem::CheckBox);
-			// get size
-			QDir index(dir.path() + "/" + dir[i]);
+			// get size TODO: FIX this, only checking for standard index size, no others
+			QDir index(dir.path() + "/" + dir[i] + "/standard/");
 			index.setFilter(QDir::Files);
 			unsigned long size = 0;
 			
@@ -118,7 +118,7 @@ void CManageIndicesWidget::populateModuleList() {
 					size += info->size();
 				}
 			}
-			oitem->setText(1, QString("%1 K").arg(size / 1024));
+			oitem->setText(1, QString("%1 ").arg(size / 1024) + i18n("KiB"));
 		}
 	}
 }
@@ -179,12 +179,12 @@ void CManageIndicesWidget::deleteIndices()
 		QCheckListItem* item = (QCheckListItem*)top->firstChild();
 		while (item) {
 			if (item->isOn()) {
-				QDir dir(CSwordModuleInfo::getBaseIndexLocation());
+				QDir dir(CSwordModuleInfo::getGlobalBaseIndexLocation());
 				dir.setFilter(QDir::All);
 				for (unsigned int i = 0; i < dir.count(); i++) {
 					if (dir[i] == item->text()) {
 						// delete all files in directory
-						dir.cd(item->text());
+						dir.cd(item->text()+"/standard/"); // TODO: fix, only standard index deleted
 						for (unsigned int j = 0; j < dir.count(); j++) {
 							dir.remove(dir[j]);
 						}

@@ -135,27 +135,28 @@ const bool CSwordModuleInfo::isEncrypted() const {
 
 	return false;
 }
-const QString CSwordModuleInfo::getBaseIndexLocation() {
-	return (KGlobal::dirs()->saveLocation("data", "bibletime/indices/"));
+const QString CSwordModuleInfo::getGlobalBaseIndexLocation(){
+	return (KGlobal::dirs()->saveLocation("data", "bibletime/indices"));
 }
 
-const QString CSwordModuleInfo::getStandardIndexLocation() const { //this for now returns the location of the main index
-	 return getBaseIndexLocation() + name().ascii() + QString("/standard");
+const QString CSwordModuleInfo::getModuleBaseIndexLocation() const {
+	return getGlobalBaseIndexLocation() + QString("/") + name().ascii();
+}
+
+const QString CSwordModuleInfo::getModuleStandardIndexLocation() const { //this for now returns the location of the main index
+	 return getModuleBaseIndexLocation() + QString("/standard");
 }
 
 const bool CSwordModuleInfo::hasIndex() { //this will return true only 
 		//if the index exists and has correct version information for both index and module
 
 	QDir d;
-	if (d.exists( getBaseIndexLocation() ) == false) {
-		return false;
-	}
-	if (d.exists( getStandardIndexLocation() ) == false) {
+	if (d.exists( getModuleStandardIndexLocation() )  == false) {
 		return false;
 	}
 	
 	//first check if the index version and module version are ok
-	KConfig* indexconfig = new KConfig( getStandardIndexLocation() + QString("/../bibletime-index.conf") );
+	KConfig* indexconfig = new KConfig( getModuleBaseIndexLocation() + QString("/bibletime-index.conf") );
 
 	if (hasVersion()){
 		if (indexconfig->readEntry("module-version") != QString(config(CSwordModuleInfo::ModuleVersion)) ){
@@ -170,7 +171,7 @@ const bool CSwordModuleInfo::hasIndex() { //this will return true only
 	delete indexconfig;
 
 	//then check if the index is there
-	return IndexReader::indexExists(getStandardIndexLocation().ascii());
+	return IndexReader::indexExists(getModuleStandardIndexLocation().ascii());
 }
 
 
@@ -179,7 +180,13 @@ void CSwordModuleInfo::buildIndex() {
 	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
 	
 	lucene::analysis::standard::StandardAnalyzer an;
-	QString index = getStandardIndexLocation();
+	QString index = getModuleStandardIndexLocation();
+
+	QDir dir;
+	dir.mkdir( getGlobalBaseIndexLocation(), true );
+	dir.mkdir( getModuleBaseIndexLocation(), true );
+	dir.mkdir( getModuleStandardIndexLocation(),   true );
+
 	
 	if (IndexReader::indexExists(index.ascii())){
 		if (IndexReader::isLocked(index.ascii()) ){
@@ -286,7 +293,7 @@ void CSwordModuleInfo::buildIndex() {
 
 //	delete progressDialog;
 
-	util::scoped_ptr<KConfig> indexconfig( new KConfig( getStandardIndexLocation() + QString("/../bibletime-index.conf") ) );
+	util::scoped_ptr<KConfig> indexconfig( new KConfig( getModuleBaseIndexLocation() + QString("/bibletime-index.conf") ) );
 	if (hasVersion()){
 		indexconfig->writeEntry("module-version", config(CSwordModuleInfo::ModuleVersion) );
 	}
@@ -296,7 +303,7 @@ void CSwordModuleInfo::buildIndex() {
 void CSwordModuleInfo::deleteIndex()
 {
 	lucene::analysis::standard::StandardAnalyzer an;
-	QString index = getStandardIndexLocation();
+	QString index = getModuleStandardIndexLocation();
 	
 	if (IndexReader::indexExists(index.ascii())){
 		if (IndexReader::isLocked(index.ascii()) ){
@@ -308,7 +315,7 @@ void CSwordModuleInfo::deleteIndex()
 }
 
 unsigned long CSwordModuleInfo::indexSize() {
-	QDir index(getStandardIndexLocation());
+	QDir index(getModuleStandardIndexLocation());
 	index.setFilter(QDir::Files);
 	
 	unsigned long size = 0;
@@ -338,7 +345,7 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText,/* const i
 	
 	try {
 		standard::StandardAnalyzer analyzer;
-		IndexSearcher searcher(getStandardIndexLocation().ascii());
+		IndexSearcher searcher(getModuleStandardIndexLocation().ascii());
 		lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
 		util::scoped_ptr<Query> q( QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer) );
 

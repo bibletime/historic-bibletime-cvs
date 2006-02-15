@@ -130,7 +130,7 @@ public:
 	/**
 	* Returns the base directory for search indices
 	*/
-	static const QString getBaseIndexLocation();
+	static const QString getGlobalBaseIndexLocation();
 
 	/**
 	* Returns the config entry which is pecified by the parameter.
@@ -189,9 +189,13 @@ public:
 	*/
 	virtual const bool hasIndex();
 	/**
-	* Returns the path to this module's index
+	* Returns the path to this module's index base dir
 	*/
-	virtual const QString getStandardIndexLocation() const;
+	virtual const QString getModuleBaseIndexLocation() const;
+	/**
+	* Returns the path to this module's standard index
+	*/
+	virtual const QString getModuleStandardIndexLocation() const;
 	/**
 	* Builds a search index for this module
    */
