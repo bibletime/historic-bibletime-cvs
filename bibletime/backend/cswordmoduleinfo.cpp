@@ -295,24 +295,8 @@ void CSwordModuleInfo::buildIndex() {
 	writer->close();
 }
 
-void CSwordModuleInfo::deleteIndex()
-{
-/*	lucene::analysis::standard::StandardAnalyzer an;
-	QString index = getStandardIndexLocation();
-=======
-	lucene::analysis::standard::StandardAnalyzer an;
-	QString index = getModuleStandardIndexLocation();
->>>>>>> 1.108
-	
-	if (IndexReader::indexExists(index.ascii())){
-		if (IndexReader::isLocked(index.ascii()) ){
-			IndexReader::unlock(index.ascii());
-		}
-	}
-	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
-	writer->close();*/
-
-	util::files::DirectoryUtil::removeRecursive( getModuleBaseIndexLocation() );
+void CSwordModuleInfo::deleteIndex() {
+	util::filesystem::DirectoryUtil::removeRecursive( getModuleBaseIndexLocation() );
 }
 
 unsigned long CSwordModuleInfo::indexSize() {
@@ -399,66 +383,6 @@ void CSwordModuleInfo::disconnectIndexingSignals(QObject* receiver) {
 	m_indexingFinished.disconnect(receiver);
 }
 
-
-/** Returns true if something was found, otherwise return false. */
-// const bool CSwordModuleInfo::search(const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percentUpdate) (char, void *)) {
-// 	int searchType = 0;
-// 	int searchFlags = REG_ICASE;
-// 
-// 	//work around Swords thread insafety for Bibles and Commentaries
-// 	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
-// 	sword::SWKey* s = dynamic_cast < sword::SWKey * >(key.get());
-// 
-// 	if (s) {
-// 		m_module->SetKey(*s);
-// 	}
-// 
-// 	//setup variables required for Sword
-// 	if (searchOptions & CSwordModuleSearch::caseSensitive) {
-// 		searchFlags = 0;
-// 	}
-// 
-// 	if (searchOptions & CSwordModuleSearch::cluceneIndex) {
-// 		searchType = -4;  //clucene search
-// 	}
-// 	else if (searchOptions & CSwordModuleSearch::entryAttribs) {
-// 		searchType = -3;  //Entry attributes
-// 	}
-// 	else if (searchOptions & CSwordModuleSearch::multipleWords) {
-// 		searchType = -2;  //multiple words
-// 
-// 		if (m_module->hasSearchFramework()
-// 				&& m_module->isSearchOptimallySupported((const char *)searchedText.utf8(), -4, 0, 0)) {
-// 			searchType = -4;
-// 		}
-// 	}
-// 	else if (searchOptions & CSwordModuleSearch::exactPhrase) {
-// 		searchType = -1;  //exact phrase
-// 	}
-// 	else if (searchOptions & CSwordModuleSearch::regExp) {
-// 		searchType = 0;   //regexp matching
-// 	}
-// 
-// 	// 	if (!percentUpdate) {
-// 	// 		percentUpdate =
-// 	// 	}
-// 
-// 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
-// 		util::scoped_ptr < sword::SWKey > searchScope(m_searchResult.clone());
-// 		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
-// 	}
-// 	else if (searchOptions & CSwordModuleSearch::useScope) {
-// 		m_searchResult =
-// 			m_module->search(searchedText.utf8(), searchType, searchFlags,
-// 							 (type() != Lexicon && type() != GenericBook) ? &scope : 0, 0, percentUpdate);
-// 	}
-// 	else {
-// 		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
-// 	}
-// 
-// 	return (m_searchResult.Count() > 0);
-// }
-
 /** Returns the last search result for this module. */
 sword::ListKey & CSwordModuleInfo::searchResult(const sword::ListKey * newResult) {
 	if (newResult) {
@@ -472,11 +396,6 @@ sword::ListKey & CSwordModuleInfo::searchResult(const sword::ListKey * newResult
 void CSwordModuleInfo::clearSearchResult() {
 	m_searchResult.ClearList();
 }
-
-/** This interupts the search if this module is being searched. */
-// void CSwordModuleInfo::interruptSearch() {
-// 	m_module->terminateSearch = true;
-// }
 
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
 const sword::SWVersion CSwordModuleInfo::minimumSwordVersion() {
