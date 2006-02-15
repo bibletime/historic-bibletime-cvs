@@ -1,6 +1,7 @@
 2006-02-15 Joachim Ansorg <info@bibletime.info>
   * Fix: Modules without indexes created an empty index directory.
-
+  * Fix: Module indexes are completely removed now
+  
 2006-02-14 Martin Gruner <mgruner@crosswire.org>
   * Extended index logic to allow for additional indexes per module in future
 
