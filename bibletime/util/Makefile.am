@@ -2,7 +2,7 @@ INCLUDES = $(all_includes)
 libutil_a_METASOURCES = AUTO
 noinst_LIBRARIES = libutil.a
 
-libutil_a_SOURCES = cpointers.cpp cresmgr.cpp ctoolclass.cpp
+libutil_a_SOURCES = cpointers.cpp cresmgr.cpp ctoolclass.cpp directoryutil.cpp
 
 all_headers = \
 scoped_resource.h \
@@ -13,3 +13,4 @@ autoptrvector.h
 
 EXTRA_DIST = $(libutil_a_SOURCES) $(all_headers)
 
+noinst_HEADERS = directoryutil.h

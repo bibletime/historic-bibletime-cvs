@@ -128,8 +128,8 @@ public:
 	};
 
 	/**
-	* Returns the base directory for search indices
-	*/
+	 * Returns the base directory for search indices
+	 */
 	static const QString getGlobalBaseIndexLocation();
 
 	/**

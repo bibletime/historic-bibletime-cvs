@@ -9,6 +9,7 @@
 #include "clanguagemgr.h"
 
 #include "util/scoped_resource.h"
+#include "util/directoryutil.h"
 #include "util/cpointers.h"
 #include "frontend/cbtconfig.h"
 
@@ -130,13 +131,14 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	sword::ConfigEntMap::iterator it = config.find("CipherKey");
 
 	if (it != config.end()) {
-	return true;
+		return true;
 	}
 
 	return false;
 }
+
 const QString CSwordModuleInfo::getGlobalBaseIndexLocation(){
-	return (KGlobal::dirs()->saveLocation("data", "bibletime/indices"));
+	return KGlobal::dirs()->saveLocation("data", "bibletime/indices");
 }
 
 const QString CSwordModuleInfo::getModuleBaseIndexLocation() const {
@@ -148,15 +150,17 @@ const QString CSwordModuleInfo::getModuleStandardIndexLocation() const { //this 
 }
 
 const bool CSwordModuleInfo::hasIndex() { //this will return true only 
-		//if the index exists and has correct version information for both index and module
+	//if the index exists and has correct version information for both index and module
 
 	QDir d;
-	if (d.exists( getModuleStandardIndexLocation() )  == false) {
+	if (!d.exists( getModuleStandardIndexLocation() )) {
 		return false;
 	}
 	
 	//first check if the index version and module version are ok
-	KConfig* indexconfig = new KConfig( getModuleBaseIndexLocation() + QString("/bibletime-index.conf") );
+	util::scoped_ptr<KConfig> indexconfig(
+		new KConfig( getModuleBaseIndexLocation() + QString("/bibletime-index.conf") )
+	);
 
 	if (hasVersion()){
 		if (indexconfig->readEntry("module-version") != QString(config(CSwordModuleInfo::ModuleVersion)) ){
@@ -168,14 +172,21 @@ const bool CSwordModuleInfo::hasIndex() { //this will return true only
 		return false;
 	}
 
-	delete indexconfig;
-
 	//then check if the index is there
 	return IndexReader::indexExists(getModuleStandardIndexLocation().ascii());
 }
 
 
 void CSwordModuleInfo::buildIndex() {
+	//HACK: KConfig creates the parent dir of the config if it does not exist, CLucene needs an existing dir to work properly
+	QString configFilename = getModuleStandardIndexLocation() + QString("/../bibletime-index.conf");
+	
+	util::scoped_ptr<KConfig> indexconfig( new KConfig( configFilename ) );
+	if (hasVersion()){
+		indexconfig->writeEntry("module-version", config(CSwordModuleInfo::ModuleVersion) );
+	}
+	indexconfig->writeEntry("index-version", INDEX_VERSION);
+
 	//Without this we don't get strongs, lemmas, etc
 	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
 	
@@ -197,7 +208,7 @@ void CSwordModuleInfo::buildIndex() {
 	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
 	writer->setMaxFieldLength(IndexWriter::DEFAULT_MAX_FIELD_LENGTH);
 	writer->setUseCompoundFile(true);
-	writer->setMinMergeDocs(2100);
+	writer->setMinMergeDocs(10000);
 	
 	long verseIndex, verseLowIndex, verseHighIndex = 1;
 	*m_module = sword::TOP;
@@ -207,10 +218,6 @@ void CSwordModuleInfo::buildIndex() {
 
 	bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
 	
-	/*KProgressDialog* progressDialog = new KProgressDialog(0, "progressDialog", i18n("Index creation"),
-			(i18n("Creating index for %1")+"...").arg( name() ), true );
-	progressDialog->setAllowCancel( false );*/
-
 	m_indexingProgress.setValue( QVariant((int)0) );
 	
 	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
@@ -273,8 +280,6 @@ void CSwordModuleInfo::buildIndex() {
 		verseIndex = m_module->Index();
 
 		if (verseIndex % 200 == 0){
-			//progressDialog->progressBar()->setProgress( (100*(verseIndex-verseLowIndex))/(verseHighIndex-verseLowIndex) );
-			//KApplication::kApplication()->processEvents(1);
 			if (verseHighIndex == verseLowIndex) { //prevent division by zero
 				m_indexingProgress.setValue( QVariant(0) );
 			}
@@ -286,24 +291,18 @@ void CSwordModuleInfo::buildIndex() {
 		}
 	}
 
-	//progressDialog->setLabel( i18n("Optimizing index")+"...");
-	//KApplication::kApplication()->processEvents(1);
 	writer->optimize();
 	writer->close();
-
-//	delete progressDialog;
-
-	util::scoped_ptr<KConfig> indexconfig( new KConfig( getModuleBaseIndexLocation() + QString("/bibletime-index.conf") ) );
-	if (hasVersion()){
-		indexconfig->writeEntry("module-version", config(CSwordModuleInfo::ModuleVersion) );
-	}
-	indexconfig->writeEntry("index-version", INDEX_VERSION);
 }
 
 void CSwordModuleInfo::deleteIndex()
 {
+/*	lucene::analysis::standard::StandardAnalyzer an;
+	QString index = getStandardIndexLocation();
+=======
 	lucene::analysis::standard::StandardAnalyzer an;
 	QString index = getModuleStandardIndexLocation();
+>>>>>>> 1.108
 	
 	if (IndexReader::indexExists(index.ascii())){
 		if (IndexReader::isLocked(index.ascii()) ){
@@ -311,7 +310,9 @@ void CSwordModuleInfo::deleteIndex()
 		}
 	}
 	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
-	writer->close();
+	writer->close();*/
+
+	util::files::DirectoryUtil::removeRecursive( getModuleBaseIndexLocation() );
 }
 
 unsigned long CSwordModuleInfo::indexSize() {
