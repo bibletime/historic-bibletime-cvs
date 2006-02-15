@@ -135,28 +135,38 @@ const bool CSwordModuleInfo::isEncrypted() const {
 
 	return false;
 }
-const QString CSwordModuleInfo::getBaseIndexLocation()
-{
+const QString CSwordModuleInfo::getBaseIndexLocation() {
 	return (KGlobal::dirs()->saveLocation("data", "bibletime/indices/"));
 }
 
-const QString CSwordModuleInfo::getStandardIndexLocation() const //this for now returns the location of the main index
-{
+const QString CSwordModuleInfo::getStandardIndexLocation() const { //this for now returns the location of the main index
 	 return getBaseIndexLocation() + name().ascii() + QString("/standard");
 }
 
-const bool CSwordModuleInfo::hasIndex() //this will return true only 
+const bool CSwordModuleInfo::hasIndex() { //this will return true only 
 		//if the index exists and has correct version information for both index and module
-{	//first check if the index version and module version are ok
+
+	QDir d;
+	if (d.exists( getBaseIndexLocation() ) == false) {
+		return false;
+	}
+	if (d.exists( getStandardIndexLocation() ) == false) {
+		return false;
+	}
+	
+	//first check if the index version and module version are ok
 	KConfig* indexconfig = new KConfig( getStandardIndexLocation() + QString("/../bibletime-index.conf") );
+
 	if (hasVersion()){
 		if (indexconfig->readEntry("module-version") != QString(config(CSwordModuleInfo::ModuleVersion)) ){
 			return false;
 		}
 	}
 	if (indexconfig->readEntry("index-version") != QString( INDEX_VERSION )){
+		qDebug("%s: INDEX_VERSION is not compatible with this version of BibleTime.", name().latin1());
 		return false;
 	}
+
 	delete indexconfig;
 
 	//then check if the index is there
@@ -297,18 +307,20 @@ void CSwordModuleInfo::deleteIndex()
 	writer->close();
 }
 
-unsigned long CSwordModuleInfo::indexSize()
-{
+unsigned long CSwordModuleInfo::indexSize() {
 	QDir index(getStandardIndexLocation());
 	index.setFilter(QDir::Files);
+	
 	unsigned long size = 0;
+	
 	const QFileInfoList* infoList = index.entryInfoList();
 	QFileInfoListIterator it(*infoList);
 	QFileInfo* info;
-	while ((info = it.current())!= NULL) {
-		++it;
+	while ((info = it.current()) != 0) {
 		size += info->size();
+		++it;
 	}
+	
 	return size;
 }
 

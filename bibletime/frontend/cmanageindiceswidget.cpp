@@ -77,7 +77,8 @@ void CManageIndicesWidget::populateModuleList() {
 	ListCSwordModuleInfo& modules = CPointers::backend()->moduleList();
 	ListCSwordModuleInfo::iterator end_it = modules.end();
 	for (ListCSwordModuleInfo::iterator it = modules.begin(); it != end_it; ++it) {
-		QCheckListItem* item = NULL;
+		QCheckListItem* item = 0;
+		
 		if ((*it)->hasIndex()) {
 			item = new QCheckListItem(m_modsWithIndices, (*it)->name(),
 				QCheckListItem::CheckBox);
@@ -97,6 +98,7 @@ void CManageIndicesWidget::populateModuleList() {
 
 	QDir dir(CSwordModuleInfo::getBaseIndexLocation());
 	dir.setFilter(QDir::Dirs);
+	
 	for (unsigned int i = 0; i < dir.count(); i++) {
 		if (dir[i] != "." && dir[i] != ".." &&
 			CPointers::backend()->findModuleByName( dir[i]) == 0 ) {
