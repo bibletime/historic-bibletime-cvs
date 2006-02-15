@@ -128,9 +128,14 @@ public:
 	};
 
 	/**
-	 * Returns the base directory for search indices
-	 */
+	* Returns the base directory for search indices
+	*/
 	static const QString getGlobalBaseIndexLocation();
+	/**
+	* Removes search index for this module, even if the module is not there any more
+	*/
+	static void deleteIndexForModule( QString name );
+
 
 	/**
 	* Returns the config entry which is pecified by the parameter.
@@ -200,10 +205,6 @@ public:
 	* Builds a search index for this module
    */
 	virtual void buildIndex();
-	/**
-	* Removes search index for this module
-	*/
-	virtual void deleteIndex();
 	/**
 	* Returns index size
 	*/

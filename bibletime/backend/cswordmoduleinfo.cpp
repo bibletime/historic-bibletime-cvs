@@ -295,8 +295,8 @@ void CSwordModuleInfo::buildIndex() {
 	writer->close();
 }
 
-void CSwordModuleInfo::deleteIndex() {
-	util::filesystem::DirectoryUtil::removeRecursive( getModuleBaseIndexLocation() );
+void CSwordModuleInfo::deleteIndexForModule( QString name ) {
+	util::filesystem::DirectoryUtil::removeRecursive( getGlobalBaseIndexLocation() + "/" + name );
 }
 
 unsigned long CSwordModuleInfo::indexSize() {

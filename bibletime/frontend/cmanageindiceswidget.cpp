@@ -166,7 +166,7 @@ void CManageIndicesWidget::deleteIndices()
 			CSwordModuleInfo* module =
 				CPointers::backend()->findModuleByName(item->text().utf8());
 			if (module) {
-				module->deleteIndex();
+				CSwordModuleInfo::deleteIndexForModule( module->name() );
 				indicesDeleted = true;
 			}
 		}
@@ -179,21 +179,8 @@ void CManageIndicesWidget::deleteIndices()
 		QCheckListItem* item = (QCheckListItem*)top->firstChild();
 		while (item) {
 			if (item->isOn()) {
-				QDir dir(CSwordModuleInfo::getGlobalBaseIndexLocation());
-				dir.setFilter(QDir::All);
-				for (unsigned int i = 0; i < dir.count(); i++) {
-					if (dir[i] == item->text()) {
-						// delete all files in directory
-						dir.cd(item->text()+"/standard/"); // TODO: fix, only standard index deleted
-						for (unsigned int j = 0; j < dir.count(); j++) {
-							dir.remove(dir[j]);
-						}
-						// delete the directory
-						dir.cdUp();
-						dir.rmdir(item->text());
-						indicesDeleted = true;
-					}
-				}
+				CSwordModuleInfo::deleteIndexForModule( item->text() );
+				indicesDeleted = true;
 			}
 			item = (QCheckListItem*)item->nextSibling();
 		}
