@@ -19,19 +19,6 @@ namespace util {
 
 namespace filesystem {
 
-DirectoryUtil::DirectoryUtil()
-{
-}
-
-
-DirectoryUtil::~DirectoryUtil()
-{
-}
-
-
-/*!
-    \fn util::files::DirectoryUtil::removeRecursive(const QString& dir)
- */
 void DirectoryUtil::removeRecursive(const QString& dir) {
 	qWarning("removeRecursive(%s)", dir.latin1());
 	if (dir == QString::null)  {
@@ -78,7 +65,47 @@ void DirectoryUtil::removeRecursive(const QString& dir) {
 	d.rmdir(dir);
 }
 
+/** Returns the size of the directory including the size of all it's files and it's subdirs.
+ */
+unsigned long DirectoryUtil::getDirSizeRecursive(const QString& dir) {
+	qWarning("Getting size for %s", dir.latin1());
+
+	QDir d(dir);
+	if (!d.exists()) {
+		return 0;
+	}
+
+	d.setFilter(QDir::Files);
+	
+	unsigned long size = 0;
+	
+	const QFileInfoList* infoList = d.entryInfoList();
+	QFileInfoListIterator it(*infoList);
+	QFileInfo* info = 0;
+	while ((info = it.current()) != 0) {
+		++it;
+
+		size += info->size();
+	}
+
+	d.setFilter(QDir::Dirs);
+	const QFileInfoList* dirInfoList = d.entryInfoList();
+	QFileInfoListIterator it_dir(*dirInfoList);
+	while ((info = it_dir.current()) != 0) {
+		++it_dir;
+		
+		if ( !info->isDir() || info->fileName() == "." || info->fileName() == ".." ) {
+			continue;
+		}
+
+		size += getDirSizeRecursive( info->absFilePath() );
+	}
+	
+	return size;
 }
 
-}
+
+} //end of namespace util::filesystem
+
+} //end of namespace util
 

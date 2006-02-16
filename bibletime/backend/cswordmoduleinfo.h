@@ -208,32 +208,23 @@ public:
 	/**
 	* Returns index size
 	*/
-	virtual unsigned long indexSize();
+	virtual unsigned long indexSize() const;
+	
 	void connectIndexingFinished(QObject* receiver, const char* slot);
 	void connectIndexingProgress(QObject* receiver, const char* slot);
 	void disconnectIndexingSignals(QObject* receiver);
 	
 	/**
 	* Returns true if something was found, otherwise return false.
-	* This function does start the Sword functions to search in the module and it does
-	* overwrite the variable containing the last search result.
-	*/
-	//virtual const bool search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percent)(char, void*) = &sword::SWSearchable::nullPercent);
-	/**
-	* Returns true if something was found, otherwise return false.
 	* This function uses CLucene to perform and index based search.  It also 
 	* overwrites the variable containing the last search result.
 	*/
-	virtual const bool searchIndexed(const QString searchedText/*, const int searchOptions*/, sword::ListKey& scope);
+	virtual const bool searchIndexed(const QString& searchedText, sword::ListKey& scope);
 	/**
 	* Returns the last search result for this module.
 	* The last result is cleared by @ref search
 	*/
 	virtual sword::ListKey& searchResult( const sword::ListKey* newResult = 0 );
-	/**
-	* This interupts the search if this module is being searched.
-	*/
-// 	virtual void interruptSearch();
 	/**
 	* Clears the last search result.
 	* This does immediately clean the last search result,
@@ -301,16 +292,13 @@ public:
 	}
 
 protected:
-
 	friend class CSwordBackend;
-	//  friend class CInfoDisplay;
 
-	/*virtual */
 	inline CSwordBackend* backend() const {
 		return m_backend;
 	}
 
-	/*virtual */inline void backend( CSwordBackend* newBackend ) {
+	inline void backend( CSwordBackend* newBackend ) {
 		if (newBackend) {
 			m_backend = newBackend;
 		}
@@ -371,16 +359,11 @@ inline const QString CSwordModuleInfo::name() const {
 	return m_dataCache.name;
 }
 
-/** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
-// inline const bool CSwordModuleInfo::isUnicode() const {
-
 /** Returns true if this module may be written by the write display windows. */
 inline const bool CSwordModuleInfo::isWritable() const {
 	return false;
 }
 
 #include "util/cpointers.h"
-
-
 
 #endif

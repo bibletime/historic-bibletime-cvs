@@ -105,19 +105,8 @@ void CManageIndicesWidget::populateModuleList() {
 			QCheckListItem* oitem = new QCheckListItem(m_orphanedIndices, dir[i],
 				QCheckListItem::CheckBox);
 			// get size TODO: FIX this, only checking for standard index size, no others
-			QDir index(dir.path() + "/" + dir[i] + "/standard/");
-			index.setFilter(QDir::Files);
-			unsigned long size = 0;
-			
-			const QFileInfoList* infoList = index.entryInfoList();
-			if (infoList) {
-				QFileInfoListIterator it(*infoList);
-				QFileInfo* info;
-				while ((info = it.current())!= NULL) {
-					++it;
-					size += info->size();
-				}
-			}
+			const QString dirName = dir.path() + "/" + dir[i] + "/standard/";
+			const unsigned long size = util::filesystem::DirectoryUtil::getDirSizeRecursive( dirName );
 			oitem->setText(1, QString("%1 ").arg(size / 1024) + i18n("KiB"));
 		}
 	}

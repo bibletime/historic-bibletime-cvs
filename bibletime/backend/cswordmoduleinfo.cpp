@@ -299,24 +299,11 @@ void CSwordModuleInfo::deleteIndexForModule( QString name ) {
 	util::filesystem::DirectoryUtil::removeRecursive( getGlobalBaseIndexLocation() + "/" + name );
 }
 
-unsigned long CSwordModuleInfo::indexSize() {
-	QDir index(getModuleStandardIndexLocation());
-	index.setFilter(QDir::Files);
-	
-	unsigned long size = 0;
-	
-	const QFileInfoList* infoList = index.entryInfoList();
-	QFileInfoListIterator it(*infoList);
-	QFileInfo* info;
-	while ((info = it.current()) != 0) {
-		size += info->size();
-		++it;
-	}
-	
-	return size;
+unsigned long CSwordModuleInfo::indexSize() const {
+	return util::filesystem::DirectoryUtil::getDirSizeRecursive( getModuleBaseIndexLocation() );
 }
 
-const bool CSwordModuleInfo::searchIndexed(const QString searchedText,/* const int searchOptions,*/ sword::ListKey& scope)
+const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::ListKey& scope)
 {
 	// work around Swords thread insafety for Bibles and Commentaries
 	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
@@ -335,7 +322,8 @@ const bool CSwordModuleInfo::searchIndexed(const QString searchedText,/* const i
 		util::scoped_ptr<Query> q( QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer) );
 
 		util::scoped_ptr<Hits> h( searcher.search(q) );
-		//h = searcher.search(q, Sort::INDEXORDER); //Should return keys in the right order, doesn't work properly with CLucene 0.9.10
+		//TODO
+		//h = searcher.search(q, Sort::INDEXORDER); //Should return keys in the right order, doesn't work properly with CLucene 0.9.10, will work with 0.9.11
 
 		const bool useScope = (scope.Count() > 0);
 		Document* doc = 0;

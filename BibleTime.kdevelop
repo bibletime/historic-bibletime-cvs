@@ -21,7 +21,7 @@
   </general>
   <kdevautoproject>
     <general>
-      <activetarget>bibletime/bibletime</activetarget>
+      <activetarget>bibletime/util/libutil.a</activetarget>
       <useconfiguration>default</useconfiguration>
     </general>
     <run>
