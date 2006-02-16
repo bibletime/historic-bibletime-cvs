@@ -91,7 +91,7 @@ void CManageIndicesWidget::populateModuleList() {
 		}
 	}
 	
-	// populate orphaned modules
+/*	// populate orphaned modules
 	m_orphanedIndices = new QCheckListItem(m_moduleList, i18n("Orphaned Indices"),
 		QCheckListItem::CheckBoxController);
 	m_orphanedIndices->setOpen(true);
@@ -109,7 +109,7 @@ void CManageIndicesWidget::populateModuleList() {
 			const unsigned long size = util::filesystem::DirectoryUtil::getDirSizeRecursive( dirName );
 			oitem->setText(1, QString("%1 ").arg(size / 1024) + i18n("KiB"));
 		}
-	}
+	}*/
 }
 
 /** Creates indices for selected modules if no index currently exists */
@@ -163,17 +163,17 @@ void CManageIndicesWidget::deleteIndices()
 	}
 
 	// delete orphaned indices
-	top = m_orphanedIndices;
-	if (top) {
-		QCheckListItem* item = (QCheckListItem*)top->firstChild();
-		while (item) {
-			if (item->isOn()) {
-				CSwordModuleInfo::deleteIndexForModule( item->text() );
-				indicesDeleted = true;
-			}
-			item = (QCheckListItem*)item->nextSibling();
-		}
-	}
+// 	top = m_orphanedIndices;
+// 	if (top) {
+// 		QCheckListItem* item = (QCheckListItem*)top->firstChild();
+// 		while (item) {
+// 			if (item->isOn()) {
+// 				CSwordModuleInfo::deleteIndexForModule( item->text() );
+// 				indicesDeleted = true;
+// 			}
+// 			item = (QCheckListItem*)item->nextSibling();
+// 		}
+// 	}
 
 	// repopulate the list if an action was taken
 	if (indicesDeleted) {

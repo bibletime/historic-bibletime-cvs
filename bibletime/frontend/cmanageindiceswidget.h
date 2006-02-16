@@ -39,7 +39,7 @@ protected:
 	// member variables
 	QCheckListItem* m_modsWithIndices;
 	QCheckListItem* m_modsWithoutIndices;
-	QCheckListItem* m_orphanedIndices;
+//	QCheckListItem* m_orphanedIndices;
 	
 public slots:
 	/**
