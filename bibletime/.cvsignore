@@ -1,0 +1,8 @@
+.deps
+.libs
+Makefile
+Makefile.in
+bibletime
+bibletime.moc.cpp
+bibletimeinterface.kidl
+bibletimeinterface_skel.cpp
