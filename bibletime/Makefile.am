@@ -1,5 +1,5 @@
 bibletime_SOURCES = bibletime_init.cpp bibletime_slots.cpp bibletime.cpp \
-		bibletimeapp.cpp main.cpp bibletime_dcop.cpp bibletimeinterface.skel .cvsignore
+		bibletimeapp.cpp main.cpp bibletime_dcop.cpp bibletimeinterface.skel
 
 bibletime_LDADD   = \
 ./frontend/displaywindow/libdisplaywindow.a \
