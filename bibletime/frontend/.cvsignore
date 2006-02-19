@@ -2,3 +2,6 @@
 Makefile
 Makefile.in
 *.moc.cpp
+manageindicesform.cpp
+manageindicesform.h
+manageindicesform.moc

@@ -2,3 +2,10 @@
 Makefile
 Makefile.in
 *.moc.cpp
+searchoptionsform.cpp
+searchoptionsform.h
+searchoptionsform.moc
+searchresultsform.cpp
+searchresultsform.h
+searchresultsform.moc
+
