@@ -10,8 +10,8 @@
       <part>kdevfilelist</part>
       <part>kdevdistpart</part>
     </ignoreparts>
-    <version>1.5.1</version>
-    <description/>
+    <version>1.6cvs</version>
+    <description></description>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
@@ -21,7 +21,7 @@
   </general>
   <kdevautoproject>
     <general>
-      <activetarget>bibletime/util/libutil.a</activetarget>
+      <activetarget>bibletime/bibletime</activetarget>
       <useconfiguration>default</useconfiguration>
     </general>
     <run>
@@ -72,14 +72,14 @@
     <general>
       <dbgshell>libtool</dbgshell>
       <programargs>--debug</programargs>
-      <gdbpath/>
+      <gdbpath></gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -157,7 +157,7 @@
     </codecompletion>
     <references/>
     <creategettersetter>
-      <prefixGet/>
+      <prefixGet></prefixGet>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
@@ -167,7 +167,7 @@
     <qt>
       <used>true</used>
       <version>3</version>
-      <root/>
+      <root>/usr/lib/qt3</root>
     </qt>
   </kdevcppsupport>
   <kdevfilecreate>
