@@ -1,3 +1,6 @@
+2006-02-22 Martin Gruner <mgruner@crosswire.org>
+  * Orphaned and defect indices are now automatically deleted
+
 2006-02-15 Joachim Ansorg <info@bibletime.info>
   * Fix: Modules without indexes created an empty index directory.
   * Fix: Module indexes are completely removed now

@@ -31,6 +31,7 @@ namespace BookshelfManager {
 CManageIndicesWidget::CManageIndicesWidget(QWidget* parent, const char* name) :
 	ManageIndicesForm(parent, name) {
 	
+	deleteOrphanedIndices();
 	initView();
 	populateModuleList();
 };
@@ -90,33 +91,13 @@ void CManageIndicesWidget::populateModuleList() {
 			item->setText(1, QString("0 ") + i18n("KiB"));
 		}
 	}
-	
-/*	// populate orphaned modules
-	m_orphanedIndices = new QCheckListItem(m_moduleList, i18n("Orphaned Indices"),
-		QCheckListItem::CheckBoxController);
-	m_orphanedIndices->setOpen(true);
-
-	QDir dir(CSwordModuleInfo::getGlobalBaseIndexLocation());
-	dir.setFilter(QDir::Dirs);
-	
-	for (unsigned int i = 0; i < dir.count(); i++) {
-		if (dir[i] != "." && dir[i] != ".." &&
-			CPointers::backend()->findModuleByName( dir[i]) == 0 ) {
-			QCheckListItem* oitem = new QCheckListItem(m_orphanedIndices, dir[i],
-				QCheckListItem::CheckBox);
-			// get size TODO: FIX this, only checking for standard index size, no others
-			const QString dirName = dir.path() + "/" + dir[i] + "/standard/";
-			const unsigned long size = util::filesystem::DirectoryUtil::getDirSizeRecursive( dirName );
-			oitem->setText(1, QString("%1 ").arg(size / 1024) + i18n("KiB"));
-		}
-	}*/
 }
 
 /** Creates indices for selected modules if no index currently exists */
 void CManageIndicesWidget::createIndices()
 {
 	QCheckListItem* top = m_modsWithoutIndices;
-	//bool indicesCreated = false;
+	bool indicesCreated = false;
 	QCheckListItem* item = (QCheckListItem*)top->firstChild();
 
 	ListCSwordModuleInfo moduleList;
@@ -126,21 +107,19 @@ void CManageIndicesWidget::createIndices()
 				CPointers::backend()->findModuleByName(item->text().utf8());
 
 			
-			if (module /*&& !module->hasIndex()*/) {
+			if (module) { //the module is there and the index is valid (right version etc.)
 				moduleList.append( module );
-				//module->buildIndex();
-				//indicesCreated = true;
+				indicesCreated = true;
 			}
 		}
 		item = (QCheckListItem*)item->nextSibling();
 	}
 
 	//Shows the progress dialog
-	CModuleIndexDialog::getInstance()->indexAllModules( moduleList );
-	
-	//if (indicesCreated) {
+	if (indicesCreated) {
+		CModuleIndexDialog::getInstance()->indexAllModules( moduleList );
 		populateModuleList();
-	//}
+	}
 }
 
 /** Deletes indices for selected modules and selected orphans */
@@ -162,23 +141,31 @@ void CManageIndicesWidget::deleteIndices()
 		item = (QCheckListItem*)item->nextSibling();
 	}
 
-	// delete orphaned indices
-// 	top = m_orphanedIndices;
-// 	if (top) {
-// 		QCheckListItem* item = (QCheckListItem*)top->firstChild();
-// 		while (item) {
-// 			if (item->isOn()) {
-// 				CSwordModuleInfo::deleteIndexForModule( item->text() );
-// 				indicesDeleted = true;
-// 			}
-// 			item = (QCheckListItem*)item->nextSibling();
-// 		}
-// 	}
-
 	// repopulate the list if an action was taken
 	if (indicesDeleted) {
 		populateModuleList();
 	}
 }
+
+void CManageIndicesWidget::deleteOrphanedIndices()
+{
+	QDir dir(CSwordModuleInfo::getGlobalBaseIndexLocation());
+	dir.setFilter(QDir::Dirs);
+	CSwordModuleInfo* module;
+	
+	for (unsigned int i = 0; i < dir.count(); i++) {
+		if (dir[i] != "." && dir[i] != "..") {
+			if (module = CPointers::backend()->findModuleByName( dir[i] ) ) { //mod exists
+				if (!module->hasIndex()){ //index files found, but wrong version etc.
+					CSwordModuleInfo::deleteIndexForModule( dir[i] );
+				}
+			}
+			else{ //no module exists
+				CSwordModuleInfo::deleteIndexForModule( dir[i] );
+			}
+		}
+	}
+}
+
 
 }

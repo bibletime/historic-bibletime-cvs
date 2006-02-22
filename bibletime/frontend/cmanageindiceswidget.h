@@ -39,7 +39,6 @@ protected:
 	// member variables
 	QCheckListItem* m_modsWithIndices;
 	QCheckListItem* m_modsWithoutIndices;
-//	QCheckListItem* m_orphanedIndices;
 	
 public slots:
 	/**
@@ -47,9 +46,15 @@ public slots:
 	*/
 	void createIndices();
 	/**
-	* Deletes indices for selected modules and selected orphans
+	* Deletes indices for selected modules
 	*/
 	void deleteIndices();
+
+public:
+	/**
+	* Deletes orphaned indices
+	*/
+	static void deleteOrphanedIndices();
 };
 
 }
