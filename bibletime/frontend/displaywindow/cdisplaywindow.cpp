@@ -396,9 +396,19 @@ KToolBar* const CDisplayWindow::mainToolBar() const {
 	return m_mainToolBar;
 }
 
+/** Returns the main toolbar. */
+KToolBar* const CDisplayWindow::buttonsToolBar() const {
+	return m_buttonsToolBar;
+}
+
 /** Sets the main toolbar. */
 void CDisplayWindow::setMainToolBar( KToolBar* bar ) {
 	m_mainToolBar = bar;
+}
+
+/** Sets the main toolbar. */
+void CDisplayWindow::setButtonsToolBar( KToolBar* bar ) {
+	m_buttonsToolBar = bar;
 }
 
 /** Returns the display settings button */

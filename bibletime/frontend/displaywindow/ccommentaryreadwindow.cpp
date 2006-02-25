@@ -81,7 +81,7 @@ void CCommentaryReadWindow::initToolbars() {
 									 CResMgr::displaywindows::commentaryWindow::syncWindow::actionName
 									);
 	m_syncButton->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip);
-	m_syncButton->plug(mainToolBar());
+	m_syncButton->plug(buttonsToolBar());
 }
 
 /** Reimplementation to handle the keychooser refresh. */

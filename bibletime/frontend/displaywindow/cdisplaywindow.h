@@ -135,9 +135,20 @@ public:
 	*/
 	void setMainToolBar( KToolBar* bar );
 	/**
+	* Sets the buttons toolbar.
+	*/
+	void setButtonsToolBar( KToolBar* bar );
+	/**
 	* Returns the main toolbar.
 	*/
 	KToolBar* const mainToolBar() const;
+	/**
+	* Returns the buttons toolbar.
+	*/
+	KToolBar* const buttonsToolBar() const;
+	/**
+	* Initialize the toolbars
+	*/
 	virtual void initToolbars() = 0;
 	/**
 	* Returns the display settings button
@@ -251,6 +262,7 @@ private:
 	bool m_isReady;
 	CModuleChooserBar* m_moduleChooserBar;
 	KToolBar* m_mainToolBar;
+	KToolBar* m_buttonsToolBar;
 	KPopupMenu* m_popupMenu;
 	CDisplay* m_displayWidget;
 };

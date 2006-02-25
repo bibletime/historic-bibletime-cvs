@@ -156,10 +156,8 @@ void CLexiconReadWindow::initConnections() {
 
 void CLexiconReadWindow::initView() {
 	setDisplayWidget( CDisplay::createReadInstance(this) );
-	//   setCentralWidget( displayWidget()->view() );
 
 	setMainToolBar( new KToolBar(this) );
-	mainToolBar()->setFullSize(true);
 	addDockWindow(mainToolBar());
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
@@ -167,32 +165,35 @@ void CLexiconReadWindow::initView() {
 	mainToolBar()->insertWidget(0, keyChooser()->sizeHint().width(), keyChooser());
 	mainToolBar()->setFullSize(false);
 
-	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
-	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
+	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), this) );
+	addDockWindow(moduleChooserBar());
 
+	setButtonsToolBar( new KToolBar(this) );
+	addDockWindow(buttonsToolBar());
+	
 	setIcon(CToolClass::getIconForModule(modules().first()));
-
 	setCentralWidget( displayWidget()->view() );
 }
 
 void CLexiconReadWindow::initToolbars() {
+	//main toolbar
+	Q_ASSERT(m_actions.backInHistory);
+	m_actions.backInHistory->plug( mainToolBar(),0 ); //1st button
+	m_actions.forwardInHistory->plug( mainToolBar(),1 ); //2nd button
+
+	//buttons toolbar
 	KAction* action = actionCollection()->action(
-						  CResMgr::displaywindows::general::search::actionName
-					  );
+		CResMgr::displaywindows::general::search::actionName);
 	Q_ASSERT( action );
 	if (action) {
-		action->plug(mainToolBar());
+		action->plug(buttonsToolBar());
 	}
 	#if KDE_VERSION_MINOR < 1
 	action->plugAccel( accel() );
 	#endif
 
-	Q_ASSERT(m_actions.backInHistory);
-	m_actions.backInHistory->plug( mainToolBar(),0 ); //1st button
-	m_actions.forwardInHistory->plug( mainToolBar(),1 ); //2nd button
-
-	setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
-	mainToolBar()->insertWidget(2, displaySettingsButton()->size().width(), displaySettingsButton());
+	setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), buttonsToolBar()) );
+	buttonsToolBar()->insertWidget(2,displaySettingsButton()->size().width(), displaySettingsButton());
 }
 
 void CLexiconReadWindow::setupPopupMenu() {

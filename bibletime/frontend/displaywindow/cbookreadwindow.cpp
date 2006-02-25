@@ -96,6 +96,7 @@ void CBookReadWindow::initConnections() {
 /** Init the view */
 void CBookReadWindow::initView() {
 	QSplitter* splitter = new QSplitter(this);
+
 	setMainToolBar( new KToolBar(this) );
 	addDockWindow(mainToolBar());
 
@@ -104,12 +105,13 @@ void CBookReadWindow::initView() {
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
 
-	Q_ASSERT( mainToolBar() );
-	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
+	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), this) );
 	moduleChooserBar()->setButtonLimit(1);
+	addDockWindow( moduleChooserBar() );
 
-	setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
-
+	setButtonsToolBar( new KToolBar(this) );
+	addDockWindow( buttonsToolBar() );
+	setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), buttonsToolBar()) );
 
 	m_treeChooser->hide();
 
@@ -120,25 +122,22 @@ void CBookReadWindow::initView() {
 
 void CBookReadWindow::initToolbars() {
 	Q_ASSERT(m_treeAction);
-
 	Q_ASSERT(m_actions.backInHistory);
+
 	m_actions.backInHistory->plug( mainToolBar(), 0 );
 	m_actions.forwardInHistory->plug( mainToolBar(), 1 );
 
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
-	m_treeAction->plug(mainToolBar());
+
+	m_treeAction->plug(buttonsToolBar());
 	m_treeAction->setChecked(false);
 
-	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
-	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
-
-	mainToolBar()->setFullSize(false);
+	buttonsToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
 	KAction* action = actionCollection()->action(
-						  CResMgr::displaywindows::general::search::actionName
-					  );
+						  CResMgr::displaywindows::general::search::actionName );
 	if (action) {
-		action->plug(mainToolBar());
+		action->plug(buttonsToolBar());
 	}
 
 	#if KDE_VERSION_MINOR < 1
