@@ -155,7 +155,11 @@
       <automaticHeaderCompletion>true</automaticHeaderCompletion>
       <headerCompletionDelay>250</headerCompletionDelay>
     </codecompletion>
-    <references/>
+    <references>
+      <pcs>Qt</pcs>
+      <pcs>KDElibs</pcs>
+      <pcs>Sword</pcs>
+    </references>
     <creategettersetter>
       <prefixGet></prefixGet>
       <prefixSet>set</prefixSet>
