@@ -187,15 +187,6 @@ const bool CSwordModuleInfo::hasIndex() { //this will return true only
 
 
 void CSwordModuleInfo::buildIndex() {
-	//HACK: KConfig creates the parent dir of the config if it does not exist, CLucene needs an existing dir to work properly
-	QString configFilename = getModuleStandardIndexLocation() + QString("/../bibletime-index.conf");
-	
-	util::scoped_ptr<KConfig> indexconfig( new KConfig( configFilename ) );
-	if (hasVersion()){
-		indexconfig->writeEntry("module-version", config(CSwordModuleInfo::ModuleVersion) );
-	}
-	indexconfig->writeEntry("index-version", INDEX_VERSION);
-
 	//Without this we don't get strongs, lemmas, etc
 	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
 	
@@ -205,7 +196,7 @@ void CSwordModuleInfo::buildIndex() {
 	QDir dir;
 	dir.mkdir( getGlobalBaseIndexLocation(), true );
 	dir.mkdir( getModuleBaseIndexLocation(), true );
-	dir.mkdir( getModuleStandardIndexLocation(),   true );
+	dir.mkdir( getModuleStandardIndexLocation(), true );
 
 	
 	if (IndexReader::indexExists(index.ascii())){
@@ -302,6 +293,14 @@ void CSwordModuleInfo::buildIndex() {
 
 	writer->optimize();
 	writer->close();
+
+	QString configFilename = getModuleStandardIndexLocation() + QString("/../bibletime-index.conf");
+	util::scoped_ptr<KConfig> indexconfig( new KConfig( configFilename ) );
+	if (hasVersion()){
+		indexconfig->writeEntry("module-version", config(CSwordModuleInfo::ModuleVersion) );
+	}
+	indexconfig->writeEntry("index-version", INDEX_VERSION);
+
 }
 
 void CSwordModuleInfo::deleteIndexForModule( QString name ) {
