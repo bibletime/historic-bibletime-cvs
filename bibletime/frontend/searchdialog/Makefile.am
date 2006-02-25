@@ -5,9 +5,7 @@ libsearchdialog_a_METASOURCES = AUTO
 noinst_LIBRARIES = libsearchdialog.a
 
 libsearchdialog_a_SOURCES = \
-searchoptionsform.cpp  \
 searchoptionsform.ui   \
-searchresultsform.cpp  \
 searchresultsform.ui   \
 csearchdialog.cpp      \
 csearchdialogpages.cpp \
@@ -16,7 +14,6 @@ cmodulechooser.cpp     \
 crangechooser.cpp      \
 cmoduleresultview.cpp  \
 csearchresultview.cpp
-	 
 
 all_headers = \
 csearchdialog.h \
