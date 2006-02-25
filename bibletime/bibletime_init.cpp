@@ -22,6 +22,7 @@
 #include "frontend/kstartuplogo.h"
 #include "frontend/cswordsetupdialog.h"
 #include "frontend/cprinter.h"
+#include "frontend/cmanageindiceswidget.h"
 
 #include "backend/clanguagemgr.h"
 
@@ -561,6 +562,13 @@ void BibleTime::initBackends() {
 			}
 		}
 	}
+
+	KStartupLogo::setStatusMessage(i18n("Checking indices") + QString("..."));
+	//This function will 
+	// - delete all orphaned indexes (no module present) if autoDeleteOrphanedIndices is true
+	// - delete all indices of modules where hasIndex() returns false
+	BookshelfManager::CManageIndicesWidget::deleteOrphanedIndices();
+	
 }
 
 /** Initializes the CPrinter object. */

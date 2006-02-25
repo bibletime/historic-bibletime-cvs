@@ -35,6 +35,11 @@ public:
 	*/
 	CManageIndicesWidget(QWidget* parent, const char* name = 0);
 
+	/** 
+	* Destructor
+	*/
+	~CManageIndicesWidget();
+
 protected:
 	/**
 	* Initializes the look and feel of this page
@@ -61,7 +66,8 @@ public slots:
 
 public:
 	/**
-	* Deletes orphaned indices
+	* Deletes orphaned indices if the autoDeleteOrphanedIndices is true
+	* Always deletes indices of existing modules where hasIndex() returns false
 	*/
 	static void deleteOrphanedIndices();
 };

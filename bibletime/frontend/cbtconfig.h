@@ -68,6 +68,7 @@ public:
 
 		tips,
 		logo,
+		autoDeleteOrphanedIndices,
 		crashedLastTime,
 		crashedTwoTimes
 	};

@@ -13,6 +13,8 @@
 
 #include "cmoduleindexdialog.h"
 
+#include "cbtconfig.h"
+
 #include "util/ctoolclass.h"
 #include "util/cresmgr.h"
 #include "util/cpointers.h"
@@ -28,6 +30,7 @@
 #include <qdir.h>
 #include <qlistview.h>
 #include <qfileinfo.h>
+#include <qcheckbox.h>
 
 //KDE includes
 #include <klocale.h>
@@ -40,10 +43,15 @@ namespace BookshelfManager {
 CManageIndicesWidget::CManageIndicesWidget(QWidget* parent, const char* name) :
 	ManageIndicesForm(parent, name) {
 	
-	deleteOrphanedIndices();
 	initView();
 	populateModuleList();
 };
+
+CManageIndicesWidget::~CManageIndicesWidget()
+{
+	CBTConfig::set( CBTConfig::autoDeleteOrphanedIndices, m_autoDeleteOrphanedIndicesBox->isChecked() );
+
+}
 
 /** Initializes the look and feel of this page */
 void CManageIndicesWidget::initView()
@@ -62,6 +70,8 @@ void CManageIndicesWidget::initView()
 	m_moduleList->setColumnWidth(0, 150);
 	m_moduleList->setColumnAlignment(1, Qt::AlignRight);
 	m_moduleList->setSorting( -1 );
+
+	m_autoDeleteOrphanedIndicesBox->setChecked( CBTConfig::get( CBTConfig::autoDeleteOrphanedIndices ) );
 
 	// icons for our buttons
 	m_createIndicesButton->setIconSet(SmallIcon("folder_new", 16));
@@ -117,7 +127,7 @@ void CManageIndicesWidget::createIndices()
 				CPointers::backend()->findModuleByName(item->text().utf8());
 
 			
-			if (module) { //the module is there and the index is valid (right version etc.)
+			if (module) {
 				moduleList.append( module );
 				indicesCreated = true;
 			}
@@ -171,7 +181,9 @@ void CManageIndicesWidget::deleteOrphanedIndices()
 				}
 			}
 			else{ //no module exists
-				CSwordModuleInfo::deleteIndexForModule( dir[i] );
+				if (CBTConfig::get( CBTConfig::autoDeleteOrphanedIndices ) ){
+					CSwordModuleInfo::deleteIndexForModule( dir[i] );
+				}
 			}
 		}
 	}

@@ -12,7 +12,6 @@
 #include "bibletimeapp.h"
 
 #include "frontend/cbtconfig.h"
-#include "frontend/cmanageindiceswidget.h"
 
 #include "util/cresmgr.h"
 
@@ -27,14 +26,9 @@ BibleTimeApp::BibleTimeApp() {
 
 BibleTimeApp::~BibleTimeApp() {
 
-	//clean up orphaned or defect indices
-	BookshelfManager::CManageIndicesWidget::deleteOrphanedIndices();
-
 	//we can set this safely now because we close now (hopyfully without crash)
-	CBTConfig::set
-		(CBTConfig::crashedLastTime, false);
-	CBTConfig::set
-		(CBTConfig::crashedTwoTimes, false);
+	CBTConfig::set(CBTConfig::crashedLastTime, false);
+	CBTConfig::set(CBTConfig::crashedTwoTimes, false);
 
 	deletePrinter();
 	deleteDisplayTemplateMgr();

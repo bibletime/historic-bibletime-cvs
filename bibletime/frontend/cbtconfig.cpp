@@ -50,50 +50,34 @@ CBTConfig::FontCache* CBTConfig::fontConfigMap = 0;
 
 const QString CBTConfig::getKey( const CBTConfig::strings ID) {
 	switch ( ID ) {
-		case bibletimeVersion:
-		return "bibletimeVersion";
-		case language:
-		return "language";
-		case displayStyle:
-		return "displayStyle";
-		case bookshelfCurrentItem:
-		return "bookshelfCurrentItem";
+		case bibletimeVersion:		return "bibletimeVersion";
+		case language:				return "language";
+		case displayStyle:			return "displayStyle";
+		case bookshelfCurrentItem:	return "bookshelfCurrentItem";
 	}
 	return QString::null;
 }
 
 const QString CBTConfig::getDefault( const CBTConfig::strings ID) {
 	switch ( ID ) {
-		case bibletimeVersion:
-		return "NOT YET INSTALLED"; // main() will realize this and set the value to VERSION
-		case language:
-		return (KGlobal::locale()->language()).local8Bit();
-		case displayStyle:
-		return CDisplayTemplateMgr::defaultTemplate();
-		case bookshelfCurrentItem:
-		return QString();
+		case bibletimeVersion:		return "NOT YET INSTALLED"; // main() will realize this and set the value to VERSION
+		case language:				return (KGlobal::locale()->language()).local8Bit();
+		case displayStyle:			return CDisplayTemplateMgr::defaultTemplate();
+		case bookshelfCurrentItem:	return QString();
 	}
 	return QString::null;
 }
 
 const QString CBTConfig::getKey( const CBTConfig::modules ID) {
 	switch ( ID ) {
-		case standardBible:
-		return "standardBible";
-		case standardCommentary:
-		return "standardCommentary";
-		case standardLexicon:
-		return "standardLexicon";
-		case standardDailyDevotional:
-		return "standardDailyDevotional";
-		case standardHebrewStrongsLexicon:
-		return "standardHebrewLexicon";
-		case standardGreekStrongsLexicon:
-		return "standardGreekLexicon";
-		case standardHebrewMorphLexicon:
-		return "standardHebrewMorphLexicon";
-		case standardGreekMorphLexicon:
-		return "standardGreekMorphLexicon";
+		case standardBible:			return "standardBible";
+		case standardCommentary:	return "standardCommentary";
+		case standardLexicon:		return "standardLexicon";
+		case standardDailyDevotional:		return "standardDailyDevotional";
+		case standardHebrewStrongsLexicon:	return "standardHebrewLexicon";
+		case standardGreekStrongsLexicon:	return "standardGreekLexicon";
+		case standardHebrewMorphLexicon:	return "standardHebrewMorphLexicon";
+		case standardGreekMorphLexicon:		return "standardGreekMorphLexicon";
 	}
 
 	return QString::null;
@@ -102,23 +86,15 @@ const QString CBTConfig::getKey( const CBTConfig::modules ID) {
 const QString CBTConfig::getDefault( const CBTConfig::modules ID) {
 	//  CSwordBackend* b = CPointers::backend();
 	switch ( ID ) {
-		case standardBible:
-		return "KJV";
-		case standardCommentary:
-		return "MHC";
-		case standardLexicon:
-		return "ISBE";
-		case standardDailyDevotional:
-		return ""; //no default
+		case standardBible:				return "KJV";
+		case standardCommentary:		return "MHC";
+		case standardLexicon:			return "ISBE";
+		case standardDailyDevotional:	return ""; //no default
 
-		case standardHebrewStrongsLexicon:
-		return "StrongsHebrew";
-		case standardGreekStrongsLexicon:
-		return "StrongsGreek";
-		case standardHebrewMorphLexicon:
-		return "StrongsHebrew";
-		case standardGreekMorphLexicon:
-		return "StrongsGreek";
+		case standardHebrewStrongsLexicon:	return "StrongsHebrew";
+		case standardGreekStrongsLexicon:	return "StrongsGreek";
+		case standardHebrewMorphLexicon:	return "StrongsHebrew";
+		case standardGreekMorphLexicon:		return "StrongsGreek";
 	}
 
 	return QString::null;
@@ -126,150 +102,96 @@ const QString CBTConfig::getDefault( const CBTConfig::modules ID) {
 
 const QString CBTConfig::getKey( const CBTConfig::bools ID) {
 	switch ( ID ) {
-		case firstSearchDialog:
-		return "firstSearchDialog";
-		case readOldBookmarks:
-		return "readOldBookmarks";
+		case firstSearchDialog:		return "firstSearchDialog";
+		case readOldBookmarks:		return "readOldBookmarks";
 
-		case toolbar:
-		return "toolbar";
-		case mainIndex:
-		return "mainIndex";
-		case infoDisplay:
-		return "infoDisplay";
+		case toolbar:				return "toolbar";
+		case mainIndex:				return "mainIndex";
+		case infoDisplay:			return "infoDisplay";
 
-		case autoTileVertical:
-		return "autoTileVertical";
-		case autoTileHorizontal:
-		return "autoTileHorizontal";
-		case autoCascade:
-		return "autoCascade";
+		case autoTileVertical:		return "autoTileVertical";
+		case autoTileHorizontal:	return "autoTileHorizontal";
+		case autoCascade:			return "autoCascade";
 
-		case lineBreaks:
-		return "lineBreaks";
-		case verseNumbers:
-		return "verseNumbers";
+		case lineBreaks:			return "lineBreaks";
+		case verseNumbers:			return "verseNumbers";
 
-		case tips:
-		return "RunOnStart";
-		case logo:
-		return "logo";
-		case crashedLastTime:
-		return "crashedLastTime";
-		case crashedTwoTimes:
-		return "crashedTwoTimes";
+		case tips:						return "RunOnStart";
+		case logo:						return "logo";
+		case autoDeleteOrphanedIndices:	return "autoDeleteOrphanedIndices";
+		case crashedLastTime:			return "crashedLastTime";
+		case crashedTwoTimes:			return "crashedTwoTimes";
 	}
 	return QString::null;
 }
 
 const QString CBTConfig::getKey( const CBTConfig::ints ID) {
 	switch ( ID ) {
-		case footnotes:
-		return "footnotes";
-		case strongNumbers:
-		return "strongNumbers";
-		case headings:
-		return "headings";
-		case morphTags:
-		return "morphTags";
-		case lemmas:
-		return "lemmas";
-		case hebrewPoints:
-		return "hebrewPoints";
-		case hebrewCantillation:
-		return "hebrewCantillation";
-		case greekAccents:
-		return "greekAccents";
-		case textualVariants:
-		return "textualVariants";
-		case scriptureReferences:
-		return "scriptureReferences";
-		case morphSegmentation:
-		return "morphSegmentation";
-		case bookshelfContentsX:
-		return "bookshelfContentsX";
-		case bookshelfContentsY:
-		return "bookshelfContentsY";
+		case footnotes:		return "footnotes";
+		case strongNumbers:	return "strongNumbers";
+		case headings:		return "headings";
+		case morphTags:		return "morphTags";
+		case lemmas:		return "lemmas";
+		case hebrewPoints:	return "hebrewPoints";
+		case hebrewCantillation:	return "hebrewCantillation";
+		case greekAccents:			return "greekAccents";
+		case textualVariants:		return "textualVariants";
+		case scriptureReferences:	return "scriptureReferences";
+		case morphSegmentation:		return "morphSegmentation";
+		case bookshelfContentsX:	return "bookshelfContentsX";
+		case bookshelfContentsY:	return "bookshelfContentsY";
 	}
 	return QString::null;
 }
 
 const bool CBTConfig::getDefault( const CBTConfig::bools ID) {
 	switch ( ID ) {
-		case firstSearchDialog:
-		return true;
-		case readOldBookmarks:
-		return false;
+		case firstSearchDialog:		return true;
+		case readOldBookmarks:		return false;
 
-		case toolbar:
-		return true;
-		case mainIndex:
-		return true;
-		case infoDisplay:
-		return true;
+		case toolbar:		return true;
+		case mainIndex:		return true;
+		case infoDisplay:		return true;
 
-		case autoTileVertical:
-		return true;
-		case autoTileHorizontal:
-		return false;
-		case autoCascade:
-		return false;
+		case autoTileVertical:		return true;
+		case autoTileHorizontal:	return false;
+		case autoCascade:			return false;
 
-		case lineBreaks:
-		return false;
-		case verseNumbers:
-		return true;
+		case lineBreaks:		return false;
+		case verseNumbers:		return true;
 
-		case tips:
-		return true;
-		case logo:
-		return true;
-		case crashedLastTime:
-		return false;
-		case crashedTwoTimes:
-		return false;
+		case tips:		return true;
+		case logo:		return true;
+		case autoDeleteOrphanedIndices:		return true;
+		case crashedLastTime:		return false;
+		case crashedTwoTimes:		return false;
 	}
 	return false;
 }
 
 const int CBTConfig::getDefault( const CBTConfig::ints ID) {
 	switch ( ID ) {
-		case footnotes:
-		return int(true);
-		case strongNumbers:
-		return int(true);
-		case headings:
-		return int(true);
-		case morphTags:
-		return int(true);
-		case lemmas:
-		return int(true);
-		case hebrewPoints:
-		return int(true);
-		case hebrewCantillation:
-		return int(true);
-		case greekAccents:
-		return int(true);
-		case textualVariants:
-		return int(false);
-		case scriptureReferences:
-		return int(true);
-		case morphSegmentation:
-		return int(true);
-		case bookshelfContentsX:
-		return 0;
-		case bookshelfContentsY:
-		return 0;
+		case footnotes:		return int(true);
+		case strongNumbers:	return int(true);
+		case headings:		return int(true);
+		case morphTags:		return int(true);
+		case lemmas:		return int(true);
+		case hebrewPoints:	return int(true);
+		case hebrewCantillation:	return int(true);
+		case greekAccents:			return int(true);
+		case textualVariants:		return int(false);
+		case scriptureReferences:	return int(true);
+		case morphSegmentation:		return int(true);
+		case bookshelfContentsX:	return 0;
+		case bookshelfContentsY:	return 0;
 	}
 	return 0;
 }
 
 const QString CBTConfig::getKey( const CBTConfig::intLists ID) {
 	switch ( ID ) {
-		case leftPaneSplitterSizes:
-		return "leftPaneSplitterSizes";
-		case mainSplitterSizes:
-		return "mainSplitterSizes";
+		case leftPaneSplitterSizes:	return "leftPaneSplitterSizes";
+		case mainSplitterSizes:		return "mainSplitterSizes";
 	}
 
 	return QString::null;
@@ -288,12 +210,9 @@ const QValueList<int> CBTConfig::getDefault( const CBTConfig::intLists ID) {
 
 const QString CBTConfig::getKey( const CBTConfig::stringLists ID) {
 	switch ( ID ) {
-		case searchCompletionTexts:
-		return QString("searchCompletionTexts");
-		case searchTexts:
-		return QString("searchTexts");
-		case bookshelfOpenGroups:
-		return QString("bookshelfOpenGroups");
+		case searchCompletionTexts:	return QString("searchCompletionTexts");
+		case searchTexts:			return QString("searchTexts");
+		case bookshelfOpenGroups:	return QString("bookshelfOpenGroups");
 	}
 	return QString::null;
 }

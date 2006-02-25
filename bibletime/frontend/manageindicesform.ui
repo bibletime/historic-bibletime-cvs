@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>387</width>
-            <height>343</height>
+            <width>415</width>
+            <height>404</height>
         </rect>
     </property>
     <property name="caption">
@@ -42,6 +42,17 @@
             </property>
             <property name="frameShadow">
                 <enum>Plain</enum>
+            </property>
+        </widget>
+        <widget class="QCheckBox">
+            <property name="name">
+                <cstring>m_autoDeleteOrphanedIndicesBox</cstring>
+            </property>
+            <property name="text">
+                <string>Automaticall&amp;y delete orphaned indices when BibleTime starts</string>
+            </property>
+            <property name="accel">
+                <string>Alt+Y</string>
             </property>
         </widget>
         <widget class="KListView">
@@ -79,7 +90,7 @@
                         <cstring>m_createIndicesButton</cstring>
                     </property>
                     <property name="text">
-                        <string>Create selected indices</string>
+                        <string>&amp;Create selected indices</string>
                     </property>
                 </widget>
                 <widget class="QPushButton">
@@ -87,7 +98,7 @@
                         <cstring>m_deleteIndicesButton</cstring>
                     </property>
                     <property name="text">
-                        <string>Delete selected indices</string>
+                        <string>De&amp;lete selected indices</string>
                     </property>
                 </widget>
             </hbox>

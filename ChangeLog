@@ -1,5 +1,6 @@
-2006-02-25  Joachim Ansorg <info@bibletime.info>
+2006-02-25  Joachim and Martin: BibleTime Bug Squashing Party I
   * Disabled sorting for the "manage indices" columns
+  * Added "automatically delete orphaned indices when BibleTime starts" option
 
 2006-02-22 Martin Gruner <mgruner@crosswire.org>
   * Orphaned and defect indices are now automatically deleted
