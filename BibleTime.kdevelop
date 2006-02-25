@@ -17,7 +17,7 @@
     <secondaryLanguages>
       <language>Perl</language>
     </secondaryLanguages>
-    <versioncontrol/>
+    <versioncontrol></versioncontrol>
   </general>
   <kdevautoproject>
     <general>
@@ -175,7 +175,14 @@
     </qt>
   </kdevcppsupport>
   <kdevfilecreate>
-    <filetypes/>
+    <filetypes>
+      <type icon="" ext="h" create="template" name="C++ Header template" >
+        <descr>BibleTime C++ header template</descr>
+      </type>
+      <type icon="source_cpp" ext="cpp" create="template" name="C++ source file" >
+        <descr>BibleTime C++ source template</descr>
+      </type>
+    </filetypes>
     <useglobaltypes/>
   </kdevfilecreate>
   <kdevdocumentation>

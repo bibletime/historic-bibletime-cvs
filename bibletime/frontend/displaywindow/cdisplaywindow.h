@@ -157,7 +157,7 @@ public:
 	*/
 	virtual void setDisplayWidget( CDisplay* newDisplay );
 
-	/* Returns whether syncs to the active window are allowed at this time for this display window
+	/** Returns whether syncs to the active window are allowed at this time for this display window
 	* @return boolean value whether sync is allowed
 	*/
 	virtual const bool syncAllowed() const {

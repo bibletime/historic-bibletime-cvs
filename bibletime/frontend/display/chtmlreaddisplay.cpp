@@ -452,6 +452,7 @@ void CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e ) {
 		e->acceptAction();
 		return;
 	}
+	
 	e->acceptAction(false);
 	e->ignore();
 }
