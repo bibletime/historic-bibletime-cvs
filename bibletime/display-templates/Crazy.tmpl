@@ -15,10 +15,10 @@ body {
 	margin:0px;
 	padding:0;
 	padding:1em;
-	background-color:inherit
+	background-color:transparent;
 }
 * {
-	background-color:inherit; /* To work around a KDE 3.2 bug / problem */
+	background-color:transparent; /* To work around a KDE 3.2 bug / problem */
 }
 
 
@@ -55,7 +55,7 @@ body {
 
 
 /* The a links are the normal HTML hyperlinks. Links without a class attribute are hyperlinks into the web */
-a { color:#FF0004; }
+a { color:#FF0004; padding:0; }
 a:hover { }
 
 /* An entry is the generic element used for all content items.
@@ -134,7 +134,7 @@ td.entry + td.entry {
 
 /* An entryname is embedded in an .entry tag and contains the name of the key, which belongs to the text of the .entry */
 .entryname { size:60%; vertical-align:super; }
-.entryname a {text-decoration:none !important; color:#8F2627 !important; font-style:italic; }
+.entryname a {text-decoration:none !important; color:#8F2627 !important; font-style:italic; padding:0; }
 
 .entry[dir=rtl] .entryname, .currententry[dir=rtl] .entryname { }
 .entryname a, #printer .entryname { }
@@ -143,10 +143,10 @@ td.entry + td.entry {
 
 /* Footnote formatting options */
 /* A footnote is displayed as an asterisk or another small character. You can set the colors, font-size, etc. for the footnote. */
-.footnote { color:#8F2627; vertical-align:super; font-size:60%;}
+.footnote { color:#8F2627; vertical-align:super; font-size:70%;}
 /* You may use this to add sourrounding brackets in Bible modules. To do this the content command of CSS */
-#bible .footnote:before { content:"["; color:#8F2627; vertical-align:super; font-size:60%;}
-#bible .footnote:after { content:"]"; color:#8F2627; vertical-align:super; font-size:60%;}
+#bible .footnote:before { content:" ["; color:#8F2627; }
+#bible .footnote:after { content:"]"; color:#8F2627; }
 
 /* Crossreferences. The same as footnotes */
 .crossreference { color:#8F2627;}

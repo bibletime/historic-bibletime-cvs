@@ -263,13 +263,14 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					buf.append(myUserData->key->getShortText());
 					buf.append('/');
 					buf.append( QString::number(myUserData->swordFootnote++).latin1() ); //inefficient
-					QString n = tag.getAttribute("n");
-					if (! n.isEmpty() ){
+
+					const SWBuf n = tag.getAttribute("n");
+					if ( n.size() > 0 ) {
 						buf.append("\">");
-						buf.append( n.utf8() );
+						buf.append( n );
 						buf.append("</span> ");
 					}
-					else{
+					else {
 						buf.append("\">*</span> ");
 					}
 
@@ -415,6 +416,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}
 				else if (type == "underline") {
 					buf.append("<span class=\"underline\">");
+				}
+				else {
+					buf.append("<span>"); //don't break markup, </span> is inserted later
 				}
 			}
 			else if (tag.isEndTag()) { //all hi replacements are html spans

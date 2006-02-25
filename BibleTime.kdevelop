@@ -26,7 +26,7 @@
     </general>
     <run>
       <mainprogram>bibletime/bibletime</mainprogram>
-      <programargs>--debug</programargs>
+      <programargs></programargs>
       <terminal>false</terminal>
       <autocompile>true</autocompile>
       <envvars/>

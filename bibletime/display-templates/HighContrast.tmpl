@@ -12,7 +12,7 @@
 
 * { 
 	/* To work around a KDE 3.2 bug / problem */
-	background-color:inherit;
+	background-color:transparent;
 }
 
 #content {
@@ -36,13 +36,12 @@
 a {
 	text-decoration:none;
 	font-weight:normal;
-	/*color: #0000FF;*/
 	color: #F98100;
-	color:inherit;
 	padding:1px;
+	background-color:transparent;
 }
 a:hover {
-	background-color:#F6FFF7;
+	background-color:transparent;
 	color: #FF0000;
 	padding:1px;
 	text-decoration:underline;
@@ -127,16 +126,9 @@ td.entry + td.entry {
 	margin-left:10px;
 }
 
-.footnotepre {
-	color: gray;
-	font-size: 0.9em;
-	font-style: italic;
-}
 .footnote {
-	vertical-align:top;
+	vertical-align:super;
 	font-weight:bold;
-	/*color:black;*/
-	/*color:blue;*/
 	/*color: #00B7FF;*/ /*This one is kind of blinding on white*/
 	color: #F98100;
 	font-size:80%;

@@ -12,7 +12,7 @@
 
 * { 
 	/* To work around a KDE 3.2 bug / problem */
-	background-color:inherit;
+	background-color:transparent;
 }
 
 #content {
@@ -37,25 +37,26 @@ a {
 	text-decoration:none;
 	font-weight:normal;
 	color: #7B7B7B;
-	padding:2px;
+	padding:0 2px;
+	background-color:transparent;
 }
 a:hover {
 	text-decoration:none;
 	background-color:transparent;
 	color: #0000FF;
-	padding:2px;
+	padding:0 2px;
 }
 
 
 /* Settings which apply to all entries in all modules */
 .entry {
-	padding: 4px;
-/* 	vertical-align: middle; */
+	padding: 2px;
+ 	vertical-align: middle;
 	text-align: justify;
 /* 	line-height: 1.5em; */
 }
 td.entry {
-/* 	padding: 4px; */
+/* 	padding: 2px; */
 	vertical-align: top;
  	text-align: justify !important;
 /* 	line-height: 1.5em; */
@@ -73,8 +74,8 @@ td.entry {
 
 /* Keep the values the same as in .entry (take the border into account!) */
 .currententry {
-	padding: 4px;
-/* 	vertical-align: middle; */
+	padding: 2px;
+ 	vertical-align: middle;
 	text-align: justify;
 	background-color: #E6E4FF;
 /* 	line-height: 1.5em; */
@@ -86,7 +87,7 @@ div.currententry {
 /* 	vertical-align:middle; */
 }
 span.currententry {
-	background-color: #EDEFFF;
+	background-color: #EDEFFF !important;
 }
 
 
@@ -98,7 +99,7 @@ td.entry + td.entry {
 /* Several additional settings for display of modules*/
 #bible div.currententry, #bible td.currententry {
 	border: 1px solid #B7B7B7;
-	padding: 3px;
+	padding: 2px;
 /* 	vertical-align: middle; */
 }
 
@@ -106,7 +107,7 @@ td.entry + td.entry {
 /*Same for books!*/
 #book div.currententry, #book td.currententry {
 	border: 1px solid #B7B7B7;
-	padding: 3px;
+	padding: 2px;
 }
 #book .entryname + .entry {
 	margin-top:2px;
@@ -119,18 +120,18 @@ td.entry + td.entry {
 }
 
 .entryname {
-	font-size:70%;
+	font-size:80%;
 	padding:0 2px 0 0;
-	vertical-align:top;
+	vertical-align:super;
 }
 .entry[dir=rtl] .entryname, .currententry[dir=rtl] .entryname {
 	padding: 0 0 0 2px;
-	font-size: 70%;
-	vertical-align: top;
+	font-size: 80%;
+	vertical-align: super;
 }
 .entryname a, #printer .entryname  {
 /* 	vertical-align: middle */
-	font-size: 80%;
+	/*font-size: 80% !important;*/
 }
 
 #printer .entry  .entry, #printer .entry .sectiontitle , #printer .entry .booktitle {
@@ -139,14 +140,15 @@ td.entry + td.entry {
 }
 
 .footnote {
-	vertical-align: top;
+	vertical-align:super;
 	font-weight: normal;
 	color: blue;
 	font-size: 80%;
 	cursor: help;
+	background-color:transparent;
 }
-.footnote:before { content:"("; font-size:60%; cursor:help;}
-.footnote:after { content:")"; font-size:60%; cursor:help;}
+.footnote:before { content:"("; }
+.footnote:after { content:")"; }
 
 .footnotepre {
 /*  	vertical-align: middle; */
@@ -157,10 +159,10 @@ td.entry + td.entry {
 .crossreference {
 	font-size: 80%;
 	color: blue;
-/* 	cursor: help; */
 }
 #bible .crossreference:before  { content:" ["; }
 #bible .crossreference:after  { content:"]"; }
+
 .crossreference a {
 	color: blue;
 }
@@ -280,9 +282,9 @@ td.entry + td.entry {
 
 .morphSegmentation {
 	border-right: 2px solid grey;
-/* 	margin-top: 1px; /* Don`t let the boxes touch here, between the lines */ */
+/* 	margin-top: 1px; /* Don`t let the boxes touch here, between the lines */
 /* 	margin-left: -1px; /* But here, for better reading of the text,  */
-/* 											this will only occur within a word consisting of several segments.*/ */
+/* 											this will only occur within a word consisting of several segments.*/
 /* 	margin-right: 0px; */
 }
 

@@ -471,13 +471,6 @@ const ListCSwordModuleInfo CSearchOptionsPage::modules() {
 	return m_modules;
 }
 
-/** Return the selected search type,. */
-// const int CSearchOptionsPage::searchFlags() {
-// 	// FIXME - remove this due to new index search
-// 	int ret = CSwordModuleSearch::multipleWords; //"multiple words" is standard
-// 	return ret;
-// }
-
 /** Sets all options back to the default. */
 void CSearchOptionsPage::reset() {
 	m_rangeChooserCombo->setCurrentItem(0); //no scope

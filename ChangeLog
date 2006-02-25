@@ -3,6 +3,7 @@
   * Added "automatically delete orphaned indices when BibleTime starts" option
   * Fixed display window toolbar problems: now there are 2 toolbars
   * Added support for "n" attribute in footnotes
+  * Fixes to the display templates
 
 2006-02-22 Martin Gruner <mgruner@crosswire.org>
   * Orphaned and defect indices are now automatically deleted
