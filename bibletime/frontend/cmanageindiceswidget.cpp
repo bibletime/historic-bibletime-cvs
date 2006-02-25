@@ -52,6 +52,7 @@ void CManageIndicesWidget::initView()
 	m_moduleList->setRootIsDecorated(true);
 	m_moduleList->setColumnWidth(0, 150);
 	m_moduleList->setColumnAlignment(1, Qt::AlignRight);
+	m_moduleList->setSorting( -1 );
 
 	// icons for our buttons
 	m_createIndicesButton->setIconSet(SmallIcon("folder_new", 16));
