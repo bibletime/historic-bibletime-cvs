@@ -588,12 +588,6 @@ the module remote installation feature!</b>")
 				}
 			}
 
-			//TODO: is this still true?
-			if ((*it)->isLocked() || (*it)->isEncrypted()) { //encrypted modules have no data files on the server
-				//      qWarning("not using encrypted mod");
-			//	continue;
-			}
-
 			//   Q_ASSERT(installedModule);
 			m_installModuleListView->addModule(
 				(*it),
