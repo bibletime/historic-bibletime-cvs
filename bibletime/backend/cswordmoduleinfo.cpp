@@ -146,6 +146,24 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	return false;
 }
 
+const bool CSwordModuleInfo::unlockKeyIsValid(){
+
+	(*m_module) = sword::TOP;
+	QString test = QString::fromLatin1( m_module->getRawEntryBuf().c_str() );
+	if (test.isEmpty()){
+		qWarning("unlock key of module %s is NOT valid", name().latin1());
+		return false;
+	}
+	for (int i=0; i <= test.length(); i++){
+		if ( !test[i].isPrint() && !test[i].isNull() ){
+			qWarning("unlock key of module %s is NOT valid", name().latin1());
+			return false;
+		}
+	}
+	qWarning("unlock key of module %s is valid", name().latin1());
+	return true;
+}
+
 const QString CSwordModuleInfo::getGlobalBaseIndexLocation(){
 	return KGlobal::dirs()->saveLocation("data", "bibletime/indices");
 }

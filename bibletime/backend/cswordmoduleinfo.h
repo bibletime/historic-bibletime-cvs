@@ -193,6 +193,8 @@ public:
 	*/
 	const bool isLocked();
 
+	const bool unlockKeyIsValid();
+
 	/** The module version.
 	* @return true if this module has a version number and false if it doesn't have one.
 	*/

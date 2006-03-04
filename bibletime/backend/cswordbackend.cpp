@@ -168,6 +168,8 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 			if (!unlockKey.isNull()) {
 				setCipherKey( (*it)->name().latin1(), unlockKey.latin1() );
 			}
+
+			(*it)->unlockKeyIsValid();
 		}
 	}
 

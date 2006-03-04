@@ -1,3 +1,6 @@
+2006-03-04 Martin Gruner <mgruner@crosswire.org>
+  * added an CSwordModule::unlockKeyIsValid() function
+
 2006-02-25  Joachim and Martin: BibleTime Bug Squashing Party I
   * Disabled sorting for the "manage indices" columns
   * Added "automatically delete orphaned indices when BibleTime starts" option
