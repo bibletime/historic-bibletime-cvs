@@ -1382,8 +1382,8 @@ sub tag_UIFILES ()
                 } else {
                     $dep_lines .= "\t\$(UIC) -o $source.h $sourcedir$source.ui\n";
                 }
-                $dep_lines .= "$source.moc: $source.h\n";
-                $dep_lines .= "\t\$(MOC) $source.h -o $source.moc\n";
+                $dep_lines .= "$source.moc: \$(srcdir)/$source.h\n";
+                $dep_lines .= "\t\$(MOC) \$(srcdir)/$source.h -o $source.moc\n";
 
                 $rule_adds{"$source.$cxxsuffix"} = $dep_lines;
 
