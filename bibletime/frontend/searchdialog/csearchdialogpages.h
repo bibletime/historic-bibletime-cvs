@@ -17,8 +17,8 @@
 #include "backend/cswordbackend.h"
 #include "backend/cswordmodulesearch.h"
 
-#include "searchoptionsform.h"
-#include "searchresultsform.h"
+#include "frontend/searchdialog/searchoptionsform.h" // uic generated
+#include "frontend/searchdialog/searchresultsform.h" // uic generated
 
 //Qt includes
 #include <qwidget.h>

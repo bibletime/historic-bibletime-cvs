@@ -27,7 +27,7 @@ AC_ARG_ENABLE(static-clucene,
 
 dnl try to find CLucene library files
 AC_MSG_CHECKING([for CLucene library files])
-ac_clucene_library_dirs="$ac_clucene_dir/lib /usr/lib /usr/lib64 /usr/local/lib"
+ac_clucene_library_dirs="$ac_clucene_dir/lib $exec_prefix/lib $prefix/lib /usr/lib /usr/lib64 /usr/local/lib"
 
 if test "x$ac_static_clucene" = "xYES"; then
 	SEARCH_LIBS="libclucene.a";
@@ -61,7 +61,7 @@ AC_MSG_RESULT([$MESSAGE])
 
 dnl -- try to find CLucene include files --
 AC_MSG_CHECKING([for Clucene include files])
-ac_clucene_include_dirs="$ac_clucene_dir /usr/include /usr/local/include"
+ac_clucene_include_dirs="$ac_clucene_dir/include $exec_prefix/include $prefix/include /usr/include /usr/local/include"
 
 AC_CACHE_VAL(ac_cv_clucene_incdir, AC_FIND_FILE(CLucene.h, $ac_clucene_include_dirs, ac_cv_clucene_incdir))
 

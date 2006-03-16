@@ -12,7 +12,7 @@
 #ifndef CMANAGEINDICESWIDGET_H
 #define CMANAGEINDICESWIDGET_H
 
-#include "manageindicesform.h"
+#include "frontend/manageindicesform.h"  // uic generated
 
 #include <qwidget.h>
 

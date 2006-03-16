@@ -28,7 +28,7 @@ AC_ARG_ENABLE(static-sword,
 dnl try to find Sword library files
 AC_MSG_CHECKING([for Sword library files])
 AC_REQUIRE([AC_FIND_ZLIB])
-ac_sword_library_dirs="$ac_sword_dir/lib /usr/lib /usr/lib64 /usr/lib/sword /usr/local/lib /usr/local/lib/sword /usr/local/sword/lib"
+ac_sword_library_dirs="$ac_sword_dir/lib $exec_prefix/lib $prefix/lib /usr/lib /usr/lib64 /usr/lib/sword /usr/local/lib /usr/local/lib/sword /usr/local/sword/lib"
 
 if test "x$ac_static_sword" = "xYES"; then
 	SEARCH_LIBS="libsword.a";
@@ -62,7 +62,7 @@ AC_MSG_RESULT([$MESSAGE])
 
 dnl -- try to find Swords include files --
 AC_MSG_CHECKING([for Sword include files])
-ac_sword_include_dirs="$ac_sword_dir/include/sword $ac_sword_dir/include /usr/include/sword /usr/include /usr/local/include/sword /usr/local/include /usr/local/sword/include /usr/local/sword/include/sword"
+ac_sword_include_dirs="$ac_sword_dir/include/sword $ac_sword_dir/include $exec_prefix/include $prefix/include /usr/include/sword /usr/include /usr/local/include/sword /usr/local/include /usr/local/sword/include /usr/local/sword/include/sword"
 
 AC_CACHE_VAL(ac_cv_sword_incdir, AC_FIND_FILE(swmgr.h, $ac_sword_include_dirs, ac_cv_sword_incdir))
 
