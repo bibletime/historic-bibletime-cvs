@@ -35,13 +35,16 @@
     <property name="caption">
         <string>Search Options</string>
     </property>
-    <vbox>
+    <hbox>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
         <widget class="QGroupBox">
             <property name="name">
                 <cstring>searchGroupBox</cstring>
+            </property>
+            <property name="margin">
+                <number>0</number>
             </property>
             <property name="title">
                 <string>Search parameters</string>
@@ -51,14 +54,14 @@
                     <cstring>unnamed</cstring>
                 </property>
                 <property name="margin">
-                    <number>11</number>
+                    <number>6</number>
                 </property>
                 <property name="spacing">
                     <number>3</number>
                 </property>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout5</cstring>
+                        <cstring>layout10</cstring>
                     </property>
                     <hbox>
                         <property name="name">
@@ -102,17 +105,17 @@
                                 <cstring>m_syntaxButton</cstring>
                             </property>
                             <property name="text">
-                                <string></string>
+                                <string>&amp;Help</string>
                             </property>
                             <property name="accel">
-                                <string>D</string>
+                                <string>Alt+H</string>
                             </property>
                         </widget>
                     </hbox>
                 </widget>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout3</cstring>
+                        <cstring>layout12</cstring>
                     </property>
                     <hbox>
                         <property name="name">
@@ -145,17 +148,17 @@
                                 <cstring>m_chooseModulesButton</cstring>
                             </property>
                             <property name="text">
-                                <string>C&amp;hoose</string>
+                                <string>&amp;Choose</string>
                             </property>
                             <property name="accel">
-                                <string>Alt+H</string>
+                                <string>Alt+C</string>
                             </property>
                         </widget>
                     </hbox>
                 </widget>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout6</cstring>
+                        <cstring>layout11</cstring>
                     </property>
                     <hbox>
                         <property name="name">
@@ -187,17 +190,17 @@
                                 <cstring>m_chooseRangeButton</cstring>
                             </property>
                             <property name="text">
-                                <string>S&amp;etup</string>
+                                <string>&amp;Setup</string>
                             </property>
                             <property name="accel">
-                                <string>Alt+E</string>
+                                <string>Alt+S</string>
                             </property>
                         </widget>
                     </hbox>
                 </widget>
             </vbox>
         </widget>
-    </vbox>
+    </hbox>
 </widget>
 <customwidgets>
 </customwidgets>

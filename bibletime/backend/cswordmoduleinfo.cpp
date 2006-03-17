@@ -146,21 +146,33 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	return false;
 }
 
+// This function makes an estimate if a module was properly unlocked.
+// It returns true if the first entry of the module (parsed as Latin1
+// byte sequence) is not empty and contains only printable characters.
+// If that is the case, we can safely assume that a) the module was properly
+// unlocked and b) no buffer overflows will occur, which can happen when
+// Sword filters process garbage text which was not properly decrypted.
 const bool CSwordModuleInfo::unlockKeyIsValid(){
 
 	(*m_module) = sword::TOP;
+
+	// This needs to use ::fromLatin1 because if the text is still locked,
+	// a lot of garbage will show up. It will also work with properly decrypted
+	// Unicode text, because all non-ASCII Unicode chars consist of bytes >127 
+	// and therefore contain no control (nonprintable) characters, which are all <127.
 	QString test = QString::fromLatin1( m_module->getRawEntryBuf().c_str() );
+
 	if (test.isEmpty()){
-		qWarning("unlock key of module %s is NOT valid", name().latin1());
+		qWarning("Unlock key of module %s is NOT valid", name().latin1());
 		return false;
 	}
 	for (int i=0; i <= test.length(); i++){
 		if ( !test[i].isPrint() && !test[i].isNull() ){
-			qWarning("unlock key of module %s is NOT valid", name().latin1());
+			qWarning("Unlock key of module %s is NOT valid", name().latin1());
 			return false;
 		}
 	}
-	qWarning("unlock key of module %s is valid", name().latin1());
+	qDebug("Unlock key of module %s is valid", name().latin1());
 	return true;
 }
 

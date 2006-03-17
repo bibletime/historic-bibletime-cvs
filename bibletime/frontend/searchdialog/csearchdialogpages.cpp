@@ -35,7 +35,6 @@
 //KDE includes
 #include <klocale.h>
 #include <kcombobox.h>
-#include <kregexpeditorinterface.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
 
@@ -412,7 +411,7 @@ void CSearchOptionsPage::initView() {
 			);
 	QToolTip::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
 
-	m_syntaxButton->setPixmap(SmallIcon("contexthelp"));
+	m_syntaxButton->setIconSet(SmallIconSet("contexthelp"));
 	connect( m_syntaxButton, SIGNAL(clicked()), this, SLOT(syntaxHelp()));
 
 	m_chooseModulesButton->setIconSet(SmallIconSet("wizard"));
@@ -509,19 +508,25 @@ void CSearchOptionsPage::setupRanges() {
 void CSearchOptionsPage::syntaxHelp() {
 	QString syntax = i18n (
 			"<p>Enter search terms separated by spaces.  By default the search "
-			"function will return results that match any of the search terms. "
-			"To search for all the terms separate the terms by AND.</p>"
-			"<p>To search types other than the main text, enter the type followed "
-			"by \":\", and then the search term.  For example, 'strong:H8077'.</p>"
-			"<p>Types:<br><table>"
+			"function will return results that match any of the search terms (OR). "
+			"To search for all the terms separate the terms by AND.</p>") + i18n(
+			"<p>You can use wildcards: '*' matches any sequence of characters, "
+			"while '?' matches any single character. The use of brackets allows you to "
+			"group your search terms, e.g. '(Jesus OR spirit) AND God'.</p>") + i18n(
+			"<p>To search text other than the main text, enter the text type followed "
+			"by \":\", and then the search term.  For example, to search for the Strong's "
+			"number H8077, use 'strong:H8077'.</p>") + i18n(
+			"<p>Available text types:<br><table>"
 			"<tr><td>heading:</td><td>searches headings</td></tr>"
 			"<tr><td>footnote:</td><td>searches footnotes</td></tr>"
 			"<tr><td>strong:</td><td>searches Strong's Numbers</td></tr>"
-			"<tr><td>morph:</td><td>searches Morphology entries</td></tr></table>"
-			"For more help see: <a href=\"http://lucene.apache.org/java/docs/queryparsersyntax.html\">"
+			"<tr><td>morph:</td><td>searches morphology codes</td></tr></table></p>") + i18n(
+			"<p>BibleTime uses the Lucene search engine to perform your searches. "
+			"It has many advanced features, and you can read more about it here: "
+			"<a href=\"http://lucene.apache.org/java/docs/queryparsersyntax.html\">"
 			"http://lucene.apache.org/java/docs/queryparsersyntax.html</a></p>");
 
-	KMessageBox::about( this, syntax, i18n("Basic Syntax Introduction"));
+	KMessageBox::about( this, syntax, i18n("Basic Search Syntax Introduction"));
 }
 
 
