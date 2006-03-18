@@ -531,7 +531,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			if (!tag.isEndTag() && !tag.isEmpty()) {
 				const SWBuf expansion = tag.getAttribute("expansion");
 
-				buf.append("<span class=\"abbreviation\" expansion=\">");
+				buf.append("<span class=\"abbreviation\" expansion=\"");
 				buf.append(expansion);
 				buf.append("\">");
 			}
