@@ -103,12 +103,12 @@ void CManageIndicesWidget::populateModuleList() {
 		if ((*it)->hasIndex()) {
 			item = new QCheckListItem(m_modsWithIndices, (*it)->name(),
 				QCheckListItem::CheckBox);
-			item->setText(1, QString("%1 ").arg((*it)->indexSize() / 1024) + i18n("KB"));
+			item->setText(1, QString("%1 ").arg((*it)->indexSize() / 1024) + i18n("KiB"));
 		}
 		else {
 			item = new QCheckListItem(m_modsWithoutIndices, (*it)->name(),
 				QCheckListItem::CheckBox);
-			item->setText(1, QString("0 ") + i18n("KB"));
+			item->setText(1, QString("0 ") + i18n("KiB"));
 		}
 	}
 }
