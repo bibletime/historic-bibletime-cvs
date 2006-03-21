@@ -1,3 +1,6 @@
+2006-03-21 Martin Gruner <mgruner@crosswire.org>
+  * Fixed a ThML crossref parsing bug
+
 2006-03-18 Joachim Ansorg <info@bibletime.info>
   * BibleTime 1.6beta1
 

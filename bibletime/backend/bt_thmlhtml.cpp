@@ -279,8 +279,15 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 							bool insertSemicolon = false;
 							buf.append("<span class=\"crossreference\">");
 							QStringList refs = QStringList::split(";", QString::fromUtf8(myUserData->lastTextNode.c_str()));
+							QString oldRef; //the previous reference to use as a base for the next refs
 							for (QStringList::iterator it(refs.begin()); it != refs.end(); ++it) {
+
+								if (! oldRef.isEmpty() ){
+									options.refBase = oldRef; //use the last ref as a base, e.g. Rom 1,2-3, when the next ref is only 3:3-10
+								}
 								const QString completeRef( CReferenceManager::parseVerseReference((*it), options) );
+
+								oldRef = completeRef; //use the parsed result as the base for the next ref.
 
  								if (insertSemicolon) { //prepend a ref divider if we're after the first one
 									buf.append("; ");
