@@ -107,28 +107,28 @@ QString StrongsResultClass::getStrongsNumberText(const QString& verseContent, in
       index = *startIndex;
    }
    
-   // find all the "lemma=" inside the the content
-   while((index = verseContent.find("lemma=", index, cs)) != -1) {
-      // get the strongs number after the lemma and compare it with the
-      // strongs number we are looking for
-      idx1 = verseContent.find("\"", index) + 1;
-      idx2 = verseContent.find("\"", idx1 + 1);
-      sNumber = verseContent.mid(idx1, idx2 - idx1);
-      if (sNumber.find(lemmaText) >= 0) {
-         // strongs number is found now we need to get the text of this node
-         // search right until the ">" is found.  Get the text from here to
-         // the next "<".
-         index = verseContent.find(">", index, cs) + 1;
-         idx2  = verseContent.find("<", index, cs);
-         strongsText = verseContent.mid(index, idx2 - index);
-         index = idx2;
-         *startIndex = index;
-		 
-         return(strongsText);
-	  }
-      else {
-         index += 6; // 6 is the length of "lemma="
-	  }
+	// find all the "lemma=" inside the the content
+	while((index = verseContent.find("lemma=", index, cs)) != -1) {
+		// get the strongs number after the lemma and compare it with the
+		// strongs number we are looking for
+		idx1 = verseContent.find("\"", index) + 1;
+		idx2 = verseContent.find("\"", idx1 + 1);
+		sNumber = verseContent.mid(idx1, idx2 - idx1);
+		if (sNumber == lemmaText) {
+			// strongs number is found now we need to get the text of this node
+			// search right until the ">" is found.  Get the text from here to
+			// the next "<".
+			index = verseContent.find(">", index, cs) + 1;
+			idx2  = verseContent.find("<", index, cs);
+			strongsText = verseContent.mid(index, idx2 - index);
+			index = idx2;
+			*startIndex = index;
+ 
+			return(strongsText);
+		}
+		else {
+			index += 6; // 6 is the length of "lemma="
+		}
    }
    return QString::null;
 }
@@ -277,7 +277,7 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
          idx1 = ret.find("\"", strongIndex) + 1;
          idx2 = ret.find("\"", idx1 + 1);
          lemmaText = ret.mid(idx1, idx2 - idx1);
-         if (lemmaText.find(sNumber) >= 0)
+         if (lemmaText == sNumber)
             {
             // strongs number is found now we need to highlight it
             // I believe the easiest way is to insert rep3 just before "lemma="
@@ -305,6 +305,8 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 		QStringList words = QStringList::split(" ", searchedText);
 		for ( int wi = 0; (unsigned int)wi < words.count(); ++wi ) { //search for every word in the list
 			QString word = words[ wi ];
+			if ((word == "AND") || (word == "OR"))
+				continue;
 			length = word.length();
 			//       index = 0; //for every word start at the beginning
 			index = ret.find("<body", 0);
