@@ -106,14 +106,12 @@ void CSearchDialog::startSearch() {
 		int result = QMessageBox::question(this, i18n("Missing indices"),
 			i18n("One or more modules need indexing before they can be searched.\n"
 			"This could take a long time. Proceed with indexing?"),
-      	 QMessageBox::Yes | QMessageBox::Default,
-         QMessageBox::No  | QMessageBox::Escape);
-      // The result is 0 for Yes/Ok and 1 for No/Cancel.
-      // It does not seem to matter what the two button constants are.
-      // I have tried Yes/No, Ok/Cancel and they both show a Yes/No dialog with
-      // Yes on the left and No on the right.  When Yes is clicked the result is 0,
-      // when No is clicked the result is 1.
-		if ( (result == QMessageBox::Yes) || (result == QMessageBox::Default) ) {
+		QMessageBox::Yes | QMessageBox::Default,
+		QMessageBox::No  | QMessageBox::Escape);
+		// In SuSE 10.0 the result is the logical or of the button type, just like it is
+		// inputed into the QMessageBox.
+		if ( (result == (QMessageBox::Yes | QMessageBox::Default)) ||
+		     (result == QMessageBox::Yes) || (result == QMessageBox::Default) ) {
 			CModuleIndexDialog* dlg = CModuleIndexDialog::getInstance();
 			dlg->indexUnindexedModules( modules() );
 		}
