@@ -31,12 +31,15 @@
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qregexp.h>
+#include <qeventloop.h>
 
 //KDE includes
 #include <klocale.h>
 #include <kcombobox.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
+#include <kprogress.h>
+#include <kapplication.h>
 
 
 namespace Search {
@@ -67,8 +70,15 @@ void StrongsResultClass::initStrongsResults(void) {
 
    srList.clear();
 
-   for (index = 0; index < count; index++)
-      {
+	KProgressDialog* progress = new KProgressDialog(0, "progressDialog", i18n("Parsing Stong's Numbers"), QString::null, true);
+	progress->setAllowCancel(false);
+
+   for (index = 0; index < count; index++){
+// 	  if (index % 100 == 0){
+		progress->progressBar()->setProgress( int( (index*100) / count ) );
+		KApplication::kApplication()->processEvents( QEventLoop::AllEvents );
+		qWarning("percent: %d", int( (index*100) / count ) );
+// 	  }
       key = QString::fromUtf8(result.GetElement(index)->getText());
       text = render.renderSingleKey(key, modules, settings);
       sIndex = 0;
@@ -90,6 +100,8 @@ void StrongsResultClass::initStrongsResults(void) {
             srList.append( StrongsResult(rText, key) );
          }
       }
+	  delete progress;
+	  progress = 0;
    //qHeapSort(srList);
    }
 
