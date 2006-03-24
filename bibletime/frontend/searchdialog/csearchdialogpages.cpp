@@ -74,14 +74,13 @@ void StrongsResultClass::initStrongsResults(void) {
 	// to be wide enough.
 	KProgressDialog* progress = new KProgressDialog(0, "progressDialog", i18n("Parsing Stong's Numbers"), i18n("Parsing Stong's numbers for translations."), true);
 	progress->setAllowCancel(false);
+	progress->setMinimumDuration(0);
 	progress->show();
 	progress->raise();
 	for (index = 0; index < count; index++){
-// 	  if (index % 100 == 0){
 		progress->progressBar()->setProgress( int( (index*100) / count ) );
-		KApplication::kApplication()->processEvents( QEventLoop::AllEvents );
-		//qWarning("percent: %d", int( (index*100) / count ) );
-// 	  }
+ 		KApplication::kApplication()->processEvents( 1 ); //1 ms only
+
 		key = QString::fromUtf8(result.GetElement(index)->getText());
 		text = render.renderSingleKey(key, modules, settings);
 		sIndex = 0;
@@ -109,18 +108,18 @@ void StrongsResultClass::initStrongsResults(void) {
 	}
 
 QString StrongsResultClass::getStrongsNumberText(const QString& verseContent, int *startIndex) {
-   // get the strongs text
-   int idx1, idx2, index;
-   QString sNumber, strongsText;
-   //const bool cs = CSwordModuleSearch::caseSensitive;
-   const bool cs = false;
-
-   if (*startIndex == 0) {
-      index = verseContent.find("<body", 0);
-   }
-   else {
-      index = *startIndex;
-   }
+	// get the strongs text
+	int idx1, idx2, index;
+	QString sNumber, strongsText;
+	//const bool cs = CSwordModuleSearch::caseSensitive;
+	const bool cs = false;
+	
+	if (*startIndex == 0) {
+		index = verseContent.find("<body", 0);
+	}
+	else {
+		index = *startIndex;
+	}
    
 	// find all the "lemma=" inside the the content
 	while((index = verseContent.find("lemma=", index, cs)) != -1) {
@@ -261,7 +260,7 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 	const QString rep1("<span style=\"background-color:#FFFF66;\">");
 	const QString rep2("</span>");
 	const unsigned int repLength = rep1.length() + rep1.length();
-   	int sstIndex; // strong search text index for finding "strong:"
+	int sstIndex; // strong search text index for finding "strong:"
 
    //---------------------------------------------------------------------
    // find the strongs search lemma and highlight it

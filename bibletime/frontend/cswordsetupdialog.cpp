@@ -493,7 +493,7 @@ the module remote installation feature!</b>")
 		);
 
 		m_progressDialog->progressBar()->setTotalSteps(100);
-		m_progressDialog->setMinimumDuration(0); //sow immediately
+		m_progressDialog->setMinimumDuration(0); //show immediately
 		m_progressDialog->setLabel( i18n("Downloading library information...") );
 
 		if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
@@ -723,7 +723,7 @@ the module remote installation feature!</b>")
 			);
 
 			m_progressDialog->progressBar()->setTotalSteps(100 * moduleList.count());
-			m_progressDialog->setMinimumDuration(0); //sow immediately
+			m_progressDialog->setMinimumDuration(0); //show immediately
 
 
 			for ( QStringList::Iterator it = moduleList.begin(); (it != moduleList.end()) && !m_progressDialog->wasCancelled(); ++it, ++m_installedModuleCount ) {

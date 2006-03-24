@@ -41,6 +41,9 @@ void CModuleIndexDialog::indexAllModules( const ListCSwordModuleInfo& modules ) 
 	progress = new KProgressDialog(0, "progressDialog", i18n("Preparing instant search"), QString::null, true);
 	progress->setAllowCancel(false);
 	progress->progressBar()->setTotalSteps( modules.count() * 100 );
+	progress->setMinimumDuration(0);
+// 	progress->show();
+// 	progress->raise();
 
 	ListCSwordModuleInfo::const_iterator end_it = modules.end();
 	for( ListCSwordModuleInfo::const_iterator it = modules.begin(); it != end_it; ++it) {
@@ -84,12 +87,12 @@ void CModuleIndexDialog::slotModuleProgress( int percentage ) {
 //	qDebug("progress %d", percentage);
 	
 	progress->progressBar()->setProgress( m_currentModuleIndex * 100 + percentage );
-	KApplication::kApplication()->processEvents(1);
+	KApplication::kApplication()->processEvents( 1 ); //1 ms only
 }
 
 void CModuleIndexDialog::slotFinished( ) {
 	qDebug("indexing finished()");
 	
 	progress->progressBar()->setProgress( progress->progressBar()->totalSteps() );
-	KApplication::kApplication()->processEvents(1);
+	KApplication::kApplication()->processEvents( 1 ); //1 ms only
 }
