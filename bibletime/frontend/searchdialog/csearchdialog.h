@@ -65,6 +65,7 @@ protected:
 	* The dialog destroys itself if it was closed.
 	*/
 	CSearchDialog(QWidget *parent);
+	~CSearchDialog();
 
 	/**
 	 * Initializes this object.
