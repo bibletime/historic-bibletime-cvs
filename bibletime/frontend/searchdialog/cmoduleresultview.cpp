@@ -99,12 +99,12 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules, const QString& 
 	sword::ListKey result;
 
 	if (strongsResults) {
-      delete strongsResults;
-      strongsResults = 0;
-    }
+		delete strongsResults;
+		strongsResults = 0;
+		}
 
 	bool strongsAvailable = false;
-	  
+
 	ListCSwordModuleInfo::iterator end_it = modules.end();
 	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
 		//   for (modules.first(); modules.current(); modules.next()) {
@@ -115,29 +115,29 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules, const QString& 
 				
 		item->setPixmap(0,CToolClass::getIconForModule(*it) );
 		oldItem = item;
-      //----------------------------------------------------------------------
-      // we need to make a decision here.  Either don't show any Strong's
-      // number translations, or show the first one in the search text, or
-      // figure out how to show them all.
-      // I choose option number 2 at this time.
-      //----------------------------------------------------------------------
-      int sstIndex, sTokenIndex; // strong search text index for finding "strong:"
-      if ((sstIndex = searchedText.find("strong:", 0)) != -1) {
-         QString sNumber;
-         //--------------------------------------------------
-         // get the strongs number from the search text
-         //--------------------------------------------------
-         // first find the first space after "strong:"
-         //    this should indicate a change in search token
-         sstIndex = sstIndex + 7;
-         sTokenIndex = searchedText.find(" ", sstIndex);
-         sNumber = searchedText.mid(sstIndex, sTokenIndex - sstIndex);
-		 
-         setupStrongsResults((*it), item, sNumber);
-		 
-         item->setOpen(true);
-		 strongsAvailable = true;
-      }
+		//----------------------------------------------------------------------
+		// we need to make a decision here.  Either don't show any Strong's
+		// number translations, or show the first one in the search text, or
+		// figure out how to show them all.
+		// I choose option number 2 at this time.
+		//----------------------------------------------------------------------
+		int sstIndex, sTokenIndex; // strong search text index for finding "strong:"
+		if ((sstIndex = searchedText.find("strong:", 0)) != -1) {
+			QString sNumber;
+			//--------------------------------------------------
+			// get the strongs number from the search text
+			//--------------------------------------------------
+			// first find the first space after "strong:"
+			//    this should indicate a change in search token
+			sstIndex = sstIndex + 7;
+			sTokenIndex = searchedText.find(" ", sstIndex);
+			sNumber = searchedText.mid(sstIndex, sTokenIndex - sstIndex);
+
+			setupStrongsResults((*it), item, sNumber);
+
+			item->setOpen(true);
+			strongsAvailable = true;
+		}
 	};
 
 	//Allow to hide the module strongs if there are any available
@@ -191,24 +191,24 @@ void CModuleResultView::executed( QListViewItem* i ) {
 
 /** Returns the currently active module. */
 CSwordModuleInfo* const CModuleResultView::activeModule() {
-   Q_ASSERT(currentItem());
-   
-   QListViewItem* item = currentItem();
-   if (!item) {
-      return 0;
-   }
+	Q_ASSERT(currentItem());
 
-   // we need to find the parent most node because that is the node
-   // that is the module name.
-   while (item->parent()) {
-      item = item->parent();
-   }
+	QListViewItem* item = currentItem();
+	if (!item) {
+		return 0;
+	}
 
-   if (item) {
-      return CPointers::backend()->findModuleByName(item->text(0));
-   }
+	// we need to find the parent most node because that is the node
+	// that is the module name.
+	while (item->parent()) {
+		item = item->parent();
+	}
 
-   return 0;
+	if (item) {
+		return CPointers::backend()->findModuleByName(item->text(0));
+	}
+
+	return 0;
 }
 
 /** No descriptions */
