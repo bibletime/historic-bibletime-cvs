@@ -423,6 +423,7 @@ protected: //DCOP interface implementation
 	virtual QStringList searchInOpenModules(const QString& searchText);
 	virtual QStringList searchInDefaultBible(const QString& searchText);
 	virtual QStringList getModulesOfType(const QString& type);
+    virtual void reloadModules();
 };
 
 #endif

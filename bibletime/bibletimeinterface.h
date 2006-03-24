@@ -52,6 +52,9 @@ k_dcop:
 	* @param key The key which is set to all Bible and Commentary windows.
 	*/
 	virtual void syncAllVerseBasedModules(const QString& key) = 0;
+	/** Reload all modules
+	*/
+	virtual void reloadModules() = 0;
 	/** Open a new read window for the module moduleName using the given key
 	* @param moduleName The name of the module which is opened in a new module window.
 	* @param key The key to set to the newly opened window.
