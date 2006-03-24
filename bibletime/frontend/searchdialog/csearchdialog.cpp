@@ -67,10 +67,13 @@ void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString
 		m_staticDialog->show();
 	}
 
-	m_staticDialog->raise();
 	if (modules.count() && !searchText.isEmpty()) {
 		m_staticDialog->startSearch();
 	}
+	// moved these to after the startSearch() because
+	// the progress dialog caused them to loose focus.
+	m_staticDialog->raise();
+	m_staticDialog->setActiveWindow();
 };
 
 CSearchDialog* const CSearchDialog::getSearchDialog() {
@@ -90,8 +93,10 @@ CSearchDialog::CSearchDialog(QWidget *parent)
 	initConnections();
 }
 
-// CSearchDialog::~CSearchDialog(){
-// }
+CSearchDialog::~CSearchDialog(){
+	// Added code for saving last size of dialog
+	saveDialogSize("CSearchDialog");
+}
 
 /** Starts the search with the set modules and the set search text. */
 void CSearchDialog::startSearch() {
@@ -216,6 +221,8 @@ void CSearchDialog::initView() {
 	int h = m_searchOptionsPage->minimumHeight() +
 		m_searchResultPage->minimumHeight();
    plainPage()->setMinimumSize(w+10, h+100);
+	// Added code for loading last size of dialog
+	setInitialSize(configDialogSize("CSearchDialog"));
 }
 
 void CSearchDialog::searchFinished() {
