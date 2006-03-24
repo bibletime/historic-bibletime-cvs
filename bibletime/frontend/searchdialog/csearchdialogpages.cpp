@@ -49,61 +49,64 @@ namespace Search {
 ************  StrongsResulClass *************
 ********************************************/
 void StrongsResultClass::initStrongsResults(void) {
-   using namespace Rendering;
-   
-   CDisplayRendering render;
-   ListCSwordModuleInfo modules;
-   CTextRendering::KeyTreeItem::Settings settings;
-   QString rText, lText, key;
-   bool found;
-   int sIndex;
-   int count;
-   int index;
-   QString text;
+	using namespace Rendering;
+	
+	CDisplayRendering render;
+	ListCSwordModuleInfo modules;
+	CTextRendering::KeyTreeItem::Settings settings;
+	QString rText, lText, key;
+	bool found;
+	int sIndex;
+	int count;
+	int index;
+	QString text;
 
-   modules.append(srModule);
-   sword::ListKey& result = srModule->searchResult();
+	modules.append(srModule);
+	sword::ListKey& result = srModule->searchResult();
 
-   count = result.Count();
-   if (!count)
-      return;
+	count = result.Count();
+	if (!count)
+		return;
 
-   srList.clear();
-
-	KProgressDialog* progress = new KProgressDialog(0, "progressDialog", i18n("Parsing Stong's Numbers"), QString::null, true);
+	srList.clear();
+	// for whatever reason the text "Parsing...translations." does not appear.
+	// this is not critical but the text is necessary to get the dialog box
+	// to be wide enough.
+	KProgressDialog* progress = new KProgressDialog(0, "progressDialog", i18n("Parsing Stong's Numbers"), i18n("Parsing Stong's numbers for translations."), true);
 	progress->setAllowCancel(false);
-
-   for (index = 0; index < count; index++){
+	progress->show();
+	progress->raise();
+	for (index = 0; index < count; index++){
 // 	  if (index % 100 == 0){
 		progress->progressBar()->setProgress( int( (index*100) / count ) );
 		KApplication::kApplication()->processEvents( QEventLoop::AllEvents );
-		qWarning("percent: %d", int( (index*100) / count ) );
+		//qWarning("percent: %d", int( (index*100) / count ) );
 // 	  }
-      key = QString::fromUtf8(result.GetElement(index)->getText());
-      text = render.renderSingleKey(key, modules, settings);
-      sIndex = 0;
-      while ((rText = getStrongsNumberText(text, &sIndex)) != "")
-         {
-         StrongsResultList::iterator it;
-         found = FALSE;
-         for ( it = srList.begin(); it != srList.end(); ++it )
-            {
-            lText = (*it).keyText();
-            if (lText == rText)
-               {
-               found = TRUE;
-               (*it).addKeyName(key);
-               break;
-               }
-            }
-         if (found == FALSE)
-            srList.append( StrongsResult(rText, key) );
-         }
-      }
+		key = QString::fromUtf8(result.GetElement(index)->getText());
+		text = render.renderSingleKey(key, modules, settings);
+		sIndex = 0;
+		while ((rText = getStrongsNumberText(text, &sIndex)) != "")
+			{
+			StrongsResultList::iterator it;
+			found = FALSE;
+			for ( it = srList.begin(); it != srList.end(); ++it )
+				{
+				lText = (*it).keyText();
+				if (lText == rText)
+					{
+					found = TRUE;
+					(*it).addKeyName(key);
+					break;
+					}
+				}
+			if (found == FALSE)
+				srList.append( StrongsResult(rText, key) );
+			}
+		}
 	  delete progress;
 	  progress = 0;
-   //qHeapSort(srList);
-   }
+	//qHeapSort(srList);
+	}
 
 QString StrongsResultClass::getStrongsNumberText(const QString& verseContent, int *startIndex) {
    // get the strongs text
@@ -182,7 +185,6 @@ void CSearchResultPage::setSearchResult(ListCSwordModuleInfo modules) {
 			break;
 		};
 	};
-
 	m_analyseButton->setEnabled(enable);
 }
 
