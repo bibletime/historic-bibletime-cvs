@@ -120,23 +120,36 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}
 
 				if ((attrib = tag.getAttribute("lemma"))) {
-					const int count = tag.getAttributePartCount("lemma");
+ 					char splitChar = '|';
+					const int countSplit1 = tag.getAttributePartCount("lemma", '|');
+					const int countSplit2 = tag.getAttributePartCount("lemma", ' ');
+					int count = 0;
+					
+					if (countSplit1 > countSplit2) { //| split char
+						splitChar = '|';
+						count = countSplit1;
+					}
+					else {
+						splitChar = ' ';
+						count = countSplit2;
+					}
+					
 					int i = (count > 1) ? 0 : -1;  // -1 for whole value cuz it's faster, but does the same thing as 0
 					attrValue = "";
 
 					do {
 						if (attrValue.length()) {
-							attrValue.append( "|" );
+							attrValue.append( '|' );
 						}
 
-						attrib = tag.getAttribute("lemma", i);
+						attrib = tag.getAttribute("lemma", i, splitChar);
 
 						if (i < 0) { // to handle our -1 condition
 							i = 0;
 						}
 
 						val = strchr(attrib, ':');
-						val = (val) ? (val + 1) : attrib;
+val = (val) ? (val + 1) : attrib;
 
 						if ((*val == 'H') || (*val == 'G')) {
 							attrValue.append(val);
@@ -150,7 +163,20 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}
 
 				if ((attrib = tag.getAttribute("morph"))) {
-					const int count = tag.getAttributePartCount("morph");
+					char splitChar = '|';
+					const int countSplit1 = tag.getAttributePartCount("morph", '|');
+					const int countSplit2 = tag.getAttributePartCount("morph", ' ');
+					int count = 0;
+					
+					if (countSplit1 > countSplit2) { //| split char
+						splitChar = '|';
+						count = countSplit1;
+					}
+					else {
+						splitChar = ' ';
+						count = countSplit2;
+					}
+
 					int i = (count > 1) ? 0 : -1;  // -1 for whole value cuz it's faster, but does the same thing as 0
 
 					attrValue = "";
@@ -160,7 +186,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 							attrValue.append('|');
 						}
 
-						attrib = tag.getAttribute("morph", i);
+						attrib = tag.getAttribute("morph", i, splitChar);
 
 						if (i < 0) {
 							i = 0; // to handle our -1 condition
@@ -547,6 +573,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			if ((type == "screen") || (type == "line")) {//line break
 				buf.append("<br/>");
 				userData->supressAdjacentWhitespace = true;
+			}
+			else if (type == "x-p") { //e.g. occurs in the KJV2006 module
+				//buf.append("<br/>");
+				const SWBuf marker = tag.getAttribute("marker");
+				if (marker.length() > 0) {
+					buf.append(marker);
+				}
 			}
 		}
 		else { //all tokens handled by OSISHTMLHref will run through the filter now

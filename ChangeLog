@@ -1,3 +1,7 @@
+2006-03-25 Joachim Ansorg <info@bibletime.info>
+  * Support special x-p milestone in the new KJV2006 module.
+  * Support multiple lemmas and morphs per word in the KJV006 module
+  
 2006-03-24 Gabriel Beddingfield <gabriel@teuton.org>
   * Added isWritable() check (and error message) before saving in CPlainWriteWindow.
 	
