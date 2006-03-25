@@ -24,6 +24,7 @@
 #include <kaction.h>
 #include <kaccel.h>
 #include <klocale.h>
+#include <kmessagebox.h>
 
 using namespace Profile;
 
@@ -125,11 +126,20 @@ void CPlainWriteWindow::saveCurrentText( const QString& /*key*/ ) {
 	t.replace(QRegExp("</body></html>", false), "");//remove footer
 
 	const QString& oldKey = this->key()->key();
-	modules().first()->write(this->key(), t );
-	this->key()->key( oldKey );
+	if( modules().first()->isWritable() ) {
+		modules().first()->write(this->key(), t );
+		this->key()->key( oldKey );
 
-	displayWidget()->setModified(false);
-	textChanged();
+		displayWidget()->setModified(false);
+		textChanged();
+	} else {
+		KMessageBox::error( this,
+				    QString::fromLatin1("<qt><B>%1</B><BR>%2</qt>")
+				    .arg( i18n("Module is not writable.") )
+				    .arg( i18n("Either the module may not be edited, or "
+					       "you do not have write permission.") ),
+				    i18n("Module not writable") );
+	}
 }
 
 /** Loads the original text from the module. */
