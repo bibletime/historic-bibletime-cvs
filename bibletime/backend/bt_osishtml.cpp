@@ -50,8 +50,9 @@ BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() {
 	addTokenSubstitute("divineName", "<span class=\"name\"><span class=\"divine\">");
 	addTokenSubstitute("/divineName", "</span></span>");
 
-	addTokenSubstitute("seg type=\"morph\"", "<span class=\"morphSegmentation\">");
-	addTokenSubstitute("/seg", "</span>");
+	//TODO Move that down to the real tag handling, segs without the type morph would generate incorrect markup, as the end span is always inserted
+//	addTokenSubstitute("seg type=\"morph\"", "<span class=\"morphSegmentation\">");
+//	addTokenSubstitute("/seg", "</span>");
 
 	// OSIS tables
 	addTokenSubstitute("table", "<table>");
@@ -291,17 +292,12 @@ val = (val) ? (val + 1) : attrib;
 					buf.append( QString::number(myUserData->swordFootnote++).latin1() ); //inefficient
 
 					const SWBuf n = tag.getAttribute("n");
-					if ( n.size() > 0 ) {
-						buf.append("\">");
-						buf.append( n );
-						buf.append("</span> ");
-					}
-					else {
-						buf.append("\">*</span> ");
-					}
+					
+					buf.append("\">");
+					buf.append( (n.length() > 0) ? n.c_str() : "*" );
+					buf.append("</span> ");
 
 					myUserData->noteType = BT_UserData::Footnote;
-
 					myUserData->suspendTextPassThru = true;
 				}
 			}
@@ -310,7 +306,7 @@ val = (val) ? (val + 1) : attrib;
 
 				if (myUserData->noteType == BT_UserData::CrossReference) {
 					buf.append("</span> ");
-					myUserData->suspendTextPassThru = false;
+// 					myUserData->suspendTextPassThru = false;
 					myUserData->inCrossrefNote = false;
 				}
 				else if (myUserData->noteType == BT_UserData::Alternative) {
@@ -582,6 +578,23 @@ val = (val) ? (val + 1) : attrib;
 				}
 			}
 		}
+		//seg tag
+		else if (!strcmp(tag.getName(), "seg")) {
+			if (!tag.isEndTag() && !tag.isEmpty()) {
+				const SWBuf type = tag.getAttribute("type");
+
+				if ((type == "morph")) {//line break
+					buf.append("<span class=\"morphSegmentation\">");
+				}
+				else {
+					buf.append("<span>");
+				}
+			}
+			else { // seg end tag
+				buf.append("</span>");
+			}
+		}
+		
 		else { //all tokens handled by OSISHTMLHref will run through the filter now
 			return sword::OSISHTMLHREF::handleToken(buf, token, userData);
 		}

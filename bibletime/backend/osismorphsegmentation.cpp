@@ -56,7 +56,7 @@ OSISMorphSegmentation::OSISMorphSegmentation() : sword::SWOptionFilter(oName, oT
 					tag = token;
 
 					if (!tag.isEndTag() && tag.getAttribute("type") && !strcmp("morph", tag.getAttribute("type"))) {  //<seg type="morph"> start tag
-						hide = !option; //only hide if option is Off
+						hide = (option == 0); //only hide if option is Off
 					}
 
 					if (hide) { //hides start and end tags as long as hide is set
@@ -70,12 +70,10 @@ OSISMorphSegmentation::OSISMorphSegmentation() : sword::SWOptionFilter(oName, oT
 				} //end of seg tag handling
 
 				text.append('<');
-
 				text.append(token);
-
 				text.append('>');
 
-				hide = false;
+				//				hide = false; //not right, because there may be child tags in seg. Only /seg may disable the seg hiding.
 
 				continue;
 			} //end of intoken part

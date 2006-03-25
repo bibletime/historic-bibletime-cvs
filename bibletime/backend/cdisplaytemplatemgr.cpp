@@ -114,15 +114,17 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 				const QFont f = CBTConfig::get
 									(lang).second;
 
+
+				//don't use important, because it would reset the title formatting, etc. to the setup font
 				QString css("{ ");
 
-				css.append("font-family:").append(f.family()).append(" !important");
+				css.append("font-family:").append(f.family())/*.append(" !important")*/;
 
-				css.append("; font-size:").append(QString::number(f.pointSize())).append("pt !important");
+				css.append("; font-size:").append(QString::number(f.pointSize())).append("pt /*!important*/");
 
-				css.append("; font-weight:").append(f.bold() ? "bold" : "normal !important");
+				css.append("; font-weight:").append(f.bold() ? "bold" : "normal /*!important*/");
 
-				css.append("; font-style:").append(f.italic() ? "italic" : "normal !important");
+				css.append("; font-style:").append(f.italic() ? "italic" : "normal /*!important*/");
 
 				css.append("; }\n");
 
@@ -150,22 +152,23 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	}
 
 // 	qWarning("Outputing unformated text");
-	QString t = QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
+	const QString t = QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
 	 		.replace("#TITLE#", settings.title)
 	 		.replace("#LANG_ABBREV#", settings.langAbbrev.isEmpty() ? QString("en") : settings.langAbbrev)
 	 		.replace("#DISPLAYTYPE#", displayTypeString)
 	 		.replace("#LANG_CSS#", langCSS)
 	 		.replace("#PAGE_DIRECTION#", settings.pageDirection)
 	 		.replace("#CONTENT#", newContent);
-// 	 	printf("%s\n\n", t.latin1());
+ 	 //printf("%s\n\n", t.latin1());
 
-	return QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
+	return t;
+/*			QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
 		   .replace("#TITLE#", settings.title)
 		   .replace("#LANG_ABBREV#", settings.langAbbrev.isEmpty() ? QString("en") : settings.langAbbrev)
 		   .replace("#DISPLAYTYPE#", displayTypeString)
 		   .replace("#LANG_CSS#", langCSS)
 		   .replace("#PAGE_DIRECTION#", settings.pageDirection)
-		   .replace("#CONTENT#", newContent);
+		   .replace("#CONTENT#", newContent);*/
 }
 
 
