@@ -41,6 +41,11 @@
 #include <kprogress.h>
 #include <kapplication.h>
 
+//Lucence includes
+//#include "CLucene.h"
+//#include "CLucene/util/Reader.h"
+//#include "CLucene/util/Misc.h"
+//#include "CLucene/util/dirent.h"
 
 namespace Search {
 	namespace Result {
@@ -67,7 +72,7 @@ void StrongsResultClass::initStrongsResults(void) {
 	count = result.Count();
 	if (!count)
 		return;
-
+KApplication::kApplication()->processEvents( 1 ); //1 ms only
 	srList.clear();
 	// for whatever reason the text "Parsing...translations." does not appear.
 	// this is not critical but the text is necessary to get the dialog box
@@ -247,6 +252,146 @@ void CSearchResultPage::updatePreview(const QString& key) {
 	}
 }
 
+QStringList CSearchResultPage::QueryParser(const QString& queryString) {
+	QString token;
+	QStringList tokenList;
+	int cnt, pos;
+
+	token = "";
+	cnt = 0;
+	while(cnt < queryString.length()) {
+		// add to token
+		if ((queryString[cnt]).isLetterOrNumber() || (queryString[cnt] == '*')) {
+			token = token + queryString[cnt];
+			cnt++;
+		}
+		// token break
+		else if (queryString[cnt] == ' ') {
+			token = token.stripWhiteSpace();
+			if ((token != "*") && (token != ""))
+				tokenList.append(token);
+			token = "";
+			cnt++;
+		}
+		// clucene appears to ignore quoted strings in the sence
+		// that it treats all the words within quoted strings as
+		// regular tokens and not as a single token.
+		else if (queryString[cnt] == '"') {
+			cnt++;
+		}
+		// wild card - treat as a special token break
+		//else if (queryString[cnt] == '*') {
+		//	token = token + queryString[cnt];
+		//	token = token.stripWhiteSpace();
+		//	if ((token != "*") && (token != ""))
+		//		tokenList.append(token);
+		//	// start next token with wildcard (kin*m -> kin* *m)
+		//	token = "*";
+		//	cnt++;
+		//}
+		// the ! token is also a token break
+		else if (queryString[cnt] == '!') {
+			// store away current token
+			token = token.stripWhiteSpace();
+			if ((token != "*") && (token != ""))
+				tokenList.append(token);
+			// add the ! token
+			tokenList.append("!");
+			token = "";
+			cnt++;
+		}
+		// the - token is also a token break
+		else if (queryString[cnt] == '-') {
+			// store away current token
+			token = token.stripWhiteSpace();
+			if ((token != "*") && (token != ""))
+				tokenList.append(token);
+			// add the ! token
+			tokenList.append("-");
+			token = "";
+			cnt++;
+		}
+		// the + token is also a token break
+		else if (queryString[cnt] == '+') {
+			// store away current token
+			token = token.stripWhiteSpace();
+			if ((token != "*") && (token != ""))
+				tokenList.append(token);
+			// add the + token
+			tokenList.append("+");
+			token = "";
+			cnt++;
+		}
+		// the || token is also a token break
+		else if ((queryString[cnt] == '|') && (queryString[cnt+1] == '|')) {
+			// store away current token
+			token = token.stripWhiteSpace();
+			if ((token != "*") && (token != ""))
+				tokenList.append(token);
+			// add the || token
+			tokenList.append("||");
+			token = "";
+			cnt += 2;
+		}
+		// the && token is also a token break
+		else if ((queryString[cnt] == '&') && (queryString[cnt+1] == '&')) {
+			// store away current token
+			token = token.stripWhiteSpace();
+			if ((token != "*") && (token != ""))
+				tokenList.append(token);
+			// add the || token
+			tokenList.append("&&");
+			token = "";
+			cnt += 2;
+		}
+		else cnt++;
+	}
+	token = token.stripWhiteSpace();
+	if ((token != "*") && (token != ""))
+		tokenList.append(token);
+	
+	cnt = 0;
+	QStringList::iterator it;
+	for ( it = tokenList.begin(); it != tokenList.end(); it++ ) {
+		//-----------------------------------------------------------
+		// remove all the NOT(!) tokens - these do not need to be
+		// highlighted in the highlighter
+		//-----------------------------------------------------------
+		if (((*it) == "!") || ((*it) == "NOT") || ((*it) == "-")) {
+			it = tokenList.remove(it);
+			if (it == tokenList.end())
+				break;
+			it = tokenList.remove(it);
+			if (it == tokenList.end())
+				break;
+			it--;
+		}
+		//-----------------------------------------------------------
+		// remove all the operator tokens - these do not need to be
+		// highlighted in the highlighter
+		//-----------------------------------------------------------
+		else if ( ((*it) == "||")  || ((*it) == "OR") || ((*it) == "+") ||
+		     ((*it) == "AND") || ((*it) == "&&") )
+		{
+			it = tokenList.remove(it);
+			if (it == tokenList.end())
+				break;
+			it--;
+		}
+		// if the token contains a ^ then trim the remainder of the
+		// token from the ^
+		else if ( (pos = (*it).contains("^")) >= 0 ) {
+			(*it) = (*it).left(pos - 1); 
+		}
+		// if the token contains a ~ then trim the remainder of the
+		// token from the ~
+		else if ( (pos = (*it).contains("~")) >= 0 ) {
+			(*it) = (*it).left(pos - 2) + "*"; 
+		}
+	}	
+	return(tokenList);
+}
+
 const QString CSearchResultPage::highlightSearchedText(const QString& content, const QString& searchedText/*, const int searchFlags*/) {
 	QString ret = content;
 
@@ -261,96 +406,109 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 	const QString rep2("</span>");
 	const unsigned int repLength = rep1.length() + rep1.length();
 	int sstIndex; // strong search text index for finding "strong:"
+	bool inQuote;
+	QString newSearchText;
 
-   //---------------------------------------------------------------------
-   // find the strongs search lemma and highlight it
-   //---------------------------------------------------------------------
-   // search the searched text for "strong:" until it is not found anymore
-   sstIndex = 0;
-   while ((sstIndex = searchedText.find("strong:", sstIndex)) != -1)
-      {
-      int idx1, idx2, sTokenIndex;
-      QString sNumber, lemmaText;
-      const QString rep3("style=\"background-color:#FFFF66;\" ");
-      const unsigned int rep3Length = rep3.length();
-      int strongIndex = index;
-      //--------------------------------------------------
-      // get the strongs number from the search text
-      //--------------------------------------------------
-      // first find the first space after "strong:"
-      //    this should indicate a change in search token
-      sstIndex = sstIndex + 7;
-      sTokenIndex = searchedText.find(" ", sstIndex);
-      sNumber = searchedText.mid(sstIndex, sTokenIndex - sstIndex);
-      // find all the "lemma=" inside the the content
-      while((strongIndex = ret.find("lemma=", strongIndex, cs)) != -1)
-         {
-         // get the strongs number after the lemma and compare it with the
-         // strongs number we are looking for
-         idx1 = ret.find("\"", strongIndex) + 1;
-         idx2 = ret.find("\"", idx1 + 1);
-         lemmaText = ret.mid(idx1, idx2 - idx1);
-         if (lemmaText == sNumber)
-            {
-            // strongs number is found now we need to highlight it
-            // I believe the easiest way is to insert rep3 just before "lemma="
-            ret = ret.insert(strongIndex, rep3);
-            strongIndex += rep3Length;
-            }
-         strongIndex += 6; // 6 is the length of "lemma="
-         }
-      }
-   //---------------------------------------------------------------------
-   // now that the strong: stuff is out of the way continue with
-   // other search options
-   //---------------------------------------------------------------------
-/*	if (searchFlags & CSwordModuleSearch::exactPhrase) { //exact phrase matching
-		while ( (index = ret.find(searchedText, index, cs)) != -1 ) {
+	newSearchText = searchedText;
+	//---------------------------------------------------------------------
+	// find the strongs search lemma and highlight it
+	//---------------------------------------------------------------------
+	// search the searched text for "strong:" until it is not found anymore
+	sstIndex = 0;
+	while ((sstIndex = newSearchText.find("strong:", sstIndex)) != -1) {
+		int idx1, idx2, sTokenIndex, sTokenIndex2;
+		QString sNumber, lemmaText;
+		const QString rep3("style=\"background-color:#FFFF66;\" ");
+		const unsigned int rep3Length = rep3.length();
+		int strongIndex = index;
+		//--------------------------------------------------
+		// get the strongs number from the search text
+		//--------------------------------------------------
+		// first find the first space after "strong:"
+		//	 this should indicate a change in search token
+		sstIndex = sstIndex + 7;
+		sTokenIndex  = newSearchText.find(" ", sstIndex);
+		sTokenIndex2 = newSearchText.find("|", sstIndex);
+		if ((sTokenIndex2 != -1) && (sTokenIndex2 < sTokenIndex)) {
+			sNumber = newSearchText.mid(sstIndex, sTokenIndex2 - sstIndex);
+		}
+		else {
+			sNumber = newSearchText.mid(sstIndex, sTokenIndex - sstIndex);
+		}
+		// remove this strong entry
+		sstIndex -= 7;
+		newSearchText.replace(sstIndex, sTokenIndex - sstIndex, "");
+		// find all the "lemma=" inside the the content
+		while((strongIndex = ret.find("lemma=", strongIndex, cs)) != -1) {
+			// get the strongs number after the lemma and compare it with the
+			// strongs number we are looking for
+			idx1 = ret.find("\"", strongIndex) + 1;
+			idx2 = ret.find("\"", idx1 + 1);
+			lemmaText = ret.mid(idx1, idx2 - idx1);
+			if (lemmaText == sNumber) {
+				// strongs number is found now we need to highlight it
+				// I believe the easiest way is to insert rep3 just before "lemma="
+				ret = ret.insert(strongIndex, rep3);
+				strongIndex += rep3Length;
+				}
+			strongIndex += 6; // 6 is the length of "lemma="
+			}
+		}
+	//---------------------------------------------------------------------
+	// now that the strong: stuff is out of the way continue with
+	// other search options
+	//---------------------------------------------------------------------
+	//-----------------------------------------------------------
+	// try to figure out how to use the lucene query parser
+	//-----------------------------------------------------------
+	//using namespace lucene::queryParser;
+	//using namespace lucene::search;
+	//using namespace lucene::analysis;
+	//using namespace lucene::util;
+
+	//wchar_t *buf;
+	//char buf8[1000];
+	//standard::StandardAnalyzer analyzer;
+	//lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
+	//util::scoped_ptr<Query> q( QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer) );
+	//StringReader reader(m_wcharBuffer);
+	//TokenStream* tokenStream = analyzer.tokenStream( _T("field"), &reader);
+	//Token token;
+	//while(tokenStream->next(&token) != 0) {
+	//	lucene_wcstoutf8(buf8, token.termText(), 1000);
+	//	printf("%s\n", buf8);
+	//}
+
+	//===========================================================
+	// since I could not figure out the lucene query parser, I
+	// made a simple parser.
+	//===========================================================
+	QStringList words = QueryParser(newSearchText);
+	for ( int wi = 0; (unsigned int)wi < words.count(); ++wi ) { //search for every word in the list
+		QRegExp findExp;
+		QString word = words[ wi ];
+		if (word.endsWith("*")) {
+			length = word.length() - 1;
+			findExp = QRegExp(word);
+		}
+		else {
+			length = word.length();
+			findExp = QRegExp("\\b" + word + "\\b");
+		}
+		//       index = 0; //for every word start at the beginning
+		index = ret.find("<body", 0);
+		findExp.setCaseSensitive(cs);
+		while ( (index = ret.find(findExp, index)) != -1 ) { //while we found the word
 			if (!CToolClass::inHTMLTag(index, ret)) {
 				ret = ret.insert( index+length, rep2 );
 				ret = ret.insert( index, rep1 );
 				index += repLength;
 			}
-			index += repLength;
-		};
-	}
-	else if (searchFlags & CSwordModuleSearch::multipleWords) { //multiple words*/
-		QStringList words = QStringList::split(" ", searchedText);
-		for ( int wi = 0; (unsigned int)wi < words.count(); ++wi ) { //search for every word in the list
-			QString word = words[ wi ];
-			if ((word == "AND") || (word == "OR"))
-				continue;
-			length = word.length();
-			//       index = 0; //for every word start at the beginning
-			index = ret.find("<body", 0);
-			while ( (index = ret.find(word, index, cs)) != -1 ) { //while we found the word
-				if (!CToolClass::inHTMLTag(index, ret)) {
-					ret = ret.insert( index+length, rep2 );
-					ret = ret.insert( index, rep1 );
-					index += repLength;
-				}
-				index += length;
-			}
+			index += length;
 		}
-// 	}
-// 	else { //multiple words or regular expression
-// 		//use re as regular expression and replace any occurences
-// 		QRegExp regExp( searchedText, cs );
-// 		regExp.setMinimal( true );
-// 
-// 		while ( (index = regExp.search(ret, index)) != -1 ) {
-// 			if (!CToolClass::inHTMLTag(index, ret)) {
-// 				ret = ret.insert( index + regExp.matchedLength(), rep2 );
-// 				ret = ret.insert( index, rep1 );
-// 				index += regExp.matchedLength() + repLength;
-// 			}
-// 			index += length;
-// 		}
-// 	}
-
-	//   qWarning("\n\n\n%s", ret.latin1());
-
-	return ret; //not implemented yet
+	}
+	//qWarning("\n\n\n%s", ret.latin1());
+	return ret;
 };
 
 /** Initializes the signal slot conections of the child widgets, */

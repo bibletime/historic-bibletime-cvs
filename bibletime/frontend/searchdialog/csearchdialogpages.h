@@ -145,7 +145,6 @@ private:
 	QString lemmaText;
 };
 
-
 /** The page of the search dialog which contains the search result part.
   * @author The BibleTime team
   */
@@ -177,6 +176,10 @@ protected: // Protected methods
 	* Initializes the signal slot conections of the child widgets
 	*/
 	void initConnections();
+	/**
+	* This function breakes the queryString into clucene tokens
+	*/	
+	QStringList CSearchResultPage::QueryParser(const QString& queryString);
 	/**
 	* This function highlights the searched text in the content using the search type given by search flags
 	*/
