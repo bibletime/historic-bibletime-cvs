@@ -228,15 +228,14 @@ void CSearchDialog::initView() {
 void CSearchDialog::searchFinished() {
 // 	qWarning("CSearchDialog::searchFinished()");
 
-	m_staticDialog->raise();
-	m_staticDialog->setActiveWindow();
-
 	if ( m_searcher.foundItems() ) {
 		m_searchResultPage->setSearchResult(modules());
 	}
 	else {
 		m_searchResultPage->reset();
 	}
+	m_staticDialog->raise();
+	m_staticDialog->setActiveWindow();
 }
 
 void CSearchDialog::showModulesSelector() {
