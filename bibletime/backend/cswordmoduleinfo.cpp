@@ -238,7 +238,7 @@ void CSwordModuleInfo::buildIndex() {
 	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
 	writer->setMaxFieldLength(IndexWriter::DEFAULT_MAX_FIELD_LENGTH);
 	writer->setUseCompoundFile(true);
-	writer->setMinMergeDocs(3200);
+	writer->setMinMergeDocs(1000);
 	
 	long verseIndex, verseLowIndex, verseHighIndex = 1;
 	*m_module = sword::TOP;

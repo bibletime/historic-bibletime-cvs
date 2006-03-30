@@ -123,11 +123,11 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				if ((attrib = tag.getAttribute("lemma"))) {
  					char splitChar = '|';
 					const int countSplit1 = tag.getAttributePartCount("lemma", '|');
-					const int countSplit2 = tag.getAttributePartCount("lemma", ' ');
+					const int countSplit2 = tag.getAttributePartCount("lemma", ' '); //TODO: not allowed, remove soon
 					int count = 0;
 					
 					if (countSplit1 > countSplit2) { //| split char
-						splitChar = '|';
+						splitChar = '|'; //TODO: not allowed, remove soon
 						count = countSplit1;
 					}
 					else {
@@ -150,7 +150,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						}
 
 						val = strchr(attrib, ':');
-val = (val) ? (val + 1) : attrib;
+						val = (val) ? (val + 1) : attrib;
 
 						if ((*val == 'H') || (*val == 'G')) {
 							attrValue.append(val);
@@ -166,7 +166,7 @@ val = (val) ? (val + 1) : attrib;
 				if ((attrib = tag.getAttribute("morph"))) {
 					char splitChar = '|';
 					const int countSplit1 = tag.getAttributePartCount("morph", '|');
-					const int countSplit2 = tag.getAttributePartCount("morph", ' ');
+					const int countSplit2 = tag.getAttributePartCount("morph", ' '); //TODO: not allowed, remove soon
 					int count = 0;
 					
 					if (countSplit1 > countSplit2) { //| split char
@@ -196,7 +196,18 @@ val = (val) ? (val + 1) : attrib;
 						val = strchr(attrib, ':');
 
 						if (val) { //the prefix gives the modulename
-							attrValue.append( !strncmp(attrib, "x-", 2) ? attrib+2 : attrib );
+							//check the prefix
+							if (!strncmp("robinson:", attrib, 9)) { //robinson
+								attrValue.append( "Robinson:" ); //work is not the same as Sword's module name
+								attrValue.append( val+1 );
+							}
+							//strongs is handled by BibleTime
+							/*else if (!strncmp("strongs", attrib, val-atrrib)) {
+								attrValue.append( !strncmp(attrib, "x-", 2) ? attrib+2 : attrib );
+							}*/
+							else {
+								attrValue.append( !strncmp(attrib, "x-", 2) ? attrib+2 : attrib );
+							}
 						}
 						else { //no prefix given
 							const bool skipFirst = ((val[0] == 'T') && ((val[1] == 'H') || (val[1] == 'H')));

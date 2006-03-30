@@ -325,7 +325,7 @@ private:
 	// conversion buffers for wide char <-> utf8
 	enum {
 		MAX_CONV_SIZE = 2047
-   };
+	};
 	wchar_t m_wcharBuffer[MAX_CONV_SIZE + 1];
 	char m_utfBuffer[MAX_CONV_SIZE + 1];
 
