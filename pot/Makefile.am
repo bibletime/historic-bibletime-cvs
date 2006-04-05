@@ -14,6 +14,9 @@ messages:
 	rm -r ./tmp/
 	echo Finished creating handbook.pot and howto.pot.\n
 	echo Preparing program messages file messages.pot...
+	echo Before we start, run make to generate all the auto-generated .cpp and .h files 
+	(sleep 5; cd ..; make) #needed for .ui files
+	echo Now extract the messages...
 	perl ./extractrc ../bibletime/xml/*.rc > ../bibletime/rc-dummy.cpp
 	perl ./preparetips ../docs/tips > ../bibletime/tips-dummy.cpp
 	$(XGETTEXT) -C -F -L C++ -ki18n -kI18N_NOOP -x `kde-config --prefix`/include/kde/kde.pot `find .. -type f -not -name clanguagemgr.cpp -and -name \*.cpp -or -name \*.h -or -name \*.cc` -o messages.pot

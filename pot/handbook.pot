@@ -1,18 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2006-03-30 19:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: application/x-xml2pot; charset=UTF-8\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #. Tag: title
 #: hdbk-config.docbook:1
@@ -711,7 +711,7 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:49 hdbk-operation.docbook:116
+#: hdbk-operation.docbook:49 hdbk-operation.docbook:115
 #, no-c-format
 msgid "Searching in works"
 msgstr ""
@@ -879,13 +879,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:119
+#: hdbk-operation.docbook:118
 #, no-c-format
 msgid "Accessing the search dialog"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:120
+#: hdbk-operation.docbook:119
 #, no-c-format
 msgid ""
 "You can search in a work by clicking with the <mousebutton>right</"
@@ -897,7 +897,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:124
+#: hdbk-operation.docbook:122
 #, no-c-format
 msgid ""
 "You can also access the search dialog by clicking on "
@@ -906,7 +906,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:126
+#: hdbk-operation.docbook:123
 #, no-c-format
 msgid ""
 "A third possibility to start searches is to click on the search symbol in an "
@@ -914,31 +914,31 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:130
+#: hdbk-operation.docbook:127
 #, no-c-format
 msgid "Search configuration"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:131
+#: hdbk-operation.docbook:128
 #, no-c-format
 msgid "Use the options tab to set up your search."
 msgstr ""
 
 #. Tag: screeninfo
-#: hdbk-operation.docbook:133
+#: hdbk-operation.docbook:130
 #, no-c-format
 msgid "Search Text Dialog Options Tab"
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:142
+#: hdbk-operation.docbook:139
 #, no-c-format
 msgid "Selecting works"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:143
+#: hdbk-operation.docbook:140
 #, no-c-format
 msgid ""
 "At the top of the options tab you will find <guibutton>Choose works</"
@@ -948,144 +948,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:148
-#, no-c-format
-msgid "Search text"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:150
-#, no-c-format
-msgid ""
-"The text box labled <guimenuitem>Search text</guimenuitem> is where you can "
-"specify what you want to look for. This phrase may be one or more words, or "
-"partial words, (separate words, or partials, with a space), a phrase, or a "
-"<link linkend=\"hdbk-reference-regexp\">regular expression</link>."
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:156
-#, no-c-format
-msgid "Search type"
-msgstr ""
-
-#. Tag: guimenuitem
-#: hdbk-operation.docbook:160
-#, no-c-format
-msgid "Multiple words (AND)"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:162
-#, no-c-format
-msgid ""
-"If <guimenuitem>Multiple words (AND)</guimenuitem> is marked, the search "
-"will locate all lines (or verses) that have all the words. The position and "
-"order of the words does not matter. A search for &quot;prove cause&quot; "
-"will find Gen. 21:25, &quot;And Abraham re<emphasis>prove</emphasis>d "
-"Abimelech be <emphasis>cause</emphasis> of a well of water...&quot; This is "
-"because a word that is part of another word is considered found if a word "
-"containing it is found."
-msgstr ""
-
-#. Tag: guimenuitem
-#: hdbk-operation.docbook:174
-#, no-c-format
-msgid "Multiple words (OR)"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:176
-#, no-c-format
-msgid ""
-"If <guimenuitem>Multiple words (OR)</guimenuitem> is marked, the search will "
-"locate all lines (or verses) that have any of the words. A search for &quot;"
-"prove cause&quot; will find Genesis 21:11, &quot;And the thing was very "
-"grievous in Abraham's sight be<emphasis>cause </emphasis> of his son.&quot;"
-msgstr ""
-
-#. Tag: guimenuitem
-#: hdbk-operation.docbook:185
-#, no-c-format
-msgid "Exact"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:187
-#, no-c-format
-msgid ""
-"If <guimenuitem>Exact</guimenuitem> is marked, the search will locate all "
-"lines (or verses) that contain the very phrase that was entered in the input "
-"field, including any spaces. A search for &quot;now how thou ought&quot; "
-"will find 1 Timothy 3:1, &quot;...that thou mayest k<emphasis>now how thou "
-"ought</emphasis>est to behave...&quot;"
-msgstr ""
-
-#. Tag: guimenuitem
-#: hdbk-operation.docbook:196
-#, no-c-format
-msgid "Regular expression"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:198
-#, no-c-format
-msgid ""
-"If <guimenuitem>Regular expression</guimenuitem> is marked, the search "
-"phrase will be treated as a GCC regular epression. This allows you to create "
-"very advanced searches. Please refer to <link linkend=\"hdbk-reference-regexp"
-"\">this section</link> for detailed instructions how to use this correctly "
-"and effectively."
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:208
-#, no-c-format
-msgid "Search options"
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:210
-#, no-c-format
-msgid ""
-"Use the <guimenuitem>Case sensitive</guimenuitem> box to switch case sensite "
-"searching on or off."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:213
-#, no-c-format
-msgid ""
-"With the <guimenu>Text type</guimenu> selector you can narrow your search "
-"according to the kind of text you want to search in. Thus you can limit your "
-"search to include only headings, footnotes, Strong's numbers or "
-"morphological codes. Of course, this will only function if the work you want "
-"to search in has these features. You can test this with the KJV, a richly "
-"marked up English Bible."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:219
-#, no-c-format
-msgid ""
-"A neat side-effect of this feature is that it enables you to search for all "
-"places where a certain word in the greek or hebrew text occurs, and study "
-"the usage of that word. E.g., if you want to look for all occurrences of the "
-"word \"oikos\" (house) in the New Testament, first locate a verse where the "
-"word \"oikos\" is found (search for \"house\" in the New Testament). Find "
-"out the Strong's number of \"oikos\", which in this case is \"G3624\". Then "
-"you can limit your search to Strong's numbers, and search for \"G3624\". You "
-"will find all verses where this word is found in the original greek text."
-msgstr ""
-
-#. Tag: title
-#: hdbk-operation.docbook:232
+#: hdbk-operation.docbook:145
 #, no-c-format
 msgid "Using Search Scopes"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:233
+#: hdbk-operation.docbook:146
 #, no-c-format
 msgid ""
 "You can narrow the scope of your search to certain parts of the Bible by "
@@ -1096,7 +965,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:235
+#: hdbk-operation.docbook:148
 #, no-c-format
 msgid ""
 "You can also define your own search ranges by clicking the <guibutton>Setup "
@@ -1104,13 +973,122 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:240
+#: hdbk-operation.docbook:152
+#, no-c-format
+msgid "Basic Search Syntax Introduction"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:153
+#, no-c-format
+msgid ""
+"Enter search terms separated by spaces. By default the search function will "
+"return results that match any of the search terms (OR). To search for all "
+"the terms separate the terms by AND."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:154
+#, no-c-format
+msgid ""
+"You can use wildcards: '*' matches any sequence of characters, while '?' "
+"matches any single character. The use of brackets allows you to group your "
+"search terms, e.g. '(Jesus OR spirit) AND God'."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:155
+#, no-c-format
+msgid ""
+"To search text other than the main text, enter the text type followed by "
+"':', and then the search term. For example, to search for the Strong's "
+"number H8077, use 'strong:H8077'."
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:156
+#, no-c-format
+msgid "Available text types:"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:158
+#, no-c-format
+msgid "Prefix"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:158
+#, no-c-format
+msgid "Meaning"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:160
+#, no-c-format
+msgid "heading:"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:160
+#, no-c-format
+msgid "searches headings"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:161
+#, no-c-format
+msgid "footnote:"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:161
+#, no-c-format
+msgid "searches footnotes"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:162
+#, no-c-format
+msgid "strong:"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:162
+#, no-c-format
+msgid "searches Strong's Numbers"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:163
+#, no-c-format
+msgid "morph:"
+msgstr ""
+
+#. Tag: entry
+#: hdbk-operation.docbook:163
+#, no-c-format
+msgid "searches morphology codes"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:165
+#, no-c-format
+msgid ""
+"BibleTime uses the Lucene search engine to perform your searches. It has "
+"many advanced features, and you can read more about it here: <ulink url="
+"\"http://lucene.apache.org/java/docs/queryparsersyntax.html\">http://lucene."
+"apache.org/java/docs/queryparsersyntax.html</ulink>"
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:172
 #, no-c-format
 msgid "Search results"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:241
+#: hdbk-operation.docbook:173
 #, no-c-format
 msgid ""
 "Here you can see how many instances of the search string were found, sorted "
@@ -1122,7 +1100,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:245
+#: hdbk-operation.docbook:177
 #, no-c-format
 msgid ""
 "Drag a reference and drop it on a work symbol on the Bookshelf to open the "
@@ -1130,7 +1108,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:247
+#: hdbk-operation.docbook:179
 #, no-c-format
 msgid ""
 "Drag a reference and drop it on an open read window, and it will jump to "
@@ -1138,19 +1116,19 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:248
+#: hdbk-operation.docbook:180
 #, no-c-format
 msgid "Select references and drag them to the Bookshelf to create bookmarks."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:251
+#: hdbk-operation.docbook:183
 #, no-c-format
 msgid "Search result analysis"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:252
+#: hdbk-operation.docbook:184
 #, no-c-format
 msgid ""
 "Click on <guibutton>Search analysis</guibutton> to open the search analysis "
@@ -1160,19 +1138,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: hdbk-operation.docbook:257
+#: hdbk-operation.docbook:189
 #, no-c-format
 msgid "Search Analysis Dialog Box"
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:271
+#: hdbk-operation.docbook:203
 #, no-c-format
 msgid "The <guimenuitem>Bookshelf Manager</guimenuitem>"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:273
+#: hdbk-operation.docbook:205
 #, no-c-format
 msgid ""
 "The <guimenuitem>Bookshelf Manager</guimenuitem> is a tool to manage your "
@@ -1183,13 +1161,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:276
+#: hdbk-operation.docbook:208
 #, no-c-format
 msgid "Bookshelf path(s) setup"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:278
+#: hdbk-operation.docbook:210
 #, no-c-format
 msgid ""
 "Here you can specify where &bibletime; may store your Bookshelf on the "
@@ -1198,7 +1176,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:280
+#: hdbk-operation.docbook:212
 #, no-c-format
 msgid ""
 "If you have a sword CD, but do not want to install all the works on the "
@@ -1208,13 +1186,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:284
+#: hdbk-operation.docbook:216
 #, no-c-format
 msgid "Install/update work(s)"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:286
+#: hdbk-operation.docbook:218
 #, no-c-format
 msgid ""
 "With this facility, you can connect to a repository of works (called "
@@ -1226,7 +1204,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:288
+#: hdbk-operation.docbook:220
 #, no-c-format
 msgid ""
 "To begin the installation or update process, select a library you want to "
@@ -1241,13 +1219,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:293
+#: hdbk-operation.docbook:225
 #, no-c-format
 msgid "Remove work(s)"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:295
+#: hdbk-operation.docbook:227
 #, no-c-format
 msgid ""
 "This facility allows you to delete one or more of the works from your "
@@ -1256,13 +1234,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:303
+#: hdbk-operation.docbook:235
 #, no-c-format
 msgid "Exporting and Printing"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:305
+#: hdbk-operation.docbook:237
 #, no-c-format
 msgid ""
 "In many places, you can open a context menu by clicking with the "
@@ -1276,7 +1254,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:310
+#: hdbk-operation.docbook:242
 #, no-c-format
 msgid ""
 "Printing from &bibletime; is rather basic and is intended as a utility. If "
