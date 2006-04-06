@@ -235,6 +235,7 @@ void CBibleReadWindow::setupPopupMenu() {
 	(new KActionSeparator(this))->plug( popup() );
 
 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::bibleWindow::copyMenu::icon, popup());
+	m_actions.copyMenu->setDelayed( false );
 	m_actions.copyMenu->insert(m_actions.copy.referenceOnly);
 	m_actions.copyMenu->insert(m_actions.copy.referenceTextOnly);
 	m_actions.copyMenu->insert(m_actions.copy.referenceAndText);
@@ -244,12 +245,14 @@ void CBibleReadWindow::setupPopupMenu() {
 	m_actions.copyMenu->plug(popup());
 
 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::displaywindows::bibleWindow::saveMenu::icon, popup());
+	m_actions.saveMenu->setDelayed( false );
 	m_actions.saveMenu->insert(m_actions.save.referenceAndText);
 	m_actions.saveMenu->insert(m_actions.save.chapterAsPlain);
 	m_actions.saveMenu->insert(m_actions.save.chapterAsHTML);
 	m_actions.saveMenu->plug(popup());
 
 	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::displaywindows::bibleWindow::printMenu::icon, popup());
+	m_actions.printMenu->setDelayed(false);
 	m_actions.printMenu->insert(m_actions.print.reference);
 	m_actions.printMenu->insert(m_actions.print.chapter);
 	m_actions.printMenu->plug(popup());

@@ -206,6 +206,7 @@ void BibleTime::initActions() {
 										 actionCollection(),
 										 CResMgr::mainMenu::window::arrangementMode::actionName
 									 );
+	m_windowArrangementMode_action->setDelayed( false );
 
 	m_windowManualMode_action = new KToggleAction(i18n("&Manual mode"),
 								CResMgr::mainMenu::window::arrangementMode::manual::icon,
@@ -333,6 +334,7 @@ void BibleTime::initActions() {
 								 CResMgr::mainMenu::window::saveProfile::actionName
 												);
 	m_windowSaveProfile_action->setToolTip( CResMgr::mainMenu::window::saveProfile::tooltip );
+	m_windowSaveProfile_action->setDelayed( false );
 	#if KDE_VERSION_MINOR < 1
 
 	m_windowSaveProfile_action->plugAccel( accel() );
@@ -357,9 +359,8 @@ void BibleTime::initActions() {
 								 actionCollection(),
 								 CResMgr::mainMenu::window::loadProfile::actionName
 												);
-	m_windowLoadProfile_action->setToolTip(
-		CResMgr::mainMenu::window::loadProfile::tooltip
-	);
+	m_windowLoadProfile_action->setToolTip(	CResMgr::mainMenu::window::loadProfile::tooltip	);
+	m_windowLoadProfile_action->setDelayed( false );
 	#if KDE_VERSION_MINOR < 1
 
 	m_windowLoadProfile_action->plugAccel( accel() );
@@ -370,9 +371,8 @@ void BibleTime::initActions() {
 								   actionCollection(),
 								   CResMgr::mainMenu::window::deleteProfile::actionName
 												  );
-	m_windowLoadProfile_action->setToolTip(
-		CResMgr::mainMenu::window::deleteProfile::tooltip
-	);
+	m_windowLoadProfile_action->setToolTip( CResMgr::mainMenu::window::deleteProfile::tooltip );
+	m_windowLoadProfile_action->setDelayed( false );
 	#if KDE_VERSION_MINOR < 1
 
 	m_windowDeleteProfile_action->plugAccel( accel() );

@@ -209,6 +209,7 @@ void CLexiconReadWindow::setupPopupMenu() {
 	(new KActionSeparator(this))->plug( popup() );
 
 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::lexiconWindow::copyMenu::icon, actionCollection());
+	m_actions.copyMenu->setDelayed(false);
 
 	m_actions.copyMenu->insert(m_actions.copy.reference);
 	m_actions.copyMenu->insert(m_actions.copy.entry);
@@ -217,11 +218,13 @@ void CLexiconReadWindow::setupPopupMenu() {
 	m_actions.copyMenu->plug(popup());
 
 	m_actions.saveMenu = new KActionMenu(i18n("Save..."), CResMgr::displaywindows::lexiconWindow::saveMenu::icon, actionCollection());
+	m_actions.saveMenu->setDelayed(false);
 	m_actions.saveMenu->insert(m_actions.save.entryAsPlain);
 	m_actions.saveMenu->insert(m_actions.save.entryAsHTML);
 	m_actions.saveMenu->plug(popup());
 
 	m_actions.printMenu = new KActionMenu(i18n("Print..."), CResMgr::displaywindows::lexiconWindow::printMenu::icon, actionCollection());
+	m_actions.printMenu->setDelayed(false);
 	m_actions.printMenu->insert(m_actions.print.reference);
 	m_actions.printMenu->insert(m_actions.print.entry);
 	m_actions.printMenu->plug(popup());

@@ -155,6 +155,7 @@ void CMainIndex::initView() {
 	m_actions.deleteEntries = new KAction(i18n("Remove selected item(s)"),CResMgr::mainIndex::deleteItems::icon, 0, this, SLOT(deleteEntries()), this);
 
 	m_actions.editModuleMenu = new KActionMenu(i18n("Edit this work"),CResMgr::mainIndex::editModuleMenu::icon, this);
+	m_actions.editModuleMenu->setDelayed(false);
 	m_actions.editModulePlain = new KAction(i18n("Plain text"),CResMgr::mainIndex::editModulePlain::icon, 0, this, SLOT(editModulePlain()), this);
 	m_actions.editModuleHTML = new KAction(i18n("HTML"),CResMgr::mainIndex::editModuleHTML::icon, 0, this, SLOT(editModuleHTML()), this);
 
