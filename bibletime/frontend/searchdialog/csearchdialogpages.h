@@ -78,7 +78,8 @@ public:
 		return keyNameList.count();
 	}
 	void addKeyName(const QString& keyName) {
-		keyNameList.append(keyName);
+		if (keyNameList.findIndex(keyName) == -1)
+			keyNameList.append(keyName);
 	}
 	QStringList* getKeyList() {
 		return & keyNameList;
