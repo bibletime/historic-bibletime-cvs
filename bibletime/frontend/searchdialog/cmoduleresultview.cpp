@@ -84,8 +84,8 @@ void CModuleResultView::initView() {
 
 /** Initializes the connections of this widget, */
 void CModuleResultView::initConnections() {
-	connect(this, SIGNAL(executed(QListViewItem*)),
-			SLOT(executed(QListViewItem*)));
+	connect(this, SIGNAL(currentChanged(QListViewItem*)),
+			this, SLOT(executed(QListViewItem*)));
 	connect(this, SIGNAL(contextMenu(KListView*, QListViewItem*, const QPoint&)),
 			this, SLOT(showPopup(KListView*, QListViewItem*, const QPoint&)));
 }
