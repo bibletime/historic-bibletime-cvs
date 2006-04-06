@@ -422,10 +422,6 @@ sub processMakefile ($)
       substituteLine($lookup, "RECURSIVE_TARGETS = $1 nmcheck-recursive bcheck-recursive");
     }
 
-    my $cvs_lines = "cvs-clean:\n";
-    $cvs_lines .= "\t\$(MAKE) admindir=\$(top_srcdir)/admin -f \$(top_srcdir)/admin/Makefile.common cvs-clean\n";
-    appendLines($cvs_lines);
-
     $cvs_lines  = "kde-rpo-clean:\n";
     $cvs_lines .= "\t-rm -f *.rpo\n";
     appendLines($cvs_lines);
@@ -876,8 +872,9 @@ sub tag_KDEINIT()
                 $lines .= "\techo 'int main(int argc, char* argv[]) { return kdemain(argc,argv); }' >> ${kdeinit}.la.$cxxsuffix\n";
 
                 $lines .= "\n${kdeinit}_dummy.$cxxsuffix:\n";
-                $lines .= "\techo 'extern \"C\" int kdemain(int argc, char* argv[]);' > ${kdeinit}_dummy.$cxxsuffix; \\\n";
-                $lines .= "\techo 'extern \"C\" int kdeinitmain(int argc, char* argv[]) { return kdemain(argc,argv); }' >> ${kdeinit}_dummy.$cxxsuffix\n";
+                $lines .= "\techo '#include <kdemacros.h>' > ${kdeinit}_dummy.$cxxsuffix; \\\n";
+                $lines .= "\techo 'extern \"C\" int kdemain(int argc, char* argv[]);' >> ${kdeinit}_dummy.$cxxsuffix; \\\n";
+                $lines .= "\techo 'extern \"C\" KDE_EXPORT int kdeinitmain(int argc, char* argv[]) { return kdemain(argc,argv); }' >> ${kdeinit}_dummy.$cxxsuffix\n";
 
                 push(@cleanfiles, "${kdeinit}.la.$cxxsuffix");
                 push(@cleanfiles, "${kdeinit}_dummy.$cxxsuffix");
@@ -2031,7 +2028,7 @@ sub tag_DOCFILES ()
 
       $lines .= "\n";
       $lines .= "uninstall-docs:\n";
-      $lines .= "\t-rm -rf \$(kde_htmldir)/$kdelang/$appname\n";
+      $lines .= "\t-rm -rf \$(DESTDIR)\$(kde_htmldir)/$kdelang/$appname\n";
       $lines .= "\n";
       $lines .= "clean-docs:\n";
       $lines .= "\t-rm -f index.cache.bz2\n";
