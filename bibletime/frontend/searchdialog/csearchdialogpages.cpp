@@ -400,6 +400,7 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 	
 	//   int index = 0;
 	int index = ret.find("<body", 0);
+	int matchLen = 0;
 	int length = searchedText.length();
 
 	const QString rep1("<span style=\"background-color:#FFFF66;\">");
@@ -487,19 +488,25 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 	for ( int wi = 0; (unsigned int)wi < words.count(); ++wi ) { //search for every word in the list
 		QRegExp findExp;
 		QString word = words[ wi ];
-		if (word.endsWith("*")) {
+		if (word.contains("*")) {
 			length = word.length() - 1;
 			findExp = QRegExp(word);
+			findExp.setMinimal(TRUE);
+			findExp.setWildcard(TRUE);
 		}
 		else {
 			length = word.length();
 			findExp = QRegExp("\\b" + word + "\\b");
 		}
+
 		//       index = 0; //for every word start at the beginning
 		index = ret.find("<body", 0);
 		findExp.setCaseSensitive(cs);
-		while ( (index = ret.find(findExp, index)) != -1 ) { //while we found the word
+		//while ( (index = ret.find(findExp, index)) != -1 ) { //while we found the word
+		while ( (index = findExp.search(ret, index)) != -1 ) { //while we found the word
+			matchLen = findExp.matchedLength();
 			if (!CToolClass::inHTMLTag(index, ret)) {
+				length = matchLen;
 				ret = ret.insert( index+length, rep2 );
 				ret = ret.insert( index, rep1 );
 				index += repLength;
