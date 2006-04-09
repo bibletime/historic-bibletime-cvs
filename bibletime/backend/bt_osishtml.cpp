@@ -332,7 +332,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				myUserData->suspendTextPassThru = false;
 			}
 		}
-
 		// The <p> paragraph tag is handled by OSISHTMLHref
 		else if (!strcmp(tag.getName(), "reference")) { // <reference> tag
 

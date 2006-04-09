@@ -160,3 +160,9 @@ void CBookReadWindow::modulesChanged() {
 	CLexiconReadWindow::modulesChanged();
 	m_treeChooser->setModules(modules());
 }
+
+void CBookReadWindow::setupPopupMenu() {
+	CLexiconReadWindow::setupPopupMenu();
+
+	popup()->changeTitle(-1, CToolClass::getIconForModule(modules().first()), i18n("Book window"));
+}

@@ -27,10 +27,10 @@ class CBookTreeChooser;
 class CBookReadWindow : public CLexiconReadWindow  {
 	Q_OBJECT
 public:
-	//  static void insertKeyboardActions( KAccel* a );
 	static void insertKeyboardActions( KActionCollection* const a );
 
 	CBookReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
+	
 	virtual ~CBookReadWindow();
 	/**
 	* Store the settings of this window in the given CProfileWindow object.
@@ -47,54 +47,23 @@ protected:
 	virtual void initConnections();
 	virtual void initView();
 
-	//  virtual void setupPopupMenu();
+	virtual void setupPopupMenu();
+
+	protected slots: // Protected slots
+	/**
+	 * Reimplementation to take care of the tree chooser.
+	 */
+	virtual void modulesChanged();
 
 private:
 	KToggleAction* m_treeAction;
 	CBookTreeChooser* m_treeChooser;
-
-	//  struct {
-	//    KAction* selectAll;
-	//    KActionMenu* copyMenu;
-	//   struct {
-	//      KAction* reference;
-	//   KAction* entry;
-	//      KAction* selectedText;
-	//    } copy;
-	//
-	//    KActionMenu* saveMenu;
-	//    struct {
-	//      KAction* reference;
-	//     KAction* entryAsPlain;
-	//      KAction* entryAsHTML;
-	//    } save;
-	//
-	//    KActionMenu* printMenu;
-	//    struct {
-	//      KAction* reference;
-	//   KAction* entry;
-	//  } print;
-	//  } m_actions;
 
 private slots: // Private slots
 	/**
 	* Is called when the action was executed to toggle the tree view.
 	*/
 	void treeToggled();
-
-protected slots: // Protected slots
-	/**
-	* Reimplementation to take care of the tree chooser.
-	*/
-	virtual void modulesChanged();
-	//  /**
-	//   Saves the current text as as HTML page.
-	//  */
-	//  virtual void saveAsHTML();
-	//  /**
-	//   Saves the displayed page as plain text.
-	//   */
-	//  virtual void saveAsPlain();
 };
 
 #endif

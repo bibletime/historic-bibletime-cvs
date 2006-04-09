@@ -62,8 +62,9 @@ void CCommentaryReadWindow::insertKeyboardActions( KActionCollection* const a ) 
 
 void CCommentaryReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
 	CLexiconReadWindow::applyProfileSettings(profileWindow);
-	if (profileWindow->windowSettings())
+	if (profileWindow->windowSettings()) {
 		m_syncButton->setChecked(true);
+	}
 };
 
 void CCommentaryReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
@@ -191,7 +192,7 @@ const bool CCommentaryReadWindow::syncAllowed() const {
     \fn CCommentaryReadWindow::setupPopupMenu()
  */
 void CCommentaryReadWindow::setupPopupMenu() {
-	CLexiconReadWindow::updatePopupMenu();
-	popup()->changeTitle(0, i18n("Commentary window"));
+	CLexiconReadWindow::setupPopupMenu();
 
+	popup()->changeTitle(-1, CToolClass::getIconForModule(modules().first()), i18n("Commentary window"));
 }

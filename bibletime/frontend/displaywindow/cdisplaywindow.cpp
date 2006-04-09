@@ -450,24 +450,27 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 	}
 	else { //given module not displayed in this window
 		//if the module is displayed in another display window we assume a wrong drop
-		QWidgetList windows = mdi()->windowList();
+		//QWidgetList windows = mdi()->windowList();
 		bool found = false;
-		CDisplayWindow* dw = 0;
 
-		for (windows.first(); windows.current(); windows.next()) {
+		//Always open a new window for now
+		
+		//CDisplayWindow* dw = 0;
+
+		/*for (windows.first(); windows.current(); windows.next()) {
 			dw = dynamic_cast<CDisplayWindow*>(windows.current());
 
 			if (dw && dw->modules().contains(m)) {
 				found = true;
 				break;
 			}
-		}
+	}*/
 
-		if (found) { //lookup in the window which has the module displayed
+		/*if (found) { //lookup in the window which has the module displayed
 			//     qWarning("using other existing window");
 			dw->lookup(moduleName, keyName);
 		}
-		else { //create a new window for the given module
+		else */ { //create a new window for the given module
 			//     qWarning("creating a new window");
 			ListCSwordModuleInfo mList;
 			mList.append(m);
