@@ -341,11 +341,37 @@ unsigned long CSwordModuleInfo::indexSize() const {
 	return util::filesystem::DirectoryUtil::getDirSizeRecursive( getModuleBaseIndexLocation() );
 }
 
+
+void addKeyToList(QPtrList<VerseKey> &list, VerseKey *vk)
+{
+	int index = 0;
+	VerseKey *tmpVK;
+	
+	for (tmpVK = list.first(); tmpVK; tmpVK = list.next()) {
+		if (tmpVK->Testament() == vk->Testament()) {
+			if (tmpVK->Index() > vk->Index()) {
+				//insert into list
+				list.insert(index, vk);
+				return;
+			}
+		}
+		else if (tmpVK->Testament() > vk->Testament()) {
+			list.insert(index, vk);
+			return;
+		}
+		index++;
+	}
+	list.append(vk);
+	return;
+}
+
 const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::ListKey& scope)
 {
 	// work around Swords thread insafety for Bibles and Commentaries
 	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
 	sword::SWKey* s = dynamic_cast < sword::SWKey * >(key.get());
+	QPtrList<VerseKey> list;
+	list.setAutoDelete( TRUE ); // the list owns the objects
 
 	if (s) {
 		m_module->SetKey(*s);
@@ -366,14 +392,54 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 		const bool useScope = (scope.Count() > 0);
 		Document* doc = 0;
 		util::scoped_ptr<SWKey> swKey( module()->CreateKey() );
-		
+
+		//-----------------------------------------------------------------------
+		// *** Temporary code until clucene sorts the search resutls ***
+		// This is the same code as the orginal but calls a new function
+		// addKeyToList to add the key to a temporary list that does the sorting
+		// during the add process.
+		//-----------------------------------------------------------------------
 		for (int i = 0; i < h->length(); ++i) {
 			doc = &h->doc(i);
 			lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
 			
 			swKey->setText(m_utfBuffer);
 			
-		    // limit results based on scope
+			// limit results based on scope
+			//if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
+			if (useScope) {
+				for (int j = 0; j < scope.Count(); j++) {
+					VerseKey* vkey = dynamic_cast<VerseKey*>(scope.getElement(j));
+					if (vkey->LowerBound().compare(*swKey) <= 0 && vkey->UpperBound().compare(*swKey) >= 0){
+						VerseKey *vkey = new VerseKey(swKey);
+						addKeyToList(list, vkey);
+					}
+				}
+			}
+			else { // no scope, give me all buffers
+				VerseKey *vkey = new VerseKey(swKey);
+				addKeyToList(list, vkey);
+			}
+		}
+		
+		//-----------------------------------------------------------------------
+		// *** Temporary code until clucene sorts the search resutls ***
+		// This adds the sorted results to the Search Result object.
+		//-----------------------------------------------------------------------
+		VerseKey *tmpVK;
+		sword::SWKey* swk;
+		for (tmpVK = list.first(); tmpVK; tmpVK = list.next()) {
+			swKey->setText(tmpVK->getText());
+			m_searchResult.add(*swKey);
+		}
+		/*
+		for (int i = 0; i < h->length(); ++i) {
+			doc = &h->doc(i);
+			lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
+			
+			swKey->setText(m_utfBuffer);
+			
+			// limit results based on scope
 			//if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
 			if (useScope) {
 				for (int j = 0; j < scope.Count(); j++) {
@@ -386,13 +452,14 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 			else { // no scope, give me all buffers
 				m_searchResult.add(*swKey);
 			}
-		}	
+		}
+		*/
 	}
 	catch (...) {
 		qWarning("CLucene exception");
 		return false;
 	}
-	
+	list.clear();	
 	return (m_searchResult.Count() > 0);
 }
 
