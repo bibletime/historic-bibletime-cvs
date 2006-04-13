@@ -49,10 +49,11 @@
 #include <rtfhtml.h>
 
 //Lucence includes
-#include "CLucene.h"
-#include "CLucene/util/Reader.h"
-#include "CLucene/util/Misc.h"
-#include "CLucene/util/dirent.h"
+#include <CLucene.h>
+#include <CLucene/util/Reader.h>
+#include <CLucene/util/Misc.h>
+#include <CLucene/util/dirent.h>
+
 
 using namespace std;
 using namespace lucene::index;
@@ -217,10 +218,12 @@ const bool CSwordModuleInfo::hasIndex() { //this will return true only
 
 
 void CSwordModuleInfo::buildIndex() {
+	wchar_t wcharBuffer[LUCENE_MAX_FIELD_LENGTH + 1];
+
 	//Without this we don't get strongs, lemmas, etc
 	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
 	
-	lucene::analysis::standard::StandardAnalyzer an;
+	SimpleAnalyzer an;
 	QString index = getModuleStandardIndexLocation();
 
 	QDir dir;
@@ -236,8 +239,8 @@ void CSwordModuleInfo::buildIndex() {
 	}
 	
 	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
-	writer->setMaxFieldLength(IndexWriter::DEFAULT_MAX_FIELD_LENGTH);
-	writer->setUseCompoundFile(true);
+	writer->setMaxFieldLength(LUCENE_MAX_FIELD_LENGTH);
+	writer->setUseCompoundFile(true); //merge segments into a single file
 	writer->setMinMergeDocs(1000);
 	
 	long verseIndex, verseLowIndex, verseHighIndex = 1;
@@ -246,29 +249,30 @@ void CSwordModuleInfo::buildIndex() {
 	*m_module = sword::BOTTOM;
 	verseHighIndex = m_module->Index();
 
-	bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
+	const bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
 	
 	m_indexingProgress.setValue( QVariant((int)0) );
-	
+
+	QString key;
 	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
 		Document* doc = new Document();
 		
 		// index the key
 		// we have to be sure to insert the english key into the index, otherwise we'd be in trouble if the
 		//language changes
-		QString key = QString::fromUtf8(m_module->getKey()->getText());
+		key = QString::fromUtf8(m_module->getKey()->getText());
 		if (isVerseModule) {
 			VerseKey vk( m_module->getKey()->getText() );
 			vk.setLocale("en_US");
 			key = QString::fromUtf8(vk.getText());
 		}
 		//qWarning("key is %s", key.latin1());
-		lucene_utf8towcs(m_wcharBuffer, (const char*)key.utf8(), MAX_CONV_SIZE);
-		doc->add(*Field::UnIndexed(_T("key"), m_wcharBuffer));
+		lucene_utf8towcs(wcharBuffer, (const char*)key.utf8(), LUCENE_MAX_FIELD_LENGTH);
+		doc->add(*Field::UnIndexed(_T("key"), wcharBuffer));
 
 		// index the main text
-		lucene_utf8towcs(m_wcharBuffer, m_module->StripText(), MAX_CONV_SIZE);
-		doc->add(*Field::UnStored(_T("content"), m_wcharBuffer));
+		lucene_utf8towcs(wcharBuffer, m_module->StripText(), LUCENE_MAX_FIELD_LENGTH);
+		doc->add(*Field::UnStored(_T("content"), wcharBuffer));
 
 		// index attributes
 		AttributeList::iterator attListI;
@@ -277,16 +281,16 @@ void CSwordModuleInfo::buildIndex() {
 		for (attListI = m_module->getEntryAttributes()["Footnote"].begin();
 			attListI != m_module->getEntryAttributes()["Footnote"].end();
 			attListI++) {
-				lucene_utf8towcs(m_wcharBuffer, attListI->second["body"], MAX_CONV_SIZE);
-				doc->add(*Field::UnStored(_T("footnote"), m_wcharBuffer));
+				lucene_utf8towcs(wcharBuffer, attListI->second["body"], LUCENE_MAX_FIELD_LENGTH);
+				doc->add(*Field::UnStored(_T("footnote"), wcharBuffer));
 		} // for attListI
 		
 		// Headings
 		for (attValueI = m_module->getEntryAttributes()["Heading"]["Preverse"].begin();
 			attValueI != m_module->getEntryAttributes()["Heading"]["Preverse"].end();
 			attValueI++) {
-			lucene_utf8towcs(m_wcharBuffer, attValueI->second, MAX_CONV_SIZE);
-			doc->add(*Field::UnStored(_T("heading"), m_wcharBuffer));
+			lucene_utf8towcs(wcharBuffer, attValueI->second, LUCENE_MAX_FIELD_LENGTH);
+			doc->add(*Field::UnStored(_T("heading"), wcharBuffer));
 		} // for attValueI
 
 		// Strongs/Morphs
@@ -295,13 +299,13 @@ void CSwordModuleInfo::buildIndex() {
 			attListI++) {
 			// for each attribute
 			if (attListI->second["LemmaClass"] == "strong") {
-				lucene_utf8towcs(m_wcharBuffer, attListI->second["Lemma"], MAX_CONV_SIZE);
-				doc->add(*Field::UnStored(_T("strong"), m_wcharBuffer));
+				lucene_utf8towcs(wcharBuffer, attListI->second["Lemma"], LUCENE_MAX_FIELD_LENGTH);
+				doc->add(*Field::UnStored(_T("strong"), wcharBuffer));
 				//qWarning("Adding strong %s", attListI->second["Lemma"].c_str());
 			}
 			if (attListI->second.find("Morph") != attListI->second.end()) {
-				lucene_utf8towcs(m_wcharBuffer, attListI->second["Morph"], MAX_CONV_SIZE);
-				doc->add(*Field::UnStored(_T("morph"), m_wcharBuffer));
+				lucene_utf8towcs(wcharBuffer, attListI->second["Morph"], LUCENE_MAX_FIELD_LENGTH);
+				doc->add(*Field::UnStored(_T("morph"), wcharBuffer));
 			}
 		} // for attListI
 		
@@ -361,18 +365,25 @@ void addKeyToList(QPtrList<VerseKey> &list, VerseKey *vk)
 		}
 		index++;
 	}
+	
 	list.append(vk);
+	
 	return;
 }
 
 const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::ListKey& scope)
 {
+	char utfBuffer[LUCENE_MAX_FIELD_LENGTH  + 1];
+	wchar_t wcharBuffer[LUCENE_MAX_FIELD_LENGTH + 1];
+		
 	// work around Swords thread insafety for Bibles and Commentaries
 	util::scoped_ptr < CSwordKey > key(CSwordKey::createInstance(this));
 	sword::SWKey* s = dynamic_cast < sword::SWKey * >(key.get());
 	QPtrList<VerseKey> list;
-	list.setAutoDelete( TRUE ); // the list owns the objects
+	list.setAutoDelete( true ); // the list owns the objects
 
+	const bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
+	
 	if (s) {
 		m_module->SetKey(*s);
 	}
@@ -380,20 +391,23 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 	m_searchResult.ClearList();
 	
 	try {
-		standard::StandardAnalyzer analyzer;
+		SimpleAnalyzer analyzer;
 		IndexSearcher searcher(getModuleStandardIndexLocation().ascii());
-		lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
-		util::scoped_ptr<Query> q( QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer) );
+		lucene_utf8towcs(wcharBuffer, searchedText.utf8(), LUCENE_MAX_FIELD_LENGTH);
+		util::scoped_ptr<Query> q( QueryParser::parse(wcharBuffer, _T("content"), &analyzer) );
 
 		util::scoped_ptr<Hits> h( searcher.search(q) );
 		//TODO
 		//h = searcher.search(q, Sort::INDEXORDER); //Should return keys in the right order, doesn't work properly with CLucene 0.9.10, will work with 0.9.11
-
+		
 		const bool useScope = (scope.Count() > 0);
+		const bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
+		
 		Document* doc = 0;
 		util::scoped_ptr<SWKey> swKey( module()->CreateKey() );
 
 		//-----------------------------------------------------------------------
+		// FIXME:
 		// *** Temporary code until clucene sorts the search resutls ***
 		// This is the same code as the orginal but calls a new function
 		// addKeyToList to add the key to a temporary list that does the sorting
@@ -401,24 +415,35 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 		//-----------------------------------------------------------------------
 		for (int i = 0; i < h->length(); ++i) {
 			doc = &h->doc(i);
-			lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
+			lucene_wcstoutf8(utfBuffer, doc->get(_T("key")), LUCENE_MAX_FIELD_LENGTH);
 			
-			swKey->setText(m_utfBuffer);
+			swKey->setText(utfBuffer);
 			
 			// limit results based on scope
 			//if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
 			if (useScope) {
 				for (int j = 0; j < scope.Count(); j++) {
 					VerseKey* vkey = dynamic_cast<VerseKey*>(scope.getElement(j));
+					
 					if (vkey->LowerBound().compare(*swKey) <= 0 && vkey->UpperBound().compare(*swKey) >= 0){
 						VerseKey *vkey = new VerseKey(swKey);
-						addKeyToList(list, vkey);
+						addKeyToList(list, vkey);//key is deleted by the list
+						break;
 					}
 				}
 			}
 			else { // no scope, give me all buffers
-				VerseKey *vkey = new VerseKey(swKey);
-				addKeyToList(list, vkey);
+				if (isVerseModule) {//using Versekey only makes sense for Bibles and Commentaries
+					VerseKey* vkey = new VerseKey( swKey );
+					//vkey->Headings( 1);
+
+					if (vkey->Verse() != 0) {//FIXME:intros can't be display atm
+						addKeyToList(list, vkey);//key is deleted by the list
+					}
+				}
+				else { //no verse based module
+					m_searchResult.add(*swKey);
+				}
 			}
 		}
 		
@@ -426,18 +451,20 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 		// *** Temporary code until clucene sorts the search resutls ***
 		// This adds the sorted results to the Search Result object.
 		//-----------------------------------------------------------------------
-		VerseKey *tmpVK;
-		sword::SWKey* swk;
+		
+		VerseKey *tmpVK = 0;
 		for (tmpVK = list.first(); tmpVK; tmpVK = list.next()) {
 			swKey->setText(tmpVK->getText());
+			
 			m_searchResult.add(*swKey);
 		}
+		
 		/*
 		for (int i = 0; i < h->length(); ++i) {
 			doc = &h->doc(i);
-			lucene_wcstoutf8(m_utfBuffer, doc->get(_T("key")), MAX_CONV_SIZE);
+			lucene_wcstoutf8(utfBuffer, doc->get(_T("key")), LUCENE_MAX_FIELD_LENGTH);
 			
-			swKey->setText(m_utfBuffer);
+			swKey->setText(utfBuffer);
 			
 			// limit results based on scope
 			//if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
@@ -459,7 +486,9 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 		qWarning("CLucene exception");
 		return false;
 	}
-	list.clear();	
+	
+	list.clear();
+	
 	return (m_searchResult.Count() > 0);
 }
 

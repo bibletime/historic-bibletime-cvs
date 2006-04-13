@@ -324,10 +324,10 @@ private:
 
 	// conversion buffers for wide char <-> utf8
 	enum {
-		MAX_CONV_SIZE = 2047
+		LUCENE_MAX_FIELD_LENGTH = 20000
 	};
-	wchar_t m_wcharBuffer[MAX_CONV_SIZE + 1];
-	char m_utfBuffer[MAX_CONV_SIZE + 1];
+	//wchar_t m_wcharBuffer[MAX_CONV_SIZE + 1];
+	//char m_utfBuffer[MAX_CONV_SIZE + 1];
 
 	mutable struct DataCache {
 		DataCache() {
