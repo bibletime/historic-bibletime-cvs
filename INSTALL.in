@@ -1,60 +1,75 @@
-Additions for BibleTime @VERSION@:
+Installation instructions for BibleTime @VERSION@:
 ---------------------------
 
-These are the installation instructions for BibleTime @VERSION@.
-Sometimes it is difficult to compile BibleTime from source code, but it's possible. Don't hesitate to ask for support at info@bibletime.info. In that case, please include your system's configuration details.
+Sometimes it is difficult to compile BibleTime from source code, but it's 
+possible. Don't hesitate to ask for support at info@bibletime.info. In that 
+case, please include your system's configuration details.
 
 BibleTime @VERSION@ requires:
 
-	-KDE >= 3.0 (at least the libraries (kdelibs) and the base package (kdebase))
-		Although BibleTime should compile and run with KDE 3.0-3.3, we strongly recommend 
-		to use the latest version of KDE available for your Linux installation.
+  - KDE >= 3.0 (at least the libraries (kdelibs) and the base package (kdebase))
+     Although BibleTime should compile and run with KDE 3.0-3.3, we strongly recommend 
+     to use the latest version of KDE available for your Linux installation.
 
-	-SWORD 1.5.8, available from http://www.crpsswire.org/sword/
+  - SWORD 1.5.8, available from http://www.crpsswire.org/sword/
 
-	-CLucene >= 0.9.10, available from http://clucene.sf.net/
+  - CLucene >= 0.9.10, available from http://clucene.sf.net/
 
 
 If you don't have the sources already, please browse to www.bibletime.info to see
 a list of required packages with their download URLs.
 
-To install texts (e.g. Bibles), just use the new integrated module
-installation manager in the Settings menu of BibleTime.
-
-Complete instructions for the installation of BibleTime, supporting programs,
-and text modules can be found in the project documentation at http://www.bibletime.info/.
+To install texts (e.g. Bibles), just use the Bookshelf Manager in the Settings 
+menu of BibleTime.
 
 
 Compile BibleTime @VERSION@:
 ---------------------------
+
 cd ~
-tar -xjf bibletime-@VERSION.tar.bz2
-cd ~/bibletime-@VERSION@	# Move to your source directory
-kde-config --prefix			# Displays your KDE directory (optional)
-./configure --prefix=<your KDE dir> # create makefiles
-make						# compile BibleTime
-su -c "make install"		# change to "root user" and install BibleTime
+tar -xjf bibletime-@VERSION@.tar.bz2
+cd ~/bibletime-@VERSION@              # Move to your source directory
+kde-config --prefix                   # Displays your KDE directory (optional)
+./configure --prefix=<your KDE dir>   # create makefiles
+make                                  # compile BibleTime
+su -c "make install"                  # change to "root user" and install BibleTime
+
+After this, if you want to use the translations of BibleTime's UI, you should
+install the bibletime-i18n package.
 
 
+Debian specifics
 ---------------------------
-	useful make options
+Debian (and possibly derived distros as well) use a non-standard path to
+store the documentation of KDE programs. Therefore the ./configure line above in 
+this case needs to be changed to:
+
+kde_htmldir=/usr/share/doc/kde/HTML ./configure --prefix=/usr
+
+If you forget this, you'll likely not be able to access the handbook and the 
+BibleStudy HowTo.
+
+
+Other useful make options
 ---------------------------
-make clean		# Removes binaries from the directory
-				# where BibleTime was compiled, but not the source
+make clean           # Removes binaries from the directory
+                     # where BibleTime was compiled, but not the source
 
-make uninstall	# Removes BibleTime from your system
+make uninstall       # Removes BibleTime from your system
 
 
-If something is missing in this file please post to info@bibletime.info, the contact adress for BibleTime.
-Please read README for a short description of BibleTime @VERSION@. The new handbook
-does contain better instructions how to install BibleTime from sources.
-It has more information about BibleTime's features and installation.
+If something is missing in this file please post to info@bibletime.info, the contact 
+adress for BibleTime. Please read README for a short description of BibleTime @VERSION@. 
+
+
 
 The BibleTime team, <info@bibletime.info>
 
 
+
+
 ______________________________________________________________________________
-**			The standard Installation instructions of auto-tool packages				**
+**     The standard Installation instructions of auto-tool packages         **
 ------------------------------------------------------------------------------
 
 
