@@ -214,7 +214,7 @@ QStringList BibleTime::getModulesOfType(const QString& type) {
 }
 
 void BibleTime::reloadModules() {
-	m_backend->reloadModules();
+	//m_backend->reloadModules();
 	slotSwordSetupChanged();
 }
 

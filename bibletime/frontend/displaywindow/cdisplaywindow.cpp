@@ -227,12 +227,6 @@ void CDisplayWindow::windowActivated( const bool hasFocus ) {
 	}
 }
 
-/** Reimplementation from QWidget. Used to initialize things before the widget is shown. */
-// void CDisplayWindow::polish(){
-// //  qWarning("CDisplayWindow::polish()");
-//   KMainWindow::polish();
-// }
-
 /** Refresh the settings of this window. */
 void CDisplayWindow::reload() {
 	//first make sure all used Sword modules are still present
@@ -245,6 +239,10 @@ void CDisplayWindow::reload() {
 		}
 	}
 
+	if (keyChooser()) {
+		keyChooser()->setModules( modules(), false );
+	}
+	
 	if (m_moduleChooserBar) { //necessary for edit windows which have now chooser bar
 		m_moduleChooserBar->setModules(modules());
 	}
@@ -484,7 +482,7 @@ void CDisplayWindow::lookup( const QString& keyName ) {
 	*/
 	Q_ASSERT(modules().first());
 
-	qDebug("CDisplayWindow::lookup: %s", keyName.latin1());
+	//qDebug("CDisplayWindow::lookup: %s", keyName.latin1());
 	lookup(modules().first()->name(), keyName);
 }
 
