@@ -223,7 +223,7 @@ void CSwordModuleInfo::buildIndex() {
 	//Without this we don't get strongs, lemmas, etc
 	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
 	
-	SimpleAnalyzer an;
+	lucene::analysis::standard::StandardAnalyzer an;
 	QString index = getModuleStandardIndexLocation();
 
 	QDir dir;
@@ -391,7 +391,7 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 	m_searchResult.ClearList();
 	
 	try {
-		SimpleAnalyzer analyzer;
+		standard::StandardAnalyzer analyzer;
 		IndexSearcher searcher(getModuleStandardIndexLocation().ascii());
 		lucene_utf8towcs(wcharBuffer, searchedText.utf8(), LUCENE_MAX_FIELD_LENGTH);
 		util::scoped_ptr<Query> q( QueryParser::parse(wcharBuffer, _T("content"), &analyzer) );
