@@ -518,11 +518,11 @@ the module remote installation feature!</b>")
 		return success;
 	}
 
-	void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName ) {
+	bool CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName ) {
 		KApplication::kApplication()->processEvents();
 		Q_ASSERT(m_installModuleListView);
 		if (!m_installModuleListView) { // this may be an update after removing modules
-			return;
+			return false;
 		}
 
 		m_installModuleListView->clear();
@@ -534,7 +534,7 @@ the module remote installation feature!</b>")
 				&& !refreshRemoteModuleCache(sourceName)) {
 			//   qWarning("finish");
 			m_installModuleListView->finish();
-			return;
+			return false;
 		}
 
 		//kind of a hack to provide a pointer to mgr next line
@@ -547,7 +547,7 @@ the module remote installation feature!</b>")
 		Q_ASSERT( BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is) );
 		if (!remote_backend) {
 			m_installModuleListView->finish();
-			return;
+			return false;
 		}
 
 		CSwordBackend* local_backend = CPointers::backend();
@@ -597,6 +597,7 @@ the module remote installation feature!</b>")
 			);
 		}
 		m_installModuleListView->finish();
+		return true;
 	}
 
 	void CSwordSetupDialog::slot_connectToSource() {
@@ -629,18 +630,20 @@ the module remote installation feature!</b>")
 			connect(m_installModuleListView, SIGNAL(selectedModulesChanged()), SLOT(slot_installModulesChanged()));
 		}
 
-		//code valid for already existing and newly created widgets
-		disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
-		connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
+		if (populateInstallModuleListView( currentInstallSource() ) ){
 
-		populateInstallModuleListView( currentInstallSource() );
-		m_installContinueButton->setText(i18n("Install works"));
-		m_installContinueButton->setEnabled(false);
-
-		m_installWidgetStack->raiseWidget(m_installModuleListPage);
-
-		connect( m_installBackButton, SIGNAL(clicked()), this, SLOT(slot_showInstallSourcePage()));
-		m_installBackButton->setEnabled(true);
+			//code valid for already existing and newly created widgets
+			disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
+			connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
+	
+			m_installContinueButton->setText(i18n("Install works"));
+			m_installContinueButton->setEnabled(false);
+	
+			m_installWidgetStack->raiseWidget(m_installModuleListPage);
+	
+			connect( m_installBackButton, SIGNAL(clicked()), this, SLOT(slot_showInstallSourcePage()));
+			m_installBackButton->setEnabled(true);
+		}
 	}
 
 	void CSwordSetupDialog::slot_installAddSource() {

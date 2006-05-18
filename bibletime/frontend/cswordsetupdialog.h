@@ -99,7 +99,7 @@ private:
 
 		const bool refreshRemoteModuleCache( const QString& sourceName );
 		void populateRemoveModuleListView();
-		void populateInstallModuleListView(const QString& sourceName);
+		bool populateInstallModuleListView(const QString& sourceName);
 
 		//install module stuff
 		QPushButton* m_installBackButton;
