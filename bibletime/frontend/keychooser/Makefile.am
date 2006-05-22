@@ -10,6 +10,8 @@ clexiconkeychooser.cpp \
 ckeychooser.cpp \
 cscrollbutton.cpp \
 ckeychooserwidget.cpp \
+ckeyreferencewidget.cpp \
+cscrollerwidgetset.cpp \
 cbookkeychooser.cpp \
 cbooktreechooser.cpp
 
@@ -17,7 +19,9 @@ all_headers = ckeychooserwidget.h \
 cscrollbutton.h \
 ckeychooser.h \
 clexiconkeychooser.h \
+cscrollerwidgetset.h \
 cbiblekeychooser.h \
+ckeyreferencewidget.h \
 cbookkeychooser.h \
 cbooktreechooser.h
 

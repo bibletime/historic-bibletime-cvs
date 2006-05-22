@@ -10,10 +10,10 @@
 
 //BibleTime includes
 #include "ckeychooserwidget.h"
-#include "cscrollbutton.h"
 
 //BibleTime frontend includes
 #include "frontend/cbtconfig.h"
+
 
 //Qt includes
 #include <qlineedit.h>
@@ -29,10 +29,6 @@
 #include <qapplication.h>
 #include <qtooltip.h>
 #include <qrect.h>
-
-const unsigned int WIDTH = 16;
-const unsigned int ARROW_HEIGHT = 12;
-const unsigned int MOVER_HEIGHT = 6;
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
 : QComboBox(rw,parent,name) {
@@ -120,42 +116,6 @@ CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSi
 	reset(m_list,0,false);
 }
 
-void CKeyChooserWidget::changeCombo(int i) {
-	if (!isUpdatesEnabled()) {
-		return;
-	}
-
-	setUpdatesEnabled(false);
-
-	int current = comboBox()->currentItem();
-
-	//index of highest Item
-	const int count = comboBox()->count()-1;
-	int j = current + i;
-	if (i > 0) {
-		if (j <= count) {
-			comboBox()->setCurrentItem(j);
-		}
-		else {
-			comboBox()->setCurrentItem(count);
-		}
-	}
-	else if (i < 0) {
-		if (j>=0) {
-			comboBox()->setCurrentItem(j);
-		}
-		else {
-			comboBox()->setCurrentItem(0);
-		}
-	}
-
-	if (!isResetting && !btn_fx->isLocked() && (current != comboBox()->currentItem())) {
-		emit changed(comboBox()->currentItem());
-	}
-
-	setUpdatesEnabled(true);
-}
-
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit) {
 	if (!isUpdatesEnabled())
 		return;
@@ -174,8 +134,6 @@ void CKeyChooserWidget::reset(QStringList& list, int index, bool do_emit) {
 
 	m_list = list;
 	reset(&m_list,index,do_emit);
-
-	isResetting = false;
 }
 
 
@@ -197,17 +155,10 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit) {
 	}
 
 	if (!list || (list && !list->count())) { //nothing in the combobox
-		btn_up->setEnabled( true );
-		btn_fx->setEnabled( true );
-		btn_down->setEnabled( true );
 		setEnabled(false);
 	}
 	else if (!isEnabled()) { //was disabled
 		setEnabled(true);
-		const bool enableButtons = list && (list->count()>=1);
-		btn_up->setEnabled( enableButtons );
-		btn_fx->setEnabled( enableButtons );
-		btn_down->setEnabled( list && (list->count()>1) );
 	}
 
 	if (list->count()) {
@@ -228,23 +179,9 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit) {
 	//  qWarning("inserted");
 }
 
-void CKeyChooserWidget::lock(void) {
-	comboBox()->setEditable(false);
-	oldKey = comboBox()->currentText();
-}
-
-void CKeyChooserWidget::unlock(void) {
-	comboBox()->setEditable(true);
-	comboBox()->setEditText(comboBox()->text(comboBox()->currentItem()));
-	if (comboBox()->currentText() != oldKey) {
-		emit changed(comboBox()->currentItem());
-	}
-}
-
 /** Initializes this widget. We need this function because we have more than one constructor. */
 void CKeyChooserWidget::init() {
 	oldKey = QString::null;
-	btn_up = btn_down = btn_fx = 0;
 
 	setFocusPolicy(QWidget::WheelFocus);
 
@@ -256,44 +193,16 @@ void CKeyChooserWidget::init() {
 	m_mainLayout = new QHBoxLayout( this );
 	m_mainLayout->addWidget(m_comboBox,5);
 
-	QVBoxLayout* m_buttonLayout = new QVBoxLayout();
-	m_buttonLayout->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);
+	m_scroller = new CScrollerWidgetSet(this);
 
-	btn_up = new QToolButton( UpArrow, this, "btn_up" );
-	btn_up->setFixedSize(WIDTH, ARROW_HEIGHT);
-	btn_up->setFocusPolicy(QWidget::NoFocus);
-
-	btn_fx = new CScrollButton( this, "btn_fx" );
-	btn_fx->setFixedSize(WIDTH, MOVER_HEIGHT);
-	btn_fx->setFocusPolicy(QWidget::NoFocus);
-
-	btn_down = new QToolButton( DownArrow, this, "btn_down" );
-	btn_down->setFixedSize(WIDTH, ARROW_HEIGHT);
-	btn_down->setFocusPolicy(QWidget::NoFocus);
-
-	m_buttonLayout->addWidget( btn_up,0 );
-	m_buttonLayout->addWidget( btn_fx,0 );
-	m_buttonLayout->addWidget( btn_down,0 );
-
-	m_mainLayout->addLayout( m_buttonLayout );
+	m_mainLayout->addWidget( m_scroller );
 	m_mainLayout->addSpacing(2);
 
 	setTabOrder(m_comboBox, 0);
 
-	// signals and slots connections
-	if (m_useNextPrevSignals) {
-		connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );
-		connect(btn_down, SIGNAL(clicked()), SIGNAL(next_requested()) );
-	}
-	else {
-		connect(btn_up, SIGNAL(clicked()), SLOT(previous()) );
-		connect(btn_down, SIGNAL(clicked()), SLOT(next()) );
-	}
-
-	connect(btn_fx, SIGNAL(lock()), SLOT(lock()) )
-	;
-	connect(btn_fx, SIGNAL(unlock()), SLOT(unlock()) );
-	connect(btn_fx, SIGNAL(change_requested(int)), SLOT(changeCombo(int)) );
+	connect(m_scroller, SIGNAL(scroller_pressed()), SLOT(lock()));
+	connect(m_scroller, SIGNAL(scroller_released()), SLOT(unlock()));
+	connect(m_scroller, SIGNAL(change(int)), SLOT(changeCombo(int)) );
 
 	connect(m_comboBox, SIGNAL(activated(int)), SLOT(slotComboChanged(int)));
 	//  connect(m_comboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
@@ -343,13 +252,7 @@ void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextE
 
 	QToolTip::add
 		(comboBox(),comboTip);
-	QToolTip::add
-		(btn_fx,  scrollButtonTip);
-
-	QToolTip::add
-		(btn_down, nextEntryTip);
-	QToolTip::add
-		(btn_up, previousEntryTip);
+	m_scroller->setToolTips(nextEntryTip, scrollButtonTip, previousEntryTip);
 }
 
 /** Sets the current item to the one with the given text */
@@ -368,23 +271,35 @@ bool CKeyChooserWidget::setItem( const QString item ) {
 	return ret;
 }
 
-/** Jump to the next entry. */
-void CKeyChooserWidget::next() {
-	if (comboBox()->currentItem() != comboBox()->count()-1) {//current != last entry
-		comboBox()->setCurrentItem( comboBox()->currentItem()+1 );
+/* Handlers for the various scroller widgetset. */
+void CKeyChooserWidget::lock() {
+	updatelock = true;
+	comboBox()->setEditable(false);
+	oldKey = comboBox()->currentText();
+}
+
+void CKeyChooserWidget::unlock() {
+	updatelock = false;
+	comboBox()->setEditable(true);
+	comboBox()->setEditText(comboBox()->text(comboBox()->currentItem()));
+	if (comboBox()->currentText() != oldKey) {
 		emit changed(comboBox()->currentItem());
 	}
 }
 
-/** Jump to the previous entry. */
-void CKeyChooserWidget::previous() {
-	if (comboBox()->currentItem() != 0) {// current != first entry
-		comboBox()->setCurrentItem( comboBox()->currentItem()-1 );
-		emit changed(comboBox()->currentItem());
-	}
-}
+void CKeyChooserWidget::changeCombo(int n) {
+	const int old_item = comboBox()->currentItem();
+	int new_item = old_item + n;
 
-QComboBox* CKeyChooserWidget::comboBox() {
-	return m_comboBox;
+	//index of highest Item
+	const int max = comboBox()->count()-1;
+	if(new_item > max) new_item = max;
+	if(new_item < 0) new_item = 0;
+
+	if(new_item != old_item) {
+		comboBox()->setCurrentItem(new_item);
+		if(!updatelock)
+			emit changed(new_item);
+	}
 }
 

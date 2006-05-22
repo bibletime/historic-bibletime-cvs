@@ -17,14 +17,14 @@
 #include <qstringlist.h>
 
 #include <kcombobox.h>
+#include "cscrollerwidgetset.h"
 
-class CScrollButton;
+
 class CLexiconKeyChooser;
 //class CMinMaxLayout;
 
 class QIconSet;
 //class QComboBox;
-class QToolButton;
 class QStringList;
 class QPoint;
 class QMouseEvent;
@@ -112,7 +112,7 @@ public:
 	/**
 	* Return the combobox of this key chooser widget.
 	*/
-	QComboBox* comboBox();
+	QComboBox* comboBox() {return m_comboBox;};
 
 public slots:
 	/**
@@ -129,17 +129,9 @@ public slots:
 	* @param index the index to jump to
 	*/
 	void changeCombo(int index);
+	void slotComboChanged(int index);
 
 signals:
-	/**
-	* is emittd to proceed to the next entry, which may
-	* require changes in other widgets also
-	*/
-	void next_requested(void);
-	/**
-	* see @ref #next_requested
-	*/
-	void prev_requested(void);
 	/**
 	* Is emitted if the widget changed, but
 	* only if it is not locked or being reset
@@ -162,48 +154,26 @@ protected:
 	*
 	*/
 	QString oldKey;
-	/**
-	*
-	*/
-	QToolButton* btn_up;
-	/**
-	*
-	*/
-	QToolButton* btn_down;
-	/**
-	*
-	*/
-	CScrollButton* btn_fx;
 
 protected slots: // Protected slots
 	/**
 	* Is called when the return key was presed in the combobox.
 	*/
 	void slotReturnPressed( /*const QString&*/ );
-	/**
-	 * Is called when the current item of the combo box was changed.
-	 */
-	void slotComboChanged(int);
+
 
 private:
 	friend class CLexiconKeyChooser;
 	QStringList m_list;
 	bool m_useNextPrevSignals;
+	bool updatelock;
+
 	/**
 	* Members should never be public!!
 	*/
 	CKCComboBox* m_comboBox;
 	QHBoxLayout *m_mainLayout;
-
-private slots: // Private slots
-	/**
-	* Jump to the previous entry.
-	*/
-	void previous();
-	/**
-	* Jump to the next entry.
-	*/
-	void next();
+	CScrollerWidgetSet * m_scroller;
 };
 
 #endif

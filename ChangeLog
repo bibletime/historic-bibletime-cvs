@@ -1,4 +1,7 @@
 2006-05-18 Martin Gruner <mgruner@crosswire.org>
+  * Applied keychooser patch by Mark Zealey
+
+2006-05-18 Martin Gruner <mgruner@crosswire.org>
   * First patch after a month!
   * Fixed UI issue in Bookshelf Manager which ended up in wrong place after
   cancelling index download

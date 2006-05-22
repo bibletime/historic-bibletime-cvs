@@ -11,13 +11,13 @@
       <part>kdevdistpart</part>
     </ignoreparts>
     <version>1.6cvs</version>
-    <description></description>
+    <description/>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
       <language>Perl</language>
     </secondaryLanguages>
-    <versioncontrol></versioncontrol>
+    <versioncontrol/>
   </general>
   <kdevautoproject>
     <general>
@@ -72,14 +72,14 @@
     <general>
       <dbgshell>libtool</dbgshell>
       <programargs>--debug</programargs>
-      <gdbpath></gdbpath>
+      <gdbpath/>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript></configGdbScript>
-      <runShellScript></runShellScript>
-      <runGdbScript></runGdbScript>
+      <configGdbScript/>
+      <runShellScript/>
+      <runGdbScript/>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -161,7 +161,7 @@
       <pcs>SWORD header</pcs>
     </references>
     <creategettersetter>
-      <prefixGet></prefixGet>
+      <prefixGet/>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
@@ -176,10 +176,10 @@
   </kdevcppsupport>
   <kdevfilecreate>
     <filetypes>
-      <type icon="" ext="h" create="template" name="C++ Header template" >
+      <type icon="" ext="h" name="C++ Header template" create="template" >
         <descr>BibleTime C++ header template</descr>
       </type>
-      <type icon="source_cpp" ext="cpp" create="template" name="C++ source file" >
+      <type icon="source_cpp" ext="cpp" name="C++ source file" create="template" >
         <descr>BibleTime C++ source template</descr>
       </type>
     </filetypes>
@@ -187,9 +187,9 @@
   </kdevfilecreate>
   <kdevdocumentation>
     <projectdoc>
-      <docsystem></docsystem>
-      <docurl></docurl>
-      <usermanualurl></usermanualurl>
+      <docsystem/>
+      <docurl/>
+      <usermanualurl/>
     </projectdoc>
   </kdevdocumentation>
   <kdevcvsservice>
@@ -200,8 +200,8 @@
     <revertoptions>-C</revertoptions>
   </kdevcvsservice>
   <ctagspart>
-    <customArguments></customArguments>
-    <customTagfilePath></customTagfilePath>
+    <customArguments/>
+    <customTagfilePath/>
   </ctagspart>
   <kdevvisualadvance>
     <emulator>VisualBoyAdvance</emulator>

@@ -160,6 +160,7 @@ void CBookKeyChooser::setModules(const ListCSwordModuleInfo& modules, const bool
 			w->comboBox()->setCurrentItem(0);
 
 			connect(w, SIGNAL(changed(int)), SLOT(keyChooserChanged(int)));
+			connect(w, SIGNAL(focusOut(int)), SLOT(keyChooserChanged(int)));
 
 			m_layout->addWidget(w);
 			boxes[w] = i;
