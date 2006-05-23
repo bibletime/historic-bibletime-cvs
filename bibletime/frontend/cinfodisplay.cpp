@@ -253,9 +253,12 @@ namespace InfoDisplay {
 			return QString::null;
 		}
 
-		const QString modulename = list[0];
-		const QString keyname = list[1];
-		const QString swordFootnote = list[2];
+		const QString modulename = list.first();
+		const QString swordFootnote = list.last();
+
+		// remove the first and the last and then rejoin it to get a key
+		list.pop_back(); list.pop_front();
+		const QString keyname = list.join("/");
 
 		CSwordModuleInfo* module = CPointers::backend()->findModuleByName(modulename);
 		if (!module) {
