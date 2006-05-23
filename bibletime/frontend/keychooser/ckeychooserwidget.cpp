@@ -209,6 +209,7 @@ void CKeyChooserWidget::init() {
 	connect(m_comboBox->lineEdit(), SIGNAL(returnPressed()), SLOT(slotReturnPressed()));
 	connect(m_comboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));
 
+	updatelock = false;
 	isResetting = false;
 }
 
@@ -248,10 +249,7 @@ void CKeyChooserWidget::slotComboChanged(int index) {
 
 /** Sets the tooltips for the given entries using the parameters as text. */
 void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip) {
-	//  qWarning("add tooltip heklps: %s, %s, %s, %s", comboTip.latin1(), nextEntryTip.latin1(), scrollButtonTip.latin1(), previousEntryTip.latin1());
-
-	QToolTip::add
-		(comboBox(),comboTip);
+	QToolTip::add (comboBox(),comboTip);
 	m_scroller->setToolTips(nextEntryTip, scrollButtonTip, previousEntryTip);
 }
 
