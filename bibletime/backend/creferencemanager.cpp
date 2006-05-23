@@ -135,22 +135,22 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		ref = ref.left(ref.length()-1);
 
 	//find out which type we have by looking at the beginning (protocoll section of URL)
-	if (ref.left(8) == "sword://") { //Bible, Commentary or Lexicon
+	if (ref.left(8).lower() == "sword://") { //Bible, Commentary or Lexicon
 		ref = ref.mid(8);
 
-		if (ref.left(5) == "Bible") { //a bible hyperlink
+		if (ref.left(5).lower() == "bible") { //a bible hyperlink
 			type = CReferenceManager::Bible;
 			ref = ref.mid(6); //inclusive trailing slash
 		}
-		else if (ref.left(10) == "Commentary") { // a Commentary hyperlink
+		else if (ref.left(10).lower() == "commentary") { // a Commentary hyperlink
 			type = CReferenceManager::Commentary;
 			ref = ref.mid(11); //inclusive trailing slash
 		}
-		else if (ref.left(7) == "Lexicon") { // a Lexicon hyperlink
+		else if (ref.left(7).lower() == "lexicon") { // a Lexicon hyperlink
 			type = CReferenceManager::Lexicon;
 			ref = ref.mid(8); //inclusive trailing slash
 		}
-		else if (ref.left(4) == "Book") { // a Book hyperlink
+		else if (ref.left(4).lower() == "book") { // a Book hyperlink
 			type = CReferenceManager::GenericBook;
 			ref = ref.mid(5); //inclusive trailing slash
 		}
@@ -190,15 +190,15 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		//replace \/ escapes with /
 		key.replace(QRegExp("\\\\/"), "/");
 	}
-	else if (ref.left(8) == "morph://" || ref.left(10) == "strongs://") { //strongs or morph URL have the same format
+	else if (ref.left(8).lower() == "morph://" || ref.left(10).lower() == "strongs://") { //strongs or morph URL have the same format
 		enum PreType {IsMorph, IsStrongs};
 		PreType preType = IsMorph;
 
-		if (ref.left(8) == "morph://") { //morph code hyperlink
+		if (ref.left(8).lower() == "morph://") { //morph code hyperlink
 			ref = ref.mid(8);
 			preType = IsMorph;
 		}
-		else if (ref.left(10) == "strongs://") {
+		else if (ref.left(10).lower() == "strongs://") {
 			ref = ref.mid(10);
 			preType = IsStrongs;
 		}
@@ -209,7 +209,7 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		if (pos>0) { //found
 			const QString language = ref.mid(0,pos);
 
-			if (language == "Hebrew") {
+			if (language.lower() == "hebrew") {
 				switch (preType) {
 
 					case IsMorph:
@@ -221,7 +221,7 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 					break;
 				}
 			}
-			else if (language == "Greek") {
+			else if (language.lower() == "greek") {
 				switch (preType) {
 
 					case IsMorph:

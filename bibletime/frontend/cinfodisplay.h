@@ -60,6 +60,9 @@ protected:
 		const QString decodeMorph( const QString& data );
 		const QString getWordTranslation( const QString& data );
 
+protected slots:
+		void lookup(const QString &, const QString &);
+
 private:
 		CReadDisplay* m_htmlPart;
 	};

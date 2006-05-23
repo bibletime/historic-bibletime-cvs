@@ -24,6 +24,7 @@
 
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
+#include "frontend/display/chtmlreaddisplay.h"
 
 #include "util/scoped_resource.h"
 
@@ -56,6 +57,12 @@ namespace InfoDisplay {
 		m_htmlPart->setMouseTracking(false); //we don't want strong/lemma/note mouse infos
 		KStdAction::copy(m_htmlPart->connectionsProxy(), SLOT(copySelection()), 0, "copyMagSelection");
 
+		connect(
+			m_htmlPart->connectionsProxy(),
+			SIGNAL(referenceClicked(const QString&, const QString&)),
+			SLOT(lookup(const QString&, const QString&))
+		);
+
 		layout->addWidget(headingLabel);
 		layout->addWidget(m_htmlPart->view());
 	}
@@ -63,6 +70,30 @@ namespace InfoDisplay {
 
 	CInfoDisplay::~CInfoDisplay() {}
 
+	void CInfoDisplay::lookup(const QString &mod_name, const QString &key_text) {
+		qWarning("%s %s", mod_name.ascii(), key_text.ascii());
+		CSwordModuleInfo* m = CPointers::backend()->findModuleByName(mod_name);
+		Q_ASSERT(m);
+		if (!m)
+			return;
+
+		util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(m) );
+		key->key( key_text ); 
+
+		CDisplayTemplateMgr* mgr = CPointers::displayTemplateManager();
+		CDisplayTemplateMgr::Settings settings;
+		settings.pageCSS_ID = "infodisplay";
+		//  settings.langAbbrev = "";
+		QString content = mgr->fillTemplate(CBTConfig::get
+					(CBTConfig::displayStyle), key->renderedText(), settings);
+
+		//   qWarning("setting text:\n%s", content.latin1());
+
+		m_htmlPart->setText(content);			// scroll to top
+		CHTMLReadDisplay *d = dynamic_cast<CHTMLReadDisplay *>(m_htmlPart);
+		d->view()->ensureVisible(0, 0);
+
+	}
 
 	void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
 		ListInfoData list;

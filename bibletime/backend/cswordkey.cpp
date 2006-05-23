@@ -88,7 +88,29 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
 
 	Q_ASSERT(!key().isNull());
 	if (!key().isNull()) { //we have valid text
-		const QString text = QString::fromUtf8( m_module->module()->RenderText() );
+		QString text = QString::fromUtf8( m_module->module()->RenderText() );
+
+		// This is yucky, but if we want strong lexicon refs we have to do it here.
+		if (m_module->type() == CSwordModuleInfo::Lexicon) {
+			QString t(text);
+			QRegExp rx("(GREEK|HEBREW) for 0*([1-9]\\d*)");	// ignore 0's before number
+			int pos = 0;
+			while( (pos = rx.search(t, pos)) != -1 ) {
+				QString language = rx.cap(1);
+				QString langcode = QString(language.at(0));	// "G" or "H"
+				QString number = rx.cap(2);
+				QString paddednumber = number.rightJustify(5, '0');	// Form 00123
+
+				text.replace(
+						QRegExp( QString(
+							"(>[^<>]+)"			// Avoid replacing inside tags
+							"\\b(0*%1)\\b").arg(number) ),	// And span around 0's
+						QString("\\1<span lemma=\"%1%2\"><a href=\"strongs://%3/%4\">\\2</a></span>")
+							.arg(langcode, paddednumber, language, paddednumber)
+					);
+				pos += rx.matchedLength();
+			}
+		}
 
 		if (mode == HTMLEscaped) {
 			//we have to encode all UTF-8 in HTML escapes
