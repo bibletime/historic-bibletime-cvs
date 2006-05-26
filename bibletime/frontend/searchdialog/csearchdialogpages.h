@@ -180,7 +180,7 @@ protected: // Protected methods
 	/**
 	* This function breakes the queryString into clucene tokens
 	*/	
-	QStringList CSearchResultPage::QueryParser(const QString& queryString);
+	QStringList QueryParser(const QString& queryString);
 	/**
 	* This function highlights the searched text in the content using the search type given by search flags
 	*/
