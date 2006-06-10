@@ -73,7 +73,7 @@ fi
 
 CLUCENE_INCLUDES="-I$ac_cv_clucene_incdir"
 AC_SUBST(CLUCENE_INCLUDES)
-all_includes="$all_includes -I$ac_cv_clucene_incdir"
+all_includes="$all_includes -I$ac_cv_clucene_incdir -I$ac_cv_clucene_libdir" #$ac_cv_clucene_libdir needed for Clucene/clucene-config.h
 
 AC_MSG_RESULT([$ac_cv_clucene_incdir])
 

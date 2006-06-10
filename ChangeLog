@@ -1,3 +1,7 @@
+2006-06-19 Martin Gruner <mgruner@crosswire.org>
+  * patched clucene.m4 to work with clucene 0.9.12
+  * TODO: enforce that or a later stable version
+
 2006-05-23 Martin Gruner <mgruner@crosswire.org>
   * Applied more patches by Mark Zealey
 
