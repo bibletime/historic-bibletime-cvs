@@ -1,5 +1,6 @@
 ##	-*- autoconf -*-
 dnl This file was created by Lee Carpenter <elc@carpie.net>
+dnl Later modified by Martin Gruner <mgruner@crosswire.org>
 dnl It provides macros for the autoconf package to find the CLucene library on your system.
 
 dnl ----------------------------------------------------------------------
@@ -95,7 +96,7 @@ ac_libs_safe="$LIBS"
 
 CXXFLAGS="$CXXFLAGS -I$"
 LDFLAGS="$LDFLAGS -L$ac_cv_clucene_libdir"
-LIBS="$LIB_CLUCENE -lz"
+LIBS="$LIB_CLUCENE -lz -lsword"
 LD_LIBRARY_PATH="$ac_cv_clucene_libdir"
 export LD_LIBRARY_PATH
 LIBRARY_PATH=
@@ -103,10 +104,16 @@ export LIBRARY_PATH
 
 cat > conftest.$ac_ext <<EOF
 #include <iostream>
+#include <swversion.h>
 #include <CLucene/clucene-config.h>
 
 int main(int argc, char* argv[[]]) {
-	std::cout << _CL_VERSION << std::endl;
+	if ( sword::SWVersion( _CL_VERSION ) >= sword::SWVersion( "0.9.12" ) ){
+		std::cout << "ok";
+	}
+	else{
+		std::cout << "not-ok";
+	}
 	return 0;
 }
 EOF
@@ -134,6 +141,13 @@ LIBRARY_PATH="$ac_LIBRARY_PATH"
 export LIBRARY_PATH
 AC_LANG_RESTORE
 ])
-AC_MSG_RESULT([$ac_cv_installed_clucene_version])
+
+if test "x$ac_cv_installed_clucene_version" = "xok"; then
+	AC_MSG_RESULT([ok, version is recent enough]);
+elif test "x$ac_cv_installed_clucene_version" = "xnot-ok"; then
+	AC_MSG_RESULT([installed]);
+  	AC_MSG_ERROR([Your CLucene version is not recent enough! Please upgrade to version >= 0.9.12!]);
+fi;
+
 ])
 
