@@ -349,31 +349,6 @@ unsigned long CSwordModuleInfo::indexSize() const {
 }
 
 
-void addKeyToList(QPtrList<VerseKey> &list, VerseKey *vk)
-{
-	int index = 0;
-	VerseKey *tmpVK;
-	
-	for (tmpVK = list.first(); tmpVK; tmpVK = list.next()) {
-		if (tmpVK->Testament() == vk->Testament()) {
-			if (tmpVK->Index() > vk->Index()) {
-				//insert into list
-				list.insert(index, vk);
-				return;
-			}
-		}
-		else if (tmpVK->Testament() > vk->Testament()) {
-			list.insert(index, vk);
-			return;
-		}
-		index++;
-	}
-	
-	list.append(vk);
-	
-	return;
-}
-
 const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::ListKey& scope)
 {
 	char utfBuffer[LUCENE_MAX_FIELD_LENGTH  + 1];
@@ -399,9 +374,7 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 		lucene_utf8towcs(wcharBuffer, searchedText.utf8(), LUCENE_MAX_FIELD_LENGTH);
 		util::scoped_ptr<Query> q( QueryParser::parse(wcharBuffer, _T("content"), &analyzer) );
 
-		util::scoped_ptr<Hits> h( searcher.search(q) );
-		//TODO
-		//h = searcher.search(q, Sort::INDEXORDER); //Should return keys in the right order, doesn't work properly with CLucene 0.9.10, will work with 0.9.11
+		util::scoped_ptr<Hits> h( searcher.search(q, Sort::INDEXORDER) );
 		
 		const bool useScope = (scope.Count() > 0);
 		const bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
@@ -409,60 +382,7 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 		Document* doc = 0;
 		util::scoped_ptr<SWKey> swKey( module()->CreateKey() );
 
-		//-----------------------------------------------------------------------
-		// FIXME:
-		// *** Temporary code until clucene sorts the search resutls ***
-		// This is the same code as the orginal but calls a new function
-		// addKeyToList to add the key to a temporary list that does the sorting
-		// during the add process.
-		//-----------------------------------------------------------------------
-		for (int i = 0; i < h->length(); ++i) {
-			doc = &h->doc(i);
-			lucene_wcstoutf8(utfBuffer, doc->get(_T("key")), LUCENE_MAX_FIELD_LENGTH);
-			
-			swKey->setText(utfBuffer);
-			
-			// limit results based on scope
-			//if (searchOptions & CSwordModuleSearch::useScope && scope.Count() > 0){
-			if (useScope) {
-				for (int j = 0; j < scope.Count(); j++) {
-					VerseKey* vkey = dynamic_cast<VerseKey*>(scope.getElement(j));
-					
-					if (vkey->LowerBound().compare(*swKey) <= 0 && vkey->UpperBound().compare(*swKey) >= 0){
-						VerseKey *vkey = new VerseKey(swKey);
-						addKeyToList(list, vkey);//key is deleted by the list
-						break;
-					}
-				}
-			}
-			else { // no scope, give me all buffers
-				if (isVerseModule) {//using Versekey only makes sense for Bibles and Commentaries
-					VerseKey* vkey = new VerseKey( swKey );
-					//vkey->Headings( 1);
 
-					if (vkey->Verse() != 0) {//FIXME:intros can't be display atm
-						addKeyToList(list, vkey);//key is deleted by the list
-					}
-				}
-				else { //no verse based module
-					m_searchResult.add(*swKey);
-				}
-			}
-		}
-		
-		//-----------------------------------------------------------------------
-		// *** Temporary code until clucene sorts the search resutls ***
-		// This adds the sorted results to the Search Result object.
-		//-----------------------------------------------------------------------
-		
-		VerseKey *tmpVK = 0;
-		for (tmpVK = list.first(); tmpVK; tmpVK = list.next()) {
-			swKey->setText(tmpVK->getText());
-			
-			m_searchResult.add(*swKey);
-		}
-		
-		/*
 		for (int i = 0; i < h->length(); ++i) {
 			doc = &h->doc(i);
 			lucene_wcstoutf8(utfBuffer, doc->get(_T("key")), LUCENE_MAX_FIELD_LENGTH);
@@ -483,7 +403,6 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 				m_searchResult.add(*swKey);
 			}
 		}
-		*/
 	}
 	catch (...) {
 		qWarning("CLucene exception");

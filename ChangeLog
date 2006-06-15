@@ -7,6 +7,7 @@
   not implemented yet, not as important (and I dunno how to do it right now)
   * fixed display profile bug with maximized state; you may need to delete old
   sessions
+  * removed workaround code for lucene 0.9.10
 
 2006-06-09 Martin Gruner <mgruner@crosswire.org>
   * patched clucene.m4 to support and require clucene 0.9.12
