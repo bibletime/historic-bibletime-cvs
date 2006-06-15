@@ -218,6 +218,8 @@ signals: // Signals
 	*/
 	void createReadDisplayWindow( ListCSwordModuleInfo, const QString& );
 	void createWriteDisplayWindow( CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType& );
+	void signalSwordSetupChanged();
+
 };
 
 #endif

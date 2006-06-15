@@ -1,4 +1,12 @@
-2006-06-19 Martin Gruner <mgruner@crosswire.org>
+2006-06-15 Martin Gruner <mgruner@crosswire.org>
+  * BibleTime now unlocks immediately
+  * The module icon reflects this immediately
+  * unlock status reflects correct/incorrect key now, instead of empty/set
+  (possibly false) key
+  * Sword config setting and text retrieval prevention from locked modules are
+  not implemented yet, not as important (and I dunno how to do it right now)
+
+2006-06-09 Martin Gruner <mgruner@crosswire.org>
   * patched clucene.m4 to support and require clucene 0.9.12
 
 2006-05-23 Martin Gruner <mgruner@crosswire.org>

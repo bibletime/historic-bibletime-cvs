@@ -113,6 +113,7 @@ const bool CSwordModuleInfo::unlock(const QString & unlockKey) {
 
 	CBTConfig::setModuleEncryptionKey(name(), unlockKey);
 	backend()->setCipherKey(m_module->Name(), unlockKey.latin1());
+	//TODO: write to Sword config as well
 
 	return true;
 }
@@ -122,10 +123,12 @@ const bool CSwordModuleInfo::isLocked() {
 	//still works, but the cipherkey is stored in CBTConfig.
 	//Works because it is set in sword on program startup.
 
-	if (isEncrypted() && config(CipherKey).isEmpty()) {
+	if (isEncrypted()){
+		if (unlockKeyIsValid()) {
+			return false;
+		}
 		return true;
 	}
-
 	return false;
 }
 
