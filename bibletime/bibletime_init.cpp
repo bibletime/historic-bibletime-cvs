@@ -591,6 +591,12 @@ void BibleTime::applyProfileSettings( CProfile* p ) {
 		qDebug("main window: %i, %i @ %i x %i", geometry.topLeft().x(), geometry.topLeft().y(), geometry.width(), geometry.height());
 		KMainWindow::resize( geometry.size() ); //Don't use KMainWindowInterface::resize
 		KMainWindow::move( geometry.topLeft() );//Don't use KMainWindowInterface::move
+		if (p->maximized()) {
+			KMainWindow::showMaximized();
+		}
+		else{
+			KMainWindow::showNormal();
+		}
 	}
 
 	m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state
@@ -605,6 +611,7 @@ void BibleTime::storeProfileSettings( CProfile* p ) {
 	}
 
 	p->setFullscreen( m_windowFullscreen_action->isChecked() );
+	p->setMaximized( this->KMainWindow::isMaximized() );
 
 	QRect geometry;
 	geometry.setTopLeft(pos());

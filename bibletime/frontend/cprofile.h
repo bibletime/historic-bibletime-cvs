@@ -58,13 +58,21 @@ public:
 	*/
 	void setName( const QString& );
 	/**
+	* Returns true if the main window was in fullscreen mode as the profile was saved.
+	*/
+	const bool fullscreen() const;
+	/**
 	* Set the parameter to true if the main window coveres the full screen size.
 	*/
 	void setFullscreen( const bool fullscreen );
 	/**
-	* Returns true if the main window was in fullscreen mode as the profile was saved.
+	* Returns true if the main window was maximized as the profile was saved.
 	*/
-	const bool fullscreen() const;
+	const bool maximized() const;
+	/**
+	* Set the parameter to true if the main window is maximized.
+	*/
+	void setMaximized( const bool maximized );
 	/**
 	* Sets the geoemtry of the main window
 	*/
@@ -85,6 +93,7 @@ private:
 	QString m_name;
 	QString m_filename;
 	bool m_fullscreen;
+	bool m_maximized;
 	QRect m_geometry;
 };
 

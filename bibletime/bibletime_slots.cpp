@@ -528,10 +528,6 @@ void BibleTime::toggleFullscreen() {
 	if (m_windowFullscreen_action->isChecked()) {
 		showFullScreen();
 	}
-	else if (isVisible()) {
-		showNormal();
-	}
-
 	m_mdi->triggerWindowUpdate();
 }
 

@@ -5,6 +5,8 @@
   (possibly false) key
   * Sword config setting and text retrieval prevention from locked modules are
   not implemented yet, not as important (and I dunno how to do it right now)
+  * fixed display profile bug with maximized state; you may need to delete old
+  sessions
 
 2006-06-09 Martin Gruner <mgruner@crosswire.org>
   * patched clucene.m4 to support and require clucene 0.9.12

@@ -105,6 +105,10 @@ QPtrList<CProfileWindow> CProfile::load() {
 				if (object.hasAttribute("height")) {
 					rect.setHeight(object.attribute("height").toInt());
 				}
+				if (object.hasAttribute("isMaximized")) {
+					this->setMaximized( static_cast<bool>(object.attribute("isMaximized").toInt()) );
+				}
+
 			}
 			setGeometry(rect);
 		}
@@ -219,6 +223,7 @@ const bool CProfile::save(QPtrList<CProfileWindow> windows) {
 		geometry.setAttribute("y",r.y());
 		geometry.setAttribute("width",r.width());
 		geometry.setAttribute("height",r.height());
+		geometry.setAttribute("isMaximized",static_cast<int>(this->maximized()));
 
 		content.appendChild(mainWindow);
 	}
@@ -367,6 +372,16 @@ const bool CProfile::fullscreen() const {
 /** Set the parameter to true if the main window coveres the full screen size. */
 void CProfile::setFullscreen( const bool fullscreen ) {
 	m_fullscreen = fullscreen;
+}
+
+/** Returns true if the main window was maximized as the profile was saved. */
+const bool CProfile::maximized() const {
+	return m_maximized;
+}
+
+/** Set the parameter to true if the main window is maximized. */
+void CProfile::setMaximized( const bool maximized ) {
+	m_maximized = maximized;
 }
 
 /** Returns the geometry of the main window */
