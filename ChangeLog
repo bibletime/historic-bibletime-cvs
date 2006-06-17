@@ -1,3 +1,6 @@
+2006-06-17 Martin Gruner <mgruner@crosswire.org>
+  * Released BibleTime 1.6beta3
+
 2006-06-15 Martin Gruner <mgruner@crosswire.org>
   * BibleTime now unlocks immediately
   * The module icon reflects this immediately
@@ -16,7 +19,8 @@
   * Applied more patches by Mark Zealey
 
 2006-05-22 Martin Gruner <mgruner@crosswire.org>
-  * Applied keychooser patch by Mark Zealey
+  * Applied keychooser patch by Mark Zealey, BibleTime now uses an entirely
+  different and improved key chooser for Bibles and Commentaries.
 
 2006-05-18 Martin Gruner <mgruner@crosswire.org>
   * First patch after a month!
