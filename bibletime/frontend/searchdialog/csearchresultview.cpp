@@ -166,7 +166,7 @@ void CSearchResultView::printItems() {
 	for (QListViewItem* k = items.first(); k; k = items.next()) {
 		list.append( k->text(0) );
 	};
-	mgr.printKeyList( list, module() );
+	mgr.printKeyList( list, module(), CBTConfig::getDisplayOptionDefaults(), CBTConfig::getFilterOptionDefaults() );
 }
 
 /** No descriptions */

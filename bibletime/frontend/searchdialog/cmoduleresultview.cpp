@@ -261,7 +261,7 @@ void CModuleResultView::printResult() {
 	if (CSwordModuleInfo* m = activeModule()) {
 		sword::ListKey result = m->searchResult();
 		CExportManager mgr(i18n("Print search result..."), true, i18n("Printing search result"));
-		mgr.printKeyList(&result,m);
+		mgr.printKeyList(&result,m,CBTConfig::getDisplayOptionDefaults(), CBTConfig::getFilterOptionDefaults());
 	};
 }
 

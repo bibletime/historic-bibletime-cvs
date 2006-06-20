@@ -21,12 +21,6 @@
 
 CPointers::PointerCache m_pointerCache;
 
-void CPointers::setPrinter(Printing::CPrinter* const printer) {
-	Q_ASSERT( m_pointerCache.printer == 0);
-	CPointers::deletePrinter();
-	m_pointerCache.printer = printer;
-}
-
 void CPointers::setBackend(CSwordBackend* const backend) {
 	Q_ASSERT( m_pointerCache.backend == 0);
 	CPointers::deleteBackend();
@@ -36,11 +30,6 @@ void CPointers::setBackend(CSwordBackend* const backend) {
 void CPointers::setInfoDisplay(InfoDisplay::CInfoDisplay* const infoDisplay) {
 	Q_ASSERT( m_pointerCache.infoDisplay == 0);
 	m_pointerCache.infoDisplay = infoDisplay;
-}
-
-void CPointers::deletePrinter() {
-	delete m_pointerCache.printer;
-	m_pointerCache.printer = 0;
 }
 
 void CPointers::deleteBackend() {

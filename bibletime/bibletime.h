@@ -34,9 +34,6 @@ class CMainIndex;
 namespace InfoDisplay {
 	class CInfoDisplay;
 }
-namespace Printing {
-	class CPrinter;
-}
 
 //KDE classes
 class KToggleAction;
@@ -238,10 +235,6 @@ protected: // Protected methods
 	*/
 	bool queryExit();
 	/**
-	* Initializes the CPrinter object.
-	*/
-	void initPrinter();
-	/**
 	* Reimplementation used for session management.
 	*/
 	void readProperties(KConfig* config);
@@ -400,7 +393,6 @@ private:
 
 	Profile::CProfileMgr m_profileMgr;
 	CSwordBackend* m_backend;
-	Printing::CPrinter* m_printer;
 
 	CMainIndex* m_mainIndex;
 

@@ -24,6 +24,7 @@
 #include "frontend/cprinter.h"
 
 #include "util/cresmgr.h"
+#include "util/scoped_resource.h"
 
 //Qt includes
 #include <qheader.h>
@@ -494,7 +495,8 @@ void CMainIndex::printBookmarks() {
 		}
 	}
 
-	CPointers::printer()->printKeyTree(tree);
+	util::scoped_ptr<CPrinter> printer( new CPrinter( this, CBTConfig::getDisplayOptionDefaults(), CBTConfig::getFilterOptionDefaults() ) );
+	printer->printKeyTree(tree);
 }
 
 /** Deletes the selected entries. */

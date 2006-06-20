@@ -35,9 +35,7 @@ class CPrinter : public QObject, public Rendering::CDisplayRendering {
 		Q_OBJECT
 public:
 		CPrinter(
-			QObject *parent,
-			CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(),
-			CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
+			QObject *parent, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions
 		);
 
 		virtual ~CPrinter();

@@ -49,12 +49,12 @@ public:
 	const bool copyKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);
 	const bool copyKeyList(QPtrList<CSwordKey>& list, const Format format, const bool addText );
 
-	const bool printKey(CSwordKey* key, const QString& description = QString::null);
-	const bool printByHyperlink(const QString& hyperlink);
-	const bool printKeyList(sword::ListKey* list, CSwordModuleInfo* module);
-	const bool printKeyList(const QStringList& list,CSwordModuleInfo* module);
-	const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null );
-
+	const bool printKey(CSwordKey* key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+	const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions );
+const bool printByHyperlink(const QString& hyperlink, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+	const bool printKeyList(sword::ListKey* list, CSwordModuleInfo* module, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+	const bool printKeyList(const QStringList& list,CSwordModuleInfo* module, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+	
 protected: // Protected methods
 	/**
 	* Returns the string for the filedialogs to show the correct files.

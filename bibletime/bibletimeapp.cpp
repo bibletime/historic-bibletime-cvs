@@ -30,7 +30,6 @@ BibleTimeApp::~BibleTimeApp() {
 	CBTConfig::set(CBTConfig::crashedLastTime, false);
 	CBTConfig::set(CBTConfig::crashedTwoTimes, false);
 
-	deletePrinter();
 	deleteDisplayTemplateMgr();
 	deleteLanguageMgr();
 	deleteBackend();

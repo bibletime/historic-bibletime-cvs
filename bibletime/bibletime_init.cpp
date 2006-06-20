@@ -572,12 +572,6 @@ void BibleTime::initBackends() {
 	
 }
 
-/** Initializes the CPrinter object. */
-void BibleTime::initPrinter() {
-	KStartupLogo::setStatusMessage(i18n("Initializing print system") + QString("..."));
-	CPointers::setPrinter( (m_printer = new Printing::CPrinter(this)) );
-}
-
 /** Apply the settings given by the profile p*/
 void BibleTime::applyProfileSettings( CProfile* p ) {
 	Q_ASSERT(p);

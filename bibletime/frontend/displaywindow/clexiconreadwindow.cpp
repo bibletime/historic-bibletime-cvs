@@ -116,9 +116,9 @@ void CLexiconReadWindow::initActions() {
 
 	m_actions.save.entryAsHTML = new KAction(i18n("Entry as HTML"), KShortcut(0), this, SLOT(saveAsHTML()), actionCollection(), "saveEntryAsHTML");
 
-	m_actions.print.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection(), "printReferenceOnly");
+	m_actions.print.reference = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(printAnchorWithText()), actionCollection(), "printReferenceOnly");
 
-	m_actions.print.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()), actionCollection(), "printEntryWithText");
+	m_actions.print.entry = new KAction(i18n("Entry with text"), KShortcut(0), this, SLOT(printAll()), actionCollection(), "printEntryWithText");
 
 	// init with the user defined settings
 	CBTConfig::setupAccelSettings(CBTConfig::lexiconWindow, actionCollection());

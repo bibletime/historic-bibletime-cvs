@@ -58,7 +58,7 @@ const bool CReadDisplay::hasActiveAnchor() {
 }
 
 
-void CReadDisplay::print(const CDisplay::TextPart type) {
+void CReadDisplay::print(const CDisplay::TextPart type, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) {
 	CDisplayWindow* window = parentWindow();
 	CSwordKey* const key = window->key();
 	CSwordModuleInfo* module = key->module();
@@ -81,10 +81,10 @@ void CReadDisplay::print(const CDisplay::TextPart type) {
 					stopKey.Verse( bible->verseCount( bible->bookNumber(startKey.book()), startKey.Chapter() ) );
 				}
 
-				mgr.printKey(module, startKey.key(), stopKey.key());
+				mgr.printKey(module, startKey.key(), stopKey.key(), displayOptions, filterOptions);
 			}
 			else if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary ) {
-				mgr.printKey(module, key->key(), key->key());
+				mgr.printKey(module, key->key(), key->key(), displayOptions, filterOptions);
 			}
 			else if (module->type() == CSwordModuleInfo::GenericBook) {
 				CSwordTreeKey* tree = dynamic_cast<CSwordTreeKey*>(key);
@@ -98,13 +98,13 @@ void CReadDisplay::print(const CDisplay::TextPart type) {
 				//          while ( stopKey.nextSibling() ) { //go to last displayed sibling!
 				//          }
 				//        }
-				mgr.printKey(module, startKey.key(), stopKey.key());
+				mgr.printKey(module, startKey.key(), stopKey.key(), displayOptions, filterOptions);
 			}
 		};
 
 		case AnchorWithText: {
 			if (hasActiveAnchor()) {
-				mgr.printByHyperlink( activeAnchor() );
+				mgr.printByHyperlink( activeAnchor(), displayOptions, filterOptions );
 			};
 		};
 

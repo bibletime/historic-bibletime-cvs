@@ -21,9 +21,6 @@ class CSwordBackend;
 class CLanguageMgr;
 class CDisplayTemplateMgr;
 
-namespace Printing {
-	class CPrinter;
-}
 namespace InfoDisplay {
 	class CInfoDisplay;
 }
@@ -44,10 +41,6 @@ protected:
 	* @param backend Pointer to the new application-wide Sword backend
 	*/
 	static void setBackend(CSwordBackend* const backend);
-	/** Set the printer instance.
-	* @param printer Pointer to the ne CPrinter instance.
-	*/
-	static void setPrinter(Printing::CPrinter* const printer);
 	/** Set the info display.
 	* @param iDisplay The pointer to the new info display.
 	*/
@@ -71,11 +64,6 @@ protected:
 	static void deleteDisplayTemplateMgr();
 
 public: // Public methods
-	/**
-	* Returns a pointer to the printer object.
-	* @return The printer oobject.
-	*/
-	inline static Printing::CPrinter* const printer();
 	/** Returns a pointer to the backend
 	* @return The backend pointer.
 	*/
@@ -96,14 +84,12 @@ public: // Public methods
 	struct PointerCache {
 		PointerCache() {
 			backend = 0;
-			printer = 0;
 			langMgr = 0;
 			infoDisplay = 0;
 			displayTemplateMgr = 0;
 		};
 
 		CSwordBackend* backend;
-		Printing::CPrinter*      printer;
 		CLanguageMgr*  langMgr;
 		InfoDisplay::CInfoDisplay*  infoDisplay;
 		CDisplayTemplateMgr* displayTemplateMgr;
@@ -123,11 +109,6 @@ inline CLanguageMgr* const CPointers::languageMgr() {
 		m_pointerCache.langMgr = new CLanguageMgr();
 	}
 	return m_pointerCache.langMgr;
-}
-
-/** Returns a pointer to the printer object. */
-inline Printing::CPrinter* const CPointers::printer() {
-	return m_pointerCache.printer;
 }
 
 /** Returns a pointer to the printer object. */

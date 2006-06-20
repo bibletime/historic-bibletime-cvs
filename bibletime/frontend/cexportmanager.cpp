@@ -310,7 +310,7 @@ const bool CExportManager::copyKeyList(QPtrList<CSwordKey>& list, const Format f
 	return true;
 };
 
-const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* module) {
+const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* module, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) {
 	CPrinter::KeyTreeItem::Settings settings;
 	CPrinter::KeyTree tree;
 
@@ -334,8 +334,10 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 		incProgress();
 	}
 
+	util::scoped_ptr<CPrinter> printer(new CPrinter(0, displayOptions, filterOptions));
+
 	if (!progressWasCancelled()) {
-		printer()->printKeyTree(tree);
+		printer->printKeyTree(tree);
 		closeProgressDialog();
 		return true;
 	}
@@ -343,7 +345,7 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 	return false;
 };
 
-const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& /*description*/ ) {
+const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
 	CPrinter::KeyTreeItem::Settings settings;
 
 	CPrinter::KeyTree tree;
@@ -354,22 +356,24 @@ const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& st
 		tree.append( new CPrinter::KeyTreeItem(startKey, module, settings) );
 	}
 
-	printer()->printKeyTree(tree);
+	util::scoped_ptr<CPrinter> printer(new CPrinter(0, displayOptions, filterOptions));
+	printer->printKeyTree(tree);
 	return true;
 }
 
-const bool CExportManager::printKey( CSwordKey* key, const QString& /*description*/ ) {
+const bool CExportManager::printKey( CSwordKey* key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) {
 	CPrinter::KeyTreeItem::Settings settings;
 
 	CPrinter::KeyTree tree;
 	tree.append( new CPrinter::KeyTreeItem(key->key(), key->module(), settings) );
 
-	printer()->printKeyTree(tree);
+	util::scoped_ptr<CPrinter> printer(new CPrinter(0, displayOptions, filterOptions));
+	printer->printKeyTree(tree);
 	return true;
 }
 
 /** Prints a key using the hyperlink created by CReferenceManager. */
-const bool CExportManager::printByHyperlink( const QString& hyperlink ) {
+const bool CExportManager::printByHyperlink( const QString& hyperlink, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
 	QString moduleName;
 	QString keyName;
 	CReferenceManager::Type type;
@@ -410,11 +414,12 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ) {
 		}
 	}
 
-	printer()->printKeyTree(tree);
+	util::scoped_ptr<CPrinter> printer(new CPrinter(0, displayOptions, filterOptions));
+	printer->printKeyTree(tree);
 	return true;
 }
 
-const bool CExportManager::printKeyList(const QStringList& list,CSwordModuleInfo* module) {
+const bool CExportManager::printKeyList(const QStringList& list,CSwordModuleInfo* module,  CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) {
 	CPrinter::KeyTreeItem::Settings settings;
 	CPrinter::KeyTree tree;
 
@@ -433,8 +438,10 @@ const bool CExportManager::printKeyList(const QStringList& list,CSwordModuleInfo
 		incProgress();
 	}
 
+	util::scoped_ptr<CPrinter> printer(new CPrinter(0, displayOptions, filterOptions));
+
 	if (!progressWasCancelled()) {
-		printer()->printKeyTree(tree);
+		printer->printKeyTree(tree);
 		closeProgressDialog();
 		return true;
 	}

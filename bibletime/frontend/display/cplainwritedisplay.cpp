@@ -61,7 +61,7 @@ const QString CPlainWriteDisplay::text( const CDisplay::TextType /*format*/, con
 	return QString::null;
 }
 
-void CPlainWriteDisplay::print( const CDisplay::TextPart ) {
+void CPlainWriteDisplay::print( const CDisplay::TextPart, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
 }
 
 /** Sets the current status of the edit widget. */

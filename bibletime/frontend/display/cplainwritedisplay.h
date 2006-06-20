@@ -44,7 +44,7 @@ public:
 	*/
 	virtual QWidget* view();
 	virtual const QString text( const CDisplay::TextType format = CDisplay::HTMLText, const CDisplay::TextPart part = CDisplay::Document );
-	virtual void print( const CDisplay::TextPart );
+	virtual void print( const CDisplay::TextPart, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions );
 	/**
 	* Reimplementation.
 	*/

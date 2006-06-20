@@ -199,9 +199,9 @@ void CBibleReadWindow::initActions() {
 
 	m_actions.save.chapterAsHTML = new KAction(i18n("Chapter as HTML"), KShortcut(0), this, SLOT(saveChapterHTML()), actionCollection(), "saveChapterAsHTML");
 
-	m_actions.print.reference = new KAction(i18n("Reference with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection(), "saveReferenceWithText");
+	m_actions.print.reference = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(printAnchorWithText()), actionCollection(), "saveReferenceWithText");
 
-	m_actions.print.chapter = new KAction(i18n("Chapter"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()), actionCollection(), "printChapter");
+	m_actions.print.chapter = new KAction(i18n("Chapter"), KShortcut(0), this, SLOT(printAll()), actionCollection(), "printChapter");
 
 	CBTConfig::setupAccelSettings(CBTConfig::bibleWindow, actionCollection());
 }

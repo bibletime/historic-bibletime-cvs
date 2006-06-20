@@ -21,7 +21,6 @@
 #include "frontend/displaywindow/creadwindow.h"
 #include "frontend/displaywindow/cwritewindow.h"
 #include "frontend/keychooser/ckeychooser.h"
-//#include "frontend/cprinter.h"
 #include "frontend/cbtconfig.h"
 
 #include "util/ctoolclass.h"
@@ -71,13 +70,11 @@ m_leftPaneSplitter(0),
 m_mdi(0),
 m_profileMgr(),
 m_backend(0),
-m_printer(0),
 m_mainIndex(0) {
 	setObjId("BibleTimeInterface");
 	setHelpMenuEnabled(false);
 
 	initBackends();
-	initPrinter();
 	initView();
 	initActions();
 

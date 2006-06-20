@@ -529,3 +529,12 @@ void CDisplayWindow::closeEvent(QCloseEvent* e) {
 void CDisplayWindow::slotSearchInModules() {
 	Search::CSearchDialog::openDialog(modules());
 }
+
+void CDisplayWindow::printAll() {
+	m_displayWidget->connectionsProxy()->printAll( m_displayOptions, m_filterOptions);
+}
+
+void CDisplayWindow::printAnchorWithText() {
+	m_displayWidget->connectionsProxy()->printAnchorWithText( m_displayOptions, m_filterOptions);
+}
+

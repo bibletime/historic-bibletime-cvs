@@ -13,6 +13,7 @@
 #define CREADDISPLAY_H
 
 #include "cdisplay.h"
+#include "backend/cswordbackend.h"
 
 class QPopupMenu;
 class QWidget;
@@ -35,7 +36,7 @@ public:
 	* Moves the widget to the given anchor.
 	*/
 	virtual void moveToAnchor( const QString& ) = 0;
-	virtual void print(const CDisplay::TextPart);
+	virtual void print(const CDisplay::TextPart, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
 
 	void setMouseTracking(const bool trackingEnabled) {
 		m_useMouseTracking = trackingEnabled;

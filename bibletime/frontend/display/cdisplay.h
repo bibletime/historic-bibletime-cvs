@@ -14,6 +14,7 @@
 
 //BibleTime includes
 #include "util/cpointers.h"
+#include "backend/cswordbackend.h"
 
 //Qt includes
 #include <qobject.h>
@@ -96,7 +97,7 @@ public:
 	* Returns the parent window used for this display widget.
 	*/
 	CDisplayWindow* const parentWindow() const;
-	virtual void print( const CDisplay::TextPart ) = 0;
+	virtual void print( const CDisplay::TextPart, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) = 0;
 	/**
 	* Installs the popup which should be opened when the right mouse button was pressed.
 	*/
@@ -155,8 +156,8 @@ public slots:
 	void saveAsHTML();
 	void saveAnchorWithText();
 
-	void printAll();
-	void printAnchorWithText();
+	void printAll(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+	void printAnchorWithText(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
 
 	void copySelection();
 	void copyAll();

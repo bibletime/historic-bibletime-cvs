@@ -1,3 +1,12 @@
+2006-06-20 Martin Gruner <mgruner@crosswire.org>
+  * major patch to the printing system: printing works dynamically and
+  respects the display and filter settings, instead of loading the default
+  settings at program startup time
+  * Joachim, why does printing not work with headings and scriprefs and other
+  markup elements? Besides, it always shows verse numbers, even if they are
+  turned off
+  * Please test printing
+
 2006-06-17 Martin Gruner <mgruner@crosswire.org>
   * Released BibleTime 1.6beta3
 

@@ -248,6 +248,10 @@ protected slots:
 
 	void slotSearchInModules();
 
+	void printAll();
+	void printAnchorWithText();
+
+
 private:
 	CMDIArea* m_mdi;
 
@@ -256,6 +260,7 @@ private:
 
 	CSwordBackend::FilterOptions m_filterOptions;
 	CSwordBackend::DisplayOptions m_displayOptions;
+
 	CDisplaySettingsButton* m_displaySettingsButton;
 	CKeyChooser* m_keyChooser;
 	CSwordKey* m_swordKey;

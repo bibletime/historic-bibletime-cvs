@@ -69,12 +69,12 @@ void CDisplayConnections::copySelection() {
 	m_display->copy(CDisplay::PlainText, CDisplay::SelectedText);
 }
 
-void CDisplayConnections::printAll() {
-	m_display->print(CDisplay::Document);
+void CDisplayConnections::printAll(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) {
+	m_display->print(CDisplay::Document, displayOptions, filterOptions);
 }
 
-void CDisplayConnections::printAnchorWithText() {
-	m_display->print(CDisplay::AnchorWithText);
+void CDisplayConnections::printAnchorWithText(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) {
+	m_display->print(CDisplay::AnchorWithText, displayOptions, filterOptions);
 }
 
 void CDisplayConnections::copyAnchorOnly() {

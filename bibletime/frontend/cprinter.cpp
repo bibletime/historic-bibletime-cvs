@@ -27,6 +27,7 @@ namespace Printing {
 :  QObject(/*parent*/0),
 	CDisplayRendering(displayOptions, filterOptions),
 	m_htmlPart(new KHTMLPart(0, 0, this)) {
+
 		m_filterOptions.footnotes = false;
 		m_filterOptions.scriptureReferences = false;
 		m_filterOptions.strongNumbers = false;
