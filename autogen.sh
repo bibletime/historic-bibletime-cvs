@@ -1,2 +1,2 @@
 #!/bin/sh
-make -f Makefile.cvs
+UNSERMAKE="no" make -f Makefile.cvs
