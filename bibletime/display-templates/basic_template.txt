@@ -82,6 +82,15 @@ td.entry + td.entry { }
 #bible .crossreference:before { }
 #bible .crossreference:after { }
 
+/*Keep in mind that for cross references it is not enough to
+*set only the cross reference colour, you must also set the
+*cross reference anchor marker with .crossreference a
+*This way both the non linked and linked text will show
+*as desired. Additionally, you can have seperate formatting
+*for linked and non linked text in the cross reference*/
+.crossreference a { }
+.crossreference a:hover { }
+
 /* Alternative reading as defined in the OSIS specs. The information about the alternative text is displayed in the info display. It's 
 often a good idea to format this the same as footnotes 
 The text which is the alternative of the displayed text is available in the attribute "alternative"
