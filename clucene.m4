@@ -108,7 +108,7 @@ cat > conftest.$ac_ext <<EOF
 #include <CLucene/clucene-config.h>
 
 int main(int argc, char* argv[[]]) {
-	if ( sword::SWVersion( _CL_VERSION ) >= sword::SWVersion( "0.9.12" ) ){
+	if ( sword::SWVersion( _CL_VERSION ) >= sword::SWVersion( "0.9.15" ) ){
 		std::cout << "ok";
 	}
 	else{
@@ -146,7 +146,7 @@ if test "x$ac_cv_installed_clucene_version" = "xok"; then
 	AC_MSG_RESULT([ok, version is recent enough]);
 elif test "x$ac_cv_installed_clucene_version" = "xnot-ok"; then
 	AC_MSG_RESULT([installed]);
-  	AC_MSG_ERROR([Your CLucene version is not recent enough! Please upgrade to version >= 0.9.12!]);
+  	AC_MSG_ERROR([Your CLucene version is not recent enough! Please upgrade to version >= 0.9.15!]);
 fi;
 
 ])
