@@ -225,7 +225,13 @@ void CSwordModuleInfo::buildIndex() {
 
 	//Without this we don't get strongs, lemmas, etc
 	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );
-	
+	//make sure we reset all important filter options which influcence the plain filters.
+	backend()->setOption( CSwordModuleInfo::strongNumbers,  false );
+	backend()->setOption( CSwordModuleInfo::morphTags,  false );
+	backend()->setOption( CSwordModuleInfo::morphSegmentation,  false );
+	backend()->setOption( CSwordModuleInfo::footnotes,  false );
+	backend()->setOption( CSwordModuleInfo::headings,  false );
+
 	lucene::analysis::standard::StandardAnalyzer an;
 	QString index = getModuleStandardIndexLocation();
 
@@ -274,6 +280,8 @@ void CSwordModuleInfo::buildIndex() {
 		doc->add(*Field::UnIndexed(_T("key"), wcharBuffer));
 
 		// index the main text
+		//at this point we have to make sure we disabled the strongs and the other options
+		//so the plain filters won't include the numbers somehow.
 		lucene_utf8towcs(wcharBuffer, m_module->StripText(), LUCENE_MAX_FIELD_LENGTH);
 		doc->add(*Field::UnStored(_T("content"), wcharBuffer));
 
