@@ -53,17 +53,17 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	//we use this messagehandler to switch debugging off in final releases
 	switch ( type ) {
 		case QtDebugMsg:
-		if (showDebugMessages) { //only show messages if they are enabled!
-			fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
-		}
-		break;
+			if (showDebugMessages) { //only show messages if they are enabled!
+				fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
+			}
+			break;
 		case QtWarningMsg:
-		//if (showDebugMessages) //comment out for releases so users don't get our debug warnings
-		fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
-		break;
+			//if (showDebugMessages) //comment out for releases so users don't get our debug warnings
+			fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
+			break;
 		case QtFatalMsg:
-		fprintf( stderr,"(BibleTime %s) _FATAL_: %s\nPlease contact info@bibletime.de and report this bug!",VERSION, msg );
-		abort(); // dump core on purpose
+			fprintf( stderr,"(BibleTime %s) _FATAL_: %s\nPlease contact info@bibletime.de and report this bug!",VERSION, msg );
+			abort(); // dump core on purpose
 	}
 }
 
@@ -75,16 +75,13 @@ extern "C" {
 		setSignalHandler(SIG_DFL);
 		fprintf(stderr, "*** BibleTime got signal %d (Exiting)\n", sigId);
 		// try to cleanup all windows
-		if (CBTConfig::get
-					(CBTConfig::crashedLastTime)) {
-				//crashed this time and the execution before this one, probably a bug which occurs every time
-				CBTConfig::set
-					(CBTConfig::crashedTwoTimes, true);
-			}
+		if (CBTConfig::get(CBTConfig::crashedLastTime)) {
+			//crashed this time and the execution before this one, probably a bug which occurs every time
+			CBTConfig::set(CBTConfig::crashedTwoTimes, true);
+		}
 		else {
 			//try to restore next time.
-			CBTConfig::set
-				(CBTConfig::crashedLastTime, true);
+			CBTConfig::set(CBTConfig::crashedLastTime, true);
 		}
 		if (bibletime_ptr) {
 			bibletime_ptr->saveSettings();
@@ -97,16 +94,14 @@ extern "C" {
 	static void crashHandler(int sigId) {
 		setSignalHandler(SIG_DFL);
 		fprintf(stderr, "*** BibleTime got signal %d (Crashing). Trying to save settings.\n", sigId);
-		if (CBTConfig::get
-					(CBTConfig::crashedLastTime)) {
-				//crashed this time and the execution before this one, probably a bug which occurs every time
-				CBTConfig::set
-					(CBTConfig::crashedTwoTimes, true);
-			}
+		if (CBTConfig::get(CBTConfig::crashedLastTime)) {
+			// crashed this time and the execution before this one,
+			// probably a bug which occurs every time
+			CBTConfig::set(CBTConfig::crashedTwoTimes, true);
+		}
 		else {
 			//try to restore next time.
-			CBTConfig::set
-				(CBTConfig::crashedLastTime, true);
+			CBTConfig::set(CBTConfig::crashedLastTime, true);
 		}
 		if (bibletime_ptr) {
 			bibletime_ptr->saveSettings();
@@ -165,12 +160,14 @@ int main(int argc, char* argv[]) {
 	************************************************/
 	//highcolor icons, startlogo for BT <= 1.4
 	aboutData.addCredit("David Blue", I18N_NOOP("High contrast template"), "davidslists@gmx.net");
+	//helped out with the installation manager
 	aboutData.addCredit("Tim Brodie",    I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
+	//first set of icons and the first startup logos
 	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
 	//GUI improvements
 	aboutData.addCredit("Jim Campbell",   I18N_NOOP("GUI"), "jdc.email@gmail.com", ""); 
-	//Started the Crosswire porject
-	aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founder of the Sword project"), "scribe@crosswire.org", "http://www.crosswire.org/");   //Started the Sword project
+	//Started the Crosswire porject, also contributed some code
+	aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founder of the Sword project"), "scribe@crosswire.org", "http://www.crosswire.org/");  
 	//Sponsored many years the www.bibletime.de domain!
 	aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Sponsored our internet domain for many years"), "tom@theta-consulting.de", "");
 	//He provided us with the Bible Study HowTo
@@ -189,6 +186,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Luke Mauldin",  I18N_NOOP("Frontend"), "lukeskyfly@txk.net", "");
 	// handbook documentation
 	aboutData.addCredit("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
+	//French handbook translation
+	aboutData.addCredit("Jean Van Schaftingen", I18N_NOOP("French handbook translation"), "", "");
 	// comitted search in default bible, opened modules, other smaller things
 	aboutData.addCredit("Gary Sims", I18N_NOOP("Search dialog enhancements"), "gary@garysims.co.uk", "");
 	// Very helpful testing
@@ -197,6 +196,7 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Torsten Uhlmann",   I18N_NOOP("The first lead developer"), "", "");
 	//scoped_ptr and related classes
 	aboutData.addCredit("David White",   I18N_NOOP("Helpful source code additions"), "", "http://www.wesnoth.org/");
+ 
 
 	//special message so the translator get his credits in the about box, don't remove this!
 	QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name
@@ -221,8 +221,7 @@ int main(int argc, char* argv[]) {
 		RESTORE( BibleTime );
 	}
 	else {
-		const bool showIt = CBTConfig::get
-								(CBTConfig::logo);
+		const bool showIt = CBTConfig::get(CBTConfig::logo);
 
 		if(showIt) {
 			KStartupLogo::createSplash();
@@ -233,33 +232,29 @@ int main(int argc, char* argv[]) {
 		setSignalHandler(signalHandler);
 
 		// compatibility stuff for 1.3, needs to be moved to better place later
-		if (CBTConfig::get
-					(CBTConfig::bibletimeVersion) != VERSION) {
-				KStandardDirs stdDirs;
-				QDir dir(stdDirs.saveLocation("data", "bibletime/"));
-				if (!dir.exists("sessions/") && dir.exists("profiles/")) { //only old dir exists
-					dir.rename("profiles", "sessions");
-				}
+		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
+			KStandardDirs stdDirs;
+			QDir dir(stdDirs.saveLocation("data", "bibletime/"));
+			if (!dir.exists("sessions/") && dir.exists("profiles/")) { //only old dir exists
+				dir.rename("profiles", "sessions");
 			}
+		}
 
 		bibletime_ptr = new BibleTime();
 
 		// a new BibleTime version was installed (maybe a completely new installation)
-		if (CBTConfig::get
-					(CBTConfig::bibletimeVersion) != VERSION) {
-				KStartupLogo::hideSplash();
+		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
+			KStartupLogo::hideSplash();
 
-				CBTConfig::set
-					(CBTConfig::bibletimeVersion, VERSION);
-				bibletime_ptr->slotSettingsOptions();
-			}
+			CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
+			bibletime_ptr->slotSettingsOptions();
+		}
 
 		//The tip of the day
-		if (CBTConfig::get
-					(CBTConfig::tips)) {
-				KStartupLogo::hideSplash();
-				bibletime_ptr->slotHelpTipOfDay();
-			}
+		if (CBTConfig::get(CBTConfig::tips)) {
+			KStartupLogo::hideSplash();
+			bibletime_ptr->slotHelpTipOfDay();
+		}
 
 		// restore the workspace and process command line options
 		app.setMainWidget(bibletime_ptr);
