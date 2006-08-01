@@ -16,7 +16,7 @@
 }
 
 #content {
-	background-color:white;
+	/*background-color:white;*/
 	margin:10px;
 }
 #content > table {
@@ -28,7 +28,7 @@
 #content > table th {
 	padding: 0 0 2px 0;
 	text-align: center; 
-	font-weight: bold;
+	/*font-weight: bold;*/
 	font-size: 110%;
 	border-bottom: 1px solid #6B6B6B;
 }
@@ -36,7 +36,7 @@
 a {
 	text-decoration:none;
 	font-weight:normal;
-	color: #F98100;
+	/*color: #F98100;*/
 	padding:1px;
 	background-color:transparent;
 }
@@ -71,8 +71,10 @@ div.entry, td.entry {
 	text-align: justify;
 	/*font-weight: bolder;*/
 	/*background-color:transparent;*/
-	color:white;
-	background-color:black;
+	/*color:white;*/
+	/*background-color:black;*/
+	/*The background colour of selected text as of kde 3.5.2*/
+	background-color: #A5A5FF;
 }
 .currententry[dir=rtl] {
 	text-align: right;
@@ -91,7 +93,7 @@ td.entry + td.entry {
 
 /* Several additional settings for display of modules*/
 #bible div.currententry, #bible td.currententry {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	padding: 4px;
 }
 #bible span.currententry {
@@ -106,10 +108,12 @@ td.entry + td.entry {
 
 
 .entryname {
-	font-size:80%;
+ 	font-size:70%;
 	padding:0 1px 0 0;
-	/*vertical-align:top;*/
-	color: #F98100;
+	vertical-align:top;
+	/*color: #F98100;*/
+	color: black;
+	/*font-style: italic;*/
 }
 .entry[dir=rtl] .entryname, .currententry[dir=rtl] .entryname {
 	padding:0 0 0 1px;
@@ -119,6 +123,8 @@ td.entry + td.entry {
 .entryname a, #printer .entryname  {
 	vertical-align: top;
 	font-size: 100%;
+	font-weight: bold;
+	color: black;
 }
 
 #printer .entry  .entry, #printer .entry .sectiontitle , #printer .entry .booktitle {
@@ -130,14 +136,34 @@ td.entry + td.entry {
 	vertical-align:super;
 	font-weight:bold;
 	/*color: #00B7FF;*/ /*This one is kind of blinding on white*/
-	color: #F98100;
+	/*color: #F98100;*/
 	font-size:80%;
+	color: black;
+	content: "1";
 }
+
+
+.footnote:before {
+	content: "(";
+}
+
+.footnote:after {
+	content: ")";
+}
+
 .crossreference {
 	font-size: 80%;
 	/*vertical-align:middle;*/
 	/*color: blue;*/
-	color: #F98100;
+	/*color: #F98100;*/
+}
+
+.crossreference:before {
+	content: "[";
+}
+
+.crosreference:after {
+	content: "]";
 }
 
 .sectiontitle {
@@ -167,9 +193,9 @@ td.entry + td.entry {
 .jesuswords {
 	/*color:red;*/
 	/*color: #7500AC;*/
-	color: #F98100;
-	/*font-style:italic;*/
-	font-weight: bold;
+	/*color: #F98100;*/
+	font-style:italic;
+	/*font-weight: bold;*/
 	font-size:0.9em;
 }
 
@@ -286,7 +312,7 @@ td.entry + td.entry {
 	padding: 2px;
 	margin: 0px;
 	text-align: left;
-	font-weight: bold;	
+	font-weight: bold;
 	font-size: 90%;
 }
 
