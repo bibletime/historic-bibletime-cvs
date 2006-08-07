@@ -175,16 +175,9 @@ KLineEdit* CKeyReferenceWidget::textbox() {
 
 void CKeyReferenceWidget::slotReturnPressed()
 {
-	QString text = m_textbox->text();
-	if(m_key->key(text)) {
-		// XXX: a basic error fix but see validator above there must be a better way...
-		m_key->module(m_module);
-
+		m_key->key(m_textbox->text());
 		updateText();
 		emit changed(m_key);
-	} else {
-		// Something was invalid. Pop up an error box?
-	}
 }
 
 /* Handlers for the various scroller widgetsets. Do we really want a verse scroller? */
