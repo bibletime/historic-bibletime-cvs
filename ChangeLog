@@ -1,3 +1,6 @@
+2006-08-07 Martin Gruner <mgruner@crosswire.org>
+  * verse keychooser bugfix and cleanups
+
 2006-06-20 Martin Gruner <mgruner@crosswire.org>
   * major patch to the printing system: printing works dynamically and
   respects the display and filter settings, instead of loading the default

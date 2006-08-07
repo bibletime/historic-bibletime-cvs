@@ -144,7 +144,7 @@ CKeyReferenceWidget::CKeyReferenceWidget( CSwordBibleModuleInfo *mod, CSwordVers
 }
 
 void CKeyReferenceWidget::setModule(CSwordBibleModuleInfo *m) {
-	if(m)
+	if (m)
 		m_module = m;
 
 	delete m_textbox->completionObject();
@@ -187,7 +187,6 @@ void CKeyReferenceWidget::slotReturnPressed()
 	}
 }
 
-
 /* Handlers for the various scroller widgetsets. Do we really want a verse scroller? */
 void CKeyReferenceWidget::slotUpdateLock() {
 	updatelock = true;
@@ -196,55 +195,23 @@ void CKeyReferenceWidget::slotUpdateLock() {
 
 void CKeyReferenceWidget::slotUpdateUnlock() {
 	updatelock = false;
-	if(oldKey != m_key->key())
-		emit changed(m_key);
+	if (oldKey != m_key->key()) emit changed(m_key);
 }
 
 void CKeyReferenceWidget::slotBookChange(int n) {
-	QStringList *books = m_module->books();
-	const int old_book = (int)books->findIndex(m_key->book());
-	int new_book = old_book + n;
-	if(new_book < 0) new_book = 0;
-	if(new_book >= (int)books->count()) new_book = books->count() - 1;
-
-	if(old_book != new_book) {
-		m_key->book(*(books->at(new_book)));		// we have to set by text rather than reference
-		updateText();
-		if(!updatelock)
-			emit changed(m_key);
-	}
+	n > 0 ? m_key->next( CSwordVerseKey::UseBook ) : m_key->previous( CSwordVerseKey::UseBook );
+	updateText();
+	if (!updatelock) emit changed(m_key);
 }
 
 void CKeyReferenceWidget::slotChapterChange(int n) {
-	const int chs = (int)m_module->chapterCount(m_key->book());
-	const int old_chapter = m_key->Chapter();
-	int new_chapter = old_chapter + n;
-
-	/* XXX: Do we actually want these limits? Could scroll across books if we didnt have them */
-	if(new_chapter < 1) new_chapter = 1;
-	if(new_chapter > chs) new_chapter = chs;
-
-	if(old_chapter != new_chapter) {
-		m_key->Chapter(new_chapter);
-		updateText();
-		if(!updatelock)
-			emit changed(m_key);	
-	}
+	n > 0 ? m_key->next( CSwordVerseKey::UseChapter ) : m_key->previous( CSwordVerseKey::UseChapter );
+	updateText();
+	if (!updatelock) emit changed(m_key);	
 }
 
 void CKeyReferenceWidget::slotVerseChange(int n) {
-	const int vrs = (int)m_module->verseCount(m_key->book(), m_key->Chapter());
-	const int old_verse =  m_key->Verse();
-	int new_verse = old_verse + n;
-
-	/* XXX: Do we actually want these limits? Could scroll across chapters if we didnt have them */
-	if(new_verse < 1) new_verse = 1;
-	if(new_verse > vrs) new_verse = vrs;
-
-	if(old_verse != new_verse) {
-		m_key->Verse(new_verse);
-		updateText();
-		if(!updatelock)
-			emit changed(m_key);
-	}
+	n > 0 ? m_key->next( CSwordVerseKey::UseVerse ) : m_key->previous( CSwordVerseKey::UseVerse );
+	updateText();
+	if (!updatelock) emit changed(m_key);
 }
