@@ -28,39 +28,39 @@ class CSwordBackend;
 namespace BookshelfManager {
 
 class CSwordSetupModuleListView : public KListView {
-		Q_OBJECT
+	Q_OBJECT
 
 public:
-		CSwordSetupModuleListView(QWidget* parent, bool is_remote, sword::InstallSource* installSource = 0);
-		virtual ~CSwordSetupModuleListView();
+	CSwordSetupModuleListView(QWidget* parent, bool is_remote, sword::InstallSource* installSource = 0);
+	virtual ~CSwordSetupModuleListView();
 
-		void addModule(CSwordModuleInfo *, QString localVersion);
-		void finish();
-		QStringList selectedModules();
-		void clear();
+	void addModule(CSwordModuleInfo *, QString localVersion);
+	void finish();
+	QStringList selectedModules();
+	void clear();
 
-		virtual QString tooltip(QListViewItem* i, int column) const;
-		virtual bool showTooltip(QListViewItem* i, const QPoint& pos, int column) const;
+	virtual QString tooltip(QListViewItem* i, int column) const;
+	virtual bool showTooltip(QListViewItem* i, const QPoint& pos, int column) const;
 
 protected slots:
-		void slotItemClicked(QListViewItem*);
+	void slotItemClicked(QListViewItem*);
 
 private:
-		void init();
+	void init();
 
-		CSwordBackend* m_backend;
-		bool m_is_remote;
+	CSwordBackend* m_backend;
+	bool m_is_remote;
 
-		QListViewItem* m_categoryBible;
-		QListViewItem* m_categoryCommentary;
-		QListViewItem* m_categoryLexicon;
-		QListViewItem* m_categoryBook;
-		QListViewItem* m_categoryDevotionals;
-		QListViewItem* m_categoryGlossaries;
+	QListViewItem* m_categoryBible;
+	QListViewItem* m_categoryCommentary;
+	QListViewItem* m_categoryLexicon;
+	QListViewItem* m_categoryBook;
+	QListViewItem* m_categoryDevotionals;
+	QListViewItem* m_categoryGlossaries;
 
 signals:
-		void selectedModulesChanged();
-	};
+	void selectedModulesChanged();
+};
 
 } //NAMESPACE
 

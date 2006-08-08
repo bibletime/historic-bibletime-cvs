@@ -27,17 +27,21 @@ using namespace sword;
 
 namespace Filters {
 
-	/** This Filter shows/hides headings in a OSIS text
-	 */
-
+/** This Filter shows/hides headings in a OSIS text.
+ * @author Martin Gruner
+ */
 class OSISMorphSegmentation : public SWOptionFilter {
+	static const char oName[];
+	static const char oTip[];
+	static const SWBuf choices[3];
+	static const StringList oValues;
 
 public:
-		OSISMorphSegmentation();
-		virtual ~OSISMorphSegmentation();
+	OSISMorphSegmentation();
+	virtual ~OSISMorphSegmentation();
 
-		virtual char processText(SWBuf &text, const SWKey *key = 0, const SWModule *module = 0);
-	};
+	virtual char processText(SWBuf &text, const SWKey *key = 0, const SWModule *module = 0);
+};
 
 }
 

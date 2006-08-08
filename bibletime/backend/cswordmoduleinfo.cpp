@@ -150,12 +150,13 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	return false;
 }
 
-// This function makes an estimate if a module was properly unlocked.
-// It returns true if the first entry of the module (parsed as Latin1
-// byte sequence) is not empty and contains only printable characters.
-// If that is the case, we can safely assume that a) the module was properly
-// unlocked and b) no buffer overflows will occur, which can happen when
-// Sword filters process garbage text which was not properly decrypted.
+/** This function makes an estimate if a module was properly unlocked.
+ * It returns true if the first entry of the module (parsed as Latin1
+ * byte sequence) is not empty and contains only printable characters.
+ * If that is the case, we can safely assume that a) the module was properly
+ * unlocked and b) no buffer overflows will occur, which can happen when
+ * Sword filters process garbage text which was not properly decrypted.
+*/
 const bool CSwordModuleInfo::unlockKeyIsValid(){
 
 	(*m_module) = sword::TOP;
@@ -170,12 +171,14 @@ const bool CSwordModuleInfo::unlockKeyIsValid(){
 		qWarning("Unlock key of module %s is NOT valid", name().latin1());
 		return false;
 	}
-	for (int i=0; i <= test.length(); i++){
+
+	for (unsigned int i = 0; i <= test.length(); i++){
 		if ( !test[i].isPrint() && !test[i].isNull() ){
 			qWarning("Unlock key of module %s is NOT valid", name().latin1());
 			return false;
 		}
 	}
+
 	qDebug("Unlock key of module %s is valid", name().latin1());
 	return true;
 }
@@ -385,7 +388,7 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 		util::scoped_ptr<Hits> h( searcher.search(q, Sort::INDEXORDER) );
 		
 		const bool useScope = (scope.Count() > 0);
-		const bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
+//		const bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
 		
 		Document* doc = 0;
 		util::scoped_ptr<SWKey> swKey( module()->CreateKey() );

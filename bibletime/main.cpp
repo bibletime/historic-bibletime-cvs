@@ -43,9 +43,6 @@
 #include <kaboutdata.h>
 #include <klocale.h>
 
-#include <kmessagebox.h>
-//more tests
-
 bool showDebugMessages = false;
 BibleTime* bibletime_ptr = 0;
 
@@ -196,7 +193,10 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Torsten Uhlmann",   I18N_NOOP("The first lead developer"), "", "");
 	//scoped_ptr and related classes
 	aboutData.addCredit("David White",   I18N_NOOP("Helpful source code additions"), "", "http://www.wesnoth.org/");
- 
+	//Translated the GUI into Russian
+	aboutData.addCredit("Dmitry Yurevich",   I18N_NOOP("Translated the GUI into Russian"), "", "");
+	//The new keychooser for Bible modules
+	aboutData.addCredit("Mark Zealey",   I18N_NOOP("New Bible key choosers"), "mspam@zealey.org", "");
 
 	//special message so the translator get his credits in the about box, don't remove this!
 	QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name

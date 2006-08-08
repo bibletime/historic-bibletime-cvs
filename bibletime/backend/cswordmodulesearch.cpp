@@ -92,11 +92,6 @@ const bool CSwordModuleSearch::foundItems() const {
 	return m_foundItems;
 }
 
-/** Sets the options for this search. Options include theflags and search types of the Sword searc interface. */
-// void CSwordModuleSearch::setSearchOptions( const int options ) {
-// 	m_searchOptions = options;
-// }
-
 /** Returns a copy of the used search scope. */
 const sword::ListKey& CSwordModuleSearch::searchScope() const {
 	return m_searchScope;
@@ -123,13 +118,3 @@ const bool CSwordModuleSearch::modulesHaveIndices( const ListCSwordModuleInfo& m
 	}
 	return hasIndices;
 }
-
-/*void CSwordModuleSearch::indexModules( const ListCSwordModuleInfo& modules)
-{
-	ListCSwordModuleInfo::const_iterator end_it = modules.end();
-	for( ListCSwordModuleInfo::const_iterator it = modules.begin(); it != end_it; ++it) {
-		if (!(*it)->hasIndex()) {
-			(*it)->buildIndex();
-		}
-	}
-}*/

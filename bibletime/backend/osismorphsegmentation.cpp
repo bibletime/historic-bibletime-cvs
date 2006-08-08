@@ -14,15 +14,15 @@
 #include <utilxml.h>
 #include <utilstr.h>
 
-const char oName[] = "Morph segmentation";
-const char oTip[] = "Toggles morph segmentation On and Off if they exist";
 
-const SWBuf choices[3] = {"Off", "On", ""
-						 };
-
-const StringList oValues(&choices[0], &choices[2]);
 
 namespace Filters {
+const char OSISMorphSegmentation::oName[] = "Morph segmentation";
+const char OSISMorphSegmentation::oTip[] = "Toggles morph segmentation On and Off if they exist";
+
+const SWBuf OSISMorphSegmentation::choices[3] = {"Off", "On", ""};
+
+const StringList OSISMorphSegmentation::oValues(&choices[0], &choices[2]);
 
 OSISMorphSegmentation::OSISMorphSegmentation() : sword::SWOptionFilter(oName, oTip, &oValues) {
 		setOptionValue("Off");

@@ -24,9 +24,8 @@
 #include <klocale.h>
 
 //initialize static language list
-typedef QPtrList<CLanguageMgr::Language> LanguageList;
-LanguageList CLanguageMgr::m_langList = LanguageList();
-static LanguageList cleanupLangPtrs;
+CLanguageMgr::LanguageList CLanguageMgr::m_langList;
+CLanguageMgr::LanguageList CLanguageMgr::m_cleanupLangPtrs;
 
 CLanguageMgr::Language::Language() : m_altAbbrevs(0) {
 	m_abbrev = QString::null;
@@ -74,8 +73,8 @@ CLanguageMgr::CLanguageMgr() : m_langMap(0) {
 }
 
 CLanguageMgr::~CLanguageMgr() {
-	cleanupLangPtrs.setAutoDelete(true);
-	cleanupLangPtrs.clear();
+	m_cleanupLangPtrs.setAutoDelete(true);
+	m_cleanupLangPtrs.clear();
 
 	m_langList.setAutoDelete(true);
 	m_langList.clear();
@@ -112,7 +111,7 @@ const CLanguageMgr::LangMap& CLanguageMgr::availableLanguages() {
 			}
 			else { //invalid lang used by a modules, create a new language using the abbrev
 				Language* newLang = new Language(abbrev, abbrev, abbrev);
-				cleanupLangPtrs.append(newLang);
+				m_cleanupLangPtrs.append(newLang);
 
 				m_availableModulesCache.availableLanguages.insert( abbrev, newLang );
 			}
@@ -126,33 +125,30 @@ const CLanguageMgr::Language* const CLanguageMgr::languageForAbbrev( const QStri
 	Language* lang = m_langMap.find(abbrev);
 
 	if (lang) {
-	return lang;
-	};
+		return lang;
+	}
 
 	//try to search in the alternative abbrevs
 	//const LangMapIterator end = m_langMap.constEnd();
 	for ( LangMapIterator it( m_langMap ); it.current(); ++it ) {
-	if (it.current()->alternativeAbbrevs() && it.current()->alternativeAbbrevs()->contains(abbrev)) {
+		if (it.current()->alternativeAbbrevs() && it.current()->alternativeAbbrevs()->contains(abbrev)) {
 			return it.current();
-		};
+		}
 	}
 
 	// Invalid lang used by a modules, create a new language using the abbrev
 	Language* newLang = new Language(abbrev, abbrev, abbrev); //return a language which holds the valid abbrev
-
-	cleanupLangPtrs.append(newLang);
+	m_cleanupLangPtrs.append(newLang);
 
 	return newLang;
-
-	//return &m_defaultLanguage; //invalid language
 };
 
 const CLanguageMgr::Language* const CLanguageMgr::languageForName( const QString& name ) const {
 	for ( LangMapIterator it( m_langMap ); it.current(); ++it ) {
-	if (it.current()->name() == name) {
+		if (it.current()->name() == name) {
 			return it.current();
-		};
-	};
+		}
+	}
 
 	return &m_defaultLanguage;//invalid language
 };
@@ -161,8 +157,8 @@ const CLanguageMgr::Language* const CLanguageMgr::languageForTranslatedName( con
 	for ( LangMapIterator it( m_langMap ); it.current(); ++it ) {
 	if (it.current()->translatedName() == name) {
 			return it.current();
-		};
-	};
+		}
+	}
 
 	return &m_defaultLanguage; //invalid language
 };

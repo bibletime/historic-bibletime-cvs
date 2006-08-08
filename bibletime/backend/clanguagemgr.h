@@ -29,10 +29,8 @@ public:
 	/** Language container.
 	 * This class (Language) contains the information about the chosen language.
 	 */
-
 	class Language {
-
-public:
+	public:
 		/** Default constructor of a language object.
 		 * Uses the abbreviation parameter to lookup the
 		 * language name and to be able to return the name, flag etc.
@@ -77,12 +75,14 @@ public:
 		  */
 		inline const bool isValid() const;
 
-private:
+	private:
 		QString m_abbrev;
 		QString m_englishName;
 		QString m_translatedName;
 		QStringList* m_altAbbrevs;
 	};
+
+	typedef QPtrList<CLanguageMgr::Language> LanguageList;
 
 	typedef QDict<Language> LangMap;
 	typedef QDictIterator<Language> LangMapIterator;
@@ -92,7 +92,7 @@ private:
 	CLanguageMgr();
 	/** Destructor
 	*/
-	~CLanguageMgr();
+	virtual ~CLanguageMgr();
 	/**
 	* Returns the standard languages available as standard. Does nothing for Sword.
 	* @return A QDict<Language> map which contains all known languages
@@ -132,14 +132,14 @@ private:
 	mutable LangMap m_langMap;
 	Language m_defaultLanguage;
 
-	typedef QPtrList<CLanguageMgr::Language> LanguageList;
+	//typedef QPtrList<CLanguageMgr::Language> LanguageList;
 	static LanguageList m_langList;
+	static LanguageList m_cleanupLangPtrs;
 
 	struct ModuleCache {
 		unsigned int moduleCount;
 		LangMap availableLanguages;
 	}
-
 	m_availableModulesCache;
 };
 
@@ -151,8 +151,8 @@ inline const bool CLanguageMgr::Language::isValid() const {
 
 inline const QString& CLanguageMgr::Language::abbrev() const {
 	if (m_altAbbrevs && m_abbrev.isEmpty() && m_altAbbrevs->count()) { //no standard abbrev but alternative ones
-	return m_altAbbrevs->first();
-	};
+		return m_altAbbrevs->first();
+	}
 
 	return m_abbrev;
 }
