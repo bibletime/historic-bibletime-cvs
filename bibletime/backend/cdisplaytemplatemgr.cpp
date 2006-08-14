@@ -108,31 +108,23 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 		const CLanguageMgr::Language* lang = it.current();
 
 
-		if (lang->isValid() && CBTConfig::get
-					(lang).first) {
+		//if (lang->isValid() && CBTConfig::get(lang).first) {
+		if (!lang->abbrev().isEmpty() && CBTConfig::get(lang).first) {
+			const QFont f = CBTConfig::get(lang).second;
 
-				const QFont f = CBTConfig::get
-									(lang).second;
+			//don't use important, because it would reset the title formatting, etc. to the setup font
+			QString css("{ ");
+			css.append("font-family:").append(f.family())/*.append(" !important")*/;
+			css.append("; font-size:").append(QString::number(f.pointSize())).append("pt /*!important*/");
+			css.append("; font-weight:").append(f.bold() ? "bold" : "normal /*!important*/");
+			css.append("; font-style:").append(f.italic() ? "italic" : "normal /*!important*/");
+			css.append("; }\n");
 
-
-				//don't use important, because it would reset the title formatting, etc. to the setup font
-				QString css("{ ");
-
-				css.append("font-family:").append(f.family())/*.append(" !important")*/;
-
-				css.append("; font-size:").append(QString::number(f.pointSize())).append("pt /*!important*/");
-
-				css.append("; font-weight:").append(f.bold() ? "bold" : "normal /*!important*/");
-
-				css.append("; font-style:").append(f.italic() ? "italic" : "normal /*!important*/");
-
-				css.append("; }\n");
-
-				langCSS +=
-					QString("\n*[lang=%1] %2")
-					.arg(lang->abbrev())
-					.arg(css);
-			}
+			langCSS +=
+				QString("\n*[lang=%1] %2")
+				.arg(lang->abbrev())
+				.arg(css);
+		}
 	}
 
 	//at first append the font standard settings for all languages without configured font
@@ -140,7 +132,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 
 	const CLanguageMgr::Language* lang = it.current();
 
-	if (lang && lang->isValid()) {
+	if (lang && !lang->abbrev().isEmpty()/*&& lang->isValid()*/) {
 		const QFont standardFont = CBTConfig::getDefault(lang); //we just need a dummy lang param
 		langCSS.prepend(
 			QString("\n#content {font-family:%1; font-size:%2pt; font-weight:%3; font-style: %4;}\n")
