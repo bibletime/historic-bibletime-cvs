@@ -234,6 +234,8 @@ void CSwordModuleInfo::buildIndex() {
 	backend()->setOption( CSwordModuleInfo::morphSegmentation,  false );
 	backend()->setOption( CSwordModuleInfo::footnotes,  false );
 	backend()->setOption( CSwordModuleInfo::headings,  false );
+	backend()->setOption( CSwordModuleInfo::scriptureReferences,  false );
+	backend()->setOption( CSwordModuleInfo::redLetterWords,  false );
 
 	lucene::analysis::standard::StandardAnalyzer an;
 	QString index = getModuleStandardIndexLocation();
