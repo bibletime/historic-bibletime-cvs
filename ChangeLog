@@ -4,6 +4,9 @@
   * Improved the layout of the searchdialog options
   * Modules which require a more recent Sword are not loaded
 
+2006-08-20 Martin Gruner <mgruner@crosswire.org>
+  * Added documentation for "Find text in read window"
+
 2006-08-07 Martin Gruner <mgruner@crosswire.org>
   * verse keychooser bugfix and cleanups
 
