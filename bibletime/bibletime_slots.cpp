@@ -329,8 +329,10 @@ void BibleTime::slotToggleToolbar() {
 	}
 }
 
-/** Shows or hides the groupmanager. */
+/** Shows or hides the groupmanager. 
+*/
 void BibleTime::slotToggleMainIndex() {
+	//we use the parent widget because the main index is enclosed in a layout which adds the label at the top
 	if (m_viewMainIndex_action->isChecked()) {
 		m_mainIndex->parentWidget()->show();
 	}

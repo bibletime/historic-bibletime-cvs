@@ -75,11 +75,15 @@ void BibleTime::initView() {
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString("..."));
 
 	m_mainSplitter = new QSplitter(this, "mainsplitter");
+	m_mainSplitter->setChildrenCollapsible(false);
 	setCentralWidget(m_mainSplitter);
 
 	m_leftPaneSplitter = new QSplitter(Qt::Vertical, m_mainSplitter);
-
+	m_leftPaneSplitter->setChildrenCollapsible(false);
+	
 	QVBox* vBox = new QVBox(m_leftPaneSplitter);
+	vBox->setMinimumSize(100, 100);
+	
 	QLabel* bookshelfLabel = new QLabel( i18n("Bookshelf"), vBox );
 	bookshelfLabel->setMargin(5);
 
@@ -89,6 +93,7 @@ void BibleTime::initView() {
 	CPointers::setInfoDisplay(m_infoDisplay);
 
 	m_mdi = new CMDIArea(m_mainSplitter, "mdiarea" );
+	m_mdi->setMinimumSize(100, 100);
 	m_mdi->setFocusPolicy(ClickFocus);
 
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
@@ -200,12 +205,10 @@ void BibleTime::initActions() {
 	action->plugAccel( accel() );
 	#endif
 
-	m_windowArrangementMode_action = new KActionMenu(
-										 i18n("&Arrangement mode"),
-										 CResMgr::mainMenu::window::arrangementMode::icon,
-										 actionCollection(),
-										 CResMgr::mainMenu::window::arrangementMode::actionName
-									 );
+	m_windowArrangementMode_action = new KActionMenu(i18n("&Arrangement mode"),
+							 CResMgr::mainMenu::window::arrangementMode::icon,
+							 actionCollection(),
+							 CResMgr::mainMenu::window::arrangementMode::actionName);
 	m_windowArrangementMode_action->setDelayed( false );
 
 	m_windowManualMode_action = new KToggleAction(i18n("&Manual mode"),

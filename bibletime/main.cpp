@@ -181,6 +181,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Mark Lybarger",  I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com","");
 	//Smaller frontend enhancements
 	aboutData.addCredit("Luke Mauldin",  I18N_NOOP("Frontend"), "lukeskyfly@txk.net", "");
+	//translated parts of the russian website files
+	aboutData.addCredit("Igor Rykhlin",   I18N_NOOP("Russian website translation"), "", "");
 	// handbook documentation
 	aboutData.addCredit("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
 	//French handbook translation

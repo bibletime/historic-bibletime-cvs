@@ -1,3 +1,6 @@
+2006-08-20 Joachim Ansorg <info@bibletime.info>
+  * Fixed the shrinking to zero of the left mainwindow's left part 
+
 2006-08-07 Martin Gruner <mgruner@crosswire.org>
   * verse keychooser bugfix and cleanups
 
