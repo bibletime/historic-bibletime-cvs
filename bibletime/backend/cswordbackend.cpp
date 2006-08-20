@@ -145,8 +145,12 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 			);
 		}
 
-		if (newModule) { //append the new modules to our list
-			m_moduleList.append( newModule );
+		if (newModule) { 
+			//append the new modules to our list, but only if it's supported
+			//the constructor of CSwordModuleInfo prints a waring on stdout
+			if (!newModule->hasVersion() || (newModule->minimumSwordVersion() <= sword::SWVersion::currentVersion)) {
+				m_moduleList.append( newModule );	
+			}
 		}
 	}
 

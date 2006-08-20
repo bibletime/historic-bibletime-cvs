@@ -2,6 +2,7 @@
   * Fixed the shrinking to zero of the left mainwindow's left part
   * Fixed crossrefs in the clucene index
   * Improved the layout of the searchdialog options
+  * Modules which require a more recent Sword are not loaded
 
 2006-08-07 Martin Gruner <mgruner@crosswire.org>
   * verse keychooser bugfix and cleanups
