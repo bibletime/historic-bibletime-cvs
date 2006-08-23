@@ -12,7 +12,7 @@ dnl Perform program name transformation
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(bibletime, 1.6beta3) dnl searches for some needed programs
+AM_INIT_AUTOMAKE(bibletime, 1.6rc1) dnl searches for some needed programs
 
 KDE_SET_PREFIX
 KDE_USE_QT(3.0)

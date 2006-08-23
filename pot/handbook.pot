@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2006-03-30 19:27+0000\n"
+"POT-Creation-Date: 2006-08-23 16:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -881,11 +881,29 @@ msgstr ""
 #. Tag: title
 #: hdbk-operation.docbook:118
 #, no-c-format
-msgid "Accessing the search dialog"
+msgid "Searching text in an open read window"
 msgstr ""
 
 #. Tag: para
 #: hdbk-operation.docbook:119
+#, no-c-format
+msgid ""
+"You can look for a word or phrase in the open window like you are used to "
+"from other programs. This function can be reached either by clicking with "
+"the <mousebutton>right</mousebutton> mouse button and selecting "
+"<guimenuitem>Find...</guimenuitem>, or by using the hotkey <keycombo action="
+"\"simul\">&Alt;<keycap>F</keycap> </keycombo>. Read on to learn how you can "
+"search in entire works."
+msgstr ""
+
+#. Tag: title
+#: hdbk-operation.docbook:126
+#, no-c-format
+msgid "Accessing the search dialog"
+msgstr ""
+
+#. Tag: para
+#: hdbk-operation.docbook:127
 #, no-c-format
 msgid ""
 "You can search in a work by clicking with the <mousebutton>right</"
@@ -897,7 +915,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:122
+#: hdbk-operation.docbook:130
 #, no-c-format
 msgid ""
 "You can also access the search dialog by clicking on "
@@ -906,7 +924,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:123
+#: hdbk-operation.docbook:131
 #, no-c-format
 msgid ""
 "A third possibility to start searches is to click on the search symbol in an "
@@ -914,31 +932,31 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:127
+#: hdbk-operation.docbook:135
 #, no-c-format
 msgid "Search configuration"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:128
+#: hdbk-operation.docbook:136
 #, no-c-format
 msgid "Use the options tab to set up your search."
 msgstr ""
 
 #. Tag: screeninfo
-#: hdbk-operation.docbook:130
+#: hdbk-operation.docbook:138
 #, no-c-format
 msgid "Search Text Dialog Options Tab"
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:139
+#: hdbk-operation.docbook:147
 #, no-c-format
 msgid "Selecting works"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:140
+#: hdbk-operation.docbook:148
 #, no-c-format
 msgid ""
 "At the top of the options tab you will find <guibutton>Choose works</"
@@ -948,13 +966,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:145
+#: hdbk-operation.docbook:153
 #, no-c-format
 msgid "Using Search Scopes"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:146
+#: hdbk-operation.docbook:154
 #, no-c-format
 msgid ""
 "You can narrow the scope of your search to certain parts of the Bible by "
@@ -965,7 +983,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:148
+#: hdbk-operation.docbook:156
 #, no-c-format
 msgid ""
 "You can also define your own search ranges by clicking the <guibutton>Setup "
@@ -973,13 +991,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:152
+#: hdbk-operation.docbook:160
 #, no-c-format
 msgid "Basic Search Syntax Introduction"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:153
+#: hdbk-operation.docbook:161
 #, no-c-format
 msgid ""
 "Enter search terms separated by spaces. By default the search function will "
@@ -988,7 +1006,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:154
+#: hdbk-operation.docbook:162
 #, no-c-format
 msgid ""
 "You can use wildcards: '*' matches any sequence of characters, while '?' "
@@ -997,7 +1015,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:155
+#: hdbk-operation.docbook:163
 #, no-c-format
 msgid ""
 "To search text other than the main text, enter the text type followed by "
@@ -1006,73 +1024,73 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:156
+#: hdbk-operation.docbook:164
 #, no-c-format
 msgid "Available text types:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:158
+#: hdbk-operation.docbook:166
 #, no-c-format
 msgid "Prefix"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:158
+#: hdbk-operation.docbook:166
 #, no-c-format
 msgid "Meaning"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:160
+#: hdbk-operation.docbook:168
 #, no-c-format
 msgid "heading:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:160
+#: hdbk-operation.docbook:168
 #, no-c-format
 msgid "searches headings"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:161
+#: hdbk-operation.docbook:169
 #, no-c-format
 msgid "footnote:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:161
+#: hdbk-operation.docbook:169
 #, no-c-format
 msgid "searches footnotes"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:162
+#: hdbk-operation.docbook:170
 #, no-c-format
 msgid "strong:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:162
+#: hdbk-operation.docbook:170
 #, no-c-format
 msgid "searches Strong's Numbers"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:163
+#: hdbk-operation.docbook:171
 #, no-c-format
 msgid "morph:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:163
+#: hdbk-operation.docbook:171
 #, no-c-format
 msgid "searches morphology codes"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:165
+#: hdbk-operation.docbook:173
 #, no-c-format
 msgid ""
 "BibleTime uses the Lucene search engine to perform your searches. It has "
@@ -1082,13 +1100,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:172
+#: hdbk-operation.docbook:180
 #, no-c-format
 msgid "Search results"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:173
+#: hdbk-operation.docbook:181
 #, no-c-format
 msgid ""
 "Here you can see how many instances of the search string were found, sorted "
@@ -1100,7 +1118,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:177
+#: hdbk-operation.docbook:185
 #, no-c-format
 msgid ""
 "Drag a reference and drop it on a work symbol on the Bookshelf to open the "
@@ -1108,7 +1126,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:179
+#: hdbk-operation.docbook:187
 #, no-c-format
 msgid ""
 "Drag a reference and drop it on an open read window, and it will jump to "
@@ -1116,19 +1134,19 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:180
+#: hdbk-operation.docbook:188
 #, no-c-format
 msgid "Select references and drag them to the Bookshelf to create bookmarks."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:183
+#: hdbk-operation.docbook:191
 #, no-c-format
 msgid "Search result analysis"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:184
+#: hdbk-operation.docbook:192
 #, no-c-format
 msgid ""
 "Click on <guibutton>Search analysis</guibutton> to open the search analysis "
@@ -1138,19 +1156,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: hdbk-operation.docbook:189
+#: hdbk-operation.docbook:197
 #, no-c-format
 msgid "Search Analysis Dialog Box"
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:203
+#: hdbk-operation.docbook:211
 #, no-c-format
 msgid "The <guimenuitem>Bookshelf Manager</guimenuitem>"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:205
+#: hdbk-operation.docbook:213
 #, no-c-format
 msgid ""
 "The <guimenuitem>Bookshelf Manager</guimenuitem> is a tool to manage your "
@@ -1161,13 +1179,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:208
+#: hdbk-operation.docbook:216
 #, no-c-format
 msgid "Bookshelf path(s) setup"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:210
+#: hdbk-operation.docbook:218
 #, no-c-format
 msgid ""
 "Here you can specify where &bibletime; may store your Bookshelf on the "
@@ -1176,7 +1194,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:212
+#: hdbk-operation.docbook:220
 #, no-c-format
 msgid ""
 "If you have a sword CD, but do not want to install all the works on the "
@@ -1186,13 +1204,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:216
+#: hdbk-operation.docbook:224
 #, no-c-format
 msgid "Install/update work(s)"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:218
+#: hdbk-operation.docbook:226
 #, no-c-format
 msgid ""
 "With this facility, you can connect to a repository of works (called "
@@ -1204,7 +1222,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:220
+#: hdbk-operation.docbook:228
 #, no-c-format
 msgid ""
 "To begin the installation or update process, select a library you want to "
@@ -1219,13 +1237,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:225
+#: hdbk-operation.docbook:233
 #, no-c-format
 msgid "Remove work(s)"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:227
+#: hdbk-operation.docbook:235
 #, no-c-format
 msgid ""
 "This facility allows you to delete one or more of the works from your "
@@ -1234,13 +1252,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:235
+#: hdbk-operation.docbook:243
 #, no-c-format
 msgid "Exporting and Printing"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:237
+#: hdbk-operation.docbook:245
 #, no-c-format
 msgid ""
 "In many places, you can open a context menu by clicking with the "
@@ -1254,7 +1272,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:242
+#: hdbk-operation.docbook:250
 #, no-c-format
 msgid ""
 "Printing from &bibletime; is rather basic and is intended as a utility. If "
