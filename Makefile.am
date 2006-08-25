@@ -56,11 +56,11 @@ $(top_srcdir)/configure.files:
 
 install-data-local:
 	chmod 755 $(DESTDIR)$(kde_datadir)/bibletime -R
-	$(mkinstalldirs) $(kde_appsdir)/Applications
-	$(INSTALL_DATA) $(top_builddir)/bibletime.desktop $(kde_appsdir)/Applications/bibletime.desktop
+	$(mkinstalldirs) $(datadir)/applications
+	$(INSTALL_DATA) $(top_builddir)/bibletime.desktop $(datadir)/applications/bibletime.desktop
 
 uninstall-local:
-	-rm -f $(kde_appsdir)/Applications/bibletime.desktop
+	-rm -f $(datadir)/applications/bibletime.desktop
 
 MAINTAINERCLEANFILES = configure.files subdirs 
 

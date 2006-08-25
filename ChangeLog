@@ -1,3 +1,9 @@
+2006-08-25 Martin Gruner <mgruner@crosswire.org>
+  * Changed location of bibletime.desktop to /usr/share/applications
+
+2006-08-23 Martin Gruner <mgruner@crosswire.org>
+  * released BibleTime 1.6rc1
+
 2006-08-21 Martin Gruner <mgruner@crosswire.org>
   * Fixed Keychooser Hotkeys to cross testament boundary
 
