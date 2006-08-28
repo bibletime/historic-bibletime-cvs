@@ -19,6 +19,13 @@
 2006-08-07 Martin Gruner <mgruner@crosswire.org>
   * verse keychooser bugfix and cleanups
 
+2006-08-01 David Blue <thedeveloper@users.sourceforge.net>
+  * Matched the High Contrast Template to the High Contrast Black Text
+    colours in kde
+
+2006-07-25 David Blue <thedeveloper@users.sourceforge.net>
+  * Fixed display of crossrefs in all templates
+	
 2006-06-20 Martin Gruner <mgruner@crosswire.org>
   * major patch to the printing system: printing works dynamically and
   respects the display and filter settings, instead of loading the default
