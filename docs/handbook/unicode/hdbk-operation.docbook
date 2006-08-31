@@ -133,7 +133,6 @@ on its symbol in the <guimenu>Bookshelf</guimenu> and selecting <guimenuitem>Sea
 
 <sect2 id="hdbk-op-search-config">
 <title>Search configuration</title>
-<para>Use the options tab to set up your search.</para>
 <screenshot>
 <screeninfo>Search Text Dialog Options Tab</screeninfo>
 <mediaobject>
@@ -145,15 +144,13 @@ on its symbol in the <guimenu>Bookshelf</guimenu> and selecting <guimenuitem>Sea
 
 <sect3 id="hdbk-op-search-config-works">
 <title>Selecting works</title>
-<para>At the top of the options tab you will find <guibutton>Choose works</guibutton>. If you would like to search in multiple works, click on this button and you will be offered a menu where you can select the works you want to search in.
+<para>At the top of the options tab you will find <guibutton>Choose</guibutton> (works). If you would like to search in multiple works, click on this button and you will be offered a menu where you can select the works you want to search in.
 </para>
 </sect3>
 
 <sect3 id="hd-op-search-config-scope">
 <title>Using Search Scopes</title>
-<para>You can narrow the scope of your search to certain parts of the Bible by selecting one of the predefined scopes from the list in <guimenu>Search scope</guimenu>. Most of these should be obvious. The scope <guimenuitem>Last search result</guimenuitem> will limit the search to the verses found in the previous search.</para>
-
-<para>You can also define your own search ranges by clicking the <guibutton>Setup ranges</guibutton> button.</para>
+<para>You can narrow the scope of your search to certain parts of the Bible by selecting one of the predefined scopes from the list in <guimenu>Search scope</guimenu>. You can define your own search ranges by clicking the <guibutton>Setup ranges</guibutton> button.</para>
 </sect3>
 
 <sect3 id="hd-op-search-config-syntax">
