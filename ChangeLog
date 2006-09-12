@@ -1,3 +1,6 @@
+2006-09-12 Martin Gruner <mgruner@crosswire.org>
+  * Fixed personal commentary display bug
+
 2006-08-25 Martin Gruner <mgruner@crosswire.org>
   * Changed location of bibletime.desktop to /usr/share/applications
 

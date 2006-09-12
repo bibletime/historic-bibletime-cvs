@@ -22,6 +22,7 @@
 #include "bt_thmlhtml.h"
 #include "bt_osishtml.h"
 #include "bt_gbfhtml.h"
+#include "bt_plainhtml.h"
 #include "osismorphsegmentation.h"
 
 #include "frontend/cbtconfig.h"
@@ -198,7 +199,8 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 
 	if (sourceformat == "PLAIN") {
 		if (!m_filters.plain) {
-			m_filters.plain = new sword::PLAINHTML();
+//			m_filters.plain = new sword::PLAINHTML();
+			m_filters.plain = new BT_PLAINHTML();
 		}
 
 		module->AddRenderFilter(m_filters.plain);
