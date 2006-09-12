@@ -76,6 +76,5 @@ char BT_PLAINHTML::processText(sword::SWBuf& text, const sword::SWKey * key, con
 		text += *from;
 		count++;
 	}
-	printf("BT_PLAINHTML %s", text.c_str());
 	return 0;
 }
