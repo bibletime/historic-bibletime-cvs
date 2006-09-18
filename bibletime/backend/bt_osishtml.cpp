@@ -591,18 +591,31 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		//seg tag
 		else if (!strcmp(tag.getName(), "seg")) {
 			if (!tag.isEndTag() && !tag.isEmpty()) {
+
 				const SWBuf type = tag.getAttribute("type");
 
-				if ((type == "morph")) {//line break
-					buf.append("<span class=\"morphSegmentation\">");
+				if (type == "morph") {//line break
+					//This code is for WLC and MORPH (WHI)
+					XMLTag outTag("span");
+					outTag.setAttribute("class", "morphSegmentation");
+					const char* attrValue;
+					//Transfer the values to the span
+					//Problem: the data is in hebrew/aramaic, how to encode in HTML/BibleTime?
+					if (attrValue = tag.getAttribute("lemma")) outTag.setAttribute("lemma", attrValue);
+					if (attrValue = tag.getAttribute("morph")) outTag.setAttribute("morph", attrValue);
+					if (attrValue = tag.getAttribute("homonym")) outTag.setAttribute("homonym", attrValue);
+
+					buf.append(outTag.toString());
+					//buf.append("<span class=\"morphSegmentation\">");
 				}
-				else {
+				else{
 					buf.append("<span>");
 				}
 			}
 			else { // seg end tag
 				buf.append("</span>");
 			}
+			//qWarning(QString("handled <seg> token. result: %1").arg(buf.c_str()).latin1());
 		}
 		
 		else { //all tokens handled by OSISHTMLHref will run through the filter now
