@@ -17,6 +17,7 @@ body {
 	padding:1em;
 	background-color:transparent;
 }
+
 * {
 	background-color:transparent; /* To work around a KDE 3.2 bug / problem */
 }
@@ -52,6 +53,8 @@ body {
 
 #content tr:nth-child(even)  { background-color: #EDEDED; }
 #content div.entry:nth-child(even)  { background-color: #EDEDED; }
+/*#content tr:nth-child(even)  { background-color: #D0D0D0; }
+#content div.entry:nth-child(even)  { background-color: #D0D0D0; }*/
 
 
 /* The a links are the normal HTML hyperlinks. Links without a class attribute are hyperlinks into the web */
@@ -69,8 +72,12 @@ a:hover { }
 .entry {
 	padding:0.3em;
 }
-table .entry:nth-child(1) {
+table .entry:nth-child(odd) {
 	border-left:10px solid #DEE6F6;
+}
+
+table .entry:nth-child(even) {
+	border-left:10px solid #E6EEFF;
 }
 
 #printer .entry { text-indent:15px; }
@@ -89,12 +96,16 @@ td.entry {
  */
 .currententry {
 	padding:0.3em;
-	/*line-height:1.6em;*/
+	line-height:1.6em;
 	background-color:#D3E5FF;
+	/*border: thin solid black;*/
+	
 }
+
 table .currententry:nth-child(1) {
 	margin-left:0;
 	border-left:10px solid #99B4FF;
+	/*border-left:10px solid #F5FF6A;*/
 }
 /* .currententry[dir=rtl] { */
 /* } */
@@ -132,8 +143,8 @@ td.entry + td.entry {
 #book .entry > *, #book .currententry > * { }
 
 /* An entryname is embedded in an .entry tag and contains the name of the key, which belongs to the text of the .entry */
-.entryname { size:60%; vertical-align:super; }
-.entryname a {text-decoration:none !important; color:#8F2627 !important; font-style:italic; padding:0; }
+.entryname { size:60%; vertical-align:super;}
+.entryname a { text-decoration:none !important; color:#8F2627 !important; font-style:italic; padding:0; }
 
 .entry[dir=rtl] .entryname, .currententry[dir=rtl] .entryname { }
 .entryname a, #printer .entryname { }
@@ -158,7 +169,11 @@ td.entry + td.entry {
 *This way both the non linked and linked text will show
 *as desired. Additionally, you can have seperate formatting
 *for linked and non linked text in the cross reference*/
-.crossreference a { color:#8f2627; }
+.crossreference a {
+   color:#8f2627;
+   /*Get rid of underlines on the notes when not hovered*/
+   text-decoration: none;
+}
 .crossreference a:hover {}
 
 /* Alternative reading as defined in the OSIS specs. The information about the alternative text is displayed in the info display. It's
@@ -176,7 +191,7 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 /* A title within the text. This is the formatting which applies to a title of a section, as you can find them in Bibles */
 .sectiontitle {
 	 padding:0.3em;
-	 text-shadow:gray 0px 0px 3px;
+	 /*text-shadow:gray 0px 0px 3px;*/
 	 font-size:1.3em;
 	 font-weight:bold;
 	 text-transform:uppercase;
@@ -194,7 +209,8 @@ so something like .alternative:before { content:"'"attr(alternative); } is possi
 .foreign { }
 
 /* Words spoken by Jesus Christ */
-.jesuswords { color: red; }
+/*.jesuswords { color: red; }*/
+.jesuswords { color: #B60000; }
 
 /* An introduction to a module, book or chapter */
 .introduction { }
