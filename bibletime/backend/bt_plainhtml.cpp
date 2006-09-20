@@ -29,7 +29,7 @@
 
 using namespace Filters;
 
-BT_PLAINHTML::BT_PLAINHTML() : sword::PLAINHTML() {
+BT_PLAINHTML::BT_PLAINHTML() : sword::SWFilter() {
 }
 
 /** No descriptions */
@@ -45,15 +45,20 @@ char BT_PLAINHTML::processText(sword::SWBuf& text, const sword::SWKey * key, con
 			text += "<P>";
 			from++;
 			continue;
-		} else {
-			if ((*from == '\n')) // && (from[1] != '\n')) // only one new line
-			{
-				text += "<BR>";
-				continue;
-			}
+		} 
+		else if ((*from == '\n')){ // only one new line
+			text += "<BR>";
+			continue;
 		}
-
-		if (*from == '&'){
+		else if (*from == '<') {
+			text += "&lt;";
+			continue;
+		}
+		else if (*from == '>') {
+			text += "&gt;";
+			continue;
+		}
+		else if (*from == '&'){
 			text += "&amp;";
 			continue;
 		}
@@ -76,5 +81,6 @@ char BT_PLAINHTML::processText(sword::SWBuf& text, const sword::SWKey * key, con
 		text += *from;
 		count++;
 	}
+	//printf("processed text: %s", text.c_str());
 	return 0;
 }

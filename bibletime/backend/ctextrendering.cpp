@@ -155,9 +155,6 @@ m_alternativeContent( QString::null ) {
 	m_alternativeContent.prepend("<div class=\"rangeheading\" dir=\"ltr\">").append("</div>"); //insert the right tags
 }
 
-/*!
-    \fn CPrinter::Item::getAlternativeContent()
- */
 const QString& CTextRendering::KeyTreeItem::getAlternativeContent() const {
 	return m_alternativeContent;
 }

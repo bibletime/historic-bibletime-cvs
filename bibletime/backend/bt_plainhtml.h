@@ -21,8 +21,8 @@
 //Sword includes
 #include <swkey.h>
 #include <swmodule.h>
-#include <swbasicfilter.h>
-#include <plainhtml.h>
+#include <swfilter.h>
+//#include <plainhtml.h>
 
 namespace Filters {
 
@@ -30,8 +30,7 @@ namespace Filters {
 	* This filter converts Plain Text into HTML
 	*/
 
-class BT_PLAINHTML : public sword::PLAINHTML/*, protected CFilterTool */
-	{
+class BT_PLAINHTML : public sword::SWFilter{
 
 protected:
 

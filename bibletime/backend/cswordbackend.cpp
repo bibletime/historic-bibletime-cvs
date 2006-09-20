@@ -192,31 +192,25 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 		if (!m_filters.gbf) {
 			m_filters.gbf = new BT_GBFHTML();
 		}
-
 		module->AddRenderFilter(m_filters.gbf);
 		noDriver = false;
 	}
-
-	if (sourceformat == "PLAIN") {
+	else if (sourceformat == "PLAIN") {
 		if (!m_filters.plain) {
 //			m_filters.plain = new sword::PLAINHTML();
 			m_filters.plain = new BT_PLAINHTML();
 		}
-
 		module->AddRenderFilter(m_filters.plain);
 		noDriver = false;
 	}
-
-	if (sourceformat == "ThML") {
+	else if (sourceformat == "ThML") {
 		if (!m_filters.thml) {
 			m_filters.thml = new BT_ThMLHTML();
 		}
-
 		module->AddRenderFilter(m_filters.thml);
 		noDriver = false;
 	}
-
-	if (sourceformat == "OSIS") {
+	else if (sourceformat == "OSIS") {
 		if (!m_filters.osis) {
 			m_filters.osis = new BT_OSISHTML();
 		}
@@ -226,12 +220,10 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 	}
 
 	if (noDriver) { //no driver found
-
 		if ( (moduleDriver == "RawCom") || (moduleDriver == "RawLD") ) {
 			if (!m_filters.plain) {
 				m_filters.plain = new sword::PLAINHTML();
 			}
-
 			module->AddRenderFilter(m_filters.plain);
 			noDriver = false;
 		}
