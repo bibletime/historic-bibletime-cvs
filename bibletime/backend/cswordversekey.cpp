@@ -136,14 +136,17 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 	switch (type) {
 
 		case UseBook: {
-			if ((Book() == BMAX[1]) && (Testament() == 1)) { //Revelation
+			const int currentTestament = Testament();
+			const int currentBook = Book();
+			 
+			if ((currentTestament == 2) && (currentBook >= BMAX[currentTestament-1])) { //Revelation, i.e. end of navigation
 				return false;
 			}
-			else if ((Book() == BMAX[0]) && (Testament() == 0)) { //Malachi
-				Testament(1);
-				Book(0);
+			else if ((currentTestament == 1) && (currentBook >= BMAX[currentTestament-1])) { //Malachi, switch to the NT
+				Testament(currentTestament+1);
+				Book(1);
 			}
-			else{
+			else {
 				Book(Book()+1);
 			}
 			break;
@@ -219,15 +222,17 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 	switch (type) {
 
 		case UseBook: {
-			if ( (Book()==0) && (Testament()==0) ) //Genesis
+			if ( (Book() == 1) && (Testament() == 1) ) { //Genesis
 				return false;
-			else if ( (Book()==0) && (Testament()==1) ){ //Matthew
-				Testament(0);
+			}
+			else if ( (Book() == 1) && (Testament() == 2) ){ //Matthew
+				Testament(1);
 				Book(BMAX[0]);
 			}
 			else{
-				Book(Book()-1);
+				Book( Book()-1 );
 			}
+			
 			break;
 		}
 
