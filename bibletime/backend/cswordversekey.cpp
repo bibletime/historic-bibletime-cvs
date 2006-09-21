@@ -190,8 +190,8 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 		}
 
 		default:
-		return false;
-	};
+			return false;
+	}
 
 	if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
 		if (_compare(bible->lowerBound()) < 0 ) {
@@ -211,7 +211,7 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 	}
 
 	return ret;
-};
+}
 
 const bool CSwordVerseKey::previous( const JumpType type ) {
 	bool ret = true;
@@ -267,8 +267,8 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 		}
 
 		default:
-		return false;
-	};
+			return false;
+	}
 
 	if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
 		if (_compare(bible->lowerBound()) < 0 ) {
@@ -288,10 +288,10 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 	}
 
 	return ret;
-};
+}
 
 /** Assignment operator for more ease of use. */
 CSwordVerseKey& CSwordVerseKey::operator = (const QString& keyname) {
-			key(keyname);
-			return *this;
-		}
+	key(keyname);
+	return *this;
+}

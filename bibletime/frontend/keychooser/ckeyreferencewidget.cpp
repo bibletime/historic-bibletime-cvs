@@ -173,11 +173,11 @@ KLineEdit* CKeyReferenceWidget::textbox() {
 	return m_textbox;
 }
 
-void CKeyReferenceWidget::slotReturnPressed()
-{
-		m_key->key(m_textbox->text());
-		updateText();
-		emit changed(m_key);
+void CKeyReferenceWidget::slotReturnPressed() {
+	m_key->key(m_textbox->text());
+	updateText();
+	
+	emit changed(m_key);
 }
 
 /* Handlers for the various scroller widgetsets. Do we really want a verse scroller? */
