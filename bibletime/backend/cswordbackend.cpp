@@ -43,7 +43,6 @@
 #include <swdisp.h>
 #include <swfiltermgr.h>
 #include <encfiltmgr.h>
-#include <plainhtml.h>
 #include <rtfhtml.h>
 #include <filemgr.h>
 #include <utilstr.h>
@@ -197,7 +196,6 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 	}
 	else if (sourceformat == "PLAIN") {
 		if (!m_filters.plain) {
-//			m_filters.plain = new sword::PLAINHTML();
 			m_filters.plain = new BT_PLAINHTML();
 		}
 		module->AddRenderFilter(m_filters.plain);
@@ -222,7 +220,7 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 	if (noDriver) { //no driver found
 		if ( (moduleDriver == "RawCom") || (moduleDriver == "RawLD") ) {
 			if (!m_filters.plain) {
-				m_filters.plain = new sword::PLAINHTML();
+				m_filters.plain = new BT_PLAINHTML();
 			}
 			module->AddRenderFilter(m_filters.plain);
 			noDriver = false;
