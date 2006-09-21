@@ -41,6 +41,9 @@
 
 #include <khtml_settings.h>
 
+//Sword includes
+#include <versekey.h>
+
 //init statics
 QFont* CBTConfig::m_defaultFont = 0;
 CBTConfig::FontCache* CBTConfig::fontConfigMap = 0;
@@ -474,7 +477,7 @@ void CBTConfig::set
 			* will always work with each locale set.
 			*/
 			CBTConfig::StringMap::ConstIterator it;
-			QString data = QString::null;
+			QString data;// = QString::null;
 
 			sword::VerseKey vk;
 			for (it = value.begin(); it != value.end(); ++it) {

@@ -119,7 +119,8 @@ namespace Rendering {
 	}
 
 	void CBookDisplay::setupRenderTree(CSwordTreeKey * swordTree, CTextRendering::KeyTree * renderTree, const QString& highlightKey) {
-		const QString key = swordTree->getFullName();
+//		const QString key = swordTree->getFullName();
+		const QString key = swordTree->getText(); //for Sword 1.5.9
 		const unsigned long offset = swordTree->getOffset();
 
 		CTextRendering::KeyTreeItem::Settings settings;

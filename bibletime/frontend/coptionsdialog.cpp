@@ -66,6 +66,7 @@
 
 //Sword includes
 #include <localemgr.h>
+#include <swlocale.h>
 
 using std::string;
 using std::list;

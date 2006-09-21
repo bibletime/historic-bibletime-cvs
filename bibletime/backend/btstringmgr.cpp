@@ -15,7 +15,7 @@
 //System includes
 #include <ctype.h>
 
-char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
+char* BTStringMgr::upperUTF8(char* text, unsigned int maxlen) const {
 	const int max = (maxlen>0) ? maxlen : strlen(text);
 
 	if (isUtf8(text)) {
@@ -37,21 +37,22 @@ char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
 	return text;
 }
 
-char* BTStringMgr::upperLatin1(char* text) {
+char* BTStringMgr::upperLatin1(char* text, unsigned int max) const {
 	char* ret = text;
 
 	while (*text) {
-		*text++ = toupper(*text);
+		*text = toupper(*text);
+		text++;
 	}
 
 	return ret;
 }
 
-const bool BTStringMgr::supportsUnicode() const {
+bool BTStringMgr::supportsUnicode() const {
 	return true;
 }
 
-const bool BTStringMgr::isUtf8(const char *buf) {
+const bool BTStringMgr::isUtf8(const char *buf) const {
 	int i, n;
 	register unsigned char c;
 	bool gotone = false;

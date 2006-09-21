@@ -31,18 +31,18 @@ public:
 	/** Converts the param to an upper case Utf8 string
 	* @param The text encoded in utf8 which should be turned into an upper case string
 	*/
-	virtual char* upperUTF8(char*, const unsigned int maxlen = 0);
+	virtual char *upperUTF8(char *text, unsigned int max = 0) const;
 
 	/** Converts the param to an uppercase latin1 string
 	* @param The text encoded in latin1 which should be turned into an upper case string
 	*/
-	virtual char* upperLatin1(char*);
-
+	virtual char *upperLatin1(char *text, unsigned int max = 0) const;
+	
 protected:
 	/** Enable Unicode support.
 	* Reimplementation to show unicode support.
 	*/
-	virtual const bool supportsUnicode() const;
+	virtual bool supportsUnicode() const;
 
 	/** CODE TAKEN FROM KDELIBS 3.2, which is licensed under the LGPL 2.
 	*
@@ -51,7 +51,7 @@ protected:
 	* This function checks whether a string is utf8 or not.
 	* It was taken from kdelibs so we do not depend on KDE 3.2.
 	*/
-	const bool isUtf8(const char *buf);
+	const bool isUtf8(const char *buf) const;
 };
 
 #endif

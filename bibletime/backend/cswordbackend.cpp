@@ -712,7 +712,7 @@ const QStringList CSwordBackend::swordDirList() {
 void CSwordBackend::filterInit() {
 	//  qWarning("## INIT");
 
-	SWFilter* tmpFilter = new OSISMorphSegmentation();
-	optionFilters.insert(FilterMap::value_type("OSISMorphSegmentation", tmpFilter));
+	SWOptionFilter* tmpFilter = new OSISMorphSegmentation();
+	optionFilters.insert(OptionFilterMap::value_type("OSISMorphSegmentation", tmpFilter));
 	cleanupFilters.push_back(tmpFilter);
 }
