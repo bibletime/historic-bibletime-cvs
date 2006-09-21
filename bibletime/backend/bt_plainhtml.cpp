@@ -45,7 +45,12 @@ char BT_PLAINHTML::processText(sword::SWBuf& text, const sword::SWKey * key, con
 			text += "<P>";
 			from++;
 			continue;
-		} 
+		}
+		else if ((*from == '<') && (from[1] == 'b') && (from[1] == 'r') && (from[1] == ' ') && (from[1] == '/') && (from[1] == '>')){ //special case
+			text += "<br />";
+			from += 5;
+			continue;
+		}
 		else if ((*from == '\n')){ // only one new line
 			text += "<BR>";
 			continue;
