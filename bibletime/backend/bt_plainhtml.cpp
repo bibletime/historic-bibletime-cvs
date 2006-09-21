@@ -46,7 +46,9 @@ char BT_PLAINHTML::processText(sword::SWBuf& text, const sword::SWKey * key, con
 			from++;
 			continue;
 		}
-		else if ((*from == '<') && (from[1] == 'b') && (from[2] == 'r') && (from[3] == ' ') && (from[4] == '/') && (from[5] == '>')){ //special case
+		//This is a special case: Newlines in the plaintext editor are stored as <br />, not as \n
+		//we need to let them through
+		else if ((*from == '<') && (from[1] == 'b') && (from[2] == 'r') && (from[3] == ' ') && (from[4] == '/') && (from[5] == '>')){
 			text += "<br />";
 			from += 5;
 			continue;
@@ -86,6 +88,5 @@ char BT_PLAINHTML::processText(sword::SWBuf& text, const sword::SWKey * key, con
 		text += *from;
 		count++;
 	}
-	//printf("processed text: %s", text.c_str());
 	return 0;
 }
