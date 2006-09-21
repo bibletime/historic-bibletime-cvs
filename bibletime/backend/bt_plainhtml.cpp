@@ -46,7 +46,7 @@ char BT_PLAINHTML::processText(sword::SWBuf& text, const sword::SWKey * key, con
 			from++;
 			continue;
 		}
-		else if ((*from == '<') && (from[1] == 'b') && (from[1] == 'r') && (from[1] == ' ') && (from[1] == '/') && (from[1] == '>')){ //special case
+		else if ((*from == '<') && (from[1] == 'b') && (from[2] == 'r') && (from[3] == ' ') && (from[4] == '/') && (from[5] == '>')){ //special case
 			text += "<br />";
 			from += 5;
 			continue;
