@@ -74,7 +74,7 @@ fi
 
 CLUCENE_INCLUDES="-I$ac_cv_clucene_incdir"
 AC_SUBST(CLUCENE_INCLUDES)
-all_includes="$all_includes -I$ac_cv_clucene_incdir -I$ac_cv_clucene_libdir" #$ac_cv_clucene_libdir needed for Clucene/clucene-config.h
+all_includes="$all_includes -I$ac_cv_clucene_incdir -I$ac_cv_clucene_libdir -I$ac_cv_sword_incdir" #$ac_cv_clucene_libdir needed for Clucene/clucene-config.h
 
 AC_MSG_RESULT([$ac_cv_clucene_incdir])
 
@@ -95,7 +95,7 @@ ac_ldflags_safe="$LDFLAGS"
 ac_libs_safe="$LIBS"
 
 CXXFLAGS="$CXXFLAGS -I$"
-LDFLAGS="$LDFLAGS -L$ac_cv_clucene_libdir"
+LDFLAGS="$LDFLAGS -L$ac_cv_clucene_libdir -L$ac_cv_sword_libdir"
 LIBS="$LIB_CLUCENE -lz -lsword"
 LD_LIBRARY_PATH="$ac_cv_clucene_libdir"
 export LD_LIBRARY_PATH

@@ -1,3 +1,6 @@
+2006-10-10 Martin Gruner <mgruner@crosswire.org>
+  * small clucene.m4 bugfix for nonstandard sword installations
+
 2006-09-22 Joachim Ansorg <info@bibletime.info>
   * Release of BibleTime 1.6
   
