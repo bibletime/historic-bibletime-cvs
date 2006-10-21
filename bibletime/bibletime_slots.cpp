@@ -525,11 +525,8 @@ void BibleTime::deleteProfile(int ID) {
 	refreshProfileMenus();
 }
 
-
 void BibleTime::toggleFullscreen() {
-	if (m_windowFullscreen_action->isChecked()) {
-		showFullScreen();
-	}
+	m_windowFullscreen_action->isChecked() ? showFullScreen() : showNormal();
 	m_mdi->triggerWindowUpdate();
 }
 
