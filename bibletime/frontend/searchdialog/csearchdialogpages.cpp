@@ -469,7 +469,7 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 
 	//wchar_t *buf;
 	//char buf8[1000];
-	//standard::StandardAnalyzer analyzer;
+	//standard::WhitespaceAnalyzer analyzer;
 	//lucene_utf8towcs(m_wcharBuffer, searchedText.utf8(), MAX_CONV_SIZE);
 	//util::scoped_ptr<Query> q( QueryParser::parse(m_wcharBuffer, _T("content"), &analyzer) );
 	//StringReader reader(m_wcharBuffer);
@@ -490,9 +490,9 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
 		QString word = words[ wi ];
 		if (word.contains("*")) {
 			length = word.length() - 1;
+			word.replace('*', "\\S*"); //match within a word
 			findExp = QRegExp(word);
 			findExp.setMinimal(TRUE);
-			findExp.setWildcard(TRUE);
 		}
 		else {
 			length = word.length();

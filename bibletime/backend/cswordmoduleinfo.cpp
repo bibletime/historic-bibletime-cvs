@@ -7,8 +7,6 @@
 *
 **********/
 
-
-
 //BibleTime includes
 #include "cswordmoduleinfo.h"
 #include "cswordbackend.h"
@@ -54,19 +52,9 @@
 #include <CLucene/util/Misc.h>
 #include <CLucene/util/dirent.h>
 
-
-using namespace std;
-using namespace lucene::index;
-using namespace lucene::analysis;
-using namespace lucene::util;
-using namespace lucene::store;
-using namespace lucene::document;
-using namespace lucene::queryParser;
-using namespace lucene::search;
-
-using std::string;
-
-#define INDEX_VERSION "1"
+//Increment this, if the index format changes
+//Then indices on the user's systems will be rebuilt
+const unsigned int INDEX_VERSION = 2;
 
 CSwordModuleInfo::CSwordModuleInfo(sword::SWModule * module, CSwordBackend * const usedBackend) {
 	m_module = module;
@@ -213,13 +201,13 @@ const bool CSwordModuleInfo::hasIndex() { //this will return true only
 			return false;
 		}
 	}
-	if (indexconfig->readEntry("index-version") != QString( INDEX_VERSION )){
+	if (indexconfig->readEntry("index-version") != QString::number( INDEX_VERSION )){
 		qDebug("%s: INDEX_VERSION is not compatible with this version of BibleTime.", name().latin1());
 		return false;
 	}
 
 	//then check if the index is there
-	return IndexReader::indexExists(getModuleStandardIndexLocation().ascii());
+	return lucene::index::IndexReader::indexExists(getModuleStandardIndexLocation().ascii());
 }
 
 
@@ -237,7 +225,7 @@ void CSwordModuleInfo::buildIndex() {
 	backend()->setOption( CSwordModuleInfo::scriptureReferences,  false );
 	backend()->setOption( CSwordModuleInfo::redLetterWords,  false );
 
-	lucene::analysis::standard::StandardAnalyzer an;
+	lucene::analysis::WhitespaceAnalyzer an;
 	QString index = getModuleStandardIndexLocation();
 
 	QDir dir;
@@ -246,13 +234,13 @@ void CSwordModuleInfo::buildIndex() {
 	dir.mkdir( getModuleStandardIndexLocation(), true );
 
 	
-	if (IndexReader::indexExists(index.ascii())){
-		if (IndexReader::isLocked(index.ascii()) ){
-			IndexReader::unlock(index.ascii());
+	if (lucene::index::IndexReader::indexExists(index.ascii())){
+		if (lucene::index::IndexReader::isLocked(index.ascii()) ){
+			lucene::index::IndexReader::unlock(index.ascii());
 		}
 	}
 	
-	util::scoped_ptr<IndexWriter> writer( new IndexWriter(index.ascii(), &an, true) ); //always create a new index
+	util::scoped_ptr<lucene::index::IndexWriter> writer( new lucene::index::IndexWriter(index.ascii(), &an, true) ); //always create a new index
 	writer->setMaxFieldLength(LUCENE_MAX_FIELD_LENGTH);
 	writer->setUseCompoundFile(true); //merge segments into a single file
 	writer->setMinMergeDocs(1000);
@@ -269,7 +257,7 @@ void CSwordModuleInfo::buildIndex() {
 
 	QString key;
 	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
-		Document* doc = new Document();
+		lucene::document::Document* doc = new lucene::document::Document();
 		
 		// index the key
 		// we have to be sure to insert the english key into the index, otherwise we'd be in trouble if the
@@ -282,13 +270,13 @@ void CSwordModuleInfo::buildIndex() {
 		}
 		//qWarning("key is %s", key.latin1());
 		lucene_utf8towcs(wcharBuffer, (const char*)key.utf8(), LUCENE_MAX_FIELD_LENGTH);
-		doc->add(*Field::UnIndexed(_T("key"), wcharBuffer));
+		doc->add(*lucene::document::Field::UnIndexed(_T("key"), wcharBuffer));
 
 		// index the main text
 		//at this point we have to make sure we disabled the strongs and the other options
 		//so the plain filters won't include the numbers somehow.
 		lucene_utf8towcs(wcharBuffer, m_module->StripText(), LUCENE_MAX_FIELD_LENGTH);
-		doc->add(*Field::UnStored(_T("content"), wcharBuffer));
+		doc->add(*lucene::document::Field::UnStored(_T("content"), wcharBuffer));
 
 		// index attributes
 		AttributeList::iterator attListI;
@@ -298,7 +286,7 @@ void CSwordModuleInfo::buildIndex() {
 			attListI != m_module->getEntryAttributes()["Footnote"].end();
 			attListI++) {
 				lucene_utf8towcs(wcharBuffer, attListI->second["body"], LUCENE_MAX_FIELD_LENGTH);
-				doc->add(*Field::UnStored(_T("footnote"), wcharBuffer));
+				doc->add(*lucene::document::Field::UnStored(_T("footnote"), wcharBuffer));
 		} // for attListI
 		
 		// Headings
@@ -306,7 +294,7 @@ void CSwordModuleInfo::buildIndex() {
 			attValueI != m_module->getEntryAttributes()["Heading"]["Preverse"].end();
 			attValueI++) {
 			lucene_utf8towcs(wcharBuffer, attValueI->second, LUCENE_MAX_FIELD_LENGTH);
-			doc->add(*Field::UnStored(_T("heading"), wcharBuffer));
+			doc->add(*lucene::document::Field::UnStored(_T("heading"), wcharBuffer));
 		} // for attValueI
 
 		// Strongs/Morphs
@@ -316,12 +304,12 @@ void CSwordModuleInfo::buildIndex() {
 			// for each attribute
 			if (attListI->second["LemmaClass"] == "strong") {
 				lucene_utf8towcs(wcharBuffer, attListI->second["Lemma"], LUCENE_MAX_FIELD_LENGTH);
-				doc->add(*Field::UnStored(_T("strong"), wcharBuffer));
+				doc->add(*lucene::document::Field::UnStored(_T("strong"), wcharBuffer));
 				//qWarning("Adding strong %s", attListI->second["Lemma"].c_str());
 			}
 			if (attListI->second.find("Morph") != attListI->second.end()) {
 				lucene_utf8towcs(wcharBuffer, attListI->second["Morph"], LUCENE_MAX_FIELD_LENGTH);
-				doc->add(*Field::UnStored(_T("morph"), wcharBuffer));
+				doc->add(*lucene::document::Field::UnStored(_T("morph"), wcharBuffer));
 			}
 		} // for attListI
 		
@@ -382,17 +370,17 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 	m_searchResult.ClearList();
 	
 	try {
-		standard::StandardAnalyzer analyzer;
-		IndexSearcher searcher(getModuleStandardIndexLocation().ascii());
+		lucene::analysis::WhitespaceAnalyzer analyzer;
+		lucene::search::IndexSearcher searcher(getModuleStandardIndexLocation().ascii());
 		lucene_utf8towcs(wcharBuffer, searchedText.utf8(), LUCENE_MAX_FIELD_LENGTH);
-		util::scoped_ptr<Query> q( QueryParser::parse(wcharBuffer, _T("content"), &analyzer) );
+		util::scoped_ptr<lucene::search::Query> q( lucene::queryParser::QueryParser::parse(wcharBuffer, _T("content"), &analyzer) );
 
-		util::scoped_ptr<Hits> h( searcher.search(q, Sort::INDEXORDER) );
+		util::scoped_ptr<lucene::search::Hits> h( searcher.search(q, lucene::search::Sort::INDEXORDER) );
 		
 		const bool useScope = (scope.Count() > 0);
 //		const bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
 		
-		Document* doc = 0;
+		lucene::document::Document* doc = 0;
 		util::scoped_ptr<SWKey> swKey( module()->CreateKey() );
 
 

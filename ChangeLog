@@ -1,5 +1,8 @@
 2006-10-21 Martin Gruner <mgruner@crosswire.org>
-  * Fixed KJV 2006 display, stripping NT transcription footnotes correctly again
+  * Fixed KJV 2006 display, stripping NT transcription footnotes correctly
+  again
+  * Changed Search to use WhitespaceAnalyzer instead of StandardAnalyzer. Now
+  the default stop words of StandardAnalyzer are ignored.
 
 2006-10-10 Martin Gruner <mgruner@crosswire.org>
   * small clucene.m4 bugfix for nonstandard sword installations
