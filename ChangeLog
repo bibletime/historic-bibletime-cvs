@@ -3,6 +3,8 @@
   again
   * Changed Search to use WhitespaceAnalyzer instead of StandardAnalyzer. Now
   the default stop words of StandardAnalyzer are ignored.
+  * Fixed search result highlighting for queries with "*" - do not highlight
+  across word boundaries any more
 
 2006-10-10 Martin Gruner <mgruner@crosswire.org>
   * small clucene.m4 bugfix for nonstandard sword installations
