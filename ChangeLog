@@ -1,3 +1,6 @@
+2006-10-21 Martin Gruner <mgruner@crosswire.org>
+  * Fixed KJV 2006 display, stripping NT transcription footnotes correctly again
+
 2006-10-10 Martin Gruner <mgruner@crosswire.org>
   * small clucene.m4 bugfix for nonstandard sword installations
 

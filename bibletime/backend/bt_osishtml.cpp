@@ -277,7 +277,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				/* else if (type == "explanation") {
 				     }
 				     */
-				else if (type == "strongsMarkup") {
+				else if ((type == "strongsMarkup") || (type == "x-strongsMarkup")) {
 					/**
 					* leave strong's markup notes out, in the future we'll probably have
 					* different option filters to turn different note types on or off
