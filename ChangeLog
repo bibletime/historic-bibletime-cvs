@@ -1,5 +1,6 @@
 2006-10-25 Martin Gruner <mgruner@crosswire.org>
   * Fixed crash on module uninstallation
+  * released BibleTime 1.6.1
 
 2006-10-21 Martin Gruner <mgruner@crosswire.org>
   * Fixed KJV 2006 display, stripping NT transcription footnotes correctly
