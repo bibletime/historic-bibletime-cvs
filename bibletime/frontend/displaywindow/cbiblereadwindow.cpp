@@ -394,6 +394,11 @@ void CBibleReadWindow::saveChapterPlain() {
 void CBibleReadWindow::reload() {
 	CLexiconReadWindow::reload();
 
+	if (m_modules.count() == 0) {
+		close();
+		return;
+	}
+
 	//refresh the book lists
 // 	qDebug("lang is %s",backend()->booknameLanguage().latin1());
 	verseKey()->setLocale( backend()->booknameLanguage().latin1() );

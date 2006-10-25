@@ -238,19 +238,18 @@ void CDisplayWindow::reload() {
 			}
 		}
 	}
-
-	if (keyChooser()) {
-		keyChooser()->setModules( modules(), false );
+	if (m_modules.count() == 0){
+		close();
+		return;
 	}
+
+	if (keyChooser()) keyChooser()->setModules( modules(), false );
 	
 	if (m_moduleChooserBar) { //necessary for edit windows which have now chooser bar
 		m_moduleChooserBar->setModules(modules());
 	}
 	modulesChanged();
-
-	if (m_modules.count() > 0) {
-		lookup();
-	}
+	lookup();
 }
 
 /** Returns the filter options used by this window. */

@@ -99,13 +99,8 @@ void CBibleKeyChooser::setModules(const ListCSwordModuleInfo& modules, const boo
 	}
 
 	// First time this is called we havnt set up w_ref.
-	if(w_ref)
-		w_ref->setModule(dynamic_cast<CSwordBibleModuleInfo*>(m_modules.first()));
-
-
-	if (refresh) {
-		refreshContent();
-	}
+	if (w_ref) w_ref->setModule(dynamic_cast<CSwordBibleModuleInfo*>(m_modules.first()));
+	if (refresh) refreshContent();
 }
 
 void CBibleKeyChooser::refreshContent() {
