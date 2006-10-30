@@ -103,16 +103,15 @@ protected:
 
 /** The assignment operator for more easy use of the key classes. */
 inline CSwordKey& CSwordKey::operator = ( const QString& newKey ) {
-											key(newKey);
-											return *this;
-										}
+	key(newKey);
+	return *this;
+}
 
-										inline CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
-											if (newModule) {
-												m_module = newModule;
-											}
+inline CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
+	if (newModule) {
+		m_module = newModule;
+	}
+	return m_module;
+}
 
-											return m_module;
-										}
-
-										#endif
+#endif
