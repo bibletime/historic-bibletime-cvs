@@ -54,7 +54,7 @@
 
 //Increment this, if the index format changes
 //Then indices on the user's systems will be rebuilt
-const unsigned int INDEX_VERSION = 2;
+const unsigned int INDEX_VERSION = 3;
 
 CSwordModuleInfo::CSwordModuleInfo(sword::SWModule * module, CSwordBackend * const usedBackend) {
 	m_module = module;
@@ -225,7 +225,9 @@ void CSwordModuleInfo::buildIndex() {
 	backend()->setOption( CSwordModuleInfo::scriptureReferences,  false );
 	backend()->setOption( CSwordModuleInfo::redLetterWords,  false );
 
-	lucene::analysis::WhitespaceAnalyzer an;
+	// do not use any stop words
+	const TCHAR* stop_words[]  = { NULL };
+	lucene::analysis::standard::StandardAnalyzer an( stop_words );
 	QString index = getModuleStandardIndexLocation();
 
 	QDir dir;
@@ -370,7 +372,9 @@ const bool CSwordModuleInfo::searchIndexed(const QString& searchedText, sword::L
 	m_searchResult.ClearList();
 	
 	try {
-		lucene::analysis::WhitespaceAnalyzer analyzer;
+		// do not use any stop words
+		const TCHAR* stop_words[]  = { NULL };
+		lucene::analysis::standard::StandardAnalyzer analyzer( stop_words );
 		lucene::search::IndexSearcher searcher(getModuleStandardIndexLocation().ascii());
 		lucene_utf8towcs(wcharBuffer, searchedText.utf8(), LUCENE_MAX_FIELD_LENGTH);
 		util::scoped_ptr<lucene::search::Query> q( lucene::queryParser::QueryParser::parse(wcharBuffer, _T("content"), &analyzer) );
