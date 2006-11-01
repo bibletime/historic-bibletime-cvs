@@ -1,8 +1,8 @@
 2006-11-01 Martin Gruner <mgruner@crosswire.org>
   * Reverted Analyzer Change of 1.6.1 to use StandardAnalyzer again, but
   without stop words. Whitespace Analyzer did not correctly strip punctiation,
-  so that hits were missing. Sorry. Search should work as expected now, except
-  for BibleTime's incorrect handling of Chapter 0 and Verse 0.
+  so that hits were missing. Sorry. Search should work as expected now.
+  * Added ability to display Book and Chapter headings
 
 2006-10-25 Martin Gruner <mgruner@crosswire.org>
   * Fixed crash on module uninstallation

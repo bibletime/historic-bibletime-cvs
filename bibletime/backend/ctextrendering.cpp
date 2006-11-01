@@ -217,6 +217,7 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& highlightKey, const KeyTreeItem::Settings& keySettings ) {
 
 	CSwordModuleInfo* module = modules.first();
+	qWarning( "renderKeyRange start %s stop %s \n", start.latin1(), stop.latin1() );
 	
 	util::scoped_ptr<CSwordKey> lowerBound( CSwordKey::createInstance(module) );
 	lowerBound->key(start);
@@ -249,8 +250,14 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 
 			/*TODO: We need to take care of linked verses if we render one or (esp) more modules
 			If the verses 2,3,4,5 are linked to 1, it should be displayed as one entry with the caption 1-5 */
+			
+			if (vk_start->Chapter() == 0){ //range was 0:0-1:x, render 0:0 first and jump to 1:0
+				vk_start->Verse(0);
+				tree.append( new KeyTreeItem(vk_start->key(), modules, settings) );
+				vk_start->Chapter(1);
+				vk_start->Verse(0);
+			}
 			tree.append( new KeyTreeItem(vk_start->key(), modules, settings) );
-
 			ok = vk_start->next(CSwordVerseKey::UseVerse);
 		}
 
