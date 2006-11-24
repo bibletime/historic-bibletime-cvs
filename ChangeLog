@@ -1,5 +1,6 @@
 2006-11-25 Martin Gruner <mgruner@crosswire.org>
   * Fixed 2 tooltips which were swapped
+  * removed old leftover code that caused problems with --enable-final
 
 2006-11-01 Martin Gruner <mgruner@crosswire.org>
   * Reverted Analyzer Change of 1.6.1 to use StandardAnalyzer again, but

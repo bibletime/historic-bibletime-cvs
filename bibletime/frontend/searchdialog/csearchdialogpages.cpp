@@ -16,6 +16,7 @@
 #include "crangechooser.h"
 #include "cmoduleresultview.h"
 #include "csearchresultview.h"
+#include "cmodulechooser.h"
 
 #include "backend/cswordversekey.h"
 #include "backend/cdisplayrendering.h"
