@@ -1016,11 +1016,11 @@ The others are user defined search scopes.");
 				}
 				{
 					using namespace nextChapter;
-					tooltip = i18n ("Show the previous chapter of the work.") ;
+					tooltip = i18n ("Show the next chapter of the work.") ;
 				}
 				{
 					using namespace previousChapter;
-					tooltip = i18n ("Show the next chapter of the work.") ;
+					tooltip = i18n ("Show the previous chapter of the work.") ;
 				}
 				{
 					using namespace verseList;
