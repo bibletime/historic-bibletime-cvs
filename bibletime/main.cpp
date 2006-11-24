@@ -199,6 +199,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Wolfgang Stradner", I18N_NOOP("Very helpful and detailed testing"), "wolfgang_stradner@wycliffe.org", "");
 	//The first lead developer
 	aboutData.addCredit("Torsten Uhlmann",   I18N_NOOP("The first lead developer"), "", "");
+ 	//Update of the dutch website translation(cbiblereadwindow_0)
+	aboutData.addCredit("Johan van der Lingen",   I18N_NOOP("Dutch website translation updates"), "", "");
 	//scoped_ptr and related classes
 	aboutData.addCredit("David White",   I18N_NOOP("Helpful source code additions"), "", "http://www.wesnoth.org/");
 	//Translated the GUI into Russian
@@ -207,8 +209,6 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Mark Zealey",   I18N_NOOP("New Bible key choosers"), "mspam@zealey.org", "");
 	//Update to the Spanish GUI translation
  	aboutData.addCredit("Esteban Zeller",   I18N_NOOP("Spanish translation"), "", "");
- 	//Update of the dutch website translation(cbiblereadwindow_0)
-	aboutData.addCredit("Johan van der Lingen",   I18N_NOOP("Dutch website translation updates"), "", "");
 				
 	//special message so the translator get his credits in the about box, don't remove this!
 	QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name
