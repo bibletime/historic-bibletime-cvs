@@ -4,7 +4,7 @@
 
 2006-11-01 Martin Gruner <mgruner@crosswire.org>
   * Reverted Analyzer Change of 1.6.1 to use StandardAnalyzer again, but
-  without stop words. Whitespace Analyzer did not correctly strip punctiation,
+  without stop words. Whitespace Analyzer did not correctly strip punctuation,
   so that hits were missing. Sorry. Search should work as expected now.
   * Added ability to display Book and Chapter headings
 

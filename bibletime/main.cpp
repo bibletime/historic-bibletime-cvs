@@ -155,6 +155,8 @@ int main(int argc, char* argv[]) {
 	/***********************************************
 	*        Credits (sorted by last name)         *
 	************************************************/
+	// Update to the Romanian GUI translation
+	aboutData.addCredit("Horatiu Alexe", I18N_NOOP("Romanian translation"), "");
 	//highcolor icons, startlogo for BT <= 1.4
 	aboutData.addCredit("David Blue", I18N_NOOP("High contrast template"), "davidslists@gmx.net");
 	//helped out with the installation manager
@@ -175,8 +177,12 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
 	//Indexed search, gui improvements
 	aboutData.addCredit("Lee Carpenter",  I18N_NOOP("GUI, instant search"),"Lee Carpenter <elc@carpie.net>", "http://www.carpie.net");
+	//Update the the Finnish GUI translation
+	aboutData.addCredit("Ilpo Kantonen",  I18N_NOOP("Finnish translation"),"", "");
 	//Smaller frontend enhancements
 	aboutData.addCredit("Chris Kujawa",  I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
+	//Update to the Czech GUI translation
+	aboutData.addCredit("Pavel Lauko",  I18N_NOOP("Czech translation"),"", "");
 	//Smaller searchdialog enhancements
 	aboutData.addCredit("Mark Lybarger",  I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com","");
 	//Smaller frontend enhancements
@@ -199,7 +205,11 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Dmitry Yurevich",   I18N_NOOP("Translated the GUI into Russian"), "", "");
 	//The new keychooser for Bible modules
 	aboutData.addCredit("Mark Zealey",   I18N_NOOP("New Bible key choosers"), "mspam@zealey.org", "");
-
+	//Update to the Spanish GUI translation
+ 	aboutData.addCredit("Esteban Zeller",   I18N_NOOP("Spanish translation"), "", "");
+ 	//Update of the dutch website translation(cbiblereadwindow_0)
+	aboutData.addCredit("Johan van der Lingen",   I18N_NOOP("Dutch website translation updates"), "", "");
+				
 	//special message so the translator get his credits in the about box, don't remove this!
 	QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name
 	dummy = I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"); //translators eMail
