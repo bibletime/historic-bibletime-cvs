@@ -1,3 +1,6 @@
+2006-11-27 Joachim Ansorg <info@bibletime.info>
+  * The tree state is restored if a change in the Sword setup forces a reload at runtime.
+
 2006-11-25 Martin Gruner <mgruner@crosswire.org>
   * Fixed 2 tooltips which were swapped
   * removed old leftover code that caused problems with --enable-final

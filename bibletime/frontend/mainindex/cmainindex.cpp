@@ -77,7 +77,6 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 	}
 }
 
-/*new class : CMainIndex*/
 CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
 m_searchDialog(0), m_toolTip(0), m_itemsMovable(false), m_autoOpenFolder(0), m_autoOpenTimer(this) {
 	initView();
@@ -89,8 +88,7 @@ CMainIndex::~CMainIndex() {
 	saveSettings();
 	saveBookmarks();
 
-	m_toolTip->remove
-	(this);
+	m_toolTip->remove(this);
 	delete m_toolTip;
 }
 
@@ -99,15 +97,17 @@ void CMainIndex::addGroup(const CItemBase::Type type, const QString language) {
 	CTreeFolder *i = 0;
 	switch (type) {
 		case CItemBase::BookmarkFolder:
-		i = new CBookmarkFolder(this);
-		break;
+			i = new CBookmarkFolder(this);
+			break;
 		case CItemBase::GlossaryModuleFolder:
-		i = new CGlossaryFolder(this, type, language, QString::null); //we have no second language
-		break;
+			//we have no second language
+			i = new CGlossaryFolder(this, type, language, QString::null); 
+			break;
 		default:
-		i = new CTreeFolder(this, type, language);
-		break;
+			i = new CTreeFolder(this, type, language);
+			break;
 	}
+	
 	if (i) {
 		i->init();
 		if (i->childCount() == 0 && type != CItemBase::BookmarkFolder) {
@@ -124,7 +124,8 @@ void CMainIndex::initView() {
 
 	m_toolTip = new ToolTip(this);
 	setTooltipColumn(-1);
-	setShowToolTips(false);//to disable Qt's tooltips
+	//to disable Qt's tooltips
+	setShowToolTips(false);
 
 	setBackgroundMode(PaletteBase);
 	setFullWidth(true);
@@ -159,12 +160,13 @@ void CMainIndex::initView() {
 	m_actions.editModuleMenu->setDelayed(false);
 	m_actions.editModulePlain = new KAction(i18n("Plain text"),CResMgr::mainIndex::editModulePlain::icon, 0, this, SLOT(editModulePlain()), this);
 	m_actions.editModuleHTML = new KAction(i18n("HTML"),CResMgr::mainIndex::editModuleHTML::icon, 0, this, SLOT(editModuleHTML()), this);
-
+	
 	m_actions.searchInModules = new KAction(i18n("Search in selected work(s)"),CResMgr::mainIndex::search::icon, 0, this, SLOT(searchInModules()), this);
 	m_actions.unlockModule = new KAction(i18n("Unlock this work"),CResMgr::mainIndex::unlockModule::icon, 0, this, SLOT(unlockModule()), this);
 	m_actions.aboutModule = new KAction(i18n("About this work"),CResMgr::mainIndex::aboutModule::icon, 0, this, SLOT(aboutModule()), this);
 
 
+	//fill the popup menu itself
 	m_actions.newFolder->plug(m_popup);
 	m_actions.changeFolder->plug(m_popup);
 	(new KActionSeparator(this))->plug(m_popup);
@@ -176,8 +178,10 @@ void CMainIndex::initView() {
 	m_actions.deleteEntries->plug(m_popup);
 	(new KActionSeparator(this))->plug(m_popup);
 	m_actions.editModuleMenu->plug(m_popup);
-	m_actions.editModuleMenu->insert(m_actions.editModulePlain); //sub item of edit module menu
-	m_actions.editModuleMenu->insert(m_actions.editModuleHTML);  //sub item of edit module menu
+	//sub item of edit module menu
+	m_actions.editModuleMenu->insert(m_actions.editModulePlain); 
+	//sub item of edit module menu
+	m_actions.editModuleMenu->insert(m_actions.editModuleHTML);  
 
 	m_actions.searchInModules->plug(m_popup);
 	m_actions.unlockModule->plug(m_popup);
@@ -190,8 +194,6 @@ void CMainIndex::initConnections() {
 			SLOT(slotExecuted(QListViewItem*)));
 	connect(this, SIGNAL(dropped(QDropEvent*, QListViewItem*, QListViewItem*)),
 			SLOT(dropped(QDropEvent*, QListViewItem*, QListViewItem*)));
-	//  connect(this, SIGNAL(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)),
-	//    SLOT(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)));
 	connect(this, SIGNAL(contextMenu(KListView*, QListViewItem*, const QPoint&)),
 			SLOT(contextMenu(KListView*, QListViewItem*, const QPoint&)));
 	connect(&m_autoOpenTimer, SIGNAL(timeout()),
@@ -201,8 +203,9 @@ void CMainIndex::initConnections() {
 /** Is called when an item was clicked/double clicked. */
 void CMainIndex::slotExecuted( QListViewItem* i ) {
 	CItemBase* ci = dynamic_cast<CItemBase*>(i);
-	if (!ci)
+	if (!ci) {
 		return;
+	}
 
 	if (ci->isFolder()) {
 		i->setOpen(!i->isOpen());
@@ -226,7 +229,7 @@ void CMainIndex::slotExecuted( QListViewItem* i ) {
 QDragObject* CMainIndex::dragObject() {
 	if (!m_itemsMovable) {
 		return false;
-	};
+	}
 
 	CDragDropMgr::ItemList dndItems;
 
@@ -236,7 +239,7 @@ QDragObject* CMainIndex::dragObject() {
 			//we can move this item!
 			if (!i->isMovable()) { //we can only drag items which allow us to do it, e.g. which are movable
 				continue;
-			};
+			}
 
 			if (CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>( items.current() )) {
 				//take care of bookmarks which have no valid module any more, e.g. if it was uninstalled
@@ -280,12 +283,13 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
 		* folder or one of its subfolders
 		* we remove the current items because the new ones will be inserted soon.
 		*/
-		if (dynamic_cast<CBookmarkFolder*>(parent) || dynamic_cast<Bookmarks::SubFolder*>(parent)) { //we drop onto the bookmark folder or one of it's subfolders
+		if (dynamic_cast<CBookmarkFolder*>(parent) || dynamic_cast<Bookmarks::SubFolder*>(parent)) { 
+			// we drop onto the bookmark folder or one of it's subfolders
 			//       QPtrList<QListViewItem> items = selectedItems();
 			//       items.setAutoDelete(true);
 			//       items.clear(); //delete the selected items we dragged
-		};
-	};
+		}
+	}
 
 	//finally do the drop, either with external drop data or with the moved items' data
 	CItemBase* const parentItem = dynamic_cast<CItemBase*>(parent);
@@ -365,33 +369,33 @@ void CMainIndex::emitModulesChosen( ListCSwordModuleInfo modules, QString key ) 
 KAction* const CMainIndex::action( const CItemBase::MenuAction type ) const {
 	switch (type) {
 	case CItemBase::NewFolder:
-	return m_actions.newFolder;
+		return m_actions.newFolder;
 	case CItemBase::ChangeFolder:
-	return m_actions.changeFolder;
+		return m_actions.changeFolder;
 
 	case CItemBase::ChangeBookmark:
-	return m_actions.changeBookmark;
+		return m_actions.changeBookmark;
 	case CItemBase::ImportBookmarks:
-	return m_actions.importBookmarks;
+		return m_actions.importBookmarks;
 	case CItemBase::ExportBookmarks:
-	return m_actions.exportBookmarks;
+		return m_actions.exportBookmarks;
 	case CItemBase::PrintBookmarks:
-	return m_actions.printBookmarks;
+		return m_actions.printBookmarks;
 
 	case CItemBase::DeleteEntries:
-	return m_actions.deleteEntries;
+		return m_actions.deleteEntries;
 
 	case CItemBase::EditModule:
-	return m_actions.editModuleMenu;
+		return m_actions.editModuleMenu;
 	case CItemBase::SearchInModules:
-	return m_actions.searchInModules;
+		return m_actions.searchInModules;
 	case CItemBase::UnlockModule:
-	return m_actions.unlockModule;
+		return m_actions.unlockModule;
 	case CItemBase::AboutModule:
-	return m_actions.aboutModule;
+		return m_actions.aboutModule;
 	default:
-	return 0;
-	};
+		return 0;
+	}
 }
 
 /** Shows the context menu at the given position. */
@@ -399,10 +403,12 @@ void CMainIndex::contextMenu(KListView* /*list*/, QListViewItem* i, const QPoint
 	//setup menu entries depending on current selection
 	QPtrList<QListViewItem> items = selectedItems();
 
-	if (items.count() == 0) { //special handling for no selection
-
+	if (items.count() == 0) { 
+		//special handling for no selection
 	}
-	else if (items.count() == 1) { //special handling for one selected item
+	else if (items.count() == 1) { 
+		//special handling for one selected item
+		
 		CItemBase* item = dynamic_cast<CItemBase*>(i);
 		CItemBase::MenuAction actionType;
 		for (int index = CItemBase::ActionBegin; index <= CItemBase::ActionEnd; ++index) {
@@ -420,6 +426,7 @@ void CMainIndex::contextMenu(KListView* /*list*/, QListViewItem* i, const QPoint
 				a->setEnabled(false);
 		}
 
+		//enable the menu items depending on the types of the selected items.
 		for (int index = CItemBase::ActionBegin; index <= CItemBase::ActionEnd; ++index) {
 			actionType = static_cast<CItemBase::MenuAction>(index);
 			bool enableAction = isMultiAction(actionType);
@@ -434,40 +441,56 @@ void CMainIndex::contextMenu(KListView* /*list*/, QListViewItem* i, const QPoint
 			}
 		}
 	}
+	
+	//finally, open the popup
 	m_popup->exec(p);
 }
 
 /** Adds a new subfolder to the current item. */
 void CMainIndex::createNewFolder() {
-	if (CFolderBase* i = dynamic_cast<CFolderBase*>(currentItem()) ) {
+	CFolderBase* i = dynamic_cast<CFolderBase*>(currentItem());
+	Q_ASSERT(i);
+	
+	if (i) {
 		i->newSubFolder();
 	}
 }
 
 /** Opens a dialog to change the current folder. */
 void CMainIndex::changeFolder() {
-	if (CFolderBase* i = dynamic_cast<CFolderBase*>(currentItem()) ) {
+	CFolderBase* i = dynamic_cast<CFolderBase*>(currentItem());
+	Q_ASSERT(i);
+	if (i) {
 		i->rename();
 	}
 }
 
 /** Changes the current bookmark. */
 void CMainIndex::changeBookmark() {
-	if (CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(currentItem()) ) {
+	CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(currentItem());
+	Q_ASSERT(i);
+	
+	if (i) {
 		i->rename();
 	}
 }
 
 /** Exports the bookmarks being in the selected folder. */
 void CMainIndex::exportBookmarks() {
-	if (CBookmarkFolder* i = dynamic_cast<CBookmarkFolder*>(currentItem()) ) {
+	CBookmarkFolder* i = dynamic_cast<CBookmarkFolder*>(currentItem());
+	Q_ASSERT(i);
+	
+	if (i) {
 		i->exportBookmarks();
 	}
 }
 
 /** Import bookmarks from a file and add them to the selected folder. */
 void CMainIndex::importBookmarks() {
-	if (CBookmarkFolder* i = dynamic_cast<CBookmarkFolder*>(currentItem()) ) {
+	CBookmarkFolder* i = dynamic_cast<CBookmarkFolder*>(currentItem());
+	Q_ASSERT(i);
+	
+	if (i) {
 		i->importBookmarks();
 	}
 }
@@ -488,6 +511,7 @@ void CMainIndex::printBookmarks() {
 		items = selectedItems();
 	}
 
+	//create a tree of keytreeitems using the bookmark hierarchy.
 	for (items.first(); items.current(); items.next()) {
 		CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(items.current());
 		if (i) {
@@ -495,7 +519,9 @@ void CMainIndex::printBookmarks() {
 		}
 	}
 
-	util::scoped_ptr<CPrinter> printer( new CPrinter( this, CBTConfig::getDisplayOptionDefaults(), CBTConfig::getFilterOptionDefaults() ) );
+	util::scoped_ptr<CPrinter> printer( 
+		new CPrinter( this, CBTConfig::getDisplayOptionDefaults(), CBTConfig::getFilterOptionDefaults() ) 
+	);
 	printer->printKeyTree(tree);
 }
 
@@ -509,7 +535,7 @@ void CMainIndex::deleteEntries() {
 		return;
 	}
 
-	// We have to go backwards because otherwise deleting folders would delete their childs => crash
+	// We have to go backwards because otherwise deleting folders would delete their childs => crash before we delete those
 	for (items.last(); items.current(); items.prev()) {
 		if (CItemBase* i = dynamic_cast<CItemBase*>(items.current())) {
 			if (i->enableAction(CItemBase::DeleteEntries)) {
@@ -525,14 +551,14 @@ void CMainIndex::searchInModules() {
 	ListCSwordModuleInfo modules;
 	for (items.first(); items.current(); items.next()) {
 		if (CModuleItem* i = dynamic_cast<CModuleItem*>(items.current())) {
-			if (i->module())
+			if (i->module()) {
 				modules.append(i->module());
+			}
 		}
 	}
 
 	if (modules.isEmpty()) { //get a list of useful default modules for the search if no modules were selected
-		CSwordModuleInfo* m = CBTConfig::get
-								  (CBTConfig::standardBible);
+		CSwordModuleInfo* m = CBTConfig::get(CBTConfig::standardBible);
 		if (m) {
 			modules.append(m);
 		}
@@ -544,10 +570,11 @@ void CMainIndex::searchInModules() {
 /** Unlocks the current module. */
 void CMainIndex::unlockModule() {
 	if (CModuleItem* i = dynamic_cast<CModuleItem*>(currentItem())) {
-		bool ok;
-		QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock work"),
+		bool ok = false;
+		const QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock work"),
 			i18n("Enter the unlock key for this work."),
 			QLineEdit::Normal, i->module()->config(CSwordModuleInfo::CipherKey), &ok);
+		
 		if (ok) {
 			i->module()->unlock( unlockKey );
 			emit signalSwordSetupChanged();
@@ -588,6 +615,7 @@ void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ) {
 			if (m_autoOpenFolder != i)  {
 				m_autoOpenTimer.stop();
 			}
+			
 			m_autoOpenFolder = i;
 			m_autoOpenTimer.start( 400, true );
 		}
@@ -604,7 +632,8 @@ void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ) {
 
 QRect CMainIndex::drawItemHighlighter(QPainter* painter, QListViewItem* item) {
 	CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>(item);
-	if (bookmark) { //no drops on bookmarks allowed, just moving items after it
+	if (bookmark) { 
+		//no drops on bookmarks allowed, just moving items after it
 		return QRect();
 	}
 
@@ -621,7 +650,6 @@ void CMainIndex::autoOpenTimeout() {
 
 /** No descriptions */
 void CMainIndex::contentsDragLeaveEvent( QDragLeaveEvent* e ) {
-	//  qWarning("void CMainIndex::contentsDragLeaveEvent( QDragLeaveEvent* e )");
 	m_autoOpenTimer.stop();
 	KListView::contentsDragLeaveEvent(e);
 }
@@ -630,37 +658,38 @@ void CMainIndex::contentsDragLeaveEvent( QDragLeaveEvent* e ) {
 const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
 	switch (type) {
 	case CItemBase::NewFolder:
-	return false;
+		return false;
 	case CItemBase::ChangeFolder:
-	return false;
+		return false;
 
 	case CItemBase::ChangeBookmark:
-	return false;
+		return false;
 	case CItemBase::ImportBookmarks:
-	return false;
+		return false;
 	case CItemBase::ExportBookmarks:
-	return false;
+		return false;
 	case CItemBase::PrintBookmarks:
-	return true;
+		return true;
 
 	case CItemBase::DeleteEntries:
-	return true;
+		return true;
 
 	case CItemBase::EditModule:
-	return false;
+		return false;
 	case CItemBase::SearchInModules:
-	return true;
+		return true;
 	case CItemBase::UnlockModule:
-	return false;
+		return false;
 	case CItemBase::AboutModule:
-	return false;
+		return false;
 	}
+	
 	return false;
 }
 
 /** Is called when items should be moved. */
 void CMainIndex::moved( QPtrList<QListViewItem>& /*items*/, QPtrList<QListViewItem>& /*afterFirst*/, QPtrList<QListViewItem>& /*afterNow*/) {
-	qWarning("move items");
+	qDebug("move items");
 }
 
 /** Opens an editor window to edit the modules content. */
@@ -686,16 +715,19 @@ void CMainIndex::editModuleHTML() {
 			modules.append(i->module());
 		}
 	}
+	
 	if (modules.count() == 1) {
 		emit createWriteDisplayWindow(modules.first(), QString::null, CDisplayWindow::HTMLWindow);
-	};
+	}
 }
 
 /** Reloads the main index's Sword dependend things like modules */
 void CMainIndex::reloadSword() {
-	//reload the modules
+	//reload the modules, save the open groups before removing the items
+	saveSettings();
 	clear();
-	initTree();
+	initTree();	
+	readSettings();
 }
 
 /** Saves the bookmarks to disk */
@@ -707,7 +739,8 @@ void CMainIndex::saveBookmarks() {
 	while ( it.current() ) {
 		i = dynamic_cast<CItemBase*>( it.current() );
 
-		if (i && (i->type() == CItemBase::BookmarkFolder)) { //found the bookmark folder
+		if (i && (i->type() == CItemBase::BookmarkFolder)) { 
+			//found the bookmark folder
 			KStandardDirs stdDirs;
 
 			const QString path = stdDirs.saveLocation("data", "bibletime/");
@@ -726,6 +759,7 @@ void CMainIndex::saveBookmarks() {
 
 void CMainIndex::readSettings() {
  	qDebug("CMainIndex::readSettings");
+	
 	QStringList openGroups = CBTConfig::get(CBTConfig::bookshelfOpenGroups);
 	for (QStringList::Iterator it( openGroups.begin() ); it != openGroups.end(); ++it) {
 		QStringList path = QStringList::split("/", (*it)); //e.g. with items parent, child
@@ -827,10 +861,6 @@ void CMainIndex::saveSettings() {
 	CBTConfig::set(CBTConfig::bookshelfCurrentItem, path);
 }
 
-
-/*!
-    \fn CMainIndex::polish()
- */
 void CMainIndex::polish()
 {
 	KListView::polish();

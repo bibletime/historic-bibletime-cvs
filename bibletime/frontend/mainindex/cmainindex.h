@@ -29,12 +29,11 @@
 #include <kaction.h>
 #include <klistview.h>
 
+class CSearchDialog;
+
 /** The class which manages all bookmarks and modules. The modules are put into own, fixed subfolders sorted by language.
   * @author The BibleTime team
   */
-
-class CSearchDialog;
-
 class CMainIndex : public KListView {
 	Q_OBJECT
 
@@ -54,6 +53,7 @@ class CMainIndex : public KListView {
 public:
 	CMainIndex(QWidget *parent);
 	virtual ~CMainIndex();
+	
 	void initTree();
 	/**
 	* Opens the searchdialog using the given modules using the given search text.
@@ -103,15 +103,20 @@ protected: // Protected methods
 	* Reimplementation to support the items dragEnter and dragLeave functions.
 	*/
 	virtual void contentsDragMoveEvent( QDragMoveEvent* event );
+	/**
+	 * Reimplementation.
+	 */
 	virtual void contentsDragLeaveEvent( QDragLeaveEvent* e );
 	QRect drawItemHighlighter(QPainter* painter, QListViewItem * item );
-    /** Read settings like open groups or scrollbar position and restore them
-    */
-    void readSettings();
-    /** Save settings like roups close/open status to the settings file.
-    */
-    void saveSettings();
-    virtual void polish();
+	/** Read settings like open groups or scrollbar position and restore them
+	*/
+	void readSettings();
+	/** Save settings like roups close/open status to the settings file.
+	*/
+	void saveSettings();
+	/** Reimplementation.
+	 */
+	virtual void polish();
 
 protected slots: // Protected slots
 	/**
@@ -173,7 +178,7 @@ protected slots: // Protected slots
 	*/
 	void editModuleHTML();
 
-private: // Private methods
+private:
 	CSearchDialog* m_searchDialog;
 	ToolTip* m_toolTip;
 	bool m_itemsMovable;
@@ -212,14 +217,16 @@ private: // Private methods
 	m_actions;
 	KPopupMenu* m_popup;
 
-signals: // Signals
+signals:
 	/**
 	* Is emitted when a module should be opened,
 	*/
 	void createReadDisplayWindow( ListCSwordModuleInfo, const QString& );
+	/**
+	 * Is emitted when a write window should be created.
+	 */
 	void createWriteDisplayWindow( CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType& );
 	void signalSwordSetupChanged();
-
 };
 
 #endif
