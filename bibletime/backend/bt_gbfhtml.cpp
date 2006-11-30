@@ -127,7 +127,6 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 
 	//now create the necessary HTML in list entries and concat them to the result
 	tag = QRegExp("<W([HGT])([^>]*)>");
-
 	tag.setMinimal(true);
 
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
@@ -136,6 +135,9 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(1) != "<");
 
 		if (!textPresent) {
+			// nothing to process in this loop, 
+			// make sure we don't loose the text part we're working on
+			result += (*it);
 			continue;
 		}
 
@@ -147,7 +149,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 		QString value = QString::null;
 		int tagAttributeStart = -1;
 
-		while (pos != -1) { //work on all strong/lemma tags in this sectio, should be between 1-3 loops
+		while (pos != -1) { //work on all strong/lemma tags in this section, should be between 1-3 loops
 			const bool isMorph = (tag.cap(1) == "T");
 			value = isMorph ? tag.cap(2) : tag.cap(2).prepend( tag.cap(1) );
 

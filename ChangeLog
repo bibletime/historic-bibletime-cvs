@@ -1,3 +1,6 @@
+2006-11-30 Joachim Ansorg <info@bibletime.info>
+  * Fix for missing text if GBF red letter words were used
+			
 2006-11-27 Joachim Ansorg <info@bibletime.info>
   * The tree state is restored if a change in the Sword setup forces a reload at runtime.
 
