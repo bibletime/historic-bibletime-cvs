@@ -121,22 +121,29 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 		pos = tag.search(t, pos + tag.matchedLength());
 	}
 
+	//append the trailing text to the list.
 	if (!t.right(t.length() - lastMatchEnd).isEmpty()) {
 		list.append(t.right(t.length() - lastMatchEnd));
 	}
 
+	//list is now a list of words with 1-n Strongs at the end, which belong to this word.
+	
 	//now create the necessary HTML in list entries and concat them to the result
 	tag = QRegExp("<W([HGT])([^>]*)>");
 	tag.setMinimal(true);
 
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		QString e = (*it); //current entry to process
-
-		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(1) != "<");
+ 		//qWarning(e.latin1());
+		
+		//check if there is a word to which the strongs info belongs to.
+		//If yes, wrap that word with the strongs info
+		//If not, leave out the strongs info, because it can't be tight to a text
+		//Comparing the first char with < is not enough, because the tokenReplace is done already
+		//so there might be html tags already.
+		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(2) != "<W");
 
 		if (!textPresent) {
-			// nothing to process in this loop, 
-			// make sure we don't loose the text part we're working on
 			result += (*it);
 			continue;
 		}
