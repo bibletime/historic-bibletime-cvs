@@ -1,3 +1,6 @@
+2006-11-25 Martin Gruner <mgruner@crosswire.org>
+  * allow automake 1.10
+
 2006-11-30 Joachim Ansorg <info@bibletime.info>
   * Fix for missing text if GBF red letter words were used
 			
