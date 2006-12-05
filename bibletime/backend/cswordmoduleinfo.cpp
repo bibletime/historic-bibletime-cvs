@@ -257,27 +257,20 @@ void CSwordModuleInfo::buildIndex() {
 	
 	m_indexingProgress.setValue( QVariant((int)0) );
 	
-	SWKey* key = m_module->CreateKey(); //VerseKey for bibles
-	key->Persist(1); //the module will keep using this key; revert at end of function
+	SWKey* key = m_module->getKey(); //VerseKey for bibles
 	if (VerseKey* vk = dynamic_cast<VerseKey*>(key))
 	{
 		// we have to be sure to insert the english key into the index, otherwise we'd be in trouble if the language changes
 		vk->setLocale("en_US");
 		//If we have a verse based module, we want to include the pre-chapter etc. headings in the search
 		vk->Headings(1);
-		m_module->setKey(*vk); //to make sure it gets VerseKey rather than SWKey only
-	}
-	else
-	{
-		m_module->setKey(*key);
 	}
 	QString textBuffer;
 	
-	//QString key;
 	for ((*key) = sword::TOP; !(key->Error()); (*key)++) {
-		//m_module->setKey(*key);
 		
-		if (VerseKey* vk = dynamic_cast<VerseKey*>(key)) //Heading, store in buffer and index later in Verse X:1
+		//If it is a sword-heading, store in buffer and index later in Verse X:1
+		if (VerseKey* vk = dynamic_cast<VerseKey*>(key)) 
 		{
 			if (vk->Verse() == 0){
 				textBuffer.append( m_module->StripText() );
@@ -285,7 +278,7 @@ void CSwordModuleInfo::buildIndex() {
 			}
 		}
  	
-		lucene::document::Document* doc = new lucene::document::Document();
+		util::scoped_ptr<lucene::document::Document> doc(new lucene::document::Document());
 
 		//index the key
 		lucene_utf8towcs(wcharBuffer, key->getText(), LUCENE_MAX_FIELD_LENGTH);
@@ -334,7 +327,6 @@ void CSwordModuleInfo::buildIndex() {
 		} // for attListI
 		
 		writer->addDocument(doc);
-		delete doc;
 		verseIndex = m_module->Index();
 
 		if (verseIndex % 200 == 0){
@@ -357,10 +349,6 @@ void CSwordModuleInfo::buildIndex() {
 		indexconfig->writeEntry("module-version", config(CSwordModuleInfo::ModuleVersion) );
 	}
 	indexconfig->writeEntry("index-version", INDEX_VERSION);
-
-	//cleanup
-	key->Persist(0);
-	m_module->setKey(*key); //to make sure it uses its own key again, otherwise it will crash
 }
 
 void CSwordModuleInfo::deleteIndexForModule( QString name ) {
