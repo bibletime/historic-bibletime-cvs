@@ -222,14 +222,26 @@ void CSearchResultPage::updatePreview(const QString& key) {
 
 		CTextRendering::KeyTreeItem::Settings settings;
 
-		//for bibles only render 5 verses, for all other modules only one entry
+		//for bibles render 5 context verses
 		if (module->type() == CSwordModuleInfo::Bible) {
 			CSwordVerseKey vk(module);
+			vk.Headings(1);
 			vk.key(key);
+
+			((VerseKey*)(module->module()->getKey()))->Headings(1); //HACK: enable headings for VerseKeys
 
 			//first go back and then go forward the keys to be in context
 			vk.previous(CSwordVerseKey::UseVerse);
 			vk.previous(CSwordVerseKey::UseVerse);
+			
+			//include Headings in display, they are indexed and searched too
+			if (vk.Verse() == 1){
+				if (vk.Chapter() == 1){
+					vk.Chapter(0);
+				}
+				vk.Verse(0);
+			}
+			
 			const QString startKey = vk.key();
 
 			vk.key(key);
@@ -238,11 +250,31 @@ void CSearchResultPage::updatePreview(const QString& key) {
 			vk.next(CSwordVerseKey::UseVerse);
 			const QString endKey = vk.key();
 
-			//    qWarning("want to render from %s to %s", startKey.latin1(), endKey.latin1());
-			//now render the range
 			settings.keyRenderingFace = CTextRendering::KeyTreeItem::Settings::CompleteShort;
 			text = render.renderKeyRange(startKey, endKey, modules, key, settings);
-			//    qWarning(text.latin1());
+		}
+		//for commentaries only one verse, but with heading
+		else if (module->type() == CSwordModuleInfo::Commentary) {
+			CSwordVerseKey vk(module);
+			vk.Headings(1);
+			vk.key(key);
+			
+			((VerseKey*)(module->module()->getKey()))->Headings(1); //HACK: enable headings for VerseKeys
+
+			//include Headings in display, they are indexed and searched too
+			if (vk.Verse() == 1){
+				if (vk.Chapter() == 1){
+					vk.Chapter(0);
+				}
+				vk.Verse(0);
+			}
+			const QString startKey = vk.key();
+
+			vk.key(key);
+			const QString endKey = vk.key();
+
+			settings.keyRenderingFace = CTextRendering::KeyTreeItem::Settings::NoKey;
+			text = render.renderKeyRange(startKey, endKey, modules, key, settings);
 		}
 		else {
 			text = render.renderSingleKey(key, modules, settings);

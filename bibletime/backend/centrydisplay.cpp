@@ -45,7 +45,7 @@ const QString CEntryDisplay::text( const ListCSwordModuleInfo& modules, const QS
 		((VerseKey*)(module->module()->getKey()))->Headings(1); //HACK: enable headings for VerseKeys
 
 		CSwordVerseKey k1(module);
-		k1.Headings(true);
+		k1.Headings(1);
 		k1.key(keyName);
 		
 		// don't print the key

@@ -217,7 +217,7 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& highlightKey, const KeyTreeItem::Settings& keySettings ) {
 
 	CSwordModuleInfo* module = modules.first();
-	qWarning( "renderKeyRange start %s stop %s \n", start.latin1(), stop.latin1() );
+	//qWarning( "renderKeyRange start %s stop %s \n", start.latin1(), stop.latin1() );
 	
 	util::scoped_ptr<CSwordKey> lowerBound( CSwordKey::createInstance(module) );
 	lowerBound->key(start);

@@ -1,3 +1,8 @@
+2006-12-05 Martin Gruner <mgruner@crosswire.org>
+  * BibleTime will now index, search and display pre-chapter and pre-book
+  headings; small cleanups
+  * searching should work as expected now with regard to headings
+
 2006-12-02 Martin Gruner <mgruner@crosswire.org>
   * allow automake 1.10
 

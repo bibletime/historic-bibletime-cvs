@@ -54,7 +54,7 @@
 
 //Increment this, if the index format changes
 //Then indices on the user's systems will be rebuilt
-const unsigned int INDEX_VERSION = 3;
+const unsigned int INDEX_VERSION = 4;
 
 CSwordModuleInfo::CSwordModuleInfo(sword::SWModule * module, CSwordBackend * const usedBackend) {
 	m_module = module;
@@ -247,38 +247,56 @@ void CSwordModuleInfo::buildIndex() {
 	writer->setUseCompoundFile(true); //merge segments into a single file
 	writer->setMinMergeDocs(1000);
 	
-	long verseIndex, verseLowIndex, verseHighIndex = 1;
+	unsigned long verseIndex = 1;
 	*m_module = sword::TOP;
-	verseLowIndex = m_module->Index();
+	unsigned long verseLowIndex = m_module->Index();
 	*m_module = sword::BOTTOM;
-	verseHighIndex = m_module->Index();
+	unsigned long verseHighIndex = m_module->Index();
 
 	const bool isVerseModule = (type() == CSwordModuleInfo::Bible) || (type() == CSwordModuleInfo::Commentary);
 	
 	m_indexingProgress.setValue( QVariant((int)0) );
-
-	QString key;
-	for (*m_module = sword::TOP; !m_module->Error(); (*m_module)++) {
-		lucene::document::Document* doc = new lucene::document::Document();
+	
+	SWKey* key = m_module->CreateKey(); //VerseKey for bibles
+	key->Persist(1); //the module will keep using this key; revert at end of function
+	if (VerseKey* vk = dynamic_cast<VerseKey*>(key))
+	{
+		// we have to be sure to insert the english key into the index, otherwise we'd be in trouble if the language changes
+		vk->setLocale("en_US");
+		//If we have a verse based module, we want to include the pre-chapter etc. headings in the search
+		vk->Headings(1);
+		m_module->setKey(*vk); //to make sure it gets VerseKey rather than SWKey only
+	}
+	else
+	{
+		m_module->setKey(*key);
+	}
+	QString textBuffer;
+	
+	//QString key;
+	for ((*key) = sword::TOP; !(key->Error()); (*key)++) {
+		//m_module->setKey(*key);
 		
-		// index the key
-		// we have to be sure to insert the english key into the index, otherwise we'd be in trouble if the
-		//language changes
-		key = QString::fromUtf8(m_module->getKey()->getText());
-		if (isVerseModule) {
-			VerseKey vk( m_module->getKey()->getText() );
-			vk.setLocale("en_US");
-			key = QString::fromUtf8(vk.getText());
+		if (VerseKey* vk = dynamic_cast<VerseKey*>(key)) //Heading, store in buffer and index later in Verse X:1
+		{
+			if (vk->Verse() == 0){
+				textBuffer.append( m_module->StripText() );
+				continue;
+			}
 		}
-		//qWarning("key is %s", key.latin1());
-		lucene_utf8towcs(wcharBuffer, (const char*)key.utf8(), LUCENE_MAX_FIELD_LENGTH);
+ 	
+		lucene::document::Document* doc = new lucene::document::Document();
+
+		//index the key
+		lucene_utf8towcs(wcharBuffer, key->getText(), LUCENE_MAX_FIELD_LENGTH);
 		doc->add(*lucene::document::Field::UnIndexed(_T("key"), wcharBuffer));
 
 		// index the main text
 		//at this point we have to make sure we disabled the strongs and the other options
 		//so the plain filters won't include the numbers somehow.
-		lucene_utf8towcs(wcharBuffer, m_module->StripText(), LUCENE_MAX_FIELD_LENGTH);
+		lucene_utf8towcs(wcharBuffer, (const char*) textBuffer.append(m_module->StripText()).utf8(), LUCENE_MAX_FIELD_LENGTH);
 		doc->add(*lucene::document::Field::UnStored(_T("content"), wcharBuffer));
+		textBuffer.setLength(0); //clean up
 
 		// index attributes
 		AttributeList::iterator attListI;
@@ -326,7 +344,6 @@ void CSwordModuleInfo::buildIndex() {
 			else {
 				m_indexingProgress.setValue( QVariant((int)((100*(verseIndex-verseLowIndex))/(verseHighIndex-verseLowIndex))) );
 			}
-			
 			m_indexingProgress.activate();
 		}
 	}
@@ -341,6 +358,9 @@ void CSwordModuleInfo::buildIndex() {
 	}
 	indexconfig->writeEntry("index-version", INDEX_VERSION);
 
+	//cleanup
+	key->Persist(0);
+	m_module->setKey(*key); //to make sure it uses its own key again, otherwise it will crash
 }
 
 void CSwordModuleInfo::deleteIndexForModule( QString name ) {
