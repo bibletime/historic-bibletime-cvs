@@ -1,6 +1,10 @@
 2006-12-07 Martin Gruner <mgruner@crosswire.org>
   * packaged BibleTime 1.6.2
 
+2006-12-07 Daniel Glassey <dglassey@crosswire.org>
+  * add --enable-howto to be able to disable building bible study howto
+    (required by Debian :/)
+
 2006-12-05 Martin Gruner <mgruner@crosswire.org>
   * BibleTime will now index, search and display pre-chapter and pre-book
   headings; small cleanups
