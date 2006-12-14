@@ -13,7 +13,7 @@ BibleTime @VERSION@ requires:
 
   - SWORD 1.5.9, available from http://www.crosswire.org/sword/
 
-  - CLucene >= 0.9.15, available from http://clucene.sf.net/
+  - CLucene >= 0.9.16, available from http://clucene.sf.net/
 
 
 If you don't have the sources already, please browse to www.bibletime.info to see
