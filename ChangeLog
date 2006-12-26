@@ -1,3 +1,6 @@
+2006-12-26 Joachim Ansorg <info@bibletime.info>
+  * Fixed some Makefile.am issues
+
 2006-12-14 Martin Gruner <mgruner@crosswire.org>
   * fixed handbook typo
   * fixed required clucene version to 0.9.16

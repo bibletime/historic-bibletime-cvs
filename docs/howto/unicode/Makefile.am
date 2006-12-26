@@ -7,19 +7,19 @@ EXTRA_DIST = how2-basics.docbook how2-importance.docbook how2-interpretation.doc
 
 
 install-data-local:
-	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/;
-	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
+	mkdir -p $(DESTDIR)$(kde_htmldir)en/bibletime/howto/;
+	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)en/bibletime;
 	for file in  how2-basics.docbook how2-importance.docbook how2-interpretation.docbook index.docbook; do \
-	  $(INSTALL_DATA) $(srcdir)/$$file $(DESTDIR)$(kde_htmldir)/en/bibletime/howto; \
-	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
+	  $(INSTALL_DATA) $(srcdir)/$$file $(DESTDIR)$(kde_htmldir)en/bibletime/howto; \
+	  chmod a+r $(DESTDIR)$(kde_htmldir)en/bibletime/howto/$$file; \
 	done;
-	ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;\
-	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/en/bibletime
+	ln -sf $(DESTDIR)$(kde_htmldir)en/common $(DESTDIR)$(kde_htmldir)en/bibletime/howto/common;\
+	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)en/bibletime
 
 uninstall-local:
 	for file in  how2-basics.docbook how2-importance.docbook how2-interpretation.docbook index.docbook; do \
-	  echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
-	  rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
+	  echo Removing $(DESTDIR)$(kde_htmldir)en/bibletime/howto/$$file; \
+	  rm -f $(DESTDIR)$(kde_htmldir)en/bibletime/howto/$$file; \
 	done;
-	echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;
-	rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;
+	echo Removing $(DESTDIR)$(kde_htmldir)en/bibletime/howto/common;
+	rm -f $(DESTDIR)$(kde_htmldir)en/bibletime/howto/common;

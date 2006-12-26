@@ -189,6 +189,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Luke Mauldin",  I18N_NOOP("Frontend"), "lukeskyfly@txk.net", "");
 	//translated parts of the russian website files
 	aboutData.addCredit("Igor Rykhlin",   I18N_NOOP("Russian website translation"), "", "");
+	// update to the Spanish website translation
+	aboutData.addCredit("Gabriel Pérez",   I18N_NOOP("Spanish website translation updates"), "", "");
 	// handbook documentation
 	aboutData.addCredit("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
 	//French handbook translation
@@ -200,7 +202,7 @@ int main(int argc, char* argv[]) {
 	//The first lead developer
 	aboutData.addCredit("Torsten Uhlmann",   I18N_NOOP("The first lead developer"), "", "");
  	//Update of the dutch website translation(cbiblereadwindow_0)
-	aboutData.addCredit("Johan van der Lingen",   I18N_NOOP("Dutch website translation updates"), "", "");
+	aboutData.addCredit("Johan van der Lingen",   I18N_NOOP("Translation updates for the Dutch GUI, the website and the handbook"), "", "");
 	//scoped_ptr and related classes
 	aboutData.addCredit("David White",   I18N_NOOP("Helpful source code additions"), "", "http://www.wesnoth.org/");
 	//Translated the GUI into Russian
