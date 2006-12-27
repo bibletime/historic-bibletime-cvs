@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
 		VERSION,
 		I18N_NOOP("Bible study tool for KDE"),
 		KAboutData::License_GPL_V2,
-		I18N_NOOP("(c)1999-2006, The BibleTime Team"),
+		I18N_NOOP("(c)1999-2007, The BibleTime Team"),
 		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE.\n\nWe are looking for developers and translators.\nIf you'd like to join our team, please send an email to info@bibletime.info."),
 		"http://www.bibletime.info/",
 		"info@bibletime.info"
@@ -165,6 +165,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
 	//GUI improvements
 	aboutData.addCredit("Jim Campbell",   I18N_NOOP("GUI"), "jdc.email@gmail.com", ""); 
+	//Binary packages of CLucene, BibleTime and Sword for Fedore, SUSE, Mandriva
+	aboutData.addCredit("Jeremy Erickson",   I18N_NOOP("Binary packages"), "", "");
 	//Started the Crosswire porject, also contributed some code
 	aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founder of the Sword project"), "scribe@crosswire.org", "http://www.crosswire.org/");  
 	//Sponsored many years the www.bibletime.de domain!
@@ -191,18 +193,22 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Igor Rykhlin",   I18N_NOOP("Russian website translation"), "", "");
 	// update to the Spanish website translation
 	aboutData.addCredit("Gabriel Pérez",   I18N_NOOP("Spanish website translation updates"), "", "");
+	//Update to the russian website translation
+	aboutData.addCredit("Igor Plisco", I18N_NOOP("Update to the russian website translation"), "", "");
 	// handbook documentation
 	aboutData.addCredit("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
-	//French handbook translation
-	aboutData.addCredit("Jean Van Schaftingen", I18N_NOOP("French handbook translation"), "", "");
+	// Original Russian website translator
+	aboutData.addCredit("Vlad Savitsky", I18N_NOOP("Russian website translation"), "", "");
 	// comitted search in default bible, opened modules, other smaller things
 	aboutData.addCredit("Gary Sims", I18N_NOOP("Search dialog enhancements"), "gary@garysims.co.uk", "");
 	// Very helpful testing
 	aboutData.addCredit("Wolfgang Stradner", I18N_NOOP("Very helpful and detailed testing"), "wolfgang_stradner@wycliffe.org", "");
 	//The first lead developer
 	aboutData.addCredit("Torsten Uhlmann",   I18N_NOOP("The first lead developer"), "", "");
- 	//Update of the dutch website translation(cbiblereadwindow_0)
+ 	//Update of the dutch website translation
 	aboutData.addCredit("Johan van der Lingen",   I18N_NOOP("Translation updates for the Dutch GUI, the website and the handbook"), "", "");
+	//French handbook translation
+	aboutData.addCredit("Jean Van Schaftingen", I18N_NOOP("French handbook translation"), "", "");
 	//scoped_ptr and related classes
 	aboutData.addCredit("David White",   I18N_NOOP("Helpful source code additions"), "", "http://www.wesnoth.org/");
 	//Translated the GUI into Russian
