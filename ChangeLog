@@ -1,3 +1,6 @@
+2007-01-14 Martin Gruner <mgruner@crosswire.org>
+  * another search fix, set max lucene field size to 1 MiB. BibleTime should not truncate long entries any more.
+
 2006-12-27 Joachim Ansorg <info@bibletime.info>
   * Added Jeremy Erickson to the contributors
   * Changed copyright to 1999-2007
