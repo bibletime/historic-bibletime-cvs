@@ -578,35 +578,27 @@ void BibleTime::initBackends() {
 /** Apply the settings given by the profile p*/
 void BibleTime::applyProfileSettings( CProfile* p ) {
 	Q_ASSERT(p);
-	if (!p) {
-		return;
-	}
+	if (!p) return;
 
 	if (m_initialized) { //on startup KDE sets the main geometry
 		//see polish(), where m_initialized is set and the KDE methods are called for window resize
-		const QRect geometry = p->geometry();
-		qDebug("main window: %i, %i @ %i x %i", geometry.topLeft().x(), geometry.topLeft().y(), geometry.width(), geometry.height());
-		KMainWindow::resize( geometry.size() ); //Don't use KMainWindowInterface::resize
-		KMainWindow::move( geometry.topLeft() );//Don't use KMainWindowInterface::move
-		if (p->maximized()) {
-			KMainWindow::showMaximized();
-		}
-		else{
-			KMainWindow::showNormal();
-		}
-	}
-
-	m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state
-	toggleFullscreen();
+		
+		//first Main Window state
+		m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state
+		toggleFullscreen(); //either showFullscreen or showNormal
+		if (p->maximized()) KMainWindow::showMaximized(); //if maximized, then also call showMaximized
+	
+		//Then Main Window geometry
+		KMainWindow::resize( p->geometry().size() ); //Don't use KMainWindowInterface::resize
+		KMainWindow::move( p->geometry().topLeft() );//Don't use KMainWindowInterface::move
+}
 }
 
 /** Stores the settings of the mainwindow in the profile p */
 void BibleTime::storeProfileSettings( CProfile* p ) {
 	Q_ASSERT(p && m_windowFullscreen_action);
-	if (!p || !m_windowFullscreen_action) {
-		return;
-	}
-
+	if (!p || !m_windowFullscreen_action) return;
+	
 	p->setFullscreen( m_windowFullscreen_action->isChecked() );
 	p->setMaximized( this->KMainWindow::isMaximized() );
 

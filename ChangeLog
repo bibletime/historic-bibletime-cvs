@@ -1,3 +1,6 @@
+2007-01-27 Martin Gruner <mgruner@crosswire.org>
+  * fixed session loading code to handle main window properties correctly
+
 2007-01-14 Martin Gruner <mgruner@crosswire.org>
   * another search fix, set max lucene field size to 1 MiB. BibleTime should not truncate long entries any more.
 

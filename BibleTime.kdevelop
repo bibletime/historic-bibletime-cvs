@@ -11,7 +11,7 @@
       <part>kdevdistpart</part>
     </ignoreparts>
     <version>1.6cvs</version>
-    <description/>
+    <description></description>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
@@ -72,14 +72,14 @@
     <general>
       <dbgshell>libtool</dbgshell>
       <programargs>--debug</programargs>
-      <gdbpath/>
+      <gdbpath></gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -144,9 +144,9 @@
   </kdevcvs>
   <kdevcppsupport>
     <codecompletion>
-      <includeGlobalFunctions>true</includeGlobalFunctions>
+      <includeGlobalFunctions>false</includeGlobalFunctions>
       <includeTypes>true</includeTypes>
-      <includeEnums>true</includeEnums>
+      <includeEnums>false</includeEnums>
       <includeTypedefs>true</includeTypedefs>
       <automaticCodeCompletion>true</automaticCodeCompletion>
       <automaticArgumentsHint>true</automaticArgumentsHint>
@@ -157,7 +157,7 @@
     </codecompletion>
     <references/>
     <creategettersetter>
-      <prefixGet/>
+      <prefixGet></prefixGet>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
@@ -172,10 +172,10 @@
   </kdevcppsupport>
   <kdevfilecreate>
     <filetypes>
-      <type icon="" ext="h" create="template" name="C++ Header template" >
+      <type icon="" ext="h" name="C++ Header template" create="template" >
         <descr>BibleTime C++ header template</descr>
       </type>
-      <type icon="source_cpp" ext="cpp" create="template" name="C++ source file" >
+      <type icon="source_cpp" ext="cpp" name="C++ source file" create="template" >
         <descr>BibleTime C++ source template</descr>
       </type>
     </filetypes>
