@@ -72,13 +72,20 @@ void CBookReadWindow::initActions() {
 };
 
 void CBookReadWindow::insertKeyboardActions( KActionCollection* const a ) {
-	CLexiconReadWindow::insertKeyboardActions(a);
-
 	new KToggleAction(
 		i18n("Toggle tree view"),
 		CResMgr::displaywindows::bookWindow::toggleTree::icon,
 		CResMgr::displaywindows::bookWindow::toggleTree::accel,
 		a, "toggleTree");
+		
+		//  new KAction(i18n("Copy reference only"), KShortcut(0), a, "copyReferenceOnly");
+	new KAction(i18n("Copy entry with text"), KShortcut(0), a, "copyEntryWithText");
+	//  new KAction(i18n("Copy selected text"), KShortcut(0), a, "copySelectedText");
+	new KAction(i18n("Save entry as plain text"), KShortcut(0), a, "saveEntryAsPlainText");
+	new KAction(i18n("Save entry as HTML"), KShortcut(0), a, "saveEntryAsHTML");
+	//   new KAction(i18n("Print reference only"), KShortcut(0), a, "printReferenceOnly");
+	new KAction(i18n("Print entry with text"), KShortcut(0), a, "printEntryWithText");
+
 }
 
 /** No descriptions */
