@@ -1,5 +1,6 @@
 2007-01-27 Martin Gruner <mgruner@crosswire.org>
   * fixed searching in unicode texts which I broke on 2006-12-05; please accept my apologies.
+  * released 1.6.3
 
 2007-01-27 Martin Gruner <mgruner@crosswire.org>
   * fixed session loading code to handle main window properties correctly
