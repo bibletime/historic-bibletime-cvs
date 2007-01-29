@@ -54,7 +54,7 @@
 
 //Increment this, if the index format changes
 //Then indices on the user's systems will be rebuilt
-const unsigned int INDEX_VERSION = 4;
+const unsigned int INDEX_VERSION = 5;
 
 //Maximum index entry size, 1MiB for now
 //Lucene default is too small
@@ -269,7 +269,7 @@ void CSwordModuleInfo::buildIndex() {
 		//If we have a verse based module, we want to include the pre-chapter etc. headings in the search
 		vk->Headings(1);
 	}
-	QString textBuffer;
+	QCString textBuffer; //holds UTF-8 data and is faster than QString
 	
 	for ((*key) = sword::TOP; !(key->Error()); (*key)++) {
 		
@@ -291,9 +291,9 @@ void CSwordModuleInfo::buildIndex() {
 		// index the main text
 		//at this point we have to make sure we disabled the strongs and the other options
 		//so the plain filters won't include the numbers somehow.
-		lucene_utf8towcs(wcharBuffer, (const char*) textBuffer.append(m_module->StripText()).utf8(), BT_MAX_LUCENE_FIELD_LENGTH);
+		lucene_utf8towcs(wcharBuffer, (const char*) textBuffer.append(m_module->StripText()), BT_MAX_LUCENE_FIELD_LENGTH);
 		doc->add(*lucene::document::Field::UnStored(_T("content"), wcharBuffer));
-		textBuffer.setLength(0); //clean up
+		textBuffer.resize(0); //clean up
 
 		// index attributes
 		AttributeList::iterator attListI;
