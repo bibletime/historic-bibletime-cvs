@@ -110,7 +110,7 @@ for PART in $DOC_PARTS; do
 			echo
 			echo
 
-			TARGET_ROOT='$(DESTDIR)$(kde_htmldir)en/bibletime'
+			TARGET_ROOT='$(DESTDIR)$(kde_htmldir)/en/bibletime'
 			TARGET_DIR=$TARGET_ROOT/$PART
 
 			if test $HAS_FILES = YES; then
@@ -122,7 +122,7 @@ for PART in $DOC_PARTS; do
 				echo '	  $(INSTALL_DATA) $(srcdir)/$$file '$TARGET_DIR'; \'
 				echo '	  chmod a+r '$TARGET_DIR'/$$file; \'
 				echo '	done;'
-				echo '	ln -sf $(DESTDIR)$(kde_htmldir)en/common '$TARGET_DIR'/common;\'
+				echo '	ln -sf $(DESTDIR)$(kde_htmldir)/en/common '$TARGET_DIR'/common;\'
 				echo '	chmod -R a+r+X '$TARGET_ROOT
 				echo
 				echo 'uninstall-local:'
@@ -367,7 +367,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 						done
 						echo
 
-						TARGET_ROOT='$(DESTDIR)$(kde_htmldir)'$I1'/bibletime'
+						TARGET_ROOT='$(DESTDIR)$(kde_htmldir)/'$I1'/bibletime'
 						TARGET_DIR=$TARGET_ROOT/$PART
 
 						EN_FILES=""
@@ -392,7 +392,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 							echo '	  fi; \'
 							echo '	done;'
 							echo '	if test -d '$TARGET_DIR'/../../common; then \'
-							echo '	  ln -sf '$TARGET_DIR'../../common '$TARGET_DIR'/common;\'
+							echo '	  ln -sf '$TARGET_DIR'/../../common '$TARGET_DIR'/common;\'
 							echo '	else \'
 							############## Use the english css data ###################
 							echo '	  ln -sf '$TARGET_DIR'/../../../en/common '$TARGET_DIR'/common;\'

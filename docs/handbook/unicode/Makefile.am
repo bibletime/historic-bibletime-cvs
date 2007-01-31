@@ -7,19 +7,19 @@ EXTRA_DIST = hdbk-config.docbook hdbk-intro.docbook hdbk-operation.docbook hdbk-
 
 
 install-data-local:
-	mkdir -p $(DESTDIR)$(kde_htmldir)en/bibletime/handbook/;
-	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)en/bibletime;
+	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/;
+	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
 	for file in  hdbk-config.docbook hdbk-intro.docbook hdbk-operation.docbook hdbk-reference.docbook hdbk-start.docbook index.docbook; do \
-	  $(INSTALL_DATA) $(srcdir)/$$file $(DESTDIR)$(kde_htmldir)en/bibletime/handbook; \
-	  chmod a+r $(DESTDIR)$(kde_htmldir)en/bibletime/handbook/$$file; \
+	  $(INSTALL_DATA) $(srcdir)/$$file $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook; \
+	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
 	done;
-	ln -sf $(DESTDIR)$(kde_htmldir)en/common $(DESTDIR)$(kde_htmldir)en/bibletime/handbook/common;\
-	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)en/bibletime
+	ln -sf $(DESTDIR)$(kde_htmldir)/en/common $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/common;\
+	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/en/bibletime
 
 uninstall-local:
 	for file in  hdbk-config.docbook hdbk-intro.docbook hdbk-operation.docbook hdbk-reference.docbook hdbk-start.docbook index.docbook; do \
-	  echo Removing $(DESTDIR)$(kde_htmldir)en/bibletime/handbook/$$file; \
-	  rm -f $(DESTDIR)$(kde_htmldir)en/bibletime/handbook/$$file; \
+	  echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
+	  rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
 	done;
-	echo Removing $(DESTDIR)$(kde_htmldir)en/bibletime/handbook/common;
-	rm -f $(DESTDIR)$(kde_htmldir)en/bibletime/handbook/common;
+	echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/common;
+	rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/common;
