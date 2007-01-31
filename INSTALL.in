@@ -11,9 +11,11 @@ BibleTime @VERSION@ requires:
      Although BibleTime should compile and run with KDE 3.0-3.3, we strongly recommend 
      to use the latest version of KDE available for your Linux installation.
 
-  - SWORD 1.5.9, available from http://www.crosswire.org/sword/
+  - SWORD 1.5.9, available from http://www.crosswire.org/sword/; you should include
+     a stability patch to Sword 1.5.9 available from the BibleTime download pages
+     (fixes problems with compressed and locked modules).
 
-  - CLucene >= 0.9.16, available from http://clucene.sf.net/
+  - CLucene >= 0.9.16, available from http://clucene.sf.net/.
 
 
 If you don't have the sources already, please browse to www.bibletime.info to see
