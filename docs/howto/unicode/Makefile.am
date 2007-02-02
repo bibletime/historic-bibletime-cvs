@@ -13,7 +13,6 @@ install-data-local:
 	  $(INSTALL_DATA) $(srcdir)/$$file $(DESTDIR)$(kde_htmldir)/en/bibletime/howto; \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
 	done;
-	ln -sf $(DESTDIR)$(kde_htmldir)/en/common $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;\
 	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/en/bibletime
 
 uninstall-local:

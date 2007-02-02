@@ -122,7 +122,6 @@ for PART in $DOC_PARTS; do
 				echo '	  $(INSTALL_DATA) $(srcdir)/$$file '$TARGET_DIR'; \'
 				echo '	  chmod a+r '$TARGET_DIR'/$$file; \'
 				echo '	done;'
-				echo '	ln -sf $(DESTDIR)$(kde_htmldir)/en/common '$TARGET_DIR'/common;\'
 				echo '	chmod -R a+r+X '$TARGET_ROOT
 				echo
 				echo 'uninstall-local:'
@@ -391,12 +390,6 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 							echo '	    ln -sf '$TARGET_DIR'/../../../en/bibletime/'$PART'/$$file '$TARGET_DIR/'$$file; \'
 							echo '	  fi; \'
 							echo '	done;'
-							echo '	if test -d '$TARGET_DIR'/../../common; then \'
-							echo '	  ln -sf '$TARGET_DIR'/../../common '$TARGET_DIR'/common;\'
-							echo '	else \'
-							############## Use the english css data ###################
-							echo '	  ln -sf '$TARGET_DIR'/../../../en/common '$TARGET_DIR'/common;\'
-							echo '	fi;'
 							echo '	chmod -R a+r+X '$TARGET_ROOT
 							echo
 							echo 'uninstall-local:'
