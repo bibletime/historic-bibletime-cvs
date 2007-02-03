@@ -3,6 +3,8 @@
 
 
 SUBDIRS = unicode html
+
+
 html-files:
 	if test -e unicode/index.docbook; then \
 		olddir=$$PWD; \

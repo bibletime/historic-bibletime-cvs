@@ -5,3 +5,9 @@
 KDE_OPTIONS = noautodist
 EXTRA_DIST = 
 
+
+install-data-local:
+	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/;
+	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
+
+uninstall-local:
