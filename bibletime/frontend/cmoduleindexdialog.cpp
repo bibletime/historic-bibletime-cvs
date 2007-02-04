@@ -87,7 +87,7 @@ void CModuleIndexDialog::slotModuleProgress( int percentage ) {
 //	qDebug("progress %d", percentage);
 	
 	progress->progressBar()->setProgress( m_currentModuleIndex * 100 + percentage );
-	KApplication::kApplication()->processEvents( 1 ); //1 ms only
+	KApplication::kApplication()->processEvents( 10 ); //10 ms only
 }
 
 void CModuleIndexDialog::slotFinished( ) {

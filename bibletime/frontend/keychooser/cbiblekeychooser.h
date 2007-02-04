@@ -19,11 +19,7 @@
 
 class CKeyReferenceWidget;
 class CSwordVerseKey;
-
 class CSwordBibleModuleInfo;
-
-class QuickBrowseDialog;
-
 
 /** This class implements the KeyChooser for bibles and commentaries
  *

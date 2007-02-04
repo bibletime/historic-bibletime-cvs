@@ -214,7 +214,7 @@ public:
 	virtual const QString getModuleStandardIndexLocation() const;
 	/**
 	* Builds a search index for this module
-   */
+  	*/
 	virtual void buildIndex();
 	/**
 	* Returns index size
