@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2006-08-23 16:17+0000\n"
+"POT-Creation-Date: 2007-02-17 11:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -398,7 +398,7 @@ msgstr ""
 #, no-c-format
 msgid ""
 "You will see this dialog, which allows adding and removing buttons from the "
-"main toolbar of &bibletime;. The order of the can also be changed."
+"main toolbar of &bibletime;. The order of the buttons can also be changed."
 msgstr ""
 
 #. Tag: phrase
@@ -431,7 +431,7 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-intro.docbook:1 hdbk-reference.docbook:483
+#: hdbk-intro.docbook:1
 #, no-c-format
 msgid "Introduction"
 msgstr ""
@@ -888,22 +888,23 @@ msgstr ""
 #: hdbk-operation.docbook:119
 #, no-c-format
 msgid ""
-"You can look for a word or phrase in the open window like you are used to "
-"from other programs. This function can be reached either by clicking with "
-"the <mousebutton>right</mousebutton> mouse button and selecting "
+"You can look for a word or phrase in the open read window (e.g. the chapter "
+"of a bible that you're reading) just like you are used to from other "
+"programs. This function can be reached either by clicking with the "
+"<mousebutton>right</mousebutton> mouse button and selecting "
 "<guimenuitem>Find...</guimenuitem>, or by using the hotkey <keycombo action="
-"\"simul\">&Alt;<keycap>F</keycap> </keycombo>. Read on to learn how you can "
+"\"simul\">&Ctrl;<keycap>F</keycap> </keycombo>. Read on to learn how you can "
 "search in entire works."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:126
+#: hdbk-operation.docbook:127
 #, no-c-format
 msgid "Accessing the search dialog"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:127
+#: hdbk-operation.docbook:128
 #, no-c-format
 msgid ""
 "You can search in a work by clicking with the <mousebutton>right</"
@@ -915,7 +916,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:130
+#: hdbk-operation.docbook:131
 #, no-c-format
 msgid ""
 "You can also access the search dialog by clicking on "
@@ -924,7 +925,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:131
+#: hdbk-operation.docbook:132
 #, no-c-format
 msgid ""
 "A third possibility to start searches is to click on the search symbol in an "
@@ -932,15 +933,9 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:135
-#, no-c-format
-msgid "Search configuration"
-msgstr ""
-
-#. Tag: para
 #: hdbk-operation.docbook:136
 #, no-c-format
-msgid "Use the options tab to set up your search."
+msgid "Search configuration"
 msgstr ""
 
 #. Tag: screeninfo
@@ -959,10 +954,10 @@ msgstr ""
 #: hdbk-operation.docbook:148
 #, no-c-format
 msgid ""
-"At the top of the options tab you will find <guibutton>Choose works</"
-"guibutton>. If you would like to search in multiple works, click on this "
-"button and you will be offered a menu where you can select the works you "
-"want to search in."
+"At the top of the options tab you will find <guibutton>Choose</guibutton> "
+"(works). If you would like to search in multiple works, click on this button "
+"and you will be offered a menu where you can select the works you want to "
+"search in."
 msgstr ""
 
 #. Tag: title
@@ -977,27 +972,18 @@ msgstr ""
 msgid ""
 "You can narrow the scope of your search to certain parts of the Bible by "
 "selecting one of the predefined scopes from the list in <guimenu>Search "
-"scope</guimenu>. Most of these should be obvious. The scope "
-"<guimenuitem>Last search result</guimenuitem> will limit the search to the "
-"verses found in the previous search."
-msgstr ""
-
-#. Tag: para
-#: hdbk-operation.docbook:156
-#, no-c-format
-msgid ""
-"You can also define your own search ranges by clicking the <guibutton>Setup "
-"ranges</guibutton> button."
+"scope</guimenu>. You can define your own search ranges by clicking the "
+"<guibutton>Setup ranges</guibutton> button."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:160
+#: hdbk-operation.docbook:158
 #, no-c-format
 msgid "Basic Search Syntax Introduction"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:161
+#: hdbk-operation.docbook:159
 #, no-c-format
 msgid ""
 "Enter search terms separated by spaces. By default the search function will "
@@ -1006,7 +992,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:162
+#: hdbk-operation.docbook:160
 #, no-c-format
 msgid ""
 "You can use wildcards: '*' matches any sequence of characters, while '?' "
@@ -1015,7 +1001,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:163
+#: hdbk-operation.docbook:161
 #, no-c-format
 msgid ""
 "To search text other than the main text, enter the text type followed by "
@@ -1024,73 +1010,73 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:164
+#: hdbk-operation.docbook:162
 #, no-c-format
 msgid "Available text types:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:166
+#: hdbk-operation.docbook:164
 #, no-c-format
 msgid "Prefix"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:166
+#: hdbk-operation.docbook:164
 #, no-c-format
 msgid "Meaning"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:168
+#: hdbk-operation.docbook:166
 #, no-c-format
 msgid "heading:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:168
+#: hdbk-operation.docbook:166
 #, no-c-format
 msgid "searches headings"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:169
+#: hdbk-operation.docbook:167
 #, no-c-format
 msgid "footnote:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:169
+#: hdbk-operation.docbook:167
 #, no-c-format
 msgid "searches footnotes"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:170
+#: hdbk-operation.docbook:168
 #, no-c-format
 msgid "strong:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:170
+#: hdbk-operation.docbook:168
 #, no-c-format
 msgid "searches Strong's Numbers"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:171
+#: hdbk-operation.docbook:169
 #, no-c-format
 msgid "morph:"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-operation.docbook:171
+#: hdbk-operation.docbook:169
 #, no-c-format
 msgid "searches morphology codes"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:173
+#: hdbk-operation.docbook:171
 #, no-c-format
 msgid ""
 "BibleTime uses the Lucene search engine to perform your searches. It has "
@@ -1100,13 +1086,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:180
+#: hdbk-operation.docbook:178
 #, no-c-format
 msgid "Search results"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:181
+#: hdbk-operation.docbook:179
 #, no-c-format
 msgid ""
 "Here you can see how many instances of the search string were found, sorted "
@@ -1118,7 +1104,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:185
+#: hdbk-operation.docbook:183
 #, no-c-format
 msgid ""
 "Drag a reference and drop it on a work symbol on the Bookshelf to open the "
@@ -1126,7 +1112,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:187
+#: hdbk-operation.docbook:185
 #, no-c-format
 msgid ""
 "Drag a reference and drop it on an open read window, and it will jump to "
@@ -1134,19 +1120,19 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:188
+#: hdbk-operation.docbook:186
 #, no-c-format
 msgid "Select references and drag them to the Bookshelf to create bookmarks."
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:191
+#: hdbk-operation.docbook:189
 #, no-c-format
 msgid "Search result analysis"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:192
+#: hdbk-operation.docbook:190
 #, no-c-format
 msgid ""
 "Click on <guibutton>Search analysis</guibutton> to open the search analysis "
@@ -1156,19 +1142,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: hdbk-operation.docbook:197
+#: hdbk-operation.docbook:195
 #, no-c-format
 msgid "Search Analysis Dialog Box"
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:211
+#: hdbk-operation.docbook:209
 #, no-c-format
 msgid "The <guimenuitem>Bookshelf Manager</guimenuitem>"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:213
+#: hdbk-operation.docbook:211
 #, no-c-format
 msgid ""
 "The <guimenuitem>Bookshelf Manager</guimenuitem> is a tool to manage your "
@@ -1179,13 +1165,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:216
+#: hdbk-operation.docbook:214
 #, no-c-format
 msgid "Bookshelf path(s) setup"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:218
+#: hdbk-operation.docbook:216
 #, no-c-format
 msgid ""
 "Here you can specify where &bibletime; may store your Bookshelf on the "
@@ -1194,7 +1180,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:220
+#: hdbk-operation.docbook:218
 #, no-c-format
 msgid ""
 "If you have a sword CD, but do not want to install all the works on the "
@@ -1204,13 +1190,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:224
+#: hdbk-operation.docbook:222
 #, no-c-format
 msgid "Install/update work(s)"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:226
+#: hdbk-operation.docbook:224
 #, no-c-format
 msgid ""
 "With this facility, you can connect to a repository of works (called "
@@ -1222,7 +1208,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:228
+#: hdbk-operation.docbook:226
 #, no-c-format
 msgid ""
 "To begin the installation or update process, select a library you want to "
@@ -1237,13 +1223,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:233
+#: hdbk-operation.docbook:231
 #, no-c-format
 msgid "Remove work(s)"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:235
+#: hdbk-operation.docbook:233
 #, no-c-format
 msgid ""
 "This facility allows you to delete one or more of the works from your "
@@ -1252,13 +1238,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-operation.docbook:243
+#: hdbk-operation.docbook:241
 #, no-c-format
 msgid "Exporting and Printing"
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:245
+#: hdbk-operation.docbook:243
 #, no-c-format
 msgid ""
 "In many places, you can open a context menu by clicking with the "
@@ -1272,7 +1258,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-operation.docbook:250
+#: hdbk-operation.docbook:248
 #, no-c-format
 msgid ""
 "Printing from &bibletime; is rather basic and is intended as a utility. If "
@@ -2198,446 +2184,6 @@ msgid ""
 "<link linkend=\"hdbk-reference-menus-view-showmag\"><menuchoice> "
 "<guimenu>View</guimenu> <guimenuitem>Show mag</guimenuitem></menuchoice></"
 "link> equivalent; toggles display of the mag(nifying glass)."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:480
-#, no-c-format
-msgid "GCC Regular Expression Reference"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:485
-#, no-c-format
-msgid ""
-"Regular expression searches provide a way to do simple or complex searches "
-"for strings that match a pattern or set of patterns (branches) separated by "
-"vertical bars \"|\". While a pattern can be built to look for a word or "
-"phrase, a simple pattern that consists of a word does not look for only that "
-"word but for any place where that word is found. A search for \"right\" will "
-"return verses that contain the word \"right\", but also \"<emphasis>right</"
-"emphasis>eous\", \"<emphasis>right</emphasis>eousness\", "
-"\"un<emphasis>right</emphasis>eous\", \"up<emphasis>right</emphasis>\" and "
-"even \"b<emphasis>right</emphasis>\". A search for \"hall not\" is not a "
-"search for \"hall\" AND \"not\" but for the string \"hall not\" with a space "
-"between the second \"l\" and the \"n\". The search for \"hall not\" will "
-"find occurrences of \"s<emphasis>hall not</emphasis>\"."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:501
-#, no-c-format
-msgid ""
-"The power of Regular Expressions lies in the patterns (or templates) used to "
-"define a search. A pattern consists of ordinary characters and some special "
-"characters that are used and interpreted by a set of rules. Special "
-"characters include .\\[^*$?+. Ordinary (or simple) characters are any "
-"characters that are not special. The backslash, \"\\\", is used to convert "
-"special characters to ordinary and ordinary characters to special."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:510
-#, no-c-format
-msgid ""
-"Example: the pattern \"i. love\\.\" will find sentences that end with "
-"\"h<emphasis>i</emphasis>s <emphasis>love.</emphasis>\" or \"<emphasis>i</"
-"emphasis>n <emphasis>love.</emphasis>\" or \"<emphasis>i</emphasis>s "
-"<emphasis>love.</emphasis>\". The first period in \"i. love\\.\" is a "
-"special character that means \"allow any character in this position\". The "
-"backslash in \"i. love\\.\" means that the period following it is not to be "
-"considered a special character, but is an ordinary period."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:522
-#, no-c-format
-msgid "Special characters"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:525
-#, no-c-format
-msgid ""
-". The period matches any character. See <link linkend=\"period\">details</"
-"link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:527
-#, no-c-format
-msgid ""
-"* The asterisk matches 0 or more characters of the preceding: set, character "
-"or indicated character. See <link linkend=\"asterisk\">details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:530
-#, no-c-format
-msgid ""
-"+ The plus sign matches 1 or more characters of the preceding: set, "
-"character or indicated character. See <link linkend=\"plus\">details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:533
-#, no-c-format
-msgid ""
-"? The question mark matches 0 or 1 character of the preceding: set, "
-"character or indicated character. See <link linkend=\"question\">details</"
-"link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:536
-#, no-c-format
-msgid ""
-"[ ] Square brackets match any one of the characters specified inside [ ]. "
-"See <link linkend=\"bracket\">details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:538
-#, no-c-format
-msgid ""
-"^ A caret as the first character inside [ ] means NOT. See <link linkend="
-"\"caret\">details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:540
-#, no-c-format
-msgid ""
-"^ A caret beginning of a pattern anchors the beginning of a line. See <link "
-"linkend=\"caret\">details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:542
-#, no-c-format
-msgid ""
-"$ A dollar at the end of a pattern anchors the end of a line. See <link "
-"linkend=\"dollar\">details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:544
-#, no-c-format
-msgid ""
-"| A vertical bar means logical OR. See <link linkend=\"bar\">details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:546
-#, no-c-format
-msgid ""
-"( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</"
-"emphasis>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:548
-#, no-c-format
-msgid ""
-"\\ A backslash can be used prior to any special character to match that "
-"character. See <link linkend=\"backslash\">details</link>"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:550
-#, no-c-format
-msgid ""
-"\\ A backslash can be used prior to an ordinary character to make it a "
-"special character. See <link linkend=\"backslash\">details</link>"
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:555
-#, no-c-format
-msgid "The period ."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:557
-#, no-c-format
-msgid ""
-"The Period \".\" will match any single character even a space or other non-"
-"alphabet character. <emphasis>s.t</emphasis> matches <emphasis>s</"
-"emphasis>i<emphasis>t</emphasis>, <emphasis>s</emphasis>e<emphasis>t</"
-"emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>, etc., which could "
-"be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting, "
-"compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</"
-"emphasis>o<emphasis>t</emphasis>tish <emphasis>b..t</emphasis> matches "
-"<emphasis>b</emphasis>oo<emphasis>t</emphasis>, <emphasis>b</"
-"emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t "
-"foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </"
-"emphasis>and <emphasis>foot tool</emphasis>."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:570
-#, no-c-format
-msgid "The asterisk *"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:572
-#, no-c-format
-msgid ""
-"The asterisk matches zero or more characters of the preceding: set, "
-"character or indicated character. Using a period asterisk combination \".*\" "
-"is a common method to match any combination of characters. <emphasis>be*n</"
-"emphasis> matches<emphasis> beeen, been, ben</emphasis>, and <emphasis>bn</"
-"emphasis> which could locate Reu<emphasis>ben</emphasis> and "
-"She<emphasis>bn</emphasis>a. <emphasis>G.*d</emphasis> would match "
-"<emphasis>God, good, guard</emphasis> and even <emphasis>Gd</emphasis>."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:584
-#, no-c-format
-msgid "The plus sign +"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:585
-#, no-c-format
-msgid ""
-"The Plus Sign matches one or more characters of the preceding: set, "
-"character or indicated character. Using a period and plus sign combination "
-"\".+\" is similar to \".*\" (see above), but the string has to contain at "
-"least one string to match. <emphasis>be+n</emphasis> matches "
-"<emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>, but not "
-"<emphasis>bn</emphasis>."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:594
-#, no-c-format
-msgid "The question mark ?"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:595
-#, no-c-format
-msgid ""
-"The Question Mark matches zero or one character of the preceding: set, "
-"character or indicated character. <emphasis>be?n</emphasis> matches "
-"<emphasis>ben</emphasis> and <emphasis>bn</emphasis> but not <emphasis>been</"
-"emphasis>. <emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or "
-"<emphasis>tree</emphasis>."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:603
-#, no-c-format
-msgid "The square brackets [ ]"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:604
-#, no-c-format
-msgid ""
-"The Square Brackets enclose a set of characters that can match. The period, "
-"asterisk, plus sign and question mark are not special inside the brackets. A "
-"minus sign can be used to indicate a range. If you want a caret \"^\" to be "
-"part of the range do not place it first after the left bracket or it will be "
-"a special character. To include a \"]\" in the set make it the first (or "
-"second after a special \"^\") character in the set. To include a minus sign "
-"in the set make it the first (or second after a special \"^\") or last "
-"character in the set. <emphasis>s[eia]t</emphasis> matches <emphasis>set</"
-"emphasis>, <emphasis>sit</emphasis>, and <emphasis>sat</emphasis>, but not "
-"<emphasis>s</emphasis>o<emphasis>t</emphasis>. <emphasis>s[eia]+t </"
-"emphasis>matches as above but also, <emphasis>seat, seet, siet</emphasis>, "
-"etc. <emphasis>[a-d]</emphasis> matches <emphasis>a, b, c,</emphasis> or "
-"<emphasis>d</emphasis>. <emphasis>[A-Z]</emphasis> matches any uppercase "
-"letter. [.;:?!] matches ., ;, :, ?, or ! but not a comma. [ ]^-] matches ] "
-"or ^ or -."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:625
-#, no-c-format
-msgid "The caret first in square brackets [^xxx]"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:626
-#, no-c-format
-msgid ""
-"If the Caret is the first character after the left bracket it means NOT. "
-"<emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc., "
-"but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</"
-"emphasis>o<emphasis>t</emphasis>."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:633
-#, no-c-format
-msgid "The caret as start of line anchor ^xxx"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:634
-#, no-c-format
-msgid ""
-"If the Caret is the first character in a pattern it anchors the pattern to "
-"the start of a line. Any match must be at the beginning of a line. A line "
-"here means a part of text delimited by the return character or the end of "
-"the text. In Bibles, a \"line\" in this sense is often equivalent to a "
-"single verse; the word-wrapping that is performed by &bibletime; when the "
-"text is rendered on the screen does not affect the search algorithm. "
-"<emphasis>^In the beginning</emphasis> matches lines that start with "
-"\"<emphasis>In the beginning</emphasis>\"."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:644
-#, no-c-format
-msgid ""
-"(Because of unfiltered formatting characters in some texts, this feature "
-"does not always work correctly, but may if a few periods are placed after "
-"the caret to account for the formatting characters. If that is the case for "
-"you, you could try <emphasis>^..In the beginning</emphasis> instead.)"
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:652
-#, no-c-format
-msgid "The dollar sign as end of line anchor xxx$"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:653
-#, no-c-format
-msgid ""
-"If the Dollar Sign is the last character in a pattern it anchors the pattern "
-"to the end of a line. Any match must be at the end of a line. <emphasis>Amen"
-"\\.$</emphasis> matches lines that end with \"<emphasis>Amen.</emphasis>\""
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:659
-#, no-c-format
-msgid ""
-"(If you encounter the problem with unfiltered formatting characters that we "
-"just described, you can try: <emphasis>Amen\\...$</emphasis> instead.)"
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:665
-#, no-c-format
-msgid "The vertical bar |"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:666
-#, no-c-format
-msgid ""
-"The Vertical Bar between patterns means OR. <emphasis>John|Peter</emphasis> "
-"matches <emphasis>John</emphasis> or <emphasis>Peter. John .*Peter|Peter ."
-"*John</emphasis> matches <emphasis>John</emphasis> ... <emphasis>Peter</"
-"emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>. "
-"<emphasis>pain|suffering|sorrow</emphasis> matches <emphasis>pain</"
-"emphasis>, or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:675
-#, no-c-format
-msgid "The parentheses ( )"
-msgstr ""
-
-#. Tag: emphasis
-#: hdbk-reference.docbook:676
-#, no-c-format
-msgid "The use of Parentheses ( ) is not supported!"
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:681
-#, no-c-format
-msgid "The backslash prior to a special character \\*"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:682
-#, no-c-format
-msgid ""
-"The Backslash prior to a special character indicates that the character is "
-"not being used in its special meaning, but is just to match itself. \"amen\\."
-"\" matches <emphasis>amen.</emphasis> but not <emphasis>amen</emphasis>t and "
-"will not locate firm<emphasis>amen</emphasis>t."
-msgstr ""
-
-#. Tag: title
-#: hdbk-reference.docbook:690
-#, no-c-format
-msgid "The backslash prior to an ordinary character \\s"
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:692
-#, no-c-format
-msgid ""
-"The Backslash prior to an ordinary character indicates that the character is "
-"not being used to match itself, but has special meaning."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:697
-#, no-c-format
-msgid ""
-"\\b if used outside [ ] means word boundary. If used inside [ ], it means "
-"backspace. <emphasis>\\brighteous\\b</emphasis> matches <emphasis>righteous</"
-"emphasis> but not un<emphasis>righteous</emphasis> or <emphasis>righteous</"
-"emphasis>ness."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:701
-#, no-c-format
-msgid ""
-"\\B means non-word boundary. <emphasis>\\Brighteous\\B</emphasis> matches "
-"un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly "
-"but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or "
-"<emphasis> righteous</emphasis>ness."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:705
-#, no-c-format
-msgid "\\d means digit; same as [0-9]."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:706
-#, no-c-format
-msgid "\\D means non-digit, same as [^0-9]."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:707
-#, no-c-format
-msgid "\\s means whitespace character."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:708
-#, no-c-format
-msgid "\\S means no whitespace character."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:709
-#, no-c-format
-msgid "\\w means alphanumeric; same as [a-zA-Z0-9_]."
-msgstr ""
-
-#. Tag: para
-#: hdbk-reference.docbook:710
-#, no-c-format
-msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
 msgstr ""
 
 #. Tag: title
