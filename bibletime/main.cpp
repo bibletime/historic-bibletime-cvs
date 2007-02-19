@@ -165,6 +165,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
 	//GUI improvements
 	aboutData.addCredit("Jim Campbell",   I18N_NOOP("GUI"), "jdc.email@gmail.com", ""); 
+	//Translations into Traditional and Simplified Chinese
+	aboutData.addCredit("Chun-shek Chan",   I18N_NOOP("GUI translations into Traditional and Simplified Chinese"), "chunshek@gmail.com", "");
 	//Binary packages of CLucene, BibleTime and Sword for Fedore, SUSE, Mandriva
 	aboutData.addCredit("Jeremy Erickson",   I18N_NOOP("Binary packages"), "", "");
 	//Started the Crosswire porject, also contributed some code
