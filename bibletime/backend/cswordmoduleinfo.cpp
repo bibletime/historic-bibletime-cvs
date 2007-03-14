@@ -54,7 +54,7 @@
 
 //Increment this, if the index format changes
 //Then indices on the user's systems will be rebuilt
-const unsigned int INDEX_VERSION = 6;
+const unsigned int INDEX_VERSION = 5;
 
 //Maximum index entry size, 1MiB for now
 //Lucene default is too small
