@@ -20,6 +20,7 @@
 #include "cswordbookmoduleinfo.h"
 
 #include "bt_thmlhtml.h"
+#include "bt_thmlplain.h"
 #include "bt_osishtml.h"
 #include "bt_gbfhtml.h"
 #include "bt_plainhtml.h"
@@ -71,7 +72,7 @@ CSwordBackend::CSwordBackend()
 CSwordBackend::CSwordBackend(const QString& path, const bool augmentHome)
 : sword::SWMgr(!path.isEmpty() ? (const char*)path.local8Bit() : 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), false, augmentHome) // don't allow module renaming, because we load from a path
 {
-	qWarning("CSwordBackend::CSwordBackend for %s, using %s", path.latin1(), configPath);
+	qDebug("CSwordBackend::CSwordBackend for %s, using %s", path.latin1(), configPath);
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
 	m_displays.book = 0;
@@ -261,35 +262,21 @@ void CSwordBackend::setOption( const CSwordModuleInfo::FilterTypes type, const i
 
 		case CSwordModuleInfo::textualVariants:
 
-		if (state == 0) {
-			value = "Primary Reading";
-		}
-		else if (state == 1) {
-			value = "Secondary Reading";
-		}
-		else {
-			value = "All Readings";
-		}
-
-		break;
-
-		//   case CSwordModuleInfo::transliteration:
-		//      if (useICU()) {
-		//         sword::StringList options = transliterator()->getOptionValues();
-		//
-		//     sword::StringList::iterator it = options.begin();
-		//     sword::StringList::iterator end = options.end();
-		//         for (int index = state; (index > 0) && (it != end); ++it) {
-		//           --index;
-		//         }
-		//         value = it->c_str();
-		//     //qWarning("setting transliteration to %s", value.c_str());
-		//       }
-		//       break;
+			if (state == 0) {
+				value = "Primary Reading";
+			}
+			else if (state == 1) {
+				value = "Secondary Reading";
+			}
+			else {
+				value = "All Readings";
+			}
+	
+			break;
 
 		default:
-		value = state ? "On": "Off";
-		break;
+			value = state ? "On": "Off";
+			break;
 	};
 
 	if (value.length())
@@ -328,19 +315,14 @@ void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions ) {
 /** This function searches for a module with the specified description */
 CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& description) {
 	CSwordModuleInfo* ret = 0;
-	//   if (m_moduleList.count()) {
-	//     for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
 
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 		if ( (*it)->config(CSwordModuleInfo::Description) == description ) {
 			ret = *it;
 			break;
-			//     return (*it);
 		}
 	}
-
-	//  }
 
 	return ret;
 }
@@ -371,41 +353,31 @@ CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name) {
 }
 
 CSwordModuleInfo* const CSwordBackend::findSwordModuleByPointer(const sword::SWModule* const swmodule) {
-	//  if (swmodule) {
 	CSwordModuleInfo* ret = 0;
-	//   for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
 
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 		if ( (*it)->module() == swmodule ) {
 			ret = *it;
 			break;
-			//     return m_moduleList.current();
 		}
 	}
-
-	//  }
-
+	
 	return ret;
 }
 
 CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const CSwordModuleInfo* const module) {
 	CSwordModuleInfo* ret = 0;
 
-	//  if (module) {
-	//   for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
 
 	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
 		if ( (*it)  == module ) {
-			//     return m_moduleList.current();
 			ret = *it;
 			break;
 		}
 	}
-
-	//  }
-
+	
 	return ret;
 }
 
@@ -437,7 +409,6 @@ const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& m
 		closedir(dir);
 	}
 	else { //try to read mods.conf
-		//moduleConfig = SWConfig( configPath + "/mods.conf" );
 		moduleConfig = sword::SWConfig("");//global config
 		section = config->Sections.find( (const char*)module.local8Bit() );
 		foundConfig = ( section != config->Sections.end() );
@@ -619,9 +590,7 @@ const QString CSwordBackend::configOptionName( const CSwordModuleInfo::FilterTyp
 
 const QString CSwordBackend::booknameLanguage( const QString& language ) {
 	if (!language.isEmpty()) {
-//		qDebug("setting language %s", language.latin1());
 		sword::LocaleMgr::getSystemLocaleMgr()->setDefaultLocaleName( language.latin1() );
-//		qDebug("got language %s", sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName() );
 
 		//refresh the locale of all Bible and commentary modules!
 		const ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
@@ -713,4 +682,11 @@ void CSwordBackend::filterInit() {
 	SWOptionFilter* tmpFilter = new OSISMorphSegmentation();
 	optionFilters.insert(OptionFilterMap::value_type("OSISMorphSegmentation", tmpFilter));
 	cleanupFilters.push_back(tmpFilter);
+	
+	//HACK: replace Sword's ThML strip filter with our own version
+	//remove this hack as soon as Sword is fixed
+	cleanupFilters.remove(thmlplain);
+	delete thmlplain;
+	thmlplain = new BT_ThMLPlain();
+	cleanupFilters.push_back(thmlplain);
 }

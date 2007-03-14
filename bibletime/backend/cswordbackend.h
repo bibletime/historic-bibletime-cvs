@@ -223,7 +223,7 @@ protected:
 	* Initializes the filters provided by BibleTime.
 	*/
 	virtual void filterInit();
-
+	
 private:
 	// Filters
 

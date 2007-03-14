@@ -1,3 +1,6 @@
+2007-03-14 Joachim Ansorg <info@bibletime.info>
+  * Added our own thmlplain filter to fix a CLucene indexing bug
+
 2007-02-25 David Blue <thedeveloper@users.sourceforge.net>
   * Added CSS to templates to display Lord in small-caps when tagged that
   way in the module. Fixes Bug #1660413.

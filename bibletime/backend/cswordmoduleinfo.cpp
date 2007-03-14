@@ -54,7 +54,7 @@
 
 //Increment this, if the index format changes
 //Then indices on the user's systems will be rebuilt
-const unsigned int INDEX_VERSION = 5;
+const unsigned int INDEX_VERSION = 6;
 
 //Maximum index entry size, 1MiB for now
 //Lucene default is too small
@@ -291,7 +291,8 @@ void CSwordModuleInfo::buildIndex() {
         //If it is a sword-heading, store in buffer and index later in Verse X:1
         if (vk) {
             if (vk->Verse() == 0) {
-                qWarning("key is %s", key->getText());
+                //qWarning("key is %s", key->getText());
+		//qWarning("text is %s", m_module->StripText());
                 textBuffer.append( m_module->StripText() );
                 continue;
             }

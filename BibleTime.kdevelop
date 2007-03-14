@@ -11,15 +11,15 @@
       <part>kdevdistpart</part>
     </ignoreparts>
     <version>1.6cvs</version>
-    <description></description>
+    <description/>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
       <language>Perl</language>
     </secondaryLanguages>
-    <versioncontrol/>
+    <versioncontrol>kdevcvsservice</versioncontrol>
     <projectname>BibleTime</projectname>
-    <defaultencoding></defaultencoding>
+    <defaultencoding/>
   </general>
   <kdevautoproject>
     <general>
@@ -27,13 +27,18 @@
       <useconfiguration>default</useconfiguration>
     </general>
     <run>
-      <mainprogram>bibletime/bibletime</mainprogram>
+      <mainprogram>/home/jansorg/Projekte/BibleTime/bibletime/bibletime/bibletime</mainprogram>
       <programargs/>
       <terminal>false</terminal>
       <autocompile>true</autocompile>
       <envvars/>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
+      <globaldebugarguments/>
+      <globalcwd>/home/jansorg/Projekte/BibleTime/bibletime</globalcwd>
+      <useglobalprogram>false</useglobalprogram>
+      <autoinstall>false</autoinstall>
+      <autokdesu>false</autokdesu>
     </run>
     <makeenvvars/>
     <envvars/>
@@ -49,6 +54,7 @@
         <envvar value="1" name="WANT_AUTOMAKE_1_6" />
       </envvars>
       <prio>0</prio>
+      <runmultiplejobs>false</runmultiplejobs>
     </make>
     <configurations>
       <default>
@@ -74,14 +80,14 @@
     <general>
       <dbgshell>libtool</dbgshell>
       <programargs>--debug</programargs>
-      <gdbpath></gdbpath>
+      <gdbpath/>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript></configGdbScript>
-      <runShellScript></runShellScript>
-      <runGdbScript></runGdbScript>
+      <configGdbScript/>
+      <runShellScript/>
+      <runGdbScript/>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -163,22 +169,20 @@
       <statusBarTypeEvaluation>false</statusBarTypeEvaluation>
       <namespaceAliases>std=_GLIBCXX_STD;__gnu_cxx=std</namespaceAliases>
       <processPrimaryTypes>true</processPrimaryTypes>
-      <processFunctionArguments>true</processFunctionArguments>
+      <processFunctionArguments>false</processFunctionArguments>
       <preProcessAllHeaders>false</preProcessAllHeaders>
       <parseMissingHeaders>false</parseMissingHeaders>
       <resolveIncludePaths>true</resolveIncludePaths>
       <alwaysParseInBackground>true</alwaysParseInBackground>
       <usePermanentCaching>true</usePermanentCaching>
-      <alwaysIncludeNamespaces>true</alwaysIncludeNamespaces>
+      <alwaysIncludeNamespaces>false</alwaysIncludeNamespaces>
       <includePaths>.;</includePaths>
     </codecompletion>
     <references>
-      <pcs>Qt</pcs>
-      <pcs>KDElibs</pcs>
-      <pcs>Sword%20SVN</pcs>
+      <pcs>Qt3</pcs>
     </references>
     <creategettersetter>
-      <prefixGet></prefixGet>
+      <prefixGet/>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
@@ -190,23 +194,23 @@
       <version>3</version>
       <root>/usr/share/qt3</root>
       <includestyle>3</includestyle>
-      <designerintegration>EmbeddedKDevDesigner</designerintegration>
+      <designerintegration>ExternalDesigner</designerintegration>
       <qmake>/usr/bin/qmake-qt3</qmake>
-      <designer></designer>
+      <designer>/usr/bin/designer-qt3</designer>
       <designerpluginpaths/>
     </qt>
     <splitheadersource>
-      <enabled>false</enabled>
+      <enabled>true</enabled>
       <synchronize>true</synchronize>
       <orientation>Vertical</orientation>
     </splitheadersource>
   </kdevcppsupport>
   <kdevfilecreate>
     <filetypes>
-      <type icon="" ext="h" name="C++ Header template" create="template" >
+      <type icon="" ext="h" create="template" name="C++ Header template" >
         <descr>BibleTime C++ header template</descr>
       </type>
-      <type icon="source_cpp" ext="cpp" name="C++ source file" create="template" >
+      <type icon="source_cpp" ext="cpp" create="template" name="C++ source file" >
         <descr>BibleTime C++ source template</descr>
       </type>
     </filetypes>
@@ -228,7 +232,8 @@
   </kdevcvsservice>
   <ctagspart>
     <customArguments/>
-    <customTagfilePath/>
+    <customTagfilePath>/home/jansorg/Projekte/BibleTime/bibletime/tags</customTagfilePath>
+    <activeTagsFiles/>
   </ctagspart>
   <kdevvisualadvance>
     <emulator>VisualBoyAdvance</emulator>
