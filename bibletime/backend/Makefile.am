@@ -4,7 +4,7 @@ noinst_LIBRARIES = libbackend.a
 INCLUDES = $(all_includes)
 
 libbackend_a_SOURCES = bt_gbfhtml.cpp bt_osishtml.cpp bt_plainhtml.cpp \
-	bt_thmlhtml.cpp bt_thmlplain.cpp btfiltermgr.cpp btstringmgr.cpp cbookdisplay.cpp \
+	bt_thmlhtml.cpp bt_thmlplain.cpp btstringmgr.cpp cbookdisplay.cpp \
 	cchapterdisplay.cpp cdisplayrendering.cpp cdisplaytemplatemgr.cpp centrydisplay.cpp \
 	cfiltertool.cpp chtmlexportrendering.cpp clanguagemgr.cpp cplaintextexportrendering.cpp \
 	creferencemanager.cpp cswordbackend.cpp cswordbiblemoduleinfo.cpp cswordbookmoduleinfo.cpp \
@@ -43,4 +43,3 @@ cdisplayrendering.h \
 osismorphsegmentation.h
 
 EXTRA_DIST = $(libbackend_a_SOURCES) $(all_headers)
-noinst_HEADERS = btfiltermgr.h
