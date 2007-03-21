@@ -47,8 +47,8 @@ BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() {
 	addTokenSubstitute("mentioned", "<span class=\"mentioned\">");
 	addTokenSubstitute("/mentioned", "</span>");
 
-	addTokenSubstitute("divineName", "<span class=\"name\"><span class=\"divine\">");
-	addTokenSubstitute("/divineName", "</span></span>");
+//	addTokenSubstitute("divineName", "<span class=\"name\"><span class=\"divine\">");
+//	addTokenSubstitute("/divineName", "</span></span>");
 
 	//TODO Move that down to the real tag handling, segs without the type morph would generate incorrect markup, as the end span is always inserted
 //	addTokenSubstitute("seg type=\"morph\"", "<span class=\"morphSegmentation\">");
@@ -392,20 +392,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			else { // empty reference marker
 				// -- what should we do?  nothing for now.
 			}
-
-			/*   if (!myUserData->inCrossrefNote && !tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
-			        const char* ref = tag.getAttribute("osisRef");
-
-			    buf.append("<span class=\"crossreference\" crossrefs=\"");
-			    buf.append(ref);
-			    buf.append("\">");
-			   }
-			   else if (!myUserData->inCrossrefNote && tag.isEndTag()) {
-			     buf.append("</span>");
-			   }
-			   else { // empty reference marker
-			    // -- what should we do?  nothing for now.
-			   }*/
 		}
 
 		// <l> is handled by OSISHTMLHref
@@ -601,9 +587,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					const char* attrValue;
 					//Transfer the values to the span
 					//Problem: the data is in hebrew/aramaic, how to encode in HTML/BibleTime?
-					if (attrValue = tag.getAttribute("lemma")) outTag.setAttribute("lemma", attrValue);
-					if (attrValue = tag.getAttribute("morph")) outTag.setAttribute("morph", attrValue);
-					if (attrValue = tag.getAttribute("homonym")) outTag.setAttribute("homonym", attrValue);
+					if ((attrValue = tag.getAttribute("lemma"))) outTag.setAttribute("lemma", attrValue);
+					if ((attrValue = tag.getAttribute("morph"))) outTag.setAttribute("morph", attrValue);
+					if ((attrValue = tag.getAttribute("homonym"))) outTag.setAttribute("homonym", attrValue);
 
 					buf.append(outTag.toString());
 					//buf.append("<span class=\"morphSegmentation\">");
@@ -616,6 +602,16 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				buf.append("</span>");
 			}
 			//qWarning(QString("handled <seg> token. result: %1").arg(buf.c_str()).latin1());
+		}
+		
+		//divine name, don't use simple tag replacing because it may have attributes
+		else if (!strcmp(tag.getName(), "divineName")) {
+			if (!tag.isEndTag()) {
+				buf.append("<span class=\"name\"><span class=\"divine\">");
+			}
+			else { //all hi replacements are html spans
+				buf.append("</span></span>");
+			}
 		}
 		
 		else { //all tokens handled by OSISHTMLHref will run through the filter now

@@ -1,3 +1,6 @@
+2007-03-22 Joachim Ansorg <info@bibletime.info>
+  * Fixed the osis filter to work with the new NETfree module
+
 2007-03-14 Joachim Ansorg <info@bibletime.info>
   * Added our own thmlplain filter to fix a CLucene indexing bug
 
