@@ -137,14 +137,14 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 				CPointers::backend()->setFilterOptions(filterOptions);
 
 				return QString(key->strippedText()).append("\n(")
-					   .append(key->key())
-					   .append(", ")
-					   .append(key->module()->name())
-					   .append(")");
+					.append(key->key())
+					.append(", ")
+					.append(key->module()->name())
+					.append(")");
 				/*    ("%1\n(%2, %3)")
-				          .arg()
-				          .arg(key->key())
-				          .arg(key->module()->name());*/
+					.arg()
+					.arg(key->key())
+					.arg(key->module()->name());*/
 			}
 			return QString::null;
 		}
@@ -249,7 +249,7 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ) {
 
 		do {
 			if (!tmpNode.isNull() && (tmpNode.nodeType() == 
-						  DOM::Node::ELEMENT_NODE) && tmpNode.hasAttributes()) {
+						DOM::Node::ELEMENT_NODE) && tmpNode.hasAttributes()) {
 				attr = tmpNode.attributes().getNamedItem("lemma");
 				if (!attr.isNull()) {
 					m_nodeInfo[ CDisplay::Lemma ] = attr.nodeValue().string();
@@ -282,7 +282,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ) {
 	if( e->qmouseEvent()->state() & LeftButton == LeftButton) { //left mouse button pressed
 		const int delay = KGlobalSettings::dndEventDelay();
 		QPoint newPos = QPoint(e->x(), e->y());
-
+	
 		if ( (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < (m_dndData.startPos.x()-delay) ||
 				newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < (m_dndData.startPos.y()-delay)) &&
 				!m_dndData.isDragging && m_dndData.mousePressed  ) {
@@ -294,21 +294,23 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ) {
 				CReferenceManager::Type type;
 				if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
 					return;
-
+	
 				CDragDropMgr::ItemList dndItems;
-				dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
+				//no description!
+				dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); 
 				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
 			}
-			else if ((m_dndData.dragType == DNDData::Text) && !m_dndData.selection.isEmpty()) {    // create a new plain text drag!
+			else if ((m_dndData.dragType == DNDData::Text) && !m_dndData.selection.isEmpty()) {    
+				// create a new plain text drag!
 				CDragDropMgr::ItemList dndItems;
 				dndItems.append( CDragDropMgr::Item(m_dndData.selection) ); //no description!
 				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
 			}
-
+	
 			if (d) {
 				m_dndData.isDragging = true;
 				m_dndData.mousePressed = false;
-
+	
 				//first make a virtual mouse click to end the selection, it it's in progress
 				QMouseEvent e(QEvent::MouseButtonRelease, QPoint(0,0), Qt::LeftButton, Qt::LeftButton);
 				KApplication::sendEvent(view()->viewport(), &e);
@@ -316,91 +318,80 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ) {
 			}
 		}
 	}
-	else if (getMouseTracking() && !(e->qmouseEvent()->state() & Qt::ShiftButton == Qt::ShiftButton)) { //no mouse button pressed and tracking enabled
+	else if (getMouseTracking() && !(e->qmouseEvent()->state() & Qt::ShiftButton == Qt::ShiftButton)) { 
+		//no mouse button pressed and tracking enabled
 		DOM::Node node = e->innerNode();
-		//  bool setInfo = false;
-
-		//if no link was under the mouse try to find a title attrivute
-		if (!node.isNull() && (m_previousEventNode != node) ) { //we want to avoid precessing the node again
-			DOM::Node currentNode = node;
-			DOM::Node attr;
-
-			CInfoDisplay::ListInfoData infoList;
-			do {
-				if (!currentNode.isNull() && (currentNode.nodeType() == DOM::Node::ELEMENT_NODE) && currentNode.hasAttributes()) { //found right node
-					attr = currentNode.attributes().getNamedItem("note");
-					if (!attr.isNull()) {
-						infoList.append( qMakePair(CInfoDisplay::Footnote, attr.nodeValue().string()) );
-					}
-
-					attr = currentNode.attributes().getNamedItem("lemma");
-					if (!attr.isNull()) {
-						infoList.append( qMakePair(CInfoDisplay::Lemma, attr.nodeValue().string()) );
-					}
-
-					attr = currentNode.attributes().getNamedItem("morph");
-					if (!attr.isNull()) {
-						infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
-					}
-
-					attr = currentNode.attributes().getNamedItem("expansion");
-					if (!attr.isNull()) {
-						infoList.append( qMakePair(CInfoDisplay::Abbreviation, attr.nodeValue().string()) );
-					}
-					/*     attr = currentNode.attributes().getNamedItem("pos");
-					     if (!attr.isNull()) {
-					      //infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
-					     }*/
-
-					/*     attr = currentNode.attributes().getNamedItem("gloss");
-					     if (!attr.isNull()) {
-					      infoList.append( qMakePair(CInfoDisplay::WordGloss, attr.nodeValue().string()) );
-					     }*/
-
-					/*     attr = currentNode.attributes().getNamedItem("xlit");
-					     if (!attr.isNull()) {
-					      //infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
-					     }*/
-
-					attr = currentNode.attributes().getNamedItem("crossrefs");
-					if (!attr.isNull()) {
-						infoList.append( qMakePair(CInfoDisplay::CrossReference, attr.nodeValue().string()) );
-					}
-				}
-
-				currentNode = currentNode.parentNode();
-				if (!currentNode.isNull() && currentNode.hasAttributes()) {
-					attr = currentNode.attributes().getNamedItem("class");
-					if (!attr.isNull() && (attr.nodeValue().string() == "entry") || (attr.nodeValue().string() == "currententry") ) {
-						break;
-					}
-				}
+		//if no link was under the mouse try to find a title attribute
+		if (!node.isNull() && (m_previousEventNode != node)) {
+			// we want to avoid processing the node again
+			// After some millisecs the new timer activates the Mag window update, see timerEvent()
+			// SHIFT key not pressed, so we start timer
+			if ( !(e->qmouseEvent()->state() & Qt::ShiftButton)) { 
+				// QObject has simple timer
+				killTimers(); 
+				startTimer( CBTConfig::get(CBTConfig::magDelay) );
 			}
-			while ( !currentNode.isNull() );
-
-			//Code part to show a translation of the hovered word, only works with KDE 3.3
-			/*   if (!infoList.count()) { //translate the text under the mouse, find the lowest node containing the mouse
-
-			    DOM::Node node = nonSharedNodeUnderMouse();
-
-			    if (!node.isNull() && node.nodeName().string() == "#text") {
-			      infoList.append( qMakePair(
-			       CInfoDisplay::WordTranslation,
-			       node.nodeValue().string()
-			      )
-			     );
-			    }
-			   }*/
-
-			if ( !(e->qmouseEvent()->state() & Qt::ShiftButton) ) { //SHIFT key not pressed, so we display
-				CPointers::infoDisplay()->setInfo(infoList);
-			}
-
+	
 			m_previousEventNode = node;
 		}
 	}
-
+		
 	KHTMLPart::khtmlMouseMoveEvent(e);
+}
+
+/** The Mag window update happens here if the mouse has not moved to another node after starting the timer.*/
+void CHTMLReadDisplay::timerEvent( QTimerEvent *e ) {
+	killTimers();
+	DOM::Node currentNode = nodeUnderMouse();
+	CInfoDisplay::ListInfoData infoList;
+	
+	// Process the node under cursor if it is the same as at the start of the timer
+	if (!currentNode.isNull() && (currentNode != m_previousEventNode) && this->view()->hasMouse()) {
+		DOM::Node attr;
+		do {
+			if (!currentNode.isNull() && (currentNode.nodeType() == DOM::Node::ELEMENT_NODE) && currentNode.hasAttributes()) { //found right node
+				attr = currentNode.attributes().getNamedItem("note");
+				if (!attr.isNull()) {
+					infoList.append( qMakePair(CInfoDisplay::Footnote, attr.nodeValue().string()) );
+				}
+	
+				attr = currentNode.attributes().getNamedItem("lemma");
+				if (!attr.isNull()) {
+					infoList.append( qMakePair(CInfoDisplay::Lemma, attr.nodeValue().string()) );
+				}
+	
+				attr = currentNode.attributes().getNamedItem("morph");
+				if (!attr.isNull()) {
+					infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
+				}
+	
+				attr = currentNode.attributes().getNamedItem("expansion");
+				if (!attr.isNull()) {
+					infoList.append( qMakePair(CInfoDisplay::Abbreviation, attr.nodeValue().string()) );
+				}
+				
+				attr = currentNode.attributes().getNamedItem("crossrefs");
+				if (!attr.isNull()) {
+					infoList.append( qMakePair(CInfoDisplay::CrossReference, attr.nodeValue().string()) );
+				}
+			}
+	
+			currentNode = currentNode.parentNode();
+			if (!currentNode.isNull() && currentNode.hasAttributes()) {
+				attr = currentNode.attributes().getNamedItem("class");
+				if (!attr.isNull() && (attr.nodeValue().string() == "entry") || (attr.nodeValue().string() == "currententry") ) {
+					break;
+				}
+			}
+		}
+		while ( !currentNode.isNull() );
+	}
+	
+	// Update the mag if there is new content
+	if (!(infoList.isEmpty())) {
+		CPointers::infoDisplay()->setInfo(infoList);
+	}
+
 }
 
 // ---------------------
@@ -415,7 +406,6 @@ CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWid
 /** Opens the popupmenu at the given position. */
 void CHTMLReadDisplayView::popupMenu( const QString& url, const QPoint& pos) {
 	if (!url.isEmpty()) {
-		//    qWarning(url.latin1());
 		m_display->setActiveAnchor(url);
 	}
 	if (QPopupMenu* popup = m_display->installedPopup()) {
@@ -427,7 +417,7 @@ void CHTMLReadDisplayView::popupMenu( const QString& url, const QPoint& pos) {
 void CHTMLReadDisplayView::polish() {
 	KHTMLView::polish();
 	connect( part(), SIGNAL(popupMenu(const QString&, const QPoint&)),
-			 this, SLOT(popupMenu(const QString&, const QPoint&)));
+			this, SLOT(popupMenu(const QString&, const QPoint&)));
 }
 
 /** Reimplementatiob from QScrollView. */
@@ -458,8 +448,8 @@ void CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e ) {
 }
 
 /*!
-    \fn CHTMLReadDisplay::slotPageLoaded()
- */
+\fn CHTMLReadDisplay::slotPageLoaded()
+*/
 void CHTMLReadDisplay::slotGoToAnchor() {
 	if (!m_currentAnchorCache.isEmpty()) {
 		if (!gotoAnchor( m_currentAnchorCache ) ) {
@@ -470,12 +460,10 @@ void CHTMLReadDisplay::slotGoToAnchor() {
 }
 
 void CHTMLReadDisplay::zoomIn() {
-	//  qWarning("zooming in");
 	setZoomFactor( (int)((float)zoomFactor()*1.1) );
 }
 
 void CHTMLReadDisplay::zoomOut() {
-	//  qWarning("zooming out");
 	setZoomFactor( (int)((float)zoomFactor()*(1.0/1.1)) );
 }
 

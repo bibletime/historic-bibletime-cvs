@@ -1,4 +1,8 @@
 2007-03-22 Joachim Ansorg <info@bibletime.info>
+  * Applied a patch by Eeli Kaikkonen to have a delay before the mag content appears
+  * Added Eeli Kaikkonen to the list of contributors
+  
+2007-03-22 Joachim Ansorg <info@bibletime.info>
   * Fixed the osis filter to work with the new NETfree module
 
 2007-03-14 Joachim Ansorg <info@bibletime.info>

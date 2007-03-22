@@ -165,6 +165,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
 	//GUI improvements
 	aboutData.addCredit("Jim Campbell",   I18N_NOOP("GUI"), "jdc.email@gmail.com", ""); 
+	//Indexed search, gui improvements
+	aboutData.addCredit("Lee Carpenter",  I18N_NOOP("GUI, instant search"),"Lee Carpenter <elc@carpie.net>", "http://www.carpie.net");
 	//Translations into Traditional and Simplified Chinese
 	aboutData.addCredit("Chun-shek Chan",   I18N_NOOP("GUI translations into Traditional and Simplified Chinese"), "chunshek@gmail.com", "");
 	//Binary packages of CLucene, BibleTime and Sword for Fedore, SUSE, Mandriva
@@ -179,8 +181,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Nikolay Igotti", I18N_NOOP("Search dialog enhancements"), "olonho@hotmail.com", "");
 	// Language codes iso639-1, iso639-2 and SIL language codes
 	aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
-	//Indexed search, gui improvements
-	aboutData.addCredit("Lee Carpenter",  I18N_NOOP("GUI, instant search"),"Lee Carpenter <elc@carpie.net>", "http://www.carpie.net");
+	//Patch for the mag delay (2007-03-22)
+	aboutData.addCredit("Eeli Kaikkonen",  I18N_NOOP("GUI improvements"),"eekaikko@mail.student.oulu.fi", "");
 	//Update the the Finnish GUI translation
 	aboutData.addCredit("Ilpo Kantonen",  I18N_NOOP("Finnish translation"),"", "");
 	//Smaller frontend enhancements

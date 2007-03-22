@@ -69,7 +69,9 @@ protected:
 	*/
 	virtual void khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event );
 	virtual void khtmlMousePressEvent( khtml::MousePressEvent* event );
-	virtual void khtmlMouseMoveEvent( khtml::MouseMoveEvent* e );
+	virtual void khtmlMouseMoveEvent( khtml::MouseMoveEvent* event );
+	virtual void timerEvent(QTimerEvent *event);
+
 
 	struct DNDData {
 		bool mousePressed;

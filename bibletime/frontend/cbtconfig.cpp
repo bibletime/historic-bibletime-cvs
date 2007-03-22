@@ -143,6 +143,7 @@ const QString CBTConfig::getKey( const CBTConfig::ints ID) {
 		case morphSegmentation:		return "morphSegmentation";
 		case bookshelfContentsX:	return "bookshelfContentsX";
 		case bookshelfContentsY:	return "bookshelfContentsY";
+		case magDelay:		return "magDelay";
 	}
 	return QString::null;
 }
@@ -187,6 +188,7 @@ const int CBTConfig::getDefault( const CBTConfig::ints ID) {
 		case morphSegmentation:		return int(true);
 		case bookshelfContentsX:	return 0;
 		case bookshelfContentsY:	return 0;
+		case magDelay:	return 400;
 	}
 	return 0;
 }
@@ -336,7 +338,7 @@ const int CBTConfig::get
 	( const CBTConfig::ints ID) {
 	KConfig* config = CBTConfig::getConfig();
 	KConfigGroupSaver groupSaver(config, "ints");
-	return config->readBoolEntry(getKey(ID), getDefault(ID));
+	return config->readNumEntry(getKey(ID), getDefault(ID));
 }
 
 const QValueList<int> CBTConfig::get
@@ -533,33 +535,22 @@ const CSwordBackend::DisplayOptions CBTConfig::getDisplayOptionDefaults() {
 
 const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults() {
 	CSwordBackend::FilterOptions options;
-
-	//   options.footnotes =      get(CBTConfig::footnotes);
-	options.footnotes =      true; //required for the info display
+	
+	options.footnotes = true; //required for the info display
 
 	options.strongNumbers =    true; //get(CBTConfig::strongNumbers);
-	options.headings =       get
-								 (CBTConfig::headings);
+	options.headings = get(CBTConfig::headings);
 
-	//   options.morphTags =      get(CBTConfig::morphTags);
-	options.morphTags =      true;//required for the info display
+	options.morphTags = true;//required for the info display
 
-	//   options.lemmas =        get(CBTConfig::lemmas);
-	options.lemmas =        true;//required for the info display
+	options.lemmas = true;//required for the info display
 
-	options.hebrewPoints =     get
-								   (CBTConfig::hebrewPoints);
-	options.hebrewCantillation =  get
-									  (CBTConfig::hebrewCantillation);
-	options.greekAccents =     get
-								   (CBTConfig::greekAccents);
-	options.textualVariants =   get
-									(CBTConfig::textualVariants);
-	//   options.transliteration =   get(CBTConfig::transliteration);
-	options.scriptureReferences = get
-									  (CBTConfig::scriptureReferences);
-	options.morphSegmentation  = get
-									 (CBTConfig::morphSegmentation);
+	options.hebrewPoints =     get(CBTConfig::hebrewPoints);
+	options.hebrewCantillation =  get(CBTConfig::hebrewCantillation);
+	options.greekAccents =     get(CBTConfig::greekAccents);
+	options.textualVariants =   get(CBTConfig::textualVariants);
+	options.scriptureReferences = get(CBTConfig::scriptureReferences);
+	options.morphSegmentation  = get(CBTConfig::morphSegmentation);
 
 	return options;
 }

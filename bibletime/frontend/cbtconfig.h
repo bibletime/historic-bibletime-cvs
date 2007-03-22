@@ -86,6 +86,7 @@ public:
 		morphSegmentation,
 		bookshelfContentsX,
 		bookshelfContentsY,
+  		magDelay /* The delay until a mouse move makes the content appear in the mag */
 	};
 	enum intLists {
 		leftPaneSplitterSizes,
