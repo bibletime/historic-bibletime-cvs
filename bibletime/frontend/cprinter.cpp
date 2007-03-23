@@ -23,11 +23,12 @@
 
 namespace Printing {
 
-	CPrinter::CPrinter(QObject */*parent*/, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
-:  QObject(/*parent*/0),
+	CPrinter::CPrinter(QObject *, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
+:  QObject(0),
 	CDisplayRendering(displayOptions, filterOptions),
 	m_htmlPart(new KHTMLPart(0, 0, this)) {
 
+		//override the filteroptions set in the c-tor of CDisplayRendering
 		m_filterOptions.footnotes = false;
 		m_filterOptions.scriptureReferences = false;
 		m_filterOptions.strongNumbers = false;
@@ -65,17 +66,17 @@ namespace Printing {
 
 			switch (item.settings().keyRenderingFace) {
 				case KeyTreeItem::Settings::CompleteShort:
-				return QString::fromUtf8(vk.getShortText());
+					return QString::fromUtf8(vk.getShortText());
 
 				case KeyTreeItem::Settings::CompleteLong:
-				return vk.key();
+					return vk.key();
 
 				case KeyTreeItem::Settings::NoKey:
-				return QString::null;
+					return QString::null;
 
 				case KeyTreeItem::Settings::SimpleKey: //fall through
 				default:
-				return QString::number(vk.Verse());
+					return QString::number(vk.Verse());
 			}
 
 		}
@@ -119,12 +120,11 @@ namespace Printing {
 							  ? lang->abbrev()
 							  : "unknown";
 		settings.pageDirection = (modules.count() == 1)
-								 ? ((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr"  : "rtl")
-						 : QString::null;
+				 ? ((modules.first()->textDirection() == CSwordModuleInfo::LeftToRight) ? "ltr"  : "rtl")
+				 : QString::null;
 
 		CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
-		return tMgr->fillTemplate(CBTConfig::get
-									  (CBTConfig::displayStyle), text, settings);
+		return tMgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
 	}
 
 } //end of namespace

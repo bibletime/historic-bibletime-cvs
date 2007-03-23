@@ -347,6 +347,10 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 
 const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
 	CPrinter::KeyTreeItem::Settings settings;
+	settings.keyRenderingFace = 
+		  displayOptions.verseNumbers 
+		? CPrinter::KeyTreeItem::Settings::SimpleKey 
+		: CPrinter::KeyTreeItem::Settings::NoKey;
 
 	CPrinter::KeyTree tree;
 	if (startKey != stopKey) {
@@ -363,6 +367,10 @@ const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& st
 
 const bool CExportManager::printKey( CSwordKey* key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) {
 	CPrinter::KeyTreeItem::Settings settings;
+	settings.keyRenderingFace = 
+		  displayOptions.verseNumbers 
+		? CPrinter::KeyTreeItem::Settings::SimpleKey 
+		: CPrinter::KeyTreeItem::Settings::NoKey;
 
 	CPrinter::KeyTree tree;
 	tree.append( new CPrinter::KeyTreeItem(key->key(), key->module(), settings) );
@@ -385,6 +393,10 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink, CSwordBac
 
 	CPrinter::KeyTree tree;
 	CPrinter::KeyTreeItem::Settings settings;
+	settings.keyRenderingFace = 
+		  displayOptions.verseNumbers 
+		? CPrinter::KeyTreeItem::Settings::SimpleKey 
+		: CPrinter::KeyTreeItem::Settings::NoKey;
 
 	CSwordModuleInfo* module = backend()->findModuleByName(moduleName);
 	Q_ASSERT(module);
@@ -421,8 +433,12 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink, CSwordBac
 
 const bool CExportManager::printKeyList(const QStringList& list,CSwordModuleInfo* module,  CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) {
 	CPrinter::KeyTreeItem::Settings settings;
+	settings.keyRenderingFace = 
+		  displayOptions.verseNumbers 
+		? CPrinter::KeyTreeItem::Settings::SimpleKey 
+		: CPrinter::KeyTreeItem::Settings::NoKey;
+	
 	CPrinter::KeyTree tree;
-
 	setProgressRange(list.count());
 
 	//ToDo: Fix that as soon as we use Qt > 3.1
@@ -458,7 +474,7 @@ const QString CExportManager::filterString( const Format format ) {
 		return i18n("*.txt | Text files\n *.* | All files (*.*)");
 		default:
 		return i18n("All files (*.*)");
-	};
+	}
 }
 
 /** Returns a filename to save a file. */
@@ -470,8 +486,8 @@ const QString CExportManager::getSaveFileName(const Format format) {
 const QString CExportManager::lineBreak(const Format format) {
 	if (static_cast<bool>(m_displayOptions.lineBreaks))
 		return (format == HTML) ? QString::fromLatin1("<br/>\n") : QString::fromLatin1("\n");
-	else
-		return QString::null;
+	
+	return QString::null;
 }
 
 /** No descriptions */
@@ -490,21 +506,20 @@ void CExportManager::setProgressRange( const int items ) {
 QProgressDialog* const CExportManager::progressDialog() {
 	if (!m_showProgress) {
 		return 0;
-	};
+	}
+	
 	if (!m_progressDialog) {
 		m_progressDialog = new QProgressDialog( m_caption, m_progressLabel, 1, 0, "progress", true );
 		m_progressDialog->setCaption("BibleTime");
-	};
+	}
+	
 	return m_progressDialog;
 }
 
 /** Increments the progress by one item. */
 void CExportManager::incProgress() {
 	if (QProgressDialog* dlg = progressDialog()) {
-		//     KApplication::kApplication()->processEvents(10); //do not lock the GUI!
 		dlg->setProgress( dlg->progress() + 1 );
-		//dlg->repaint();
-		//     KApplication::kApplication()->processEvents(10); //do not lock the GUI!
 	}
 }
 
@@ -512,16 +527,17 @@ void CExportManager::incProgress() {
 const bool CExportManager::progressWasCancelled() {
 	if (QProgressDialog* dlg = progressDialog()) {
 		return dlg->wasCancelled();
-	};
+	}
+	
 	return true;
 }
 
 /** Closes the progress dialog immediatly. */
 void CExportManager::closeProgressDialog() {
 	if (QProgressDialog* dlg = progressDialog()) {
-		//     dlg->repaint();
 		dlg->close();
 		dlg->reset();
 	}
+	
 	KApplication::kApplication()->processEvents(); //do not lock the GUI!
 }

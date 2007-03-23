@@ -100,13 +100,13 @@ void CReadDisplay::print(const CDisplay::TextPart type, CSwordBackend::DisplayOp
 				//        }
 				mgr.printKey(module, startKey.key(), stopKey.key(), displayOptions, filterOptions);
 			}
-		};
+		}
 
 		case AnchorWithText: {
 			if (hasActiveAnchor()) {
 				mgr.printByHyperlink( activeAnchor(), displayOptions, filterOptions );
-			};
-		};
+			}
+		}
 
 		default:
 		break;

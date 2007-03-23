@@ -51,15 +51,15 @@ using namespace Profile;
 CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
 	switch (modules.first()->type()) {
 		case CSwordModuleInfo::Bible:
-		return new CBibleReadWindow(modules, parent, name);
+			return new CBibleReadWindow(modules, parent, name);
 		case CSwordModuleInfo::Commentary:
-		return new CCommentaryReadWindow(modules, parent, name);
+			return new CCommentaryReadWindow(modules, parent, name);
 		case CSwordModuleInfo::Lexicon:
-		return new CLexiconReadWindow(modules, parent, name);
+			return new CLexiconReadWindow(modules, parent, name);
 		case CSwordModuleInfo::GenericBook:
-		return new CBookReadWindow(modules, parent, name);
+			return new CBookReadWindow(modules, parent, name);
 		default:
-		qWarning("unknown module type");
+			qWarning("unknown module type");
 		break;
 	}
 	return 0;
@@ -72,7 +72,7 @@ CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, 
 	}
 	else {
 		return new CPlainWriteWindow(modules, parent, name);
-	};
+	}
 	return 0;
 }
 
@@ -83,7 +83,6 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
 : KMainWindow(parent, name, WDestructiveClose),
 #endif
 m_mdi(parent),
-//    m_modules(modules),
 m_filterOptions(),
 m_displayOptions(),
 m_displaySettingsButton(0),
@@ -94,9 +93,7 @@ m_moduleChooserBar(0),
 m_mainToolBar(0),
 m_popupMenu(0),
 m_displayWidget(0) {
-	//  qWarning("set modules now");
 	setModules(modules);
-	// qWarning("modules setting done");
 }
 
 CDisplayWindow::~CDisplayWindow() {
@@ -113,16 +110,7 @@ const QString CDisplayWindow::windowCaption() {
 	if (!m_modules.count()) {
 		return QString::null;
 	}
-
-	// QString ret = m_modules.first()->name();
-	// if (m_modules.count() > 1) {
-	//  for (m_modules.next(); m_modules.current(); m_modules.next())  {
-	//   ret += " | " + m_modules.current();
-	//  }
-	// }
-	//  return m_modules.join(" | ").append(" (").append(key()->key()).append(")");
-	// return QString::fromLatin1("%1 (%2)").arg(key()->key()).arg(m_modules.join(" | "));
-
+	
 	return QString(key()->key()).append(" (").append(m_modules.join(" | ")).append(")");
 }
 
@@ -324,8 +312,6 @@ void CDisplayWindow::modulesChanged() {
 
 		key()->module(modules().first());
 		keyChooser()->setModules(modules());
-
-		//lookup(key()); //the keyChooser()->setModules() call already triggers this
 	}
 }
 
@@ -339,18 +325,18 @@ void CDisplayWindow::setModuleChooserBar( CModuleChooserBar* bar ) {
 	if (m_moduleChooserBar) {
 		disconnect(m_moduleChooserBar, SIGNAL(sigChanged()), this, SLOT(modulesChanged()));
 	}
-
-	if (bar) { //if a new bar should be set!
+ 	
+	//if a new bar should be set!
+	if (bar) {
 		m_moduleChooserBar = bar;
 		connect(bar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
-	};
+	}
 }
 
 /** Sets the modules. */
 void CDisplayWindow::setModules( const ListCSwordModuleInfo& newModules ) {
 	m_modules.clear();
 
-	//   for (newModules.first(); newModules.current(); newModules.next()) {
 	ListCSwordModuleInfo::const_iterator end_it = newModules.end();
 	for (ListCSwordModuleInfo::const_iterator it(newModules.begin()); it != end_it; ++it) {
 		m_modules.append((*it)->name());
@@ -379,11 +365,6 @@ const bool CDisplayWindow::init() {
 		displaySettingsButton()->reset(modules());
 	}
 
-	//   if (key() && !keyName.isEmpty()) {
-	//     key()->key(keyName);
-	//   }
-
-	//  keyChooser()->setKey(key());
 	setReady(true);
 	return true;
 }
@@ -440,39 +421,17 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 	}
 
 	//ToDo: check for containsRef compat
-	if (m && modules().contains(m) /*&& !keyName.isEmpty()*/) {
-		//    qWarning("using this window");
+	if (m && modules().contains(m)) {
 		key()->key(keyName);
 		keyChooser()->setKey(key()); //the key chooser does send an update signal
 	}
 	else { //given module not displayed in this window
 		//if the module is displayed in another display window we assume a wrong drop
-		//QWidgetList windows = mdi()->windowList();
 		bool found = false;
-
-		//Always open a new window for now
-		
-		//CDisplayWindow* dw = 0;
-
-		/*for (windows.first(); windows.current(); windows.next()) {
-			dw = dynamic_cast<CDisplayWindow*>(windows.current());
-
-			if (dw && dw->modules().contains(m)) {
-				found = true;
-				break;
-			}
-	}*/
-
-		/*if (found) { //lookup in the window which has the module displayed
-			//     qWarning("using other existing window");
-			dw->lookup(moduleName, keyName);
-		}
-		else */ { //create a new window for the given module
-			//     qWarning("creating a new window");
-			ListCSwordModuleInfo mList;
-			mList.append(m);
-			mdi()->emitCreateDisplayWindow(mList, keyName);
-		}
+		//create a new window for the given module
+		ListCSwordModuleInfo mList;
+		mList.append(m);
+		mdi()->emitCreateDisplayWindow(mList, keyName);
 	}
 }
 

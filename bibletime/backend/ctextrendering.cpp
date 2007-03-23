@@ -110,14 +110,15 @@ m_alternativeContent( QString::null ) {
 
 			while (ok && ((start < stop) || (start == stop)) ) { //range
 				childList()->append(
-					new KeyTreeItem(start.key(), module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::SimpleKey))
+					new KeyTreeItem(start.key(), module, KeyTreeItem::Settings(false, settings.keyRenderingFace))
 				);
+				
 
 				ok = start.next(CSwordVerseKey::UseVerse);
 			}
 		}
 		else if (m_key.isEmpty()) {
-			childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::SimpleKey)) );
+			childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, settings.keyRenderingFace)) );
 		}
 	}
 	else if ((module->type() == CSwordModuleInfo::Lexicon) || (module->type() == CSwordModuleInfo::Commentary) ) {
