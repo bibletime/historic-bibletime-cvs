@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2007-02-17 11:18+0000\n"
+"POT-Creation-Date: 2007-03-31 10:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -15,527 +15,684 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Tag: title
-#: how2-basics.docbook:1
+#: index.docbook:19
 #, no-c-format
-msgid "Bible Study Basics"
+msgid "The Biblestudy HowTo"
+msgstr ""
+
+#. Tag: author
+#: index.docbook:22
+#, no-c-format
+msgid "<firstname>Bob</firstname> <surname>Harman</surname>"
+msgstr ""
+
+#. Tag: trans_comment
+#: index.docbook:28
+#, no-c-format
+msgid "ROLES_OF_TRANSLATORS"
+msgstr ""
+
+#. Tag: holder
+#: index.docbook:32
+#, no-c-format
+msgid "The team of &bibletime;, info@bibletime.info"
+msgstr ""
+
+#. Tag: holder
+#: index.docbook:35
+#, no-c-format
+msgid "Bob Harman"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:38
+#, no-c-format
+msgid ""
+"The copyright of this text is held by the author Bob Harman. The text was "
+"adapted for publication with BibleTime by Fred Saalbach."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:42
+#, no-c-format
+msgid ""
+"Non exclusive serial rights for this distribution of this document with the "
+"&bibletime; software have been made. Redistribution as part of the Bibletime "
+"software without modification and limited reproduction as provided by the "
+"\"fair use\" provisions of the US copyright code are also permitted."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:48
+#, no-c-format
+msgid ""
+"For questions regarding the use of this material contact Bob Harman c/o New "
+"Covenant Church 1079 Big Bethel Rd. Hampton VA 23666 USA "
+"<email>ncc@ncchampton.org</email>."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:52
+#, no-c-format
+msgid ""
+"Scripture quotes are from the New American Standard Bible unless otherwise "
+"indicated"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:4
+#: index.docbook:61
 #, no-c-format
-msgid "Our Purpose as we Approach the Bible"
-msgstr ""
-
-#. Tag: attribution
-#: how2-basics.docbook:6
-#, no-c-format
-msgid "Jn.5:39-40"
+msgid "Abstract"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:6
+#: index.docbook:62
 #, no-c-format
 msgid ""
-"You search the Scriptures, because you think that in them you have eternal "
-"life; and it is these that bear witness of Me; and you are unwilling to come "
-"to Me, that you may have life."
+"The <application>Biblestudy HowTo</application> is a guide for studying the "
+"Bible."
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:12
+#: index.docbook:65
 #, no-c-format
 msgid ""
-"The chief purpose of the book is to bring us to the Person. Martin Luther "
-"said <quote>we go to the cradle only for the sake of the baby</quote>; just "
-"so in Bible study, we do it not for its own sake but for fellowship with God."
+"It is the hope of the &bibletime; team that this HowTo will provoke the "
+"readers to study the scriptures to see what they say. This particular study "
+"guide has been chosen as it takes care not to advocate any particular "
+"denominational doctrine. We expect you to read and study the scriptures to "
+"understand what they say. If you start with the attitude that you want to "
+"have the Lord sow his word in your heart He will not disappoint you."
 msgstr ""
 
-#. Tag: attribution
-#: how2-basics.docbook:17
+#. Tag: keyword
+#: index.docbook:75
 #, no-c-format
-msgid ""
-"John R.W. Stott, <emphasis>Christ the Controversialist</emphasis>, "
-"InterVarsity Press 1978, pp.97, 104."
+msgid "Bible"
 msgstr ""
 
-#. Tag: para
-#: how2-basics.docbook:19
-#, no-c-format
-msgid ""
-"The Jews to whom Jesus spoke [...] imagined that to possess Scripture was "
-"tantamount to possessing life. Hillel used to say, &quot;He who has gotten "
-"to himself words of Torah has gotten to himself the life of the world to "
-"come.&quot; Their study was an end in itself. In this they were grievously "
-"deceived. [...]"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:24
-#, no-c-format
-msgid ""
-"There is neither merit nor profit in the reading of Scripture for its own "
-"sake, but only if it effectively introduces us to Jesus Christ. Whenever the "
-"Bible is read, what is needed is an eager expectation that through it we may "
-"meet Christ."
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:31
-#, no-c-format
-msgid "Approaches to God's Word"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:32
-#, no-c-format
-msgid ""
-"Hearing and reading provide a telescopic view of the scripture while study "
-"and memorization provide a microscopic view of scripture. Meditating on the "
-"scriptures brings hearing, reading, studying and memorization together and "
-"cements the word in our minds."
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:37
-#, no-c-format
-msgid "Hear"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:38
-#, no-c-format
-msgid ""
-"Lk.11:28 <quote>blessed are those who hear the word of God, and observe it.</"
-"quote>"
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:42
-#, no-c-format
-msgid "Read"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:43
-#, no-c-format
-msgid ""
-"Rev.1:3 <quote>Blessed is he who reads and those who hear the words of this "
-"prophecy [...]</quote>"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:45
-#, no-c-format
-msgid ""
-"1 Tim.4:13 <quote>give attention to the public reading of Scripture [...]</"
-"quote>"
-msgstr ""
-
-#. #-#-#-#-#  how2-basics.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
-#. Tag: title
 #. #-#-#-#-#  index.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
 #. Tag: keyword
-#: how2-basics.docbook:49 index.docbook:76
+#. #-#-#-#-#  how2-basics.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: title
+#: index.docbook:76 how2-basics.docbook:49
 #, no-c-format
 msgid "Study"
 msgstr ""
 
+#. Tag: keyword
+#: index.docbook:77
+#, no-c-format
+msgid "HowTo"
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:1
+#, no-c-format
+msgid "Rules of Bible Interpretation (Hermeneutics)"
+msgstr ""
+
 #. Tag: para
-#: how2-basics.docbook:50
+#: how2-interpretation.docbook:2
 #, no-c-format
 msgid ""
-"Acts 17:11 <quote>Now these were more noble-minded than those in "
-"Thessalonica, for they received the word with great eagerness, examining the "
-"Scriptures daily, to see whether these things were so.</quote>"
+"We already learned about the \"3 Cs\": content, context, cross-reference. We "
+"want to expand that now by delving briefly into biblical hermeneutics, whose "
+"goal is to discover the meaning intended by the original author (and "
+"Author!). While many applications of a passage are valid, only one "
+"interpretation is valid. The scripture itself says this by saying that no "
+"scripture is of any private interpretation (2 Pe.1:20 KJV <quote>Knowing "
+"this first, that no prophesy of scripture is of any private interpretation.</"
+"quote>). Certain rules are helps toward discovering the correct meaning; by "
+"ignoring these rules people have brought much trouble on themselves and "
+"their followers. 2 Pe.3:16 <quote>...in which are some things hard to "
+"understand, which the untaught and unstable distort, as they do also the "
+"rest of the Scriptures, to their own destruction.</quote>"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:54
+#: how2-interpretation.docbook:11
 #, no-c-format
 msgid ""
-"2 Tim.2:15 <quote>Be diligent [KJV `Study'] to present yourself approved to "
-"God as a workman who does not need to be ashamed, handling accurately the "
-"word of truth.</quote>"
+"How do we go about discovering the intended meaning of a passage? Let's say "
+"your attention has been drawn to a particular verse whose meaning is not "
+"clear to you. How do you study it out? Keep these rules in mind:"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:59
+#: how2-interpretation.docbook:14
 #, no-c-format
-msgid "Memorize"
+msgid "Rule 1 - Interpret according to the exact meaning of the words."
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:60
+#: how2-interpretation.docbook:15
 #, no-c-format
 msgid ""
-"Ps.119:11 <quote>Thy word I have hid in my heart, that I may not sin against "
-"Thee.</quote>"
+"The more precise we can be with the exact, original meaning of the words the "
+"better our interpretation will be. Try to find the exact meaning of the key "
+"words by following these steps:"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:64
+#: how2-interpretation.docbook:20
 #, no-c-format
-msgid "Meditate"
+msgid "Definition"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:65
+#: how2-interpretation.docbook:21
 #, no-c-format
 msgid ""
-"Ps.1:2-3 <quote>But his delight is in the law of the Lord, And in His law he "
-"meditates day and night. And he will be like a tree firmly planted by "
-"streams of water, Which yields its fruit in its season, And its leaf does "
-"not wither; And in whatever he does, he prospers.</quote>"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:71
-#, no-c-format
-msgid ""
-"The Navigators illustrate this by saying that as the thumb can touch all the "
-"fingers, we can meditate on the Word as we do any of the first four. "
-"Meditation is a key to revelation. A new Christian needs to hear and read "
-"the Bible more than they need to study and memorize it. This is so that they "
-"become familiar with the overall message of the Bible."
+"Look up the definition in a Greek or Hebrew dictionary. For verbs, the verb "
+"tense is also crucial."
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:79
-#, no-c-format
-msgid "Types of Bible Studies"
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:80
-#, no-c-format
-msgid "Topical Study"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:81
-#, no-c-format
-msgid ""
-"Pick out a certain topic and follow it through, using cross-references or a "
-"concordance."
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:85
-#, no-c-format
-msgid "Character Study"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:86
-#, no-c-format
-msgid ""
-"Studying the life of a Bible character, e.g. Joseph's life in Gen.37-50."
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:90
-#, no-c-format
-msgid "Expository Study"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:91
-#, no-c-format
-msgid "Studying a certain passage: paragraph, chapter, or book."
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:95
-#, no-c-format
-msgid "Basics of Correct Interpretation"
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:97
-#, no-c-format
-msgid "Content"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:98
-#, no-c-format
-msgid ""
-"What does it say? What does it say in the original language? Be careful with "
-"definitions. Don't read into it what it doesn't say."
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:102
-#, no-c-format
-msgid "Context"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:103
-#, no-c-format
-msgid ""
-"What do the verses around it say? &quot;Context is king&quot; is the rule -- "
-"the passage must make sense within the structure of the entire passage and "
-"book."
-msgstr ""
-
-#. Tag: title
-#: how2-basics.docbook:107 how2-interpretation.docbook:26
+#: how2-interpretation.docbook:26 how2-basics.docbook:107
 #, no-c-format
 msgid "Cross-reference"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:108
+#: how2-interpretation.docbook:27
 #, no-c-format
 msgid ""
-"What do other verses about this subject say through the rest of the Bible? "
-"God doesn't contradict Himself, so our interpretation needs to stand the "
-"test of other scriptures."
+"Compare scripture with scripture. Seeing how the same Greek or Hebrew word "
+"(not the English word) is used in scripture may clarify or throw new light "
+"on the definition. How does the same author use this word elsewhere? Other "
+"authors? Your reference tools may give you uses of the word in non-biblical "
+"documents, as well. Why do we have to go to the original languages; why "
+"isn't the English word good enough? <emphasis>Because more than one greek "
+"word may be translated into the same english word, and the greek words may "
+"have different shades of meaning.</emphasis>"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:113
+#: how2-interpretation.docbook:37
 #, no-c-format
-msgid "An Expository Study of Matthew 6:1-18"
+msgid "Example 1A"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:114
+#: how2-interpretation.docbook:38
 #, no-c-format
 msgid ""
-"Let's study together Mt.6:1-18. Read it to yourself, first looking for the "
-"key verse, the verse that sums up the whole passage. Think you have it? Test "
-"it by picking different places in the passage and asking yourself if they "
-"relate to the thought of the key verse. Once you find it, write it as Roman "
-"numeral One of your outline:"
+"Jn.20:17 <emphasis>\"Touch me not\"</emphasis> (KJV) sounds harsh, doesn't "
+"it? Sounds like Jesus doesn't want to be touched now that He is risen, that "
+"He is too holy or something. But that doesn't seem right, so let's look it "
+"up in Spiros Zodhiates' <emphasis>The Complete Word Study New Testament</"
+"emphasis> (AMG Publishers, 1991)."
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:119
-#, no-c-format
-msgid "Beware of practicing your righteousness before men to be noticed"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:122
+#: how2-interpretation.docbook:42
 #, no-c-format
 msgid ""
-"What does <quote>practicing your righteousness</quote> mean? Does the "
-"passage give any examples? What area of our lives is being addressed? "
-"<emphasis>Our motives!</emphasis> What sub-headings develop this thought?"
+"Definition: Turning to John 20:17, above the word \"Touch\" we see \"pim680."
+"\" The letters give us a code for the part of speech, and the number refers "
+"to Strong's dictionary reference. Let's look up the definition (p. 879). "
+"\"680. Haptomai; from hapto (681), touch. Refers to such handling of an "
+"object as to exert a modifying influence upon it... Distinguished from "
+"pselaphao (5584), which actually only means to touch the surface of "
+"something. \" Now look up \"pim.\" The grammar codes in Zodhiates come right "
+"after Revelation; on p. 849 we see that pim stands for \"present imperative "
+"active (80)\". On p.857, \"Present Imperative. In the active voice, it may "
+"indicate a command to do something in the future which involves continuous "
+"or repeated action or, when it is negated, a command to stop doing "
+"something. \" This is a negative command, so it is to stop doing something "
+"that is already occuring. So, what have we found?"
 msgstr ""
 
-#. Tag: para
-#: how2-basics.docbook:126 how2-basics.docbook:135
-#, no-c-format
-msgid "When you give"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:127
-#, no-c-format
-msgid "When you fast"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:128
-#, no-c-format
-msgid "When you pray"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:131
+#. Tag: emphasis
+#: how2-interpretation.docbook:50
 #, no-c-format
 msgid ""
-"Now fill in the outline with specific instructions of how to avoid wrong "
-"ways of practicing our righteousness:"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:137
-#, no-c-format
-msgid ""
-"don't sound a trumpet. (how might someone <quote>sound a trumpet</quote> "
-"today?)"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:138
-#, no-c-format
-msgid "do it secretly."
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:139
-#, no-c-format
-msgid "etc."
+"Mary is already clinging to Jesus, and he is saying to stop holding him!"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:145
+#: how2-interpretation.docbook:53
 #, no-c-format
-msgid "Worksheet: How to Use a Concordance"
+msgid "Example 1B"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:54
+#, no-c-format
+msgid ""
+"In James 5:14, <emphasis>Elders are told to pray and anoint someone who is "
+"sick</emphasis>. What is this anointing?"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:55
+#, no-c-format
+msgid ""
+"Definition of aleipho (218) - \"to oil\" (Strong's); but we also have "
+"another Greek word translated \"anoint\", chrio (5548) - \"to smear or rub "
+"with oil, i.e. to consecrate to an office or religious service\" (Strong's). "
+"Since it's a verb, consider the tense also, \"apta\" aorist participle "
+"active. \"The aorist participle expresses simple action, as opposed to "
+"continuous action...When its relaitonship to the main verb is temporal, it "
+"usually signifies action prior to that of the main verb.\" (Zodhiates p.851)"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:62
+#, no-c-format
+msgid "Cross-references for aleipho:"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:64
+#, no-c-format
+msgid "Mt.6:17 But you, when you fast, anoint your head"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:65
+#, no-c-format
+msgid "Mk.16:1 [the women] brought spices that they might come and anoint Him."
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:66
+#, no-c-format
+msgid ""
+"Mk.6:13 And they were...anointing with oil many sick people and healing them."
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:67
+#, no-c-format
+msgid "Lk.7:38 [...] kissing His feet and anointing them with the perfume"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:68
+#, no-c-format
+msgid ""
+"Jn.12:3 Mary [...] anointed the feet of Jesus, and wiped them with her hair"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:72
+#, no-c-format
+msgid "Cross-references of chrio:"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:74
+#, no-c-format
+msgid ""
+"Lk.4:18 <quote>The Spirit of the Lord is upon me, because He has anointed me "
+"to preach [...]</quote>"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:75
+#, no-c-format
+msgid "Acts 4:27 Jesus, whom Thou hast anointed"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:76
+#, no-c-format
+msgid "Acts 10:38 God anointed Jesus with the Holy Ghost and power"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:77
+#, no-c-format
+msgid "2 Cor.1:21 Now He who...anointed us is God"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:82
+#, no-c-format
+msgid ""
+"So what's the difference between aleipho and chrio? Look back over the cross-"
+"references and the definitions, and sum up the difference: <emphasis>&quot;"
+"aleipho&quot; is a practical use of oil and &quot;chrio&quot; is a "
+"spiritual</emphasis>"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:85
+#, no-c-format
+msgid ""
+"As an illustration (although the word is not used) of the practical use of "
+"oil at that time, when the good Samaritan cared for the man beat up by "
+"robbers he poured oil and wine in the wound. So oil had a medicinal use in "
+"Jesus' day."
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:89
+#, no-c-format
+msgid ""
+"Now let's apply what we just learned by this word study to James 5:14 "
+"<emphasis>\"Is any among you sick? Let him call for the elders of the "
+"church; and let them pray over him, anointing him with oil in the name of "
+"the Lord.\"</emphasis> Is \"anointing\" spiritual or practical? Practical!"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:92
+#, no-c-format
+msgid ""
+"And the tense in Greek, the aorist participle, would be better translated "
+"\"having anointed,\" so the order is the anointing first, then the prayer "
+"(\"in the name of the Lord\"refers to the prayer, not the anointing). James "
+"5 is saying that the elders should give the sick person medicine and pray "
+"for him in the name of the Lord. Doesn't that express a beautiful balance of "
+"practical and spiritual in our God!"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:147
+#: how2-interpretation.docbook:103
 #, no-c-format
-msgid "To Find a Particular Verse"
+msgid "Rule 2 - Interpret within the biblical context"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:149
+#: how2-interpretation.docbook:105
 #, no-c-format
-msgid "Pick out a key word or most-unusual word of the verse."
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:150
-#, no-c-format
-msgid "Turn to this word alphabetically."
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:151
-#, no-c-format
-msgid "Go down the column of listings until you find your verse."
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:154
-#, no-c-format
-msgid "Find these verses:"
-msgstr ""
-
-#. Tag: quote
-#: how2-basics.docbook:156
-#, no-c-format
-msgid "Faithful are the wounds of a friend"
-msgstr ""
-
-#. Tag: quote
-#: how2-basics.docbook:157
-#, no-c-format
-msgid "We are ambassadors of Christ."
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:158
-#, no-c-format
-msgid "The story of the rich man and Lazarus."
+msgid ""
+"Interpret scripture in harmony with other scripture. What do the verses on "
+"each side say? What is the theme of the chapter? the book? Does your "
+"interpretation fit with these? If not, it is flawed. Usually, the context "
+"supplies what we need to correctly interpret the passage. Context is key. If "
+"confusion remains as to the meaning after we have interpreted the text "
+"within its context, we have to look further."
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:163
+#: how2-interpretation.docbook:110
 #, no-c-format
-msgid "To Do a Topical Study"
+msgid "Example 2A"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:164
+#: how2-interpretation.docbook:111
 #, no-c-format
 msgid ""
-"Let's say you wanted to do a study of the word &quot;redemption.&quot; First "
-"you would look up that word in the concordance and look up references listed "
-"for it. Then you could look up related words and references listed for them, "
-"e.g. &quot;redeem, redeemed, ransom,&quot; even &quot;buy&quot; or &quot;"
-"bought.&quot;"
+"In a previous lesson we considered Jn.3:5 <emphasis>\"born of water and the "
+"Spirit.\"</emphasis> In context, what is the water under discussion here?"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:113
+#, no-c-format
+msgid ""
+"Water baptism is not under discussion here, which would be a big switch from "
+"the subject being discussed by Jesus and Nicodemus. Watch out for a sudden "
+"change of topic, it may be a clue that your interpretation has been "
+"derailed! The water is the amniotic fluid, \"born of water\" = natural birth."
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:170
+#: how2-interpretation.docbook:117
 #, no-c-format
-msgid "To Clarify Word Meanings in the Greek and Hebrew"
+msgid "Example 2B"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:171
+#: how2-interpretation.docbook:118
 #, no-c-format
 msgid ""
-"What if you noticed a contradiction in the KJV between Mt.7:1 <quote>Judge "
-"not lest you be judged</quote> and 1 Cor.2:15 <quote>He that is spiritual "
-"judgeth all things.</quote> Maybe there are two different Greek words here, "
-"both being translated &quot;judge&quot; in English? (We're using Strong's "
-"from here out.)"
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:175
-#, no-c-format
-msgid "Look up &quot;judge&quot;."
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:176
-#, no-c-format
-msgid ""
-"Go down the column of entries to Mt.7:1. To the right is a number, 2919. "
-"This refers to the Greek word used. Write it down."
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:178
-#, no-c-format
-msgid "Now look up &quot;judgeth&quot;."
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:179
-#, no-c-format
-msgid "Go down the column to 1 Cor.2:15 . . . . . 350."
-msgstr ""
-
-#. Tag: para
-#: how2-basics.docbook:180
-#, no-c-format
-msgid ""
-"Turn in the back to the Greek dictionary. (Remember, you're in the NT so the "
-"language is Greek, while the OT is Hebrew.) Compare the meaning of 2919 with "
-"the meaning of 350 and you have your answer!"
+"1 Cor.14:34 <quote>Let the women keep silent in the churches</quote> has to "
+"be taken within the biblical context of 1 Cor.11:5 <quote>every woman [...] "
+"while praying or prophesying [...]</quote>"
 msgstr ""
 
 #. Tag: title
-#: how2-basics.docbook:185
+#: how2-interpretation.docbook:121
 #, no-c-format
-msgid "To Find Meanings of Names"
+msgid "Example 2C"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:186
+#: how2-interpretation.docbook:122
 #, no-c-format
 msgid ""
-"By the same process we can find the meaning of a name in the Greek or Hebrew."
+"Acts 2:38 <quote>And Peter said to them, &quot;Repent, and let each of you "
+"be baptized in the name of Jesus Christ for the forgiveness of your sins "
+"[...]&quot;</quote>. Is this teaching baptismal regeneration? If this was "
+"the only verse of scripture we had, we would have to conclude that. But in "
+"the light of the clear teaching elsewhere that regeneration happens by faith "
+"in Christ, we have to interpret it otherwise. Peter is urging baptism as a "
+"way for his hearers to respond to the gospel. If baptism were the pathway to "
+"being born again, how could Paul write 1 Cor.1:17 <emphasis>\"For Christ did "
+"not send me to baptize, but to preach the gospel\"</emphasis>?"
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:134
+#, no-c-format
+msgid "Rule 3 - Interpret within the historical and cultural context"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:187
+#: how2-interpretation.docbook:135
 #, no-c-format
-msgid "Look up these names and write down their meaning:"
+msgid ""
+"At first we are not asking <quote>What does it mean to me?</quote> but "
+"<quote>What did it mean to the original readers?</quote>; later we can ask, "
+"<quote>What does it mean to me?</quote>. We have to take into account the "
+"historical and cultural background of the author and the recipients."
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:139
+#, no-c-format
+msgid "Example 3A"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:189
+#: how2-interpretation.docbook:139
 #, no-c-format
-msgid "Nabal"
+msgid ""
+"<quote>3 days &amp; 3 nights</quote> (Mt.12:40) have led some to come up "
+"with a \"Wednesday crucifixion theory,\" esp. the cult of Armstrongism. How "
+"could Jesus die on Friday afternoon and rise Sunday morning yet \"be raised "
+"on the third day\" (Mt.16:21)? Exact meanings of \"three\" or \"days\" won't "
+"help explain the apparent contradiction."
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:190
+#: how2-interpretation.docbook:144
 #, no-c-format
-msgid "Abigail"
+msgid ""
+"We need an historical tidbit: Jews counted any part of a day as a full day, "
+"as we would count buckets of water (if there were six and one-half buckets "
+"of water, we would say there were 7 buckets of water even if one was only "
+"partly full). So to the Jewish mind, any part of a day counted as a full "
+"day, and days started at 6 p.m. and ended at 6 p.m. Friday from 3 p.m. to 6 "
+"p.m. = day 1. Friday 6 p.m. to Saturday 6 p.m. = day 2. Saturday 6 p.m. to "
+"Sunday 5 or so a.m. = day 3. Interpreting within the cultural context keeps "
+"us out of trouble."
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:151
+#, no-c-format
+msgid "Example 3B"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:191
+#: how2-interpretation.docbook:151
 #, no-c-format
-msgid "Joshua"
+msgid ""
+"Gen.15:7-21. The historical context is that cutting animals in two and then "
+"walking between the pieces was the normal way of entering a contract in "
+"Abraham's day. Both parties walked between, taking the pledge that "
+"dismemberment would happen to them if they didn't live up to their part of "
+"the contract. But in this case only God goes thru, making it a unilateral "
+"covenant."
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:159
+#, no-c-format
+msgid "Rule 4 - Interpret according to the normal usage of words in language"
 msgstr ""
 
 #. Tag: para
-#: how2-basics.docbook:192
+#: how2-interpretation.docbook:160
 #, no-c-format
-msgid "Barnabus"
+msgid ""
+"Let literal language be literal and figurative language be figurative. And "
+"watch out for idioms, which have special meanings."
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:163
+#, no-c-format
+msgid "Example 4A"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:164
+#, no-c-format
+msgid "<quote>evil eye</quote> in Mt.6:23."
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:165
+#, no-c-format
+msgid ""
+"Rule 1, definition of \"evil\" and \"eye\" - no help here. Rule 2, context: "
+"seems to confuse us even more. It doesn't seem to fit with what goes before "
+"and after! This should tip us off that we aren't understanding it rightly!!"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:168
+#, no-c-format
+msgid ""
+"What we have here is a Hebrew idiom, <quote>evil eye</quote>. Let's look up "
+"other uses of this idiom: Mt.20:15 \"<emphasis>Is it not lawful for me to do "
+"what I wish with what is my own? Or is your eye envious [lit.\"evil\"] "
+"because I am generous [lit. \"good\"]?</emphasis>\" We find that having an "
+"\"evil eye\" is a Hebrew idiom for being stingy or envious. Now go back to "
+"Mt.6 and notice how this understanding ties in so perfectly to the context."
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:174
+#, no-c-format
+msgid "Example 4B"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:175
+#, no-c-format
+msgid "Is.59:1 <quote>The Lord's hand is not short;</quote>"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:176
+#, no-c-format
+msgid "Deut.33:27 <quote>Underneath are the everlasting arms.</quote>"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:177
+#, no-c-format
+msgid ""
+"References to body parts of God are used by Latter-Day Saints to prove that "
+"God was once a man just as we are. Once they convince people of that, they "
+"go on to teach that we can become God just like He is! At a lecture he was "
+"giving, a group of Mormon elders challenged Walter Martin (author of "
+"<emphasis>Kingdom of the Cults</emphasis>) with an enumeration of verses "
+"like these. Dr. Martin then asked the Mormons to read one more scripture: "
+"Ps.91:4 <quote>He will cover you with His feathers; And under His wings "
+"shalt thou trust</quote>. W.M. said, <quote>By the same rules of "
+"interpretation that you just proved God to be a man, you just proved that He "
+"is a bird</quote>. The Mormons had to laugh as they realised the "
+"ridiculousness of their position."
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:189
+#, no-c-format
+msgid ""
+"Rule 5 - Understand the purpose of parables and the difference between a "
+"parable and an allegory"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:190
+#, no-c-format
+msgid ""
+"An allegory is: <emphasis>A story where each element has a meaning.</"
+"emphasis>"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:191
+#, no-c-format
+msgid "Every parable is an allegory, true or false?"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:193
+#, no-c-format
+msgid ""
+"Some parables are allegories, for instance, the parable of the sower is an "
+"allegory: the seed is the word of God, the thorns are worries and greed, "
+"etc. But most parables are not allegories but simply stories to illustrate "
+"one point. It's dangerous to get our doctrine from parables; they can be "
+"twisted to say all sorts of things. We need to get our doctrine from clear "
+"scriptures that lay it out; then if a parable illustrates that, fine."
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:198
+#, no-c-format
+msgid "Example 5A"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:199
+#, no-c-format
+msgid ""
+"The parable of the widow with the unrighteous judge in Lk.18:1-8. This story "
+"illustrates one lesson: boldness in prayer. If we draw it into an allegory, "
+"what do we have?"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:201
+#, no-c-format
+msgid ""
+"All sorts of violence happens to the meanings: God is reluctant to protect "
+"the rights of widows, prayer \"bothers\" Him, etc."
+msgstr ""
+
+#. Tag: title
+#: how2-interpretation.docbook:204
+#, no-c-format
+msgid "Example 5B"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:205
+#, no-c-format
+msgid ""
+"The parable of the unrighteous steward in Lk.16:1-9. What is the point of "
+"the parable? Is it an allegory?"
+msgstr ""
+
+#. Tag: para
+#: how2-interpretation.docbook:207
+#, no-c-format
+msgid ""
+"The steward is commended for only one thing, his shrewdness in using what he "
+"had to prepare for a time when he wouldn't have it. But he is not commended "
+"for his unethical behavior in cheating his master."
 msgstr ""
 
 #. Tag: title
@@ -1258,667 +1415,510 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:1
+#: how2-basics.docbook:1
 #, no-c-format
-msgid "Rules of Bible Interpretation (Hermeneutics)"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:2
-#, no-c-format
-msgid ""
-"We already learned about the \"3 Cs\": content, context, cross-reference. We "
-"want to expand that now by delving briefly into biblical hermeneutics, whose "
-"goal is to discover the meaning intended by the original author (and "
-"Author!). While many applications of a passage are valid, only one "
-"interpretation is valid. The scripture itself says this by saying that no "
-"scripture is of any private interpretation (2 Pe.1:20 KJV <quote>Knowing "
-"this first, that no prophesy of scripture is of any private interpretation.</"
-"quote>). Certain rules are helps toward discovering the correct meaning; by "
-"ignoring these rules people have brought much trouble on themselves and "
-"their followers. 2 Pe.3:16 <quote>...in which are some things hard to "
-"understand, which the untaught and unstable distort, as they do also the "
-"rest of the Scriptures, to their own destruction.</quote>"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:11
-#, no-c-format
-msgid ""
-"How do we go about discovering the intended meaning of a passage? Let's say "
-"your attention has been drawn to a particular verse whose meaning is not "
-"clear to you. How do you study it out? Keep these rules in mind:"
+msgid "Bible Study Basics"
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:14
+#: how2-basics.docbook:4
 #, no-c-format
-msgid "Rule 1 - Interpret according to the exact meaning of the words."
+msgid "Our Purpose as we Approach the Bible"
+msgstr ""
+
+#. Tag: attribution
+#: how2-basics.docbook:6
+#, no-c-format
+msgid "Jn.5:39-40"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:15
+#: how2-basics.docbook:6
 #, no-c-format
 msgid ""
-"The more precise we can be with the exact, original meaning of the words the "
-"better our interpretation will be. Try to find the exact meaning of the key "
-"words by following these steps:"
+"You search the Scriptures, because you think that in them you have eternal "
+"life; and it is these that bear witness of Me; and you are unwilling to come "
+"to Me, that you may have life."
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:12
+#, no-c-format
+msgid ""
+"The chief purpose of the book is to bring us to the Person. Martin Luther "
+"said <quote>we go to the cradle only for the sake of the baby</quote>; just "
+"so in Bible study, we do it not for its own sake but for fellowship with God."
+msgstr ""
+
+#. Tag: attribution
+#: how2-basics.docbook:17
+#, no-c-format
+msgid ""
+"John R.W. Stott, <emphasis>Christ the Controversialist</emphasis>, "
+"InterVarsity Press 1978, pp.97, 104."
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:19
+#, no-c-format
+msgid ""
+"The Jews to whom Jesus spoke [...] imagined that to possess Scripture was "
+"tantamount to possessing life. Hillel used to say, &quot;He who has gotten "
+"to himself words of Torah has gotten to himself the life of the world to "
+"come.&quot; Their study was an end in itself. In this they were grievously "
+"deceived. [...]"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:24
+#, no-c-format
+msgid ""
+"There is neither merit nor profit in the reading of Scripture for its own "
+"sake, but only if it effectively introduces us to Jesus Christ. Whenever the "
+"Bible is read, what is needed is an eager expectation that through it we may "
+"meet Christ."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:20
+#: how2-basics.docbook:31
 #, no-c-format
-msgid "Definition"
+msgid "Approaches to God's Word"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:21
+#: how2-basics.docbook:32
 #, no-c-format
 msgid ""
-"Look up the definition in a Greek or Hebrew dictionary. For verbs, the verb "
-"tense is also crucial."
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:27
-#, no-c-format
-msgid ""
-"Compare scripture with scripture. Seeing how the same Greek or Hebrew word "
-"(not the English word) is used in scripture may clarify or throw new light "
-"on the definition. How does the same author use this word elsewhere? Other "
-"authors? Your reference tools may give you uses of the word in non-biblical "
-"documents, as well. Why do we have to go to the original languages; why "
-"isn't the English word good enough? <emphasis>Because more than one greek "
-"word may be translated into the same english word, and the greek words may "
-"have different shades of meaning.</emphasis>"
+"Hearing and reading provide a telescopic view of the scripture while study "
+"and memorization provide a microscopic view of scripture. Meditating on the "
+"scriptures brings hearing, reading, studying and memorization together and "
+"cements the word in our minds."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:37
+#: how2-basics.docbook:37
 #, no-c-format
-msgid "Example 1A"
+msgid "Hear"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:38
+#: how2-basics.docbook:38
 #, no-c-format
 msgid ""
-"Jn.20:17 <emphasis>\"Touch me not\"</emphasis> (KJV) sounds harsh, doesn't "
-"it? Sounds like Jesus doesn't want to be touched now that He is risen, that "
-"He is too holy or something. But that doesn't seem right, so let's look it "
-"up in Spiros Zodhiates' <emphasis>The Complete Word Study New Testament</"
-"emphasis> (AMG Publishers, 1991)."
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:42
-#, no-c-format
-msgid ""
-"Definition: Turning to John 20:17, above the word \"Touch\" we see \"pim680."
-"\" The letters give us a code for the part of speech, and the number refers "
-"to Strong's dictionary reference. Let's look up the definition (p. 879). "
-"\"680. Haptomai; from hapto (681), touch. Refers to such handling of an "
-"object as to exert a modifying influence upon it... Distinguished from "
-"pselaphao (5584), which actually only means to touch the surface of "
-"something. \" Now look up \"pim.\" The grammar codes in Zodhiates come right "
-"after Revelation; on p. 849 we see that pim stands for \"present imperative "
-"active (80)\". On p.857, \"Present Imperative. In the active voice, it may "
-"indicate a command to do something in the future which involves continuous "
-"or repeated action or, when it is negated, a command to stop doing "
-"something. \" This is a negative command, so it is to stop doing something "
-"that is already occuring. So, what have we found?"
-msgstr ""
-
-#. Tag: emphasis
-#: how2-interpretation.docbook:50
-#, no-c-format
-msgid ""
-"Mary is already clinging to Jesus, and he is saying to stop holding him!"
+"Lk.11:28 <quote>blessed are those who hear the word of God, and observe it.</"
+"quote>"
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:53
+#: how2-basics.docbook:42
 #, no-c-format
-msgid "Example 1B"
+msgid "Read"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:54
+#: how2-basics.docbook:43
 #, no-c-format
 msgid ""
-"In James 5:14, <emphasis>Elders are told to pray and anoint someone who is "
-"sick</emphasis>. What is this anointing?"
+"Rev.1:3 <quote>Blessed is he who reads and those who hear the words of this "
+"prophecy [...]</quote>"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:55
+#: how2-basics.docbook:45
 #, no-c-format
 msgid ""
-"Definition of aleipho (218) - \"to oil\" (Strong's); but we also have "
-"another Greek word translated \"anoint\", chrio (5548) - \"to smear or rub "
-"with oil, i.e. to consecrate to an office or religious service\" (Strong's). "
-"Since it's a verb, consider the tense also, \"apta\" aorist participle "
-"active. \"The aorist participle expresses simple action, as opposed to "
-"continuous action...When its relaitonship to the main verb is temporal, it "
-"usually signifies action prior to that of the main verb.\" (Zodhiates p.851)"
+"1 Tim.4:13 <quote>give attention to the public reading of Scripture [...]</"
+"quote>"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:62
-#, no-c-format
-msgid "Cross-references for aleipho:"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:64
-#, no-c-format
-msgid "Mt.6:17 But you, when you fast, anoint your head"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:65
-#, no-c-format
-msgid "Mk.16:1 [the women] brought spices that they might come and anoint Him."
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:66
+#: how2-basics.docbook:50
 #, no-c-format
 msgid ""
-"Mk.6:13 And they were...anointing with oil many sick people and healing them."
+"Acts 17:11 <quote>Now these were more noble-minded than those in "
+"Thessalonica, for they received the word with great eagerness, examining the "
+"Scriptures daily, to see whether these things were so.</quote>"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:67
-#, no-c-format
-msgid "Lk.7:38 [...] kissing His feet and anointing them with the perfume"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:68
+#: how2-basics.docbook:54
 #, no-c-format
 msgid ""
-"Jn.12:3 Mary [...] anointed the feet of Jesus, and wiped them with her hair"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:72
-#, no-c-format
-msgid "Cross-references of chrio:"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:74
-#, no-c-format
-msgid ""
-"Lk.4:18 <quote>The Spirit of the Lord is upon me, because He has anointed me "
-"to preach [...]</quote>"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:75
-#, no-c-format
-msgid "Acts 4:27 Jesus, whom Thou hast anointed"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:76
-#, no-c-format
-msgid "Acts 10:38 God anointed Jesus with the Holy Ghost and power"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:77
-#, no-c-format
-msgid "2 Cor.1:21 Now He who...anointed us is God"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:82
-#, no-c-format
-msgid ""
-"So what's the difference between aleipho and chrio? Look back over the cross-"
-"references and the definitions, and sum up the difference: <emphasis>&quot;"
-"aleipho&quot; is a practical use of oil and &quot;chrio&quot; is a "
-"spiritual</emphasis>"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:85
-#, no-c-format
-msgid ""
-"As an illustration (although the word is not used) of the practical use of "
-"oil at that time, when the good Samaritan cared for the man beat up by "
-"robbers he poured oil and wine in the wound. So oil had a medicinal use in "
-"Jesus' day."
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:89
-#, no-c-format
-msgid ""
-"Now let's apply what we just learned by this word study to James 5:14 "
-"<emphasis>\"Is any among you sick? Let him call for the elders of the "
-"church; and let them pray over him, anointing him with oil in the name of "
-"the Lord.\"</emphasis> Is \"anointing\" spiritual or practical? Practical!"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:92
-#, no-c-format
-msgid ""
-"And the tense in Greek, the aorist participle, would be better translated "
-"\"having anointed,\" so the order is the anointing first, then the prayer "
-"(\"in the name of the Lord\"refers to the prayer, not the anointing). James "
-"5 is saying that the elders should give the sick person medicine and pray "
-"for him in the name of the Lord. Doesn't that express a beautiful balance of "
-"practical and spiritual in our God!"
+"2 Tim.2:15 <quote>Be diligent [KJV `Study'] to present yourself approved to "
+"God as a workman who does not need to be ashamed, handling accurately the "
+"word of truth.</quote>"
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:103
+#: how2-basics.docbook:59
 #, no-c-format
-msgid "Rule 2 - Interpret within the biblical context"
+msgid "Memorize"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:105
+#: how2-basics.docbook:60
 #, no-c-format
 msgid ""
-"Interpret scripture in harmony with other scripture. What do the verses on "
-"each side say? What is the theme of the chapter? the book? Does your "
-"interpretation fit with these? If not, it is flawed. Usually, the context "
-"supplies what we need to correctly interpret the passage. Context is key. If "
-"confusion remains as to the meaning after we have interpreted the text "
-"within its context, we have to look further."
+"Ps.119:11 <quote>Thy word I have hid in my heart, that I may not sin against "
+"Thee.</quote>"
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:110
+#: how2-basics.docbook:64
 #, no-c-format
-msgid "Example 2A"
+msgid "Meditate"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:111
+#: how2-basics.docbook:65
 #, no-c-format
 msgid ""
-"In a previous lesson we considered Jn.3:5 <emphasis>\"born of water and the "
-"Spirit.\"</emphasis> In context, what is the water under discussion here?"
+"Ps.1:2-3 <quote>But his delight is in the law of the Lord, And in His law he "
+"meditates day and night. And he will be like a tree firmly planted by "
+"streams of water, Which yields its fruit in its season, And its leaf does "
+"not wither; And in whatever he does, he prospers.</quote>"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:113
+#: how2-basics.docbook:71
 #, no-c-format
 msgid ""
-"Water baptism is not under discussion here, which would be a big switch from "
-"the subject being discussed by Jesus and Nicodemus. Watch out for a sudden "
-"change of topic, it may be a clue that your interpretation has been "
-"derailed! The water is the amniotic fluid, \"born of water\" = natural birth."
+"The Navigators illustrate this by saying that as the thumb can touch all the "
+"fingers, we can meditate on the Word as we do any of the first four. "
+"Meditation is a key to revelation. A new Christian needs to hear and read "
+"the Bible more than they need to study and memorize it. This is so that they "
+"become familiar with the overall message of the Bible."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:117
+#: how2-basics.docbook:79
 #, no-c-format
-msgid "Example 2B"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:118
-#, no-c-format
-msgid ""
-"1 Cor.14:34 <quote>Let the women keep silent in the churches</quote> has to "
-"be taken within the biblical context of 1 Cor.11:5 <quote>every woman [...] "
-"while praying or prophesying [...]</quote>"
+msgid "Types of Bible Studies"
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:121
+#: how2-basics.docbook:80
 #, no-c-format
-msgid "Example 2C"
+msgid "Topical Study"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:122
+#: how2-basics.docbook:81
 #, no-c-format
 msgid ""
-"Acts 2:38 <quote>And Peter said to them, &quot;Repent, and let each of you "
-"be baptized in the name of Jesus Christ for the forgiveness of your sins "
-"[...]&quot;</quote>. Is this teaching baptismal regeneration? If this was "
-"the only verse of scripture we had, we would have to conclude that. But in "
-"the light of the clear teaching elsewhere that regeneration happens by faith "
-"in Christ, we have to interpret it otherwise. Peter is urging baptism as a "
-"way for his hearers to respond to the gospel. If baptism were the pathway to "
-"being born again, how could Paul write 1 Cor.1:17 <emphasis>\"For Christ did "
-"not send me to baptize, but to preach the gospel\"</emphasis>?"
+"Pick out a certain topic and follow it through, using cross-references or a "
+"concordance."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:134
+#: how2-basics.docbook:85
 #, no-c-format
-msgid "Rule 3 - Interpret within the historical and cultural context"
+msgid "Character Study"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:135
+#: how2-basics.docbook:86
 #, no-c-format
 msgid ""
-"At first we are not asking <quote>What does it mean to me?</quote> but "
-"<quote>What did it mean to the original readers?</quote>; later we can ask, "
-"<quote>What does it mean to me?</quote>. We have to take into account the "
-"historical and cultural background of the author and the recipients."
+"Studying the life of a Bible character, e.g. Joseph's life in Gen.37-50."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:139
+#: how2-basics.docbook:90
 #, no-c-format
-msgid "Example 3A"
+msgid "Expository Study"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:139
+#: how2-basics.docbook:91
 #, no-c-format
-msgid ""
-"<quote>3 days &amp; 3 nights</quote> (Mt.12:40) have led some to come up "
-"with a \"Wednesday crucifixion theory,\" esp. the cult of Armstrongism. How "
-"could Jesus die on Friday afternoon and rise Sunday morning yet \"be raised "
-"on the third day\" (Mt.16:21)? Exact meanings of \"three\" or \"days\" won't "
-"help explain the apparent contradiction."
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:144
-#, no-c-format
-msgid ""
-"We need an historical tidbit: Jews counted any part of a day as a full day, "
-"as we would count buckets of water (if there were six and one-half buckets "
-"of water, we would say there were 7 buckets of water even if one was only "
-"partly full). So to the Jewish mind, any part of a day counted as a full "
-"day, and days started at 6 p.m. and ended at 6 p.m. Friday from 3 p.m. to 6 "
-"p.m. = day 1. Friday 6 p.m. to Saturday 6 p.m. = day 2. Saturday 6 p.m. to "
-"Sunday 5 or so a.m. = day 3. Interpreting within the cultural context keeps "
-"us out of trouble."
+msgid "Studying a certain passage: paragraph, chapter, or book."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:151
+#: how2-basics.docbook:95
 #, no-c-format
-msgid "Example 3B"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:151
-#, no-c-format
-msgid ""
-"Gen.15:7-21. The historical context is that cutting animals in two and then "
-"walking between the pieces was the normal way of entering a contract in "
-"Abraham's day. Both parties walked between, taking the pledge that "
-"dismemberment would happen to them if they didn't live up to their part of "
-"the contract. But in this case only God goes thru, making it a unilateral "
-"covenant."
+msgid "Basics of Correct Interpretation"
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:159
+#: how2-basics.docbook:97
 #, no-c-format
-msgid "Rule 4 - Interpret according to the normal usage of words in language"
+msgid "Content"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:160
+#: how2-basics.docbook:98
 #, no-c-format
 msgid ""
-"Let literal language be literal and figurative language be figurative. And "
-"watch out for idioms, which have special meanings."
+"What does it say? What does it say in the original language? Be careful with "
+"definitions. Don't read into it what it doesn't say."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:163
+#: how2-basics.docbook:102
 #, no-c-format
-msgid "Example 4A"
+msgid "Context"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:164
-#, no-c-format
-msgid "<quote>evil eye</quote> in Mt.6:23."
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:165
+#: how2-basics.docbook:103
 #, no-c-format
 msgid ""
-"Rule 1, definition of \"evil\" and \"eye\" - no help here. Rule 2, context: "
-"seems to confuse us even more. It doesn't seem to fit with what goes before "
-"and after! This should tip us off that we aren't understanding it rightly!!"
+"What do the verses around it say? &quot;Context is king&quot; is the rule -- "
+"the passage must make sense within the structure of the entire passage and "
+"book."
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:168
+#: how2-basics.docbook:108
 #, no-c-format
 msgid ""
-"What we have here is a Hebrew idiom, <quote>evil eye</quote>. Let's look up "
-"other uses of this idiom: Mt.20:15 \"<emphasis>Is it not lawful for me to do "
-"what I wish with what is my own? Or is your eye envious [lit.\"evil\"] "
-"because I am generous [lit. \"good\"]?</emphasis>\" We find that having an "
-"\"evil eye\" is a Hebrew idiom for being stingy or envious. Now go back to "
-"Mt.6 and notice how this understanding ties in so perfectly to the context."
+"What do other verses about this subject say through the rest of the Bible? "
+"God doesn't contradict Himself, so our interpretation needs to stand the "
+"test of other scriptures."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:174
+#: how2-basics.docbook:113
 #, no-c-format
-msgid "Example 4B"
+msgid "An Expository Study of Matthew 6:1-18"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:175
-#, no-c-format
-msgid "Is.59:1 <quote>The Lord's hand is not short;</quote>"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:176
-#, no-c-format
-msgid "Deut.33:27 <quote>Underneath are the everlasting arms.</quote>"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:177
+#: how2-basics.docbook:114
 #, no-c-format
 msgid ""
-"References to body parts of God are used by Latter-Day Saints to prove that "
-"God was once a man just as we are. Once they convince people of that, they "
-"go on to teach that we can become God just like He is! At a lecture he was "
-"giving, a group of Mormon elders challenged Walter Martin (author of "
-"<emphasis>Kingdom of the Cults</emphasis>) with an enumeration of verses "
-"like these. Dr. Martin then asked the Mormons to read one more scripture: "
-"Ps.91:4 <quote>He will cover you with His feathers; And under His wings "
-"shalt thou trust</quote>. W.M. said, <quote>By the same rules of "
-"interpretation that you just proved God to be a man, you just proved that He "
-"is a bird</quote>. The Mormons had to laugh as they realised the "
-"ridiculousness of their position."
+"Let's study together Mt.6:1-18. Read it to yourself, first looking for the "
+"key verse, the verse that sums up the whole passage. Think you have it? Test "
+"it by picking different places in the passage and asking yourself if they "
+"relate to the thought of the key verse. Once you find it, write it as Roman "
+"numeral One of your outline:"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:119
+#, no-c-format
+msgid "Beware of practicing your righteousness before men to be noticed"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:122
+#, no-c-format
+msgid ""
+"What does <quote>practicing your righteousness</quote> mean? Does the "
+"passage give any examples? What area of our lives is being addressed? "
+"<emphasis>Our motives!</emphasis> What sub-headings develop this thought?"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:126 how2-basics.docbook:135
+#, no-c-format
+msgid "When you give"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:127
+#, no-c-format
+msgid "When you fast"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:128
+#, no-c-format
+msgid "When you pray"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:131
+#, no-c-format
+msgid ""
+"Now fill in the outline with specific instructions of how to avoid wrong "
+"ways of practicing our righteousness:"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:137
+#, no-c-format
+msgid ""
+"don't sound a trumpet. (how might someone <quote>sound a trumpet</quote> "
+"today?)"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:138
+#, no-c-format
+msgid "do it secretly."
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:139
+#, no-c-format
+msgid "etc."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:189
+#: how2-basics.docbook:145
 #, no-c-format
-msgid ""
-"Rule 5 - Understand the purpose of parables and the difference between a "
-"parable and an allegory"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:190
-#, no-c-format
-msgid ""
-"An allegory is: <emphasis>A story where each element has a meaning.</"
-"emphasis>"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:191
-#, no-c-format
-msgid "Every parable is an allegory, true or false?"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:193
-#, no-c-format
-msgid ""
-"Some parables are allegories, for instance, the parable of the sower is an "
-"allegory: the seed is the word of God, the thorns are worries and greed, "
-"etc. But most parables are not allegories but simply stories to illustrate "
-"one point. It's dangerous to get our doctrine from parables; they can be "
-"twisted to say all sorts of things. We need to get our doctrine from clear "
-"scriptures that lay it out; then if a parable illustrates that, fine."
+msgid "Worksheet: How to Use a Concordance"
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:198
+#: how2-basics.docbook:147
 #, no-c-format
-msgid "Example 5A"
+msgid "To Find a Particular Verse"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:199
+#: how2-basics.docbook:149
 #, no-c-format
-msgid ""
-"The parable of the widow with the unrighteous judge in Lk.18:1-8. This story "
-"illustrates one lesson: boldness in prayer. If we draw it into an allegory, "
-"what do we have?"
+msgid "Pick out a key word or most-unusual word of the verse."
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:201
+#: how2-basics.docbook:150
 #, no-c-format
-msgid ""
-"All sorts of violence happens to the meanings: God is reluctant to protect "
-"the rights of widows, prayer \"bothers\" Him, etc."
+msgid "Turn to this word alphabetically."
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:151
+#, no-c-format
+msgid "Go down the column of listings until you find your verse."
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:154
+#, no-c-format
+msgid "Find these verses:"
+msgstr ""
+
+#. Tag: quote
+#: how2-basics.docbook:156
+#, no-c-format
+msgid "Faithful are the wounds of a friend"
+msgstr ""
+
+#. Tag: quote
+#: how2-basics.docbook:157
+#, no-c-format
+msgid "We are ambassadors of Christ."
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:158
+#, no-c-format
+msgid "The story of the rich man and Lazarus."
 msgstr ""
 
 #. Tag: title
-#: how2-interpretation.docbook:204
+#: how2-basics.docbook:163
 #, no-c-format
-msgid "Example 5B"
+msgid "To Do a Topical Study"
 msgstr ""
 
 #. Tag: para
-#: how2-interpretation.docbook:205
+#: how2-basics.docbook:164
 #, no-c-format
 msgid ""
-"The parable of the unrighteous steward in Lk.16:1-9. What is the point of "
-"the parable? Is it an allegory?"
-msgstr ""
-
-#. Tag: para
-#: how2-interpretation.docbook:207
-#, no-c-format
-msgid ""
-"The steward is commended for only one thing, his shrewdness in using what he "
-"had to prepare for a time when he wouldn't have it. But he is not commended "
-"for his unethical behavior in cheating his master."
+"Let's say you wanted to do a study of the word &quot;redemption.&quot; First "
+"you would look up that word in the concordance and look up references listed "
+"for it. Then you could look up related words and references listed for them, "
+"e.g. &quot;redeem, redeemed, ransom,&quot; even &quot;buy&quot; or &quot;"
+"bought.&quot;"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:19
+#: how2-basics.docbook:170
 #, no-c-format
-msgid "The Biblestudy HowTo"
-msgstr ""
-
-#. Tag: author
-#: index.docbook:22
-#, no-c-format
-msgid "<firstname>Bob</firstname> <surname>Harman</surname>"
-msgstr ""
-
-#. Tag: trans_comment
-#: index.docbook:28
-#, no-c-format
-msgid "ROLES_OF_TRANSLATORS"
-msgstr ""
-
-#. Tag: holder
-#: index.docbook:32
-#, no-c-format
-msgid "The team of &bibletime;, info@bibletime.info"
-msgstr ""
-
-#. Tag: holder
-#: index.docbook:35
-#, no-c-format
-msgid "Bob Harman"
+msgid "To Clarify Word Meanings in the Greek and Hebrew"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:38
+#: how2-basics.docbook:171
 #, no-c-format
 msgid ""
-"The copyright of this text is held by the author Bob Harman. The text was "
-"adapted for publication with BibleTime by Fred Saalbach."
+"What if you noticed a contradiction in the KJV between Mt.7:1 <quote>Judge "
+"not lest you be judged</quote> and 1 Cor.2:15 <quote>He that is spiritual "
+"judgeth all things.</quote> Maybe there are two different Greek words here, "
+"both being translated &quot;judge&quot; in English? (We're using Strong's "
+"from here out.)"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:42
+#: how2-basics.docbook:175
 #, no-c-format
-msgid ""
-"Non exclusive serial rights for this distribution of this document with the "
-"&bibletime; software have been made. Redistribution as part of the Bibletime "
-"software without modification and limited reproduction as provided by the "
-"\"fair use\" provisions of the US copyright code are also permitted."
+msgid "Look up &quot;judge&quot;."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:48
+#: how2-basics.docbook:176
 #, no-c-format
 msgid ""
-"For questions regarding the use of this material contact Bob Harman c/o New "
-"Covenant Church 1079 Big Bethel Rd. Hampton VA 23666 USA "
-"<email>ncc@ncchampton.org</email>."
+"Go down the column of entries to Mt.7:1. To the right is a number, 2919. "
+"This refers to the Greek word used. Write it down."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:52
+#: how2-basics.docbook:178
+#, no-c-format
+msgid "Now look up &quot;judgeth&quot;."
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:179
+#, no-c-format
+msgid "Go down the column to 1 Cor.2:15 . . . . . 350."
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:180
 #, no-c-format
 msgid ""
-"Scripture quotes are from the New American Standard Bible unless otherwise "
-"indicated"
+"Turn in the back to the Greek dictionary. (Remember, you're in the NT so the "
+"language is Greek, while the OT is Hebrew.) Compare the meaning of 2919 with "
+"the meaning of 350 and you have your answer!"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:61
+#: how2-basics.docbook:185
 #, no-c-format
-msgid "Abstract"
+msgid "To Find Meanings of Names"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:62
+#: how2-basics.docbook:186
 #, no-c-format
 msgid ""
-"The <application>Biblestudy HowTo</application> is a guide for studying the "
-"Bible."
+"By the same process we can find the meaning of a name in the Greek or Hebrew."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:65
+#: how2-basics.docbook:187
 #, no-c-format
-msgid ""
-"It is the hope of the &bibletime; team that this HowTo will provoke the "
-"readers to study the scriptures to see what they say. This particular study "
-"guide has been chosen as it takes care not to advocate any particular "
-"denominational doctrine. We expect you to read and study the scriptures to "
-"understand what they say. If you start with the attitude that you want to "
-"have the Lord sow his word in your heart He will not disappoint you."
+msgid "Look up these names and write down their meaning:"
 msgstr ""
 
-#. Tag: keyword
-#: index.docbook:75
+#. Tag: para
+#: how2-basics.docbook:189
 #, no-c-format
-msgid "Bible"
+msgid "Nabal"
 msgstr ""
 
-#. Tag: keyword
-#: index.docbook:77
+#. Tag: para
+#: how2-basics.docbook:190
 #, no-c-format
-msgid "HowTo"
+msgid "Abigail"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:191
+#, no-c-format
+msgid "Joshua"
+msgstr ""
+
+#. Tag: para
+#: how2-basics.docbook:192
+#, no-c-format
+msgid "Barnabus"
 msgstr ""
