@@ -191,6 +191,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Pavel Lauko",  I18N_NOOP("Czech translation"),"", "");
 	//Smaller searchdialog enhancements
 	aboutData.addCredit("Mark Lybarger",  I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com","");
+	//Polish GUI translation update
+	aboutData.addCredit("Piotr Markiewicz",  I18N_NOOP("Polish translation"), "pmarki@o2.pl", "");
 	//Smaller frontend enhancements
 	aboutData.addCredit("Luke Mauldin",  I18N_NOOP("Frontend"), "lukeskyfly@txk.net", "");
 	//translated parts of the russian website files
@@ -221,7 +223,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Mark Zealey",   I18N_NOOP("New Bible key choosers"), "mspam@zealey.org", "");
 	//Update to the Spanish GUI translation
  	aboutData.addCredit("Esteban Zeller",   I18N_NOOP("Spanish translation"), "", "");
-				
+
+	
 	//special message so the translator get his credits in the about box, don't remove this!
 	QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name
 	dummy = I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"); //translators eMail

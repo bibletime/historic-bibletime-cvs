@@ -178,9 +178,7 @@
       <alwaysIncludeNamespaces>false</alwaysIncludeNamespaces>
       <includePaths>.;</includePaths>
     </codecompletion>
-    <references>
-      <pcs>Qt3</pcs>
-    </references>
+    <references/>
     <creategettersetter>
       <prefixGet/>
       <prefixSet>set</prefixSet>
