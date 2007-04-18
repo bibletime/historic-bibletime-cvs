@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-31 12:22+0200\n"
+"POT-Creation-Date: 2007-04-17 21:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1727,7 +1727,7 @@ msgstr ""
 msgid "Bible Study HowTo"
 msgstr ""
 
-#: ../bibletime/main.cpp:181 ../bibletime/main.cpp:207
+#: ../bibletime/main.cpp:181 ../bibletime/main.cpp:209
 msgid "Search dialog enhancements"
 msgstr ""
 
@@ -1743,7 +1743,7 @@ msgstr ""
 msgid "Finnish translation"
 msgstr ""
 
-#: ../bibletime/main.cpp:189 ../bibletime/main.cpp:195
+#: ../bibletime/main.cpp:189 ../bibletime/main.cpp:197
 msgid "Frontend"
 msgstr ""
 
@@ -1755,67 +1755,71 @@ msgstr ""
 msgid "Searchdialog"
 msgstr ""
 
-#: ../bibletime/main.cpp:197 ../bibletime/main.cpp:205
+#: ../bibletime/main.cpp:195
+msgid "Polish translation"
+msgstr ""
+
+#: ../bibletime/main.cpp:199 ../bibletime/main.cpp:207
 msgid "Russian website translation"
 msgstr ""
 
-#: ../bibletime/main.cpp:199
+#: ../bibletime/main.cpp:201
 msgid "Spanish website translation updates"
 msgstr ""
 
-#: ../bibletime/main.cpp:201
+#: ../bibletime/main.cpp:203
 msgid "Update to the russian website translation"
 msgstr ""
 
-#: ../bibletime/main.cpp:203
+#: ../bibletime/main.cpp:205
 msgid "Documentation"
 msgstr ""
 
-#: ../bibletime/main.cpp:209
+#: ../bibletime/main.cpp:211
 msgid "Very helpful and detailed testing"
 msgstr ""
 
-#: ../bibletime/main.cpp:211
+#: ../bibletime/main.cpp:213
 msgid "The first lead developer"
 msgstr ""
 
-#: ../bibletime/main.cpp:213
+#: ../bibletime/main.cpp:215
 msgid "Translation updates for the Dutch GUI, the website and the handbook"
 msgstr ""
 
-#: ../bibletime/main.cpp:215
+#: ../bibletime/main.cpp:217
 msgid "French handbook translation"
 msgstr ""
 
-#: ../bibletime/main.cpp:217
+#: ../bibletime/main.cpp:219
 msgid "Helpful source code additions"
 msgstr ""
 
-#: ../bibletime/main.cpp:219
+#: ../bibletime/main.cpp:221
 msgid "Translated the GUI into Russian"
 msgstr ""
 
-#: ../bibletime/main.cpp:221
+#: ../bibletime/main.cpp:223
 msgid "New Bible key choosers"
 msgstr ""
 
-#: ../bibletime/main.cpp:223
+#: ../bibletime/main.cpp:225
 msgid "Spanish translation"
 msgstr ""
 
-#: ../bibletime/main.cpp:226
+#: ../bibletime/main.cpp:229
 msgid ""
 "_: NAME OF TRANSLATORS\n"
 "Your names"
 msgstr ""
 
-#: ../bibletime/main.cpp:227
+#: ../bibletime/main.cpp:230
 msgid ""
 "_: EMAIL OF TRANSLATORS\n"
 "Your emails"
 msgstr ""
 
-#: ../bibletime/main.cpp:253
+#: ../bibletime/main.cpp:256
 msgid "Starting BibleTime"
 msgstr ""
 
