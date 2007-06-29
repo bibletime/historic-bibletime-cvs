@@ -12,8 +12,6 @@
 #ifndef BT_OSISHTML_H
 #define BT_OSISHTML_H
 
-#include "cfiltertool.h"
-
 //Sword includes
 #include <osishtmlhref.h>
 

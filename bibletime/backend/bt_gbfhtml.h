@@ -16,7 +16,6 @@
 #define BT_GBFHTML_H
 
 //Backend
-#include "cfiltertool.h"
 
 //Sword includes
 #include <swkey.h>

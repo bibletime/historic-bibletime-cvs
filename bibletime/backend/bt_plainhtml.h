@@ -15,9 +15,6 @@
 #ifndef BT_PLAINHTML_H
 #define BT_PLAINHTML_H
 
-//Backend
-#include "cfiltertool.h"
-
 //Sword includes
 #include <swkey.h>
 #include <swmodule.h>

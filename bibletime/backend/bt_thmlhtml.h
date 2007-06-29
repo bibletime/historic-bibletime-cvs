@@ -12,8 +12,6 @@
 #ifndef BT_THMLHTML_H
 #define BT_THMLHTML_H
 
-#include "cfiltertool.h"
-
 #include <swbuf.h>
 #include <thmlhtml.h>
 
