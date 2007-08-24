@@ -194,7 +194,7 @@
       <includestyle>3</includestyle>
       <designerintegration>ExternalDesigner</designerintegration>
       <qmake>/usr/bin/qmake-qt3</qmake>
-      <designer>/usr/bin/designer-qt3</designer>
+      <designer></designer>
       <designerpluginpaths/>
     </qt>
     <splitheadersource>
@@ -205,10 +205,10 @@
   </kdevcppsupport>
   <kdevfilecreate>
     <filetypes>
-      <type icon="" ext="h" create="template" name="C++ Header template" >
+      <type icon="" ext="h" name="C++ Header template" create="template" >
         <descr>BibleTime C++ header template</descr>
       </type>
-      <type icon="source_cpp" ext="cpp" create="template" name="C++ source file" >
+      <type icon="source_cpp" ext="cpp" name="C++ source file" create="template" >
         <descr>BibleTime C++ source template</descr>
       </type>
     </filetypes>

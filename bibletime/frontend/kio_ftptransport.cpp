@@ -60,14 +60,9 @@ namespace BookshelfManager {
 			this, SLOT(slotCopyProgress(KIO::Job*, KIO::filesize_t))
 		);
 
-		while (!finishedDownload) {
-			KApplication::kApplication()->processEvents(1);
-			//   qWarning("FTP: Copy not yet finished");
-			if (term) {
-				if (job) {
-					job->kill(false); //kill emits the result signal
-				}
-			}
+		while (!finishedDownload){
+			KApplication::kApplication()->processEvents(200);
+			if (term && job) job->kill(false); //kill emits the result signal
 		}
 
 		statusReporter->statusUpdate(m_totalSize, m_totalSize); //completed
