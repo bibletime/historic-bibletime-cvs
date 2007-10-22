@@ -7,11 +7,8 @@
 *
 **********/
 
-
-
 //BibleTime includes
 #include "btinstallmgr.h"
-#include "kio_ftptransport.h"
 #include "util/cpointers.h"
 
 //Qt includes
@@ -270,7 +267,9 @@ namespace BookshelfManager {
 		return ret;
 	}
 
-BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::RemoteConfig::configPath().latin1(), this) { //use this class also as status reporter
+	BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::RemoteConfig::configPath().latin1(), this) { //use this class also as status reporter
+		this->setFTPPassive(true);
+
 	}
 
 	BTInstallMgr::~BTInstallMgr() {
@@ -300,6 +299,7 @@ BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::RemoteConfig::configPath().latin
 		}
 
 		emit completed(totalPercent, filePercent);
+		KApplication::kApplication()->processEvents();
 	}
 
 	void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* /*message*/) {
@@ -308,11 +308,13 @@ BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::RemoteConfig::configPath().latin
 
 		m_completedBytes = completedBytes;
 		m_totalBytes = (totalBytes > 0) ? totalBytes : 1; //avoid division by zero
+		
+		KApplication::kApplication()->processEvents();
 	}
 
-	FTPTransport *BTInstallMgr::createFTPTransport(const char *host, StatusReporter *statusReporter) {
-		return new KIO_FTPTransport(host, statusReporter);
-	}
+// 	FTPTransport *BTInstallMgr::createFTPTransport(const char *host, StatusReporter *statusReporter) {
+// 		return new KIO_FTPTransport(host, statusReporter);
+// 	}
 
 
 }

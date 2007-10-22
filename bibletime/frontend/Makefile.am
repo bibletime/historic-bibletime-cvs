@@ -6,7 +6,7 @@ libfrontend_a_SOURCES = btinstallmgr.cpp cbtconfig.cpp cinputdialog.cpp \
 		manageindicesform.ui cmanageindiceswidget.cpp 	coptionsdialog.cpp \
 	cswordsetupdialog.cpp cprofilemgr.cpp cprofile.cpp cprofilewindow.cpp 	cexportmanager.cpp \
 	cmdiarea.cpp kstartuplogo.cpp cdragdropmgr.cpp cinfodisplay.cpp 	cprinter.cpp \
-	crossrefrendering.cpp kio_ftptransport.cpp cswordsetupmodulelistview.cpp \
+	crossrefrendering.cpp cswordsetupmodulelistview.cpp \
 		cswordsetupinstallsourcesdialog.cpp cmoduleindexdialog.cpp
 
 all_headers = cmdiarea.h \
@@ -26,7 +26,6 @@ cdragdropmgr.h \
 cinfodisplay.h \
 cprinter.h \
 crossrefrendering.h \
-kio_ftptransport.h \
 cswordsetupmodulelistview.h \
 cswordsetupinstallsourcesdialog.h
 
