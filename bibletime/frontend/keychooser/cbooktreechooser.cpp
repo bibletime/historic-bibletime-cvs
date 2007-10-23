@@ -29,10 +29,11 @@ CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent, QListViewItem* after
 : KListViewItem(parent, after),
 m_key(key),
 m_keyName(keyName) {
+	//qDebug("first CBookTreeChooser::TreeItem ctor");
 	const unsigned long offset = m_key->getOffset();
 
 	m_key->key(m_keyName);
-	setText(0, QString(m_key->getLocalName()) );
+	setText(0, QString::fromLocal8Bit(m_key->getLocalName()) );
 
 	m_key->setOffset( offset );
 };
@@ -41,10 +42,11 @@ CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent,CSwordTreeKey* key, c
 : KListViewItem(parent),
 m_key(key),
 m_keyName(keyName) {
+	//qDebug("second CBookTreeChooser::TreeItem ctor");
 	const unsigned int offset = m_key->getOffset();
 
 	m_key->key(m_keyName);
-	setText(0, QString(m_key->getLocalName()) );
+	setText(0, QString::fromLocal8Bit(m_key->getLocalName()) );
 
 	m_key->setOffset( offset );
 };
@@ -53,10 +55,11 @@ CBookTreeChooser::TreeItem::TreeItem(QListView* view, QListViewItem* after,CSwor
 : KListViewItem(view,after),
 m_key(key),
 m_keyName(keyName) {
+	//qDebug("third CBookTreeChooser::TreeItem ctor");
 	const unsigned int offset = m_key->getOffset();
 
 	m_key->key(m_keyName);
-	setText(0, QString(m_key->getLocalName()) );
+	setText(0, QString::fromLocal8Bit(m_key->getLocalName()) );
 
 	m_key->setOffset( offset );
 };

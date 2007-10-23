@@ -43,6 +43,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey) {
 
 /** Sets a new key to this keychooser */
 void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal) {
+	//qDebug("CBookKeyChooser::setKey");
 	if (m_key != newKey) {
 		m_key = dynamic_cast<CSwordTreeKey*>(newKey);
 	}
@@ -75,7 +76,8 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal) {
 
 			do {
 				++index;
-				found = (m_key->getLocalName() == sibling);
+				//qDebug("set 'found'");
+				found = (QString::fromLocal8Bit(m_key->getLocalName()) == sibling);
 			}
 			while (!found && m_key->nextSibling());
 
