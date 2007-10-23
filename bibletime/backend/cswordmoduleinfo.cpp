@@ -54,7 +54,7 @@
 
 //Increment this, if the index format changes
 //Then indices on the user's systems will be rebuilt
-const unsigned int INDEX_VERSION = 5;
+const unsigned int INDEX_VERSION = 6;
 
 //Maximum index entry size, 1MiB for now
 //Lucene default is too small
@@ -157,7 +157,9 @@ const bool CSwordModuleInfo::unlockKeyIsValid() {
     // a lot of garbage will show up. It will also work with properly decrypted
     // Unicode text, because all non-ASCII Unicode chars consist of bytes >127
     // and therefore contain no control (nonprintable) characters, which are all <127.
-    QString test = QString::fromLatin1( m_module->getRawEntryBuf().c_str() );
+    QString test = isUnicode()
+        ? QString::fromUtf8(m_module->getRawEntryBuf().c_str())
+        : QString::fromLatin1( m_module->getRawEntryBuf().c_str() );
 
     if (test.isEmpty()) {
         qWarning("Unlock key of module %s is NOT valid", name().latin1());
