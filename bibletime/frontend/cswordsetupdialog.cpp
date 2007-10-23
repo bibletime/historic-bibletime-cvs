@@ -481,7 +481,13 @@ the module remote installation feature!</b>")
 		sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
 		bool success = false;
 
-		m_progressDialog = new KProgressDialog(0,0,i18n("Download"), QString::null, true);
+		m_progressDialog = new KProgressDialog(this, 0, i18n("Download"), QString::null, true);
+		m_progressDialog->progressBar()->setTotalSteps(100);
+		m_progressDialog->setLabel( i18n("Downloading library information...") );
+		m_progressDialog->setMinimumDuration(0); //show immediately
+		m_progressDialog->setAutoClose(false);
+		m_progressDialog->show();
+		KApplication::kApplication()->processEvents();
 
 		connect(
 			m_progressDialog, SIGNAL(cancelClicked()),
@@ -492,9 +498,6 @@ the module remote installation feature!</b>")
 			SLOT(slot_moduleRefreshCompleted(const int, const int))
 		);
 
-		m_progressDialog->progressBar()->setTotalSteps(100);
-		m_progressDialog->setMinimumDuration(0); //show immediately
-		m_progressDialog->setLabel( i18n("Downloading library information...") );
 
 		if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
 			//   int errorCode = 0;
@@ -502,7 +505,6 @@ the module remote installation feature!</b>")
 				if (!iMgr.refreshRemoteSource( &is ) ) { //make sure the sources were updates sucessfully
 					m_refreshedRemoteSources = true;
 					success = true;
-					m_progressDialog->progressBar()->setProgress(100); //make sure the dialog closes
 				}
 				else { //an error occurres, the KIO library should display an error message
 					qWarning("InstallMgr: refreshRemoteSources returned an error.");
@@ -512,6 +514,7 @@ the module remote installation feature!</b>")
 			}
 		}
 
+		m_progressDialog->close();
 		delete m_progressDialog;
 		m_progressDialog = 0;
 
@@ -714,7 +717,12 @@ the module remote installation feature!</b>")
 
 			//module are removed in this section of code
 			m_installedModuleCount = 0;
-			m_progressDialog = new KProgressDialog(0,0,i18n("Download of work(s)"), QString::null, true);
+			m_progressDialog = new KProgressDialog(this, 0, i18n("Download of work(s)"), QString::null, true);
+			m_progressDialog->progressBar()->setTotalSteps(100 * moduleList.count());
+			m_progressDialog->setMinimumDuration(0); //show immediately
+			m_progressDialog->setAutoClose(false);
+			m_progressDialog->show();
+			KApplication::kApplication()->processEvents();
 
 			connect(
 				m_progressDialog, SIGNAL(cancelClicked()),
@@ -724,10 +732,6 @@ the module remote installation feature!</b>")
 				&iMgr, SIGNAL(completed(const int, const int)),
 				SLOT(installCompleted(const int, const int))
 			);
-
-			m_progressDialog->progressBar()->setTotalSteps(100 * moduleList.count());
-			m_progressDialog->setMinimumDuration(0); //show immediately
-
 
 			for ( QStringList::Iterator it = moduleList.begin(); (it != moduleList.end()) && !m_progressDialog->wasCancelled(); ++it, ++m_installedModuleCount ) {
 
@@ -768,6 +772,7 @@ the module remote installation feature!</b>")
 				}
 			}
 
+			m_progressDialog->close();
 			delete m_progressDialog;
 			m_progressDialog = 0;
 
@@ -787,6 +792,7 @@ the module remote installation feature!</b>")
 			m_progressDialog->progressBar()->setProgress(total+100*m_installedModuleCount);
 			m_progressDialog->setLabel( i18n("[%1]: %2% complete").arg(m_installingModule).arg(total) );
 		}
+		KApplication::kApplication()->processEvents();
 	}
 
 	void CSwordSetupDialog::slot_showInstallSourcePage() {
@@ -899,12 +905,14 @@ the module remote installation feature!</b>")
 		if (m_currentInstallMgr) {
 			m_currentInstallMgr->terminate();
 		}
+		KApplication::kApplication()->processEvents();
 	}
 
 	void CSwordSetupDialog::slot_moduleRefreshCompleted(const int /*total*/, const int current) {
 		if (m_progressDialog) {
 			m_progressDialog->progressBar()->setProgress(current);
 		}
+		KApplication::kApplication()->processEvents();
 	}
 
 } // NAMESPACE

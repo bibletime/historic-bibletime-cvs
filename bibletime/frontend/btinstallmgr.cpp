@@ -299,7 +299,6 @@ namespace BookshelfManager {
 		}
 
 		emit completed(totalPercent, filePercent);
-		KApplication::kApplication()->processEvents();
 	}
 
 	void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* /*message*/) {
@@ -308,8 +307,6 @@ namespace BookshelfManager {
 
 		m_completedBytes = completedBytes;
 		m_totalBytes = (totalBytes > 0) ? totalBytes : 1; //avoid division by zero
-		
-		KApplication::kApplication()->processEvents();
 	}
 
 // 	FTPTransport *BTInstallMgr::createFTPTransport(const char *host, StatusReporter *statusReporter) {
