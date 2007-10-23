@@ -245,6 +245,7 @@ void CLexiconReadWindow::updatePopupMenu() {
 	m_actions.findStrongs->setEnabled( displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma] != QString::null );
 	
 	m_actions.copy.reference->setEnabled( displayWidget()->hasActiveAnchor() );
+	m_actions.copy.entry->setEnabled( displayWidget()->hasActiveAnchor() );
 	m_actions.copy.selectedText->setEnabled( displayWidget()->hasSelection() );
 
 	m_actions.print.reference->setEnabled( displayWidget()->hasActiveAnchor() );
