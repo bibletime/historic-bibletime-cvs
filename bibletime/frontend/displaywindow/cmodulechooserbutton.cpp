@@ -84,7 +84,7 @@ CSwordModuleInfo* CModuleChooserButton::module() {
 	for ( KPopupMenu* popup = m_submenus.first(); popup; popup = m_submenus.next() ) {
 		for (unsigned int i = 0; i < popup->count(); i++) {
 			if ( m_popup->isItemChecked(popup->idAt(i)) ) {
-				QString mod = popup->text(popup->idAt(i));
+				QString mod = popup->text(popup->idAt(i)).remove('&');
 				return backend()->findModuleByName( mod.left(mod.find(" ")) );
 			}
 		}
@@ -109,7 +109,7 @@ void CModuleChooserButton::moduleChosen( int ID ) {
 
 	m_popup->setItemChecked(m_noneId, false); //uncheck the "none" item
 
-	if (m_popup->text(ID) == i18n("NONE")) { // note: this is for m_popup, the toplevel!
+	if (m_popup->text(ID).remove('&') == i18n("NONE")) { // note: this is for m_popup, the toplevel!
 		if (m_hasModule) {
 			emit sigRemoveButton(m_id);
 			return;
@@ -257,7 +257,7 @@ void CModuleChooserButton::updateMenuItems() {
 	for ( KPopupMenu* popup = m_submenus.first(); popup; popup = m_submenus.next() ) {
 
 		for (unsigned int i = 0; i < popup->count(); i++) {
-			moduleName = popup->text(popup->idAt(i));
+			moduleName = popup->text(popup->idAt(i)).remove('&');
 			module = backend()->findModuleByName( moduleName.left(moduleName.findRev(" ")) );
 
  			Q_ASSERT(module);

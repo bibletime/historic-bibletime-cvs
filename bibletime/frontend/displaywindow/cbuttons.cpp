@@ -121,7 +121,7 @@ void CDisplaySettingsButton::reset(const ListCSwordModuleInfo& useModules) {
 void CDisplaySettingsButton::optionToggled(int ID) {
 	m_popup->setItemChecked( ID, !(m_popup->isItemChecked(ID)));
 	if (!m_popup->text(ID).isEmpty())
-		*(m_dict[m_popup->text(ID)]) =  m_popup->isItemChecked(ID);
+		*(m_dict[m_popup->text(ID).remove('&')]) =  m_popup->isItemChecked(ID);
 	emit sigChanged();
 }
 
@@ -201,7 +201,7 @@ const int CDisplaySettingsButton::menuItemCount() {
 void CDisplaySettingsButton::setItemStatus( const int index, const bool checked ) {
 	const int ID = m_popup->idAt(index);
 	m_popup->setItemChecked(ID, checked);
-	const QString text = m_popup->text(ID);
+	const QString text = m_popup->text(ID).remove('&');
 	if (m_dict[text]) {
 		*(m_dict[text]) = checked;
 	}
