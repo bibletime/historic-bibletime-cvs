@@ -166,6 +166,7 @@ void CBookReadWindow::treeToggled() {
 void CBookReadWindow::modulesChanged() {
 	CLexiconReadWindow::modulesChanged();
 	m_treeChooser->setModules(modules());
+	lookup(key());
 }
 
 void CBookReadWindow::setupPopupMenu() {
