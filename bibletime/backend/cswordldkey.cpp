@@ -14,6 +14,7 @@
 #include "cswordlexiconmoduleinfo.h"
 
 //Qt includes
+#include <qtextcodec.h>
 
 //Sword includes
 #include <swmodule.h>
@@ -57,7 +58,8 @@ const QString CSwordLDKey::key() const {
 	if (!m_module || m_module->isUnicode()) {
 		return QString::fromUtf8((const char*)*this);
 	} else {
-		return QString::fromLatin1((const char*)*this);
+		QTextCodec *codec = QTextCodec::codecForName("CP1252");
+		return codec->toUnicode((const char*)*this);
 	}
 }
 
@@ -68,7 +70,8 @@ const bool CSwordLDKey::key( const QString& newKey ) {
 	if (!m_module || m_module->isUnicode()) {
 		return key((const char*)newKey.utf8());
 	} else {
-		return key(newKey.latin1());
+		QTextCodec *codec = QTextCodec::codecForName("CP1252");
+		return key((const char*)codec->fromUnicode(newKey));
 	}
 }
 
