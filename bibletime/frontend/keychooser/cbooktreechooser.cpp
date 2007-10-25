@@ -2,7 +2,7 @@
 *
 * This file is part of BibleTime's source code, http://www.bibletime.info/.
 *
-* Copyright 1999-2006 by the BibleTime developers.
+* Copyright 1999-2007 by the BibleTime developers.
 * The BibleTime source code is licensed under the GNU General Public License version 2.0.
 *
 **********/
@@ -33,7 +33,8 @@ m_keyName(keyName) {
 	const unsigned long offset = m_key->getOffset();
 
 	m_key->key(m_keyName);
-	setText(0, QString::fromLocal8Bit(m_key->getLocalName()) );
+	//setText(0, QString::fromLocal8Bit(m_key->getLocalName()) );
+	setText(0, m_key->getLocalNameUnicode() );
 
 	m_key->setOffset( offset );
 };
@@ -46,7 +47,8 @@ m_keyName(keyName) {
 	const unsigned int offset = m_key->getOffset();
 
 	m_key->key(m_keyName);
-	setText(0, QString::fromLocal8Bit(m_key->getLocalName()) );
+	//setText(0, QString::fromLocal8Bit(m_key->getLocalName()) );
+	setText(0, m_key->getLocalNameUnicode() );
 
 	m_key->setOffset( offset );
 };
@@ -59,7 +61,8 @@ m_keyName(keyName) {
 	const unsigned int offset = m_key->getOffset();
 
 	m_key->key(m_keyName);
-	setText(0, QString::fromLocal8Bit(m_key->getLocalName()) );
+	//setText(0, QString::fromLocal8Bit(m_key->getLocalName()) );
+	setText(0, m_key->getLocalNameUnicode() );
 
 	m_key->setOffset( offset );
 };

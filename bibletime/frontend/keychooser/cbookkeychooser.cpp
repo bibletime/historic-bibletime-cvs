@@ -2,7 +2,7 @@
 *
 * This file is part of BibleTime's source code, http://www.bibletime.info/.
 *
-* Copyright 1999-2006 by the BibleTime developers.
+* Copyright 1999-2007 by the BibleTime developers.
 * The BibleTime source code is licensed under the GNU General Public License version 2.0.
 *
 **********/
@@ -77,7 +77,8 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal) {
 			do {
 				++index;
 				//qDebug("set 'found'");
-				found = (QString::fromLocal8Bit(m_key->getLocalName()) == sibling);
+				//found = (QString::fromLocal8Bit(m_key->getLocalName()) == sibling);
+				found = (m_key->getLocalNameUnicode() == sibling);
 			}
 			while (!found && m_key->nextSibling());
 
@@ -233,7 +234,8 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 	}
 
 	do {
-		items << QString::fromLocal8Bit(m_key->getLocalName());
+		//items << QString::fromLocal8Bit(m_key->getLocalName());
+		items << m_key->getLocalNameUnicode();
 	}
 	while (m_key->nextSibling());
 

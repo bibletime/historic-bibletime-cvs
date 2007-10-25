@@ -2,7 +2,7 @@
 *
 * This file is part of BibleTime's source code, http://www.bibletime.info/.
 *
-* Copyright 1999-2006 by the BibleTime developers.
+* Copyright 1999-2007 by the BibleTime developers.
 * The BibleTime source code is licensed under the GNU General Public License version 2.0.
 *
 **********/
@@ -20,28 +20,34 @@ CSwordTreeKey* CSwordTreeKey::copy() const {
 	return new CSwordTreeKey(*this);
 }
 
-/** Sets the key of this instance */
+const QString CSwordTreeKey::getLocalNameUnicode() const
+{
+	Q_ASSERT(m_module);
+	CSwordTreeKey* nonconst_this = const_cast<CSwordTreeKey*>(this);
+	if (!m_module || m_module->isUnicode()) {
+		return QString::fromUtf8(nonconst_this->getLocalName());
+	} else {
+		return QString::fromLatin1(nonconst_this->getLocalName());
+	}
+}
+
+/** Returns the key of this instance */
 const QString CSwordTreeKey::key() const {
-	//   return QString::fromLocal8Bit( getFullName() ); //don't use fromUtf8
-	//return QString::fromUtf8( getFullName() ); //don't use fromUtf8
-	return QString::fromUtf8( getText() ); //FOR Sword 1.5.9
+	Q_ASSERT(m_module);
+	if (!m_module || m_module->isUnicode()) {
+		return QString::fromUtf8(getText());
+	} else {
+		return QString::fromLatin1(getText());
+	}
 }
 
 const bool CSwordTreeKey::key( const QString& newKey ) {
-	//   if (newKey.isEmpty()) {
-	//     root();
-	//   }
-	//   else {
-	//     TreeKeyIdx::operator = ((const char*)newKey.local8Bit());  //don't use Utf8! Doesn't work with umlauts!
-	//  }
-
-	return key( (const char*)newKey.local8Bit() );
-
-	//   if (Error()) {
-	//    root();
-	//   }
-	//
-	//   return !Error();
+	Q_ASSERT(m_module);
+	if (!m_module || m_module->isUnicode()) {
+		return key((const char*)newKey.utf8());
+	} else {
+		return key(newKey.latin1());
+	}
 }
 
 const bool CSwordTreeKey::key( const char* newKey ) {

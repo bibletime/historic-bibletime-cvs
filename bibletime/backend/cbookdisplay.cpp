@@ -4,7 +4,7 @@
 // Description:
 //
 //
-// Author: The BibleTime team <info@bibletime.info>, (C) 2004
+// Author: The BibleTime team <info@bibletime.info>, (C) 2004-2007
 //
 // Copyright: See COPYING file that comes with this distribution
 //
@@ -120,7 +120,7 @@ namespace Rendering {
 
 	void CBookDisplay::setupRenderTree(CSwordTreeKey * swordTree, CTextRendering::KeyTree * renderTree, const QString& highlightKey) {
 //		const QString key = swordTree->getFullName();
-		const QString key = swordTree->getText(); //for Sword 1.5.9
+		const QString key = swordTree->key();
 		const unsigned long offset = swordTree->getOffset();
 
 		CTextRendering::KeyTreeItem::Settings settings;

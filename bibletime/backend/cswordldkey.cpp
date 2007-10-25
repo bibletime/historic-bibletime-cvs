@@ -2,7 +2,7 @@
 *
 * This file is part of BibleTime's source code, http://www.bibletime.info/.
 *
-* Copyright 1999-2006 by the BibleTime developers.
+* Copyright 1999-2007 by the BibleTime developers.
 * The BibleTime source code is licensed under the GNU General Public License version 2.0.
 *
 **********/
@@ -53,24 +53,23 @@ CSwordModuleInfo* const CSwordLDKey::module(CSwordModuleInfo* const newModule) {
 
 /** Sets the key of this instance */
 const QString CSwordLDKey::key() const {
-	//  return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8
-	//  return QString::fromUtf8((const char*)*this);
-	//  qWarning((const char*)*this);
-	return QString::fromUtf8((const char*)*this);
+	
+	if (!m_module || m_module->isUnicode()) {
+		return QString::fromUtf8((const char*)*this);
+	} else {
+		return QString::fromLatin1((const char*)*this);
+	}
 }
 
 const bool CSwordLDKey::key( const QString& newKey ) {
-	// SWKey::operator = ((const char*)newKey.local8Bit());
-	//  SWKey::operator = ((const char*)newKey.utf8()); //set the key
-	//   m_module->module()->SetKey(this);
-	//  m_module->module()->getKey()->setText( (const char*)key().utf8() );
-	/* if (!m_module->snap()) {
-	  qWarning("set %s got %s, error=1", newKey.latin1(), m_module->module()->KeyText());
-	 }*/
+	
+	Q_ASSERT(m_module);
 
-
-	//  SWKey::operator = (m_module->module()->KeyText());
-	return key( (const char*)newKey.utf8() );
+	if (!m_module || m_module->isUnicode()) {
+		return key((const char*)newKey.utf8());
+	} else {
+		return key(newKey.latin1());
+	}
 }
 
 
@@ -93,7 +92,6 @@ const bool CSwordLDKey::key( const char* newKey ) {
 /** Uses the parameter to returns the next entry afer this key. */
 CSwordLDKey* CSwordLDKey::NextEntry() {
 	m_module->module()->SetKey(this); //use this key as base for the next one!
-	//   m_module->module()->getKey()->setText( (const char*)key().utf8() );
 
 	m_module->module()->setSkipConsecutiveLinks(true);
 	( *( m_module->module() ) )++;
@@ -108,7 +106,6 @@ CSwordLDKey* CSwordLDKey::NextEntry() {
 /** Uses the parameter to returns the next entry afer this key. */
 CSwordLDKey* CSwordLDKey::PreviousEntry() {
 	m_module->module()->SetKey(this); //use this key as base for the next one!
-	//   m_module->module()->getKey()->setText( (const char*)key().utf8() );
 
 	m_module->module()->setSkipConsecutiveLinks(true);
 	( *( m_module->module() ) )--;
@@ -121,6 +118,6 @@ CSwordLDKey* CSwordLDKey::PreviousEntry() {
 
 /** Assignment operator for more ease of use of this class. */
 CSwordLDKey& CSwordLDKey::operator = (const QString& keyname ) {
-										 key(keyname);
-										 return *this;
-									 }
+	 key(keyname);
+	 return *this;
+}

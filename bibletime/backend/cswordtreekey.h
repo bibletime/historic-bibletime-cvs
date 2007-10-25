@@ -2,7 +2,7 @@
 *
 * This file is part of BibleTime's source code, http://www.bibletime.info/.
 *
-* Copyright 1999-2006 by the BibleTime developers.
+* Copyright 1999-2007 by the BibleTime developers.
 * The BibleTime source code is licensed under the GNU General Public License version 2.0.
 *
 **********/
@@ -44,6 +44,11 @@ public:
 	* @return A new copy of this object.
 	*/
 	virtual CSwordTreeKey* copy() const;
+	/**
+	* Returns the last part of the current key as unicode decoded QString.
+	* Use this instead of TreeKeyIdx::getLocalName() to avoid encoding problems.
+	*/
+	virtual const QString getLocalNameUnicode() const;
 	/**
 	* Returns the current key
 	*/
