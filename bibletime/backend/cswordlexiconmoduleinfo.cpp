@@ -30,14 +30,6 @@
 //systems rebuild their caches
 #define CACHE_FORMAT "2"
 
-// class myLocaleAwareCompare {
-// public:
-//  int operator() (const QString& s1, const QString& s2) {
-// //  qWarning("using own operator<()");
-//    return s1.localeAwareCompare(s2);
-//   }
-//  };
-
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( sword::SWModule* module, CSwordBackend* const backend ) : CSwordModuleInfo(module, backend) {
 	m_entryList = 0;
 }
@@ -72,8 +64,8 @@ QStringList* const CSwordLexiconModuleInfo::entries() {
 
 		//Check for buggy modules! They will not be loaded any more.
 
-		if ( name() == QString("ZhEnglish") && QString( config( CSwordModuleInfo::ModuleVersion ) ) == QString("0.5") ) {
-			qWarning("Module ZhEnglish (Version 0.5) is buggy and will not be loaded. Please install a newer version.");
+		if ( name() == QString("ZhEnglish")) {
+			qWarning("Module ZhEnglish is buggy and will not be loaded.");
 			return m_entryList;
 		}
 
