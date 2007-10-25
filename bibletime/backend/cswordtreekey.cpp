@@ -12,6 +12,8 @@
 #include "cswordtreekey.h"
 #include "cswordbookmoduleinfo.h"
 
+#include <qtextcodec.h>
+
 CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : CSwordKey(k), TreeKeyIdx(k) {}
 
 CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : CSwordKey(module), TreeKeyIdx(*k) {}
@@ -37,7 +39,8 @@ const QString CSwordTreeKey::key() const {
 	if (!m_module || m_module->isUnicode()) {
 		return QString::fromUtf8(getText());
 	} else {
-		return QString::fromLatin1(getText());
+		QTextCodec *codec = QTextCodec::codecForName("CP1252");
+		return codec->toUnicode(getText());
 	}
 }
 
@@ -46,7 +49,8 @@ const bool CSwordTreeKey::key( const QString& newKey ) {
 	if (!m_module || m_module->isUnicode()) {
 		return key((const char*)newKey.utf8());
 	} else {
-		return key(newKey.latin1());
+		QTextCodec *codec = QTextCodec::codecForName("CP1252");
+		return key((const char*)codec->fromUnicode(newKey));
 	}
 }
 
