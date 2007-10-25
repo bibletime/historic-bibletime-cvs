@@ -25,6 +25,7 @@
 #include "frontend/cinputdialog.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cdragdropmgr.h"
+#include "frontend/cprinter.h"
 
 #include "util/cresmgr.h"
 #include "util/scoped_resource.h"
@@ -48,6 +49,7 @@
 
 #define CURRENT_SYNTAX_VERSION 1
 
+using namespace Printing;
 using std::string;
 
 CItemBase::CItemBase(CMainIndex* mainIndex, const Type type)
@@ -859,8 +861,21 @@ SubFolder::SubFolder(CFolderBase* parentItem, QDomElement& xml ) : CBookmarkFold
 		if (action == ExportBookmarks || action == ImportBookmarks )
 			return true; //not yet implemented
 
-		if ((action == PrintBookmarks) && childCount())
-			return true;
+		if ((action == PrintBookmarks) && childCount()){
+			CPrinter::KeyTree tree;
+			CPrinter::KeyTreeItem::Settings settings;
+
+			QPtrList<QListViewItem> items = getChildList();
+	
+			//create a tree of keytreeitems using the bookmark hierarchy.
+			for (items.first(); items.current(); items.next()) {
+				CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(items.current());
+				if (i) {
+					tree.append( new CPrinter::KeyTreeItem( i->key(), i->module(), settings ) );
+				}
+			}
+			return tree.collectModules().count() > 0;
+		}
 
 		return false;
 	}
