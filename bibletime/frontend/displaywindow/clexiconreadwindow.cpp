@@ -107,7 +107,7 @@ void CLexiconReadWindow::initActions() {
 
 	m_actions.copy.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
 
-	m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection(), "copyEntryWithText");
+	m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAll()), actionCollection(), "copyEntryWithText");
 
 	m_actions.copy.selectedText = actionCollection()->action("copySelectedText");
 	Q_ASSERT(m_actions.copy.selectedText);
@@ -245,7 +245,7 @@ void CLexiconReadWindow::updatePopupMenu() {
 	m_actions.findStrongs->setEnabled( displayWidget()->getCurrentNodeInfo()[CDisplay::Lemma] != QString::null );
 	
 	m_actions.copy.reference->setEnabled( displayWidget()->hasActiveAnchor() );
-	m_actions.copy.entry->setEnabled( displayWidget()->hasActiveAnchor() );
+	//m_actions.copy.entry->setEnabled( displayWidget()->hasActiveAnchor() );
 	m_actions.copy.selectedText->setEnabled( displayWidget()->hasSelection() );
 
 	m_actions.print.reference->setEnabled( displayWidget()->hasActiveAnchor() );
