@@ -30,6 +30,7 @@
 //Qt includes
 #include <qregexp.h>
 #include <qstring.h>
+#include <qtextcodec.h>
 
 CSwordKey::CSwordKey(CSwordModuleInfo* const module) : m_module(module) {}
 
@@ -150,7 +151,11 @@ const QString CSwordKey::strippedText() {
 
 	if (/*sword::SWKey* k =*/ dynamic_cast<sword::SWKey*>(this)) {
 		//   m_module->module()->SetKey(k);
-		m_module->module()->getKey()->setText( (const char*)key().utf8() );
+		//m_module->module()->getKey()->setText( (const char*)key().utf8() );
+		char * buffer = new char[strlen(rawKey()) + 1];
+		strcpy(buffer, rawKey());
+		m_module->module()->getKey()->setText(buffer);
+		delete buffer;
 	}
 
 	return QString::fromUtf8( m_module->module()->StripText() );

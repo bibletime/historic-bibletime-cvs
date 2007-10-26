@@ -63,6 +63,10 @@ const QString CSwordLDKey::key() const {
 	}
 }
 
+const char * CSwordLDKey::rawKey() const {
+	return (const char*)*this;
+}
+
 const bool CSwordLDKey::key( const QString& newKey ) {
 	
 	Q_ASSERT(m_module);

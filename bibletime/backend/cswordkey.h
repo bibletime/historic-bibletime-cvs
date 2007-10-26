@@ -97,6 +97,10 @@ public:
 	inline virtual CSwordKey& operator = ( const QString& );
 
 protected:
+	/** Returns the current key in raw format, for Sword.
+	 * @return The current key which belongs to the current object.
+	 */
+	virtual const char* rawKey() const = 0;
 	CSwordModuleInfo* m_module; //module pointer used by all keys
 };
 

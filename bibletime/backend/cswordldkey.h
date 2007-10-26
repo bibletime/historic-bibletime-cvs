@@ -98,6 +98,11 @@ public:
 	* Assignment operator for more ease of use of this class. 
 	*/
 	virtual CSwordLDKey& operator = (const QString& keyname );
+protected:
+	/**
+	 * The raw key for direct use with Sword.
+	 */
+	virtual const char * rawKey() const;
 };
 
 

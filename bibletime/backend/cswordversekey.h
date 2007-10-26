@@ -112,6 +112,11 @@ public:
 	* Assignment operator for more ease of use.
 	*/
 	virtual CSwordVerseKey& operator = (const QString& keyname);
+protected:
+	/**
+	 * Returns the raw key for use with Sword.
+	 */
+	virtual const char * rawKey() const;
 };
 
 #endif

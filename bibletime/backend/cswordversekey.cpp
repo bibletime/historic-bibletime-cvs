@@ -110,6 +110,10 @@ const QString CSwordVerseKey::key() const {
 	return QString::fromUtf8(getText());
 }
 
+const char * CSwordVerseKey::rawKey() const {
+	return getText();
+}
+
 const bool CSwordVerseKey::key( const QString& newKey ) {
 	return key( (const char*)newKey.utf8() );
 }

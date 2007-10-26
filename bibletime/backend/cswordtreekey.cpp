@@ -29,7 +29,8 @@ const QString CSwordTreeKey::getLocalNameUnicode() const
 	if (!m_module || m_module->isUnicode()) {
 		return QString::fromUtf8(nonconst_this->getLocalName());
 	} else {
-		return QString::fromLatin1(nonconst_this->getLocalName());
+		QTextCodec *codec = QTextCodec::codecForName("CP1252");
+		return codec->toUnicode(nonconst_this->getLocalName());
 	}
 }
 
@@ -42,6 +43,11 @@ const QString CSwordTreeKey::key() const {
 		QTextCodec *codec = QTextCodec::codecForName("CP1252");
 		return codec->toUnicode(getText());
 	}
+}
+
+/** Returns the raw key for use by Sword */
+const char* CSwordTreeKey::rawKey() const {
+	return getText();
 }
 
 const bool CSwordTreeKey::key( const QString& newKey ) {

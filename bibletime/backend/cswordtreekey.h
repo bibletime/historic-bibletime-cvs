@@ -66,6 +66,9 @@ public:
 	* Assignment operator.
 	*/
 	virtual CSwordTreeKey& operator = (const QString& keyname );
+protected:
+	/**Get the unencoded key for use by Sword.*/
+	virtual const char * rawKey() const;
 };
 
 #endif
