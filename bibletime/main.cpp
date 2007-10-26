@@ -245,7 +245,16 @@ int main(int argc, char* argv[]) {
 
 	if (kapp->isRestored()) {
 		//    qWarning("Restoring BibleTime");
-		RESTORE( BibleTime );
+		//RESTORE( BibleTime );
+		int n = 1;
+		while (KMainWindow::canBeRestored(n)){
+			if (KMainWindow::classNameOfToplevel(n) == QString("BibleTime")) {
+				bibletime_ptr = new BibleTime;
+				bibletime_ptr->restore(n);
+			}
+			n++;
+   		}
+		bibletime_ptr->restoreWorkspace();
 	}
 	else {
 		const bool showIt = CBTConfig::get(CBTConfig::logo);
