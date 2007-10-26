@@ -44,7 +44,10 @@ const QString CSwordKey::rawText() {
 	}
 
 	if (dynamic_cast<sword::SWKey*>(this)) {
-		m_module->module()->getKey()->setText( (const char*)key().utf8() );
+		char * buffer = new char[strlen(rawKey()) + 1];
+		strcpy(buffer, rawKey());
+		m_module->module()->getKey()->setText( buffer );
+		delete buffer;
 	}
 
 	if (key().isNull()) {
@@ -65,26 +68,29 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
 	SWKey* const k = dynamic_cast<SWKey*>(this);
 
 	if (k) {
+		char * buffer = new char[strlen(rawKey()) + 1];
+		strcpy(buffer, rawKey());
 		VerseKey* vk_mod = dynamic_cast<VerseKey*>(m_module->module()->getKey());
 
 		if (vk_mod) {
 			vk_mod->Headings(1);
 		}
 
-		m_module->module()->getKey()->setText( this->key().utf8() );
+		m_module->module()->getKey()->setText( buffer );
 
 		if (m_module->type() == CSwordModuleInfo::Lexicon) {
 			m_module->snap();
 			/* In lexicons make sure that our key (e.g. 123) was successfully set to the module,
 			i.e. the module key contains this key (e.g. 0123 contains 123) */
 
-			if ( strcasecmp(m_module->module()->getKey()->getText(), (const char*)key().utf8())
-					&& !strstr(m_module->module()->getKey()->getText(), (const char*)key().utf8())
+			if ( strcasecmp(m_module->module()->getKey()->getText(), buffer)
+					&& !strstr(m_module->module()->getKey()->getText(), buffer)
 			   ) {
 				qDebug("return an empty key for %s", m_module->module()->getKey()->getText());
 				return QString::null;
 			}
 		}
+		delete buffer;
 	}
 
 	Q_ASSERT(!key().isNull());
