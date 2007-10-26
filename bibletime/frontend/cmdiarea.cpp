@@ -311,8 +311,8 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
 		}
 		else if (!o->inherits("CDisplayWindow")){
 			qDebug("CMDIArea: bad mdi child classname: %s", o->className());
-			o->dumpObjectInfo();
-			o->dumpObjectTree();
+			//o->dumpObjectInfo();
+			//o->dumpObjectTree();
 		}
 	}
 #else
@@ -325,8 +325,8 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
 	}
 	else if (!o->inherits("CDisplayWindow")){
 		qDebug("bad mdi child classname: %s", o->className());
-		o->dumpObjectInfo();
-		o->dumpObjectTree();
+		//o->dumpObjectInfo();
+		//o->dumpObjectTree();
 	}
 #endif
 	return ret; // standard event processing
