@@ -68,13 +68,39 @@ m_currentAnchorCache(QString::null) {
 CHTMLReadDisplay::~CHTMLReadDisplay() {}
 
 const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part) {
+
 	switch (part) {
 		case Document: {
 			if (format == HTMLText) {
 				return document().toHTML();
 			}
 			else {
-				return htmlDocument().body().innerText().string().latin1();
+    			CDisplayWindow* window = parentWindow();
+				CSwordKey* const key = window->key();
+    			CSwordModuleInfo* module = key->module();
+				//return htmlDocument().body().innerText().string().latin1();
+				//This function is never used for Bibles, so it is not
+				//implemented.  If it should be, see CReadDisplay::print() for
+				//example code.
+				Q_ASSERT(module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary || module->type() == CSwordModuleInfo::GenericBook);
+				if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary || module->type() == CSwordModuleInfo::GenericBook) {
+				//TODO: This is a BAD HACK, we have to fnd a better solution to manage the settings now
+				CSwordBackend::FilterOptions filterOptions;
+				filterOptions.footnotes = false;
+				filterOptions.strongNumbers = false;
+				filterOptions.morphTags = false;
+				filterOptions.lemmas = false;
+				filterOptions.scriptureReferences = false;
+				filterOptions.textualVariants = false;
+
+				CPointers::backend()->setFilterOptions(filterOptions);
+
+				return QString(key->strippedText()).append("\n(")
+					.append(key->key())
+					.append(", ")
+					.append(key->module()->name())
+					.append(")");
+				}
 			}
 		}
 
