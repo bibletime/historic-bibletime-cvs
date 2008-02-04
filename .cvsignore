@@ -31,3 +31,4 @@ subdirs
 BibleTime.kdevelop.pcs
 Doxyfile
 .autoconf_trace
+.project
