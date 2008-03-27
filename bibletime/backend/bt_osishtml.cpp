@@ -152,9 +152,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						val = strchr(attrib, ':');
 						val = (val) ? (val + 1) : attrib;
 
-						if ((*val == 'H') || (*val == 'G')) {
-							attrValue.append(val);
-						}
+						attrValue.append(val);
 					}
 					while (++i < count);
 
