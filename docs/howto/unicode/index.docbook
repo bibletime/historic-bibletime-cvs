@@ -19,26 +19,33 @@
 <title>The Biblestudy HowTo</title>
 
 <authorgroup>
-<author>
-<firstname>Bob</firstname>
-<surname>Harman</surname>
-</author>
+	<author>
+		<firstname>Bob</firstname>
+		<surname>Harman</surname>
+	</author>
+	<author>
+		<firstname></firstname>
+		<surname>The BibleTime team</surname>
+	</author>
 </authorgroup>
 
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 <copyright>
-<year>2001-2008</year>
-<holder>The team of &bibletime; (info@bibletime.info)</holder>
+	<year>2001-2008</year>
+	<holder>The team of &bibletime; (info@bibletime.info)</holder>
 </copyright>
 
 <legalnotice>
-<para>This document was originally created by Mr. Bob Harman and 
-is licensed under the terms of the license 
-<link url="http://creativecommons.org/licenses/by-sa/3.0/">
-"Creative Commons Attribution-Share Alike"</link>.</para>
-
-<para>Scripture quotes are from the New American Standard Bible unless otherwise indicated</para>
+	<para>
+		This document was originally created by Mr. Bob Harman and 
+		is licensed under the terms of the license 
+		<link url="http://creativecommons.org/licenses/by-sa/3.0/">
+		"Creative Commons Attribution-Share Alike"</link>.
+	</para>
+	<para>
+		Scripture quotes are from the New American Standard Bible unless otherwise indicated.
+	</para>
 </legalnotice>
 
 <abstract>
