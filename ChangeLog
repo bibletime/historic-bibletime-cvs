@@ -1,3 +1,7 @@
+2007-05-07 Martin <mgruner@crosswire.org>
+  * Released 1.6.5a, a maintenance version for packagers
+  * Only change is the new license for the bible study howto (cc-by-sa)
+
 2007-11-01 Martin, Eeli and Jeremy
   * Several important bugfixes relating to crashes, session management,
   display and bookshelf manager
