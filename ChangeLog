@@ -1,5 +1,6 @@
 2007-05-10 Martin <mgruner@crosswire.org>
   * Fix for the build system (sword detection with GCC 4.3 and new autotools fixed)
+  * Released 1.6.5.1
 
 2007-05-07 Martin <mgruner@crosswire.org>
   * Released 1.6.5a, a maintenance version for packagers
