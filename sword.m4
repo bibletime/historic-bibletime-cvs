@@ -112,7 +112,7 @@ cat > conftest.$ac_ext <<EOF
 using namespace sword;
 #endif
 
-int main(int argc, char* argv[]) {
+int main(int argc, char** argv) {
 	std::cout << SWVersion::currentVersion << std::endl;
 	return 0;
 }
@@ -176,7 +176,7 @@ using namespace sword;
 #endif
 
 
-int main(int argc, char* argv[[]]) {
+int main(int argc, char** argv) {
 	if (argc == 2) { //compare required with installed Sword version
 		const char* requiredVersion( argv[[1]] );
 		if ( (SWVersion( requiredVersion ) < SWVersion::currentVersion) || (SWVersion( requiredVersion ) == SWVersion::currentVersion) ) {
